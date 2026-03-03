@@ -415,15 +415,25 @@ export default function App({user}) {
   const userDoc = doc(db, "users", user.uid);
 
   useEffect(()=>{
-    // Load from localStorage immediately (fast, offline-friendly)
-    try{const lr=localStorage.getItem("la_long_v8");if(lr)setLongQ(JSON.parse(lr));
-      const dr=localStorage.getItem("la_daily_v8");if(dr)setDailyQ(JSON.parse(dr));}catch(_){}
-    // Then sync from Firestore (authoritative, cross-device)
+    // Read localStorage first (synchronous, fast)
+    let seedLong=DEFAULT_LONG, seedDaily=DEFAULT_DAILY;
+    try{
+      const lr=localStorage.getItem("la_long_v8"); if(lr)seedLong=JSON.parse(lr);
+      const dr=localStorage.getItem("la_daily_v8");if(dr)seedDaily=JSON.parse(dr);
+    }catch(_){}
+    setLongQ(seedLong);
+    setDailyQ(seedDaily);
+
+    // Then sync with Firestore
     getDoc(userDoc).then(snap=>{
       if(snap.exists()){
+        // Existing account — Firestore is authoritative
         const d=snap.data();
-        if(d.longQ)setLongQ(d.longQ);
+        if(d.longQ) setLongQ(d.longQ);
         if(d.dailyQ)setDailyQ(d.dailyQ);
+      } else {
+        // First login — seed Firestore with local data (pre-built defaults or prior localStorage progress)
+        setDoc(userDoc,{longQ:seedLong,dailyQ:seedDaily}).catch(()=>{});
       }
     }).catch(()=>{});
   },[user.uid]);// eslint-disable-line react-hooks/exhaustive-deps
