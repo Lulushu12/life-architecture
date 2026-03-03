@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { signOut } from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { auth, db } from "./firebase";
 
 const FONT_LINK = document.createElement("link");
 FONT_LINK.rel = "stylesheet";
@@ -266,7 +269,7 @@ const css = `
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{background:#060c18;color:#e2e8f0;font-family:'DM Sans',sans-serif}
 .shell{display:flex;min-height:100vh}
-.sidebar{width:210px;background:#0a1120;border-right:1px solid #1e2d40;padding:26px 0;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0}
+.sidebar{width:210px;background:#0a1120;border-right:1px solid #1e2d40;padding:26px 0 16px;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;display:flex;flex-direction:column}
 .logo{padding:0 16px 22px;border-bottom:1px solid #1e2d40;margin-bottom:14px}
 .logo-t{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;line-height:1.1}
 .logo-s{font-size:10px;color:#475569;font-family:'JetBrains Mono',monospace;letter-spacing:1px;margin-top:3px}
@@ -401,7 +404,7 @@ html,body{background:#060c18;color:#e2e8f0;font-family:'DM Sans',sans-serif}
 .fi-anim{animation:fs 0.2s ease forwards}
 `;
 
-export default function App() {
+export default function App({user}) {
   const [page,setPage]=useState("identity");
   const [longQ,setLongQ]=useState(DEFAULT_LONG);
   const [dailyQ,setDailyQ]=useState(DEFAULT_DAILY);
@@ -409,13 +412,32 @@ export default function App() {
   const [schedDay,setSchedDay]=useState("Monday");
   const [filter,setFilter]=useState("All");
 
+  const userDoc = doc(db, "users", user.uid);
+
   useEffect(()=>{
+    // Load from localStorage immediately (fast, offline-friendly)
     try{const lr=localStorage.getItem("la_long_v8");if(lr)setLongQ(JSON.parse(lr));
       const dr=localStorage.getItem("la_daily_v8");if(dr)setDailyQ(JSON.parse(dr));}catch(_){}
-  },[]);
+    // Then sync from Firestore (authoritative, cross-device)
+    getDoc(userDoc).then(snap=>{
+      if(snap.exists()){
+        const d=snap.data();
+        if(d.longQ)setLongQ(d.longQ);
+        if(d.dailyQ)setDailyQ(d.dailyQ);
+      }
+    }).catch(()=>{});
+  },[user.uid]);// eslint-disable-line react-hooks/exhaustive-deps
 
-  const saveLong=(q)=>{setLongQ(q);try{localStorage.setItem("la_long_v8",JSON.stringify(q));}catch(_){}};
-  const saveDaily=(q)=>{setDailyQ(q);try{localStorage.setItem("la_daily_v8",JSON.stringify(q));}catch(_){}};
+  const saveLong=(q)=>{
+    setLongQ(q);
+    try{localStorage.setItem("la_long_v8",JSON.stringify(q));}catch(_){}
+    setDoc(userDoc,{longQ:q},{merge:true}).catch(()=>{});
+  };
+  const saveDaily=(q)=>{
+    setDailyQ(q);
+    try{localStorage.setItem("la_daily_v8",JSON.stringify(q));}catch(_){}
+    setDoc(userDoc,{dailyQ:q},{merge:true}).catch(()=>{});
+  };
 
   const today=todayKey();
   const longXP=longQ.filter(q=>q.status==="Completed").reduce((s,q)=>s+q.xp,0);
@@ -458,6 +480,10 @@ export default function App() {
               <span style={{fontSize:13}}>{n.icon}</span>{n.label}
             </div>
           ))}
+          <div style={{marginTop:"auto",padding:"16px 16px 0",borderTop:"1px solid #1e2d40"}}>
+            <div style={{fontSize:10,color:"#334155",fontFamily:"'JetBrains Mono',monospace",letterSpacing:1,marginBottom:8,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{user.email}</div>
+            <button onClick={()=>signOut(auth)} style={{width:"100%",background:"transparent",border:"1px solid #1e2d40",borderRadius:6,color:"#475569",fontSize:11,fontFamily:"'JetBrains Mono',monospace",letterSpacing:1,padding:"7px 0",cursor:"pointer"}}>SIGN OUT</button>
+          </div>
         </aside>
         <main className="main">
           <div className="xp-card">
