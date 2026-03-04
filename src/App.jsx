@@ -408,6 +408,7 @@ export default function App({user}) {
   const [page,setPage]=useState("identity");
   const [longQ,setLongQ]=useState(DEFAULT_LONG);
   const [dailyQ,setDailyQ]=useState(DEFAULT_DAILY);
+  const [cumulativeDailyXP,setCumulativeDailyXP]=useState(0);
   const [modal,setModal]=useState(null);
   const [schedDay,setSchedDay]=useState("Monday");
   const [filter,setFilter]=useState("All");
@@ -416,13 +417,15 @@ export default function App({user}) {
 
   useEffect(()=>{
     // Read localStorage first (synchronous, fast)
-    let seedLong=DEFAULT_LONG, seedDaily=DEFAULT_DAILY;
+    let seedLong=DEFAULT_LONG, seedDaily=DEFAULT_DAILY, seedCdxp=0;
     try{
       const lr=localStorage.getItem("la_long_v8"); if(lr)seedLong=JSON.parse(lr);
       const dr=localStorage.getItem("la_daily_v8");if(dr)seedDaily=JSON.parse(dr);
+      const cr=localStorage.getItem("la_cdxp_v8"); if(cr)seedCdxp=JSON.parse(cr);
     }catch(_){}
     setLongQ(seedLong);
     setDailyQ(seedDaily);
+    setCumulativeDailyXP(seedCdxp);
 
     // Then sync with Firestore
     getDoc(userDoc).then(snap=>{
@@ -431,9 +434,10 @@ export default function App({user}) {
         const d=snap.data();
         if(d.longQ) setLongQ(d.longQ);
         if(d.dailyQ)setDailyQ(d.dailyQ);
+        if(d.cumulativeDailyXP!=null)setCumulativeDailyXP(d.cumulativeDailyXP);
       } else {
         // First login — seed Firestore with local data (pre-built defaults or prior localStorage progress)
-        setDoc(userDoc,{longQ:seedLong,dailyQ:seedDaily}).catch(()=>{});
+        setDoc(userDoc,{longQ:seedLong,dailyQ:seedDaily,cumulativeDailyXP:seedCdxp}).catch(()=>{});
       }
     }).catch(()=>{});
   },[user.uid]);// eslint-disable-line react-hooks/exhaustive-deps
@@ -448,11 +452,16 @@ export default function App({user}) {
     try{localStorage.setItem("la_daily_v8",JSON.stringify(q));}catch(_){}
     setDoc(userDoc,{dailyQ:q},{merge:true}).catch(()=>{});
   };
+  const saveCumulativeDailyXP=(xp)=>{
+    setCumulativeDailyXP(xp);
+    try{localStorage.setItem("la_cdxp_v8",JSON.stringify(xp));}catch(_){}
+    setDoc(userDoc,{cumulativeDailyXP:xp},{merge:true}).catch(()=>{});
+  };
 
   const today=todayKey();
   const longXP=longQ.filter(q=>q.status==="Completed").reduce((s,q)=>s+q.xp,0);
   const dailyXP=dailyQ.reduce((s,q)=>{if(q.lastDone!==today)return s;return s+Math.round(q.baseXp*STREAK_MULT(q.streak));},0);
-  const totalXP=longXP+dailyXP;
+  const totalXP=longXP+cumulativeDailyXP;
   const level=getLevel(totalXP);
   const progress=getLevelProgress(totalXP);
 
@@ -465,13 +474,21 @@ export default function App({user}) {
   const toggleLong=(id)=>saveLong(longQ.map(q=>q.id===id?{...q,status:q.status==="Completed"?"Active":"Completed"}:q));
   const toggleDaily=(id)=>{
     const t=todayKey();
-    saveDaily(dailyQ.map(q=>{
+    let xpDelta=0;
+    const newQ=dailyQ.map(q=>{
       if(q.id!==id)return q;
-      if(q.lastDone===t)return{...q,lastDone:"",streak:Math.max(0,q.streak-1)};
+      if(q.lastDone===t){
+        xpDelta=-Math.round(q.baseXp*STREAK_MULT(q.streak));
+        return{...q,lastDone:"",streak:Math.max(0,q.streak-1)};
+      }
       const yest=new Date();yest.setDate(yest.getDate()-1);
       const yk=yest.toISOString().slice(0,10);
-      return{...q,lastDone:t,streak:q.lastDone===yk?q.streak+1:1};
-    }));
+      const newStreak=q.lastDone===yk?q.streak+1:1;
+      xpDelta=Math.round(q.baseXp*STREAK_MULT(newStreak));
+      return{...q,lastDone:t,streak:newStreak};
+    });
+    saveDaily(newQ);
+    saveCumulativeDailyXP(cumulativeDailyXP+xpDelta);
   };
   const fq=(cat)=>longQ.filter(q=>q.category===cat).filter(q=>filter==="All"||q.status===filter);
 
