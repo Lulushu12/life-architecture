@@ -12,7 +12,7 @@ export function PIdentity() {
         {IDENTITY_ANCHORS.map(a => (
           <div key={a} style={{ display: "flex", gap: 10, marginBottom: 10, alignItems: "flex-start" }}>
             <span style={{ color: "#22c55e", fontFamily: "JetBrains Mono", fontSize: 11, marginTop: 3, flexShrink: 0 }}>◆</span>
-            <span style={{ fontSize: 14, fontWeight: 600, color: "#e2e8f0" }}>{a}</span>
+            <span style={{ fontSize: 14, fontWeight: 600, color: "var(--tx)" }}>{a}</span>
           </div>
         ))}
       </div>
@@ -98,23 +98,34 @@ export function PHabits() {
   );
 }
 
-export function POutputs() {
+const OUTPUTS = [
+  { num: "01", qid: "l14", title: "Documented Trading System", done: "Written rules for entries, exits, position sizing, risk management, and review cadence", pri: "PRIMARY", pc: "#22c55e", pb: "rgba(34,197,94,0.12)" },
+  { num: "02", qid: "l5",  title: "Lose 15kg by end of summer", done: "Hard deadline: end of September 2026. PPL 6x/week + 2,100 kcal flat, tracked in-app. Waist is the primary indicator.", pri: "PRIMARY", pc: "#22c55e", pb: "rgba(34,197,94,0.12)" },
+  { num: "03", qid: "l8",  title: "Patent Approvals x2", done: "Both CAD patents approved — monitoring only, no new design work required", pri: "MEDICINE", pc: "#ef4444", pb: "rgba(239,68,68,0.12)" },
+  { num: "04", qid: "l7",  title: "SRATS Conference Presentation", done: "Slide deck + speaker script finalized and rehearsed for submission deadline", pri: "MEDICINE", pc: "#ef4444", pb: "rgba(239,68,68,0.12)" },
+];
+
+export function POutputs({ longQ = [] }) {
+  const completed = OUTPUTS.filter(o => longQ.find(q => q.id === o.qid)?.status === "Completed").length;
   return (
     <>
       <div className="pg-title">6-MONTH OUTPUTS</div>
-      <div className="pg-sub">Concrete evidence the system is working</div>
-      {[
-        { num: "01", title: "Documented Trading System", done: "Written rules for entries, exits, position sizing, risk management, and review cadence", pri: "PRIMARY", pc: "#22c55e", pb: "rgba(34,197,94,0.12)" },
-        { num: "02", title: "Lose 15kg by end of summer", done: "Hard deadline: end of September 2026. PPL 6x/week + 2,100 kcal flat, tracked in-app. Waist is the primary indicator.", pri: "PRIMARY", pc: "#22c55e", pb: "rgba(34,197,94,0.12)" },
-        { num: "03", title: "Patent Approvals x2", done: "Both CAD patents approved — monitoring only, no new design work required", pri: "MEDICINE", pc: "#ef4444", pb: "rgba(239,68,68,0.12)" },
-        { num: "04", title: "SRATS Conference Presentation", done: "Slide deck + speaker script finalized and rehearsed for submission deadline", pri: "MEDICINE", pc: "#ef4444", pb: "rgba(239,68,68,0.12)" },
-      ].map(o => (
-        <div className="oc" key={o.num}>
-          <div className="on">{o.num}</div>
-          <div style={{ flex: 1 }}><div className="ot">{o.title}</div><div className="od">{o.done}</div></div>
-          <div className="op" style={{ color: o.pc, background: o.pb, border: "1px solid " + o.pc }}>{o.pri}</div>
-        </div>
-      ))}
+      <div className="pg-sub">Concrete evidence the system is working · {completed}/{OUTPUTS.length} complete · status syncs from the Quest Board</div>
+      {OUTPUTS.map(o => {
+        const isDone = longQ.find(q => q.id === o.qid)?.status === "Completed";
+        return (
+          <div className={"oc" + (isDone ? " done" : "")} key={o.num}>
+            <div className="on">{isDone ? "✓" : o.num}</div>
+            <div style={{ flex: 1 }}>
+              <div className="ot" style={isDone ? { textDecoration: "line-through", color: "var(--dim)" } : {}}>{o.title}</div>
+              <div className="od">{o.done}</div>
+            </div>
+            <div className="op" style={isDone
+              ? { color: "#22c55e", background: "rgba(34,197,94,0.12)", border: "1px solid #22c55e" }
+              : { color: o.pc, background: o.pb, border: "1px solid " + o.pc }}>{isDone ? "COMPLETE" : o.pri}</div>
+          </div>
+        );
+      })}
     </>
   );
 }
