@@ -118,6 +118,19 @@ export default function AuthScreen() {
             </span>
           )}
         </div>
+
+        <div style={{ marginTop: 24, borderTop: '1px solid #1e2d40', paddingTop: 20 }}>
+          <button
+            style={{ ...s.btn, background: 'transparent', border: '1px solid #1e2d40', color: '#475569' }}
+            type="button"
+            onClick={() => { location.href = '?demo'; }}
+          >
+            TRY DEMO (NO ACCOUNT)
+          </button>
+          <div style={{ fontSize: 10, color: '#334155', fontFamily: "'JetBrains Mono',monospace", textAlign: 'center', marginTop: 8, lineHeight: 1.5 }}>
+            localStorage only · data stays in this browser
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -5,13 +5,17 @@ import { auth } from './firebase'
 import App from './App.jsx'
 import AuthScreen from './AuthScreen.jsx'
 
+const DEMO_USER = { uid: 'demo', email: 'demo@local' };
+
 function Root() {
+  const isDemo = new URLSearchParams(location.search).has('demo');
   // undefined = loading, null = signed out, object = signed in
-  const [user, setUser] = useState(undefined);
+  const [user, setUser] = useState(isDemo ? DEMO_USER : undefined);
 
   useEffect(() => {
+    if (isDemo) return;
     return onAuthStateChanged(auth, setUser);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (user === undefined) {
     return (

@@ -191,7 +191,7 @@ export default function App({ user }) {
           ))}
           <div style={{ marginTop: "auto", padding: "16px 16px 0", borderTop: "1px solid #1e2d40" }}>
             <div style={{ fontSize: 10, color: "#334155", fontFamily: "'JetBrains Mono',monospace", letterSpacing: 1, marginBottom: 8, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user.email}</div>
-            <button onClick={() => signOut(auth)} style={{ width: "100%", background: "transparent", border: "1px solid #1e2d40", borderRadius: 6, color: "#475569", fontSize: 11, fontFamily: "'JetBrains Mono',monospace", letterSpacing: 1, padding: "7px 0", cursor: "pointer" }}>SIGN OUT</button>
+            <button onClick={() => user.uid === 'demo' ? (location.href = '/') : signOut(auth)} style={{ width: "100%", background: "transparent", border: "1px solid #1e2d40", borderRadius: 6, color: "#475569", fontSize: 11, fontFamily: "'JetBrains Mono',monospace", letterSpacing: 1, padding: "7px 0", cursor: "pointer" }}>SIGN OUT</button>
           </div>
         </aside>
         <main className="main">
