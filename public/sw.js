@@ -4,7 +4,7 @@
  * and a network-first strategy for API/dynamic requests.
  */
 
-const CACHE_NAME = 'life-architecture-v1'
+const CACHE_NAME = 'life-architecture-v3' // bumped for v3 rebuild — purges v8 precache on activate
 
 // Assets to pre-cache on install
 const PRECACHE_ASSETS = [
