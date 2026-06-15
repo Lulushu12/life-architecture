@@ -155,7 +155,7 @@ const s = {
     maxWidth: 380,
   },
   logo: {
-    fontFamily: "'Bebas Neue', cursive",
+    fontFamily: "'Space Grotesk', sans-serif",
     fontSize: 28,
     color: '#e2e8f0',
     lineHeight: 1.1,

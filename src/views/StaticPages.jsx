@@ -23,7 +23,7 @@ export function PIdentity() {
           ["Builder", "CAD patents complete; technical skill applied selectively and with purpose"],
           ["Partner", "Despina time 19:30–21:00 is a non-negotiable boundary. I am a present partner."]].map(([t, d]) => (
           <div key={t} style={{ display: "flex", gap: 12, marginBottom: 12, alignItems: "flex-start" }}>
-            <span style={{ fontFamily: "Bebas Neue", fontSize: 12, letterSpacing: 2, color: "#3b82f6", width: 64, flexShrink: 0, paddingTop: 2 }}>{t}</span>
+            <span style={{ fontFamily: "Space Grotesk", fontSize: 12, letterSpacing: 2, color: "#3b82f6", width: 64, flexShrink: 0, paddingTop: 2 }}>{t}</span>
             <span style={{ fontSize: 12, color: "#94a3b8", lineHeight: 1.6 }}>{d}</span>
           </div>
         ))}

@@ -15,7 +15,7 @@ import Coach from "./views/Coach.jsx";
 
 const FONT_LINK = document.createElement("link");
 FONT_LINK.rel = "stylesheet";
-FONT_LINK.href = "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;600&display=swap";
+FONT_LINK.href = "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;600&display=swap";
 document.head.appendChild(FONT_LINK);
 
 const NAV = [
