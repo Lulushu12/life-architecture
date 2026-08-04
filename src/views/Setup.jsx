@@ -105,8 +105,11 @@ export default function Setup({ initial, onDone, onCancel }) {
                     <input className="fi" type="password" value={coachKey} onChange={e => setCoachKey(e.target.value)} placeholder="none for local" /></div>
                 </div>
                 <div style={{ fontSize: 11.5, color: "var(--dim)", lineHeight: 1.55 }}>
-                  For Ollama, allow the app's origin: <code style={{ fontSize: 11 }}>OLLAMA_ORIGINS=*</code> (or this site's URL).
-                  Browsers only allow <b>localhost</b> endpoints from the hosted app — a LAN IP won't work over https.
+                  <b>Phone-friendly:</b> Google's Gemini API has a free tier and works from anywhere — endpoint
+                  {" "}<code style={{ fontSize: 11 }}>https://generativelanguage.googleapis.com/v1beta/openai</code>, model
+                  {" "}<code style={{ fontSize: 11 }}>gemini-2.5-flash</code>, key from aistudio.google.com.
+                  For Ollama, allow the app's origin: <code style={{ fontSize: 11 }}>OLLAMA_ORIGINS=*</code> (or this site's URL);
+                  browsers only allow <b>localhost</b> endpoints from the hosted app — a LAN IP won't work over https.
                   Leave the endpoint empty to keep the coach off.
                 </div>
               </div>
