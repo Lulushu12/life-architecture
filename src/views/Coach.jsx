@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { parseLog, askCoach, deloadCheck, explainCoachError, CONFIDENCE_FLOOR } from "../coach/client.js";
+import { parseLog, askCoach, deloadCheck, explainCoachError, coachConfigured, CONFIDENCE_FLOOR } from "../coach/client.js";
 import { plannedSession, todayKey, WEEKDAYS } from "../system/constants.js";
 import { recentWorkoutLogs, getMealLog, macroTotals, saveWorkoutLog, getWorkoutLog, saveMealLog, saveBodyMetric, recentBodyMetrics } from "../data/logs.js";
 import { evaluateSession } from "../data/overloadGate.js";
@@ -88,8 +88,14 @@ export default function Coach({ user, liftProgress, saveLiftProgress, pplOffset,
   return (
     <>
       <div className="pg-title">Coach</div>
-      <div className="pg-sub">Sonnet-backed. Action only — no motivation, no pep talks. The coach proposes; you confirm; the app writes.</div>
+      <div className="pg-sub">Action only — no motivation, no pep talks. The coach proposes; you confirm; the app writes.</div>
 
+      {!coachConfigured() && (
+        <div className="callout cn"><div className="ct">
+          <strong>Coach is off.</strong> Connect any OpenAI-compatible model — a free local one via Ollama works well — under
+          {" "}<b>Data &amp; sync → AI Coach</b>. The rest of the tracker doesn't need it.
+        </div></div>
+      )}
       {error && <div className="callout cr"><div className="ct">{error}</div></div>}
 
       <div className="card">

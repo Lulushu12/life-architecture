@@ -2,6 +2,7 @@
  *  pick device-only storage, or sync to a git branch of the repo. */
 import { useState } from "react";
 import { testConnection } from "../data/branchSync.js";
+import { getCoachConfig, setCoachConfig } from "../coach/client.js";
 
 const DEFAULT_REPO = "Lulushu12/life-architecture";
 
@@ -12,6 +13,11 @@ export default function Setup({ initial, onDone, onCancel }) {
   const [token, setToken] = useState(initial?.token || "");
   const [test, setTest] = useState(null);
   const [testing, setTesting] = useState(false);
+  const coach0 = getCoachConfig();
+  const [showCoach, setShowCoach] = useState(!!coach0?.url);
+  const [coachUrl, setCoachUrl] = useState(coach0?.url || "");
+  const [coachModel, setCoachModel] = useState(coach0?.model || "");
+  const [coachKey, setCoachKey] = useState(coach0?.apiKey || "");
 
   const canSave = mode === "local" || (repo.trim().includes("/") && branch.trim() && token.trim());
 
@@ -22,9 +28,12 @@ export default function Setup({ initial, onDone, onCancel }) {
     finally { setTesting(false); }
   };
 
-  const save = () => onDone(mode === "local"
-    ? { mode: "local" }
-    : { mode: "github", repo: repo.trim(), branch: branch.trim(), token: token.trim() });
+  const save = () => {
+    setCoachConfig(coachUrl.trim() ? { url: coachUrl.trim(), model: coachModel.trim(), apiKey: coachKey.trim() } : null);
+    onDone(mode === "local"
+      ? { mode: "local" }
+      : { mode: "github", repo: repo.trim(), branch: branch.trim(), token: token.trim() });
+  };
 
   const ModeCard = ({ id, title, desc }) => (
     <div onClick={() => setMode(id)} style={{
@@ -73,6 +82,36 @@ export default function Setup({ initial, onDone, onCancel }) {
               </div>
             </>
           )}
+
+          <div style={{ borderTop: "1px solid var(--bd2)", marginTop: 16, paddingTop: 14 }}>
+            <div onClick={() => setShowCoach(s => !s)} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 8, userSelect: "none" }}>
+              <span style={{ fontSize: 13.5, fontWeight: 700 }}>AI Coach</span>
+              <span style={{ fontSize: 11, fontWeight: 700, color: "var(--mut)", background: "var(--hover)", borderRadius: 99, padding: "2px 8px" }}>optional</span>
+              <span style={{ marginLeft: "auto", color: "var(--dim)", fontSize: 11, transform: showCoach ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>▾</span>
+            </div>
+            {showCoach && (
+              <div style={{ marginTop: 12 }}>
+                <div style={{ fontSize: 12.5, color: "var(--mut)", lineHeight: 1.6, marginBottom: 12 }}>
+                  Powers log parsing and the protocol coach. Point it at any OpenAI-compatible endpoint —
+                  a <b>local model</b> works great: install Ollama, run <code style={{ fontSize: 11.5 }}>ollama pull qwen2.5:7b-instruct</code>,
+                  and use the defaults below. Nothing leaves your machine.
+                </div>
+                <div className="fg"><label className="fl">Endpoint (OpenAI-compatible base URL)</label>
+                  <input className="fi" value={coachUrl} onChange={e => setCoachUrl(e.target.value)} placeholder="http://localhost:11434/v1" /></div>
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                  <div className="fg" style={{ flex: 2, minWidth: 160 }}><label className="fl">Model</label>
+                    <input className="fi" value={coachModel} onChange={e => setCoachModel(e.target.value)} placeholder="qwen2.5:7b-instruct" /></div>
+                  <div className="fg" style={{ flex: 1, minWidth: 120 }}><label className="fl">API key (if hosted)</label>
+                    <input className="fi" type="password" value={coachKey} onChange={e => setCoachKey(e.target.value)} placeholder="none for local" /></div>
+                </div>
+                <div style={{ fontSize: 11.5, color: "var(--dim)", lineHeight: 1.55 }}>
+                  For Ollama, allow the app's origin: <code style={{ fontSize: 11 }}>OLLAMA_ORIGINS=*</code> (or this site's URL).
+                  Browsers only allow <b>localhost</b> endpoints from the hosted app — a LAN IP won't work over https.
+                  Leave the endpoint empty to keep the coach off.
+                </div>
+              </div>
+            )}
+          </div>
 
           <div className="mf">
             {onCancel && <button className="bs" onClick={onCancel}>Cancel</button>}
