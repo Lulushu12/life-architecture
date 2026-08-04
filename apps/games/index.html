@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/life-architecture/games/icon-192.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1220" />
+    <meta name="description" content="Chess clock, Sudoku & Cryptogram — offline, auto-saving" />
+    <link rel="manifest" href="/life-architecture/games/manifest.json" />
+    <title>Games</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/life-architecture/games/sw.js')
+            .catch(err => console.error('SW registration failed:', err));
+        });
+      }
+    </script>
+  </body>
+</html>

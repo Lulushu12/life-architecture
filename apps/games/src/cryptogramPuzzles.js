@@ -1,0 +1,60 @@
+// 40 hardcoded cryptogram puzzles: common English proverbs and a small set
+// of famous, extremely well-documented public-domain quotes. Attributions
+// are kept conservative — "Proverb" for sayings with no single known
+// author, and a named person only for lines that are directly verifiable
+// against a primary source (a speech, a play, a founding document).
+
+export const PUZZLES = [
+  { id: "p01", text: "A journey of a thousand miles begins with a single step.", attribution: "Proverb" },
+  { id: "p02", text: "Actions speak louder than words.", attribution: "Proverb" },
+  { id: "p03", text: "A stitch in time saves nine.", attribution: "Proverb" },
+  { id: "p04", text: "All that glitters is not gold.", attribution: "Proverb" },
+  { id: "p05", text: "An apple a day keeps the doctor away.", attribution: "Proverb" },
+  { id: "p06", text: "Better late than never.", attribution: "Proverb" },
+  { id: "p07", text: "Birds of a feather flock together.", attribution: "Proverb" },
+  { id: "p08", text: "Do not count your chickens before they hatch.", attribution: "Proverb" },
+  { id: "p09", text: "Every cloud has a silver lining.", attribution: "Proverb" },
+  { id: "p10", text: "Honesty is the best policy.", attribution: "Proverb" },
+  { id: "p11", text: "If it is not broken, do not fix it.", attribution: "Proverb" },
+  { id: "p12", text: "Look before you leap.", attribution: "Proverb" },
+  { id: "p13", text: "No news is good news.", attribution: "Proverb" },
+  { id: "p14", text: "Practice makes perfect.", attribution: "Proverb" },
+  { id: "p15", text: "The early bird catches the worm.", attribution: "Proverb" },
+  { id: "p16", text: "The pen is mightier than the sword.", attribution: "Proverb" },
+  { id: "p17", text: "Where there is a will there is a way.", attribution: "Proverb" },
+  { id: "p18", text: "You cannot judge a book by its cover.", attribution: "Proverb" },
+  { id: "p19", text: "When in Rome, do as the Romans do.", attribution: "Proverb" },
+  { id: "p20", text: "A penny saved is a penny earned.", attribution: "Proverb" },
+  { id: "p21", text: "Absence makes the heart grow fonder.", attribution: "Proverb" },
+  { id: "p22", text: "Better safe than sorry.", attribution: "Proverb" },
+  { id: "p23", text: "Do not put all your eggs in one basket.", attribution: "Proverb" },
+  { id: "p24", text: "Easy come, easy go.", attribution: "Proverb" },
+  { id: "p25", text: "Great minds think alike.", attribution: "Proverb" },
+  { id: "p26", text: "Haste makes waste.", attribution: "Proverb" },
+  { id: "p27", text: "Knowledge is power.", attribution: "Proverb" },
+  { id: "p28", text: "Laughter is the best medicine.", attribution: "Proverb" },
+  { id: "p29", text: "Necessity is the mother of invention.", attribution: "Proverb" },
+  { id: "p30", text: "Out of sight, out of mind.", attribution: "Proverb" },
+  { id: "p31", text: "Rome was not built in a day.", attribution: "Proverb" },
+  { id: "p32", text: "The grass is always greener on the other side.", attribution: "Proverb" },
+  { id: "p33", text: "Two wrongs do not make a right.", attribution: "Proverb" },
+  { id: "p34", text: "When the going gets tough, the tough get going.", attribution: "Proverb" },
+  { id: "p35", text: "You reap what you sow.", attribution: "Proverb" },
+  {
+    id: "p36",
+    text: "Four score and seven years ago our fathers brought forth on this continent a new nation.",
+    attribution: "Abraham Lincoln",
+  },
+  {
+    id: "p37",
+    text: "We hold these truths to be self evident, that all men are created equal.",
+    attribution: "Thomas Jefferson",
+  },
+  { id: "p38", text: "I think, therefore I am.", attribution: "Rene Descartes" },
+  { id: "p39", text: "To be, or not to be, that is the question.", attribution: "William Shakespeare" },
+  {
+    id: "p40",
+    text: "The only thing we have to fear is fear itself.",
+    attribution: "Franklin D. Roosevelt",
+  },
+];
