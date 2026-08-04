@@ -2,10 +2,10 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { signOut } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db } from "./firebase";
-import { getLevel, getLevelProgress, todayKey, STREAK_MULT, MACROS, uid } from "./system/constants.js";
+import { getLevel, getLevelProgress, todayKey, STREAK_MULT, MACROS, uid, LEVELS } from "./system/constants.js";
 import { DEFAULT_LONG, DEFAULT_DAILY_V2 } from "./system/quests.js";
 import { migrateUserData, SCHEMA_VERSION } from "./data/migrate.js";
-import { css } from "./views/shared.jsx";
+import { css, Ring } from "./views/shared.jsx";
 import { PIdentity, PHabits, POutputs, PReview, PPrinciples } from "./views/StaticPages.jsx";
 import Schedule from "./views/Schedule.jsx";
 import Quests, { QModal } from "./views/Quests.jsx";
@@ -18,18 +18,40 @@ FONT_LINK.rel = "stylesheet";
 FONT_LINK.href = "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;600&display=swap";
 document.head.appendChild(FONT_LINK);
 
-const NAV = [
-  { id: "train",      icon: "▶", label: "Train" },
-  { id: "fuel",       icon: "◍", label: "Fuel" },
-  { id: "coach",      icon: "✦", label: "Coach" },
-  { id: "quests",     icon: "⬡", label: "Quest Board" },
-  { id: "schedule",   icon: "▦", label: "Schedule" },
-  { id: "identity",   icon: "◈", label: "Identity" },
-  { id: "habits",     icon: "⊕", label: "Atomic Habits" },
-  { id: "outputs",    icon: "◎", label: "6-Month Outputs" },
-  { id: "review",     icon: "↻", label: "Review Cadence" },
-  { id: "principles", icon: "≡", label: "Principles" },
+const Icon = ({ children, size = 22 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">{children}</svg>
+);
+const ICONS = {
+  train:    <><path d="M6.5 6.5v11M17.5 6.5v11" /><path d="M3.5 9.5v5M20.5 9.5v5" /><path d="M6.5 12h11" /></>,
+  fuel:     <path d="M12 3c0.5 3.2-4 5-4 8.9a4 4 0 0 0 8 0C16 8 12.5 6.2 12 3z" />,
+  coach:    <><path d="M12 4l1.7 4.3L18 10l-4.3 1.7L12 16l-1.7-4.3L6 10l4.3-1.7L12 4z" /><path d="M18.6 15.6l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z" /></>,
+  quests:   <><path d="M5.5 21V4" /><path d="M5.5 4.5h12l-3 4 3 4h-12" /></>,
+  schedule: <><rect x="4" y="5.5" width="16" height="15" rx="2.5" /><path d="M8 3.5v4M16 3.5v4M4 10.5h16" /></>,
+  more:     <><circle cx="5" cy="12" r="1.7" fill="currentColor" stroke="none" /><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none" /><circle cx="19" cy="12" r="1.7" fill="currentColor" stroke="none" /></>,
+};
+
+const NAV_DAILY = [
+  { id: "train",    label: "Train" },
+  { id: "fuel",     label: "Fuel" },
+  { id: "coach",    label: "Coach" },
+  { id: "quests",   label: "Quests" },
+  { id: "schedule", label: "Schedule" },
 ];
+const NAV_LIBRARY = [
+  { id: "identity",   glyph: "◈", label: "Identity" },
+  { id: "habits",     glyph: "⊕", label: "Atomic Habits" },
+  { id: "outputs",    glyph: "◎", label: "6-Month Outputs" },
+  { id: "review",     glyph: "↻", label: "Review Cadence" },
+  { id: "principles", glyph: "≡", label: "Principles" },
+];
+const TABS = [
+  { id: "train",  label: "Train" },
+  { id: "fuel",   label: "Fuel" },
+  { id: "coach",  label: "Coach" },
+  { id: "quests", label: "Quests" },
+  { id: "more",   label: "More" },
+];
+const MORE_IDS = ["schedule", ...NAV_LIBRARY.map(n => n.id), "more"];
 
 export default function App({ user }) {
   const [page, setPage] = useState("train");
@@ -169,10 +191,19 @@ export default function App({ user }) {
   const totalXP = longXP + cumulativeDailyXP;
   const level = getLevel(totalXP);
   const progress = getLevelProgress(totalXP);
+  const nextLevel = LEVELS[level.index + 1];
 
-  if (!loaded) return <><style>{css}</style><div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'JetBrains Mono',monospace", fontSize: 11, color: "var(--fnt)", letterSpacing: 1 }}>SYNCING…</div></>;
+  if (!loaded) return <><style>{css}</style><div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 600, color: "var(--mut)" }}>Syncing…</div></>;
 
   const trackerProps = { user, liftProgress, saveLiftProgress, pplOffset, slidePPL, onSessionLogged, onMacrosChanged, awardXP };
+  const toggleTheme = () => setTheme(t => t === "dark" ? "light" : "dark");
+  const doSignOut = () => user.uid === "demo" ? (location.href = "/") : signOut(auth);
+
+  const navItem = (n, glyph) => (
+    <div key={n.id} className={"nav-i" + (page === n.id ? " active" : "")} onClick={() => setPage(n.id)}>
+      <span className="nav-ic">{glyph}</span>{n.label}
+    </div>
+  );
 
   return (
     <>
@@ -180,56 +211,102 @@ export default function App({ user }) {
       <div className="shell">
         <aside className="sidebar">
           <div className="logo">
-            <div className="logo-t">LIFE<br />ARCHITECTURE</div>
-            <div className="logo-s">v3 · SOVEREIGN HEALTH OS</div>
+            <div className="logo-t">Life Architecture</div>
+            <div className="logo-s">v3 · Sovereign Health OS</div>
           </div>
-          <div className="nav-s">TRACKER</div>
-          {NAV.slice(0, 4).map(n => (
-            <div key={n.id} className={"nav-i" + (page === n.id ? " active" : "")} onClick={() => setPage(n.id)}>
-              <span style={{ fontSize: 13 }}>{n.icon}</span>{n.label}
-            </div>
-          ))}
-          <div className="nav-s">SYSTEM</div>
-          {NAV.slice(4).map(n => (
-            <div key={n.id} className={"nav-i" + (page === n.id ? " active" : "")} onClick={() => setPage(n.id)}>
-              <span style={{ fontSize: 13 }}>{n.icon}</span>{n.label}
-            </div>
-          ))}
-          <div style={{ marginTop: "auto", padding: "16px 16px 0", borderTop: "1px solid var(--bd)" }}>
-            <div style={{ fontSize: 10, color: "var(--fnt)", fontFamily: "'JetBrains Mono',monospace", letterSpacing: 1, marginBottom: 8, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user.email}</div>
-            <button onClick={() => setTheme(t => t === "dark" ? "light" : "dark")} style={{ width: "100%", background: "transparent", border: "1px solid var(--bd)", borderRadius: 6, color: "var(--dim)", fontSize: 11, fontFamily: "'JetBrains Mono',monospace", letterSpacing: 1, padding: "7px 0", cursor: "pointer", marginBottom: 6 }}>{theme === "dark" ? "◐ LIGHT MODE" : "◑ DARK MODE"}</button>
-            <button onClick={() => user.uid === 'demo' ? (location.href = '/') : signOut(auth)} style={{ width: "100%", background: "transparent", border: "1px solid var(--bd)", borderRadius: 6, color: "var(--dim)", fontSize: 11, fontFamily: "'JetBrains Mono',monospace", letterSpacing: 1, padding: "7px 0", cursor: "pointer" }}>SIGN OUT</button>
+          <div className="nav-s">Daily</div>
+          {NAV_DAILY.map(n => navItem(n, <Icon size={19}>{ICONS[n.id]}</Icon>))}
+          <div className="nav-s">Library</div>
+          {NAV_LIBRARY.map(n => navItem(n, <span style={{ fontSize: 15 }}>{n.glyph}</span>))}
+          <div className="side-foot">
+            <div className="side-mail">{user.email}</div>
+            <button className="side-btn" onClick={toggleTheme}>{theme === "dark" ? "◐ Light mode" : "◑ Dark mode"}</button>
+            <button className="side-btn" onClick={doSignOut}>Sign out</button>
           </div>
         </aside>
-        <main className="main">
-          <div className="xp-card">
-            <div>
-              <div className="xp-lv">{level.name}</div>
-              <div className="xp-n">{totalXP.toLocaleString()} XP total</div>
-            </div>
-            <div className="xp-w">
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-                <span style={{ fontSize: 10, color: "#475569" }}>Level {level.index + 1}</span>
-                <span style={{ fontSize: 10, color: "#3b82f6", fontFamily: "JetBrains Mono" }}>{progress}%</span>
+
+        <div className="content">
+          <header className="topbar">
+            <div className="topbar-t">Life Architecture</div>
+            <div className="top-chip">Lv {level.index + 1} · {totalXP.toLocaleString()} XP</div>
+            <button className="top-btn" onClick={toggleTheme} aria-label="Toggle theme">{theme === "dark" ? "◐" : "◑"}</button>
+          </header>
+
+          <main className="main">
+            {page !== "more" && (
+              <div className="xp-card">
+                <Ring size={62} stroke={6} pct={progress}>
+                  <span className="ring-lv">{level.index + 1}</span>
+                  <span className="ring-lv-s">LV</span>
+                </Ring>
+                <div className="xp-w">
+                  <div className="xp-lv">{level.name}</div>
+                  <div className="xp-n">{totalXP.toLocaleString()} XP{nextLevel ? ` · ${(nextLevel.min - totalXP).toLocaleString()} to ${nextLevel.name}` : " · max level"}</div>
+                  <div className="xp-meta" style={{ marginTop: 7 }}>
+                    <span style={{ color: "var(--mut)" }}>Level {level.index + 1}</span>
+                    <span style={{ color: "var(--acc)" }}>{progress}%</span>
+                  </div>
+                  <div className="xp-bg"><div className="xp-f" style={{ width: progress + "%" }} /></div>
+                </div>
               </div>
-              <div className="xp-bg"><div className="xp-f" style={{ width: progress + "%" }} /></div>
+            )}
+            <div className="fi-anim" key={page}>
+              {page === "train" && <Train {...trackerProps} />}
+              {page === "fuel" && <Nutrition user={user} onMacrosChanged={onMacrosChanged} />}
+              {page === "coach" && <Coach {...trackerProps} />}
+              {page === "quests" && <Quests longQ={longQ} dailyQ={dailyQ} toggleLong={toggleLong} toggleDaily={toggleDaily} delLong={delLong} openAdd={cat => setModal({ mode: "add", category: cat })} openEdit={q => setModal({ mode: "edit", quest: q })} filter={filter} setFilter={setFilter} />}
+              {page === "schedule" && <Schedule schedDay={schedDay} setSchedDay={setSchedDay} />}
+              {page === "identity" && <PIdentity />}
+              {page === "habits" && <PHabits />}
+              {page === "outputs" && <POutputs longQ={longQ} />}
+              {page === "review" && <PReview />}
+              {page === "principles" && <PPrinciples />}
+              {page === "more" && <More setPage={setPage} theme={theme} toggleTheme={toggleTheme} doSignOut={doSignOut} user={user} />}
             </div>
-          </div>
-          <div className="fi-anim" key={page}>
-            {page === "train" && <Train {...trackerProps} />}
-            {page === "fuel" && <Nutrition user={user} onMacrosChanged={onMacrosChanged} />}
-            {page === "coach" && <Coach {...trackerProps} />}
-            {page === "quests" && <Quests longQ={longQ} dailyQ={dailyQ} toggleLong={toggleLong} toggleDaily={toggleDaily} delLong={delLong} openAdd={cat => setModal({ mode: "add", category: cat })} openEdit={q => setModal({ mode: "edit", quest: q })} filter={filter} setFilter={setFilter} />}
-            {page === "schedule" && <Schedule schedDay={schedDay} setSchedDay={setSchedDay} />}
-            {page === "identity" && <PIdentity />}
-            {page === "habits" && <PHabits />}
-            {page === "outputs" && <POutputs longQ={longQ} />}
-            {page === "review" && <PReview />}
-            {page === "principles" && <PPrinciples />}
-          </div>
-        </main>
+          </main>
+
+          <nav className="tabbar">
+            {TABS.map(t => {
+              const active = t.id === page || (t.id === "more" && MORE_IDS.includes(page));
+              return (
+                <div key={t.id} className={"tab-i" + (active ? " active" : "")} onClick={() => setPage(t.id)}>
+                  <Icon size={23}>{ICONS[t.id]}</Icon>
+                  {t.label}
+                </div>
+              );
+            })}
+          </nav>
+        </div>
       </div>
       {modal && <QModal modal={modal} onSave={onLongSave} onClose={() => setModal(null)} />}
+    </>
+  );
+}
+
+function More({ setPage, theme, toggleTheme, doSignOut, user }) {
+  const rows = [
+    { id: "schedule", glyph: <Icon size={19}>{ICONS.schedule}</Icon>, label: "Schedule" },
+    ...NAV_LIBRARY.map(n => ({ id: n.id, glyph: <span style={{ fontSize: 16 }}>{n.glyph}</span>, label: n.label })),
+  ];
+  return (
+    <>
+      <div className="pg-title">More</div>
+      <div className="pg-sub">Schedule, system reference and account</div>
+      {rows.map(r => (
+        <div key={r.id} className="mr-row" onClick={() => setPage(r.id)}>
+          <span className="nav-ic" style={{ color: "var(--acc)" }}>{r.glyph}</span>
+          <span className="mr-t">{r.label}</span>
+          <span className="mr-a">›</span>
+        </div>
+      ))}
+      <div className="card" style={{ marginTop: 18 }}>
+        <div className="card-t">Account</div>
+        <div style={{ fontSize: 13, color: "var(--mut)", marginBottom: 12 }}>{user.email}</div>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <button className="bs" onClick={toggleTheme}>{theme === "dark" ? "◐ Light mode" : "◑ Dark mode"}</button>
+          <button className="bs" onClick={doSignOut}>Sign out</button>
+        </div>
+      </div>
     </>
   );
 }

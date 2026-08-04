@@ -21,16 +21,16 @@ function Root() {
     return (
       <div style={{
         minHeight: '100vh',
-        background: '#060c18',
+        background: '#12151a',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontFamily: "'JetBrains Mono', monospace",
-        fontSize: 11,
-        color: '#334155',
-        letterSpacing: 1,
+        fontFamily: "'DM Sans', sans-serif",
+        fontSize: 13,
+        fontWeight: 600,
+        color: '#8290a0',
       }}>
-        LOADING…
+        Loading…
       </div>
     );
   }

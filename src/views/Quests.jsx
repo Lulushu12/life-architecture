@@ -47,12 +47,12 @@ export default function Quests({ longQ, dailyQ, toggleLong, toggleDaily, delLong
   const fq = (cat) => longQ.filter(q => q.category === cat).filter(q => filter === "All" || q.status === filter);
   return (
     <>
-      <div className="pg-title">QUEST BOARD</div>
+      <div className="pg-title">Quest Board</div>
       <div className="pg-sub">Long-term milestones and daily non-negotiables. AUTO quests complete from the tracker — log it once.</div>
       <div className="frow">
         {["All", "Active", "Pending", "Completed"].map(f => <div key={f} className={"chip" + (filter === f ? " active" : "")} onClick={() => setFilter(f)}>{f}</div>)}
         <div className={"chip dc" + (filter === "Daily" ? " active" : "")} onClick={() => setFilter("Daily")}>🔥 Daily</div>
-        <div style={{ marginLeft: "auto", fontFamily: "JetBrains Mono", fontSize: 10, color: "#475569" }}>
+        <div style={{ marginLeft: "auto", fontSize: 12, fontWeight: 600, color: "var(--mut)" }}>
           {showDaily ? `${doneToday}/${dailyQ.length} today` : `${longQ.filter(q => q.status === "Completed").length}/${longQ.length} · ${longXP.toLocaleString()} XP`}
         </div>
       </div>
@@ -107,7 +107,7 @@ export function QModal({ modal, onSave, onClose }) {
   return (
     <div className="overlay" onClick={e => e.target === e.currentTarget && onClose()}>
       <div className="modal">
-        <div className="mt">{isEdit ? "EDIT QUEST" : "NEW QUEST"}</div>
+        <div className="mt">{isEdit ? "Edit Quest" : "New Quest"}</div>
         <div className="fg"><label className="fl">QUEST TITLE</label><input className="fi" value={title} onChange={e => setTitle(e.target.value)} placeholder="What needs to be done?" autoFocus /></div>
         <div className="fg"><label className="fl">CATEGORY</label><select className="fsel" value={category} onChange={e => setCategory(e.target.value)}>{CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}</select></div>
         <div className="fg"><label className="fl">NOTES</label><textarea className="fta" value={notes} onChange={e => setNotes(e.target.value)} placeholder="Context, sub-tasks, timeline..." /></div>

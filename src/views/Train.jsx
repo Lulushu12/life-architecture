@@ -193,7 +193,7 @@ export default function Train({ user, liftProgress, saveLiftProgress, pplOffset,
 function Header({ planned, weekday }) {
   return (
     <>
-      <div className="pg-title">TRAIN</div>
+      <div className="pg-title">Train</div>
       <div className="pg-sub">{weekday} · planned: <b style={{ color: planned === "REST" ? "#94a3b8" : "#f59e0b" }}>{planned}</b>{planned === "REST" ? " — no gym today. VMO + mobility still non-negotiable." : " @ Titan Park"}</div>
     </>
   );

@@ -6,7 +6,7 @@ export default function Schedule({ schedDay, setSchedDay }) {
   const used = [...new Set(day.blocks.map(b => b.type))].filter(t => t !== "wildcard");
   return (
     <>
-      <div className="pg-title">SCHEDULE</div>
+      <div className="pg-title">Schedule</div>
       <div className="pg-sub">Sovereign Health OS v2 · PPL @ Titan Park · Tap any block for details</div>
       <div className="day-tabs">{Object.keys(SCHEDULE_V2).map(d => <div key={d} className={"day-tab" + (schedDay === d ? " active" : "")} onClick={() => setSchedDay(d)}>{d}</div>)}</div>
       <div className="day-type">{day.type}</div>

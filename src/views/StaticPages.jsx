@@ -4,7 +4,7 @@ import { IDENTITY_ANCHORS, SHOW_UP_RULE } from "../system/constants.js";
 export function PIdentity() {
   return (
     <>
-      <div className="pg-title">IDENTITY</div>
+      <div className="pg-title">Identity</div>
       <div className="pg-sub">Who you are becoming, not what you want to achieve</div>
       <div className="callout cg"><div className="ct"><strong>Core Belief: </strong>"You do not rise to the level of your goals. You fall to the level of your systems." — James Clear</div></div>
       <div className="card">
@@ -48,7 +48,7 @@ export function PIdentity() {
 export function PHabits() {
   return (
     <>
-      <div className="pg-title">ATOMIC HABITS</div>
+      <div className="pg-title">Atomic Habits</div>
       <div className="pg-sub">The framework powering the entire system</div>
       <div className="card">
         <div className="card-t">The Four Laws</div>
@@ -109,7 +109,7 @@ export function POutputs({ longQ = [] }) {
   const completed = OUTPUTS.filter(o => longQ.find(q => q.id === o.qid)?.status === "Completed").length;
   return (
     <>
-      <div className="pg-title">6-MONTH OUTPUTS</div>
+      <div className="pg-title">6-Month Outputs</div>
       <div className="pg-sub">Concrete evidence the system is working · {completed}/{OUTPUTS.length} complete · status syncs from the Quest Board</div>
       {OUTPUTS.map(o => {
         const isDone = longQ.find(q => q.id === o.qid)?.status === "Completed";
@@ -133,7 +133,7 @@ export function POutputs({ longQ = [] }) {
 export function PReview() {
   return (
     <>
-      <div className="pg-title">REVIEW CADENCE</div>
+      <div className="pg-title">Review Cadence</div>
       <div className="pg-sub">The feedback loop that keeps the system calibrated</div>
       {[
         { title: "Daily Log — 5 minutes", items: ["Log every meal. A tracked bad day beats an untracked one.", "Training: log the session (or the miss — PPL slides, no doubling up)", "Did the non-negotiables hold? Creatine, VMO, Despina time, phone dock, mobility, lights out"] },
@@ -159,7 +159,7 @@ export function PReview() {
 export function PPrinciples() {
   return (
     <>
-      <div className="pg-title">PRINCIPLES</div>
+      <div className="pg-title">Principles</div>
       <div className="pg-sub">The operating rules of the system</div>
       <div className="card">
         {[

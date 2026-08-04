@@ -87,7 +87,7 @@ export default function Coach({ user, liftProgress, saveLiftProgress, pplOffset,
 
   return (
     <>
-      <div className="pg-title">COACH</div>
+      <div className="pg-title">Coach</div>
       <div className="pg-sub">Sonnet-backed. Action only — no motivation, no pep talks. The coach proposes; you confirm; the app writes.</div>
 
       {error && <div className="callout cr"><div className="ct">{error}</div></div>}
