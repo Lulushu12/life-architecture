@@ -7,6 +7,10 @@ on:
 permissions:
   contents: write
 
+env:
+  # life-architecture is served at the site root; the rest at /<name>/
+  SUB_APPS: whist breathe focus games calories ortho
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,27 +21,24 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: |
-            apps/life-architecture/package-lock.json
-            apps/whist/package-lock.json
+          cache-dependency-path: apps/*/package-lock.json
 
-      - name: Build Life Architecture
-        working-directory: apps/life-architecture
+      - name: Build all apps
         run: |
-          npm ci
-          npm run build
-
-      - name: Build Whist & Rentz
-        working-directory: apps/whist
-        run: |
-          npm ci
-          npm run build
+          for app in life-architecture $SUB_APPS; do
+            echo "::group::build $app"
+            (cd "apps/$app" && npm ci && npm run build)
+            echo "::endgroup::"
+          done
 
       - name: Compose site
         run: |
-          mkdir -p site/whist
+          mkdir -p site
           cp -r apps/life-architecture/dist/. site/
-          cp -r apps/whist/dist/. site/whist/
+          for app in $SUB_APPS; do
+            mkdir -p "site/$app"
+            cp -r "apps/$app/dist/." "site/$app/"
+          done
 
       - uses: peaceiris/actions-gh-pages@v4
         with:

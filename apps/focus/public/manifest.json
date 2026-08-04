@@ -1,0 +1,25 @@
+{
+  "name": "Focus",
+  "short_name": "Focus",
+  "description": "Pomodoro timer, task timers, break reminders & focus stats — offline, auto-saving",
+  "start_url": "/life-architecture/focus/",
+  "scope": "/life-architecture/focus/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "icons": [
+    {
+      "src": "/life-architecture/focus/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/life-architecture/focus/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
