@@ -4,7 +4,7 @@
  * and a network-first strategy for API/dynamic requests.
  */
 
-const CACHE_NAME = 'life-architecture-v3.2' // bump on every deploy — stale precached index.html otherwise pins the old bundle
+const CACHE_NAME = 'life-architecture-v3.4' // bump on every deploy — stale precached index.html otherwise pins the old bundle
 
 // Assets to pre-cache on install
 const PRECACHE_ASSETS = [
