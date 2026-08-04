@@ -1,77 +1,56 @@
 /**
- * Firestore data layer for the living tracker, local-first with localStorage mirror.
- *
- * Layout:
- *   users/{uid}                       — quests, XP, liftProgress, pplOffset, schemaVersion
- *   users/{uid}/workoutLogs/{date}    — one doc per day
- *   users/{uid}/mealLogs/{date}       — one doc per day: { entries: [...] }
- *   users/{uid}/bodyMetrics/{date}    — { waistCm?, weightKg? }
- *
- * Firestore rules need the subcollection wildcard:
- *   match /users/{userId}/{document=**} { allow read, write: if request.auth.uid == userId; }
+ * Data layer for the living tracker — pure localStorage, mirrored to a git
+ * branch by branchSync.js (see store.js for the key layout). The uid
+ * argument is kept for API compatibility with the views; all data is local.
  */
 
-import { doc, getDoc, setDoc, collection, getDocs, query, orderBy, limit, deleteDoc } from "firebase/firestore";
-import { db } from "../firebase";
-
-const LS = (uid, key) => `la3_${uid}_${key}`;
-
-function lsGet(uid, key, fallback) {
-  try { const r = localStorage.getItem(LS(uid, key)); return r ? JSON.parse(r) : fallback; } catch { return fallback; }
-}
-function lsSet(uid, key, val) {
-  try { localStorage.setItem(LS(uid, key), JSON.stringify(val)); } catch { /* full/blocked */ }
-}
-
-const sub = (uid, name) => collection(db, "users", uid, name);
+import { lsGet, lsSet } from "./store.js";
+import { schedulePush } from "./branchSync.js";
 
 // ── Workout logs ─────────────────────────────────────────────────────────
-export async function saveWorkoutLog(uid, log) {
-  lsSet(uid, `wo_${log.date}`, log);
-  await setDoc(doc(sub(uid, "workoutLogs"), log.date), log).catch(() => {});
+export async function saveWorkoutLog(_uid, log) {
+  lsSet(`wo_${log.date}`, log);
+  schedulePush();
 }
-export async function getWorkoutLog(uid, date) {
-  try {
-    const snap = await getDoc(doc(sub(uid, "workoutLogs"), date));
-    if (snap.exists()) return snap.data();
-  } catch { /* offline */ }
-  return lsGet(uid, `wo_${date}`, null);
+export async function getWorkoutLog(_uid, date) {
+  return lsGet(`wo_${date}`, null);
 }
-export async function recentWorkoutLogs(uid, n = 12) {
-  try {
-    const snap = await getDocs(query(sub(uid, "workoutLogs"), orderBy("date", "desc"), limit(n)));
-    if (!snap.empty) return snap.docs.map(d => d.data()).sort((a, b) => a.date.localeCompare(b.date));
-  } catch { /* offline */ }
-  return [];
+export async function recentWorkoutLogs(_uid, n = 12) {
+  return scanDates("wo").slice(-n).map(d => lsGet(`wo_${d}`, null)).filter(Boolean);
 }
 
 // ── Meal logs ────────────────────────────────────────────────────────────
-export async function saveMealLog(uid, date, entries) {
-  lsSet(uid, `meal_${date}`, entries);
-  await setDoc(doc(sub(uid, "mealLogs"), date), { date, entries }).catch(() => {});
+export async function saveMealLog(_uid, date, entries) {
+  lsSet(`meal_${date}`, entries);
+  schedulePush();
 }
-export async function getMealLog(uid, date) {
-  try {
-    const snap = await getDoc(doc(sub(uid, "mealLogs"), date));
-    if (snap.exists()) return snap.data().entries || [];
-  } catch { /* offline */ }
-  return lsGet(uid, `meal_${date}`, []);
+export async function getMealLog(_uid, date) {
+  return lsGet(`meal_${date}`, []);
 }
 
 // ── Body metrics ─────────────────────────────────────────────────────────
-export async function saveBodyMetric(uid, date, metric) {
-  lsSet(uid, `bm_${date}`, metric);
-  await setDoc(doc(sub(uid, "bodyMetrics"), date), { date, ...metric }, { merge: true }).catch(() => {});
+export async function saveBodyMetric(_uid, date, metric) {
+  lsSet(`bm_${date}`, { date, ...lsGet(`bm_${date}`, {}), ...metric });
+  schedulePush();
 }
-export async function recentBodyMetrics(uid, n = 12) {
+export async function recentBodyMetrics(_uid, n = 12) {
+  return scanDates("bm").slice(-n).map(d => lsGet(`bm_${d}`, null)).filter(Boolean);
+}
+export async function deleteBodyMetric(_uid, date) {
+  try { localStorage.removeItem(`la3_local_bm_${date}`); } catch { /* blocked */ }
+  schedulePush();
+}
+
+function scanDates(kind) {
+  const prefix = `la3_local_${kind}_`;
+  const out = [];
   try {
-    const snap = await getDocs(query(sub(uid, "bodyMetrics"), orderBy("date", "desc"), limit(n)));
-    if (!snap.empty) return snap.docs.map(d => d.data()).sort((a, b) => a.date.localeCompare(b.date));
-  } catch { /* offline */ }
-  return [];
-}
-export async function deleteBodyMetric(uid, date) {
-  try { await deleteDoc(doc(sub(uid, "bodyMetrics"), date)); } catch { /* offline */ }
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith(prefix)) out.push(k.slice(prefix.length));
+    }
+  } catch { /* blocked */ }
+  return out.sort();
 }
 
 export { macroTotals } from "./macros.js";

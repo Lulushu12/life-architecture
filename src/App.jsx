@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { signOut } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { auth, db } from "./firebase";
 import { getLevel, getLevelProgress, todayKey, STREAK_MULT, MACROS, uid, LEVELS } from "./system/constants.js";
 import { DEFAULT_LONG, DEFAULT_DAILY_V2 } from "./system/quests.js";
 import { migrateUserData, SCHEMA_VERSION } from "./data/migrate.js";
+import { lsGet, lsSet, buildSnapshot, applySnapshot, savedAt } from "./data/store.js";
+import { getSyncConfig, setSyncConfig, pullSnapshot, schedulePush, onSyncStatus } from "./data/branchSync.js";
 import { css, Ring } from "./views/shared.jsx";
 import { PIdentity, PHabits, POutputs, PReview, PPrinciples } from "./views/StaticPages.jsx";
 import Schedule from "./views/Schedule.jsx";
@@ -12,11 +11,15 @@ import Quests, { QModal } from "./views/Quests.jsx";
 import Train from "./views/Train.jsx";
 import Nutrition from "./views/Nutrition.jsx";
 import Coach from "./views/Coach.jsx";
+import Setup from "./views/Setup.jsx";
 
 const FONT_LINK = document.createElement("link");
 FONT_LINK.rel = "stylesheet";
 FONT_LINK.href = "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;600&display=swap";
 document.head.appendChild(FONT_LINK);
+
+/** All data is local-first; the uid only namespaces nothing anymore but keeps the views' API. */
+const USER = { uid: "local", email: null };
 
 const Icon = ({ children, size = 22 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">{children}</svg>
@@ -53,7 +56,14 @@ const TABS = [
 ];
 const MORE_IDS = ["schedule", ...NAV_LIBRARY.map(n => n.id), "more"];
 
-export default function App({ user }) {
+const SYNC_LABEL = {
+  off:     { dot: "var(--dim)",     text: "Device only" },
+  syncing: { dot: "#f59e0b",        text: "Syncing…" },
+  synced:  { dot: "#22c55e",        text: "Synced to branch" },
+  error:   { dot: "#ef4444",        text: "Sync error — retrying on next change" },
+};
+
+export default function App() {
   const [page, setPage] = useState("train");
   const [longQ, setLongQ] = useState(DEFAULT_LONG);
   const [dailyQ, setDailyQ] = useState(DEFAULT_DAILY_V2);
@@ -64,6 +74,14 @@ export default function App({ user }) {
   const [schedDay, setSchedDay] = useState("Monday");
   const [filter, setFilter] = useState("All");
   const [loaded, setLoaded] = useState(false);
+  const [syncCfg, setSyncCfg] = useState(() => {
+    const cfg = getSyncConfig();
+    if (cfg) return cfg;
+    if (new URLSearchParams(location.search).has("demo")) { const c = { mode: "local" }; setSyncConfig(c); return c; }
+    return null;
+  });
+  const [showSetup, setShowSetup] = useState(false);
+  const [syncStatus, setSyncStatus] = useState(() => (getSyncConfig()?.mode === "github" ? "syncing" : "off"));
   const [theme, setTheme] = useState(() => { try { return localStorage.getItem("la3_theme") || "dark"; } catch { return "dark"; } });
 
   useEffect(() => {
@@ -71,40 +89,13 @@ export default function App({ user }) {
     try { localStorage.setItem("la3_theme", theme); } catch { /* blocked */ }
   }, [theme]);
 
-  const userDoc = doc(db, "users", user.uid);
+  useEffect(() => { onSyncStatus(setSyncStatus); return () => onSyncStatus(null); }, []);
+
   const dailyRef = useRef(dailyQ);  dailyRef.current = dailyQ;
   const xpRef = useRef(cumulativeDailyXP); xpRef.current = cumulativeDailyXP;
 
-  useEffect(() => {
-    // localStorage first (fast), then Firestore (authoritative), migrating either way
-    let seed = { longQ: DEFAULT_LONG, dailyQ: DEFAULT_DAILY_V2, cumulativeDailyXP: 0, liftProgress: {}, pplOffset: 0, schemaVersion: SCHEMA_VERSION };
-    try {
-      const ls = localStorage.getItem(`la3_${user.uid}_user`);
-      if (ls) seed = { ...seed, ...JSON.parse(ls) };
-      else {
-        // pick up pre-v3 localStorage if it exists (migration path)
-        const lr = localStorage.getItem("la_long_v8"), dr = localStorage.getItem("la_daily_v8"), cr = localStorage.getItem("la_cdxp_v8");
-        if (lr || dr || cr) {
-          const m = migrateUserData({ longQ: lr ? JSON.parse(lr) : DEFAULT_LONG, dailyQ: dr ? JSON.parse(dr) : [], cumulativeDailyXP: cr ? JSON.parse(cr) : 0 });
-          seed = { ...seed, ...m.data };
-        }
-      }
-    } catch { /* corrupted local state — fall through to defaults */ }
-    applyData(seed);
-
-    getDoc(userDoc).then(snap => {
-      if (snap.exists()) {
-        const { data, changed } = migrateUserData(snap.data());
-        applyData(data);
-        if (changed) setDoc(userDoc, data, { merge: true }).catch(() => {});
-      } else {
-        setDoc(userDoc, seed).catch(() => {});
-      }
-      setLoaded(true);
-    }).catch(() => setLoaded(true));
-  }, [user.uid]); // eslint-disable-line react-hooks/exhaustive-deps
-
   const applyData = (d) => {
+    if (!d) return;
     if (d.longQ) setLongQ(d.longQ);
     if (d.dailyQ) setDailyQ(d.dailyQ);
     if (d.cumulativeDailyXP != null) setCumulativeDailyXP(d.cumulativeDailyXP);
@@ -112,13 +103,47 @@ export default function App({ user }) {
     if (d.pplOffset != null) setPplOffset(d.pplOffset);
   };
 
-  const persist = useCallback((patch) => {
-    setDoc(userDoc, patch, { merge: true }).catch(() => {});
+  useEffect(() => {
+    // Local first (instant), then the branch snapshot if it's newer.
+    let seed = { longQ: DEFAULT_LONG, dailyQ: DEFAULT_DAILY_V2, cumulativeDailyXP: 0, liftProgress: {}, pplOffset: 0, schemaVersion: SCHEMA_VERSION };
     try {
-      const cur = JSON.parse(localStorage.getItem(`la3_${user.uid}_user`) || "{}");
-      localStorage.setItem(`la3_${user.uid}_user`, JSON.stringify({ ...cur, ...patch, schemaVersion: SCHEMA_VERSION }));
-    } catch { /* quota */ }
-  }, [user.uid]); // eslint-disable-line react-hooks/exhaustive-deps
+      const stored = lsGet("user", null);
+      if (stored) {
+        const { data, changed } = migrateUserData(stored);
+        seed = { ...seed, ...data };
+        if (changed) lsSet("user", { ...seed });
+      } else {
+        // pick up pre-v3 localStorage if it exists (migration path)
+        const lr = localStorage.getItem("la_long_v8"), dr = localStorage.getItem("la_daily_v8"), cr = localStorage.getItem("la_cdxp_v8");
+        if (lr || dr || cr) {
+          const m = migrateUserData({ longQ: lr ? JSON.parse(lr) : DEFAULT_LONG, dailyQ: dr ? JSON.parse(dr) : [], cumulativeDailyXP: cr ? JSON.parse(cr) : 0 });
+          seed = { ...seed, ...m.data };
+          lsSet("user", seed);
+        }
+      }
+    } catch { /* corrupted local state — fall through to defaults */ }
+    applyData(seed);
+    setLoaded(true);
+
+    if (getSyncConfig()?.mode === "github") {
+      pullSnapshot().then(snap => {
+        if (snap && (snap.savedAt || 0) > savedAt()) {
+          applySnapshot(snap);
+          const { data } = migrateUserData(snap.user || seed);
+          applyData(data);
+        } else if (snap === null) {
+          schedulePush(); // branch has no data file yet — create it from local state
+        }
+        setSyncStatus("synced");
+      }).catch(() => setSyncStatus("error"));
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const persist = useCallback((patch) => {
+    const cur = lsGet("user", {});
+    lsSet("user", { ...cur, ...patch, schemaVersion: SCHEMA_VERSION });
+    schedulePush();
+  }, []);
 
   const saveLong = (q) => { setLongQ(q); persist({ longQ: q }); };
   const saveDaily = (q) => { setDailyQ(q); persist({ dailyQ: q }); };
@@ -193,11 +218,38 @@ export default function App({ user }) {
   const progress = getLevelProgress(totalXP);
   const nextLevel = LEVELS[level.index + 1];
 
-  if (!loaded) return <><style>{css}</style><div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 600, color: "var(--mut)" }}>Syncing…</div></>;
+  const saveSetup = (cfg) => {
+    setSyncConfig(cfg);
+    setSyncCfg(cfg);
+    setShowSetup(false);
+    if (cfg.mode === "github") {
+      setSyncStatus("syncing");
+      pullSnapshot().then(snap => {
+        if (snap && (snap.savedAt || 0) > savedAt()) { applySnapshot(snap); applyData(migrateUserData(snap.user || {}).data); }
+        else schedulePush();
+        setSyncStatus("synced");
+      }).catch(() => setSyncStatus("error"));
+    } else setSyncStatus("off");
+  };
 
-  const trackerProps = { user, liftProgress, saveLiftProgress, pplOffset, slidePPL, onSessionLogged, onMacrosChanged, awardXP };
+  const exportData = () => {
+    const blob = new Blob([JSON.stringify(buildSnapshot(), null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `life-architecture-${todayKey()}.json`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+
+  if (!syncCfg || showSetup) {
+    return <><style>{css}</style><Setup initial={syncCfg} onDone={saveSetup} onCancel={syncCfg ? () => setShowSetup(false) : null} /></>;
+  }
+  if (!loaded) return <><style>{css}</style><div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 600, color: "var(--mut)" }}>Loading…</div></>;
+
+  const trackerProps = { user: USER, liftProgress, saveLiftProgress, pplOffset, slidePPL, onSessionLogged, onMacrosChanged, awardXP };
   const toggleTheme = () => setTheme(t => t === "dark" ? "light" : "dark");
-  const doSignOut = () => user.uid === "demo" ? (location.href = "/") : signOut(auth);
+  const sync = SYNC_LABEL[syncStatus] || SYNC_LABEL.off;
+  const syncWhere = syncCfg.mode === "github" ? `${syncCfg.repo}@${syncCfg.branch}` : "this device";
 
   const navItem = (n, glyph) => (
     <div key={n.id} className={"nav-i" + (page === n.id ? " active" : "")} onClick={() => setPage(n.id)}>
@@ -219,9 +271,11 @@ export default function App({ user }) {
           <div className="nav-s">Library</div>
           {NAV_LIBRARY.map(n => navItem(n, <span style={{ fontSize: 15 }}>{n.glyph}</span>))}
           <div className="side-foot">
-            <div className="side-mail">{user.email}</div>
+            <div className="side-mail" title={syncWhere}>
+              <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", background: sync.dot, marginRight: 6 }} />{sync.text}
+            </div>
             <button className="side-btn" onClick={toggleTheme}>{theme === "dark" ? "◐ Light mode" : "◑ Dark mode"}</button>
-            <button className="side-btn" onClick={doSignOut}>Sign out</button>
+            <button className="side-btn" onClick={() => setShowSetup(true)}>Data & sync</button>
           </div>
         </aside>
 
@@ -252,7 +306,7 @@ export default function App({ user }) {
             )}
             <div className="fi-anim" key={page}>
               {page === "train" && <Train {...trackerProps} />}
-              {page === "fuel" && <Nutrition user={user} onMacrosChanged={onMacrosChanged} />}
+              {page === "fuel" && <Nutrition user={USER} onMacrosChanged={onMacrosChanged} />}
               {page === "coach" && <Coach {...trackerProps} />}
               {page === "quests" && <Quests longQ={longQ} dailyQ={dailyQ} toggleLong={toggleLong} toggleDaily={toggleDaily} delLong={delLong} openAdd={cat => setModal({ mode: "add", category: cat })} openEdit={q => setModal({ mode: "edit", quest: q })} filter={filter} setFilter={setFilter} />}
               {page === "schedule" && <Schedule schedDay={schedDay} setSchedDay={setSchedDay} />}
@@ -261,7 +315,7 @@ export default function App({ user }) {
               {page === "outputs" && <POutputs longQ={longQ} />}
               {page === "review" && <PReview />}
               {page === "principles" && <PPrinciples />}
-              {page === "more" && <More setPage={setPage} theme={theme} toggleTheme={toggleTheme} doSignOut={doSignOut} user={user} />}
+              {page === "more" && <More setPage={setPage} theme={theme} toggleTheme={toggleTheme} sync={sync} syncWhere={syncWhere} openSetup={() => setShowSetup(true)} exportData={exportData} />}
             </div>
           </main>
 
@@ -283,7 +337,7 @@ export default function App({ user }) {
   );
 }
 
-function More({ setPage, theme, toggleTheme, doSignOut, user }) {
+function More({ setPage, theme, toggleTheme, sync, syncWhere, openSetup, exportData }) {
   const rows = [
     { id: "schedule", glyph: <Icon size={19}>{ICONS.schedule}</Icon>, label: "Schedule" },
     ...NAV_LIBRARY.map(n => ({ id: n.id, glyph: <span style={{ fontSize: 16 }}>{n.glyph}</span>, label: n.label })),
@@ -291,7 +345,7 @@ function More({ setPage, theme, toggleTheme, doSignOut, user }) {
   return (
     <>
       <div className="pg-title">More</div>
-      <div className="pg-sub">Schedule, system reference and account</div>
+      <div className="pg-sub">Schedule, system reference and data</div>
       {rows.map(r => (
         <div key={r.id} className="mr-row" onClick={() => setPage(r.id)}>
           <span className="nav-ic" style={{ color: "var(--acc)" }}>{r.glyph}</span>
@@ -300,11 +354,15 @@ function More({ setPage, theme, toggleTheme, doSignOut, user }) {
         </div>
       ))}
       <div className="card" style={{ marginTop: 18 }}>
-        <div className="card-t">Account</div>
-        <div style={{ fontSize: 13, color: "var(--mut)", marginBottom: 12 }}>{user.email}</div>
+        <div className="card-t">Data & sync</div>
+        <div style={{ fontSize: 13, color: "var(--mut)", marginBottom: 12 }}>
+          <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", background: sync.dot, marginRight: 6 }} />
+          {sync.text} · {syncWhere}
+        </div>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <button className="bs" onClick={openSetup}>Sync settings</button>
+          <button className="bs" onClick={exportData}>Export data</button>
           <button className="bs" onClick={toggleTheme}>{theme === "dark" ? "◐ Light mode" : "◑ Dark mode"}</button>
-          <button className="bs" onClick={doSignOut}>Sign out</button>
         </div>
       </div>
     </>

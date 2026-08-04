@@ -1,29 +1,46 @@
 /**
- * Client wrapper for the coach callable. The coach proposes; the user
- * confirms; the CLIENT writes Firestore. Never the other way around.
+ * Client wrapper for the coach endpoint. The coach proposes; the user
+ * confirms; the CLIENT writes the store. Never the other way around.
+ *
+ * The backend is optional: set a plain HTTPS endpoint URL (e.g. a deployed
+ * copy of functions/index.js behind any HTTP wrapper) in localStorage under
+ * "la3_coach_url". Without it, the tracker works fully offline and the
+ * Coach page shows a "not configured" message.
  */
 
-import { getFunctions, httpsCallable } from "firebase/functions";
 import { PROTOCOLS } from "../system/protocols.js";
 import { OPTIONS } from "../system/meals.js";
 
-let _callable = null;
-function callable() {
-  if (!_callable) _callable = httpsCallable(getFunctions(undefined, "europe-west1"), "coach");
-  return _callable;
+function coachUrl() {
+  try { return localStorage.getItem("la3_coach_url") || ""; } catch { return ""; }
+}
+export function coachConfigured() { return !!coachUrl(); }
+
+async function call(payload) {
+  const url = coachUrl();
+  if (!url) { const e = new Error("coach not configured"); e.code = "not-configured"; throw e; }
+  let res;
+  try {
+    res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ data: payload }) });
+  } catch {
+    const e = new Error("network"); e.code = "unavailable"; throw e;
+  }
+  if (!res.ok) { const e = new Error(`coach ${res.status}`); e.code = res.status === 404 ? "not-found" : "unavailable"; throw e; }
+  const body = await res.json();
+  return { data: body.result ?? body.data ?? body };
 }
 
 export const CONFIDENCE_FLOOR = 0.7;
 
 /** Natural language → structured log proposal. */
 export async function parseLog(text, ctx) {
-  const res = await callable()({ op: "parseLog", text, context: ctx });
+  const res = await call({ op: "parseLog", text, context: ctx });
   return res.data;
 }
 
 /** Situation → protocol-grounded directive. */
 export async function askCoach(situation, ctx) {
-  const res = await callable()({
+  const res = await call({
     op: "coach",
     situation,
     context: {
@@ -44,16 +61,9 @@ export async function deloadCheck(ctx) {
   );
 }
 
-export function coachConfigured() {
-  // The callable exists only after `firebase deploy --only functions`;
-  // callers catch errors and show the offline card regardless.
-  return true;
-}
-
 export function explainCoachError(err) {
   const code = err?.code || "";
-  if (code.includes("unauthenticated")) return "Sign in to use the coach.";
-  if (code.includes("unavailable")) return "Coach model temporarily unavailable — try again.";
-  if (code.includes("not-found") || code.includes("internal")) return "Coach backend not deployed yet (firebase deploy --only functions).";
+  if (code === "not-configured" || code.includes("not-found")) return "Coach backend not configured — the tracker works without it. Set a coach endpoint URL to enable it.";
+  if (code.includes("unavailable")) return "Coach temporarily unreachable — try again.";
   return "Coach unreachable. Logs still work — the tracker is fully offline-capable.";
 }
