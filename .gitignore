@@ -24,3 +24,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 LifeArchitecture_v8.jsx
+
+# Obsidian per-device workspace state (keep vault config out of git noise)
+vault/.obsidian/workspace*
+vault/.obsidian/cache
