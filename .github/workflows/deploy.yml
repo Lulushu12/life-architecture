@@ -9,7 +9,7 @@ permissions:
 
 env:
   # life-architecture is served at the site root; the rest at /<name>/
-  SUB_APPS: whist breathe focus games calories ortho
+  SUB_APPS: whist breathe focus games calories ortho chess
 
 jobs:
   deploy:
