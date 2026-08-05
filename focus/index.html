@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/life-architecture/focus/icon-192.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1220" />
+    <meta name="description" content="Pomodoro, task timers, break reminders & focus stats — offline, auto-saving" />
+    <link rel="manifest" href="/life-architecture/focus/manifest.json" />
+    <title>Focus</title>
+    <script type="module" crossorigin src="/life-architecture/focus/assets/index-Bsar57L_.js"></script>
+    <link rel="stylesheet" crossorigin href="/life-architecture/focus/assets/index-DS0P91uX.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/life-architecture/focus/sw.js')
+            .catch(err => console.error('SW registration failed:', err));
+        });
+      }
+    </script>
+  </body>
+</html>

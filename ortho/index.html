@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/life-architecture/ortho/icon-192.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1220" />
+    <meta name="description" content="Ortho reference — offline personal orthopedic notes, classifications & checklists" />
+    <link rel="manifest" href="/life-architecture/ortho/manifest.json" />
+    <title>Ortho Reference</title>
+    <script type="module" crossorigin src="/life-architecture/ortho/assets/index-Co6KllRt.js"></script>
+    <link rel="stylesheet" crossorigin href="/life-architecture/ortho/assets/index-DkThkNLx.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/life-architecture/ortho/sw.js')
+            .catch(err => console.error('SW registration failed:', err));
+        });
+      }
+    </script>
+  </body>
+</html>

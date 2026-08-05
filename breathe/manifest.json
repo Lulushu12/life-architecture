@@ -1,0 +1,25 @@
+{
+  "name": "Breathe",
+  "short_name": "Breathe",
+  "description": "Wim Hof breathing & meditation timer — offline, auto-saving",
+  "start_url": "/life-architecture/breathe/",
+  "scope": "/life-architecture/breathe/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "icons": [
+    {
+      "src": "/life-architecture/breathe/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/life-architecture/breathe/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/life-architecture/whist/icon-192.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1220" />
+    <meta name="description" content="Whist & Rentz scorekeeper — offline, auto-saving" />
+    <link rel="manifest" href="/life-architecture/whist/manifest.json" />
+    <title>Whist &amp; Rentz</title>
+    <script type="module" crossorigin src="/life-architecture/whist/assets/index-CsR0Pe-K.js"></script>
+    <link rel="stylesheet" crossorigin href="/life-architecture/whist/assets/index-B3htBGwu.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/life-architecture/whist/sw.js')
+            .catch(err => console.error('SW registration failed:', err));
+        });
+      }
+    </script>
+  </body>
+</html>

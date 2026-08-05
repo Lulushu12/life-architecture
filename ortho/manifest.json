@@ -1,0 +1,25 @@
+{
+  "name": "Ortho Reference",
+  "short_name": "Ortho",
+  "description": "Personal orthopedic reference — offline, self-authored notes, classifications & checklists",
+  "start_url": "/life-architecture/ortho/",
+  "scope": "/life-architecture/ortho/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "icons": [
+    {
+      "src": "/life-architecture/ortho/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/life-architecture/ortho/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

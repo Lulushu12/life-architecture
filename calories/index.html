@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/life-architecture/calories/icon-192.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1220" />
+    <meta name="description" content="Calorie & training log — offline, auto-saving" />
+    <link rel="manifest" href="/life-architecture/calories/manifest.json" />
+    <title>Calories</title>
+    <script type="module" crossorigin src="/life-architecture/calories/assets/index-HLUpFSPV.js"></script>
+    <link rel="stylesheet" crossorigin href="/life-architecture/calories/assets/index-C2IApeaV.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/life-architecture/calories/sw.js')
+            .catch(err => console.error('SW registration failed:', err));
+        });
+      }
+    </script>
+  </body>
+</html>
