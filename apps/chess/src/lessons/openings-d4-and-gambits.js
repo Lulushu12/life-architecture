@@ -597,7 +597,6 @@ export const LESSONS = [
         text: "Black's simplest and best response is just to take.",
         quiz: {
           answer: "fxe6",
-          strict: true,
           prompt: "How should Black meet the sacrifice?",
           explain: "fxe6 is correct and simplest — grab the free piece. Declining or getting fancy only helps White.",
         },

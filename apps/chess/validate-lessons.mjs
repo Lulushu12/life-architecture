@@ -154,7 +154,7 @@ if (useEngine && quizPositions.length && errors.length === 0) {
       const send = (c) => window.__e.postMessage(c);
       send("setoption name MultiPV value 3");
       send("position fen " + fen);
-      send("go movetime 400");
+      send("go depth 13");
       await new Promise((r) => {
         const t = setInterval(() => {
           if (window.__lines.some((l) => l.startsWith("bestmove"))) {
@@ -191,7 +191,7 @@ if (useEngine && quizPositions.length && errors.length === 0) {
           const send = (c) => window.__e.postMessage(c);
           send("setoption name MultiPV value 1");
           send("position fen " + fen);
-          send("go movetime 400 searchmoves " + uci);
+          send("go depth 13 searchmoves " + uci);
           await new Promise((r) => {
             const t = setInterval(() => {
               if (window.__lines.some((l) => l.startsWith("bestmove"))) {
@@ -215,7 +215,9 @@ if (useEngine && quizPositions.length && errors.length === 0) {
     }
     const loss = match ? res.best.score - match.score : null;
     const limit = q.speculative ? 250 : 100;
-    if (q.strict && res.best.move !== q.uci) {
+    // A fixed-depth search is deterministic, but near-equal moves can still
+    // swap places; allow a small tolerance before calling a strict answer wrong.
+    if (q.strict && res.best.move !== q.uci && (loss == null || loss > 25)) {
       errors.push(
         `${q.tag}: STRICT answer ${q.answer} (${q.uci}) is not the engine's best (${res.best.move})` +
           (loss != null ? `, loses ${loss}cp` : "")

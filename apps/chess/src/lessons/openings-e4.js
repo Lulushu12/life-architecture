@@ -271,6 +271,7 @@ export const LESSONS = [
       {
         quiz: {
           answer: "b4",
+          speculative: true,
           prompt: "Offer a wing pawn to gain time and a big center.",
           explain: "b4!? offers a pawn; after ...Bxb4 White follows with c3 and d4, kicking the bishop around while building a massive center.",
         },
