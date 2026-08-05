@@ -797,3 +797,124 @@ textarea.input {
   width: 100%;
   height: 100%;
 }
+
+.lostcp {
+  color: var(--muted);
+}
+.linkbtn.on {
+  color: var(--gold);
+  font-weight: 700;
+}
+.colorpick {
+  width: 54px;
+  height: 34px;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface2);
+  cursor: pointer;
+}
+
+/* ---- desktop: bigger everything, board beside the side panel ---- */
+@media (min-width: 900px) {
+  html,
+  body {
+    font-size: 17px;
+  }
+  .page {
+    max-width: 1180px;
+    padding: 18px 26px 40px;
+  }
+  .gamepage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    align-content: start;
+    column-gap: 26px;
+    padding-left: 26px;
+    padding-right: 26px;
+  }
+  /* header spans the top; board holds the left column; everything else
+     flows down the right-hand column */
+  .gamepage > .topbar {
+    grid-column: 1 / -1;
+  }
+  .gamepage > .boardrow {
+    grid-column: 1;
+    grid-row: 2 / 200;
+    align-self: start;
+    gap: 10px;
+  }
+  .gamepage > *:not(.topbar):not(.boardrow) {
+    grid-column: 2;
+  }
+  .gamepage > .boardrow .board {
+    max-width: min(72vh, 660px);
+  }
+  .evalbar {
+    width: 26px;
+  }
+  .evalbar-label {
+    font-size: 11px;
+  }
+  .gamepage .movelist {
+    max-height: 44vh;
+    font-size: 15px;
+  }
+  .gamepage .mlmove {
+    padding: 4px 8px;
+  }
+  .coord {
+    font-size: 12px;
+  }
+  .bubble-text {
+    font-size: 15px;
+  }
+  .apptitle {
+    font-size: 38px;
+  }
+  .menugrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .menubtn {
+    padding: 22px 18px;
+    font-size: 17px;
+  }
+  .mb-icon {
+    font-size: 30px;
+  }
+  .botgrid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .bm-avatar {
+    font-size: 30px;
+  }
+  .iconbtn {
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+  }
+  .linkbtn {
+    font-size: 15.5px;
+  }
+  .tb-title {
+    font-size: 20px;
+  }
+  .acc-val {
+    font-size: 28px;
+  }
+  .evalgraph {
+    height: 74px;
+  }
+  .numgrid .numbtn {
+    width: 58px;
+    height: 58px;
+  }
+}
+
+/* stack the side column under the board on medium screens */
+@media (min-width: 900px) and (max-width: 1100px) {
+  .gamepage {
+    grid-template-columns: minmax(0, 1fr) 310px;
+  }
+}

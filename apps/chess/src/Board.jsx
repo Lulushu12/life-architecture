@@ -49,26 +49,59 @@ function fenToMap(fen) {
 const cx = (c) => c.col * 12.5 + 6.25;
 const cy = (c) => c.row * 12.5 + 6.25;
 
-// Square-center to square-center path; knight-shaped moves bend in an L
-// (long leg first), chess.com style. The arrowhead marker's ref point is
-// its tip, so the tip lands exactly on the destination square's center.
-function arrowPath(from, to) {
-  const x1 = cx(from), y1 = cy(from), x2 = cx(to), y2 = cy(to);
+const HEAD_LEN = 4.6; // board units (a square is 12.5)
+const HEAD_HALF = 3.2;
+
+// Square-center to square-center arrow; knight-shaped moves bend in an L
+// (long leg first), chess.com style. The shaft stops where the head begins
+// and the head's tip sits exactly on the destination square's center, so
+// nothing protrudes past the tip.
+function arrowGeom(from, to) {
+  const p0 = { x: cx(from), y: cy(from) };
+  const pEnd = { x: cx(to), y: cy(to) };
   const df = Math.abs(from.col - to.col);
   const dr = Math.abs(from.row - to.row);
-  if ((df === 1 && dr === 2) || (df === 2 && dr === 1)) {
-    const mx = df === 2 ? x2 : x1;
-    const my = df === 2 ? y1 : y2;
-    return `M ${x1} ${y1} L ${mx} ${my} L ${x2} ${y2}`;
-  }
-  return `M ${x1} ${y1} L ${x2} ${y2}`;
+  const pts =
+    (df === 1 && dr === 2) || (df === 2 && dr === 1)
+      ? [p0, df === 2 ? { x: pEnd.x, y: p0.y } : { x: p0.x, y: pEnd.y }, pEnd]
+      : [p0, pEnd];
+
+  const prev = pts[pts.length - 2];
+  const dx = pEnd.x - prev.x;
+  const dy = pEnd.y - prev.y;
+  const len = Math.hypot(dx, dy) || 1;
+  const ux = dx / len;
+  const uy = dy / len;
+  const base = { x: pEnd.x - ux * HEAD_LEN, y: pEnd.y - uy * HEAD_LEN };
+
+  const shaft = [...pts.slice(0, -1), base];
+  const d = shaft.map((p, i) => `${i ? "L" : "M"} ${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(" ");
+  const head = [
+    `${pEnd.x.toFixed(2)},${pEnd.y.toFixed(2)}`,
+    `${(base.x - uy * HEAD_HALF).toFixed(2)},${(base.y + ux * HEAD_HALF).toFixed(2)}`,
+    `${(base.x + uy * HEAD_HALF).toFixed(2)},${(base.y - ux * HEAD_HALF).toFixed(2)}`,
+  ].join(" ");
+  return { d, head };
+}
+
+export const DEFAULT_ARROW_COLORS = { hint: "#15803d", plan: "#e58f2a", threat: "#d02a2a" };
+
+function Arrow({ from, to, color, width = 2.5 }) {
+  const { d, head } = arrowGeom(from, to);
+  return (
+    <g fill={color} stroke={color} opacity="0.82">
+      <path d={d} fill="none" strokeWidth={width} strokeLinecap="butt" strokeLinejoin="round" />
+      <polygon points={head} stroke="none" />
+    </g>
+  );
 }
 
 /**
  * Tap-tap interactive chess board with right-click planning (circles and
  * arrows, cleared on left-click or position change).
  * Props: fen, orientation, lastMove, checkSquare, dests, onMove, arrow,
- *        theme, pieceSet, needsPromotion
+ *        threats (array of [from,to]), theme, pieceSet, arrowColors,
+ *        needsPromotion
  */
 export default function Board({
   fen,
@@ -78,10 +111,13 @@ export default function Board({
   dests,
   onMove,
   arrow,
+  threats,
   theme = "brown",
   pieceSet = "cburnett",
+  arrowColors,
   needsPromotion,
 }) {
+  const colorsArrow = { ...DEFAULT_ARROW_COLORS, ...(arrowColors || {}) };
   const [selected, setSelected] = useState(null);
   const [pendingPromo, setPendingPromo] = useState(null); // {from,to}
   const [shapes, setShapes] = useState([]); // {from,to}; from===to → circle
@@ -171,45 +207,21 @@ export default function Board({
                   <div className="piece" dangerouslySetInnerHTML={{ __html: svgs[pieces[sq]] }} />
                 )}
                 {targets.includes(sq) && <div className={pieces[sq] ? "hintring" : "hintdot"} />}
-                {circled && <div className="usercircle" />}
+                {circled && <div className="usercircle" style={{ borderColor: colorsArrow.plan }} />}
               </div>
             );
           })
         )}
         <svg className="arrowlayer" viewBox="0 0 100 100">
-          <defs>
-            <marker id="head-hint" markerWidth="4" markerHeight="4" refX="4" refY="2" orient="auto">
-              <path d="M0,0 L4,2 L0,4 Z" fill="rgba(21, 128, 61, 0.85)" />
-            </marker>
-            <marker id="head-user" markerWidth="4" markerHeight="4" refX="4" refY="2" orient="auto">
-              <path d="M0,0 L4,2 L0,4 Z" fill="rgba(229, 143, 42, 0.9)" />
-            </marker>
-          </defs>
+          {(threats || []).map((t, i) => (
+            <Arrow key={"t" + i} from={idx(t[0])} to={idx(t[1])} color={colorsArrow.threat} width={2.2} />
+          ))}
           {shapes
             .filter((s) => s.from !== s.to)
             .map((s, i) => (
-              <path
-                key={i}
-                d={arrowPath(idx(s.from), idx(s.to))}
-                fill="none"
-                stroke="rgba(229, 143, 42, 0.8)"
-                strokeWidth="2.4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                markerEnd="url(#head-user)"
-              />
+              <Arrow key={"p" + i} from={idx(s.from)} to={idx(s.to)} color={colorsArrow.plan} width={2.4} />
             ))}
-          {arrow && (
-            <path
-              d={arrowPath(idx(arrow[0]), idx(arrow[1]))}
-              fill="none"
-              stroke="rgba(21, 128, 61, 0.75)"
-              strokeWidth="2.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              markerEnd="url(#head-hint)"
-            />
-          )}
+          {arrow && <Arrow from={idx(arrow[0])} to={idx(arrow[1])} color={colorsArrow.hint} width={2.6} />}
         </svg>
       </div>
 

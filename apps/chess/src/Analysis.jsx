@@ -2,9 +2,28 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Chess } from "chess.js";
 import Board, { EvalBar } from "./Board.jsx";
 import { TopBar, MoveList, useArrowKeys } from "./ui.jsx";
-import { getEngine, cpWhite } from "./engine.js";
-import { uciToSan } from "./review.js";
+import { getEngine, cpWhite, winPct } from "./engine.js";
+import { CLASSIFICATIONS } from "./review.js";
 import { findOpening } from "./openings.js";
+
+// Null-move FEN: hand the turn to the opponent so the engine reveals what
+// they are threatening. Illegal (and skipped) when the side to move is in
+// check, since then the "threat" is just taking the king.
+function nullMoveFen(fen) {
+  const p = fen.split(" ");
+  p[1] = p[1] === "w" ? "b" : "w";
+  p[3] = "-";
+  return p.join(" ");
+}
+
+function classifyDrop(drop, isBest) {
+  if (isBest) return "best";
+  if (drop < 2) return "excellent";
+  if (drop < 5) return "good";
+  if (drop < 10) return "inaccuracy";
+  if (drop < 20) return "mistake";
+  return "blunder";
+}
 
 // Free analysis board: play both sides, paste a FEN or PGN, watch the eval
 // bar and the engine's best line update continuously.
@@ -19,7 +38,13 @@ export default function Analysis({ store, nav }) {
   const [orientation, setOrientation] = useState("w");
   const [evalInfo, setEvalInfo] = useState(null); // {cp, bestSan, pvSans, depth}
   const [engineReady, setEngineReady] = useState(false);
+  const [verdict, setVerdict] = useState(null); // last move's quality
+  const [showMissed, setShowMissed] = useState(false);
+  const [showThreats, setShowThreats] = useState(true);
+  const [threats, setThreats] = useState([]);
   const evalSeq = useRef(0);
+  const threatSeq = useRef(0);
+  const pending = useRef(null); // move awaiting its post-move eval
 
   useEffect(() => {
     engine.ready.then(() => setEngineReady(true));
@@ -36,14 +61,20 @@ export default function Analysis({ store, nav }) {
   const fen = chess.fen();
   const opening = useMemo(() => findOpening(sans), [sans]);
 
+  const navTo = (fn) => {
+    setVerdict(null);
+    setShowMissed(false);
+    setViewPly(fn);
+  };
+
   useArrowKeys(
     () =>
-      setViewPly((v) => {
+      navTo((v) => {
         const cur = v == null ? sans.length - 1 : v;
         return Math.max(-1, cur - 1);
       }),
     () =>
-      setViewPly((v) => {
+      navTo((v) => {
         if (v == null) return null;
         return v >= sans.length - 1 ? null : v + 1;
       })
@@ -65,12 +96,60 @@ export default function Analysis({ store, nav }) {
         const cp = cpWhite(info, chess.turn());
         const pvSans = pvToSans(fen, info.pv.slice(0, 6));
         setEvalInfo({ cp, bestUci: info.move, bestSan: pvSans[0], pvSans, depth: info.depth });
+
+        // Grade the move that produced this position, if we have the
+        // "before" evaluation for it.
+        const p = pending.current;
+        if (p && p.fenAfter === fen) {
+          pending.current = null;
+          const sign = p.mover === "w" ? 1 : -1;
+          const drop = Math.max(0, winPct(p.cpBefore * sign) - winPct(cp * sign));
+          const isBest = p.bestUci === p.playedUci;
+          setVerdict({
+            san: p.san,
+            cls: classifyDrop(drop, isBest),
+            drop,
+            lost: (p.cpBefore - cp) * sign,
+            bestSan: p.bestSan,
+            bestUci: p.bestUci,
+            fenBefore: p.fenBefore,
+          });
+        }
       })
       .catch(() => {});
     return () => {
       cancelled = true;
     };
   }, [fen, engine, chess]);
+
+  // What is the opponent threatening in this position?
+  useEffect(() => {
+    const seq = ++threatSeq.current;
+    setThreats([]);
+    if (!showThreats || chess.isGameOver() || chess.inCheck()) return;
+    let cancelled = false;
+    const nfen = nullMoveFen(fen);
+    engine
+      .analyze(nfen, { movetime: 350, multipv: 2 })
+      .then((r) => {
+        if (cancelled || seq !== threatSeq.current) return;
+        const best = cpWhite(r.lines[0] || {}, nfen.split(" ")[1]);
+        setThreats(
+          r.lines
+            .filter((l) => {
+              // only show genuinely dangerous ideas
+              const s = cpWhite(l, nfen.split(" ")[1]);
+              return Math.abs(s - best) < 120;
+            })
+            .slice(0, 2)
+            .map((l) => [l.move.slice(0, 2), l.move.slice(2, 4)])
+        );
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [fen, engine, chess, showThreats]);
 
   const dests = useMemo(() => {
     const map = new Map();
@@ -91,6 +170,22 @@ export default function Analysis({ store, nav }) {
     const test = new Chess(fen);
     const mv = test.move({ from, to, promotion: promotion || "q" });
     if (!mv) return;
+    setShowMissed(false);
+    setVerdict(null);
+    // Remember this position's evaluation so the move can be graded once
+    // the resulting position has been analyzed.
+    pending.current = evalInfo
+      ? {
+          fenBefore: fen,
+          fenAfter: test.fen(),
+          cpBefore: evalInfo.cp,
+          bestUci: evalInfo.bestUci,
+          bestSan: evalInfo.bestSan,
+          playedUci: mv.from + mv.to + (mv.promotion || ""),
+          san: mv.san,
+          mover: mv.color,
+        }
+      : null;
     if (viewPly != null) {
       const base = viewPly + 1;
       if (sans[base] === mv.san) {
@@ -165,20 +260,46 @@ export default function Analysis({ store, nav }) {
       <div className="boardrow">
         <EvalBar cp={evalInfo ? evalInfo.cp : 0} orientation={orientation} />
         <Board
-          fen={fen}
+          fen={showMissed && verdict ? verdict.fenBefore : fen}
           orientation={orientation}
-          lastMove={lastMove}
-          dests={dests}
+          lastMove={showMissed ? null : lastMove}
+          dests={showMissed ? null : dests}
           onMove={onMove}
-          arrow={evalInfo?.bestUci ? [evalInfo.bestUci.slice(0, 2), evalInfo.bestUci.slice(2, 4)] : null}
+          arrow={
+            showMissed && verdict?.bestUci
+              ? [verdict.bestUci.slice(0, 2), verdict.bestUci.slice(2, 4)]
+              : evalInfo?.bestUci
+                ? [evalInfo.bestUci.slice(0, 2), evalInfo.bestUci.slice(2, 4)]
+                : null
+          }
+          threats={showMissed ? [] : threats}
           theme={store.settings.theme}
           pieceSet={store.settings.pieces}
+          arrowColors={store.settings.arrowColors}
           needsPromotion={(from, to) => {
             const piece = chess.get(from);
             return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
           }}
         />
       </div>
+
+      {verdict && (
+        <div className="moveverdict" style={{ borderColor: CLASSIFICATIONS[verdict.cls].color }}>
+          <b style={{ color: CLASSIFICATIONS[verdict.cls].color }}>
+            {verdict.san} — {CLASSIFICATIONS[verdict.cls].label}
+          </b>
+          {verdict.cls !== "best" && verdict.bestSan && (
+            <>
+              {" "}
+              · best was <b>{verdict.bestSan}</b>
+              {verdict.lost >= 30 && <span className="lostcp"> ({(verdict.lost / 100).toFixed(1)})</span>}
+              <button className="linkbtn" onClick={() => setShowMissed((s) => !s)}>
+                {showMissed ? "back" : "show me"}
+              </button>
+            </>
+          )}
+        </div>
+      )}
 
       {evalInfo && (
         <div className="bestline">
@@ -229,6 +350,12 @@ export default function Analysis({ store, nav }) {
         >
           Reset
         </button>
+        <button
+          className={"linkbtn" + (showThreats ? " on" : "")}
+          onClick={() => setShowThreats((s) => !s)}
+        >
+          ⚠ Threats {showThreats ? "on" : "off"}
+        </button>
         <button className="linkbtn" onClick={() => setShowPaste((s) => !s)}>
           {showPaste ? "Close" : "Paste FEN/PGN"}
         </button>
@@ -254,7 +381,7 @@ export default function Analysis({ store, nav }) {
       <MoveList
         sans={sans}
         activePly={viewPly ?? sans.length - 1}
-        onTap={(p) => setViewPly(p >= sans.length - 1 ? null : p)}
+        onTap={(p) => navTo(p >= sans.length - 1 ? null : p)}
       />
     </div>
   );

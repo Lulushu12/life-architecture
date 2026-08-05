@@ -6,6 +6,7 @@ const KEY = "chess-v1";
 export const DEFAULT_SETTINGS = {
   theme: "brown", // board theme id
   pieces: "cburnett", // piece set id
+  arrowColors: { hint: "#15803d", plan: "#e58f2a", threat: "#d02a2a" },
   botLang: "ro", // bot roster language: "ro" | "en"
   sounds: true,
   haptics: true,
@@ -32,7 +33,12 @@ export function loadStore() {
       return {
         ...fresh,
         ...s,
-        settings: { ...fresh.settings, ...s.settings, ai: { ...fresh.settings.ai, ...(s.settings.ai || {}) } },
+        settings: {
+          ...fresh.settings,
+          ...s.settings,
+          ai: { ...fresh.settings.ai, ...(s.settings.ai || {}) },
+          arrowColors: { ...fresh.settings.arrowColors, ...(s.settings.arrowColors || {}) },
+        },
       };
     }
   } catch {

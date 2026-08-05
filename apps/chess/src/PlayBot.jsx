@@ -495,6 +495,7 @@ function BotGame({ store, setStore, nav }) {
           arrow={viewPly == null ? hintArrow : null}
           theme={store.settings.theme}
           pieceSet={store.settings.pieces}
+        arrowColors={store.settings.arrowColors}
           needsPromotion={(from, to) => {
             const piece = new Chess(liveFen).get(from);
             return piece?.type === "p" && (to[1] === "8" || to[1] === "1");

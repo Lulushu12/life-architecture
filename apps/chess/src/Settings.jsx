@@ -1,7 +1,13 @@
 import { useRef } from "react";
 import { TopBar, Toggle, SettingRow } from "./ui.jsx";
-import { BOARD_THEMES, PIECE_SETS, PIECE_SET_NAMES } from "./Board.jsx";
+import { BOARD_THEMES, PIECE_SETS, PIECE_SET_NAMES, DEFAULT_ARROW_COLORS } from "./Board.jsx";
 import { exportStore, loadStore, saveStore } from "./storage.js";
+
+const ARROW_LABELS = {
+  hint: "Engine / best move",
+  plan: "Your drawn plans",
+  threat: "Opponent threats",
+};
 
 export default function Settings({ store, setStore, nav }) {
   const fileRef = useRef();
@@ -59,6 +65,26 @@ export default function Settings({ store, setStore, nav }) {
           />
         ))}
       </div>
+
+      <h2>Arrow colors</h2>
+      {Object.keys(ARROW_LABELS).map((key) => (
+        <SettingRow key={key} label={ARROW_LABELS[key]}>
+          <input
+            className="colorpick"
+            type="color"
+            value={store.settings.arrowColors?.[key] || DEFAULT_ARROW_COLORS[key]}
+            onChange={(e) =>
+              setStore((s) => ({
+                ...s,
+                settings: { ...s.settings, arrowColors: { ...s.settings.arrowColors, [key]: e.target.value } },
+              }))
+            }
+          />
+        </SettingRow>
+      ))}
+      <button className="linkbtn" onClick={() => set({ arrowColors: { ...DEFAULT_ARROW_COLORS } })}>
+        Reset arrow colors
+      </button>
 
       <h2>Game</h2>
       <SettingRow label="Sounds">

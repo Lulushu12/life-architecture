@@ -227,6 +227,7 @@ function Review({ store, setStore, nav, game }) {
         dests={null}
         theme={store.settings.theme}
         pieceSet={store.settings.pieces}
+        arrowColors={store.settings.arrowColors}
       />
 
       {moveAt && (
