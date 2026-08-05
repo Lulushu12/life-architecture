@@ -85,6 +85,7 @@ export default function Puzzles({ store, setStore, nav }) {
             : null
         }
         theme={store.settings.theme}
+        pieceSet={store.settings.pieces}
         needsPromotion={(from, to) => {
           const piece = chess.get(from);
           return piece?.type === "p" && (to[1] === "8" || to[1] === "1");

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { TopBar, Toggle, SettingRow } from "./ui.jsx";
-import { BOARD_THEMES } from "./Board.jsx";
+import { BOARD_THEMES, PIECE_SETS, PIECE_SET_NAMES } from "./Board.jsx";
 import { exportStore, loadStore, saveStore } from "./storage.js";
 
 export default function Settings({ store, setStore, nav }) {
@@ -44,6 +44,19 @@ export default function Settings({ store, setStore, nav }) {
             <span style={{ background: t.dark }} />
             <span style={{ background: t.light }} />
           </button>
+        ))}
+      </div>
+
+      <h2>Piece style</h2>
+      <div className="themerow">
+        {Object.keys(PIECE_SETS).map((id) => (
+          <button
+            key={id}
+            className={"pieceswatch" + (store.settings.pieces === id ? " sel" : "")}
+            onClick={() => set({ pieces: id })}
+            title={PIECE_SET_NAMES[id] || id}
+            dangerouslySetInnerHTML={{ __html: PIECE_SETS[id].wN }}
+          />
         ))}
       </div>
 

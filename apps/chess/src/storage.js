@@ -5,6 +5,7 @@ const KEY = "chess-v1";
 
 export const DEFAULT_SETTINGS = {
   theme: "brown", // board theme id
+  pieces: "cburnett", // piece set id
   botLang: "ro", // bot roster language: "ro" | "en"
   sounds: true,
   haptics: true,

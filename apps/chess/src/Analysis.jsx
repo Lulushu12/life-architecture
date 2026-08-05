@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Chess } from "chess.js";
 import Board, { EvalBar } from "./Board.jsx";
-import { TopBar, MoveList } from "./ui.jsx";
+import { TopBar, MoveList, useArrowKeys } from "./ui.jsx";
 import { getEngine, cpWhite } from "./engine.js";
 import { uciToSan } from "./review.js";
 import { findOpening } from "./openings.js";
@@ -12,6 +12,8 @@ export default function Analysis({ store, nav }) {
   const engine = getEngine();
   const [sans, setSans] = useState([]);
   const [startFen, setStartFen] = useState(null);
+  const [viewPly, setViewPly] = useState(null); // null = end of line
+  const [branches, setBranches] = useState([]); // {atPly, sans}
   const [paste, setPaste] = useState("");
   const [showPaste, setShowPaste] = useState(false);
   const [orientation, setOrientation] = useState("w");
@@ -23,13 +25,29 @@ export default function Analysis({ store, nav }) {
     engine.ready.then(() => setEngineReady(true));
   }, [engine]);
 
+  // The displayed position: full line, or truncated at viewPly.
+  const dispSans = viewPly == null ? sans : sans.slice(0, viewPly + 1);
   const chess = useMemo(() => {
     const c = startFen ? new Chess(startFen) : new Chess();
-    for (const san of sans) c.move(san);
+    for (const san of dispSans) c.move(san);
     return c;
-  }, [startFen, sans]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startFen, sans, viewPly]);
   const fen = chess.fen();
   const opening = useMemo(() => findOpening(sans), [sans]);
+
+  useArrowKeys(
+    () =>
+      setViewPly((v) => {
+        const cur = v == null ? sans.length - 1 : v;
+        return Math.max(-1, cur - 1);
+      }),
+    () =>
+      setViewPly((v) => {
+        if (v == null) return null;
+        return v >= sans.length - 1 ? null : v + 1;
+      })
+  );
 
   // continuous evaluation of the current position
   useEffect(() => {
@@ -72,7 +90,32 @@ export default function Analysis({ store, nav }) {
   const onMove = (from, to, promotion) => {
     const test = new Chess(fen);
     const mv = test.move({ from, to, promotion: promotion || "q" });
-    if (mv) setSans((s) => [...s, mv.san]);
+    if (!mv) return;
+    if (viewPly != null) {
+      const base = viewPly + 1;
+      if (sans[base] === mv.san) {
+        setViewPly(base >= sans.length - 1 ? null : base);
+        return;
+      }
+      if (sans.length > base) setBranches((bs) => [{ atPly: base, sans }, ...bs].slice(0, 8));
+      setSans([...sans.slice(0, base), mv.san]);
+      setViewPly(null);
+      return;
+    }
+    setSans((s) => [...s, mv.san]);
+  };
+
+  const restoreBranch = (i) => {
+    setBranches((bs) => {
+      const next = [...bs];
+      const b = next.splice(i, 1)[0];
+      if (b) {
+        if (sans.length > b.atPly) next.unshift({ atPly: b.atPly, sans });
+        setSans(b.sans);
+        setViewPly(null);
+      }
+      return next.slice(0, 8);
+    });
   };
 
   const loadPaste = () => {
@@ -84,6 +127,8 @@ export default function Analysis({ store, nav }) {
         new Chess(text);
         setStartFen(text);
         setSans([]);
+        setViewPly(null);
+        setBranches([]);
         setShowPaste(false);
         return;
       } catch {
@@ -95,6 +140,8 @@ export default function Analysis({ store, nav }) {
       c.loadPgn(text);
       setStartFen(null);
       setSans(c.history());
+      setViewPly(null);
+      setBranches([]);
       setShowPaste(false);
     } catch {
       alert("Couldn't parse that as a FEN or PGN.");
@@ -125,6 +172,7 @@ export default function Analysis({ store, nav }) {
           onMove={onMove}
           arrow={evalInfo?.bestUci ? [evalInfo.bestUci.slice(0, 2), evalInfo.bestUci.slice(2, 4)] : null}
           theme={store.settings.theme}
+          pieceSet={store.settings.pieces}
           needsPromotion={(from, to) => {
             const piece = chess.get(from);
             return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
@@ -138,8 +186,36 @@ export default function Analysis({ store, nav }) {
         </div>
       )}
 
+      {viewPly != null && (
+        <div className="previewbar">
+          {viewPly < 0 ? "Start position" : `Viewing move ${Math.floor(viewPly / 2) + 1}`} — play here to
+          branch
+          <button className="linkbtn" onClick={() => setViewPly(null)}>
+            To end
+          </button>
+        </div>
+      )}
+
+      {branches.length > 0 && (
+        <div className="branchrow">
+          {branches.map((b, i) => (
+            <button key={i} className="branchchip" onClick={() => restoreBranch(i)}>
+              ⑂ move {Math.floor(b.atPly / 2) + 1}: {b.sans.slice(b.atPly, b.atPly + 3).join(" ")}
+              {b.sans.length > b.atPly + 3 ? "…" : ""}
+            </button>
+          ))}
+        </div>
+      )}
+
       <div className="btnrow toolrow">
-        <button className="linkbtn" onClick={() => setSans((s) => s.slice(0, -1))} disabled={sans.length === 0}>
+        <button
+          className="linkbtn"
+          onClick={() => {
+            setSans((s) => s.slice(0, -1));
+            setViewPly(null);
+          }}
+          disabled={sans.length === 0}
+        >
           ↩ Undo
         </button>
         <button
@@ -147,6 +223,8 @@ export default function Analysis({ store, nav }) {
           onClick={() => {
             setSans([]);
             setStartFen(null);
+            setViewPly(null);
+            setBranches([]);
           }}
         >
           Reset
@@ -173,7 +251,11 @@ export default function Analysis({ store, nav }) {
         </div>
       )}
 
-      <MoveList sans={sans} activePly={sans.length - 1} />
+      <MoveList
+        sans={sans}
+        activePly={viewPly ?? sans.length - 1}
+        onTap={(p) => setViewPly(p >= sans.length - 1 ? null : p)}
+      />
     </div>
   );
 }

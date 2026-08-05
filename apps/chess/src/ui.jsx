@@ -1,3 +1,26 @@
+import { useEffect, useRef } from "react";
+
+// Left/right arrow keys navigate moves wherever a board screen mounts this.
+export function useArrowKeys(onPrev, onNext) {
+  const ref = useRef({ onPrev, onNext });
+  ref.current = { onPrev, onNext };
+  useEffect(() => {
+    const h = (e) => {
+      const t = e.target.tagName;
+      if (t === "INPUT" || t === "TEXTAREA" || t === "SELECT") return;
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        ref.current.onPrev();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        ref.current.onNext();
+      }
+    };
+    window.addEventListener("keydown", h);
+    return () => window.removeEventListener("keydown", h);
+  }, []);
+}
+
 export function TopBar({ title, sub, onBack, right }) {
   return (
     <div className="topbar">

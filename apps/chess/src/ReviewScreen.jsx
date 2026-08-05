@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Chess } from "chess.js";
 import Board from "./Board.jsx";
-import { TopBar, MoveList } from "./ui.jsx";
+import { TopBar, MoveList, useArrowKeys } from "./ui.jsx";
 import { getEngine, winPct } from "./engine.js";
 import { reviewGame, extractPuzzles, CLASSIFICATIONS } from "./review.js";
 import { PERSONAS, getPersona } from "./personas.js";
@@ -75,6 +75,17 @@ function Review({ store, setStore, nav, game }) {
   const [showBest, setShowBest] = useState(false);
   const startedRef = useRef(false);
   const review = game.review;
+
+  useArrowKeys(
+    () => {
+      setViewIdx((i) => Math.max(0, i - 1));
+      setShowBest(false);
+    },
+    () => {
+      setViewIdx((i) => Math.min(game.sans.length, i + 1));
+      setShowBest(false);
+    }
+  );
 
   useEffect(() => {
     if (review || startedRef.current) return;
@@ -215,6 +226,7 @@ function Review({ store, setStore, nav, game }) {
         }
         dests={null}
         theme={store.settings.theme}
+        pieceSet={store.settings.pieces}
       />
 
       {moveAt && (

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Chess } from "chess.js";
 import Board, { EvalBar } from "./Board.jsx";
-import { TopBar, Toggle, MoveList, PersonaCard } from "./ui.jsx";
+import { TopBar, Toggle, MoveList, useArrowKeys } from "./ui.jsx";
 import { getPersona, personasByLang, LEVELS } from "./personas.js";
 import { getEngine, cpWhite } from "./engine.js";
 import { chooseBotMove } from "./bot.js";
@@ -141,15 +141,33 @@ function BotGame({ store, setStore, nav }) {
     return c.fen();
   }, [viewPly, liveFen, g.startFen, g.sans]);
 
+  // Legal moves for the player — from the live position, or from a past
+  // position being previewed (playing there branches the game).
   const dests = useMemo(() => {
-    if (!playerTurn || viewPly != null) return null;
+    if (g.status !== "playing") return null;
+    const c = viewPly == null ? chess : new Chess(shownFen);
+    if (c.turn() !== g.playerColor) return null;
     const map = new Map();
-    for (const m of chess.moves({ verbose: true })) {
+    for (const m of c.moves({ verbose: true })) {
       if (!map.has(m.from)) map.set(m.from, []);
       map.get(m.from).push(m.to);
     }
     return map;
-  }, [chess, playerTurn, viewPly]);
+  }, [chess, shownFen, viewPly, g.status, g.playerColor]);
+
+  // Arrow keys: left/right step through the game.
+  useArrowKeys(
+    () =>
+      setViewPly((v) => {
+        const cur = v == null ? g.sans.length - 1 : v;
+        return Math.max(-1, cur - 1);
+      }),
+    () =>
+      setViewPly((v) => {
+        if (v == null) return null;
+        return v >= g.sans.length - 1 ? null : v + 1;
+      })
+  );
 
   const lastMove = useMemo(() => {
     const h = chess.history({ verbose: true });
@@ -195,17 +213,76 @@ function BotGame({ store, setStore, nav }) {
       return { ...s, current: { ...c, cps: [...c.cps, cp] } };
     });
 
-  // ---- player's move ----
+  // ---- player's move (live, or from a preview → branch) ----
   const onMove = (from, to, promotion) => {
-    if (!playerTurn) return;
-    const test = new Chess(liveFen);
+    if (g.status !== "playing") return;
+    const baseFen = viewPly == null ? liveFen : shownFen;
+    const test = new Chess(baseFen);
     const mv = test.move({ from, to, promotion: promotion || "q" });
     if (!mv) return;
+
+    if (viewPly != null) {
+      const base = viewPly + 1; // plies kept before the new move
+      if (g.sans[base] === mv.san) {
+        // same move as the game — just walk forward
+        setViewPly(base >= g.sans.length - 1 ? null : base);
+        return;
+      }
+      // different move: stash the abandoned continuation as a branch
+      sfx(store, mv.captured ? "capture" : "move");
+      buzz(store, mv.captured ? 25 : 12);
+      setStore((s) => {
+        const c = s.current;
+        if (!c || c.id !== g.id || c.status !== "playing") return s;
+        const branches = [...(c.branches || [])];
+        if (c.sans.length > base) branches.unshift({ atPly: base, sans: c.sans });
+        return {
+          ...s,
+          current: {
+            ...c,
+            sans: [...c.sans.slice(0, base), mv.san],
+            cps: c.cps.slice(0, base + 1),
+            branches: branches.slice(0, 8),
+          },
+        };
+      });
+      setViewPly(null);
+      setHintArrow(null);
+      lastMoveStart.current = Date.now();
+      return;
+    }
+
+    if (!playerTurn) return;
     sfx(store, mv.captured ? "capture" : "move");
     buzz(store, mv.captured ? 25 : 12);
     applyMove(mv.san, g.sans.length);
     setHintArrow(null);
     lastMoveStart.current = Date.now();
+  };
+
+  // Swap the current line for a stashed branch (the current continuation
+  // gets stashed in its place, so you can always come back).
+  const restoreBranch = (i) => {
+    setStore((s) => {
+      const c = s.current;
+      if (!c) return s;
+      const branches = [...(c.branches || [])];
+      const b = branches.splice(i, 1)[0];
+      if (!b) return s;
+      if (c.sans.length > b.atPly) branches.unshift({ atPly: b.atPly, sans: c.sans });
+      return {
+        ...s,
+        current: {
+          ...c,
+          sans: b.sans,
+          cps: Array(b.sans.length).fill(0),
+          status: "playing",
+          result: null,
+          branches: branches.slice(0, 8),
+        },
+      };
+    });
+    setViewPly(null);
   };
 
   // ---- after every move: quick eval, chat, end detection, bot reply ----
@@ -379,16 +456,6 @@ function BotGame({ store, setStore, nav }) {
     setViewPly(null);
   };
 
-  const rewindTo = (ply) => {
-    if (!confirm(`Rewind the game to move ${Math.floor(ply / 2) + 1}? Later moves are discarded.`)) return;
-    setStore((s) =>
-      s.current && s.current.id === g.id
-        ? { ...s, current: { ...s.current, sans: s.current.sans.slice(0, ply), cps: s.current.cps.slice(0, ply + 1), status: "playing", result: null } }
-        : s
-    );
-    setViewPly(null);
-  };
-
   const cp = g.cps[g.cps.length - 1] ?? 0;
   const over = g.status === "over";
 
@@ -423,10 +490,11 @@ function BotGame({ store, setStore, nav }) {
           orientation={g.playerColor}
           lastMove={lastMove}
           checkSquare={checkSquare}
-          dests={viewPly == null && !over ? dests : null}
+          dests={!over ? dests : null}
           onMove={onMove}
           arrow={viewPly == null ? hintArrow : null}
           theme={store.settings.theme}
+          pieceSet={store.settings.pieces}
           needsPromotion={(from, to) => {
             const piece = new Chess(liveFen).get(from);
             return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
@@ -436,15 +504,22 @@ function BotGame({ store, setStore, nav }) {
 
       {viewPly != null && (
         <div className="previewbar">
-          Viewing move {Math.floor(viewPly / 2) + 1}
+          {viewPly < 0 ? "Start position" : `Viewing move ${Math.floor(viewPly / 2) + 1}`}
+          {!over && " — play here to branch"}
           <button className="linkbtn" onClick={() => setViewPly(null)}>
             Back to live
           </button>
-          {!over && (
-            <button className="linkbtn danger" onClick={() => rewindTo(viewPly)}>
-              Rewind here
+        </div>
+      )}
+
+      {(g.branches || []).length > 0 && (
+        <div className="branchrow">
+          {g.branches.map((b, i) => (
+            <button key={i} className="branchchip" onClick={() => restoreBranch(i)}>
+              ⑂ move {Math.floor(b.atPly / 2) + 1}: {b.sans.slice(b.atPly, b.atPly + 3).join(" ")}
+              {b.sans.length > b.atPly + 3 ? "…" : ""}
             </button>
-          )}
+          ))}
         </div>
       )}
 
