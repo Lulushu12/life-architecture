@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Chess } from "chess.js";
 import Board, { EvalBar } from "./Board.jsx";
 import { TopBar, Toggle, MoveList, PersonaCard } from "./ui.jsx";
-import { PERSONAS, getPersona } from "./personas.js";
+import { getPersona, personasByLang, LEVELS } from "./personas.js";
 import { getEngine, cpWhite } from "./engine.js";
 import { chooseBotMove } from "./bot.js";
 import { detectEvents, pickLine, aiReact } from "./chat.js";
@@ -21,6 +21,10 @@ export default function PlayBot({ store, setStore, nav, view }) {
 function BotPicker({ store, setStore, nav }) {
   const [color, setColor] = useState("w");
   const [serious, setSerious] = useState(false);
+  const lang = store.settings.botLang || "ro";
+  const setLang = (l) =>
+    setStore((s) => ({ ...s, settings: { ...s.settings, botLang: l } }));
+  const roster = personasByLang(lang);
 
   const start = (persona) => {
     setStore((s) => ({
@@ -48,6 +52,17 @@ function BotPicker({ store, setStore, nav }) {
     <div className="page">
       <TopBar title="Choose your opponent" onBack={() => nav("home")} />
       <div className="setrow">
+        <span className="setlabel">Bots speak</span>
+        <div className="chips">
+          <button className={"chip" + (lang === "ro" ? " sel" : "")} onClick={() => setLang("ro")}>
+            Română
+          </button>
+          <button className={"chip" + (lang === "en" ? " sel" : "")} onClick={() => setLang("en")}>
+            English
+          </button>
+        </div>
+      </div>
+      <div className="setrow">
         <span className="setlabel">You play</span>
         <div className="chips">
           <button className={"chip" + (color === "w" ? " sel" : "")} onClick={() => setColor("w")}>
@@ -65,9 +80,29 @@ function BotPicker({ store, setStore, nav }) {
       {store.current && store.current.mode === "bot" && (
         <p className="warn">Starting a new game abandons the current one.</p>
       )}
-      {PERSONAS.map((p) => (
-        <PersonaCard key={p.id} persona={p} record={store.botRecords[p.id]} onClick={() => start(p)} />
-      ))}
+      {LEVELS.map((elo) => {
+        const bots = roster.filter((p) => p.elo === elo);
+        if (bots.length === 0) return null;
+        return (
+          <div key={elo} className="levelblock">
+            <div className="levelhead">{elo}</div>
+            <div className="botgrid">
+              {bots.map((p) => {
+                const rec = store.botRecords[p.id];
+                return (
+                  <button key={p.id} className="botmini" title={p.tagline} onClick={() => start(p)}>
+                    <span className="bm-avatar">{p.avatar}</span>
+                    <span className="bm-name">{p.name}</span>
+                    <span className="bm-rec">
+                      {rec ? `${rec.w}-${rec.d}-${rec.l}` : "—"}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

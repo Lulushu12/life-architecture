@@ -715,3 +715,46 @@ textarea.input {
   justify-content: center;
   margin-top: 8px;
 }
+
+/* ---- bot roster ---- */
+.levelblock {
+  margin-bottom: 10px;
+}
+.levelhead {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin: 10px 4px 6px;
+}
+.botgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.botmini {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+.bm-avatar {
+  font-size: 26px;
+}
+.bm-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bm-rec {
+  font-size: 10.5px;
+  color: var(--accent);
+}
