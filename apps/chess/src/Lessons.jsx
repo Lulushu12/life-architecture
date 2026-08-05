@@ -5,6 +5,30 @@ import { TopBar, useArrowKeys } from "./ui.jsx";
 import { LESSONS, CATEGORY_LABELS, categoryCounts, lessonsByCategory, getLesson } from "./lessons/index.js";
 import { play as sfx, buzz } from "./audio.js";
 
+// Numbered step strip: jump to any part of a lesson directly.
+function StepStrip({ lesson, stepIdx, onJump }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    ref.current?.querySelector(".stepdot.active")?.scrollIntoView({ block: "nearest", inline: "center" });
+  }, [stepIdx]);
+  return (
+    <div className="stepstrip" ref={ref}>
+      {lesson.steps.map((s, i) => (
+        <button
+          key={i}
+          className={
+            "stepdot" + (i === stepIdx ? " active" : "") + (i < stepIdx ? " past" : "") + (s.quiz ? " quiz" : "")
+          }
+          title={stepLabel(s, i)}
+          onClick={() => onJump(i)}
+        >
+          {s.quiz ? "?" : i + 1}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export default function Lessons({ store, setStore, nav, view }) {
   if (view.lessonId) {
     const lesson = getLesson(view.lessonId);
@@ -15,6 +39,33 @@ export default function Lessons({ store, setStore, nav, view }) {
 }
 
 const progressOf = (store, id) => store.lessonProgress?.[id];
+
+// Short label for a step, used by the chapter strip. Content may supply
+// `label`; otherwise we derive one from the text, or name the move played.
+function stepLabel(step, i) {
+  if (step.label) return step.label;
+  if (step.quiz) return "Quiz";
+  if (step.text) {
+    const words = step.text.replace(/[—–]/g, " ").split(/\s+/).slice(0, 3).join(" ");
+    return words.length > 22 ? words.slice(0, 22) + "…" : words;
+  }
+  if (step.play?.length) return step.play[step.play.length - 1];
+  return "Step " + (i + 1);
+}
+
+function LessonProgressBar({ lesson, progress }) {
+  const pct = progress?.completed
+    ? 100
+    : progress
+      ? Math.round((((progress.step || 0) + 1) / lesson.steps.length) * 100)
+      : 0;
+  if (!pct) return null;
+  return (
+    <div className="rowbar">
+      <div className="rowbar-fill" style={{ width: pct + "%" }} />
+    </div>
+  );
+}
 
 function LessonHome({ store, nav }) {
   const cats = categoryCounts();
@@ -50,15 +101,24 @@ function LessonHome({ store, nav }) {
       )}
 
       <h2>Browse</h2>
-      {cats.map((c) => (
-        <div key={c.key} className="card catcard" onClick={() => nav("lessons", { category: c.key })}>
-          <div className="catcard-main">
-            <div className="catcard-title">{c.label}</div>
-            <div className="catcard-sub">{c.count} lessons</div>
+      {cats.map((c) => {
+        const inCat = LESSONS.filter((l) => l.category === c.key);
+        const doneHere = inCat.filter((l) => progressOf(store, l.id)?.completed).length;
+        return (
+          <div key={c.key} className="card catcard" onClick={() => nav("lessons", { category: c.key })}>
+            <div className="catcard-main">
+              <div className="catcard-title">{c.label}</div>
+              <div className="catcard-sub">
+                {doneHere}/{c.count} lessons
+              </div>
+              <div className="rowbar">
+                <div className="rowbar-fill" style={{ width: (doneHere / Math.max(1, c.count)) * 100 + "%" }} />
+              </div>
+            </div>
+            <span className="catcard-arrow">›</span>
           </div>
-          <span className="catcard-arrow">›</span>
-        </div>
-      ))}
+        );
+      })}
 
       <p className="hint small footernote">
         Lessons run on the same board as the rest of the app — play the moves yourself when
@@ -73,27 +133,38 @@ function LessonList({ category, store, nav }) {
   return (
     <div className="page">
       <TopBar title={CATEGORY_LABELS[category]} onBack={() => nav("lessons")} />
-      {groups.map(([group, list]) => (
-        <div key={group}>
-          <h2>{group}</h2>
-          {list.map((l) => {
-            const p = progressOf(store, l.id);
-            return (
-              <div key={l.id} className="card lessonrow" onClick={() => nav("lessons", { lessonId: l.id })}>
-                <div className="gamecard-main">
-                  <div className="gamecard-title">
-                    {p?.completed && <span className="lessondone">✓ </span>}
-                    {l.title}
-                    {l.eco && <span className="eco"> {l.eco}</span>}
+      {groups.map(([group, list]) => {
+        const done = list.filter((l) => progressOf(store, l.id)?.completed).length;
+        return (
+          <div key={group}>
+            <h2>
+              {group}
+              <span className="groupcount">
+                {done}/{list.length}
+              </span>
+            </h2>
+            {list.map((l) => {
+              const p = progressOf(store, l.id);
+              return (
+                <div key={l.id} className="card lessonrow" onClick={() => nav("lessons", { lessonId: l.id })}>
+                  <div className="gamecard-main">
+                    <div className="gamecard-title">
+                      {p?.completed && <span className="lessondone">✓ </span>}
+                      {l.title}
+                      {l.eco && <span className="eco"> {l.eco}</span>}
+                    </div>
+                    <div className="gamecard-sub">{l.summary}</div>
+                    <LessonProgressBar lesson={l} progress={p} />
                   </div>
-                  <div className="gamecard-sub">{l.summary}</div>
+                  <span className={"levelbadge " + (l.level || "intermediate")}>
+                    {(l.level || "")[0]?.toUpperCase()}
+                  </span>
                 </div>
-                <span className={"levelbadge " + (l.level || "intermediate")}>{(l.level || "")[0]?.toUpperCase()}</span>
-              </div>
-            );
-          })}
-        </div>
-      ))}
+              );
+            })}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -104,6 +175,7 @@ function LessonRunner({ lesson, store, setStore, nav }) {
   const [solved, setSolved] = useState(false); // current step's quiz answered
   const [wrong, setWrong] = useState(null);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [showChapters, setShowChapters] = useState(false);
   const stepIdxRef = useRef(stepIdx);
   stepIdxRef.current = stepIdx;
 
@@ -171,6 +243,7 @@ function LessonRunner({ lesson, store, setStore, nav }) {
     setSolved(false);
     setWrong(null);
     setShowAnswer(false);
+    setShowChapters(false);
     save({ step: next });
   };
 
@@ -230,6 +303,8 @@ function LessonRunner({ lesson, store, setStore, nav }) {
         <div className="lessonfill" style={{ width: ((stepIdx + 1) / lesson.steps.length) * 100 + "%" }} />
       </div>
 
+      <StepStrip lesson={lesson} stepIdx={stepIdx} onJump={goto} />
+
       <Board
         fen={shownFen}
         orientation={lesson.orientation || "w"}
@@ -247,6 +322,22 @@ function LessonRunner({ lesson, store, setStore, nav }) {
           return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
         }}
       />
+
+      {showChapters && (
+        <div className="chapterlist card">
+          {lesson.steps.map((s, i) => (
+            <button
+              key={i}
+              className={"chapteritem" + (i === stepIdx ? " active" : "")}
+              onClick={() => goto(i)}
+            >
+              <span className="ch-num">{i + 1}</span>
+              <span className="ch-label">{stepLabel(s, i)}</span>
+              {s.quiz && <span className="ch-quiz">?</span>}
+            </button>
+          ))}
+        </div>
+      )}
 
       {step.text && <div className="lessontext">{step.text}</div>}
 
@@ -271,6 +362,9 @@ function LessonRunner({ lesson, store, setStore, nav }) {
       <div className="btnrow toolrow">
         <button className="linkbtn" onClick={() => goto(stepIdx - 1)} disabled={stepIdx === 0}>
           ‹ Back
+        </button>
+        <button className="linkbtn" onClick={() => setShowChapters((s) => !s)}>
+          ☰ Steps
         </button>
         {needsAnswer && !showAnswer && (
           <button className="linkbtn" onClick={() => setShowAnswer(true)}>

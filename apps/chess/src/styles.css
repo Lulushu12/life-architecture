@@ -1001,3 +1001,91 @@ textarea.input {
 .usercircle.guide {
   border-style: dashed;
 }
+
+/* ---- lesson navigation ---- */
+.rowbar {
+  height: 3px;
+  background: var(--surface2);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+.rowbar-fill {
+  height: 100%;
+  background: var(--accent);
+}
+.groupcount {
+  float: right;
+  color: var(--muted);
+  font-weight: 700;
+}
+.stepstrip {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 2px 8px;
+  scrollbar-width: none;
+}
+.stepstrip::-webkit-scrollbar {
+  display: none;
+}
+.stepdot {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.stepdot.past {
+  color: var(--text);
+  border-color: var(--muted);
+}
+.stepdot.quiz {
+  color: var(--gold);
+}
+.stepdot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #141b0b;
+}
+.chapterlist {
+  padding: 6px;
+  max-height: 46vh;
+  overflow-y: auto;
+}
+.chapteritem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 8px;
+  border-radius: 9px;
+  text-align: left;
+  font-size: 14px;
+}
+.chapteritem.active {
+  background: var(--surface2);
+}
+.ch-num {
+  width: 22px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  flex: none;
+}
+.ch-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ch-quiz {
+  color: var(--gold);
+  font-weight: 800;
+  flex: none;
+}
