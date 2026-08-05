@@ -19,7 +19,8 @@ const errors = [];
 const warnings = [];
 const quizPositions = []; // {lesson, fen, answer, uci, strict}
 
-const files = readdirSync(LESSON_DIR).filter((f) => f.endsWith(".js"));
+// index.js is the app-side aggregator (Vite's import.meta.glob) — skip it.
+const files = readdirSync(LESSON_DIR).filter((f) => f.endsWith(".js") && f !== "index.js");
 const seenIds = new Set();
 let lessonCount = 0;
 let stepCount = 0;
@@ -97,6 +98,7 @@ for (const file of files) {
               answer: san,
               uci: mv.from + mv.to + (mv.promotion || ""),
               strict: Boolean(q.strict),
+              speculative: Boolean(q.speculative),
             });
           }
         }
@@ -179,18 +181,57 @@ if (useEngine && quizPositions.length && errors.length === 0) {
       warnings.push(`${q.tag}: engine returned nothing for ${q.fen}`);
       continue;
     }
-    const match = res.all.find((l) => l.move === q.uci);
+    let match = res.all.find((l) => l.move === q.uci);
+    if (!match) {
+      // outside the top lines — search this move specifically so the loss
+      // is measured rather than guessed
+      match = await page.evaluate(
+        async ([fen, uci]) => {
+          window.__lines = [];
+          const send = (c) => window.__e.postMessage(c);
+          send("setoption name MultiPV value 1");
+          send("position fen " + fen);
+          send("go movetime 400 searchmoves " + uci);
+          await new Promise((r) => {
+            const t = setInterval(() => {
+              if (window.__lines.some((l) => l.startsWith("bestmove"))) {
+                clearInterval(t);
+                r();
+              }
+            }, 100);
+          });
+          const infos = window.__lines.filter((l) => l.startsWith("info ") && l.includes(" pv "));
+          const last = infos[infos.length - 1];
+          if (!last) return null;
+          const t = last.split(" ");
+          const cpIdx = t.indexOf("cp");
+          const mateIdx = t.indexOf("mate");
+          const score =
+            mateIdx > -1 ? (parseInt(t[mateIdx + 1], 10) > 0 ? 9000 : -9000) : parseInt(t[cpIdx + 1], 10);
+          return { move: uci, score };
+        },
+        [q.fen, q.uci]
+      );
+    }
     const loss = match ? res.best.score - match.score : null;
+    const limit = q.speculative ? 250 : 100;
     if (q.strict && res.best.move !== q.uci) {
       errors.push(
         `${q.tag}: STRICT answer ${q.answer} (${q.uci}) is not the engine's best (${res.best.move})` +
           (loss != null ? `, loses ${loss}cp` : "")
       );
-    } else if (loss != null && loss > 100) {
-      errors.push(`${q.tag}: answer ${q.answer} loses ${loss}cp vs best ${res.best.move}`);
-    } else if (!match && !q.strict) {
-      // outside the top 3 — evaluate it directly to see how bad it is
-      warnings.push(`${q.tag}: answer ${q.answer} is outside the engine's top 3 (best ${res.best.move})`);
+    } else if (loss == null) {
+      warnings.push(`${q.tag}: could not evaluate answer ${q.answer}`);
+    } else if (loss > limit) {
+      errors.push(
+        `${q.tag}: answer ${q.answer} loses ${loss}cp vs best ${res.best.move}` +
+          (q.speculative ? " (even allowing for a speculative line)" : "")
+      );
+    } else if (loss > 60) {
+      warnings.push(
+        `${q.tag}: answer ${q.answer} loses ${loss}cp vs best ${res.best.move}` +
+          (q.speculative ? " — flagged speculative, make sure the text says so" : "")
+      );
     }
     if (checked % 20 === 0) console.log(`  …${checked}/${quizPositions.length}`);
   }

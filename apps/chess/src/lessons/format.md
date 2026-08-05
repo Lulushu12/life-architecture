@@ -37,9 +37,22 @@ previous step left behind.
     prompt: "Black ignores the attack on f7. What's the shot?",
     explain: "The point: …",              // shown after they get it
     strict: true,                         // true → answer must be an engine top choice
+    speculative: true,                    // true → knowingly objectively second-best
   },
 }
 ```
+
+`strict` and `speculative` are opposites and set the bar the validator holds
+the answer to:
+
+- `strict: true` — the answer must be the engine's top move. Use for tactics
+  and forced sequences.
+- neither — the answer must not lose more than 1 pawn versus best. Use for
+  ordinary theory where several moves are playable.
+- `speculative: true` — the answer is a gambit or sideline that is knowingly
+  objectively inferior (a Traxler, a King's Gambit); allowed up to 2.5 pawns,
+  and the lesson text **must** say plainly that it is objectively second-best
+  and why you'd still play it.
 
 Rules:
 

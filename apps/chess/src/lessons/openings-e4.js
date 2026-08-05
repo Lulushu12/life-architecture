@@ -150,13 +150,14 @@ export const LESSONS = [
       {
         quiz: {
           answer: "Bc5",
+          speculative: true,
           prompt: "Find Black's provocative counter, ignoring the threat to f7 completely.",
-          explain: "Bc5!? counterattacks f2 and allows Nxf7. The idea: Black's own attack against the White king arrives before White's does.",
+          explain: "Bc5!? counterattacks f2 and invites Nxf7. Objectively it's second best — engines prefer 4...d5 by about a pawn — but the attack it generates is genuinely dangerous over the board.",
         },
       },
       {
         play: ["Nxf7"],
-        text: "White grabs the pawn, forking the queen and rook — but the king is still stuck in the center, uncastled.",
+        text: "White grabs the pawn, forking queen and rook — the greedy, critical test. (5.Bxf7+ is the calmer route to an edge; Nxf7 is what makes the Traxler famous.)",
         circles: ["f7"],
       },
       {
@@ -184,7 +185,7 @@ export const LESSONS = [
         text: "One sample main line; theory branches heavily here with checks and threats for both sides.",
       },
       {
-        text: "The Traxler is roughly balanced with best play on both sides — not a forced win for Black — but it's a brutal practical test. Only play it if you enjoy chaos and have studied the key lines.",
+        text: "Verdict: engines give White the better side with accurate play — this is not a refutation of Ng5. But it's a brutal practical test, and a defender who doesn't know it can be swept away. Know the lines before you fire it.",
       },
     ],
   },
