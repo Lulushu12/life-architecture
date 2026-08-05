@@ -22,6 +22,7 @@ function freshStore() {
     current: null, // in-progress game (any mode), see PlayBot/PassPlay for shape
     games: [], // archive entries {id,date,mode,personaId,playerColor,result,sans,startFen,review}
     puzzles: [], // {id,fen,bestSan,playedSan,personaId,date,solved}
+    lessonProgress: {}, // lessonId -> {step, completed, completedAt}
   };
 }
 

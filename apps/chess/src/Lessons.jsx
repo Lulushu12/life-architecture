@@ -1,0 +1,298 @@
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Chess } from "chess.js";
+import Board from "./Board.jsx";
+import { TopBar, useArrowKeys } from "./ui.jsx";
+import { LESSONS, CATEGORY_LABELS, categoryCounts, lessonsByCategory, getLesson } from "./lessons/index.js";
+import { play as sfx, buzz } from "./audio.js";
+
+export default function Lessons({ store, setStore, nav, view }) {
+  if (view.lessonId) {
+    const lesson = getLesson(view.lessonId);
+    if (lesson) return <LessonRunner lesson={lesson} store={store} setStore={setStore} nav={nav} />;
+  }
+  if (view.category) return <LessonList category={view.category} store={store} nav={nav} />;
+  return <LessonHome store={store} nav={nav} />;
+}
+
+const progressOf = (store, id) => store.lessonProgress?.[id];
+
+function LessonHome({ store, nav }) {
+  const cats = categoryCounts();
+  const done = Object.values(store.lessonProgress || {}).filter((p) => p.completed).length;
+  const inProgress = LESSONS.filter((l) => {
+    const p = progressOf(store, l.id);
+    return p && !p.completed;
+  });
+
+  return (
+    <div className="page">
+      <TopBar
+        title="Lessons"
+        sub={`${done}/${LESSONS.length} completed`}
+        onBack={() => nav("home")}
+      />
+
+      {inProgress.length > 0 && (
+        <>
+          <h2>Continue</h2>
+          {inProgress.slice(0, 3).map((l) => (
+            <div key={l.id} className="card lessonrow" onClick={() => nav("lessons", { lessonId: l.id })}>
+              <div className="gamecard-main">
+                <div className="gamecard-title">{l.title}</div>
+                <div className="gamecard-sub">
+                  step {(progressOf(store, l.id).step || 0) + 1} of {l.steps.length}
+                </div>
+              </div>
+              <span className="catcard-arrow">›</span>
+            </div>
+          ))}
+        </>
+      )}
+
+      <h2>Browse</h2>
+      {cats.map((c) => (
+        <div key={c.key} className="card catcard" onClick={() => nav("lessons", { category: c.key })}>
+          <div className="catcard-main">
+            <div className="catcard-title">{c.label}</div>
+            <div className="catcard-sub">{c.count} lessons</div>
+          </div>
+          <span className="catcard-arrow">›</span>
+        </div>
+      ))}
+
+      <p className="hint small footernote">
+        Lessons run on the same board as the rest of the app — play the moves yourself when
+        asked. Progress is saved on this device.
+      </p>
+    </div>
+  );
+}
+
+function LessonList({ category, store, nav }) {
+  const groups = useMemo(() => lessonsByCategory(category), [category]);
+  return (
+    <div className="page">
+      <TopBar title={CATEGORY_LABELS[category]} onBack={() => nav("lessons")} />
+      {groups.map(([group, list]) => (
+        <div key={group}>
+          <h2>{group}</h2>
+          {list.map((l) => {
+            const p = progressOf(store, l.id);
+            return (
+              <div key={l.id} className="card lessonrow" onClick={() => nav("lessons", { lessonId: l.id })}>
+                <div className="gamecard-main">
+                  <div className="gamecard-title">
+                    {p?.completed && <span className="lessondone">✓ </span>}
+                    {l.title}
+                    {l.eco && <span className="eco"> {l.eco}</span>}
+                  </div>
+                  <div className="gamecard-sub">{l.summary}</div>
+                </div>
+                <span className={"levelbadge " + (l.level || "intermediate")}>{(l.level || "")[0]?.toUpperCase()}</span>
+              </div>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function LessonRunner({ lesson, store, setStore, nav }) {
+  const saved = progressOf(store, lesson.id);
+  const [stepIdx, setStepIdx] = useState(saved && !saved.completed ? saved.step || 0 : 0);
+  const [solved, setSolved] = useState(false); // current step's quiz answered
+  const [wrong, setWrong] = useState(null);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const stepIdxRef = useRef(stepIdx);
+  stepIdxRef.current = stepIdx;
+
+  const step = lesson.steps[stepIdx];
+  const isLast = stepIdx === lesson.steps.length - 1;
+
+  // Position at the start of a step: replay everything before it.
+  const { fenBefore, fenAfterPlay, lastMove } = useMemo(() => {
+    const c = lesson.startFen ? new Chess(lesson.startFen) : new Chess();
+    for (let i = 0; i < stepIdx; i++) {
+      const s = lesson.steps[i];
+      for (const san of s.play || []) c.move(san);
+      if (s.quiz) c.move(s.quiz.answer);
+    }
+    const before = c.fen();
+    let mv = null;
+    for (const san of step.play || []) mv = c.move(san);
+    return {
+      fenBefore: before,
+      fenAfterPlay: c.fen(),
+      lastMove: mv ? [mv.from, mv.to] : null,
+    };
+  }, [lesson, stepIdx, step]);
+
+  // Position shown: after the step's own moves, plus the quiz answer once found.
+  const shownFen = useMemo(() => {
+    if (!step.quiz || !solved) return fenAfterPlay;
+    const c = new Chess(fenAfterPlay);
+    c.move(step.quiz.answer);
+    return c.fen();
+  }, [fenAfterPlay, step, solved]);
+
+  const quizLastMove = useMemo(() => {
+    if (!step.quiz || !solved) return lastMove;
+    const c = new Chess(fenAfterPlay);
+    const mv = c.move(step.quiz.answer);
+    return mv ? [mv.from, mv.to] : lastMove;
+  }, [fenAfterPlay, step, solved, lastMove]);
+
+  const chess = useMemo(() => new Chess(shownFen), [shownFen]);
+  const needsAnswer = Boolean(step.quiz) && !solved;
+
+  const dests = useMemo(() => {
+    if (!needsAnswer) return null;
+    const map = new Map();
+    for (const m of chess.moves({ verbose: true })) {
+      if (!map.has(m.from)) map.set(m.from, []);
+      map.get(m.from).push(m.to);
+    }
+    return map;
+  }, [chess, needsAnswer]);
+
+  const save = (patch) =>
+    setStore((s) => ({
+      ...s,
+      lessonProgress: {
+        ...(s.lessonProgress || {}),
+        [lesson.id]: { ...(s.lessonProgress?.[lesson.id] || {}), ...patch },
+      },
+    }));
+
+  const goto = (i) => {
+    const next = Math.max(0, Math.min(lesson.steps.length - 1, i));
+    setStepIdx(next);
+    setSolved(false);
+    setWrong(null);
+    setShowAnswer(false);
+    save({ step: next });
+  };
+
+  const finish = () => {
+    save({ step: lesson.steps.length - 1, completed: true, completedAt: Date.now() });
+    sfx(store, "gameEnd");
+    nav("lessons", { category: lesson.category });
+  };
+
+  // Steps without a quiz are free to navigate with the arrow keys.
+  useArrowKeys(
+    () => goto(stepIdx - 1),
+    () => {
+      if (!needsAnswer && !isLast) goto(stepIdx + 1);
+    }
+  );
+
+  const onMove = (from, to, promotion) => {
+    if (!needsAnswer) return;
+    const probe = new Chess(fenAfterPlay);
+    const mv = probe.move({ from, to, promotion: promotion || "q" });
+    if (!mv) return;
+    const accepted = [step.quiz.answer, ...(step.quiz.also || [])];
+    if (accepted.includes(mv.san)) {
+      sfx(store, mv.captured ? "capture" : "move");
+      buzz(store, 18);
+      setSolved(true);
+      setWrong(null);
+      if (mv.san !== step.quiz.answer) {
+        // an accepted alternative: continue from the main answer so later
+        // steps still line up
+        setTimeout(() => setSolved(true), 0);
+      }
+    } else {
+      sfx(store, "lose");
+      buzz(store, 50);
+      setWrong(mv.san);
+    }
+  };
+
+  const answerArrow = useMemo(() => {
+    if (!step.quiz || (!showAnswer && !solved)) return null;
+    const probe = new Chess(fenAfterPlay);
+    const mv = probe.move(step.quiz.answer);
+    return mv && showAnswer && !solved ? [mv.from, mv.to] : null;
+  }, [step, fenAfterPlay, showAnswer, solved]);
+
+  return (
+    <div className="page gamepage">
+      <TopBar
+        title={lesson.title}
+        sub={`${stepIdx + 1}/${lesson.steps.length}${lesson.eco ? " · " + lesson.eco : ""}`}
+        onBack={() => nav("lessons", { category: lesson.category })}
+      />
+
+      <div className="lessonbar">
+        <div className="lessonfill" style={{ width: ((stepIdx + 1) / lesson.steps.length) * 100 + "%" }} />
+      </div>
+
+      <Board
+        fen={shownFen}
+        orientation={lesson.orientation || "w"}
+        lastMove={quizLastMove}
+        dests={dests}
+        onMove={onMove}
+        arrow={answerArrow}
+        guideArrows={step.arrows || []}
+        highlightSquares={step.circles || []}
+        theme={store.settings.theme}
+        pieceSet={store.settings.pieces}
+        arrowColors={store.settings.arrowColors}
+        needsPromotion={(from, to) => {
+          const piece = chess.get(from);
+          return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
+        }}
+      />
+
+      {step.text && <div className="lessontext">{step.text}</div>}
+
+      {step.quiz && (
+        <div className={"lessonquiz" + (solved ? " solved" : wrong ? " wrong" : "")}>
+          {!solved ? (
+            <>
+              <b>{step.quiz.prompt || "Your move."}</b>
+              {wrong && <div className="quizfeed">{wrong} isn't it — try again.</div>}
+              {showAnswer && <div className="quizfeed">The move is {step.quiz.answer}.</div>}
+              {step.quiz.hint && !showAnswer && <div className="quizhint">Hint: {step.quiz.hint}</div>}
+            </>
+          ) : (
+            <>
+              <b className="okmsg">✓ {step.quiz.answer}</b>
+              {step.quiz.explain && <div className="quizfeed">{step.quiz.explain}</div>}
+            </>
+          )}
+        </div>
+      )}
+
+      <div className="btnrow toolrow">
+        <button className="linkbtn" onClick={() => goto(stepIdx - 1)} disabled={stepIdx === 0}>
+          ‹ Back
+        </button>
+        {needsAnswer && !showAnswer && (
+          <button className="linkbtn" onClick={() => setShowAnswer(true)}>
+            Show me
+          </button>
+        )}
+        {needsAnswer && showAnswer && (
+          <button className="linkbtn" onClick={() => setSolved(true)}>
+            Continue anyway
+          </button>
+        )}
+        {!needsAnswer &&
+          (isLast ? (
+            <button className="bigbtn" onClick={finish}>
+              Finish lesson
+            </button>
+          ) : (
+            <button className="bigbtn" onClick={() => goto(stepIdx + 1)}>
+              Next ›
+            </button>
+          ))}
+      </div>
+    </div>
+  );
+}

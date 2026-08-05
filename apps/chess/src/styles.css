@@ -918,3 +918,86 @@ textarea.input {
     grid-template-columns: minmax(0, 1fr) 310px;
   }
 }
+
+/* ---- lessons ---- */
+.lessonrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.lessondone {
+  color: var(--accent);
+}
+.eco {
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 12px;
+}
+.levelbadge {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  flex: none;
+  background: var(--surface2);
+  color: var(--muted);
+}
+.levelbadge.beginner {
+  background: rgba(129, 182, 76, 0.2);
+  color: var(--accent);
+}
+.levelbadge.intermediate {
+  background: rgba(240, 193, 92, 0.2);
+  color: var(--gold);
+}
+.levelbadge.advanced {
+  background: rgba(224, 40, 40, 0.2);
+  color: #e46060;
+}
+.lessonbar {
+  height: 4px;
+  background: var(--surface2);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 0 2px 10px;
+}
+.lessonfill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.25s;
+}
+.lessontext {
+  margin: 10px 2px;
+  line-height: 1.55;
+  font-size: 14.5px;
+}
+.lessonquiz {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 12px 12px 0;
+  padding: 10px 12px;
+  margin: 8px 2px;
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+.lessonquiz.solved {
+  border-left-color: var(--accent);
+}
+.lessonquiz.wrong {
+  border-left-color: var(--danger);
+}
+.quizfeed,
+.quizhint {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin-top: 5px;
+}
+.usercircle.guide {
+  border-style: dashed;
+}

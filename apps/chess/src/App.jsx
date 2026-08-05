@@ -7,6 +7,7 @@ import Analysis from "./Analysis.jsx";
 import ReviewScreen from "./ReviewScreen.jsx";
 import Archive from "./Archive.jsx";
 import Puzzles from "./Puzzles.jsx";
+import Lessons from "./Lessons.jsx";
 import Settings from "./Settings.jsx";
 
 export default function App() {
@@ -35,6 +36,8 @@ export default function App() {
       return <Archive {...props} />;
     case "puzzles":
       return <Puzzles {...props} />;
+    case "lessons":
+      return <Lessons {...props} />;
     case "settings":
       return <Settings {...props} />;
     default:

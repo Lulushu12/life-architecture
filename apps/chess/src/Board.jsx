@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 // Piece sets (SVGs from lichess, see README attribution) inlined at build
 // time — fully offline. Folder name = set id: pieces/<set>/<wK…bP>.svg
@@ -112,6 +112,8 @@ export default function Board({
   onMove,
   arrow,
   threats,
+  guideArrows,
+  highlightSquares,
   theme = "brown",
   pieceSet = "cburnett",
   arrowColors,
@@ -122,6 +124,10 @@ export default function Board({
   const [pendingPromo, setPendingPromo] = useState(null); // {from,to}
   const [shapes, setShapes] = useState([]); // {from,to}; from===to → circle
   const [drawFrom, setDrawFrom] = useState(null);
+  const [dragTo, setDragTo] = useState(null); // live preview while drawing
+  const boardRef = useRef(null);
+  const touch = useRef(null);
+  const suppressClick = useRef(false);
   const pieces = useMemo(() => fenToMap(fen), [fen]);
   const colors = BOARD_THEMES[theme] || BOARD_THEMES.brown;
   const svgs = PIECE_SETS[pieceSet] || PIECE_SETS.cburnett;
@@ -135,6 +141,7 @@ export default function Board({
   }, [fen]);
 
   const tap = (sq) => {
+    if (suppressClick.current) return; // tail of a long-press drawing gesture
     setShapes([]);
     if (!dests) return;
     if (selected && targets.includes(sq)) {
@@ -157,18 +164,98 @@ export default function Board({
     return { col, row };
   };
 
-  const addShape = (from, to) => {
+  const addShape = useCallback((from, to) => {
     setShapes((ss) => {
       const exists = ss.findIndex((s) => s.from === from && s.to === to);
       if (exists >= 0) return ss.filter((_, i) => i !== exists);
       return [...ss, { from, to }];
     });
-  };
+  }, []);
+
+  // Mobile planning: long-press a square to start drawing, drag to the
+  // target, release to place the arrow (release in place = circle). Native
+  // listeners because React's touchmove is passive and can't block scroll.
+  useEffect(() => {
+    const el = boardRef.current;
+    if (!el) return;
+    const LONG_PRESS_MS = 320;
+    const MOVE_TOLERANCE = 12;
+    const sqAt = (x, y) => document.elementFromPoint(x, y)?.closest?.("[data-sq]")?.dataset.sq || null;
+
+    const cancel = () => {
+      if (touch.current?.timer) clearTimeout(touch.current.timer);
+      touch.current = null;
+    };
+
+    const onStart = (e) => {
+      if (e.touches.length !== 1) return cancel();
+      const t = e.touches[0];
+      const sq = sqAt(t.clientX, t.clientY);
+      if (!sq) return;
+      const st = { sq, to: sq, x: t.clientX, y: t.clientY, drawing: false };
+      st.timer = setTimeout(() => {
+        st.drawing = true;
+        setDrawFrom(sq);
+        setDragTo(sq);
+        navigator.vibrate?.(12);
+      }, LONG_PRESS_MS);
+      touch.current = st;
+    };
+
+    const onMove = (e) => {
+      const st = touch.current;
+      if (!st) return;
+      const t = e.touches[0];
+      if (!st.drawing) {
+        // moved before the press registered → it's a scroll/tap, not a draw
+        if (Math.hypot(t.clientX - st.x, t.clientY - st.y) > MOVE_TOLERANCE) cancel();
+        return;
+      }
+      e.preventDefault(); // hold the page still while drawing
+      const sq = sqAt(t.clientX, t.clientY);
+      if (sq && sq !== st.to) {
+        st.to = sq;
+        setDragTo(sq);
+      }
+    };
+
+    const onEnd = (e) => {
+      const st = touch.current;
+      if (!st) return;
+      const wasDrawing = st.drawing;
+      const { sq, to } = st;
+      cancel();
+      if (!wasDrawing) return;
+      e.preventDefault();
+      addShape(sq, to);
+      setDrawFrom(null);
+      setDragTo(null);
+      // preventDefault above usually stops the synthetic click; this is a
+      // short belt-and-braces window, kept tight so the next real tap works
+      suppressClick.current = true;
+      setTimeout(() => {
+        suppressClick.current = false;
+      }, 80);
+    };
+
+    el.addEventListener("touchstart", onStart, { passive: true });
+    el.addEventListener("touchmove", onMove, { passive: false });
+    el.addEventListener("touchend", onEnd, { passive: false });
+    el.addEventListener("touchcancel", onEnd, { passive: false });
+    return () => {
+      el.removeEventListener("touchstart", onStart);
+      el.removeEventListener("touchmove", onMove);
+      el.removeEventListener("touchend", onEnd);
+      el.removeEventListener("touchcancel", onEnd);
+      cancel();
+    };
+  }, [addShape]);
 
   return (
     <div className="boardwrap">
       <div
-        className="board"
+        ref={boardRef}
+        className={"board" + (drawFrom ? " drawing" : "")}
         style={{ "--light": colors.light, "--dark": colors.dark }}
         onContextMenu={(e) => e.preventDefault()}
       >
@@ -192,12 +279,19 @@ export default function Board({
                 style={{ gridColumn: col + 1, gridRow: row + 1 }}
                 onClick={() => tap(sq)}
                 onMouseDown={(e) => {
-                  if (e.button === 2) setDrawFrom(sq);
+                  if (e.button === 2) {
+                    setDrawFrom(sq);
+                    setDragTo(sq);
+                  }
+                }}
+                onMouseEnter={() => {
+                  if (drawFrom) setDragTo(sq);
                 }}
                 onMouseUp={(e) => {
                   if (e.button === 2 && drawFrom) {
                     addShape(drawFrom, sq);
                     setDrawFrom(null);
+                    setDragTo(null);
                   }
                 }}
               >
@@ -207,7 +301,12 @@ export default function Board({
                   <div className="piece" dangerouslySetInnerHTML={{ __html: svgs[pieces[sq]] }} />
                 )}
                 {targets.includes(sq) && <div className={pieces[sq] ? "hintring" : "hintdot"} />}
-                {circled && <div className="usercircle" style={{ borderColor: colorsArrow.plan }} />}
+                {(circled || (drawFrom === sq && dragTo === sq)) && (
+                  <div className="usercircle" style={{ borderColor: colorsArrow.plan }} />
+                )}
+                {(highlightSquares || []).includes(sq) && (
+                  <div className="usercircle guide" style={{ borderColor: colorsArrow.hint }} />
+                )}
               </div>
             );
           })
@@ -221,6 +320,12 @@ export default function Board({
             .map((s, i) => (
               <Arrow key={"p" + i} from={idx(s.from)} to={idx(s.to)} color={colorsArrow.plan} width={2.4} />
             ))}
+          {(guideArrows || []).map((a, i) => (
+            <Arrow key={"g" + i} from={idx(a[0])} to={idx(a[1])} color={colorsArrow.hint} width={2.3} />
+          ))}
+          {drawFrom && dragTo && drawFrom !== dragTo && (
+            <Arrow from={idx(drawFrom)} to={idx(dragTo)} color={colorsArrow.plan} width={2.4} />
+          )}
           {arrow && <Arrow from={idx(arrow[0])} to={idx(arrow[1])} color={colorsArrow.hint} width={2.6} />}
         </svg>
       </div>
