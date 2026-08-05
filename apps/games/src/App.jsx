@@ -43,6 +43,34 @@ export default function App() {
       crypto: { ...s.crypto, progress: { ...s.crypto.progress, [id]: fn(s.crypto.progress[id]) } },
     }));
 
+  const allPuzzles = [...PUZZLES, ...(store.crypto.custom || [])];
+
+  const addCustomPuzzles = (entries) =>
+    setStore((s) => {
+      const base = Date.now();
+      const added = entries.map((e, i) => ({
+        id: `c${base}-${i}`,
+        text: e.text,
+        attribution: e.attribution,
+        custom: true,
+      }));
+      return { ...s, crypto: { ...s.crypto, custom: [...(s.crypto.custom || []), ...added] } };
+    });
+
+  const deleteCustomPuzzle = (id) =>
+    setStore((s) => {
+      const progress = { ...s.crypto.progress };
+      delete progress[id];
+      return {
+        ...s,
+        crypto: {
+          ...s.crypto,
+          custom: (s.crypto.custom || []).filter((p) => p.id !== id),
+          progress,
+        },
+      };
+    });
+
   if (view.screen === "chess") {
     if (!store.chess) return <ChessSetup onCancel={() => setView({ screen: "home" })} onStart={setChess} />;
     return (
@@ -71,15 +99,18 @@ export default function App() {
   if (view.screen === "crypto-list") {
     return (
       <CryptogramList
+        puzzles={allPuzzles}
         progress={store.crypto.progress}
         onOpen={openCryptoPuzzle}
+        onAdd={addCustomPuzzles}
+        onDeleteCustom={deleteCustomPuzzle}
         onHome={() => setView({ screen: "home" })}
       />
     );
   }
 
   if (view.screen === "crypto-play") {
-    const puzzle = PUZZLES.find((p) => p.id === view.id);
+    const puzzle = allPuzzles.find((p) => p.id === view.id);
     const progress = store.crypto.progress[view.id];
     if (puzzle && progress) {
       return (

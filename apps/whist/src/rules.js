@@ -98,18 +98,20 @@ export function computeWhist(game) {
 // ---------------------------------------------------------------- Rentz ----
 
 // The deck holds 2N cards per suit (8 cards per player → 8 tricks per hand).
+// Default values follow the standard Romanian Rentz scoring.
 export const RENTZ_GAME_DEFS = (n) => [
-  { id: "king", name: "Regele de cupă", type: "single", value: -100, enabled: true },
-  { id: "queens", name: "Damele", type: "units", units: 4, value: -25, enabled: true },
-  { id: "tricks", name: "Levatele", type: "units", units: 8, value: -25, enabled: true },
-  { id: "diamonds", name: "Carourile", type: "units", units: 2 * n, value: -10, enabled: true },
-  { id: "last", name: "Ultima levată", type: "single", value: -50, enabled: true },
+  { id: "whist", name: "Whist", type: "units", units: 8, value: 50, enabled: true },
+  { id: "king", name: "Popa de roșu", type: "single", value: -200, enabled: true },
+  { id: "tenclubs", name: "10 de treflă", type: "single", value: 200, enabled: true },
+  { id: "queens", name: "Damele", type: "units", units: 4, value: -40, enabled: true },
+  { id: "diamonds", name: "Caro", type: "units", units: 2 * n, value: -30, enabled: true },
+  { id: "tricks", name: "Levata", type: "units", units: 8, value: -50, enabled: true },
   { id: "totale", name: "Totale", type: "totale", enabled: true },
-  { id: "rentz", name: "Rentz", type: "positions", values: [100, 50, 20, 0, 0, 0].slice(0, n), enabled: true },
+  { id: "rentz", name: "Rentz", type: "positions", values: [400, 200, 100, 0, 0, 0].slice(0, n), enabled: true },
 ];
 
 export const resizePositions = (vals, n) => {
-  const base = [100, 50, 20, 0, 0, 0];
+  const base = [400, 200, 100, 0, 0, 0];
   const v = vals.slice(0, n);
   while (v.length < n) v.push(base[v.length] ?? 0);
   return v;
@@ -139,8 +141,10 @@ export function handPoints(def, data, n, defs) {
       });
       break;
     case "totale":
+      // Totale combines the negative games. Old saved games may still carry
+      // an "Ultima levată" def — honor it so their history recomputes intact.
       single("king", data.king);
-      single("last", data.last);
+      if (byId.last && data.last != null) single("last", data.last);
       units("queens", data.queens);
       units("tricks", data.tricks);
       units("diamonds", data.diamonds);

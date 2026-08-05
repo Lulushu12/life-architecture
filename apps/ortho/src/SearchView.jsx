@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { ARTICLES } from "./content.js";
+import { allArticles } from "./content.js";
 import { search } from "./search.js";
 import { TopBar } from "./ui.jsx";
 
-export default function SearchView({ onOpenArticle, onHome }) {
+export default function SearchView({ local, onOpenArticle, onHome }) {
   const [query, setQuery] = useState("");
-  const results = search(ARTICLES, query);
+  const results = search(allArticles(local), query);
 
   return (
     <div className="page">

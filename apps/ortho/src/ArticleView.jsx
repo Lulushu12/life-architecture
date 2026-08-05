@@ -3,8 +3,8 @@ import { getArticle } from "./content.js";
 import { Markdown } from "./markdown.jsx";
 import { TopBar, StarButton, Chips } from "./ui.jsx";
 
-export default function ArticleView({ articleId, store, onToggleFavorite, onView, onBack }) {
-  const article = getArticle(articleId);
+export default function ArticleView({ articleId, store, onToggleFavorite, onView, onEdit, onBack }) {
+  const article = getArticle(articleId, store.localArticles);
   const recorded = useRef(null);
 
   useEffect(() => {
@@ -32,7 +32,14 @@ export default function ArticleView({ articleId, store, onToggleFavorite, onView
         subtitle={article.categoryLabel}
         onBack={onBack}
         right={
-          <StarButton active={isFav} onToggle={() => onToggleFavorite(article.id)} />
+          <>
+            {article.local && (
+              <button className="linkbtn" onClick={onEdit}>
+                Edit
+              </button>
+            )}
+            <StarButton active={isFav} onToggle={() => onToggleFavorite(article.id)} />
+          </>
         }
       />
       <Chips tags={article.tags} />

@@ -1,12 +1,26 @@
-import { CATEGORIES, getArticle } from "./content.js";
+import { useRef } from "react";
+import { categories, getArticle } from "./content.js";
+import { exportStore, mergeImport } from "./storage.js";
 
-export default function Home({ store, onOpenCategory, onOpenArticle, onSearch }) {
-  const favorites = store.favorites
-    .map((id) => getArticle(id))
-    .filter(Boolean);
-  const recents = store.recents
-    .map((id) => getArticle(id))
-    .filter(Boolean);
+export default function Home({ store, setStore, onOpenCategory, onOpenArticle, onSearch, onNew }) {
+  const fileRef = useRef();
+  const local = store.localArticles;
+  const favorites = store.favorites.map((id) => getArticle(id, local)).filter(Boolean);
+  const recents = store.recents.map((id) => getArticle(id, local)).filter(Boolean);
+
+  const onImport = (e) => {
+    const f = e.target.files?.[0];
+    if (!f) return;
+    f.text().then((t) => {
+      try {
+        setStore((s) => mergeImport(s, JSON.parse(t)));
+        alert("Import complete.");
+      } catch {
+        alert("Not a valid backup file.");
+      }
+    });
+    e.target.value = "";
+  };
 
   return (
     <div className="page">
@@ -19,8 +33,12 @@ export default function Home({ store, onOpenCategory, onOpenArticle, onSearch })
         <span className="searchbox-placeholder">Search classifications, techniques…</span>
       </button>
 
+      <button className="bigbtn newbtn" onClick={onNew}>
+        + New article
+      </button>
+
       <h2>Categories</h2>
-      {CATEGORIES.map((c) => (
+      {categories(local).map((c) => (
         <div key={c.key} className="card catcard" onClick={() => onOpenCategory(c.key)}>
           <div className="catcard-main">
             <div className="catcard-title">{c.label}</div>
@@ -58,9 +76,20 @@ export default function Home({ store, onOpenCategory, onOpenArticle, onSearch })
         </>
       )}
 
+      <div className="backuprow">
+        <button className="linkbtn" onClick={() => exportStore(store)}>
+          Export backup
+        </button>
+        <button className="linkbtn" onClick={() => fileRef.current.click()}>
+          Import backup
+        </button>
+        <input ref={fileRef} type="file" accept="application/json" hidden onChange={onImport} />
+      </div>
+
       <p className="hint small footernote">
-        Add or edit articles by editing files in apps/ortho/src/content/ — each
-        becomes available offline after the next deploy.
+        "+ New article" writes are stored on this device (back them up with Export).
+        For the permanent shared library, edit the Markdown files in
+        apps/ortho/src/content/ on GitHub — changes deploy automatically.
       </p>
     </div>
   );

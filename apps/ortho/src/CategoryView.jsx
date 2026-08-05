@@ -1,9 +1,9 @@
-import { articlesInCategory, CATEGORIES } from "./content.js";
+import { articlesInCategory, categories } from "./content.js";
 import { TopBar, ArticleRow } from "./ui.jsx";
 
-export default function CategoryView({ categoryKey, onOpenArticle, onHome }) {
-  const meta = CATEGORIES.find((c) => c.key === categoryKey);
-  const articles = articlesInCategory(categoryKey);
+export default function CategoryView({ categoryKey, local, onOpenArticle, onNew, onHome }) {
+  const meta = categories(local).find((c) => c.key === categoryKey);
+  const articles = articlesInCategory(categoryKey, local);
 
   return (
     <div className="page">
@@ -11,6 +11,11 @@ export default function CategoryView({ categoryKey, onOpenArticle, onHome }) {
         title={meta ? meta.label : categoryKey}
         subtitle={`${articles.length} article${articles.length === 1 ? "" : "s"}`}
         onBack={onHome}
+        right={
+          <button className="linkbtn" onClick={onNew}>
+            + New
+          </button>
+        }
       />
       {articles.length === 0 && <p className="hint">No articles in this category yet.</p>}
       {articles.map((a) => (

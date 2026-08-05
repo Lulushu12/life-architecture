@@ -16,7 +16,7 @@ function entryComplete(def, data, n, byId) {
     case "totale":
       return (
         data.king != null &&
-        data.last != null &&
+        (!byId.last || data.last != null) &&
         sum(data.queens) === byId.queens.units &&
         sum(data.tricks) === byId.tricks.units &&
         sum(data.diamonds) === byId.diamonds.units
@@ -191,14 +191,16 @@ function HandEntry({ def, byId, players, data, setData }) {
             players={players}
             value={data.king}
             onPick={(i) => setData((d) => ({ ...d, king: i }))}
-            label="Regele de cupă taken by"
+            label="Popa de roșu taken by"
           />
-          <PlayerPick
-            players={players}
-            value={data.last}
-            onPick={(i) => setData((d) => ({ ...d, last: i }))}
-            label="Ultima levată taken by"
-          />
+          {byId.last && (
+            <PlayerPick
+              players={players}
+              value={data.last}
+              onPick={(i) => setData((d) => ({ ...d, last: i }))}
+              label="Ultima levată taken by"
+            />
+          )}
           <UnitsEntry
             players={players}
             label="Dame"
@@ -215,7 +217,7 @@ function HandEntry({ def, byId, players, data, setData }) {
           />
           <UnitsEntry
             players={players}
-            label="Carouri"
+            label="Caro"
             units={byId.diamonds.units}
             value={data.diamonds}
             onChange={(u) => setData((d) => ({ ...d, diamonds: u }))}

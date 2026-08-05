@@ -81,16 +81,39 @@ function buildArticles() {
 
 export const ARTICLES = buildArticles();
 
-export const CATEGORIES = Object.keys(CATEGORY_LABELS).map((key) => ({
-  key,
-  label: CATEGORY_LABELS[key],
-  count: ARTICLES.filter((a) => a.category === key).length,
-}));
-
-export function getArticle(id) {
-  return ARTICLES.find((a) => a.id === id);
+// Articles written in-app (stored on-device) get normalized to the same
+// shape as bundled ones and merged everywhere below.
+export function normalizeLocal(localArticles = []) {
+  return localArticles.map((a) => ({
+    ...a,
+    categoryLabel: CATEGORY_LABELS[a.category] || titleCase(a.category),
+    slug: a.id,
+    tags: a.tags || [],
+    local: true,
+  }));
 }
 
-export function articlesInCategory(key) {
-  return ARTICLES.filter((a) => a.category === key);
+export function allArticles(local = []) {
+  const merged = [...ARTICLES, ...normalizeLocal(local)];
+  merged.sort((a, b) => a.title.localeCompare(b.title));
+  return merged;
+}
+
+export function categories(local = []) {
+  const all = allArticles(local);
+  return Object.keys(CATEGORY_LABELS).map((key) => ({
+    key,
+    label: CATEGORY_LABELS[key],
+    count: all.filter((a) => a.category === key).length,
+  }));
+}
+
+export const CATEGORY_KEYS = Object.keys(CATEGORY_LABELS);
+
+export function getArticle(id, local = []) {
+  return allArticles(local).find((a) => a.id === id);
+}
+
+export function articlesInCategory(key, local = []) {
+  return allArticles(local).filter((a) => a.category === key);
 }

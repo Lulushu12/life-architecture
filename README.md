@@ -13,7 +13,7 @@ write-through on every action) unless noted.
 | Focus | `apps/focus` | `/focus/` | Pomodoro, named task timers, interval break/posture reminders, and daily stats. |
 | Games | `apps/games` | `/games/` | Chess clock (Fischer increment), sudoku with unique-solution generator, cryptograms. |
 | Calories | `apps/calories` | `/calories/` | Food & macro log backed by Open Food Facts (search + barcode), training log, weight trend. |
-| Ortho | `apps/ortho` | `/ortho/` | Personal clinical reference — articles authored as Markdown files in `apps/ortho/src/content/`, searchable and offline. |
+| Ortho | `apps/ortho` | `/ortho/` | Personal clinical reference — articles authored in-app (on-device) or as Markdown files in `apps/ortho/src/content/`, searchable and offline. |
 
 ## Development
 

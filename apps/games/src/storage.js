@@ -9,6 +9,7 @@ function freshStore() {
     sudoku: null, // { difficulty, givens, entries, pencil, elapsed, ... } or null
     crypto: {
       progress: {}, // puzzleId -> { mapping, guesses, solved, elapsedMs, startedAt }
+      custom: [], // user-imported puzzles: { id, text, attribution, custom: true }
     },
   };
 }
