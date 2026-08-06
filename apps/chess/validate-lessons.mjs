@@ -270,6 +270,18 @@ if (useEngine && quizPositions.length && errors.length === 0) {
       const probe = new Chess(q.fen);
       const mv = probe.move(q.answer);
       if (!mv) return null;
+      // Walk through any forced replies first: a position with a single
+      // legal move gives the engine nothing to search, so it returns a
+      // bestmove with no evaluation at all.
+      let plies = 1;
+      for (let i = 0; i < 6; i++) {
+        if (probe.isCheckmate()) return probe.turn() === "w" ? -9000 : 9000;
+        if (probe.isGameOver()) return 0;
+        const moves = probe.moves();
+        if (moves.length !== 1) break;
+        probe.move(moves[0]);
+        plies++;
+      }
       const childFen = probe.fen();
       const child = await page.evaluate(async (fen) => {
         window.__lines = [];
@@ -298,8 +310,9 @@ if (useEngine && quizPositions.length && errors.length === 0) {
         const mi = t.indexOf("mate");
         return mi > -1 ? (parseInt(t[mi + 1], 10) > 0 ? 9000 : -9000) : parseInt(t[ci + 1], 10);
       }, childFen);
-      // child score is from the opponent's point of view
-      return child == null ? null : -child;
+      // childFen's score is from its side-to-move's point of view; flip it
+      // back to the point of view of whoever played the answer
+      return child == null ? null : plies % 2 === 1 ? -child : child;
     };
 
     // A fixed-depth search is deterministic, but near-equal moves can still
