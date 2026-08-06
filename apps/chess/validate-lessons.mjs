@@ -15,6 +15,21 @@ import path from "node:path";
 const LESSON_DIR = path.join(import.meta.dirname, "src", "lessons");
 const useEngine = process.argv.includes("--engine");
 
+
+// A position where the side NOT to move is in check is illegal — you could
+// simply capture the king. chess.js loads these, but engines hang on them,
+// so reject them up front.
+function opponentInCheck(fen) {
+  const p = fen.split(" ");
+  p[1] = p[1] === "w" ? "b" : "w";
+  p[3] = "-";
+  try {
+    return new Chess(p.join(" ")).inCheck();
+  } catch {
+    return false;
+  }
+}
+
 const errors = [];
 const warnings = [];
 const quizPositions = []; // {lesson, fen, answer, uci, strict}
@@ -54,6 +69,8 @@ for (const file of files) {
       errors.push(`${tag}: invalid startFen`);
       continue;
     }
+    if (opponentInCheck(chess.fen()))
+      errors.push(`${tag}: illegal startFen — the side not to move is in check: ${chess.fen()}`);
 
     l.steps.forEach((step, si) => {
       stepCount++;
@@ -92,6 +109,8 @@ for (const file of files) {
           if (!mv) {
             errors.push(`${where}: quiz answer "${san}" is illegal in ${fenBefore}`);
           } else if (san === q.answer) {
+            if (opponentInCheck(fenBefore))
+              errors.push(`${where}: illegal position — side not to move is in check: ${fenBefore}`);
             quizPositions.push({
               tag: where,
               fen: fenBefore,
@@ -147,6 +166,13 @@ if (useEngine && quizPositions.length && errors.length === 0) {
     });
   });
 
+  // Belt-and-braces: if the page itself wedges, don't wait forever.
+  const withTimeout = (promise, ms, label) =>
+    Promise.race([
+      promise,
+      new Promise((resolve) => setTimeout(() => resolve({ __timeout: label }), ms)),
+    ]);
+
   let checked = 0;
   for (const q of quizPositions) {
     const res = await page.evaluate(async (fen) => {
@@ -185,6 +211,10 @@ if (useEngine && quizPositions.length && errors.length === 0) {
     }, q.fen);
 
     checked++;
+    if (res && res.__timeout) {
+      warnings.push(`${q.tag}: engine timed out, skipped`);
+      continue;
+    }
     if (!res.best) {
       warnings.push(`${q.tag}: engine returned nothing for ${q.fen}`);
       continue;

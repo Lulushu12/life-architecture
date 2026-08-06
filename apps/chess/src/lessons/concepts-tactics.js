@@ -449,46 +449,43 @@ export const LESSONS = [
     group: "Tactical Motifs",
     level: "intermediate",
     summary: "Move one piece aside and let another piece do the real damage.",
-    startFen: "3q1rk1/ppp3pp/8/8/3N4/1B6/PPPPPPPP/6K1 w - - 0 1",
+    startFen: "3q1rk1/ppp3pp/4N3/8/8/1B6/PPPPPPPP/6K1 w - - 0 1",
     steps: [
       {
-        text: "A discovered attack: move one piece out of the way, and a piece behind it attacks something new. When the revealed attack is check, it's a discovered check — and the moving piece is free to do anything.",
+        text: "The bishop on b3 aims straight at g8 — but its own knight on e6 stands in the way. Move that knight and the check arrives for free, while the knight does whatever it likes.",
         arrows: [["b3", "g8"]],
         circles: ["e6"],
       },
       {
+        text: "That's a discovered check: two threats at once, and the opponent can only answer the check.",
         quiz: {
-          answer: "Ne6",
-          prompt: "The knight sits on the bishop's diagonal to g8. Find the square that forks the queen and rook.",
-          explain: "Ne6! It attacks both the queen on d8 and the rook on f8 — not check yet, since the knight itself still blocks the bishop's diagonal.",
+          answer: "Nxd8",
           strict: true,
+          prompt: "The knight can go several places with check. Take the biggest prize.",
+          explain: "Nxd8! grabs the queen, and stepping off e6 uncovers the bishop's check at the same moment — Black has no time to recapture.",
         },
       },
       {
-        play: ["Qe7"],
-        text: "The queen has to move — and from here it also attacks the knight.",
+        play: ["Kh8"],
+        text: "Black must deal with the check first. The rook on f8 would love to take the knight — but it never gets the chance.",
       },
       {
         quiz: {
-          answer: "Nxf8+",
-          prompt: "Take the rook — and notice what moving the knight reveals.",
-          explain: "Nxf8+! The knight grabs the exchange, and stepping off e6 uncovers the bishop's check on g8 at the very same moment — a discovered check.",
+          answer: "Nf7+",
           strict: true,
+          prompt: "Don't leave the knight to be captured. Where does it go?",
+          explain: "Nf7+! Another check, so the knight leaves the corner with tempo and comes out alive. White has won a whole queen for nothing.",
         },
       },
       {
-        play: ["Kxf8"],
-        text: "Black recaptures, but White has already won the exchange (rook for knight).",
+        play: ["Kg8", "Ng5"],
+        text: "The knight steps back to safety. Final count: White won the queen and kept every piece.",
       },
       {
-        text: "Discovered checks are especially dangerous because the moving piece can go anywhere — capture, fork, even walk into 'danger' — since the check itself already forces Black's reply.",
+        text: "Discovered checks are the most brutal tactic in chess: the moving piece is completely free — it can capture the biggest thing on the board, or even move somewhere 'hanging', because the check must be answered first.",
       },
     ],
   },
-
-  // ---------------------------------------------------------------------
-  // 10. Deflection and decoy
-  // ---------------------------------------------------------------------
   {
     id: "deflection-and-decoy",
     title: "Deflection and Decoy",
