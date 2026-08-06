@@ -284,9 +284,25 @@ if (useEngine && quizPositions.length && errors.length === 0) {
       }
       const childFen = probe.fen();
       const child = await page.evaluate(async (fen) => {
-        window.__lines = [];
         const send = (c) => window.__e.postMessage(c);
+        // Clear state left by the previous search, and wait until the engine
+        // actually reports ready before searching — otherwise the queued
+        // commands land late and we read a half-finished evaluation.
+        window.__lines = [];
+        send("stop");
+        send("ucinewgame");
         send("setoption name MultiPV value 1");
+        send("isready");
+        await new Promise((r) => {
+          const t0 = Date.now();
+          const t = setInterval(() => {
+            if (window.__lines.some((l) => l === "readyok") || Date.now() - t0 > 10000) {
+              clearInterval(t);
+              r();
+            }
+          }, 50);
+        });
+        window.__lines = [];
         send("position fen " + fen);
         send("go depth 15");
         await new Promise((r) => {
@@ -303,12 +319,17 @@ if (useEngine && quizPositions.length && errors.length === 0) {
           }, 100);
         });
         const infos = window.__lines.filter((l) => l.startsWith("info ") && l.includes(" pv "));
-        const last = infos[infos.length - 1];
-        if (!last) return null;
-        const t = last.split(" ");
+        if (!infos.length) return null;
+        // A mate score is definitive: once the engine sees it, it is true,
+        // so don't let a later or shallower line overwrite it.
+        for (const line of infos) {
+          const t = line.split(" ");
+          const mi = t.indexOf("mate");
+          if (mi > -1) return parseInt(t[mi + 1], 10) > 0 ? 9000 : -9000;
+        }
+        const t = infos[infos.length - 1].split(" ");
         const ci = t.indexOf("cp");
-        const mi = t.indexOf("mate");
-        return mi > -1 ? (parseInt(t[mi + 1], 10) > 0 ? 9000 : -9000) : parseInt(t[ci + 1], 10);
+        return ci > -1 ? parseInt(t[ci + 1], 10) : null;
       }, childFen);
       // childFen's score is from its side-to-move's point of view; flip it
       // back to the point of view of whoever played the answer

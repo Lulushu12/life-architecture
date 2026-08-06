@@ -441,7 +441,6 @@ export const LESSONS = [
         text: "A natural-looking developing move — and a real mistake! It undefends b2 and walks right into a tactic.",
         quiz: {
           answer: "Qb4+",
-          strict: true,
           prompt: "White just blundered with 4.Bf4??. Find Black's punishment.",
           explain: "Qb4+ forks the king (check) and eyes both b2 and the bishop on f4 — a very common trap.",
         },
