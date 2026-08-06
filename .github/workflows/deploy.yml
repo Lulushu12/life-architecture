@@ -3,6 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # lets the site be rebuilt on demand, e.g. when a push doesn't trigger a run
+  workflow_dispatch:
 
 permissions:
   contents: write
