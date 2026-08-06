@@ -202,46 +202,51 @@ export const LESSONS = [
     category: "concepts",
     group: "Mating Patterns",
     level: "intermediate",
-    summary: "A knight seals one flight square while a rook mates along the file.",
-    startFen: "8/ppp3p1/7k/R7/8/3N4/PPP5/1K6 w - - 0 1",
+    summary: "A knight seals the flight squares, a queen sacrifice opens the file, a rook mates.",
+    startFen: "5rk1/ppp2ppp/8/3N4/8/3Q4/PPP5/1K2R3 w - - 0 1",
     steps: [
       {
-        text: "Anastasia's mate: a knight covers the one square next to a king stuck on the edge of the board, while a rook (or queen) delivers mate along the open file.",
-        arrows: [
-          ["d3", "f4"],
-          ["a5", "h5"],
-        ],
-        circles: ["g6", "h6"],
+        text: "Anastasia's mate: a knight on e7 covers g8 and g6, so a king on h7 has no squares left sideways. All that's missing is a checking piece on the h-file.",
+        arrows: [["d5", "e7"]],
+        circles: ["g8", "g6"],
       },
       {
         quiz: {
-          answer: "Nf4",
-          prompt: "Black's king is stranded on h6. Bring the knight in to seal off g6.",
-          explain: "Nf4! The knight now covers g6 — combined with the g7 pawn and the rook's reach along the h-file and 5th rank, the king has nowhere to run.",
+          answer: "Ne7+",
           strict: true,
+          prompt: "Put the knight on the square that takes away g8 and g6.",
+          explain: "Ne7+! Check, and the knight now owns both squares the king would want. Black's rook blocks f8, so there is exactly one legal reply.",
         },
       },
       {
-        play: ["a6"],
-        text: "Black has no way to meet the threat and just shuffles a queenside pawn.",
+        play: ["Kh8"],
+        text: "Forced — the only legal move on the board.",
       },
       {
         quiz: {
-          answer: "Rh5#",
-          prompt: "Deliver mate along the open file.",
-          explain: "Rh5#! The rook checks along the h-file and covers g5 along the 5th rank, while the knight guards g6 — that's Anastasia's mate.",
+          answer: "Qxh7+",
           strict: true,
+          prompt: "The h-file needs opening. Pay whatever it costs.",
+          explain: "Qxh7+!! The queen is thrown in purely to drag the king onto h7 and clear the file. The king must accept — g8 is covered by the knight.",
         },
       },
       {
-        text: "The mechanism: a knight covers one flight square next to the edge, and the checking piece's own line of attack covers the rest. Watch for it whenever a king gets stuck on a file near a knight.",
+        play: ["Kxh7"],
+        text: "Also completely forced. The king now stands on h7 with the file wide open behind it.",
+      },
+      {
+        quiz: {
+          answer: "Rh1#",
+          strict: true,
+          prompt: "Finish it.",
+          explain: "Rh1#. The rook checks up the file, the knight covers g8 and g6, and Black's own g7 pawn seals the last square.",
+        },
+      },
+      {
+        text: "The pattern to remember: knight to e7 (or its mirror), sacrifice to drag the king to h7, rook to the h-file. Once the knight lands, start looking for the sacrifice.",
       },
     ],
   },
-
-  // ---------------------------------------------------------------------
-  // 5. Arabian mate
-  // ---------------------------------------------------------------------
   {
     id: "arabian-mate",
     title: "Arabian Mate",
@@ -322,7 +327,6 @@ export const LESSONS = [
           answer: "Nxc6",
           prompt: "Cash in on the pin.",
           explain: "Nxc6! The pinned knight simply falls.",
-          strict: true,
         },
       },
       {
@@ -584,46 +588,50 @@ export const LESSONS = [
     category: "concepts",
     group: "Tactical Motifs",
     level: "advanced",
-    summary: "Before playing the 'obvious' move, ask: is there something better first?",
-    startFen: "6k1/pppp1ppp/4p3/8/8/2bB4/PPPPPPPP/6K1 w - - 0 1",
+    summary: "Before you recapture, ask whether a check comes first — the Elephant Trap.",
+    startFen: null,
+    orientation: "b",
     steps: [
       {
-        text: "Zwischenzug ('in-between move'): instead of playing the expected recapture immediately, insert a stronger move first — a check or bigger threat — then complete the original business afterward.",
-        arrows: [["d3", "h7"]],
-        circles: ["c3", "h7"],
+        play: ["d4", "d5", "c4", "e6", "Nc3", "Nf6", "Bg5", "Nbd7"],
+        text: "The Queen's Gambit Declined. Black's knight on d7 looks loose — d5 is attacked three times and defended twice — and this tempts White into grabbing it.",
+        circles: ["d5", "d7"],
       },
       {
-        text: "Black just grabbed a piece on c3, and bxc3 looks completely automatic. But take one more look at the kingside first.",
-      },
-      {
-        quiz: {
-          answer: "Bxh7+",
-          prompt: "Before recapturing on c3, is there something more urgent available?",
-          explain: "Bxh7+! A free pawn with check — Black has to deal with this before anything else.",
-          strict: true,
-        },
-      },
-      {
-        play: ["Kxh7"],
-        text: "Forced.",
+        play: ["cxd5", "exd5", "Nxd5"],
+        text: "White wins the d5 pawn 'for free', since the f6 knight is pinned against the queen. Black's reply looks impossible — but the pin is only relative.",
+        arrows: [["g5", "d8"]],
       },
       {
         quiz: {
-          answer: "bxc3",
-          prompt: "Now complete the original recapture.",
-          explain: "bxc3 — White gets the exact same recapture as before, plus an extra pawn banked from the zwischenzug.",
+          answer: "Nxd5",
           strict: true,
+          prompt: "The knight is pinned to the queen — but take on d5 anyway.",
+          explain: "Nxd5! Breaking a relative pin. White wins the queen with Bxd8 — but Black has seen further.",
         },
       },
       {
-        text: "Before playing the 'obvious' recapture, always ask: is there a check, capture, or threat worth inserting first? The position usually can't run away, but that extra tempo might not wait.",
+        play: ["Bxd8"],
+        text: "White takes the queen. Now the automatic move is to recapture the bishop with the king — and that would throw the whole game away.",
+        circles: ["d8"],
+      },
+      {
+        quiz: {
+          answer: "Bb4+",
+          strict: true,
+          prompt: "Don't recapture yet. Is there something more forcing first?",
+          explain: "Bb4+!! The zwischenzug. Check must be answered, so White never gets time to save the bishop on d8 — and Black comes out a whole piece ahead instead of a piece down.",
+        },
+      },
+      {
+        play: ["Qd2", "Bxd2+", "Kxd2", "Kxd8"],
+        text: "Only now does Black collect the bishop. Count the material: Black is a clean knight up. Recapturing immediately on move 7 would instead have left Black a piece down.",
+      },
+      {
+        text: "This is the Elephant Trap, and the whole point is one move order. Before any 'obvious' recapture, look for a check or a bigger threat to insert first — the recapture usually isn't going anywhere.",
       },
     ],
   },
-
-  // ---------------------------------------------------------------------
-  // 13. Windmill
-  // ---------------------------------------------------------------------
   {
     id: "windmill-tactic",
     title: "The Windmill",
@@ -634,7 +642,7 @@ export const LESSONS = [
     startFen: "5rk1/ppp2ppp/8/8/8/6R1/PBPPPP1P/6K1 w - - 0 1",
     steps: [
       {
-        text: "A windmill (or seesaw): a rook and bishop battery checks the king again and again, grabbing material on every swing, because the king only ever has one square to run to.",
+        text: "A windmill (or seesaw): a rook and bishop battery checks the king over and over, grabbing material on every swing, because the king only ever has one square to go to.",
         arrows: [
           ["b2", "h8"],
           ["g3", "g7"],
@@ -644,48 +652,65 @@ export const LESSONS = [
       {
         quiz: {
           answer: "Rxg7+",
-          prompt: "Start the seesaw.",
-          explain: "Rxg7+! A direct check along the g-file — the king has only one legal square.",
           strict: true,
+          prompt: "Start the seesaw.",
+          explain: "Rxg7+! A direct check along the g-file — the king has exactly one legal square.",
         },
       },
       {
         play: ["Kh8"],
-        text: "Forced — the rook covers the rest of the g-file and the 7th rank.",
+        text: "Forced. Now the rook steps aside and the bishop takes over.",
       },
       {
         quiz: {
           answer: "Rxf7+",
-          prompt: "The rook slides off g7 — see what that uncovers.",
-          explain: "Rxf7+! Moving off g7 reopens the bishop's diagonal to h8 — a discovered check — while grabbing another pawn.",
           strict: true,
+          prompt: "The rook slides off g7 — see what that uncovers.",
+          explain: "Rxf7+! Leaving g7 reopens the bishop's diagonal to h8 — a discovered check — while pocketing another pawn.",
         },
       },
       {
         play: ["Kg8"],
-        text: "Back to g8, the only legal square once again.",
+        text: "Back to g8, the only square again. Here's the moment most players cash out — and lose most of the point.",
       },
       {
         quiz: {
-          answer: "Rxf8+",
-          prompt: "One more swing — there's a whole rook on the menu too.",
-          explain: "Rxf8+! The windmill has now consumed two pawns and a rook, all through a repeating one-two of direct and discovered checks.",
+          answer: "Rg7+",
           strict: true,
+          prompt: "Taking the rook on f8 looks natural. Don't — keep the seesaw turning instead.",
+          explain: "Rg7+! Grabbing on f8 lets Black recapture and ends everything for a mere exchange. Swinging back keeps the king trapped and sets up something far better.",
         },
       },
       {
-        play: ["Kxf8"],
-        text: "Black finally recaptures, but the damage — two clean extra pawns — is already done.",
+        play: ["Kh8"],
+        text: "The king is back in the corner, and now the rook is free to leave the diagonal on its own terms.",
       },
       {
-        text: "The real Torre-Lasker game (1925) kept this seesaw going even longer, eating the opponent's queen along the way. Once you spot the battery, keep swinging as long as the king has only one reply.",
+        quiz: {
+          answer: "Rg2+",
+          also: ["Rg3+", "Rg4+", "Rg5+", "Rg6+"],
+          strict: true,
+          prompt: "One more discovered check — but this time put the rook somewhere safe.",
+          explain: "Rg2+! The bishop checks along the long diagonal and the rook lands out of reach. Black's only legal answer is to block on f6.",
+        },
+      },
+      {
+        play: ["Rf6"],
+        text: "Forced — the only move that stops the check.",
+      },
+      {
+        quiz: {
+          answer: "Bxf6#",
+          strict: true,
+          prompt: "Take the blocker.",
+          explain: "Bxf6#. Checkmate — the windmill ends in mate rather than a swapped-off exchange.",
+        },
+      },
+      {
+        text: "Torre used this against Lasker in 1925 to eat a queen along the way. The lesson: while the king has only one legal reply, keep swinging — cash out last.",
       },
     ],
   },
-
-  // ---------------------------------------------------------------------
-  // 14. Removing the defender
-  // ---------------------------------------------------------------------
   {
     id: "removing-the-defender",
     title: "Removing the Defender",
