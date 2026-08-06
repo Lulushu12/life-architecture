@@ -156,13 +156,21 @@ if (useEngine && quizPositions.length && errors.length === 0) {
       send("position fen " + fen);
       send("go depth 13");
       await new Promise((r) => {
-        const t = setInterval(() => {
-          if (window.__lines.some((l) => l.startsWith("bestmove"))) {
-            clearInterval(t);
-            r();
-          }
-        }, 100);
-      });
+            // Cap wall-clock time: ask the engine to stop, then take the
+            // deepest result it reached. A single hard position must never
+            // hang the whole run.
+            const t0 = Date.now();
+            let stopped = false;
+            const t = setInterval(() => {
+              if (window.__lines.some((l) => l.startsWith("bestmove")) || Date.now() - t0 > 20000) {
+                clearInterval(t);
+                r();
+              } else if (!stopped && Date.now() - t0 > 12000) {
+                stopped = true;
+                send("stop");
+              }
+            }, 100);
+          });
       const infos = window.__lines.filter((l) => l.startsWith("info ") && l.includes(" pv "));
       const byPv = {};
       for (const line of infos) {
@@ -193,10 +201,18 @@ if (useEngine && quizPositions.length && errors.length === 0) {
           send("position fen " + fen);
           send("go depth 13 searchmoves " + uci);
           await new Promise((r) => {
+            // Cap wall-clock time: ask the engine to stop, then take the
+            // deepest result it reached. A single hard position must never
+            // hang the whole run.
+            const t0 = Date.now();
+            let stopped = false;
             const t = setInterval(() => {
-              if (window.__lines.some((l) => l.startsWith("bestmove"))) {
+              if (window.__lines.some((l) => l.startsWith("bestmove")) || Date.now() - t0 > 20000) {
                 clearInterval(t);
                 r();
+              } else if (!stopped && Date.now() - t0 > 12000) {
+                stopped = true;
+                send("stop");
               }
             }, 100);
           });
