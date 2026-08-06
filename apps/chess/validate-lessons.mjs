@@ -261,13 +261,60 @@ if (useEngine && quizPositions.length && errors.length === 0) {
     }
     const loss = match ? res.best.score - match.score : null;
     const limit = q.speculative ? 250 : 100;
+
+    // Root-fixed searches prune hard: a forced mate that starts with a
+    // sacrifice can score like a quiet move. Before failing a strict claim,
+    // play the move and search the resulting position, where the engine
+    // considers every reply.
+    const confirmAfterMove = async () => {
+      const probe = new Chess(q.fen);
+      const mv = probe.move(q.answer);
+      if (!mv) return null;
+      const childFen = probe.fen();
+      const child = await page.evaluate(async (fen) => {
+        window.__lines = [];
+        const send = (c) => window.__e.postMessage(c);
+        send("setoption name MultiPV value 1");
+        send("position fen " + fen);
+        send("go depth 15");
+        await new Promise((r) => {
+          const t0 = Date.now();
+          let stopped = false;
+          const t = setInterval(() => {
+            if (window.__lines.some((l) => l.startsWith("bestmove")) || Date.now() - t0 > 20000) {
+              clearInterval(t);
+              r();
+            } else if (!stopped && Date.now() - t0 > 12000) {
+              stopped = true;
+              send("stop");
+            }
+          }, 100);
+        });
+        const infos = window.__lines.filter((l) => l.startsWith("info ") && l.includes(" pv "));
+        const last = infos[infos.length - 1];
+        if (!last) return null;
+        const t = last.split(" ");
+        const ci = t.indexOf("cp");
+        const mi = t.indexOf("mate");
+        return mi > -1 ? (parseInt(t[mi + 1], 10) > 0 ? 9000 : -9000) : parseInt(t[ci + 1], 10);
+      }, childFen);
+      // child score is from the opponent's point of view
+      return child == null ? null : -child;
+    };
+
     // A fixed-depth search is deterministic, but near-equal moves can still
     // swap places; allow a small tolerance before calling a strict answer wrong.
     if (q.strict && res.best.move !== q.uci && (loss == null || loss > 25)) {
-      errors.push(
-        `${q.tag}: STRICT answer ${q.answer} (${q.uci}) is not the engine's best (${res.best.move})` +
-          (loss != null ? `, loses ${loss}cp` : "")
-      );
+      const confirmed = await confirmAfterMove();
+      const trueLoss = confirmed == null ? loss : res.best.score - confirmed;
+      if (trueLoss != null && trueLoss <= 25) {
+        // the root search undervalued it; the move is fine
+      } else {
+        errors.push(
+          `${q.tag}: STRICT answer ${q.answer} (${q.uci}) is not the engine's best (${res.best.move})` +
+            (trueLoss != null ? `, loses ${trueLoss}cp` : "")
+        );
+      }
     } else if (loss == null) {
       warnings.push(`${q.tag}: could not evaluate answer ${q.answer}`);
     } else if (loss > limit) {

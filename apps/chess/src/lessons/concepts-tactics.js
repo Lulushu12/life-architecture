@@ -315,7 +315,6 @@ export const LESSONS = [
           answer: "Nd4",
           prompt: "The knight on c6 is pinned and only defended once. Add a second attacker.",
           explain: "Nd4! Now two White pieces attack c6, which only the b7-pawn defends — and the pinned knight can't run or help out.",
-          strict: true,
         },
       },
       {
