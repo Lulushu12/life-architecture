@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { signOut } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db } from "./firebase";
+import Purchases, { PurchaseModal } from "./Purchases";
 
 const FONT_LINK = document.createElement("link");
 FONT_LINK.rel = "stylesheet";
@@ -249,6 +250,7 @@ const NAV = [
   { id:"outputs",    icon:"◎", label:"6-Month Outputs" },
   { id:"schedule",   icon:"▦", label:"Schedule" },
   { id:"quests",     icon:"⬡", label:"Quest Board" },
+  { id:"purchases",  icon:"$", label:"Purchases" },
   { id:"review",     icon:"↻", label:"Review Cadence" },
   { id:"principles", icon:"≡", label:"Principles" },
   { id:"workouts",   icon:"▶", label:"Workouts" },
@@ -264,6 +266,7 @@ function getLevelProgress(xp) {
   return Math.round(((xp-l.min)/(n.min-l.min))*100);
 }
 function uid() { return "q"+Date.now()+Math.random().toString(36).slice(2,7); }
+function puid() { return "p"+Date.now()+Math.random().toString(36).slice(2,7); }
 
 const css = `
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -409,7 +412,9 @@ export default function App({user}) {
   const [longQ,setLongQ]=useState(DEFAULT_LONG);
   const [dailyQ,setDailyQ]=useState(DEFAULT_DAILY);
   const [cumulativeDailyXP,setCumulativeDailyXP]=useState(0);
+  const [purchases,setPurchases]=useState([]);
   const [modal,setModal]=useState(null);
+  const [purchaseModal,setPurchaseModal]=useState(null);
   const [schedDay,setSchedDay]=useState("Monday");
   const [filter,setFilter]=useState("All");
 
@@ -417,15 +422,17 @@ export default function App({user}) {
 
   useEffect(()=>{
     // Read localStorage first (synchronous, fast)
-    let seedLong=DEFAULT_LONG, seedDaily=DEFAULT_DAILY, seedCdxp=0;
+    let seedLong=DEFAULT_LONG, seedDaily=DEFAULT_DAILY, seedCdxp=0, seedPurchases=[];
     try{
       const lr=localStorage.getItem("la_long_v8"); if(lr)seedLong=JSON.parse(lr);
       const dr=localStorage.getItem("la_daily_v8");if(dr)seedDaily=JSON.parse(dr);
       const cr=localStorage.getItem("la_cdxp_v8"); if(cr)seedCdxp=JSON.parse(cr);
+      const pr=localStorage.getItem("la_purchases_v1"); if(pr)seedPurchases=JSON.parse(pr);
     }catch(_){}
     setLongQ(seedLong);
     setDailyQ(seedDaily);
     setCumulativeDailyXP(seedCdxp);
+    setPurchases(seedPurchases);
 
     // Then sync with Firestore
     getDoc(userDoc).then(snap=>{
@@ -435,9 +442,10 @@ export default function App({user}) {
         if(d.longQ) setLongQ(d.longQ);
         if(d.dailyQ)setDailyQ(d.dailyQ);
         if(d.cumulativeDailyXP!=null)setCumulativeDailyXP(d.cumulativeDailyXP);
+        if(d.purchases)setPurchases(d.purchases);
       } else {
         // First login — seed Firestore with local data (pre-built defaults or prior localStorage progress)
-        setDoc(userDoc,{longQ:seedLong,dailyQ:seedDaily,cumulativeDailyXP:seedCdxp}).catch(()=>{});
+        setDoc(userDoc,{longQ:seedLong,dailyQ:seedDaily,cumulativeDailyXP:seedCdxp,purchases:seedPurchases}).catch(()=>{});
       }
     }).catch(()=>{});
   },[user.uid]);// eslint-disable-line react-hooks/exhaustive-deps
@@ -456,6 +464,11 @@ export default function App({user}) {
     setCumulativeDailyXP(xp);
     try{localStorage.setItem("la_cdxp_v8",JSON.stringify(xp));}catch(_){}
     setDoc(userDoc,{cumulativeDailyXP:xp},{merge:true}).catch(()=>{});
+  };
+  const savePurchases=(p)=>{
+    setPurchases(p);
+    try{localStorage.setItem("la_purchases_v1",JSON.stringify(p));}catch(_){}
+    setDoc(userDoc,{purchases:p},{merge:true}).catch(()=>{});
   };
 
   const today=todayKey();
@@ -491,6 +504,13 @@ export default function App({user}) {
     saveCumulativeDailyXP(cumulativeDailyXP+xpDelta);
   };
   const fq=(cat)=>longQ.filter(q=>q.category===cat).filter(q=>filter==="All"||q.status===filter);
+
+  const onPurchaseSave=(data)=>{
+    if(purchaseModal.mode==="add")savePurchases([...purchases,{id:puid(),...data}]);
+    else savePurchases(purchases.map(p=>p.id===purchaseModal.purchase.id?{...p,...data}:p));
+    setPurchaseModal(null);
+  };
+  const delPurchase=(id)=>savePurchases(purchases.filter(p=>p.id!==id));
 
   return(
     <>
@@ -537,6 +557,7 @@ export default function App({user}) {
             {page==="outputs"&&<POutputs/>}
             {page==="schedule"&&<PSchedule schedDay={schedDay} setSchedDay={setSchedDay}/>}
             {page==="quests"&&<PQuests longQ={longQ} dailyQ={dailyQ} filter={filter} setFilter={setFilter} fq={fq} openAdd={cat=>setModal({mode:"add",category:cat})} openEdit={q=>setModal({mode:"edit",quest:q})} delLong={delLong} toggleLong={toggleLong} toggleDaily={toggleDaily}/>}
+            {page==="purchases"&&<Purchases purchases={purchases} openAdd={()=>setPurchaseModal({mode:"add"})} openEdit={p=>setPurchaseModal({mode:"edit",purchase:p})} delPurchase={delPurchase}/>}
             {page==="review"&&<PReview/>}
             {page==="principles"&&<PPrinciples/>}
             {page==="workouts"&&<PWorkouts/>}
@@ -544,6 +565,7 @@ export default function App({user}) {
         </main>
       </div>
       {modal&&<QModal modal={modal} onSave={onLongSave} onClose={()=>setModal(null)}/>}
+      {purchaseModal&&<PurchaseModal modal={purchaseModal} onSave={onPurchaseSave} onClose={()=>setPurchaseModal(null)}/>}
     </>
   );
 }
