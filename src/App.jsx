@@ -65,6 +65,7 @@ const DEFAULT_DAILY = [
   { id:"d7",  title:"VMO workout done",                  category:"Health & Fitness",     baseXp:50,  streak:0, lastDone:"" },
   { id:"d7b", title:"Full body home workout completed",  category:"Health & Fitness",     baseXp:75,  streak:0, lastDone:"" },
   { id:"d7c", title:"Core circuit completed",            category:"Health & Fitness",     baseXp:50,  streak:0, lastDone:"" },
+  { id:"d7d", title:"Home dumbbell PPL session done",    category:"Health & Fitness",     baseXp:75,  streak:0, lastDone:"" },
   { id:"d8",  title:"Read one medical article",          category:"Medicine & Surgery",   baseXp:50,  streak:0, lastDone:"" },
   { id:"d9",  title:"10 min of CME content completed",   category:"Medicine & Surgery",   baseXp:50,  streak:0, lastDone:"" },
   { id:"d10", title:"Surgical case documented",          category:"Medicine & Surgery",   baseXp:75,  streak:0, lastDone:"", note:"OR days" },
@@ -913,7 +914,7 @@ function PWorkouts(){
           <div style={{fontSize:12,color:"#94a3b8",marginBottom:8}}>{d.focus}</div>
           <div style={{fontSize:11,color:"#64748b",fontStyle:"italic",marginBottom:12}}>Warm-up: {d.warmup}</div>
           <table className="tbl">
-            <thead><tr><th>EXERCISE</th><th>SETS</th><th>REPS</th><th>NOTE</th></tr></thead>
+            <thead><tr><th>EXERCISE</th><th>SETS</th><th>REPS</th><th>NOTE</th><th>GUIDE</th></tr></thead>
             <tbody>
               {d.exercises.map((e,i)=>(
                 <tr key={i}>
@@ -921,6 +922,9 @@ function PWorkouts(){
                   <td style={{color:"#94a3b8"}}>{e.sets}</td>
                   <td style={{color:"#94a3b8",whiteSpace:"nowrap"}}>{e.reps}</td>
                   <td style={{color:"#64748b",fontSize:11}}>{e.note}</td>
+                  <td>
+                    <a href={`https://www.youtube.com/results?search_query=${encodeURIComponent(e.name+" form tutorial")}`} target="_blank" rel="noreferrer" style={{fontSize:10,color:d.color,textDecoration:"none",whiteSpace:"nowrap"}}>▶ guide</a>
+                  </td>
                 </tr>
               ))}
             </tbody>
