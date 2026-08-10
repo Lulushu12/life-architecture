@@ -117,15 +117,15 @@ const HOME_PPL = {
   },
   Pull: {
     color:"#f59e0b", duration:"40-45 min", focus:"Back, biceps, rear delts",
-    warmup:"5 min: towel pull-aparts, cat-cow, arm swings, dead hangs if a bar is available.",
+    warmup:"5 min: towel pull-aparts, cat-cow, arm swings, band-free shoulder circles.",
     exercises:[
-      { name:"Pull-ups / Chin-ups",         sets:"4", reps:"AMRAP",   note:"If a bar is available. Otherwise sub DB Renegade Rows, 4x10/side." },
-      { name:"DB Single-Arm Row",           sets:"4", reps:"12/side", note:"Chair or bench supported, full stretch at the bottom." },
+      { name:"DB Renegade Rows",            sets:"4", reps:"8-10/side", note:"Plank on the mat, alternate rowing each dumbbell. Main back-thickness move without a bar." },
+      { name:"Bent-Over DB Row (both arms)",sets:"4", reps:"12-15",  note:"Hinge at hips, flat back, row both dumbbells together." },
       { name:"DB Romanian Deadlift",        sets:"3", reps:"12-15",  note:"Doubles as posterior-chain work for the back." },
       { name:"DB Reverse Fly",              sets:"3", reps:"15",     note:"Hinge at hips, light weight, control the eccentric." },
       { name:"DB Bicep Curl",               sets:"4", reps:"12-15",  note:"Strict, no swing — 10kg is plenty for isolation curls." },
       { name:"DB Hammer Curl",              sets:"3", reps:"12",     note:"Hits brachialis and forearms." },
-      { name:"Superman Holds",              sets:"3", reps:"15-20s", note:"Lower back and rear delts, bodyweight." },
+      { name:"Superman Holds",              sets:"3", reps:"15-20s", note:"On the mat. Lower back and rear delts, bodyweight." },
     ],
   },
   Legs: {
