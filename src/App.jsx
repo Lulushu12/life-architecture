@@ -101,6 +101,48 @@ const BLOCK_META = {
   sleep:     { color:"#1d4ed8", bg:"rgba(29,78,216,0.10)",   label:"SLEEP" },
 };
 
+const HOME_PPL = {
+  Push: {
+    color:"#f59e0b", duration:"40-45 min", focus:"Chest, shoulders, triceps",
+    warmup:"5 min: arm circles, shoulder dislocates (towel or broom held wide), incline push-up ramp-up.",
+    exercises:[
+      { name:"DB Floor Press",              sets:"4", reps:"12-15",   note:"3-count lowering. At 10kg/side, tempo is what builds the chest, not the load." },
+      { name:"DB Seated Shoulder Press",    sets:"4", reps:"10-12",   note:"Strict form, no leg drive." },
+      { name:"Feet-Elevated Push-ups",      sets:"3", reps:"AMRAP",  note:"Bodyweight covers what the dumbbells can't at this load." },
+      { name:"DB Single-Arm Floor Press",   sets:"3", reps:"12/side", note:"Unilateral doubles the effective resistance per arm." },
+      { name:"DB Lateral Raise",            sets:"3", reps:"15-20",  note:"Light weight is ideal here — this is a strict-form movement regardless." },
+      { name:"DB Overhead Tricep Extension",sets:"3", reps:"12-15",  note:"Both hands on one dumbbell, elbows tucked." },
+      { name:"Diamond Push-ups",            sets:"3", reps:"AMRAP",  note:"Finish the triceps with bodyweight." },
+    ],
+  },
+  Pull: {
+    color:"#f59e0b", duration:"40-45 min", focus:"Back, biceps, rear delts",
+    warmup:"5 min: towel pull-aparts, cat-cow, arm swings, dead hangs if a bar is available.",
+    exercises:[
+      { name:"Pull-ups / Chin-ups",         sets:"4", reps:"AMRAP",   note:"If a bar is available. Otherwise sub DB Renegade Rows, 4x10/side." },
+      { name:"DB Single-Arm Row",           sets:"4", reps:"12/side", note:"Chair or bench supported, full stretch at the bottom." },
+      { name:"DB Romanian Deadlift",        sets:"3", reps:"12-15",  note:"Doubles as posterior-chain work for the back." },
+      { name:"DB Reverse Fly",              sets:"3", reps:"15",     note:"Hinge at hips, light weight, control the eccentric." },
+      { name:"DB Bicep Curl",               sets:"4", reps:"12-15",  note:"Strict, no swing — 10kg is plenty for isolation curls." },
+      { name:"DB Hammer Curl",              sets:"3", reps:"12",     note:"Hits brachialis and forearms." },
+      { name:"Superman Holds",              sets:"3", reps:"15-20s", note:"Lower back and rear delts, bodyweight." },
+    ],
+  },
+  Legs: {
+    color:"#f59e0b", duration:"45-50 min", focus:"Quads, hamstrings, glutes, calves",
+    warmup:"5 min: bodyweight squats, leg swings, unweighted walking lunges.",
+    exercises:[
+      { name:"DB Goblet Squat",             sets:"4", reps:"12-15",  note:"Hold one dumbbell (or both stacked) at chest, elbows inside knees at the bottom." },
+      { name:"DB Romanian Deadlift",        sets:"4", reps:"12-15",  note:"Hamstrings and glutes — slow eccentric, soft knees." },
+      { name:"Bulgarian Split Squat",       sets:"3", reps:"10-12/leg", note:"Rear foot elevated on a chair, DB in each hand. The hardest exercise in this plan at this weight." },
+      { name:"DB Walking Lunges",           sets:"3", reps:"12/leg",  note:"Long stride, controlled descent." },
+      { name:"DB Single-Leg RDL",           sets:"3", reps:"10/leg",  note:"Balance-limited — great for hamstrings without needing more load." },
+      { name:"Single-Leg Glute Bridge",     sets:"3", reps:"15/leg",  note:"DB resting on hips for the two-leg version if balance is an issue." },
+      { name:"DB Calf Raise",               sets:"4", reps:"20",     note:"Single dumbbell, step edge for full range of motion." },
+    ],
+  },
+};
+
 const SCHEDULE = {
   Monday: {
     type:"Clinic Day", subtitle:"Subway commute - Leave home by 07:30",
@@ -114,7 +156,7 @@ const SCHEDULE = {
       { time:"14:30-15:00", type:"vmo",        label:"VMO workout (12 min)",                detail:"Deep VMO squats x2 sets + front foot elevated split squat x2 sets each leg. Mon + Thu only. <a href='https://www.youtube.com/watch?v=bf18YHxDvME' target='_blank' style='color:#a855f7'>▶ VMO Exercises</a>", twoMin:"1 set of 10 deep VMO squats holding a door frame. Done." },
       { time:"15:00-17:30", type:"trading",    label:"Trading deep work",                   detail:"System documentation, analysis, journal, setups. No interruptions.", twoMin:"Open the journal and write today's date + one market observation." },
       { time:"17:30-18:00", type:"wildcard",   label:"Transition - get ready for gym",      detail:"Wildcard buffer.", twoMin:null },
-      { time:"18:00-19:30", type:"gym_push",   label:"Gym A with wife - Push",              detail:"Chest, shoulders, triceps. Bench press, OHP, lateral raises, tricep pushdowns. Wife on cardio. 45-60 min.", twoMin:"5 sets of push-ups to failure at home. Wife still goes.", isGymSubstitute:true, substituteLabel:"Home substitute: Full body circuit (3 rounds, 20 min)" },
+      { time:"18:00-19:30", type:"gym_push",   label:"Gym A with wife - Push",              detail:"Chest, shoulders, triceps. Bench press, OHP, lateral raises, tricep pushdowns. Wife on cardio. 45-60 min.", twoMin:"5 sets of push-ups to failure at home. Wife still goes.", isGymSubstitute:true, substituteLabel:"Home substitute: Dumbbell Push Day (see Workouts tab)" },
       { time:"19:30-21:30", type:"sacred",     label:"Evening with wife",                   detail:"Non-negotiable. Dinner, wind down together.", twoMin:null },
       { time:"21:00",       type:"wildcard",   label:"Phone docked",                        detail:"Physical distance from phone. No screens after this point.", twoMin:null },
       { time:"21:45",       type:"mobility",   label:"Bedtime mobility (5 min)",            detail:"Spine rotations - lateral neck - pigeon pose - hamstring stretch - 90/90s. <a href='https://www.youtube.com/shorts/zQkpBdfQt9g' target='_blank' style='color:#a855f7'>▶ Night Stretches</a>", twoMin:"Just do the spine rotations for 30 seconds. Roll into bed." },
@@ -132,7 +174,7 @@ const SCHEDULE = {
       { time:"~14:00-14:30",type:"decompress", label:"Home - Lunch - Decompress",           detail:"Transition block. No rush.", twoMin:"5 minutes sitting in silence." },
       { time:"15:00-17:30", type:"trading",    label:"Trading deep work",                   detail:"Primary focus block. Protect it.", twoMin:"Open the journal and write today's date + one market observation." },
       { time:"17:30-18:00", type:"wildcard",   label:"Transition - get ready for gym",      detail:"Wildcard buffer.", twoMin:null },
-      { time:"18:00-19:30", type:"gym_pull",   label:"Gym A with wife - Pull",              detail:"Back, biceps. Barbell rows, lat pulldown, cable rows, curls. 45-60 min.", twoMin:"3 sets of doorframe rows at home.", isGymSubstitute:true, substituteLabel:"Home substitute: Core circuit (2 rounds, 12 min)" },
+      { time:"18:00-19:30", type:"gym_pull",   label:"Gym A with wife - Pull",              detail:"Back, biceps. Barbell rows, lat pulldown, cable rows, curls. 45-60 min.", twoMin:"3 sets of DB rows at home.", isGymSubstitute:true, substituteLabel:"Home substitute: Dumbbell Pull Day (see Workouts tab)" },
       { time:"19:30-21:30", type:"sacred",     label:"Evening with wife",                   detail:"Non-negotiable.", twoMin:null },
       { time:"21:00",       type:"wildcard",   label:"Phone docked",                        detail:"No screens after this point.", twoMin:null },
       { time:"21:45",       type:"mobility",   label:"Bedtime mobility (5 min)",            detail:"Full routine. <a href='https://www.youtube.com/shorts/zQkpBdfQt9g' target='_blank' style='color:#a855f7'>&#9654; Night Stretches</a>", twoMin:"Just do the spine rotations for 30 seconds." },
@@ -150,7 +192,7 @@ const SCHEDULE = {
       { time:"~14:00-14:30",type:"decompress", label:"Home - Lunch - Decompress",           detail:"Transition block.", twoMin:"5 minutes sitting in silence." },
       { time:"15:00-17:30", type:"trading",    label:"Trading deep work",                   detail:"Primary focus block.", twoMin:"Open the journal and write today's date + one market observation." },
       { time:"17:30-18:00", type:"wildcard",   label:"Transition - get ready for gym",      detail:"Wildcard buffer.", twoMin:null },
-      { time:"18:00-19:30", type:"gym_legs",   label:"Gym A with wife - Legs",              detail:"Quads, hamstrings, glutes. Back squat, Romanian deadlift, hip thrust, leg press.", twoMin:"3 sets of goblet squats with whatever weight is nearby.", isGymSubstitute:true, substituteLabel:"Home substitute: Full body circuit (3 rounds, 20 min)" },
+      { time:"18:00-19:30", type:"gym_legs",   label:"Gym A with wife - Legs",              detail:"Quads, hamstrings, glutes. Back squat, Romanian deadlift, hip thrust, leg press.", twoMin:"3 sets of DB goblet squats at home.", isGymSubstitute:true, substituteLabel:"Home substitute: Dumbbell Legs Day (see Workouts tab)" },
       { time:"19:30-21:30", type:"sacred",     label:"Evening with wife",                   detail:"Non-negotiable.", twoMin:null },
       { time:"21:00",       type:"wildcard",   label:"Phone docked",                        detail:"No screens after this point.", twoMin:null },
       { time:"21:45",       type:"mobility",   label:"Bedtime mobility (5 min)",            detail:"Full routine. <a href='https://www.youtube.com/shorts/zQkpBdfQt9g' target='_blank' style='color:#a855f7'>&#9654; Night Stretches</a>", twoMin:"Just do the spine rotations for 30 seconds." },
@@ -168,7 +210,7 @@ const SCHEDULE = {
       { time:"14:30-15:00", type:"vmo",        label:"VMO workout (12 min)",                detail:"Second VMO session of the week. HR fully normalized. Deep VMO squats + split squat. <a href='https://www.youtube.com/watch?v=bf18YHxDvME' target='_blank' style='color:#a855f7'>▶ VMO Exercises</a>", twoMin:"1 set of 10 deep VMO squats. One minute total." },
       { time:"15:00-17:30", type:"trading",    label:"Trading deep work",                   detail:"Primary focus block.", twoMin:"Open the journal and write today's date + one market observation." },
       { time:"17:30-18:00", type:"wildcard",   label:"Transition - get ready for gym",      detail:"Wildcard buffer.", twoMin:null },
-      { time:"18:00-19:30", type:"gym_push",   label:"Gym A with wife - Push",              detail:"Second Push session. Dumbbell press, incline press, lateral raises, tricep pushdowns.", twoMin:"5 sets of push-ups to failure at home.", isGymSubstitute:true, substituteLabel:"Home substitute: Core circuit (2 rounds, 12 min)" },
+      { time:"18:00-19:30", type:"gym_push",   label:"Gym A with wife - Push",              detail:"Second Push session. Dumbbell press, incline press, lateral raises, tricep pushdowns.", twoMin:"5 sets of push-ups to failure at home.", isGymSubstitute:true, substituteLabel:"Home substitute: Dumbbell Push Day (see Workouts tab)" },
       { time:"19:30-21:30", type:"sacred",     label:"Evening with wife",                   detail:"Non-negotiable.", twoMin:null },
       { time:"21:00",       type:"wildcard",   label:"Phone docked",                        detail:"No screens after this point.", twoMin:null },
       { time:"21:45",       type:"mobility",   label:"Bedtime mobility (5 min)",            detail:"Full routine. <a href='https://www.youtube.com/shorts/zQkpBdfQt9g' target='_blank' style='color:#a855f7'>&#9654; Night Stretches</a>", twoMin:"Just do the spine rotations for 30 seconds." },
@@ -185,7 +227,7 @@ const SCHEDULE = {
       { time:"~14:00-14:30",type:"decompress", label:"Home - Lunch - Decompress",           detail:"End of work week. Full decompression.", twoMin:"5 minutes sitting in silence." },
       { time:"14:30-17:30", type:"trading",    label:"Trading deep work",                   detail:"End-of-week review + setups for next week.", twoMin:"Open the journal and write one line about this week's trades." },
       { time:"17:30-18:00", type:"wildcard",   label:"Transition - get ready for gym",      detail:"Wildcard buffer.", twoMin:null },
-      { time:"18:00-19:30", type:"gym_pull",   label:"Gym A with wife - Pull",              detail:"Second Pull session. Deadlift, pull-ups or assisted, seated row, face pulls.", twoMin:"3 sets of doorframe rows at home.", isGymSubstitute:true, substituteLabel:"Home substitute: Full body circuit (3 rounds, 20 min)" },
+      { time:"18:00-19:30", type:"gym_pull",   label:"Gym A with wife - Pull",              detail:"Second Pull session. Deadlift, pull-ups or assisted, seated row, face pulls.", twoMin:"3 sets of DB rows at home.", isGymSubstitute:true, substituteLabel:"Home substitute: Dumbbell Pull Day (see Workouts tab)" },
       { time:"19:30-21:30", type:"sacred",     label:"Evening with wife",                   detail:"Non-negotiable. Start of weekend together.", twoMin:null },
       { time:"21:00",       type:"wildcard",   label:"Phone docked",                        detail:"No screens after this point.", twoMin:null },
       { time:"21:45",       type:"mobility",   label:"Bedtime mobility (5 min)",            detail:"Full routine. <a href='https://www.youtube.com/shorts/zQkpBdfQt9g' target='_blank' style='color:#a855f7'>&#9654; Night Stretches</a>", twoMin:"Just do the spine rotations for 30 seconds." },
@@ -203,7 +245,7 @@ const SCHEDULE = {
       { time:"09:00-12:00", type:"trading",    label:"Trading deep work",                   detail:"Best uninterrupted block of the week. Strategy review, backtesting, system building.", twoMin:"Open the trading journal and write one thing you want to work on today." },
       { time:"12:00-13:00", type:"wildcard",   label:"CAD / patent follow-up (hard cap 1h)",detail:"Only if patents require action. Otherwise free time.", twoMin:null },
       { time:"13:00-18:00", type:"wildcard",   label:"Afternoon free - personal plans",     detail:"Full wildcard. Rest, errands, personal plans.", twoMin:null },
-      { time:"18:00-19:30", type:"gym_legs",   label:"Gym A with wife - Legs",              detail:"Second Legs session. Split squats, leg curl, hip thrust, calf raises.", twoMin:"3 sets of goblet squats at home.", isGymSubstitute:true, substituteLabel:"Home substitute: Core circuit (2 rounds, 12 min)" },
+      { time:"18:00-19:30", type:"gym_legs",   label:"Gym A with wife - Legs",              detail:"Second Legs session. Split squats, leg curl, hip thrust, calf raises.", twoMin:"3 sets of DB goblet squats at home.", isGymSubstitute:true, substituteLabel:"Home substitute: Dumbbell Legs Day (see Workouts tab)" },
       { time:"19:30-21:30", type:"sacred",     label:"Evening with wife",                   detail:"Non-negotiable.", twoMin:null },
       { time:"21:00",       type:"wildcard",   label:"Phone docked",                        detail:"No screens after this point.", twoMin:null },
       { time:"21:45",       type:"mobility",   label:"Bedtime mobility (5 min)",            detail:"Full routine. <a href='https://www.youtube.com/shorts/zQkpBdfQt9g' target='_blank' style='color:#a855f7'>&#9654; Night Stretches</a>", twoMin:"Just do the spine rotations for 30 seconds." },
@@ -859,6 +901,33 @@ function PWorkouts(){
     <>
       <div className="pg-title">WORKOUTS</div>
       <div className="pg-sub">Reference videos for all home training blocks</div>
+      <div className="card-t" style={{marginTop:4,marginBottom:12}}>Home Dumbbell PPL</div>
+      <div className="callout cn">
+        <div className="ct">
+          Built for 2 adjustable dumbbells, <strong>10kg per hand / 20kg combined</strong>. At this load, progress comes from tempo, unilateral work, and rep range rather than raw weight — bodyweight moves (push-ups, lunges, split squats) fill in what the dumbbells can't. Mirrors the gym Push/Pull/Legs split so it can substitute directly. Progress: once a lift clears 15-20 clean reps or a 3-count negative feels easy, it's time for heavier dumbbells or resistance bands.
+        </div>
+      </div>
+      {Object.entries(HOME_PPL).map(([day,d])=>(
+        <div className="card" key={day}>
+          <div className="card-t" style={{color:d.color}}>{day.toUpperCase()} DAY — {d.duration}</div>
+          <div style={{fontSize:12,color:"#94a3b8",marginBottom:8}}>{d.focus}</div>
+          <div style={{fontSize:11,color:"#64748b",fontStyle:"italic",marginBottom:12}}>Warm-up: {d.warmup}</div>
+          <table className="tbl">
+            <thead><tr><th>EXERCISE</th><th>SETS</th><th>REPS</th><th>NOTE</th></tr></thead>
+            <tbody>
+              {d.exercises.map((e,i)=>(
+                <tr key={i}>
+                  <td style={{fontWeight:600,color:"#e2e8f0",whiteSpace:"nowrap"}}>{e.name}</td>
+                  <td style={{color:"#94a3b8"}}>{e.sets}</td>
+                  <td style={{color:"#94a3b8",whiteSpace:"nowrap"}}>{e.reps}</td>
+                  <td style={{color:"#64748b",fontSize:11}}>{e.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
+      <div className="card-t" style={{marginTop:20,marginBottom:12}}>Reference Videos</div>
       {vids.map(v=>(
         <div key={v.title} className="card" style={{display:"flex",alignItems:"flex-start",gap:16}}>
           <div style={{width:36,height:36,borderRadius:8,background:v.color+"22",border:"1px solid "+v.color+"55",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:16}}>▶</div>
