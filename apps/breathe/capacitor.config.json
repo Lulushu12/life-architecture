@@ -1,0 +1,8 @@
+{
+  "appId": "io.github.lulushu12.breathe",
+  "appName": "Breathe",
+  "webDir": "dist",
+  "android": {
+    "webContentsDebuggingEnabled": false
+  }
+}

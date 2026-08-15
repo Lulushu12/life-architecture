@@ -1,0 +1,8 @@
+{
+  "appId": "io.github.lulushu12.lifearchitecture",
+  "appName": "Life Architecture",
+  "webDir": "dist",
+  "android": {
+    "webContentsDebuggingEnabled": false
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "appId": "io.github.lulushu12.focus",
+  "appName": "Focus",
+  "webDir": "dist",
+  "android": {
+    "webContentsDebuggingEnabled": false
+  }
+}

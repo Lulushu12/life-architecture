@@ -1,0 +1,8 @@
+{
+  "appId": "io.github.lulushu12.games",
+  "appName": "Games",
+  "webDir": "dist",
+  "android": {
+    "webContentsDebuggingEnabled": false
+  }
+}

@@ -31,44 +31,54 @@ npm run dev
 Pushing to `main` triggers the GitHub Actions workflow, which builds every
 app and publishes the composed site to GitHub Pages.
 
-## Android APK (chess only, for now)
+## Android APKs
 
-Chess additionally builds as a native Android app via Capacitor. The web
-assets ship *inside* the APK — Stockfish and the 39MB NNUE net included — so
-it works offline from a fresh install, with no first-visit caching step.
+Every app also builds as a native Android app via Capacitor. The web assets
+ship *inside* the APK — Stockfish and its 39MB NNUE net included — so each one
+works offline from a fresh install, with no first-visit caching step and no
+dependence on the service-worker cache surviving.
 
-Any chess change landing on `main` rebuilds and republishes the APK
-automatically. To build without changing anything, run the **Build Chess APK**
-workflow by hand (Actions → Run workflow) with *publish* ticked.
+Any change under `apps/` rebuilds every APK and republishes it. To build
+without changing anything, run the **Build APKs** workflow by hand
+(Actions → Run workflow) with *publish* ticked.
 
-Either way the APK lands on the `chess-latest` release, giving a permanent
-link that installs straight from the phone:
+Each app lands on its own `<app>-latest` release, giving permanent links that
+install straight from the phone:
 
-```
-https://github.com/Lulushu12/life-architecture/releases/download/chess-latest/chess.apk
-```
+| App | Download |
+|-----|----------|
+| Chess | `releases/download/chess-latest/chess.apk` |
+| Whist & Rentz | `releases/download/whist-latest/whist.apk` |
+| Games | `releases/download/games-latest/games.apk` |
+| Breathe | `releases/download/breathe-latest/breathe.apk` |
+| Focus | `releases/download/focus-latest/focus.apk` |
+| Calories | `releases/download/calories-latest/calories.apk` |
+| Ortho | `releases/download/ortho-latest/ortho.apk` |
+| Life Architecture | `releases/download/life-architecture-latest/life-architecture.apk` |
 
-Re-running the workflow replaces the asset at that same URL, so the link never
-changes. Release assets are public on a public repo. (Actions *artifacts* are
-the other output, but they are login-gated zips and the GitHub mobile app
-can't show them — the release link is the one to use on a phone.)
+All prefixed with `https://github.com/Lulushu12/life-architecture/`. Rebuilds
+replace the asset at the same URL, so the links never change. Release assets
+are public on a public repo. (Actions *artifacts* are the other output, but
+they are login-gated zips and the GitHub mobile app can't show them — the
+release links are what to use on a phone.)
 
-Or build locally with the Android SDK installed:
+Or build one locally with the Android SDK installed:
 
 ```sh
-cd apps/chess
+cd apps/<app>
 npm run apk        # → android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
 ### Signing
 
-Without a keystore the workflow builds a debug APK — installable, but
+Without a keystore the workflow builds debug APKs — installable, but
 `debuggable`, meaning anything with ADB access can attach to the process and
 read app storage. For a build you keep on your phone, add four repo secrets
-and the workflow assembles a signed, non-debuggable release instead:
+and the workflow assembles signed, non-debuggable releases instead (one
+keystore signs all eight):
 
 ```sh
-keytool -genkeypair -v -keystore release.jks -alias chess \
+keytool -genkeypair -v -keystore release.jks -alias apps \
   -keyalg RSA -keysize 2048 -validity 10000
 base64 -w0 release.jks     # → secret ANDROID_KEYSTORE_BASE64
 ```
@@ -78,33 +88,46 @@ Plus `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEYSTORE_ALIAS`, and
 outside the repo — losing it means installs can't be updated in place.
 (`*.jks`/`*.keystore` are gitignored.)
 
-### What the APK can reach
+### What the APKs can reach
 
-Only `android.permission.INTERNET` is requested — no camera, microphone,
-location, or storage. The app has one network feature: the optional live-AI
-bot banter in Settings, which is inert unless you paste an endpoint and key
-(`ai: { baseUrl: "", apiKey: "", model: "" }` by default). Everything else —
-Stockfish, review, puzzles, lessons, openings — is on-device.
+Each APK requests only `android.permission.INTERNET` — no camera, microphone,
+location, or storage. The native bridge registers zero Capacitor plugins, so
+nothing in the WebView can reach a native API at all.
 
-`INTERNET` is outbound-only; it opens no port and lets nothing in. The app
+Four apps make no network calls whatsoever:
+
+| App | Network use |
+|-----|-------------|
+| Breathe, Focus, Ortho, Whist | none — fully offline |
+| Chess | optional live-AI bot banter; inert until you paste an endpoint and key |
+| Life Architecture | optional GitHub branch sync (needs a PAT) and AI coach (needs a key); both off by default |
+| Games | "fetch quotes" adds new cryptograms from a public quote API; bundled puzzles work offline |
+| Calories | food search and barcode lookup hit Open Food Facts; the log itself is local |
+
+`INTERNET` is outbound-only; it opens no port and lets nothing in. Each app
 serves its own assets in-process via `WebViewAssetLoader`, not over a socket,
-so if you want to make outbound traffic impossible at the OS level, delete the
-`<uses-permission>` line from `AndroidManifest.xml` and rebuild. That also
-kills the AI banter — and it hasn't been tested on a device, so check the app
-still opens before relying on it.
+so for the four offline-only apps you can delete the `<uses-permission>` line
+from `AndroidManifest.xml` and rebuild to make outbound traffic impossible at
+the OS level. That has not been tested on a device — check the app still opens
+before relying on it.
 
-Backups are off (`allowBackup="false"` plus Android 12+ data-extraction
-rules), so game history and any API key you set stay on the device rather than
-syncing to Google.
+Backups are off everywhere (`allowBackup="false"` plus Android 12+
+data-extraction rules), so history, settings, and any token or API key you set
+stay on the device rather than syncing to Google. The FileProvider ships with
+no declared paths, since no plugin uses it.
 
-The Pages build is unaffected: `npm run build` still emits the
-`/life-architecture/chess/` paths and registers the service worker.
-`vite build --mode android` is the only thing that switches to relative
-paths and drops the (redundant) service worker.
+Life Architecture's fonts are self-hosted in `public/fonts` rather than pulled
+from Google Fonts, so it renders identically with no off-origin request.
+
+The Pages build is unaffected by any of this: `npm run build` still emits the
+`/life-architecture/<app>/` paths and registers each service worker.
+`vite build --mode android` is the only thing that switches to relative paths
+and drops the (redundant) service worker.
 
 ## Conventions
 
 New apps copy the patterns of `apps/whist`: same dependency set, dark
-mobile-first UI, `base: '/life-architecture/<name>/'`, a service worker with
-an app-specific cache name, and single-key localStorage persistence written
-through on every state change.
+mobile-first UI, a `base` that switches between `/life-architecture/<name>/`
+and `./` on `--mode android`, service worker registration in `main.jsx` guarded
+by that mode, an app-specific cache name, and single-key localStorage
+persistence written through on every state change.
