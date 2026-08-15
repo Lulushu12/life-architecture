@@ -20,10 +20,19 @@ export const CATEGORY_LABELS = {
   endgames: "Endgames",
 };
 
-export const LEVEL_ORDER = { beginner: 0, intermediate: 1, advanced: 2 };
+export const LEVELS = ["beginner", "intermediate", "advanced"];
+export const LEVEL_LABELS = { beginner: "Beginner", intermediate: "Intermediate", advanced: "Advanced" };
+export const LEVEL_ORDER = Object.fromEntries(LEVELS.map((l, i) => [l, i]));
 
-export function lessonsByCategory(category) {
-  const list = LESSONS.filter((l) => l.category === category);
+/** How many lessons of each level a category holds, for the level chips. */
+export function levelCounts(category) {
+  const out = { beginner: 0, intermediate: 0, advanced: 0 };
+  for (const l of LESSONS) if (l.category === category) out[l.level || "intermediate"]++;
+  return out;
+}
+
+export function lessonsByCategory(category, level = null) {
+  const list = LESSONS.filter((l) => l.category === category && (!level || (l.level || "intermediate") === level));
   const groups = new Map();
   for (const l of list) {
     const key = l.group || "Other";

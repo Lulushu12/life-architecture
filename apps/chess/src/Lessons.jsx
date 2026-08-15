@@ -9,6 +9,9 @@ import {
   lessonsByCategory,
   getLesson,
   groupShare,
+  levelCounts,
+  LEVELS,
+  LEVEL_LABELS,
 } from "./lessons/index.js";
 import { play as sfx, buzz } from "./audio.js";
 
@@ -111,12 +114,20 @@ function LessonHome({ store, nav }) {
       {cats.map((c) => {
         const inCat = LESSONS.filter((l) => l.category === c.key);
         const doneHere = inCat.filter((l) => progressOf(store, l.id)?.completed).length;
+        const byLevel = levelCounts(c.key);
         return (
           <div key={c.key} className="card catcard" onClick={() => nav("lessons", { category: c.key })}>
             <div className="catcard-main">
               <div className="catcard-title">{c.label}</div>
               <div className="catcard-sub">
                 {doneHere}/{c.count} lessons
+              </div>
+              <div className="levelsplit">
+                {LEVELS.filter((lv) => byLevel[lv]).map((lv) => (
+                  <span key={lv}>
+                    <b>{byLevel[lv]}</b> {LEVEL_LABELS[lv].toLowerCase()}
+                  </span>
+                ))}
               </div>
               <div className="rowbar">
                 <div className="rowbar-fill" style={{ width: (doneHere / Math.max(1, c.count)) * 100 + "%" }} />
@@ -136,10 +147,40 @@ function LessonHome({ store, nav }) {
 }
 
 function LessonList({ category, store, nav }) {
-  const groups = useMemo(() => lessonsByCategory(category), [category]);
+  // The whole tree is browsable at once, or one skill level at a time — a
+  // beginner shouldn't have to pick their way past hanging-pawn structures to
+  // find forks, and someone past that shouldn't have to scroll through them.
+  const [level, setLevel] = useState(null);
+  const groups = useMemo(() => lessonsByCategory(category, level), [category, level]);
+  const counts = useMemo(() => levelCounts(category), [category]);
+  const total = counts.beginner + counts.intermediate + counts.advanced;
+
   return (
     <div className="page">
-      <TopBar title={CATEGORY_LABELS[category]} onBack={() => nav("lessons")} />
+      <TopBar
+        title={CATEGORY_LABELS[category]}
+        sub={level ? `${LEVEL_LABELS[level]} · ${counts[level]} lessons` : `${total} lessons`}
+        onBack={() => nav("lessons")}
+      />
+
+      <div className="chips levelchips">
+        <button className={"chip" + (level === null ? " sel" : "")} onClick={() => setLevel(null)}>
+          All {total}
+        </button>
+        {LEVELS.map((lv) => (
+          <button
+            key={lv}
+            className={"chip " + lv + (level === lv ? " sel" : "")}
+            onClick={() => setLevel(lv)}
+            disabled={!counts[lv]}
+          >
+            {LEVEL_LABELS[lv]} {counts[lv]}
+          </button>
+        ))}
+      </div>
+
+      {groups.length === 0 && <p className="hint">Nothing at this level yet.</p>}
+
       {groups.map(([group, list]) => {
         const done = list.filter((l) => progressOf(store, l.id)?.completed).length;
         return (

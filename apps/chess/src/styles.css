@@ -1215,3 +1215,24 @@ textarea.input {
 .matchresult { padding: 10px 12px; }
 .thinking.center { text-align: center; display: block; }
 .sidecfg { padding: 4px 12px; }
+
+/* ---- lesson level branching ---- */
+.levelchips {
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.levelchips .chip {
+  border-left: 3px solid transparent;
+}
+.levelchips .chip.beginner { border-left-color: var(--accent); }
+.levelchips .chip.intermediate { border-left-color: var(--gold); }
+.levelchips .chip.advanced { border-left-color: #e46060; }
+.levelchips .chip:disabled { opacity: 0.4; }
+.levelsplit {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.levelsplit b { font-weight: 700; }
