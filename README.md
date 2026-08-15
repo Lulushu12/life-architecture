@@ -37,13 +37,9 @@ Chess additionally builds as a native Android app via Capacitor. The web
 assets ship *inside* the APK — Stockfish and the 39MB NNUE net included — so
 it works offline from a fresh install, with no first-visit caching step.
 
-Run the **Build Chess APK** workflow (Actions → Run workflow) with *publish*
-ticked, or — if you have no computer to hand — push a tag, which triggers the
-same build:
-
-```sh
-git tag chess-apk-v2 && git push origin chess-apk-v2
-```
+Any chess change landing on `main` rebuilds and republishes the APK
+automatically. To build without changing anything, run the **Build Chess APK**
+workflow by hand (Actions → Run workflow) with *publish* ticked.
 
 Either way the APK lands on the `chess-latest` release, giving a permanent
 link that installs straight from the phone:
