@@ -210,4 +210,49 @@ export const LESSONS = [
       },
     ],
   },
+
+  {
+    id: "short-side-defence",
+    title: "The short-side defence",
+    category: "endgames",
+    group: "Rook Endings",
+    level: "advanced",
+    summary: "Which side of the pawn your king runs to decides the game. The same position mirrored is a draw one way and a loss the other.",
+    orientation: "b",
+    startFen: "r7/6k1/4K3/4P3/8/8/8/7R b - - 0 1",
+    steps: [
+      {
+        text: "White has an extra pawn with the king in front of it — the standard winning try. Your king is cut off from the pawn, sitting on g7. This position is a dead draw, and the reason is pure geometry.",
+        circles: ["e5", "g7"],
+      },
+      {
+        text: "The e-pawn splits the board unevenly. To its left lie four files, a to d — the long side. To its right lie only three, f to h — the short side. Your king is on the short side.",
+        circles: ["a8", "b8", "c8", "d8", "f8", "g8", "h8"],
+      },
+      {
+        text: "That's what saves you. With the king out of the way on the short side, your rook gets the whole long side to check from — and checks from four files away can't be answered by walking the king at the rook.",
+        arrows: [["a8", "a1"]],
+      },
+      {
+        quiz: {
+          answer: "Ra6+",
+          prompt: "Start checking from as far away as you can get.",
+          explain: "Sideways checks along the sixth, from the a-file. White's king cannot approach the rook without leaving the pawn, and cannot advance the pawn without walking into more checks. Nothing progresses, so it's a draw.",
+        },
+      },
+      {
+        play: ["Kd5", "Ra5+", "Kd6", "Ra6+"],
+        text: "White probes, you keep checking. The rook never has to leave the a-file, and there is no square where the king escapes the checks with the pawn still defended.",
+      },
+      {
+        text: "Now picture the same position with both sides swapped over to the other side of the pawn: your king on c7 instead of g7, your rook on the h-file, White's rook on a1. The pawn hasn't moved. The app's engine calls that a five-pawn win for White.",
+      },
+      {
+        text: "Why: with your king on the long side, your rook is stuck checking from the short side, three files away. White's king simply walks toward it — Kf6, Kg6 — and once it reaches the rook the checks stop and the pawn queens.",
+      },
+      {
+        text: "So the rule, and it is worth memorising word for word: put the king on the short side, and the rook on the long side. Getting that backwards turns a comfortable draw into a lost game, and it's the single most common way strong players lose rook endings.",
+      },
+    ],
+  },
 ];
