@@ -11,6 +11,7 @@ export const DEFAULT_SETTINGS = {
   sounds: true,
   haptics: true,
   evalBar: true, // default for casual games; serious mode always hides it
+  animMs: 200, // piece-slide animation duration; 0 = instant, no animation
   reviewMovetime: 400, // ms per position in game review
   ai: { baseUrl: "", apiKey: "", model: "" }, // optional OpenAI-compatible endpoint for live bot banter
 };

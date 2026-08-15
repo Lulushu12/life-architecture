@@ -336,6 +336,7 @@ export default function EngineMatch({ store, setStore, nav, view }) {
           checkSquare={checkSquare}
           theme={store.settings.theme}
           pieceSet={store.settings.pieces}
+          animMs={store.settings.animMs}
         />
       </div>
 

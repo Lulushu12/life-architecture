@@ -509,6 +509,7 @@ function BotGame({ store, setStore, nav }) {
           arrow={viewPly == null ? hintArrow : null}
           theme={store.settings.theme}
           pieceSet={store.settings.pieces}
+          animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
           needsPromotion={(from, to) => {
             const piece = new Chess(liveFen).get(from);

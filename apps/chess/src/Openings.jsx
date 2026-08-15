@@ -119,6 +119,7 @@ export default function Openings({ store, nav }) {
             onMove={playMove}
             theme={store.settings.theme}
             pieceSet={store.settings.pieces}
+            animMs={store.settings.animMs}
             arrowColors={store.settings.arrowColors}
             needsPromotion={(from, to) => {
               const piece = chess.get(from);

@@ -206,6 +206,7 @@ function Game({ store, setStore, nav }) {
         onMove={onMove}
         theme={store.settings.theme}
         pieceSet={store.settings.pieces}
+        animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
         needsPromotion={(from, to) => {
           const piece = chess.get(from);
