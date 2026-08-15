@@ -25,7 +25,15 @@ const PIECE_VALUE = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 0 };
  *  evals[i] = white-perspective cp of position before move i (length n+1)
  *  moves[i] = { san, class, bestSan, bestUci, drop, fenBefore }
  */
-export async function reviewGame(engine, sans, { startFen = null, movetime = 400, onProgress = () => {} } = {}) {
+// `shouldStop` is polled between positions so a caller that navigates away
+// mid-review can abandon it: a full-game pass is one engine search per ply,
+// which otherwise keeps Stockfish at full CPU producing results nobody reads.
+// Returns null when abandoned.
+export async function reviewGame(
+  engine,
+  sans,
+  { startFen = null, movetime = 400, onProgress = () => {}, shouldStop = () => false } = {}
+) {
   const chess = startFen ? new Chess(startFen) : new Chess();
   const positions = [{ fen: chess.fen(), turn: chess.turn() }];
   const verbose = [];
@@ -40,6 +48,10 @@ export async function reviewGame(engine, sans, { startFen = null, movetime = 400
   const evals = [];
   const bests = [];
   for (let i = 0; i < positions.length; i++) {
+    if (shouldStop()) {
+      engine.stopCurrent();
+      return null;
+    }
     const isLast = i === positions.length - 1;
     if (isLast && finalOver) {
       evals.push(terminalCp(chess));

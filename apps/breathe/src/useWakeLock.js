@@ -35,17 +35,25 @@ export function useWakeLock(active) {
 
   useEffect(() => {
     if (!active || !("wakeLock" in navigator)) return;
+    let cancelled = false;
     const onVisible = () => {
       if (document.visibilityState === "visible" && !lockRef.current) {
         navigator.wakeLock
           .request("screen")
           .then((lock) => {
-            lockRef.current = lock;
+            // The session can end while this request is still in flight; the
+            // cleanup below has already run by then, so releasing here is what
+            // stops the screen staying awake for good.
+            if (cancelled) lock.release().catch(() => {});
+            else lockRef.current = lock;
           })
           .catch(() => {});
       }
     };
     document.addEventListener("visibilitychange", onVisible);
-    return () => document.removeEventListener("visibilitychange", onVisible);
+    return () => {
+      cancelled = true;
+      document.removeEventListener("visibilitychange", onVisible);
+    };
   }, [active]);
 }
