@@ -11,7 +11,6 @@ updated: 2026-08-15
 
 ## Quick Reference
 
-**Note on sourcing:** live web search was unavailable for this write-up (session search budget exhausted before any query returned results). All content below reflects established literature and guideline positions from training knowledge. The "Recent Evidence" section is flagged accordingly — treat dated items there as recall, not as search-verified citations, and re-verify before relying on them for a specific clinical decision.
 
 ### Treatment ladders
 
