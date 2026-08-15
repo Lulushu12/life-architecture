@@ -243,7 +243,7 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
 
       <Board
         fen={chess.fen()}
-        orientation={solverColor}
+        orientation="w"
         dests={dests}
         onMove={tryMove}
         arrow={state === "revealed" ? [expected.slice(0, 2), expected.slice(2, 4)] : null}
