@@ -163,4 +163,51 @@ export const LESSONS = [
       },
     ],
   },
+
+  {
+    id: "vancura-defence",
+    title: "The Vancura defence",
+    category: "endgames",
+    group: "Rook Endings",
+    level: "advanced",
+    summary: "Rook and a-pawn against rook is drawn — but only if your rook attacks the pawn from the side instead of sitting in front of it.",
+    orientation: "b",
+    startFen: "R7/6k1/P4r2/8/8/8/8/7K b - - 0 1",
+    steps: [
+      {
+        text: "Rook and a rook's pawn against a rook. White is a pawn up with the pawn two squares from queening, and it's still a draw — because White's rook is entombed in front of its own pawn on a8.",
+        circles: ["a8", "a6"],
+      },
+      {
+        text: "Your rook is the jailer. From the sixth rank it attacks a6 sideways, so the moment White's rook leaves a8 the pawn drops. White's only plan is to walk the king all the way over to free it.",
+        arrows: [["f6", "a6"]],
+      },
+      {
+        quiz: {
+          answer: "Rb6",
+          prompt: "Stay on the sixth rank — anywhere along it.",
+          explain: "The rook keeps hitting a6 from the side wherever it stands on this rank. Note what you must NOT do: put the rook in front of the pawn, where it would be as passive as White's and lose.",
+        },
+      },
+      {
+        play: ["Kg2", "Rc6", "Kf3", "Rb6", "Ke4", "Rc6", "Kd5"],
+        text: "White's king begins the long march. You shuffle along the sixth and nothing changes — until the king gets close enough to threaten your rook.",
+      },
+      {
+        quiz: {
+          answer: "Rf6",
+          prompt: "The king is closing. Keep the rank, but get as far from it as you can.",
+          explain: "Distance is the second half of Vancura. On f6 the rook still attacks a6 along the rank, but White's king can't approach it, and any check you give later comes from far enough away that it can't be blocked.",
+          strict: true,
+        },
+      },
+      {
+        play: ["Kc5"],
+        text: "White keeps coming. The pattern from here never changes: hold the sixth, keep your distance, and check from the side the moment the king steps next to the pawn to free the rook.",
+      },
+      {
+        text: "Two habits decide this ending. Get your rook to the sixth attacking the pawn sideways — never in front of it — and keep it far from the enemy king. Miss either and a drawn position becomes a loss.",
+      },
+    ],
+  },
 ];
