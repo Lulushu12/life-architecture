@@ -9,6 +9,10 @@ dist/
 .env.local
 .env.*.local
 
+# Android signing keys — never commit these
+*.jks
+*.keystore
+
 # Editor
 .vscode/
 .idea/

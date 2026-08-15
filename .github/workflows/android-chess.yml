@@ -1,0 +1,46 @@
+name: Build Chess APK
+
+# Manual only — the Pages deploy in deploy.yml stays the source of truth for
+# the web apps; this just produces a sideloadable APK when you want one.
+on:
+  workflow_dispatch:
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/chess
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: apps/chess/package-lock.json
+
+      # ubuntu-latest ships the Android SDK; only the JDK needs pinning.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - run: npm ci
+
+      # Builds with `--mode android` (relative asset paths, no service worker)
+      # and copies dist/ into the native project.
+      - run: npm run build:android
+
+      - name: Assemble debug APK
+        run: ./gradlew assembleDebug --no-daemon
+        working-directory: apps/chess/android
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chess-apk
+          path: apps/chess/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
