@@ -34,8 +34,7 @@ export const LESSONS = [
         quiz: {
           answer: "Ke2",
           prompt: "The box is small enough. Now bring the piece that actually mates.",
-          explain: "The queen has done her job; nothing more happens until the king arrives. Beginners lose 50-move draws here by shuffling the queen instead.",
-          strict: true,
+          explain: "The queen has done her job; nothing more happens until the king arrives. Beginners lose 50-move draws here by shuffling the queen instead. Which way the king starts barely matters — Kd2 mates a move sooner — so this walks straight up the e-file, which is easier to remember.",
         },
       },
       {
