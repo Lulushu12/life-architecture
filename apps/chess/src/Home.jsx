@@ -30,6 +30,9 @@ export default function Home({ store, nav }) {
         <button className="menubtn primary" onClick={() => nav("lessons")}>
           <span className="mb-icon">🎓</span>Lessons
         </button>
+        <button className="menubtn" onClick={() => nav("openings")}>
+          <span className="mb-icon">📖</span>Openings
+        </button>
         <button className="menubtn" onClick={() => nav("analysis")}>
           <span className="mb-icon">🔬</span>Analysis
         </button>

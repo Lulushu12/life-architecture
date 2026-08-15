@@ -1109,3 +1109,33 @@ textarea.input {
   white-space: pre;
   overflow: auto;
 }
+
+/* Opening explorer rows: move, name, and how often it's played. */
+.openrow {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #221f1a;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  padding: 10px 2px;
+  cursor: pointer;
+}
+.openrow:last-child { border-bottom: 0; }
+.or-move { font-weight: 700; min-width: 46px; }
+.or-eco { color: #8b8778; font-size: 11px; min-width: 34px; }
+.or-name { flex: 1; font-size: 13px; }
+.or-sub { color: #8b8778; font-size: 11px; }
+.or-plays { color: #8b8778; font-size: 11px; white-space: nowrap; }
+.movepath { display: flex; flex-wrap: wrap; gap: 4px; margin: 8px 0; }
+.pathmove {
+  background: #1c1a16; border: 1px solid #2a2721; border-radius: 5px;
+  color: inherit; font: inherit; font-size: 12px; padding: 3px 7px; cursor: pointer;
+}
+.opencard { padding: 10px 12px; }
+.oc-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.oc-eval { margin: 4px 0; }
