@@ -1,8 +1,15 @@
 name: Build Chess APK
 
-# Manual only — the Pages deploy in deploy.yml stays the source of truth for
-# the web apps; this just produces a sideloadable APK when you want one.
+# Never runs on an ordinary push — the Pages deploy in deploy.yml stays the
+# source of truth for the web apps; this just produces a sideloadable APK when
+# you ask for one, by hand or by tag.
 on:
+  # Pushing a tag like `chess-apk-v3` builds and publishes without needing the
+  # Actions tab — useful from a phone, or from any tool that can push a tag but
+  # can't dispatch a workflow.
+  push:
+    tags:
+      - "chess-apk-v*"
   workflow_dispatch:
     inputs:
       publish:
@@ -28,6 +35,8 @@ jobs:
       # `secrets` is not a valid context in a step-level `if`, so the presence
       # check is hoisted into job env, which may read secrets.
       HAS_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+      # Tag pushes carry no inputs, so they fall back to publishing.
+      TAG: ${{ inputs.tag || 'chess-latest' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -101,10 +110,9 @@ jobs:
       # zip, unlike Actions artifacts (which the GitHub mobile app can't show).
       # Uses the preinstalled gh CLI rather than a third-party action.
       - name: Publish to Release
-        if: ${{ inputs.publish }}
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.publish }}
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ inputs.tag }}
         run: |
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" out/chess.apk --clobber
