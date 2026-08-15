@@ -4,6 +4,19 @@ name: Build Chess APK
 # the web apps; this just produces a sideloadable APK when you want one.
 on:
   workflow_dispatch:
+    inputs:
+      publish:
+        description: "Attach the APK to a Release (gives a phone-friendly download link)"
+        type: boolean
+        default: true
+      tag:
+        description: "Release tag to publish under — reusing a tag replaces its APK"
+        type: string
+        default: chess-latest
+
+# Needed to create/update the Release the APK is attached to.
+permissions:
+  contents: write
 
 jobs:
   apk:
@@ -69,8 +82,38 @@ jobs:
         if: always()
         run: rm -f "$RUNNER_TEMP/release.jks"
 
+      # Fixed name so the Release download URL stays stable across builds.
+      - name: Collect APK
+        run: |
+          src=$(ls android/app/build/outputs/apk/release/*.apk 2>/dev/null | head -1)
+          [ -n "$src" ] || src=$(ls android/app/build/outputs/apk/debug/*.apk 2>/dev/null | head -1)
+          [ -n "$src" ] || { echo "no APK produced"; exit 1; }
+          mkdir -p out && cp "$src" out/chess.apk
+          echo "Built from: $src"
+
       - uses: actions/upload-artifact@v4
         with:
           name: chess-apk
-          path: apps/chess/android/app/build/outputs/apk/*/*.apk
+          path: apps/chess/out/chess.apk
           if-no-files-found: error
+
+      # Release assets are downloadable straight from a phone — no login, no
+      # zip, unlike Actions artifacts (which the GitHub mobile app can't show).
+      # Uses the preinstalled gh CLI rather than a third-party action.
+      - name: Publish to Release
+        if: ${{ inputs.publish }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" out/chess.apk --clobber
+          else
+            gh release create "$TAG" out/chess.apk \
+              --title "Chess APK" \
+              --notes "Offline Android build of the Chess app. Stockfish 16 NNUE bundled — no network needed.
+
+          Install: tap the \`chess.apk\` asset below, then allow your browser to install unknown apps when prompted."
+          fi
+          echo "### APK ready" >> "$GITHUB_STEP_SUMMARY"
+          echo "https://github.com/${{ github.repository }}/releases/download/$TAG/chess.apk" >> "$GITHUB_STEP_SUMMARY"
