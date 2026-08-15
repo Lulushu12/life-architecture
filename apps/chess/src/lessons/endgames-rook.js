@@ -64,4 +64,103 @@ export const LESSONS = [
       },
     ],
   },
+
+  {
+    id: "philidor-third-rank",
+    title: "Philidor's third-rank defence",
+    category: "endgames",
+    group: "Rook Endings",
+    level: "intermediate",
+    summary: "A rook ending a pawn down is usually still a draw — if you know this one method. Hold a rank, then check from behind.",
+    orientation: "b",
+    startFen: "8/4k3/r7/3KP3/8/8/8/7R b - - 0 1",
+    steps: [
+      {
+        text: "You're a pawn down in a rook ending. That's normally still a draw, and Philidor worked out why in 1777. Two ideas, and the order matters.",
+      },
+      {
+        text: "Your rook sits on the sixth rank — your own third. From there it denies White's king the sixth, and the pawn can't advance safely without the king's support. So the first job is simply: don't leave.",
+        circles: ["a6", "b6", "c6", "d6", "f6", "g6", "h6"],
+      },
+      {
+        quiz: {
+          answer: "Rb6",
+          prompt: "Wait. Stay on the rank and hand the move back.",
+          explain: "Any square along the sixth does the job. White has no way forward: the king can't step up, and pushing the pawn is exactly what you want.",
+        },
+      },
+      {
+        play: ["e6"],
+        text: "White pushes, out of other ideas. That's the trigger for the second half — and the pawn has now cut off its own king from the sixth rank.",
+      },
+      {
+        quiz: {
+          answer: "Rb8",
+          prompt: "The pawn has passed your rank. Now go as far back as you can — your first rank, not White's.",
+          explain: "From the eighth you check the White king from maximum range. Dropping to the *first* rank instead loses on the spot: White's rook is sitting there and simply takes, and the king-and-pawn ending that follows is winning.",
+        },
+      },
+      {
+        play: ["Kc6"],
+        text: "White's king goes hunting round the side, since the pawn blocks the e-file.",
+      },
+      {
+        quiz: {
+          answer: "Rc8+",
+          prompt: "Check it from behind.",
+          explain: "Five ranks of air between rook and king. White can neither block usefully nor approach, because stepping towards your rook abandons the pawn.",
+        },
+      },
+      {
+        play: ["Kd5", "Rb8", "Rh7+", "Ke8"],
+        text: "Back to waiting on the eighth, and the checks never run out. Two rules, in order: hold your third rank; once the pawn passes it, drop to your first and check from distance.",
+      },
+    ],
+  },
+
+  {
+    id: "rook-behind-passer",
+    title: "The rook belongs behind the passed pawn",
+    category: "endgames",
+    group: "Rook Endings",
+    level: "intermediate",
+    summary: "Tarrasch's rule, and the clearest case for it: one rook move decides whether this is a draw or a loss.",
+    orientation: "w",
+    startFen: "8/8/8/8/k7/p7/5K2/7R w - - 0 1",
+    steps: [
+      {
+        text: "Black has a pawn on the third and a king beside it; your king is miles away. This looks lost, and one move saves it.",
+      },
+      {
+        text: "Tarrasch's rule: rooks belong behind passed pawns — yours to escort them, the opponent's to stop them. Behind the enemy pawn, your rook gets more freedom as the pawn advances, not less.",
+      },
+      {
+        quiz: {
+          answer: "Ra1",
+          prompt: "Get behind the pawn.",
+          explain: "From a1 the rook stops the pawn dead and ties Black's king to defending it forever. In front of the pawn the rook would be passive and Black would simply walk the king up.",
+          strict: true,
+        },
+      },
+      {
+        play: ["Kb3", "Ke2", "a2"],
+        text: "Black advances, but the pawn is now frozen: it can't move, and the rook behind it is untouchable.",
+      },
+      {
+        play: ["Kd2", "Kb2"],
+        text: "Black's king finally steps away to make room for the promotion — and that's the moment the fortress pays out.",
+      },
+      {
+        quiz: {
+          answer: "Rxa2+",
+          prompt: "The pawn is undefended. Take it.",
+          explain: "Rook takes pawn with check; after Kxa2 it's bare kings. The whole draw rested on move one — the rook getting behind rather than in front.",
+          strict: true,
+        },
+      },
+      {
+        text: "Same rule attacking: escort your own passer from behind, so the rook gains scope with every push. A rook sitting in front of a passed pawn is doing nothing but blocking it.",
+      },
+    ],
+  },
 ];
