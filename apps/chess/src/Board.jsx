@@ -107,6 +107,10 @@ function diffPieces(prev, map, keyCounter) {
     next.push({ key: "p" + keyCounter.current++, code: remaining[sq], sq, moving: false, dead: false });
   }
   for (const p of displaced) next.push({ ...p, dead: true });
+  // Canonical order: React must never reorder the keyed piece nodes — moving
+  // a DOM node (insertBefore) kills its in-flight CSS transition, which
+  // would make exactly the gliding piece snap into place instead.
+  next.sort((a, b) => parseInt(a.key.slice(1), 10) - parseInt(b.key.slice(1), 10));
   return next;
 }
 
