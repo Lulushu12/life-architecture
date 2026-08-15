@@ -1,0 +1,119 @@
+name: Build Chess APK
+
+# Manual only — the Pages deploy in deploy.yml stays the source of truth for
+# the web apps; this just produces a sideloadable APK when you want one.
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Attach the APK to a Release (gives a phone-friendly download link)"
+        type: boolean
+        default: true
+      tag:
+        description: "Release tag to publish under — reusing a tag replaces its APK"
+        type: string
+        default: chess-latest
+
+# Needed to create/update the Release the APK is attached to.
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/chess
+    env:
+      # `secrets` is not a valid context in a step-level `if`, so the presence
+      # check is hoisted into job env, which may read secrets.
+      HAS_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: apps/chess/package-lock.json
+
+      # ubuntu-latest ships the Android SDK; only the JDK needs pinning.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - run: npm ci
+
+      # Builds with `--mode android` (relative asset paths, no service worker)
+      # and copies dist/ into the native project.
+      - run: npm run build:android
+
+      # A release build is not debuggable, so no ADB debugger can attach to it
+      # on a normal device. It needs a keystore; without one we fall back to a
+      # debug APK, which is installable but debuggable — fine for trying it out,
+      # worth replacing for something you keep on your phone.
+      - name: Decode keystore
+        id: keystore
+        if: env.HAS_KEYSTORE == 'true'
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > "$RUNNER_TEMP/release.jks"
+          echo "path=$RUNNER_TEMP/release.jks" >> "$GITHUB_OUTPUT"
+
+      - name: Assemble release APK (signed)
+        if: env.HAS_KEYSTORE == 'true'
+        working-directory: apps/chess/android
+        env:
+          ANDROID_KEYSTORE_PATH: ${{ steps.keystore.outputs.path }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEYSTORE_ALIAS: ${{ secrets.ANDROID_KEYSTORE_ALIAS }}
+          ANDROID_KEYSTORE_ALIAS_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_ALIAS_PASSWORD }}
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Assemble debug APK (no keystore configured)
+        if: env.HAS_KEYSTORE != 'true'
+        working-directory: apps/chess/android
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Remove keystore
+        if: always()
+        run: rm -f "$RUNNER_TEMP/release.jks"
+
+      # Fixed name so the Release download URL stays stable across builds.
+      - name: Collect APK
+        run: |
+          src=$(ls android/app/build/outputs/apk/release/*.apk 2>/dev/null | head -1)
+          [ -n "$src" ] || src=$(ls android/app/build/outputs/apk/debug/*.apk 2>/dev/null | head -1)
+          [ -n "$src" ] || { echo "no APK produced"; exit 1; }
+          mkdir -p out && cp "$src" out/chess.apk
+          echo "Built from: $src"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chess-apk
+          path: apps/chess/out/chess.apk
+          if-no-files-found: error
+
+      # Release assets are downloadable straight from a phone — no login, no
+      # zip, unlike Actions artifacts (which the GitHub mobile app can't show).
+      # Uses the preinstalled gh CLI rather than a third-party action.
+      - name: Publish to Release
+        if: ${{ inputs.publish }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" out/chess.apk --clobber
+          else
+            gh release create "$TAG" out/chess.apk \
+              --title "Chess APK" \
+              --notes "Offline Android build of the Chess app. Stockfish 16 NNUE bundled — no network needed.
+
+          Install: tap the \`chess.apk\` asset below, then allow your browser to install unknown apps when prompted."
+          fi
+          echo "### APK ready" >> "$GITHUB_STEP_SUMMARY"
+          echo "https://github.com/${{ github.repository }}/releases/download/$TAG/chess.apk" >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,8 @@
+{
+  "appId": "io.github.lulushu12.chess",
+  "appName": "Chess",
+  "webDir": "dist",
+  "android": {
+    "webContentsDebuggingEnabled": false
+  }
+}
