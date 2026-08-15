@@ -4,12 +4,20 @@ name: Build Chess APK
 # source of truth for the web apps; this just produces a sideloadable APK when
 # you ask for one, by hand or by tag.
 on:
-  # Pushing a tag like `chess-apk-v3` builds and publishes without needing the
-  # Actions tab — useful from a phone, or from any tool that can push a tag but
-  # can't dispatch a workflow.
+  # A chess change landing on main rebuilds and republishes the APK, so the
+  # download link stays current without anyone opening the Actions tab (the
+  # GitHub mobile app has no Actions UI). Delete this `push:` block if you'd
+  # rather only ever build on demand.
+  #
+  # Deliberately not a tag trigger: GitHub applies `paths` to tag pushes too,
+  # and a tag pointing at an existing commit carries no changed files, so the
+  # filter would silently swallow the run.
   push:
-    tags:
-      - "chess-apk-v*"
+    branches:
+      - main
+    paths:
+      - "apps/chess/**"
+      - ".github/workflows/android-chess.yml"
   workflow_dispatch:
     inputs:
       publish:
