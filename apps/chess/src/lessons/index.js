@@ -1,11 +1,18 @@
 // All lesson content, loaded at build time from the files in this folder.
 // Adding a new lessons file here is all it takes to publish it.
 
+import { groupPlays, groupShare } from "./popularity.js";
+
 const modules = import.meta.glob("./*.js", { eager: true });
 
+// Everything in this folder is lesson content except the two support modules.
+const SUPPORT = ["/index.js", "/popularity.js"];
+
 export const LESSONS = Object.entries(modules)
-  .filter(([path]) => !path.endsWith("/index.js"))
+  .filter(([path]) => !SUPPORT.some((s) => path.endsWith(s)))
   .flatMap(([, mod]) => mod.LESSONS || mod.default || []);
+
+export { groupShare };
 
 export const CATEGORY_LABELS = {
   openings: "Openings",
@@ -25,7 +32,16 @@ export function lessonsByCategory(category) {
   }
   for (const arr of groups.values())
     arr.sort((a, b) => (LEVEL_ORDER[a.level] ?? 1) - (LEVEL_ORDER[b.level] ?? 1));
-  return [...groups.entries()];
+
+  const entries = [...groups.entries()];
+  // Openings are ordered by how often you'll actually meet them, commonest
+  // first, rather than alphabetically — learning the Sicilian before the
+  // Latvian Gambit is worth more than tidy ordering. Other categories keep
+  // their authored order.
+  if (category === "openings") {
+    entries.sort((a, b) => groupPlays(b[0]) - groupPlays(a[0]));
+  }
+  return entries;
 }
 
 export function getLesson(id) {

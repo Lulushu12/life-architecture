@@ -6,7 +6,7 @@ import { play as sfx, buzz } from "./audio.js";
 
 // "My blunders": every mistake/blunder from your reviewed games becomes a
 // find-the-better-move puzzle.
-export default function Puzzles({ store, setStore, nav }) {
+export default function BlunderTrainer({ store, setStore, nav }) {
   const unsolved = store.puzzles.filter((p) => !p.solved);
   const [idx, setIdx] = useState(0);
   const [state, setState] = useState("try"); // try | wrong | solved | revealed
@@ -27,7 +27,7 @@ export default function Puzzles({ store, setStore, nav }) {
   if (!puzzle) {
     return (
       <div className="page">
-        <TopBar title="My blunders" onBack={() => nav("home")} />
+        <TopBar title="My blunders" onBack={() => nav("puzzles")} />
         <p className="hint">
           {store.puzzles.length > 0
             ? "All cleaned up — every blunder retrained. 🎉"
@@ -69,7 +69,7 @@ export default function Puzzles({ store, setStore, nav }) {
       <TopBar
         title="My blunders"
         sub={`${unsolved.length} to retrain · ${turn} to move`}
-        onBack={() => nav("home")}
+        onBack={() => nav("puzzles")}
       />
       <p className="hint small puzzleprompt">
         You played <b>{puzzle.playedSan}</b> here ({puzzle.severity}). Find the better move.

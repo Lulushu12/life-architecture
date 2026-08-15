@@ -37,7 +37,7 @@ export default function Home({ store, nav }) {
           <span className="mb-icon">📋</span>Review a PGN
         </button>
         <button className="menubtn" onClick={() => nav("puzzles")}>
-          <span className="mb-icon">🧩</span>My blunders{unsolved > 0 ? ` (${unsolved})` : ""}
+          <span className="mb-icon">🧩</span>Puzzles{unsolved > 0 ? ` (${unsolved} blunders)` : ""}
         </button>
         <button className="menubtn" onClick={() => nav("archive")}>
           <span className="mb-icon">🗄️</span>Game archive

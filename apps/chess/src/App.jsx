@@ -6,7 +6,8 @@ import PassPlay from "./PassPlay.jsx";
 import Analysis from "./Analysis.jsx";
 import ReviewScreen from "./ReviewScreen.jsx";
 import Archive from "./Archive.jsx";
-import Puzzles from "./Puzzles.jsx";
+import BlunderTrainer from "./Puzzles.jsx";
+import { PuzzleHome, TierTrainer } from "./PuzzleSets.jsx";
 import Lessons from "./Lessons.jsx";
 import Settings from "./Settings.jsx";
 
@@ -35,7 +36,9 @@ export default function App() {
     case "archive":
       return <Archive {...props} />;
     case "puzzles":
-      return <Puzzles {...props} />;
+      if (view.set === "blunders") return <BlunderTrainer {...props} />;
+      if (view.set) return <TierTrainer {...props} tierKey={view.set} />;
+      return <PuzzleHome {...props} />;
     case "lessons":
       return <Lessons {...props} />;
     case "settings":
