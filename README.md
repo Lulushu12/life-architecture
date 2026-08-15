@@ -38,7 +38,14 @@ assets ship *inside* the APK — Stockfish and the 39MB NNUE net included — so
 it works offline from a fresh install, with no first-visit caching step.
 
 Run the **Build Chess APK** workflow (Actions → Run workflow) with *publish*
-ticked. It attaches the APK to the `chess-latest` release, giving a permanent
+ticked, or — if you have no computer to hand — push a tag, which triggers the
+same build:
+
+```sh
+git tag chess-apk-v2 && git push origin chess-apk-v2
+```
+
+Either way the APK lands on the `chess-latest` release, giving a permanent
 link that installs straight from the phone:
 
 ```
