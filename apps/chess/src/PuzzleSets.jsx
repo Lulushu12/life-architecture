@@ -249,6 +249,7 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
         arrow={state === "revealed" ? [expected.slice(0, 2), expected.slice(2, 4)] : null}
         theme={store.settings.theme}
         pieceSet={store.settings.pieces}
+        animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
         needsPromotion={(from, to) => {
           const piece = chess.get(from);

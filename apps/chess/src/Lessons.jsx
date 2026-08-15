@@ -367,6 +367,7 @@ function LessonRunner({ lesson, store, setStore, nav }) {
         highlightSquares={step.circles || []}
         theme={store.settings.theme}
         pieceSet={store.settings.pieces}
+        animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
         needsPromotion={(from, to) => {
           const piece = chess.get(from);

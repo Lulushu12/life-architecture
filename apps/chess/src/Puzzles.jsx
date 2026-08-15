@@ -86,6 +86,7 @@ export default function BlunderTrainer({ store, setStore, nav }) {
         }
         theme={store.settings.theme}
         pieceSet={store.settings.pieces}
+        animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
         needsPromotion={(from, to) => {
           const piece = chess.get(from);
