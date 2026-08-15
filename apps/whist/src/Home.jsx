@@ -1,6 +1,6 @@
-import { useRef } from "react";
 import { computeWhist, computeRentz } from "./rules.js";
-import { exportStore, mergeImport } from "./storage.js";
+import { mergeImport } from "./storage.js";
+import BackupPanel from "./BackupPanel.jsx";
 
 function summary(g) {
   const c = g.type === "whist" ? computeWhist(g) : computeRentz(g);
@@ -18,26 +18,11 @@ function summary(g) {
 }
 
 export default function Home({ store, setStore, onOpen, onNewWhist, onNewRentz, onDelete }) {
-  const fileRef = useRef();
   const games = Object.values(store.games)
     .map((g) => ({ g, s: summary(g) }))
     .sort((a, b) => (b.g.updatedAt || 0) - (a.g.updatedAt || 0));
   const active = games.filter((x) => !x.s.done);
   const finished = games.filter((x) => x.s.done);
-
-  const onImport = (e) => {
-    const f = e.target.files?.[0];
-    if (!f) return;
-    f.text().then((t) => {
-      try {
-        setStore((s) => mergeImport(s, JSON.parse(t)));
-        alert("Import complete.");
-      } catch {
-        alert("Not a valid backup file.");
-      }
-    });
-    e.target.value = "";
-  };
 
   const GameCard = ({ g, s }) => (
     <div className="card gamecard" onClick={() => onOpen(g.id)}>
@@ -97,15 +82,12 @@ export default function Home({ store, setStore, onOpen, onNewWhist, onNewRentz, 
           app never loses a game.
         </p>
       )}
-      <div className="backuprow">
-        <button className="linkbtn" onClick={() => exportStore(store)}>
-          Export backup
-        </button>
-        <button className="linkbtn" onClick={() => fileRef.current.click()}>
-          Import backup
-        </button>
-        <input ref={fileRef} type="file" accept="application/json" hidden onChange={onImport} />
-      </div>
+      <BackupPanel
+        data={store}
+        onRestore={(d) => setStore((s) => mergeImport(s, d))}
+        validate={(d) => Boolean(d && d.games)}
+        prefix="whist-rentz"
+      />
     </div>
   );
 }

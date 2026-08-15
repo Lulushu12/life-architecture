@@ -10,6 +10,7 @@ import Schedule from "./views/Schedule.jsx";
 import Quests, { QModal } from "./views/Quests.jsx";
 import Train from "./views/Train.jsx";
 import Nutrition from "./views/Nutrition.jsx";
+import BackupPanel from "./BackupPanel.jsx";
 import Coach from "./views/Coach.jsx";
 import Setup from "./views/Setup.jsx";
 
@@ -235,13 +236,10 @@ export default function App() {
     } else setSyncStatus("off");
   };
 
-  const exportData = () => {
-    const blob = new Blob([JSON.stringify(buildSnapshot(), null, 2)], { type: "application/json" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = `life-architecture-${todayKey()}.json`;
-    a.click();
-    URL.revokeObjectURL(a.href);
+  // Restoring mirrors what a winning remote snapshot does in the sync path.
+  const restoreData = (snap) => {
+    applySnapshot(snap);
+    applyData(migrateUserData(snap.user || {}).data);
   };
 
   if (!syncCfg || showSetup) {
@@ -318,7 +316,7 @@ export default function App() {
               {page === "outputs" && <POutputs longQ={longQ} />}
               {page === "review" && <PReview />}
               {page === "principles" && <PPrinciples />}
-              {page === "more" && <More setPage={setPage} theme={theme} toggleTheme={toggleTheme} sync={sync} syncWhere={syncWhere} openSetup={() => setShowSetup(true)} exportData={exportData} />}
+              {page === "more" && <More setPage={setPage} theme={theme} toggleTheme={toggleTheme} sync={sync} syncWhere={syncWhere} openSetup={() => setShowSetup(true)} snapshot={buildSnapshot} onRestore={restoreData} />}
             </div>
           </main>
 
@@ -340,7 +338,7 @@ export default function App() {
   );
 }
 
-function More({ setPage, theme, toggleTheme, sync, syncWhere, openSetup, exportData }) {
+function More({ setPage, theme, toggleTheme, sync, syncWhere, openSetup, snapshot, onRestore }) {
   const rows = [
     { id: "schedule", glyph: <Icon size={19}>{ICONS.schedule}</Icon>, label: "Schedule" },
     ...NAV_LIBRARY.map(n => ({ id: n.id, glyph: <span style={{ fontSize: 16 }}>{n.glyph}</span>, label: n.label })),
@@ -364,9 +362,14 @@ function More({ setPage, theme, toggleTheme, sync, syncWhere, openSetup, exportD
         </div>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <button className="bs" onClick={openSetup}>Sync settings</button>
-          <button className="bs" onClick={exportData}>Export data</button>
           <button className="bs" onClick={toggleTheme}>{theme === "dark" ? "◐ Light mode" : "◑ Dark mode"}</button>
         </div>
+        <BackupPanel
+          data={snapshot}
+          onRestore={onRestore}
+          validate={(d) => Boolean(d && (d.user || d.savedAt || d.workoutLogs))}
+          prefix="life-architecture"
+        />
       </div>
     </>
   );

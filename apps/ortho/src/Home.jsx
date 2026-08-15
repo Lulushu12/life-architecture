@@ -1,26 +1,11 @@
-import { useRef } from "react";
 import { categories, getArticle } from "./content.js";
-import { exportStore, mergeImport } from "./storage.js";
+import { mergeImport } from "./storage.js";
+import BackupPanel from "./BackupPanel.jsx";
 
 export default function Home({ store, setStore, onOpenCategory, onOpenArticle, onSearch, onNew }) {
-  const fileRef = useRef();
   const local = store.localArticles;
   const favorites = store.favorites.map((id) => getArticle(id, local)).filter(Boolean);
   const recents = store.recents.map((id) => getArticle(id, local)).filter(Boolean);
-
-  const onImport = (e) => {
-    const f = e.target.files?.[0];
-    if (!f) return;
-    f.text().then((t) => {
-      try {
-        setStore((s) => mergeImport(s, JSON.parse(t)));
-        alert("Import complete.");
-      } catch {
-        alert("Not a valid backup file.");
-      }
-    });
-    e.target.value = "";
-  };
 
   return (
     <div className="page">
@@ -76,15 +61,12 @@ export default function Home({ store, setStore, onOpenCategory, onOpenArticle, o
         </>
       )}
 
-      <div className="backuprow">
-        <button className="linkbtn" onClick={() => exportStore(store)}>
-          Export backup
-        </button>
-        <button className="linkbtn" onClick={() => fileRef.current.click()}>
-          Import backup
-        </button>
-        <input ref={fileRef} type="file" accept="application/json" hidden onChange={onImport} />
-      </div>
+      <BackupPanel
+        data={store}
+        onRestore={(d) => setStore((s) => mergeImport(s, d))}
+        validate={(d) => Boolean(d && (d.localArticles || d.favorites || d.recents))}
+        prefix="ortho"
+      />
 
       <p className="hint small footernote">
         "+ New article" writes are stored on this device (back them up with Export).

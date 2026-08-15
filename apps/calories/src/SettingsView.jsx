@@ -1,23 +1,8 @@
-import { useRef } from "react";
-import { exportStore, mergeImport } from "./storage.js";
+import { mergeImport } from "./storage.js";
+import BackupPanel from "./BackupPanel.jsx";
 import { NumInput } from "./ui.jsx";
 
 export default function SettingsView({ store, setStore, targets, setTargets }) {
-  const fileRef = useRef();
-
-  const onImport = (e) => {
-    const f = e.target.files?.[0];
-    if (!f) return;
-    f.text().then((t) => {
-      try {
-        setStore((s) => mergeImport(s, JSON.parse(t)));
-        alert("Import complete.");
-      } catch {
-        alert("Not a valid backup file.");
-      }
-    });
-    e.target.value = "";
-  };
 
   return (
     <div className="page">
@@ -50,15 +35,12 @@ export default function SettingsView({ store, setStore, targets, setTargets }) {
       <p className="hint small">Fixed to metric — grams for food, kilograms for weight.</p>
 
       <h2>Backup</h2>
-      <div className="backuprow">
-        <button className="linkbtn" onClick={() => exportStore(store)}>
-          Export backup
-        </button>
-        <button className="linkbtn" onClick={() => fileRef.current.click()}>
-          Import backup
-        </button>
-        <input ref={fileRef} type="file" accept="application/json" hidden onChange={onImport} />
-      </div>
+      <BackupPanel
+        data={store}
+        onRestore={(d) => setStore((s) => mergeImport(s, d))}
+        validate={(d) => Boolean(d && (d.logs || d.foods || d.training || d.weights))}
+        prefix="calories"
+      />
     </div>
   );
 }
