@@ -1098,3 +1098,14 @@ textarea.input {
   margin-left: 8px;
   letter-spacing: 0.2px;
 }
+
+/* Backup text area: monospace and scrollable, since the JSON is long. */
+.backuptext {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  min-height: 90px;
+  max-height: 220px;
+  resize: vertical;
+  white-space: pre;
+  overflow: auto;
+}

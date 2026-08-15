@@ -1,7 +1,8 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { TopBar, Toggle, SettingRow } from "./ui.jsx";
 import { BOARD_THEMES, PIECE_SETS, PIECE_SET_NAMES, DEFAULT_ARROW_COLORS } from "./Board.jsx";
-import { exportStore, loadStore, saveStore } from "./storage.js";
+import { loadStore, saveStore } from "./storage.js";
+import { backupText, backupFilename, canDownload, copyToClipboard, downloadJson, parseBackup } from "./backup.js";
 
 const ARROW_LABELS = {
   hint: "Engine / best move",
@@ -9,8 +10,14 @@ const ARROW_LABELS = {
   threat: "Opponent threats",
 };
 
+const RELEASE_URL = "https://github.com/Lulushu12/life-architecture/releases/tag/chess-latest";
+
 export default function Settings({ store, setStore, nav }) {
   const fileRef = useRef();
+  const [backup, setBackup] = useState(null); // exported text, shown for copying
+  const [copied, setCopied] = useState(false);
+  const [paste, setPaste] = useState("");
+  const [pasteErr, setPasteErr] = useState("");
   const set = (patch) => setStore((s) => ({ ...s, settings: { ...s.settings, ...patch } }));
   const setAi = (patch) =>
     setStore((s) => ({ ...s, settings: { ...s.settings, ai: { ...s.settings.ai, ...patch } } }));
@@ -30,6 +37,19 @@ export default function Settings({ store, setStore, nav }) {
       }
     });
     e.target.value = "";
+  };
+
+  const restoreFrom = (text) => {
+    try {
+      const data = parseBackup(text, (d) => d.settings && Array.isArray(d.games));
+      saveStore(data);
+      setStore(loadStore());
+      setPaste("");
+      setPasteErr("");
+      alert("Backup restored.");
+    } catch (e) {
+      setPasteErr(e.message);
+    }
   };
 
   return (
@@ -143,15 +163,84 @@ export default function Settings({ store, setStore, nav }) {
       />
 
       <h2>Data</h2>
+      <p className="hint small">
+        Everything lives in this app's own storage. Uninstalling deletes it, and backups are
+        off by design — so take one before you uninstall or replace the app.
+      </p>
       <div className="backuprow">
-        <button className="linkbtn" onClick={() => exportStore(store)}>
+        <button
+          className="linkbtn"
+          onClick={() => {
+            setBackup(backupText(store));
+            setCopied(false);
+          }}
+        >
           Export backup
         </button>
         <button className="linkbtn" onClick={() => fileRef.current.click()}>
-          Import backup
+          Import from file
         </button>
         <input ref={fileRef} type="file" accept="application/json" hidden onChange={onImport} />
       </div>
+
+      {backup && (
+        <div className="card">
+          <div className="backuprow">
+            <button
+              className="bigbtn"
+              onClick={async () => setCopied(await copyToClipboard(backup))}
+            >
+              {copied ? "✓ Copied" : "Copy to clipboard"}
+            </button>
+            {canDownload() && (
+              <button
+                className="linkbtn"
+                onClick={() => downloadJson(backup, backupFilename("chess"))}
+              >
+                Download file
+              </button>
+            )}
+            <button className="linkbtn" onClick={() => setBackup(null)}>
+              Close
+            </button>
+          </div>
+          <textarea className="input backuptext" readOnly value={backup} onFocus={(e) => e.target.select()} />
+          <p className="hint small">
+            Paste this somewhere safe — a note, an email to yourself. Restoring it below brings
+            back every game, puzzle and setting.
+          </p>
+        </div>
+      )}
+
+      <div className="field">
+        <textarea
+          className="input backuptext"
+          placeholder="…or paste a backup here to restore it"
+          value={paste}
+          onChange={(e) => {
+            setPaste(e.target.value);
+            setPasteErr("");
+          }}
+        />
+        {pasteErr && <p className="warn">{pasteErr}</p>}
+        <button className="linkbtn" disabled={!paste.trim()} onClick={() => restoreFrom(paste)}>
+          Restore from pasted text
+        </button>
+      </div>
+
+      <h2>Version</h2>
+      <div className="backuprow">
+        <span className="hint small">
+          build {__BUILD_ID__} · {__BUILD_DATE__}
+        </span>
+        <a className="linkbtn" href={RELEASE_URL} target="_blank" rel="noreferrer">
+          Check for updates
+        </a>
+      </div>
+      <p className="hint small">
+        Opens the release page in your browser. Download the APK there and install it over this
+        one — your data stays put, as long as both builds are signed with the same key.
+      </p>
 
       <p className="hint small footernote">
         Engine: Stockfish 16 NNUE (single-threaded WASM, GPLv3). Board pieces: cburnett set
