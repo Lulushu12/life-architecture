@@ -76,7 +76,7 @@ export default function BlunderTrainer({ store, setStore, nav }) {
       </p>
       <Board
         fen={puzzle.fen}
-        orientation="w"
+        orientation={chess.turn()}
         dests={dests}
         onMove={tryMove}
         arrow={
