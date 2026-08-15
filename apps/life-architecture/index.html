@@ -2,24 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/life-architecture/icon-192.png" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%icon-192.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#12151a" />
     <meta name="description" content="Life Architecture - personal life planning and goal tracking" />
-    <link rel="manifest" href="/life-architecture/manifest.json" />
+    <link rel="manifest" href="%BASE_URL%manifest.json" />
     <title>Life Architecture</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/life-architecture/sw.js')
-            .then(reg => console.log('SW registered:', reg.scope))
-            .catch(err => console.error('SW registration failed:', err));
-        });
-      }
-    </script>
   </body>
 </html>

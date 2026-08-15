@@ -1,0 +1,8 @@
+{
+  "appId": "io.github.lulushu12.calories",
+  "appName": "Calories",
+  "webDir": "dist",
+  "android": {
+    "webContentsDebuggingEnabled": false
+  }
+}

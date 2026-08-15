@@ -15,7 +15,10 @@ import Setup from "./views/Setup.jsx";
 
 const FONT_LINK = document.createElement("link");
 FONT_LINK.rel = "stylesheet";
-FONT_LINK.href = "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;600&display=swap";
+// Self-hosted from public/fonts (same families and weights Google Fonts served).
+// Bundling them keeps the APK genuinely offline and stops every page load from
+// announcing itself to fonts.googleapis.com.
+FONT_LINK.href = `${import.meta.env.BASE_URL}fonts/fonts.css`;
 document.head.appendChild(FONT_LINK);
 
 /** All data is local-first; the uid only namespaces nothing anymore but keeps the views' API. */
