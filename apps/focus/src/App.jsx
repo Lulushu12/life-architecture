@@ -59,11 +59,25 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // How fast does the clock below actually need to run?
+  //   250ms — a countdown or elapsed timer is on screen and should look smooth
+  //   1000ms — only reminders are live; they are minute-granularity, so a
+  //            quarter-second poll was three quarters wasted work
+  //   0      — nothing moves until the user acts, so don't run a timer at all
+  // Two reminders ship enabled, so the middle case is the resting state of the
+  // app: it used to re-render four times a second for as long as it was open.
+  const running =
+    (store.pomodoro.run != null && store.pomodoro.run.pausedRemainingMs == null) ||
+    store.tasks.run != null;
+  const anyReminder = Object.values(store.reminders.items).some((r) => r.enabled);
+  const tickMs = running ? 250 : anyReminder ? 1000 : 0;
+
   // Ticking clock: drives the visible countdown/elapsed displays and
   // periodically reconciles absolute-timestamp state. Side effects (chime
   // + notification) are fired here, outside the pure state updaters, by
   // comparing against the previous tick's snapshot.
   useEffect(() => {
+    if (!tickMs) return;
     const id = setInterval(() => {
       const t = Date.now();
       const cur = storeRef.current;
@@ -91,9 +105,9 @@ export default function App() {
         return s2;
       });
       setNow(t);
-    }, 250);
+    }, tickMs);
     return () => clearInterval(id);
-  }, []);
+  }, [tickMs]);
 
   const activeTab = TABS.find((t) => t.id === tab);
 

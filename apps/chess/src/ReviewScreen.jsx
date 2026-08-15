@@ -91,12 +91,19 @@ function Review({ store, setStore, nav, game }) {
     if (review || startedRef.current) return;
     startedRef.current = true;
     setRunning(true);
+    // Leaving the screen abandons the review: it is one engine search per ply,
+    // so an unwatched pass would otherwise hold the CPU for the rest of the game.
+    let abandoned = false;
     reviewGame(engine, game.sans, {
       startFen: game.startFen || null,
       movetime: store.settings.reviewMovetime,
-      onProgress: setProgress,
+      onProgress: (p) => {
+        if (!abandoned) setProgress(p);
+      },
+      shouldStop: () => abandoned,
     })
       .then((result) => {
+        if (result === null) return; // abandoned; nothing to commit
         setStore((s) => {
           const puzzles = [...s.puzzles];
           const playerColor = game.mode === "bot" ? game.playerColor : null;
@@ -114,8 +121,18 @@ function Review({ store, setStore, nav, game }) {
         });
         setViewIdx(game.sans.length);
       })
-      .catch((e) => alert("Review failed: " + e.message))
-      .finally(() => setRunning(false));
+      .catch((e) => {
+        if (!abandoned) alert("Review failed: " + e.message);
+      })
+      .finally(() => {
+        if (!abandoned) setRunning(false);
+      });
+
+    return () => {
+      abandoned = true;
+      startedRef.current = false; // let a re-entry restart the review
+      engine.stopCurrent();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [review]);
 
