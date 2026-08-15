@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { signOut } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db } from "./firebase";
+import POrtho from "./OrthoCodex.jsx";
 
 const FONT_LINK = document.createElement("link");
 FONT_LINK.rel = "stylesheet";
@@ -249,6 +250,7 @@ const NAV = [
   { id:"outputs",    icon:"◎", label:"6-Month Outputs" },
   { id:"schedule",   icon:"▦", label:"Schedule" },
   { id:"quests",     icon:"⬡", label:"Quest Board" },
+  { id:"ortho",      icon:"⚕", label:"Ortho Codex" },
   { id:"review",     icon:"↻", label:"Review Cadence" },
   { id:"principles", icon:"≡", label:"Principles" },
   { id:"workouts",   icon:"▶", label:"Workouts" },
@@ -537,6 +539,7 @@ export default function App({user}) {
             {page==="outputs"&&<POutputs/>}
             {page==="schedule"&&<PSchedule schedDay={schedDay} setSchedDay={setSchedDay}/>}
             {page==="quests"&&<PQuests longQ={longQ} dailyQ={dailyQ} filter={filter} setFilter={setFilter} fq={fq} openAdd={cat=>setModal({mode:"add",category:cat})} openEdit={q=>setModal({mode:"edit",quest:q})} delLong={delLong} toggleLong={toggleLong} toggleDaily={toggleDaily}/>}
+            {page==="ortho"&&<POrtho/>}
             {page==="review"&&<PReview/>}
             {page==="principles"&&<PPrinciples/>}
             {page==="workouts"&&<PWorkouts/>}
