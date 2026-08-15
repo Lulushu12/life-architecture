@@ -34,8 +34,10 @@ const errors = [];
 const warnings = [];
 const quizPositions = []; // {lesson, fen, answer, uci, strict}
 
-// index.js is the app-side aggregator (Vite's import.meta.glob) — skip it.
-const files = readdirSync(LESSON_DIR).filter((f) => f.endsWith(".js") && f !== "index.js");
+// index.js is the app-side aggregator (Vite's import.meta.glob) and
+// popularity.js is reference data — neither holds lesson content.
+const SUPPORT_FILES = new Set(["index.js", "popularity.js"]);
+const files = readdirSync(LESSON_DIR).filter((f) => f.endsWith(".js") && !SUPPORT_FILES.has(f));
 const seenIds = new Set();
 let lessonCount = 0;
 let stepCount = 0;
@@ -137,9 +139,9 @@ console.log(`lessons: ${lessonCount}, steps: ${stepCount}, quizzes: ${quizPositi
 
 if (useEngine && quizPositions.length && errors.length === 0) {
   console.log("engine-checking quiz answers…");
-  const { chromium } = await import(
-    "/tmp/claude-0/-home-user-life-architecture/2def4110-47b4-5118-9ade-3fe3baf69e23/scratchpad/node_modules/playwright-core/index.mjs"
-  );
+  // playwright isn't a dependency of the app — point PLAYWRIGHT_MODULE at an
+  // installed copy, or have one resolvable from here.
+  const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || "playwright");
   const browser = await chromium.launch({
     executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
   });

@@ -2,7 +2,14 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Chess } from "chess.js";
 import Board from "./Board.jsx";
 import { TopBar, useArrowKeys } from "./ui.jsx";
-import { LESSONS, CATEGORY_LABELS, categoryCounts, lessonsByCategory, getLesson } from "./lessons/index.js";
+import {
+  LESSONS,
+  CATEGORY_LABELS,
+  categoryCounts,
+  lessonsByCategory,
+  getLesson,
+  groupShare,
+} from "./lessons/index.js";
 import { play as sfx, buzz } from "./audio.js";
 
 // Numbered step strip: jump to any part of a lesson directly.
@@ -139,6 +146,9 @@ function LessonList({ category, store, nav }) {
           <div key={group}>
             <h2>
               {group}
+              {category === "openings" && groupShare(group) && (
+                <span className="groupshare">{groupShare(group)}</span>
+              )}
               <span className="groupcount">
                 {done}/{list.length}
               </span>
@@ -365,6 +375,20 @@ function LessonRunner({ lesson, store, setStore, nav }) {
         </button>
         <button className="linkbtn" onClick={() => setShowChapters((s) => !s)}>
           ☰ Steps
+        </button>
+        {/* Take the position you're looking at into a real game — the natural
+            next question after "so that's the idea" is "can I actually play it?" */}
+        <button
+          className="linkbtn"
+          onClick={() =>
+            nav("play", {
+              pick: true,
+              fromFen: shownFen,
+              fromLabel: `${lesson.title} · step ${stepIdx + 1}`,
+            })
+          }
+        >
+          ♟ Play from here
         </button>
         {needsAnswer && !showAnswer && (
           <button className="linkbtn" onClick={() => setShowAnswer(true)}>

@@ -13,29 +13,36 @@ import { newId } from "./storage.js";
 export default function PlayBot({ store, setStore, nav, view }) {
   const cur = store.current;
   if (view.pick || !cur || cur.mode !== "bot") {
-    return <BotPicker store={store} setStore={setStore} nav={nav} />;
+    return <BotPicker store={store} setStore={setStore} nav={nav} view={view} />;
   }
   return <BotGame store={store} setStore={setStore} nav={nav} />;
 }
 
-function BotPicker({ store, setStore, nav }) {
+function BotPicker({ store, setStore, nav, view }) {
+  // "r" is resolved to a real colour at the moment the game starts, so the
+  // side stays a surprise until the board appears.
   const [color, setColor] = useState("w");
   const [serious, setSerious] = useState(false);
+  // Set when arriving from a lesson step: the game starts from that position
+  // instead of the initial one.
+  const fromFen = view?.fromFen || null;
+  const fromLabel = view?.fromLabel || null;
   const lang = store.settings.botLang || "ro";
   const setLang = (l) =>
     setStore((s) => ({ ...s, settings: { ...s.settings, botLang: l } }));
   const roster = personasByLang(lang);
 
   const start = (persona) => {
+    const resolved = color === "r" ? (Math.random() < 0.5 ? "w" : "b") : color;
     setStore((s) => ({
       ...s,
       current: {
         id: newId(),
         mode: "bot",
         personaId: persona.id,
-        playerColor: color,
+        playerColor: resolved,
         serious,
-        startFen: null,
+        startFen: fromFen,
         sans: [],
         chat: [],
         cps: [0],
@@ -50,7 +57,11 @@ function BotPicker({ store, setStore, nav }) {
 
   return (
     <div className="page">
-      <TopBar title="Choose your opponent" onBack={() => nav("home")} />
+      <TopBar
+        title="Choose your opponent"
+        sub={fromLabel ? `From: ${fromLabel}` : null}
+        onBack={() => nav("home")}
+      />
       <div className="setrow">
         <span className="setlabel">Bots speak</span>
         <div className="chips">
@@ -70,6 +81,9 @@ function BotPicker({ store, setStore, nav }) {
           </button>
           <button className={"chip" + (color === "b" ? " sel" : "")} onClick={() => setColor("b")}>
             Black
+          </button>
+          <button className={"chip" + (color === "r" ? " sel" : "")} onClick={() => setColor("r")}>
+            Random
           </button>
         </div>
       </div>

@@ -515,13 +515,14 @@ export const LESSONS = [
     steps: [
       {
         play: ["e4", "e5"],
-        text: "From here White has the most romantic try in all of chess: sacrificing a pawn to open lines fast.",
+        text: "From here White has the most romantic try in all of chess: sacrificing a pawn to open lines fast. It is objectively second-best — modern engines prefer Nf3 — but it has been winning games for two centuries.",
       },
       {
         quiz: {
           answer: "f4",
           prompt: "Offer the f-pawn to open the f-file and strike at e5.",
-          explain: "f4 offers a pawn to open the f-file for the rook and challenge Black's central e5 pawn.",
+          explain: "f4 offers a pawn to open the f-file for the rook and challenge Black's central e5 pawn. Be clear-eyed about it: engines put this a pawn's worth behind quiet development, because it loosens the king. You play it for the initiative and the practical chances, not because it's best.",
+          speculative: true,
         },
       },
       {
