@@ -133,6 +133,9 @@ export function searchLines(query, metaData, limit = 60) {
 /** "+0.34" / "-1.20" / "M4" from a stored evaluation, White's perspective. */
 export function formatEval(ev) {
   if (!ev) return null;
+  // mate 0 means the side to move is already mated — two named lines end that
+  // way (Fool's Mate, the Sea-Cadet Mate), and "M0" reads as nonsense.
+  if (ev.mate === 0) return "mate";
   if (ev.mate != null) return (ev.mate > 0 ? "M" : "-M") + Math.abs(ev.mate);
   const p = ev.cp / 100;
   return (p > 0 ? "+" : "") + p.toFixed(2);
@@ -141,6 +144,7 @@ export function formatEval(ev) {
 /** Rough verdict for a White-perspective centipawn score. */
 export function verdict(ev) {
   if (!ev) return null;
+  if (ev.mate === 0) return "the line ends in checkmate";
   if (ev.mate != null) return ev.mate > 0 ? "winning for White" : "winning for Black";
   const cp = ev.cp;
   if (cp > 150) return "clearly better for White";

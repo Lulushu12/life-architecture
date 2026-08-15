@@ -151,7 +151,7 @@ export default function Openings({ store, nav }) {
                 </div>
               )}
               {meta?.plays?.[named.key] != null && (
-                <div className="hint small">{fmtPlays(meta.plays[named.key])} in the reference games</div>
+                <div className="hint small">Seen in {fmtPlays(meta.plays[named.key])} of the reference set</div>
               )}
             </div>
           )}
