@@ -36,6 +36,12 @@ export default function Home({ store, nav }) {
         <button className="menubtn" onClick={() => nav("analysis")}>
           <span className="mb-icon">🔬</span>Analysis
         </button>
+        <button className="menubtn" onClick={() => nav("enginematch")}>
+          <span className="mb-icon">⚔️</span>Engine match
+        </button>
+        <button className="menubtn" onClick={() => nav("editor")}>
+          <span className="mb-icon">✎</span>Custom position
+        </button>
         <button className="menubtn" onClick={() => nav("review", { importing: true })}>
           <span className="mb-icon">📋</span>Review a PGN
         </button>

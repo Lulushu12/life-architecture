@@ -27,10 +27,11 @@ function classifyDrop(drop, isBest) {
 
 // Free analysis board: play both sides, paste a FEN or PGN, watch the eval
 // bar and the engine's best line update continuously.
-export default function Analysis({ store, nav }) {
+export default function Analysis({ store, nav, view }) {
   const engine = getEngine();
   const [sans, setSans] = useState([]);
-  const [startFen, setStartFen] = useState(null);
+  // Arriving from the position editor hands the board a position to start from.
+  const [startFen, setStartFen] = useState(view?.fen || null);
   const [viewPly, setViewPly] = useState(null); // null = end of line
   const [branches, setBranches] = useState([]); // {atPly, sans}
   const [paste, setPaste] = useState("");

@@ -24,6 +24,7 @@ function freshStore() {
     puzzles: [], // {id,fen,bestSan,playedSan,personaId,date,solved}
     puzzleProgress: {}, // tierKey -> [solved puzzle ids] for the bundled sets
     lessonProgress: {}, // lessonId -> {step, completed, completedAt}
+    editor: null, // last position built in the custom-position editor: {fen}
   };
 }
 
