@@ -130,6 +130,39 @@ export function searchLines(query, metaData, limit = 60) {
     .slice(0, limit);
 }
 
+/**
+ * Named lines that start a fight rather than a manoeuvring game — either the
+ * engine already reads the position as unbalanced, or the name says outright
+ * that somebody has given something up.
+ *
+ * Two engines of equal strength from the initial position draw almost every
+ * time; the interesting games come from starting somewhere lopsided. Lines are
+ * capped at 14 plies so there's still a game left to play, and the caller is
+ * expected to check legality (a handful of entries in the list don't replay).
+ */
+const SHARP_NAME = /gambit|sacrific|counterattack|wing attack|king's attack|muzio|traxler|latvian|albin|blackmar|smith-morra|benko|budapest|elephant|halloween|fried liver|evans|danish|göring|goring|cochrane|jerome/i;
+
+let sharp = null;
+export function sharpLines(metaData) {
+  if (sharp) return sharp;
+  sharp = allLines().filter((l) => {
+    if (l.sans.length < 4 || l.sans.length > 14) return false;
+    const ev = metaData?.evals?.[l.key];
+    if (SHARP_NAME.test(l.name)) return !ev || ev.mate == null;
+    if (!ev || ev.mate != null) return false;
+    const cp = Math.abs(ev.cp);
+    return cp >= 60 && cp <= 500;
+  });
+  return sharp;
+}
+
+/** One random sharp line, or null if the metadata hasn't loaded yet. */
+export function randomSharpLine(metaData) {
+  const pool = sharpLines(metaData);
+  if (!pool.length) return null;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
 /** "+0.34" / "-1.20" / "M4" from a stored evaluation, White's perspective. */
 export function formatEval(ev) {
   if (!ev) return null;

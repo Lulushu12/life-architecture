@@ -8,6 +8,8 @@ import ReviewScreen from "./ReviewScreen.jsx";
 import Archive from "./Archive.jsx";
 import BlunderTrainer from "./Puzzles.jsx";
 import Openings from "./Openings.jsx";
+import PositionEditor from "./PositionEditor.jsx";
+import EngineMatch from "./EngineMatch.jsx";
 import { PuzzleHome, TierTrainer } from "./PuzzleSets.jsx";
 import Lessons from "./Lessons.jsx";
 import Settings from "./Settings.jsx";
@@ -38,6 +40,10 @@ export default function App() {
       return <Archive {...props} />;
     case "openings":
       return <Openings {...props} />;
+    case "editor":
+      return <PositionEditor {...props} />;
+    case "enginematch":
+      return <EngineMatch {...props} />;
     case "puzzles":
       if (view.set === "blunders") return <BlunderTrainer {...props} />;
       if (view.set) return <TierTrainer {...props} tierKey={view.set} />;

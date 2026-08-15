@@ -8,7 +8,15 @@
 const ENGINE_URL = import.meta.env.BASE_URL + "engine/stockfish-nnue-16-single.js";
 
 export class Engine {
-  constructor() {
+  /**
+   * @param {object}  opts
+   * @param {boolean} opts.nnue  false runs Stockfish's classical hand-crafted
+   *   evaluation instead of the neural net. Same search, same full strength,
+   *   noticeably different taste in positions — and it never fetches the 39MB
+   *   net, so a classical engine costs almost nothing to keep alongside.
+   */
+  constructor({ nnue = true } = {}) {
+    this.nnue = nnue;
     this.worker = new Worker(ENGINE_URL);
     this.listeners = new Set();
     this.queue = Promise.resolve();
@@ -29,8 +37,12 @@ export class Engine {
       };
       this.listeners.add(onLine);
       this.send("uci");
-      this.send("setoption name Use NNUE value true");
-      this.send("setoption name EvalFile value nn-5af11540bbfe.nnue");
+      if (this.nnue) {
+        this.send("setoption name Use NNUE value true");
+        this.send("setoption name EvalFile value nn-5af11540bbfe.nnue");
+      } else {
+        this.send("setoption name Use NNUE value false");
+      }
       this.send("isready");
     });
   }
@@ -52,7 +64,7 @@ export class Engine {
    * (index 0 = best) of { move, cp, mate, pv } with scores from the
    * side-to-move's perspective (UCI convention).
    */
-  analyze(fen, { movetime = 400, depth = null, multipv = 1, elo = null, skill = null } = {}) {
+  analyze(fen, { movetime = 400, depth = null, nodes = null, multipv = 1, elo = null, skill = null } = {}) {
     return this._run(
       () =>
         new Promise((resolve) => {
@@ -78,7 +90,9 @@ export class Engine {
           }
           this.send("setoption name Skill Level value " + (skill != null ? skill : 20));
           this.send("position fen " + fen);
-          this.send(depth ? "go depth " + depth : "go movetime " + movetime);
+          if (depth) this.send("go depth " + depth);
+          else if (nodes) this.send("go nodes " + nodes);
+          else this.send("go movetime " + movetime);
         })
     );
   }

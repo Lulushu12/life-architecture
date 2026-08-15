@@ -209,7 +209,9 @@ function Review({ store, setStore, nav, game }) {
   const who =
     game.mode === "bot"
       ? { w: game.playerColor === "w" ? "You" : botName(game), b: game.playerColor === "b" ? "You" : botName(game) }
-      : { w: "White", b: "Black" };
+      : game.mode === "engine" && game.names
+        ? { w: game.names.w, b: game.names.b }
+        : { w: "White", b: "Black" };
 
   return (
     <div className="page gamepage">

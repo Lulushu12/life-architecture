@@ -15,7 +15,9 @@ export default function Archive({ store, setStore, nav }) {
                 ? `${getPersona(game.personaId).avatar} vs ${getPersona(game.personaId).name}`
                 : game.mode === "pass"
                   ? "🤝 Pass & play"
-                  : `📋 ${game.label || "Imported"}`}
+                  : game.mode === "engine"
+                    ? `⚔️ ${game.names?.w} vs ${game.names?.b}`
+                    : `📋 ${game.label || "Imported"}`}
               {"  "}
               <span className="result">{game.result || ""}</span>
             </div>
