@@ -16,10 +16,29 @@ android {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    // Release signing is driven by env vars so the keystore never lands in the
+    // repo. Set ANDROID_KEYSTORE_PATH / _PASSWORD / _ALIAS / _ALIAS_PASSWORD to
+    // sign; without them `assembleRelease` still builds, just unsigned.
+    def keystorePath = System.getenv("ANDROID_KEYSTORE_PATH")
+    signingConfigs {
+        release {
+            if (keystorePath) {
+                storeFile file(keystorePath)
+                storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("ANDROID_KEYSTORE_ALIAS")
+                keyPassword System.getenv("ANDROID_KEYSTORE_ALIAS_PASSWORD")
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // Not debuggable, unlike assembleDebug: no ADB debugger can attach
+            // to the process or read app-private storage on a normal device.
+            if (keystorePath) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 }

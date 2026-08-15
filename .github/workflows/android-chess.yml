@@ -11,6 +11,10 @@ jobs:
     defaults:
       run:
         working-directory: apps/chess
+    env:
+      # `secrets` is not a valid context in a step-level `if`, so the presence
+      # check is hoisted into job env, which may read secrets.
+      HAS_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -35,12 +39,38 @@ jobs:
       # and copies dist/ into the native project.
       - run: npm run build:android
 
-      - name: Assemble debug APK
-        run: ./gradlew assembleDebug --no-daemon
+      # A release build is not debuggable, so no ADB debugger can attach to it
+      # on a normal device. It needs a keystore; without one we fall back to a
+      # debug APK, which is installable but debuggable — fine for trying it out,
+      # worth replacing for something you keep on your phone.
+      - name: Decode keystore
+        id: keystore
+        if: env.HAS_KEYSTORE == 'true'
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > "$RUNNER_TEMP/release.jks"
+          echo "path=$RUNNER_TEMP/release.jks" >> "$GITHUB_OUTPUT"
+
+      - name: Assemble release APK (signed)
+        if: env.HAS_KEYSTORE == 'true'
         working-directory: apps/chess/android
+        env:
+          ANDROID_KEYSTORE_PATH: ${{ steps.keystore.outputs.path }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEYSTORE_ALIAS: ${{ secrets.ANDROID_KEYSTORE_ALIAS }}
+          ANDROID_KEYSTORE_ALIAS_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_ALIAS_PASSWORD }}
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Assemble debug APK (no keystore configured)
+        if: env.HAS_KEYSTORE != 'true'
+        working-directory: apps/chess/android
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Remove keystore
+        if: always()
+        run: rm -f "$RUNNER_TEMP/release.jks"
 
       - uses: actions/upload-artifact@v4
         with:
           name: chess-apk
-          path: apps/chess/android/app/build/outputs/apk/debug/app-debug.apk
+          path: apps/chess/android/app/build/outputs/apk/*/*.apk
           if-no-files-found: error

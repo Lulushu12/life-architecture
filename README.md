@@ -45,10 +45,42 @@ cd apps/chess
 npm run apk        # → android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
-The APK is debug-signed, which is fine for sideloading. To ship a
-release-signed build, generate a keystore, add it as a repo secret, and
-switch the workflow to `assembleRelease` (`*.jks`/`*.keystore` are
-gitignored).
+### Signing
+
+Without a keystore the workflow builds a debug APK — installable, but
+`debuggable`, meaning anything with ADB access can attach to the process and
+read app storage. For a build you keep on your phone, add four repo secrets
+and the workflow assembles a signed, non-debuggable release instead:
+
+```sh
+keytool -genkeypair -v -keystore release.jks -alias chess \
+  -keyalg RSA -keysize 2048 -validity 10000
+base64 -w0 release.jks     # → secret ANDROID_KEYSTORE_BASE64
+```
+
+Plus `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEYSTORE_ALIAS`, and
+`ANDROID_KEYSTORE_ALIAS_PASSWORD`. Keep `release.jks` backed up somewhere
+outside the repo — losing it means installs can't be updated in place.
+(`*.jks`/`*.keystore` are gitignored.)
+
+### What the APK can reach
+
+Only `android.permission.INTERNET` is requested — no camera, microphone,
+location, or storage. The app has one network feature: the optional live-AI
+bot banter in Settings, which is inert unless you paste an endpoint and key
+(`ai: { baseUrl: "", apiKey: "", model: "" }` by default). Everything else —
+Stockfish, review, puzzles, lessons, openings — is on-device.
+
+`INTERNET` is outbound-only; it opens no port and lets nothing in. The app
+serves its own assets in-process via `WebViewAssetLoader`, not over a socket,
+so if you want to make outbound traffic impossible at the OS level, delete the
+`<uses-permission>` line from `AndroidManifest.xml` and rebuild. That also
+kills the AI banter — and it hasn't been tested on a device, so check the app
+still opens before relying on it.
+
+Backups are off (`allowBackup="false"` plus Android 12+ data-extraction
+rules), so game history and any API key you set stay on the device rather than
+syncing to Google.
 
 The Pages build is unaffected: `npm run build` still emits the
 `/life-architecture/chess/` paths and registers the service worker.
