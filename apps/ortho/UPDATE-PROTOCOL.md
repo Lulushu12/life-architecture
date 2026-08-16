@@ -3,15 +3,17 @@
 How the Ortho app's knowledge base stays current. A scheduled Claude routine (monthly) runs
 this protocol; it can also be run on demand by asking Claude to "run the ortho evidence sweep".
 
-The knowledge-base monographs live in the specialty directories of `apps/ortho/src/content/`
-(trauma, arthroplasty, sports, spine, hand-wrist, foot-ankle, peds, onco-metabolic,
-principles). The personal authoring categories (classifications, techniques, checklists,
-notes) are the user's own and are NOT touched by this protocol.
+The knowledge-base monographs live in `apps/ortho/src/content/diagnoses/` (36 files, one per
+diagnosis cluster, each tagged with a `specialty:` frontmatter key). Atomic articles extracted
+from them live in `apps/ortho/src/content/classifications/` and `.../techniques/` — those two
+directories also contain the user's own hand-written articles, so edit only files that clearly
+derive from a monograph (they end with a "*Full context: … in the Diagnoses section.*" line).
+The checklists and notes categories are the user's own and are NEVER touched by this protocol.
 
 ## Procedure
 
-1. **Inventory.** List all monographs in the specialty directories under
-   `apps/ortho/src/content/` and read each file's frontmatter (`title`, `specialty`, `updated`).
+1. **Inventory.** List all monographs in `apps/ortho/src/content/diagnoses/` and read each
+   file's frontmatter (`title`, `specialty`, `updated`).
 2. **Sweep.** For each specialty, search for publications since the oldest `updated` date in
    that specialty:
    - New or revised clinical practice guidelines: AAOS, NICE, ESSKA, ISAKOS, EFORT, AOSpine,
@@ -25,6 +27,8 @@ notes) are the user's own and are NOT touched by this protocol.
      as it grows) with source links.
    - If a finding changes a treatment recommendation, update the relevant `## Treatment` or
      `## Quick Reference` content too — don't leave the card contradicting the evidence.
+   - If the change affects a classification or technique that has an extracted article in
+     `classifications/` or `techniques/`, update that article to match.
    - Bump `updated:` in the frontmatter.
 4. **Verify.** `cd apps/ortho && npm install && npm run build` must pass.
 5. **Deliver.** Commit to a branch (`claude/ortho-evidence-sweep-YYYY-MM`), push, and open a

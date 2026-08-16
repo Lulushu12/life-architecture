@@ -13,7 +13,7 @@ write-through on every action) unless noted.
 | Focus | `apps/focus` | `/focus/` | Pomodoro, named task timers, interval break/posture reminders, and daily stats. |
 | Games | `apps/games` | `/games/` | Chess clock (Fischer increment), sudoku with unique-solution generator, cryptograms. |
 | Calories | `apps/calories` | `/calories/` | Food & macro log backed by Open Food Facts (search + barcode), training log, weight trend. |
-| Ortho | `apps/ortho` | `/ortho/` | Personal clinical reference — articles authored in-app (on-device) or as Markdown files in `apps/ortho/src/content/`, searchable and offline. Ships a full orthopedic knowledge base: 36 monographs (262 diagnoses) across 9 specialty categories with classifications, techniques, treatment ladders, rehab protocols, and linked 2023–2026 evidence, refreshed monthly by a scheduled evidence sweep (`apps/ortho/UPDATE-PROTOCOL.md`). |
+| Ortho | `apps/ortho` | `/ortho/` | Personal clinical reference — articles authored in-app (on-device) or as Markdown files in `apps/ortho/src/content/`, searchable and offline. Ships a full orthopedic knowledge base: a Diagnoses section with 36 monographs (262 diagnoses, treatment ladders, rehab protocols, linked 2023–2026 evidence) plus classification and technique articles extracted into the app's native sections, refreshed monthly by a scheduled evidence sweep (`apps/ortho/UPDATE-PROTOCOL.md`). |
 | Chess | `apps/chess` | `/chess/` | Full chess app on local Stockfish 16 NNUE (WASM): bot personas with adjustable strength and banter, Game Review with move classification and accuracy, analysis board, blunder puzzles, pass & play. Engine GPLv3; pieces cburnett (lichess); openings lichess-org/chess-openings. |
 
 ## Development
