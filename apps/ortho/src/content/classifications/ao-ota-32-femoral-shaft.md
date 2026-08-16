@@ -2,7 +2,7 @@
 title: AO/OTA Classification — Femoral Shaft Fractures (32)
 tags: Trauma, Knee & Femur, femoral shaft fracture, diaphyseal fracture, AO/OTA, intramedullary nailing, Winquist-Hansen
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 

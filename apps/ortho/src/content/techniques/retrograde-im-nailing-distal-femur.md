@@ -2,7 +2,7 @@
 title: Retrograde Intramedullary Nailing — Distal Femur Fracture
 tags: Trauma, Knee & Femur, distal femur fracture, AO/OTA 33, floating knee, femoral neck fracture, multi-planar interlocking, Blumensaat's line
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 

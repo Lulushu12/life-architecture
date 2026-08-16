@@ -2,7 +2,7 @@
 title: Locked Lateral Distal Femoral Plating (LISS) — Distal Femur Fracture
 tags: Trauma, Knee & Femur, distal femur fracture, AO/OTA 33, LISS, MIPO, varus collapse, medial column deficiency
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 

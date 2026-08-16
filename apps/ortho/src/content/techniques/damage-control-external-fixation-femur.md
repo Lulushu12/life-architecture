@@ -2,7 +2,7 @@
 title: Damage-Control External Fixation — Femoral Shaft Fracture (Polytrauma)
 tags: Trauma, Knee & Femur, femoral shaft fracture, polytrauma, damage control orthopedics, external fixation, early total care, fat embolism syndrome, bilateral femur fractures
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 

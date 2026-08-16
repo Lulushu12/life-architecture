@@ -1,7 +1,7 @@
 ---
 title: Femoral Shaft & Distal Femur Fractures
 tags: Trauma, Knee & Femur, Femoral shaft fracture, Distal femur fracture, Bilateral femur fractures, Winquist-Hansen, AO/OTA 32 & 33, femoral shaft fracture, distal femur fracture, intramedullary nailing, damage control orthopedics, nail-plate construct, distal femoral replacement, polytrauma, periprosthetic fracture
-region: Knee & Femur
+region: Knee & Leg
 specialty: Trauma
 updated: 2026-08-15
 ---

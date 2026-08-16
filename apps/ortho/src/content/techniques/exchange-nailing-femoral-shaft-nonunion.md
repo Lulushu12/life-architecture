@@ -2,7 +2,7 @@
 title: Exchange Nailing — Femoral Shaft Nonunion
 tags: Trauma, Knee & Femur, femoral shaft fracture, nonunion, intramedullary nailing, reamed nailing, bone grafting, infected nonunion
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 

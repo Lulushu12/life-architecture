@@ -2,7 +2,7 @@
 title: Winquist-Hansen Classification — Femoral Shaft Fracture Comminution
 tags: Trauma, Knee & Femur, femoral shaft fracture, comminution, intramedullary nailing, static interlocking, Winquist-Hansen, AO/OTA 32
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 

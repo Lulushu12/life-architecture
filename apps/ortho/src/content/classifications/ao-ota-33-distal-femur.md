@@ -2,7 +2,7 @@
 title: AO/OTA Classification — Distal Femur Fractures (33)
 tags: Trauma, Knee & Femur, distal femur fracture, supracondylar fracture, Hoffa fragment, AO/OTA, retrograde nail, locked plating, nail-plate construct, distal femoral replacement
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 

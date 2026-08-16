@@ -2,7 +2,7 @@
 title: Su Classification — Periprosthetic Distal Femur Fractures (TKA)
 tags: Trauma, Knee & Femur, periprosthetic fracture, total knee arthroplasty, distal femoral replacement, revision arthroplasty, Su classification
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 

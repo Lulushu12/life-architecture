@@ -2,7 +2,7 @@
 title: Distal Femoral Replacement (DFR)
 tags: Trauma, Knee & Femur, distal femur fracture, AO/OTA 33-C3, periprosthetic fracture, Su classification, hinged endoprosthesis, orthogeriatric, frail elderly
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 

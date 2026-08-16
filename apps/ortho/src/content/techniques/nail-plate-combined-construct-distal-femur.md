@@ -2,7 +2,7 @@
 title: Combined Nail-Plate Construct — Distal Femur Fracture
 tags: Trauma, Knee & Femur, distal femur fracture, AO/OTA 33-C, nail-plate construct, dual plating, periprosthetic fracture, medial comminution
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 

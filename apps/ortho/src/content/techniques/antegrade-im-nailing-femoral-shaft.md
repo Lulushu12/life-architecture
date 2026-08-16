@@ -2,7 +2,7 @@
 title: Antegrade Intramedullary Nailing — Femoral Shaft Fracture
 tags: Trauma, Knee & Femur, femoral shaft fracture, AO/OTA 32, Winquist-Hansen, reamed nailing, static interlocking, blocking screws, malrotation
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 
