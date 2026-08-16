@@ -1,4 +1,4 @@
-(function(){const i=document.createElement("link").relList;if(i&&i.supports&&i.supports("modulepreload"))return;for(const a of document.querySelectorAll('link[rel="modulepreload"]'))n(a);new MutationObserver(a=>{for(const r of a)if(r.type==="childList")for(const o of r.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&n(o)}).observe(document,{childList:!0,subtree:!0});function t(a){const r={};return a.integrity&&(r.integrity=a.integrity),a.referrerPolicy&&(r.referrerPolicy=a.referrerPolicy),a.crossOrigin==="use-credentials"?r.credentials="include":a.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function n(a){if(a.ep)return;a.ep=!0;const r=t(a);fetch(a.href,r)}})();function hd(e){return e&&e.__esModule&&Object.prototype.hasOwnProperty.call(e,"default")?e.default:e}var Zs={exports:{}},na={},Ys={exports:{}},M={};/**
+(function(){const i=document.createElement("link").relList;if(i&&i.supports&&i.supports("modulepreload"))return;for(const a of document.querySelectorAll('link[rel="modulepreload"]'))n(a);new MutationObserver(a=>{for(const r of a)if(r.type==="childList")for(const o of r.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&n(o)}).observe(document,{childList:!0,subtree:!0});function t(a){const r={};return a.integrity&&(r.integrity=a.integrity),a.referrerPolicy&&(r.referrerPolicy=a.referrerPolicy),a.crossOrigin==="use-credentials"?r.credentials="include":a.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function n(a){if(a.ep)return;a.ep=!0;const r=t(a);fetch(a.href,r)}})();function gd(e){return e&&e.__esModule&&Object.prototype.hasOwnProperty.call(e,"default")?e.default:e}var $s={exports:{}},na={},el={exports:{}},M={};/**
  * @license React
  * react.production.min.js
  *
@@ -6,7 +6,7 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- */var Qt=Symbol.for("react.element"),md=Symbol.for("react.portal"),gd=Symbol.for("react.fragment"),fd=Symbol.for("react.strict_mode"),yd=Symbol.for("react.profiler"),vd=Symbol.for("react.provider"),bd=Symbol.for("react.context"),wd=Symbol.for("react.forward_ref"),kd=Symbol.for("react.suspense"),xd=Symbol.for("react.memo"),Id=Symbol.for("react.lazy"),No=Symbol.iterator;function Ad(e){return e===null||typeof e!="object"?null:(e=No&&e[No]||e["@@iterator"],typeof e=="function"?e:null)}var $s={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}},el=Object.assign,il={};function rt(e,i,t){this.props=e,this.context=i,this.refs=il,this.updater=t||$s}rt.prototype.isReactComponent={};rt.prototype.setState=function(e,i){if(typeof e!="object"&&typeof e!="function"&&e!=null)throw Error("setState(...): takes an object of state variables to update or a function which returns an object of state variables.");this.updater.enqueueSetState(this,e,i,"setState")};rt.prototype.forceUpdate=function(e){this.updater.enqueueForceUpdate(this,e,"forceUpdate")};function tl(){}tl.prototype=rt.prototype;function Kr(e,i,t){this.props=e,this.context=i,this.refs=il,this.updater=t||$s}var Gr=Kr.prototype=new tl;Gr.constructor=Kr;el(Gr,rt.prototype);Gr.isPureReactComponent=!0;var _o=Array.isArray,nl=Object.prototype.hasOwnProperty,Vr={current:null},al={key:!0,ref:!0,__self:!0,__source:!0};function rl(e,i,t){var n,a={},r=null,o=null;if(i!=null)for(n in i.ref!==void 0&&(o=i.ref),i.key!==void 0&&(r=""+i.key),i)nl.call(i,n)&&!al.hasOwnProperty(n)&&(a[n]=i[n]);var s=arguments.length-2;if(s===1)a.children=t;else if(1<s){for(var l=Array(s),c=0;c<s;c++)l[c]=arguments[c+2];a.children=l}if(e&&e.defaultProps)for(n in s=e.defaultProps,s)a[n]===void 0&&(a[n]=s[n]);return{$$typeof:Qt,type:e,key:r,ref:o,props:a,_owner:Vr.current}}function Sd(e,i){return{$$typeof:Qt,type:e.type,key:i,ref:e.ref,props:e.props,_owner:e._owner}}function Wr(e){return typeof e=="object"&&e!==null&&e.$$typeof===Qt}function Cd(e){var i={"=":"=0",":":"=2"};return"$"+e.replace(/[=:]/g,function(t){return i[t]})}var Jo=/\/+/g;function Ia(e,i){return typeof e=="object"&&e!==null&&e.key!=null?Cd(""+e.key):i.toString(36)}function kn(e,i,t,n,a){var r=typeof e;(r==="undefined"||r==="boolean")&&(e=null);var o=!1;if(e===null)o=!0;else switch(r){case"string":case"number":o=!0;break;case"object":switch(e.$$typeof){case Qt:case md:o=!0}}if(o)return o=e,a=a(o),e=n===""?"."+Ia(o,0):n,_o(a)?(t="",e!=null&&(t=e.replace(Jo,"$&/")+"/"),kn(a,i,t,"",function(c){return c})):a!=null&&(Wr(a)&&(a=Sd(a,t+(!a.key||o&&o.key===a.key?"":(""+a.key).replace(Jo,"$&/")+"/")+e)),i.push(a)),1;if(o=0,n=n===""?".":n+":",_o(e))for(var s=0;s<e.length;s++){r=e[s];var l=n+Ia(r,s);o+=kn(r,i,t,l,a)}else if(l=Ad(e),typeof l=="function")for(e=l.call(e),s=0;!(r=e.next()).done;)r=r.value,l=n+Ia(r,s++),o+=kn(r,i,t,l,a);else if(r==="object")throw i=String(e),Error("Objects are not valid as a React child (found: "+(i==="[object Object]"?"object with keys {"+Object.keys(e).join(", ")+"}":i)+"). If you meant to render a collection of children, use an array instead.");return o}function an(e,i,t){if(e==null)return e;var n=[],a=0;return kn(e,n,"","",function(r){return i.call(t,r,a++)}),n}function Td(e){if(e._status===-1){var i=e._result;i=i(),i.then(function(t){(e._status===0||e._status===-1)&&(e._status=1,e._result=t)},function(t){(e._status===0||e._status===-1)&&(e._status=2,e._result=t)}),e._status===-1&&(e._status=0,e._result=i)}if(e._status===1)return e._result.default;throw e._result}var le={current:null},xn={transition:null},Pd={ReactCurrentDispatcher:le,ReactCurrentBatchConfig:xn,ReactCurrentOwner:Vr};function ol(){throw Error("act(...) is not supported in production builds of React.")}M.Children={map:an,forEach:function(e,i,t){an(e,function(){i.apply(this,arguments)},t)},count:function(e){var i=0;return an(e,function(){i++}),i},toArray:function(e){return an(e,function(i){return i})||[]},only:function(e){if(!Wr(e))throw Error("React.Children.only expected to receive a single React element child.");return e}};M.Component=rt;M.Fragment=gd;M.Profiler=yd;M.PureComponent=Kr;M.StrictMode=fd;M.Suspense=kd;M.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED=Pd;M.act=ol;M.cloneElement=function(e,i,t){if(e==null)throw Error("React.cloneElement(...): The argument must be a React element, but you passed "+e+".");var n=el({},e.props),a=e.key,r=e.ref,o=e._owner;if(i!=null){if(i.ref!==void 0&&(r=i.ref,o=Vr.current),i.key!==void 0&&(a=""+i.key),e.type&&e.type.defaultProps)var s=e.type.defaultProps;for(l in i)nl.call(i,l)&&!al.hasOwnProperty(l)&&(n[l]=i[l]===void 0&&s!==void 0?s[l]:i[l])}var l=arguments.length-2;if(l===1)n.children=t;else if(1<l){s=Array(l);for(var c=0;c<l;c++)s[c]=arguments[c+2];n.children=s}return{$$typeof:Qt,type:e.type,key:a,ref:r,props:n,_owner:o}};M.createContext=function(e){return e={$$typeof:bd,_currentValue:e,_currentValue2:e,_threadCount:0,Provider:null,Consumer:null,_defaultValue:null,_globalName:null},e.Provider={$$typeof:vd,_context:e},e.Consumer=e};M.createElement=rl;M.createFactory=function(e){var i=rl.bind(null,e);return i.type=e,i};M.createRef=function(){return{current:null}};M.forwardRef=function(e){return{$$typeof:wd,render:e}};M.isValidElement=Wr;M.lazy=function(e){return{$$typeof:Id,_payload:{_status:-1,_result:e},_init:Td}};M.memo=function(e,i){return{$$typeof:xd,type:e,compare:i===void 0?null:i}};M.startTransition=function(e){var i=xn.transition;xn.transition={};try{e()}finally{xn.transition=i}};M.unstable_act=ol;M.useCallback=function(e,i){return le.current.useCallback(e,i)};M.useContext=function(e){return le.current.useContext(e)};M.useDebugValue=function(){};M.useDeferredValue=function(e){return le.current.useDeferredValue(e)};M.useEffect=function(e,i){return le.current.useEffect(e,i)};M.useId=function(){return le.current.useId()};M.useImperativeHandle=function(e,i,t){return le.current.useImperativeHandle(e,i,t)};M.useInsertionEffect=function(e,i){return le.current.useInsertionEffect(e,i)};M.useLayoutEffect=function(e,i){return le.current.useLayoutEffect(e,i)};M.useMemo=function(e,i){return le.current.useMemo(e,i)};M.useReducer=function(e,i,t){return le.current.useReducer(e,i,t)};M.useRef=function(e){return le.current.useRef(e)};M.useState=function(e){return le.current.useState(e)};M.useSyncExternalStore=function(e,i,t){return le.current.useSyncExternalStore(e,i,t)};M.useTransition=function(){return le.current.useTransition()};M.version="18.3.1";Ys.exports=M;var V=Ys.exports;const Rd=hd(V);/**
+ */var Qt=Symbol.for("react.element"),fd=Symbol.for("react.portal"),yd=Symbol.for("react.fragment"),vd=Symbol.for("react.strict_mode"),bd=Symbol.for("react.profiler"),wd=Symbol.for("react.provider"),kd=Symbol.for("react.context"),xd=Symbol.for("react.forward_ref"),Id=Symbol.for("react.suspense"),Ad=Symbol.for("react.memo"),Sd=Symbol.for("react.lazy"),No=Symbol.iterator;function Cd(e){return e===null||typeof e!="object"?null:(e=No&&e[No]||e["@@iterator"],typeof e=="function"?e:null)}var il={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}},tl=Object.assign,nl={};function rt(e,i,t){this.props=e,this.context=i,this.refs=nl,this.updater=t||il}rt.prototype.isReactComponent={};rt.prototype.setState=function(e,i){if(typeof e!="object"&&typeof e!="function"&&e!=null)throw Error("setState(...): takes an object of state variables to update or a function which returns an object of state variables.");this.updater.enqueueSetState(this,e,i,"setState")};rt.prototype.forceUpdate=function(e){this.updater.enqueueForceUpdate(this,e,"forceUpdate")};function al(){}al.prototype=rt.prototype;function Kr(e,i,t){this.props=e,this.context=i,this.refs=nl,this.updater=t||il}var Gr=Kr.prototype=new al;Gr.constructor=Kr;tl(Gr,rt.prototype);Gr.isPureReactComponent=!0;var _o=Array.isArray,rl=Object.prototype.hasOwnProperty,Vr={current:null},ol={key:!0,ref:!0,__self:!0,__source:!0};function sl(e,i,t){var n,a={},r=null,o=null;if(i!=null)for(n in i.ref!==void 0&&(o=i.ref),i.key!==void 0&&(r=""+i.key),i)rl.call(i,n)&&!ol.hasOwnProperty(n)&&(a[n]=i[n]);var s=arguments.length-2;if(s===1)a.children=t;else if(1<s){for(var l=Array(s),c=0;c<s;c++)l[c]=arguments[c+2];a.children=l}if(e&&e.defaultProps)for(n in s=e.defaultProps,s)a[n]===void 0&&(a[n]=s[n]);return{$$typeof:Qt,type:e,key:r,ref:o,props:a,_owner:Vr.current}}function Td(e,i){return{$$typeof:Qt,type:e.type,key:i,ref:e.ref,props:e.props,_owner:e._owner}}function Wr(e){return typeof e=="object"&&e!==null&&e.$$typeof===Qt}function Pd(e){var i={"=":"=0",":":"=2"};return"$"+e.replace(/[=:]/g,function(t){return i[t]})}var Jo=/\/+/g;function Ia(e,i){return typeof e=="object"&&e!==null&&e.key!=null?Pd(""+e.key):i.toString(36)}function kn(e,i,t,n,a){var r=typeof e;(r==="undefined"||r==="boolean")&&(e=null);var o=!1;if(e===null)o=!0;else switch(r){case"string":case"number":o=!0;break;case"object":switch(e.$$typeof){case Qt:case fd:o=!0}}if(o)return o=e,a=a(o),e=n===""?"."+Ia(o,0):n,_o(a)?(t="",e!=null&&(t=e.replace(Jo,"$&/")+"/"),kn(a,i,t,"",function(c){return c})):a!=null&&(Wr(a)&&(a=Td(a,t+(!a.key||o&&o.key===a.key?"":(""+a.key).replace(Jo,"$&/")+"/")+e)),i.push(a)),1;if(o=0,n=n===""?".":n+":",_o(e))for(var s=0;s<e.length;s++){r=e[s];var l=n+Ia(r,s);o+=kn(r,i,t,l,a)}else if(l=Cd(e),typeof l=="function")for(e=l.call(e),s=0;!(r=e.next()).done;)r=r.value,l=n+Ia(r,s++),o+=kn(r,i,t,l,a);else if(r==="object")throw i=String(e),Error("Objects are not valid as a React child (found: "+(i==="[object Object]"?"object with keys {"+Object.keys(e).join(", ")+"}":i)+"). If you meant to render a collection of children, use an array instead.");return o}function an(e,i,t){if(e==null)return e;var n=[],a=0;return kn(e,n,"","",function(r){return i.call(t,r,a++)}),n}function Rd(e){if(e._status===-1){var i=e._result;i=i(),i.then(function(t){(e._status===0||e._status===-1)&&(e._status=1,e._result=t)},function(t){(e._status===0||e._status===-1)&&(e._status=2,e._result=t)}),e._status===-1&&(e._status=0,e._result=i)}if(e._status===1)return e._result.default;throw e._result}var le={current:null},xn={transition:null},Md={ReactCurrentDispatcher:le,ReactCurrentBatchConfig:xn,ReactCurrentOwner:Vr};function ll(){throw Error("act(...) is not supported in production builds of React.")}M.Children={map:an,forEach:function(e,i,t){an(e,function(){i.apply(this,arguments)},t)},count:function(e){var i=0;return an(e,function(){i++}),i},toArray:function(e){return an(e,function(i){return i})||[]},only:function(e){if(!Wr(e))throw Error("React.Children.only expected to receive a single React element child.");return e}};M.Component=rt;M.Fragment=yd;M.Profiler=bd;M.PureComponent=Kr;M.StrictMode=vd;M.Suspense=Id;M.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED=Md;M.act=ll;M.cloneElement=function(e,i,t){if(e==null)throw Error("React.cloneElement(...): The argument must be a React element, but you passed "+e+".");var n=tl({},e.props),a=e.key,r=e.ref,o=e._owner;if(i!=null){if(i.ref!==void 0&&(r=i.ref,o=Vr.current),i.key!==void 0&&(a=""+i.key),e.type&&e.type.defaultProps)var s=e.type.defaultProps;for(l in i)rl.call(i,l)&&!ol.hasOwnProperty(l)&&(n[l]=i[l]===void 0&&s!==void 0?s[l]:i[l])}var l=arguments.length-2;if(l===1)n.children=t;else if(1<l){s=Array(l);for(var c=0;c<l;c++)s[c]=arguments[c+2];n.children=s}return{$$typeof:Qt,type:e.type,key:a,ref:r,props:n,_owner:o}};M.createContext=function(e){return e={$$typeof:kd,_currentValue:e,_currentValue2:e,_threadCount:0,Provider:null,Consumer:null,_defaultValue:null,_globalName:null},e.Provider={$$typeof:wd,_context:e},e.Consumer=e};M.createElement=sl;M.createFactory=function(e){var i=sl.bind(null,e);return i.type=e,i};M.createRef=function(){return{current:null}};M.forwardRef=function(e){return{$$typeof:xd,render:e}};M.isValidElement=Wr;M.lazy=function(e){return{$$typeof:Sd,_payload:{_status:-1,_result:e},_init:Rd}};M.memo=function(e,i){return{$$typeof:Ad,type:e,compare:i===void 0?null:i}};M.startTransition=function(e){var i=xn.transition;xn.transition={};try{e()}finally{xn.transition=i}};M.unstable_act=ll;M.useCallback=function(e,i){return le.current.useCallback(e,i)};M.useContext=function(e){return le.current.useContext(e)};M.useDebugValue=function(){};M.useDeferredValue=function(e){return le.current.useDeferredValue(e)};M.useEffect=function(e,i){return le.current.useEffect(e,i)};M.useId=function(){return le.current.useId()};M.useImperativeHandle=function(e,i,t){return le.current.useImperativeHandle(e,i,t)};M.useInsertionEffect=function(e,i){return le.current.useInsertionEffect(e,i)};M.useLayoutEffect=function(e,i){return le.current.useLayoutEffect(e,i)};M.useMemo=function(e,i){return le.current.useMemo(e,i)};M.useReducer=function(e,i,t){return le.current.useReducer(e,i,t)};M.useRef=function(e){return le.current.useRef(e)};M.useState=function(e){return le.current.useState(e)};M.useSyncExternalStore=function(e,i,t){return le.current.useSyncExternalStore(e,i,t)};M.useTransition=function(){return le.current.useTransition()};M.version="18.3.1";el.exports=M;var E=el.exports;const jd=gd(E);/**
  * @license React
  * react-jsx-runtime.production.min.js
  *
@@ -14,7 +14,7 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- */var Md=V,jd=Symbol.for("react.element"),Od=Symbol.for("react.fragment"),Fd=Object.prototype.hasOwnProperty,Dd=Md.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,Ld={key:!0,ref:!0,__self:!0,__source:!0};function sl(e,i,t){var n,a={},r=null,o=null;t!==void 0&&(r=""+t),i.key!==void 0&&(r=""+i.key),i.ref!==void 0&&(o=i.ref);for(n in i)Fd.call(i,n)&&!Ld.hasOwnProperty(n)&&(a[n]=i[n]);if(e&&e.defaultProps)for(n in i=e.defaultProps,i)a[n]===void 0&&(a[n]=i[n]);return{$$typeof:jd,type:e,key:r,ref:o,props:a,_owner:Dd.current}}na.Fragment=Od;na.jsx=sl;na.jsxs=sl;Zs.exports=na;var m=Zs.exports,ll={exports:{}},be={},cl={exports:{}},dl={};/**
+ */var Od=E,Fd=Symbol.for("react.element"),Dd=Symbol.for("react.fragment"),Ld=Object.prototype.hasOwnProperty,zd=Od.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,qd={key:!0,ref:!0,__self:!0,__source:!0};function cl(e,i,t){var n,a={},r=null,o=null;t!==void 0&&(r=""+t),i.key!==void 0&&(r=""+i.key),i.ref!==void 0&&(o=i.ref);for(n in i)Ld.call(i,n)&&!qd.hasOwnProperty(n)&&(a[n]=i[n]);if(e&&e.defaultProps)for(n in i=e.defaultProps,i)a[n]===void 0&&(a[n]=i[n]);return{$$typeof:Fd,type:e,key:r,ref:o,props:a,_owner:zd.current}}na.Fragment=Dd;na.jsx=cl;na.jsxs=cl;$s.exports=na;var m=$s.exports,dl={exports:{}},be={},ul={exports:{}},pl={};/**
  * @license React
  * scheduler.production.min.js
  *
@@ -22,7 +22,7 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- */(function(e){function i(A,P){var R=A.length;A.push(P);e:for(;0<R;){var K=R-1>>>1,Q=A[K];if(0<a(Q,P))A[K]=P,A[R]=Q,R=K;else break e}}function t(A){return A.length===0?null:A[0]}function n(A){if(A.length===0)return null;var P=A[0],R=A.pop();if(R!==P){A[0]=R;e:for(var K=0,Q=A.length,tn=Q>>>1;K<tn;){var fi=2*(K+1)-1,xa=A[fi],yi=fi+1,nn=A[yi];if(0>a(xa,R))yi<Q&&0>a(nn,xa)?(A[K]=nn,A[yi]=R,K=yi):(A[K]=xa,A[fi]=R,K=fi);else if(yi<Q&&0>a(nn,R))A[K]=nn,A[yi]=R,K=yi;else break e}}return P}function a(A,P){var R=A.sortIndex-P.sortIndex;return R!==0?R:A.id-P.id}if(typeof performance=="object"&&typeof performance.now=="function"){var r=performance;e.unstable_now=function(){return r.now()}}else{var o=Date,s=o.now();e.unstable_now=function(){return o.now()-s}}var l=[],c=[],f=1,g=null,h=3,y=!1,w=!1,k=!1,D=typeof setTimeout=="function"?setTimeout:null,u=typeof clearTimeout=="function"?clearTimeout:null,d=typeof setImmediate<"u"?setImmediate:null;typeof navigator<"u"&&navigator.scheduling!==void 0&&navigator.scheduling.isInputPending!==void 0&&navigator.scheduling.isInputPending.bind(navigator.scheduling);function p(A){for(var P=t(c);P!==null;){if(P.callback===null)n(c);else if(P.startTime<=A)n(c),P.sortIndex=P.expirationTime,i(l,P);else break;P=t(c)}}function v(A){if(k=!1,p(A),!w)if(t(l)!==null)w=!0,wa(I);else{var P=t(c);P!==null&&ka(v,P.startTime-A)}}function I(A,P){w=!1,k&&(k=!1,u(T),T=-1),y=!0;var R=h;try{for(p(P),g=t(l);g!==null&&(!(g.expirationTime>P)||A&&!Te());){var K=g.callback;if(typeof K=="function"){g.callback=null,h=g.priorityLevel;var Q=K(g.expirationTime<=P);P=e.unstable_now(),typeof Q=="function"?g.callback=Q:g===t(l)&&n(l),p(P)}else n(l);g=t(l)}if(g!==null)var tn=!0;else{var fi=t(c);fi!==null&&ka(v,fi.startTime-P),tn=!1}return tn}finally{g=null,h=R,y=!1}}var S=!1,C=null,T=-1,J=5,j=-1;function Te(){return!(e.unstable_now()-j<J)}function lt(){if(C!==null){var A=e.unstable_now();j=A;var P=!0;try{P=C(!0,A)}finally{P?ct():(S=!1,C=null)}}else S=!1}var ct;if(typeof d=="function")ct=function(){d(lt)};else if(typeof MessageChannel<"u"){var Ho=new MessageChannel,pd=Ho.port2;Ho.port1.onmessage=lt,ct=function(){pd.postMessage(null)}}else ct=function(){D(lt,0)};function wa(A){C=A,S||(S=!0,ct())}function ka(A,P){T=D(function(){A(e.unstable_now())},P)}e.unstable_IdlePriority=5,e.unstable_ImmediatePriority=1,e.unstable_LowPriority=4,e.unstable_NormalPriority=3,e.unstable_Profiling=null,e.unstable_UserBlockingPriority=2,e.unstable_cancelCallback=function(A){A.callback=null},e.unstable_continueExecution=function(){w||y||(w=!0,wa(I))},e.unstable_forceFrameRate=function(A){0>A||125<A?console.error("forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported"):J=0<A?Math.floor(1e3/A):5},e.unstable_getCurrentPriorityLevel=function(){return h},e.unstable_getFirstCallbackNode=function(){return t(l)},e.unstable_next=function(A){switch(h){case 1:case 2:case 3:var P=3;break;default:P=h}var R=h;h=P;try{return A()}finally{h=R}},e.unstable_pauseExecution=function(){},e.unstable_requestPaint=function(){},e.unstable_runWithPriority=function(A,P){switch(A){case 1:case 2:case 3:case 4:case 5:break;default:A=3}var R=h;h=A;try{return P()}finally{h=R}},e.unstable_scheduleCallback=function(A,P,R){var K=e.unstable_now();switch(typeof R=="object"&&R!==null?(R=R.delay,R=typeof R=="number"&&0<R?K+R:K):R=K,A){case 1:var Q=-1;break;case 2:Q=250;break;case 5:Q=1073741823;break;case 4:Q=1e4;break;default:Q=5e3}return Q=R+Q,A={id:f++,callback:P,priorityLevel:A,startTime:R,expirationTime:Q,sortIndex:-1},R>K?(A.sortIndex=R,i(c,A),t(l)===null&&A===t(c)&&(k?(u(T),T=-1):k=!0,ka(v,R-K))):(A.sortIndex=Q,i(l,A),w||y||(w=!0,wa(I))),A},e.unstable_shouldYield=Te,e.unstable_wrapCallback=function(A){var P=h;return function(){var R=h;h=P;try{return A.apply(this,arguments)}finally{h=R}}}})(dl);cl.exports=dl;var zd=cl.exports;/**
+ */(function(e){function i(A,P){var R=A.length;A.push(P);e:for(;0<R;){var G=R-1>>>1,Q=A[G];if(0<a(Q,P))A[G]=P,A[R]=Q,R=G;else break e}}function t(A){return A.length===0?null:A[0]}function n(A){if(A.length===0)return null;var P=A[0],R=A.pop();if(R!==P){A[0]=R;e:for(var G=0,Q=A.length,tn=Q>>>1;G<tn;){var fi=2*(G+1)-1,xa=A[fi],yi=fi+1,nn=A[yi];if(0>a(xa,R))yi<Q&&0>a(nn,xa)?(A[G]=nn,A[yi]=R,G=yi):(A[G]=xa,A[fi]=R,G=fi);else if(yi<Q&&0>a(nn,R))A[G]=nn,A[yi]=R,G=yi;else break e}}return P}function a(A,P){var R=A.sortIndex-P.sortIndex;return R!==0?R:A.id-P.id}if(typeof performance=="object"&&typeof performance.now=="function"){var r=performance;e.unstable_now=function(){return r.now()}}else{var o=Date,s=o.now();e.unstable_now=function(){return o.now()-s}}var l=[],c=[],f=1,g=null,h=3,y=!1,v=!1,k=!1,D=typeof setTimeout=="function"?setTimeout:null,u=typeof clearTimeout=="function"?clearTimeout:null,d=typeof setImmediate<"u"?setImmediate:null;typeof navigator<"u"&&navigator.scheduling!==void 0&&navigator.scheduling.isInputPending!==void 0&&navigator.scheduling.isInputPending.bind(navigator.scheduling);function p(A){for(var P=t(c);P!==null;){if(P.callback===null)n(c);else if(P.startTime<=A)n(c),P.sortIndex=P.expirationTime,i(l,P);else break;P=t(c)}}function b(A){if(k=!1,p(A),!v)if(t(l)!==null)v=!0,wa(I);else{var P=t(c);P!==null&&ka(b,P.startTime-A)}}function I(A,P){v=!1,k&&(k=!1,u(T),T=-1),y=!0;var R=h;try{for(p(P),g=t(l);g!==null&&(!(g.expirationTime>P)||A&&!Te());){var G=g.callback;if(typeof G=="function"){g.callback=null,h=g.priorityLevel;var Q=G(g.expirationTime<=P);P=e.unstable_now(),typeof Q=="function"?g.callback=Q:g===t(l)&&n(l),p(P)}else n(l);g=t(l)}if(g!==null)var tn=!0;else{var fi=t(c);fi!==null&&ka(b,fi.startTime-P),tn=!1}return tn}finally{g=null,h=R,y=!1}}var S=!1,C=null,T=-1,K=5,j=-1;function Te(){return!(e.unstable_now()-j<K)}function lt(){if(C!==null){var A=e.unstable_now();j=A;var P=!0;try{P=C(!0,A)}finally{P?ct():(S=!1,C=null)}}else S=!1}var ct;if(typeof d=="function")ct=function(){d(lt)};else if(typeof MessageChannel<"u"){var Ho=new MessageChannel,md=Ho.port2;Ho.port1.onmessage=lt,ct=function(){md.postMessage(null)}}else ct=function(){D(lt,0)};function wa(A){C=A,S||(S=!0,ct())}function ka(A,P){T=D(function(){A(e.unstable_now())},P)}e.unstable_IdlePriority=5,e.unstable_ImmediatePriority=1,e.unstable_LowPriority=4,e.unstable_NormalPriority=3,e.unstable_Profiling=null,e.unstable_UserBlockingPriority=2,e.unstable_cancelCallback=function(A){A.callback=null},e.unstable_continueExecution=function(){v||y||(v=!0,wa(I))},e.unstable_forceFrameRate=function(A){0>A||125<A?console.error("forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported"):K=0<A?Math.floor(1e3/A):5},e.unstable_getCurrentPriorityLevel=function(){return h},e.unstable_getFirstCallbackNode=function(){return t(l)},e.unstable_next=function(A){switch(h){case 1:case 2:case 3:var P=3;break;default:P=h}var R=h;h=P;try{return A()}finally{h=R}},e.unstable_pauseExecution=function(){},e.unstable_requestPaint=function(){},e.unstable_runWithPriority=function(A,P){switch(A){case 1:case 2:case 3:case 4:case 5:break;default:A=3}var R=h;h=A;try{return P()}finally{h=R}},e.unstable_scheduleCallback=function(A,P,R){var G=e.unstable_now();switch(typeof R=="object"&&R!==null?(R=R.delay,R=typeof R=="number"&&0<R?G+R:G):R=G,A){case 1:var Q=-1;break;case 2:Q=250;break;case 5:Q=1073741823;break;case 4:Q=1e4;break;default:Q=5e3}return Q=R+Q,A={id:f++,callback:P,priorityLevel:A,startTime:R,expirationTime:Q,sortIndex:-1},R>G?(A.sortIndex=R,i(c,A),t(l)===null&&A===t(c)&&(k?(u(T),T=-1):k=!0,ka(b,R-G))):(A.sortIndex=Q,i(l,A),v||y||(v=!0,wa(I))),A},e.unstable_shouldYield=Te,e.unstable_wrapCallback=function(A){var P=h;return function(){var R=h;h=P;try{return A.apply(this,arguments)}finally{h=R}}}})(pl);ul.exports=pl;var Ed=ul.exports;/**
  * @license React
  * react-dom.production.min.js
  *
@@ -30,14 +30,14 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- */var qd=V,ve=zd;function b(e){for(var i="https://reactjs.org/docs/error-decoder.html?invariant="+e,t=1;t<arguments.length;t++)i+="&args[]="+encodeURIComponent(arguments[t]);return"Minified React error #"+e+"; visit "+i+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}var ul=new Set,jt={};function ji(e,i){Yi(e,i),Yi(e+"Capture",i)}function Yi(e,i){for(jt[e]=i,e=0;e<i.length;e++)ul.add(i[e])}var Ge=!(typeof window>"u"||typeof window.document>"u"||typeof window.document.createElement>"u"),Qa=Object.prototype.hasOwnProperty,Ed=/^[:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD][:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*$/,Ko={},Go={};function Bd(e){return Qa.call(Go,e)?!0:Qa.call(Ko,e)?!1:Ed.test(e)?Go[e]=!0:(Ko[e]=!0,!1)}function Hd(e,i,t,n){if(t!==null&&t.type===0)return!1;switch(typeof i){case"function":case"symbol":return!0;case"boolean":return n?!1:t!==null?!t.acceptsBooleans:(e=e.toLowerCase().slice(0,5),e!=="data-"&&e!=="aria-");default:return!1}}function Nd(e,i,t,n){if(i===null||typeof i>"u"||Hd(e,i,t,n))return!0;if(n)return!1;if(t!==null)switch(t.type){case 3:return!i;case 4:return i===!1;case 5:return isNaN(i);case 6:return isNaN(i)||1>i}return!1}function ce(e,i,t,n,a,r,o){this.acceptsBooleans=i===2||i===3||i===4,this.attributeName=n,this.attributeNamespace=a,this.mustUseProperty=t,this.propertyName=e,this.type=i,this.sanitizeURL=r,this.removeEmptyString=o}var ie={};"children dangerouslySetInnerHTML defaultValue defaultChecked innerHTML suppressContentEditableWarning suppressHydrationWarning style".split(" ").forEach(function(e){ie[e]=new ce(e,0,!1,e,null,!1,!1)});[["acceptCharset","accept-charset"],["className","class"],["htmlFor","for"],["httpEquiv","http-equiv"]].forEach(function(e){var i=e[0];ie[i]=new ce(i,1,!1,e[1],null,!1,!1)});["contentEditable","draggable","spellCheck","value"].forEach(function(e){ie[e]=new ce(e,2,!1,e.toLowerCase(),null,!1,!1)});["autoReverse","externalResourcesRequired","focusable","preserveAlpha"].forEach(function(e){ie[e]=new ce(e,2,!1,e,null,!1,!1)});"allowFullScreen async autoFocus autoPlay controls default defer disabled disablePictureInPicture disableRemotePlayback formNoValidate hidden loop noModule noValidate open playsInline readOnly required reversed scoped seamless itemScope".split(" ").forEach(function(e){ie[e]=new ce(e,3,!1,e.toLowerCase(),null,!1,!1)});["checked","multiple","muted","selected"].forEach(function(e){ie[e]=new ce(e,3,!0,e,null,!1,!1)});["capture","download"].forEach(function(e){ie[e]=new ce(e,4,!1,e,null,!1,!1)});["cols","rows","size","span"].forEach(function(e){ie[e]=new ce(e,6,!1,e,null,!1,!1)});["rowSpan","start"].forEach(function(e){ie[e]=new ce(e,5,!1,e.toLowerCase(),null,!1,!1)});var Ur=/[\-:]([a-z])/g;function Xr(e){return e[1].toUpperCase()}"accent-height alignment-baseline arabic-form baseline-shift cap-height clip-path clip-rule color-interpolation color-interpolation-filters color-profile color-rendering dominant-baseline enable-background fill-opacity fill-rule flood-color flood-opacity font-family font-size font-size-adjust font-stretch font-style font-variant font-weight glyph-name glyph-orientation-horizontal glyph-orientation-vertical horiz-adv-x horiz-origin-x image-rendering letter-spacing lighting-color marker-end marker-mid marker-start overline-position overline-thickness paint-order panose-1 pointer-events rendering-intent shape-rendering stop-color stop-opacity strikethrough-position strikethrough-thickness stroke-dasharray stroke-dashoffset stroke-linecap stroke-linejoin stroke-miterlimit stroke-opacity stroke-width text-anchor text-decoration text-rendering underline-position underline-thickness unicode-bidi unicode-range units-per-em v-alphabetic v-hanging v-ideographic v-mathematical vector-effect vert-adv-y vert-origin-x vert-origin-y word-spacing writing-mode xmlns:xlink x-height".split(" ").forEach(function(e){var i=e.replace(Ur,Xr);ie[i]=new ce(i,1,!1,e,null,!1,!1)});"xlink:actuate xlink:arcrole xlink:role xlink:show xlink:title xlink:type".split(" ").forEach(function(e){var i=e.replace(Ur,Xr);ie[i]=new ce(i,1,!1,e,"http://www.w3.org/1999/xlink",!1,!1)});["xml:base","xml:lang","xml:space"].forEach(function(e){var i=e.replace(Ur,Xr);ie[i]=new ce(i,1,!1,e,"http://www.w3.org/XML/1998/namespace",!1,!1)});["tabIndex","crossOrigin"].forEach(function(e){ie[e]=new ce(e,1,!1,e.toLowerCase(),null,!1,!1)});ie.xlinkHref=new ce("xlinkHref",1,!1,"xlink:href","http://www.w3.org/1999/xlink",!0,!1);["src","href","action","formAction"].forEach(function(e){ie[e]=new ce(e,1,!1,e.toLowerCase(),null,!0,!0)});function Qr(e,i,t,n){var a=ie.hasOwnProperty(i)?ie[i]:null;(a!==null?a.type!==0:n||!(2<i.length)||i[0]!=="o"&&i[0]!=="O"||i[1]!=="n"&&i[1]!=="N")&&(Nd(i,t,a,n)&&(t=null),n||a===null?Bd(i)&&(t===null?e.removeAttribute(i):e.setAttribute(i,""+t)):a.mustUseProperty?e[a.propertyName]=t===null?a.type===3?!1:"":t:(i=a.attributeName,n=a.attributeNamespace,t===null?e.removeAttribute(i):(a=a.type,t=a===3||a===4&&t===!0?"":""+t,n?e.setAttributeNS(n,i,t):e.setAttribute(i,t))))}var Xe=qd.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,rn=Symbol.for("react.element"),Di=Symbol.for("react.portal"),Li=Symbol.for("react.fragment"),Zr=Symbol.for("react.strict_mode"),Za=Symbol.for("react.profiler"),pl=Symbol.for("react.provider"),hl=Symbol.for("react.context"),Yr=Symbol.for("react.forward_ref"),Ya=Symbol.for("react.suspense"),$a=Symbol.for("react.suspense_list"),$r=Symbol.for("react.memo"),Ze=Symbol.for("react.lazy"),ml=Symbol.for("react.offscreen"),Vo=Symbol.iterator;function dt(e){return e===null||typeof e!="object"?null:(e=Vo&&e[Vo]||e["@@iterator"],typeof e=="function"?e:null)}var N=Object.assign,Aa;function vt(e){if(Aa===void 0)try{throw Error()}catch(t){var i=t.stack.trim().match(/\n( *(at )?)/);Aa=i&&i[1]||""}return`
+ */var Bd=E,ve=Ed;function w(e){for(var i="https://reactjs.org/docs/error-decoder.html?invariant="+e,t=1;t<arguments.length;t++)i+="&args[]="+encodeURIComponent(arguments[t]);return"Minified React error #"+e+"; visit "+i+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}var hl=new Set,jt={};function ji(e,i){Yi(e,i),Yi(e+"Capture",i)}function Yi(e,i){for(jt[e]=i,e=0;e<i.length;e++)hl.add(i[e])}var Ge=!(typeof window>"u"||typeof window.document>"u"||typeof window.document.createElement>"u"),Qa=Object.prototype.hasOwnProperty,Hd=/^[:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD][:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*$/,Ko={},Go={};function Nd(e){return Qa.call(Go,e)?!0:Qa.call(Ko,e)?!1:Hd.test(e)?Go[e]=!0:(Ko[e]=!0,!1)}function _d(e,i,t,n){if(t!==null&&t.type===0)return!1;switch(typeof i){case"function":case"symbol":return!0;case"boolean":return n?!1:t!==null?!t.acceptsBooleans:(e=e.toLowerCase().slice(0,5),e!=="data-"&&e!=="aria-");default:return!1}}function Jd(e,i,t,n){if(i===null||typeof i>"u"||_d(e,i,t,n))return!0;if(n)return!1;if(t!==null)switch(t.type){case 3:return!i;case 4:return i===!1;case 5:return isNaN(i);case 6:return isNaN(i)||1>i}return!1}function ce(e,i,t,n,a,r,o){this.acceptsBooleans=i===2||i===3||i===4,this.attributeName=n,this.attributeNamespace=a,this.mustUseProperty=t,this.propertyName=e,this.type=i,this.sanitizeURL=r,this.removeEmptyString=o}var ie={};"children dangerouslySetInnerHTML defaultValue defaultChecked innerHTML suppressContentEditableWarning suppressHydrationWarning style".split(" ").forEach(function(e){ie[e]=new ce(e,0,!1,e,null,!1,!1)});[["acceptCharset","accept-charset"],["className","class"],["htmlFor","for"],["httpEquiv","http-equiv"]].forEach(function(e){var i=e[0];ie[i]=new ce(i,1,!1,e[1],null,!1,!1)});["contentEditable","draggable","spellCheck","value"].forEach(function(e){ie[e]=new ce(e,2,!1,e.toLowerCase(),null,!1,!1)});["autoReverse","externalResourcesRequired","focusable","preserveAlpha"].forEach(function(e){ie[e]=new ce(e,2,!1,e,null,!1,!1)});"allowFullScreen async autoFocus autoPlay controls default defer disabled disablePictureInPicture disableRemotePlayback formNoValidate hidden loop noModule noValidate open playsInline readOnly required reversed scoped seamless itemScope".split(" ").forEach(function(e){ie[e]=new ce(e,3,!1,e.toLowerCase(),null,!1,!1)});["checked","multiple","muted","selected"].forEach(function(e){ie[e]=new ce(e,3,!0,e,null,!1,!1)});["capture","download"].forEach(function(e){ie[e]=new ce(e,4,!1,e,null,!1,!1)});["cols","rows","size","span"].forEach(function(e){ie[e]=new ce(e,6,!1,e,null,!1,!1)});["rowSpan","start"].forEach(function(e){ie[e]=new ce(e,5,!1,e.toLowerCase(),null,!1,!1)});var Ur=/[\-:]([a-z])/g;function Xr(e){return e[1].toUpperCase()}"accent-height alignment-baseline arabic-form baseline-shift cap-height clip-path clip-rule color-interpolation color-interpolation-filters color-profile color-rendering dominant-baseline enable-background fill-opacity fill-rule flood-color flood-opacity font-family font-size font-size-adjust font-stretch font-style font-variant font-weight glyph-name glyph-orientation-horizontal glyph-orientation-vertical horiz-adv-x horiz-origin-x image-rendering letter-spacing lighting-color marker-end marker-mid marker-start overline-position overline-thickness paint-order panose-1 pointer-events rendering-intent shape-rendering stop-color stop-opacity strikethrough-position strikethrough-thickness stroke-dasharray stroke-dashoffset stroke-linecap stroke-linejoin stroke-miterlimit stroke-opacity stroke-width text-anchor text-decoration text-rendering underline-position underline-thickness unicode-bidi unicode-range units-per-em v-alphabetic v-hanging v-ideographic v-mathematical vector-effect vert-adv-y vert-origin-x vert-origin-y word-spacing writing-mode xmlns:xlink x-height".split(" ").forEach(function(e){var i=e.replace(Ur,Xr);ie[i]=new ce(i,1,!1,e,null,!1,!1)});"xlink:actuate xlink:arcrole xlink:role xlink:show xlink:title xlink:type".split(" ").forEach(function(e){var i=e.replace(Ur,Xr);ie[i]=new ce(i,1,!1,e,"http://www.w3.org/1999/xlink",!1,!1)});["xml:base","xml:lang","xml:space"].forEach(function(e){var i=e.replace(Ur,Xr);ie[i]=new ce(i,1,!1,e,"http://www.w3.org/XML/1998/namespace",!1,!1)});["tabIndex","crossOrigin"].forEach(function(e){ie[e]=new ce(e,1,!1,e.toLowerCase(),null,!1,!1)});ie.xlinkHref=new ce("xlinkHref",1,!1,"xlink:href","http://www.w3.org/1999/xlink",!0,!1);["src","href","action","formAction"].forEach(function(e){ie[e]=new ce(e,1,!1,e.toLowerCase(),null,!0,!0)});function Qr(e,i,t,n){var a=ie.hasOwnProperty(i)?ie[i]:null;(a!==null?a.type!==0:n||!(2<i.length)||i[0]!=="o"&&i[0]!=="O"||i[1]!=="n"&&i[1]!=="N")&&(Jd(i,t,a,n)&&(t=null),n||a===null?Nd(i)&&(t===null?e.removeAttribute(i):e.setAttribute(i,""+t)):a.mustUseProperty?e[a.propertyName]=t===null?a.type===3?!1:"":t:(i=a.attributeName,n=a.attributeNamespace,t===null?e.removeAttribute(i):(a=a.type,t=a===3||a===4&&t===!0?"":""+t,n?e.setAttributeNS(n,i,t):e.setAttribute(i,t))))}var Xe=Bd.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED,rn=Symbol.for("react.element"),Di=Symbol.for("react.portal"),Li=Symbol.for("react.fragment"),Zr=Symbol.for("react.strict_mode"),Za=Symbol.for("react.profiler"),ml=Symbol.for("react.provider"),gl=Symbol.for("react.context"),Yr=Symbol.for("react.forward_ref"),Ya=Symbol.for("react.suspense"),$a=Symbol.for("react.suspense_list"),$r=Symbol.for("react.memo"),Ze=Symbol.for("react.lazy"),fl=Symbol.for("react.offscreen"),Vo=Symbol.iterator;function dt(e){return e===null||typeof e!="object"?null:(e=Vo&&e[Vo]||e["@@iterator"],typeof e=="function"?e:null)}var _=Object.assign,Aa;function vt(e){if(Aa===void 0)try{throw Error()}catch(t){var i=t.stack.trim().match(/\n( *(at )?)/);Aa=i&&i[1]||""}return`
 `+Aa+e}var Sa=!1;function Ca(e,i){if(!e||Sa)return"";Sa=!0;var t=Error.prepareStackTrace;Error.prepareStackTrace=void 0;try{if(i)if(i=function(){throw Error()},Object.defineProperty(i.prototype,"props",{set:function(){throw Error()}}),typeof Reflect=="object"&&Reflect.construct){try{Reflect.construct(i,[])}catch(c){var n=c}Reflect.construct(e,[],i)}else{try{i.call()}catch(c){n=c}e.call(i.prototype)}else{try{throw Error()}catch(c){n=c}e()}}catch(c){if(c&&n&&typeof c.stack=="string"){for(var a=c.stack.split(`
 `),r=n.stack.split(`
 `),o=a.length-1,s=r.length-1;1<=o&&0<=s&&a[o]!==r[s];)s--;for(;1<=o&&0<=s;o--,s--)if(a[o]!==r[s]){if(o!==1||s!==1)do if(o--,s--,0>s||a[o]!==r[s]){var l=`
-`+a[o].replace(" at new "," at ");return e.displayName&&l.includes("<anonymous>")&&(l=l.replace("<anonymous>",e.displayName)),l}while(1<=o&&0<=s);break}}}finally{Sa=!1,Error.prepareStackTrace=t}return(e=e?e.displayName||e.name:"")?vt(e):""}function _d(e){switch(e.tag){case 5:return vt(e.type);case 16:return vt("Lazy");case 13:return vt("Suspense");case 19:return vt("SuspenseList");case 0:case 2:case 15:return e=Ca(e.type,!1),e;case 11:return e=Ca(e.type.render,!1),e;case 1:return e=Ca(e.type,!0),e;default:return""}}function er(e){if(e==null)return null;if(typeof e=="function")return e.displayName||e.name||null;if(typeof e=="string")return e;switch(e){case Li:return"Fragment";case Di:return"Portal";case Za:return"Profiler";case Zr:return"StrictMode";case Ya:return"Suspense";case $a:return"SuspenseList"}if(typeof e=="object")switch(e.$$typeof){case hl:return(e.displayName||"Context")+".Consumer";case pl:return(e._context.displayName||"Context")+".Provider";case Yr:var i=e.render;return e=e.displayName,e||(e=i.displayName||i.name||"",e=e!==""?"ForwardRef("+e+")":"ForwardRef"),e;case $r:return i=e.displayName||null,i!==null?i:er(e.type)||"Memo";case Ze:i=e._payload,e=e._init;try{return er(e(i))}catch{}}return null}function Jd(e){var i=e.type;switch(e.tag){case 24:return"Cache";case 9:return(i.displayName||"Context")+".Consumer";case 10:return(i._context.displayName||"Context")+".Provider";case 18:return"DehydratedFragment";case 11:return e=i.render,e=e.displayName||e.name||"",i.displayName||(e!==""?"ForwardRef("+e+")":"ForwardRef");case 7:return"Fragment";case 5:return i;case 4:return"Portal";case 3:return"Root";case 6:return"Text";case 16:return er(i);case 8:return i===Zr?"StrictMode":"Mode";case 22:return"Offscreen";case 12:return"Profiler";case 21:return"Scope";case 13:return"Suspense";case 19:return"SuspenseList";case 25:return"TracingMarker";case 1:case 0:case 17:case 2:case 14:case 15:if(typeof i=="function")return i.displayName||i.name||null;if(typeof i=="string")return i}return null}function ui(e){switch(typeof e){case"boolean":case"number":case"string":case"undefined":return e;case"object":return e;default:return""}}function gl(e){var i=e.type;return(e=e.nodeName)&&e.toLowerCase()==="input"&&(i==="checkbox"||i==="radio")}function Kd(e){var i=gl(e)?"checked":"value",t=Object.getOwnPropertyDescriptor(e.constructor.prototype,i),n=""+e[i];if(!e.hasOwnProperty(i)&&typeof t<"u"&&typeof t.get=="function"&&typeof t.set=="function"){var a=t.get,r=t.set;return Object.defineProperty(e,i,{configurable:!0,get:function(){return a.call(this)},set:function(o){n=""+o,r.call(this,o)}}),Object.defineProperty(e,i,{enumerable:t.enumerable}),{getValue:function(){return n},setValue:function(o){n=""+o},stopTracking:function(){e._valueTracker=null,delete e[i]}}}}function on(e){e._valueTracker||(e._valueTracker=Kd(e))}function fl(e){if(!e)return!1;var i=e._valueTracker;if(!i)return!0;var t=i.getValue(),n="";return e&&(n=gl(e)?e.checked?"true":"false":e.value),e=n,e!==t?(i.setValue(e),!0):!1}function Fn(e){if(e=e||(typeof document<"u"?document:void 0),typeof e>"u")return null;try{return e.activeElement||e.body}catch{return e.body}}function ir(e,i){var t=i.checked;return N({},i,{defaultChecked:void 0,defaultValue:void 0,value:void 0,checked:t??e._wrapperState.initialChecked})}function Wo(e,i){var t=i.defaultValue==null?"":i.defaultValue,n=i.checked!=null?i.checked:i.defaultChecked;t=ui(i.value!=null?i.value:t),e._wrapperState={initialChecked:n,initialValue:t,controlled:i.type==="checkbox"||i.type==="radio"?i.checked!=null:i.value!=null}}function yl(e,i){i=i.checked,i!=null&&Qr(e,"checked",i,!1)}function tr(e,i){yl(e,i);var t=ui(i.value),n=i.type;if(t!=null)n==="number"?(t===0&&e.value===""||e.value!=t)&&(e.value=""+t):e.value!==""+t&&(e.value=""+t);else if(n==="submit"||n==="reset"){e.removeAttribute("value");return}i.hasOwnProperty("value")?nr(e,i.type,t):i.hasOwnProperty("defaultValue")&&nr(e,i.type,ui(i.defaultValue)),i.checked==null&&i.defaultChecked!=null&&(e.defaultChecked=!!i.defaultChecked)}function Uo(e,i,t){if(i.hasOwnProperty("value")||i.hasOwnProperty("defaultValue")){var n=i.type;if(!(n!=="submit"&&n!=="reset"||i.value!==void 0&&i.value!==null))return;i=""+e._wrapperState.initialValue,t||i===e.value||(e.value=i),e.defaultValue=i}t=e.name,t!==""&&(e.name=""),e.defaultChecked=!!e._wrapperState.initialChecked,t!==""&&(e.name=t)}function nr(e,i,t){(i!=="number"||Fn(e.ownerDocument)!==e)&&(t==null?e.defaultValue=""+e._wrapperState.initialValue:e.defaultValue!==""+t&&(e.defaultValue=""+t))}var bt=Array.isArray;function Vi(e,i,t,n){if(e=e.options,i){i={};for(var a=0;a<t.length;a++)i["$"+t[a]]=!0;for(t=0;t<e.length;t++)a=i.hasOwnProperty("$"+e[t].value),e[t].selected!==a&&(e[t].selected=a),a&&n&&(e[t].defaultSelected=!0)}else{for(t=""+ui(t),i=null,a=0;a<e.length;a++){if(e[a].value===t){e[a].selected=!0,n&&(e[a].defaultSelected=!0);return}i!==null||e[a].disabled||(i=e[a])}i!==null&&(i.selected=!0)}}function ar(e,i){if(i.dangerouslySetInnerHTML!=null)throw Error(b(91));return N({},i,{value:void 0,defaultValue:void 0,children:""+e._wrapperState.initialValue})}function Xo(e,i){var t=i.value;if(t==null){if(t=i.children,i=i.defaultValue,t!=null){if(i!=null)throw Error(b(92));if(bt(t)){if(1<t.length)throw Error(b(93));t=t[0]}i=t}i==null&&(i=""),t=i}e._wrapperState={initialValue:ui(t)}}function vl(e,i){var t=ui(i.value),n=ui(i.defaultValue);t!=null&&(t=""+t,t!==e.value&&(e.value=t),i.defaultValue==null&&e.defaultValue!==t&&(e.defaultValue=t)),n!=null&&(e.defaultValue=""+n)}function Qo(e){var i=e.textContent;i===e._wrapperState.initialValue&&i!==""&&i!==null&&(e.value=i)}function bl(e){switch(e){case"svg":return"http://www.w3.org/2000/svg";case"math":return"http://www.w3.org/1998/Math/MathML";default:return"http://www.w3.org/1999/xhtml"}}function rr(e,i){return e==null||e==="http://www.w3.org/1999/xhtml"?bl(i):e==="http://www.w3.org/2000/svg"&&i==="foreignObject"?"http://www.w3.org/1999/xhtml":e}var sn,wl=function(e){return typeof MSApp<"u"&&MSApp.execUnsafeLocalFunction?function(i,t,n,a){MSApp.execUnsafeLocalFunction(function(){return e(i,t,n,a)})}:e}(function(e,i){if(e.namespaceURI!=="http://www.w3.org/2000/svg"||"innerHTML"in e)e.innerHTML=i;else{for(sn=sn||document.createElement("div"),sn.innerHTML="<svg>"+i.valueOf().toString()+"</svg>",i=sn.firstChild;e.firstChild;)e.removeChild(e.firstChild);for(;i.firstChild;)e.appendChild(i.firstChild)}});function Ot(e,i){if(i){var t=e.firstChild;if(t&&t===e.lastChild&&t.nodeType===3){t.nodeValue=i;return}}e.textContent=i}var xt={animationIterationCount:!0,aspectRatio:!0,borderImageOutset:!0,borderImageSlice:!0,borderImageWidth:!0,boxFlex:!0,boxFlexGroup:!0,boxOrdinalGroup:!0,columnCount:!0,columns:!0,flex:!0,flexGrow:!0,flexPositive:!0,flexShrink:!0,flexNegative:!0,flexOrder:!0,gridArea:!0,gridRow:!0,gridRowEnd:!0,gridRowSpan:!0,gridRowStart:!0,gridColumn:!0,gridColumnEnd:!0,gridColumnSpan:!0,gridColumnStart:!0,fontWeight:!0,lineClamp:!0,lineHeight:!0,opacity:!0,order:!0,orphans:!0,tabSize:!0,widows:!0,zIndex:!0,zoom:!0,fillOpacity:!0,floodOpacity:!0,stopOpacity:!0,strokeDasharray:!0,strokeDashoffset:!0,strokeMiterlimit:!0,strokeOpacity:!0,strokeWidth:!0},Gd=["Webkit","ms","Moz","O"];Object.keys(xt).forEach(function(e){Gd.forEach(function(i){i=i+e.charAt(0).toUpperCase()+e.substring(1),xt[i]=xt[e]})});function kl(e,i,t){return i==null||typeof i=="boolean"||i===""?"":t||typeof i!="number"||i===0||xt.hasOwnProperty(e)&&xt[e]?(""+i).trim():i+"px"}function xl(e,i){e=e.style;for(var t in i)if(i.hasOwnProperty(t)){var n=t.indexOf("--")===0,a=kl(t,i[t],n);t==="float"&&(t="cssFloat"),n?e.setProperty(t,a):e[t]=a}}var Vd=N({menuitem:!0},{area:!0,base:!0,br:!0,col:!0,embed:!0,hr:!0,img:!0,input:!0,keygen:!0,link:!0,meta:!0,param:!0,source:!0,track:!0,wbr:!0});function or(e,i){if(i){if(Vd[e]&&(i.children!=null||i.dangerouslySetInnerHTML!=null))throw Error(b(137,e));if(i.dangerouslySetInnerHTML!=null){if(i.children!=null)throw Error(b(60));if(typeof i.dangerouslySetInnerHTML!="object"||!("__html"in i.dangerouslySetInnerHTML))throw Error(b(61))}if(i.style!=null&&typeof i.style!="object")throw Error(b(62))}}function sr(e,i){if(e.indexOf("-")===-1)return typeof i.is=="string";switch(e){case"annotation-xml":case"color-profile":case"font-face":case"font-face-src":case"font-face-uri":case"font-face-format":case"font-face-name":case"missing-glyph":return!1;default:return!0}}var lr=null;function eo(e){return e=e.target||e.srcElement||window,e.correspondingUseElement&&(e=e.correspondingUseElement),e.nodeType===3?e.parentNode:e}var cr=null,Wi=null,Ui=null;function Zo(e){if(e=$t(e)){if(typeof cr!="function")throw Error(b(280));var i=e.stateNode;i&&(i=la(i),cr(e.stateNode,e.type,i))}}function Il(e){Wi?Ui?Ui.push(e):Ui=[e]:Wi=e}function Al(){if(Wi){var e=Wi,i=Ui;if(Ui=Wi=null,Zo(e),i)for(e=0;e<i.length;e++)Zo(i[e])}}function Sl(e,i){return e(i)}function Cl(){}var Ta=!1;function Tl(e,i,t){if(Ta)return e(i,t);Ta=!0;try{return Sl(e,i,t)}finally{Ta=!1,(Wi!==null||Ui!==null)&&(Cl(),Al())}}function Ft(e,i){var t=e.stateNode;if(t===null)return null;var n=la(t);if(n===null)return null;t=n[i];e:switch(i){case"onClick":case"onClickCapture":case"onDoubleClick":case"onDoubleClickCapture":case"onMouseDown":case"onMouseDownCapture":case"onMouseMove":case"onMouseMoveCapture":case"onMouseUp":case"onMouseUpCapture":case"onMouseEnter":(n=!n.disabled)||(e=e.type,n=!(e==="button"||e==="input"||e==="select"||e==="textarea")),e=!n;break e;default:e=!1}if(e)return null;if(t&&typeof t!="function")throw Error(b(231,i,typeof t));return t}var dr=!1;if(Ge)try{var ut={};Object.defineProperty(ut,"passive",{get:function(){dr=!0}}),window.addEventListener("test",ut,ut),window.removeEventListener("test",ut,ut)}catch{dr=!1}function Wd(e,i,t,n,a,r,o,s,l){var c=Array.prototype.slice.call(arguments,3);try{i.apply(t,c)}catch(f){this.onError(f)}}var It=!1,Dn=null,Ln=!1,ur=null,Ud={onError:function(e){It=!0,Dn=e}};function Xd(e,i,t,n,a,r,o,s,l){It=!1,Dn=null,Wd.apply(Ud,arguments)}function Qd(e,i,t,n,a,r,o,s,l){if(Xd.apply(this,arguments),It){if(It){var c=Dn;It=!1,Dn=null}else throw Error(b(198));Ln||(Ln=!0,ur=c)}}function Oi(e){var i=e,t=e;if(e.alternate)for(;i.return;)i=i.return;else{e=i;do i=e,i.flags&4098&&(t=i.return),e=i.return;while(e)}return i.tag===3?t:null}function Pl(e){if(e.tag===13){var i=e.memoizedState;if(i===null&&(e=e.alternate,e!==null&&(i=e.memoizedState)),i!==null)return i.dehydrated}return null}function Yo(e){if(Oi(e)!==e)throw Error(b(188))}function Zd(e){var i=e.alternate;if(!i){if(i=Oi(e),i===null)throw Error(b(188));return i!==e?null:e}for(var t=e,n=i;;){var a=t.return;if(a===null)break;var r=a.alternate;if(r===null){if(n=a.return,n!==null){t=n;continue}break}if(a.child===r.child){for(r=a.child;r;){if(r===t)return Yo(a),e;if(r===n)return Yo(a),i;r=r.sibling}throw Error(b(188))}if(t.return!==n.return)t=a,n=r;else{for(var o=!1,s=a.child;s;){if(s===t){o=!0,t=a,n=r;break}if(s===n){o=!0,n=a,t=r;break}s=s.sibling}if(!o){for(s=r.child;s;){if(s===t){o=!0,t=r,n=a;break}if(s===n){o=!0,n=r,t=a;break}s=s.sibling}if(!o)throw Error(b(189))}}if(t.alternate!==n)throw Error(b(190))}if(t.tag!==3)throw Error(b(188));return t.stateNode.current===t?e:i}function Rl(e){return e=Zd(e),e!==null?Ml(e):null}function Ml(e){if(e.tag===5||e.tag===6)return e;for(e=e.child;e!==null;){var i=Ml(e);if(i!==null)return i;e=e.sibling}return null}var jl=ve.unstable_scheduleCallback,$o=ve.unstable_cancelCallback,Yd=ve.unstable_shouldYield,$d=ve.unstable_requestPaint,G=ve.unstable_now,eu=ve.unstable_getCurrentPriorityLevel,io=ve.unstable_ImmediatePriority,Ol=ve.unstable_UserBlockingPriority,zn=ve.unstable_NormalPriority,iu=ve.unstable_LowPriority,Fl=ve.unstable_IdlePriority,aa=null,Ee=null;function tu(e){if(Ee&&typeof Ee.onCommitFiberRoot=="function")try{Ee.onCommitFiberRoot(aa,e,void 0,(e.current.flags&128)===128)}catch{}}var Oe=Math.clz32?Math.clz32:ru,nu=Math.log,au=Math.LN2;function ru(e){return e>>>=0,e===0?32:31-(nu(e)/au|0)|0}var ln=64,cn=4194304;function wt(e){switch(e&-e){case 1:return 1;case 2:return 2;case 4:return 4;case 8:return 8;case 16:return 16;case 32:return 32;case 64:case 128:case 256:case 512:case 1024:case 2048:case 4096:case 8192:case 16384:case 32768:case 65536:case 131072:case 262144:case 524288:case 1048576:case 2097152:return e&4194240;case 4194304:case 8388608:case 16777216:case 33554432:case 67108864:return e&130023424;case 134217728:return 134217728;case 268435456:return 268435456;case 536870912:return 536870912;case 1073741824:return 1073741824;default:return e}}function qn(e,i){var t=e.pendingLanes;if(t===0)return 0;var n=0,a=e.suspendedLanes,r=e.pingedLanes,o=t&268435455;if(o!==0){var s=o&~a;s!==0?n=wt(s):(r&=o,r!==0&&(n=wt(r)))}else o=t&~a,o!==0?n=wt(o):r!==0&&(n=wt(r));if(n===0)return 0;if(i!==0&&i!==n&&!(i&a)&&(a=n&-n,r=i&-i,a>=r||a===16&&(r&4194240)!==0))return i;if(n&4&&(n|=t&16),i=e.entangledLanes,i!==0)for(e=e.entanglements,i&=n;0<i;)t=31-Oe(i),a=1<<t,n|=e[t],i&=~a;return n}function ou(e,i){switch(e){case 1:case 2:case 4:return i+250;case 8:case 16:case 32:case 64:case 128:case 256:case 512:case 1024:case 2048:case 4096:case 8192:case 16384:case 32768:case 65536:case 131072:case 262144:case 524288:case 1048576:case 2097152:return i+5e3;case 4194304:case 8388608:case 16777216:case 33554432:case 67108864:return-1;case 134217728:case 268435456:case 536870912:case 1073741824:return-1;default:return-1}}function su(e,i){for(var t=e.suspendedLanes,n=e.pingedLanes,a=e.expirationTimes,r=e.pendingLanes;0<r;){var o=31-Oe(r),s=1<<o,l=a[o];l===-1?(!(s&t)||s&n)&&(a[o]=ou(s,i)):l<=i&&(e.expiredLanes|=s),r&=~s}}function pr(e){return e=e.pendingLanes&-1073741825,e!==0?e:e&1073741824?1073741824:0}function Dl(){var e=ln;return ln<<=1,!(ln&4194240)&&(ln=64),e}function Pa(e){for(var i=[],t=0;31>t;t++)i.push(e);return i}function Zt(e,i,t){e.pendingLanes|=i,i!==536870912&&(e.suspendedLanes=0,e.pingedLanes=0),e=e.eventTimes,i=31-Oe(i),e[i]=t}function lu(e,i){var t=e.pendingLanes&~i;e.pendingLanes=i,e.suspendedLanes=0,e.pingedLanes=0,e.expiredLanes&=i,e.mutableReadLanes&=i,e.entangledLanes&=i,i=e.entanglements;var n=e.eventTimes;for(e=e.expirationTimes;0<t;){var a=31-Oe(t),r=1<<a;i[a]=0,n[a]=-1,e[a]=-1,t&=~r}}function to(e,i){var t=e.entangledLanes|=i;for(e=e.entanglements;t;){var n=31-Oe(t),a=1<<n;a&i|e[n]&i&&(e[n]|=i),t&=~a}}var F=0;function Ll(e){return e&=-e,1<e?4<e?e&268435455?16:536870912:4:1}var zl,no,ql,El,Bl,hr=!1,dn=[],ni=null,ai=null,ri=null,Dt=new Map,Lt=new Map,$e=[],cu="mousedown mouseup touchcancel touchend touchstart auxclick dblclick pointercancel pointerdown pointerup dragend dragstart drop compositionend compositionstart keydown keypress keyup input textInput copy cut paste click change contextmenu reset submit".split(" ");function es(e,i){switch(e){case"focusin":case"focusout":ni=null;break;case"dragenter":case"dragleave":ai=null;break;case"mouseover":case"mouseout":ri=null;break;case"pointerover":case"pointerout":Dt.delete(i.pointerId);break;case"gotpointercapture":case"lostpointercapture":Lt.delete(i.pointerId)}}function pt(e,i,t,n,a,r){return e===null||e.nativeEvent!==r?(e={blockedOn:i,domEventName:t,eventSystemFlags:n,nativeEvent:r,targetContainers:[a]},i!==null&&(i=$t(i),i!==null&&no(i)),e):(e.eventSystemFlags|=n,i=e.targetContainers,a!==null&&i.indexOf(a)===-1&&i.push(a),e)}function du(e,i,t,n,a){switch(i){case"focusin":return ni=pt(ni,e,i,t,n,a),!0;case"dragenter":return ai=pt(ai,e,i,t,n,a),!0;case"mouseover":return ri=pt(ri,e,i,t,n,a),!0;case"pointerover":var r=a.pointerId;return Dt.set(r,pt(Dt.get(r)||null,e,i,t,n,a)),!0;case"gotpointercapture":return r=a.pointerId,Lt.set(r,pt(Lt.get(r)||null,e,i,t,n,a)),!0}return!1}function Hl(e){var i=ki(e.target);if(i!==null){var t=Oi(i);if(t!==null){if(i=t.tag,i===13){if(i=Pl(t),i!==null){e.blockedOn=i,Bl(e.priority,function(){ql(t)});return}}else if(i===3&&t.stateNode.current.memoizedState.isDehydrated){e.blockedOn=t.tag===3?t.stateNode.containerInfo:null;return}}}e.blockedOn=null}function In(e){if(e.blockedOn!==null)return!1;for(var i=e.targetContainers;0<i.length;){var t=mr(e.domEventName,e.eventSystemFlags,i[0],e.nativeEvent);if(t===null){t=e.nativeEvent;var n=new t.constructor(t.type,t);lr=n,t.target.dispatchEvent(n),lr=null}else return i=$t(t),i!==null&&no(i),e.blockedOn=t,!1;i.shift()}return!0}function is(e,i,t){In(e)&&t.delete(i)}function uu(){hr=!1,ni!==null&&In(ni)&&(ni=null),ai!==null&&In(ai)&&(ai=null),ri!==null&&In(ri)&&(ri=null),Dt.forEach(is),Lt.forEach(is)}function ht(e,i){e.blockedOn===i&&(e.blockedOn=null,hr||(hr=!0,ve.unstable_scheduleCallback(ve.unstable_NormalPriority,uu)))}function zt(e){function i(a){return ht(a,e)}if(0<dn.length){ht(dn[0],e);for(var t=1;t<dn.length;t++){var n=dn[t];n.blockedOn===e&&(n.blockedOn=null)}}for(ni!==null&&ht(ni,e),ai!==null&&ht(ai,e),ri!==null&&ht(ri,e),Dt.forEach(i),Lt.forEach(i),t=0;t<$e.length;t++)n=$e[t],n.blockedOn===e&&(n.blockedOn=null);for(;0<$e.length&&(t=$e[0],t.blockedOn===null);)Hl(t),t.blockedOn===null&&$e.shift()}var Xi=Xe.ReactCurrentBatchConfig,En=!0;function pu(e,i,t,n){var a=F,r=Xi.transition;Xi.transition=null;try{F=1,ao(e,i,t,n)}finally{F=a,Xi.transition=r}}function hu(e,i,t,n){var a=F,r=Xi.transition;Xi.transition=null;try{F=4,ao(e,i,t,n)}finally{F=a,Xi.transition=r}}function ao(e,i,t,n){if(En){var a=mr(e,i,t,n);if(a===null)Ea(e,i,n,Bn,t),es(e,n);else if(du(a,e,i,t,n))n.stopPropagation();else if(es(e,n),i&4&&-1<cu.indexOf(e)){for(;a!==null;){var r=$t(a);if(r!==null&&zl(r),r=mr(e,i,t,n),r===null&&Ea(e,i,n,Bn,t),r===a)break;a=r}a!==null&&n.stopPropagation()}else Ea(e,i,n,null,t)}}var Bn=null;function mr(e,i,t,n){if(Bn=null,e=eo(n),e=ki(e),e!==null)if(i=Oi(e),i===null)e=null;else if(t=i.tag,t===13){if(e=Pl(i),e!==null)return e;e=null}else if(t===3){if(i.stateNode.current.memoizedState.isDehydrated)return i.tag===3?i.stateNode.containerInfo:null;e=null}else i!==e&&(e=null);return Bn=e,null}function Nl(e){switch(e){case"cancel":case"click":case"close":case"contextmenu":case"copy":case"cut":case"auxclick":case"dblclick":case"dragend":case"dragstart":case"drop":case"focusin":case"focusout":case"input":case"invalid":case"keydown":case"keypress":case"keyup":case"mousedown":case"mouseup":case"paste":case"pause":case"play":case"pointercancel":case"pointerdown":case"pointerup":case"ratechange":case"reset":case"resize":case"seeked":case"submit":case"touchcancel":case"touchend":case"touchstart":case"volumechange":case"change":case"selectionchange":case"textInput":case"compositionstart":case"compositionend":case"compositionupdate":case"beforeblur":case"afterblur":case"beforeinput":case"blur":case"fullscreenchange":case"focus":case"hashchange":case"popstate":case"select":case"selectstart":return 1;case"drag":case"dragenter":case"dragexit":case"dragleave":case"dragover":case"mousemove":case"mouseout":case"mouseover":case"pointermove":case"pointerout":case"pointerover":case"scroll":case"toggle":case"touchmove":case"wheel":case"mouseenter":case"mouseleave":case"pointerenter":case"pointerleave":return 4;case"message":switch(eu()){case io:return 1;case Ol:return 4;case zn:case iu:return 16;case Fl:return 536870912;default:return 16}default:return 16}}var ii=null,ro=null,An=null;function _l(){if(An)return An;var e,i=ro,t=i.length,n,a="value"in ii?ii.value:ii.textContent,r=a.length;for(e=0;e<t&&i[e]===a[e];e++);var o=t-e;for(n=1;n<=o&&i[t-n]===a[r-n];n++);return An=a.slice(e,1<n?1-n:void 0)}function Sn(e){var i=e.keyCode;return"charCode"in e?(e=e.charCode,e===0&&i===13&&(e=13)):e=i,e===10&&(e=13),32<=e||e===13?e:0}function un(){return!0}function ts(){return!1}function we(e){function i(t,n,a,r,o){this._reactName=t,this._targetInst=a,this.type=n,this.nativeEvent=r,this.target=o,this.currentTarget=null;for(var s in e)e.hasOwnProperty(s)&&(t=e[s],this[s]=t?t(r):r[s]);return this.isDefaultPrevented=(r.defaultPrevented!=null?r.defaultPrevented:r.returnValue===!1)?un:ts,this.isPropagationStopped=ts,this}return N(i.prototype,{preventDefault:function(){this.defaultPrevented=!0;var t=this.nativeEvent;t&&(t.preventDefault?t.preventDefault():typeof t.returnValue!="unknown"&&(t.returnValue=!1),this.isDefaultPrevented=un)},stopPropagation:function(){var t=this.nativeEvent;t&&(t.stopPropagation?t.stopPropagation():typeof t.cancelBubble!="unknown"&&(t.cancelBubble=!0),this.isPropagationStopped=un)},persist:function(){},isPersistent:un}),i}var ot={eventPhase:0,bubbles:0,cancelable:0,timeStamp:function(e){return e.timeStamp||Date.now()},defaultPrevented:0,isTrusted:0},oo=we(ot),Yt=N({},ot,{view:0,detail:0}),mu=we(Yt),Ra,Ma,mt,ra=N({},Yt,{screenX:0,screenY:0,clientX:0,clientY:0,pageX:0,pageY:0,ctrlKey:0,shiftKey:0,altKey:0,metaKey:0,getModifierState:so,button:0,buttons:0,relatedTarget:function(e){return e.relatedTarget===void 0?e.fromElement===e.srcElement?e.toElement:e.fromElement:e.relatedTarget},movementX:function(e){return"movementX"in e?e.movementX:(e!==mt&&(mt&&e.type==="mousemove"?(Ra=e.screenX-mt.screenX,Ma=e.screenY-mt.screenY):Ma=Ra=0,mt=e),Ra)},movementY:function(e){return"movementY"in e?e.movementY:Ma}}),ns=we(ra),gu=N({},ra,{dataTransfer:0}),fu=we(gu),yu=N({},Yt,{relatedTarget:0}),ja=we(yu),vu=N({},ot,{animationName:0,elapsedTime:0,pseudoElement:0}),bu=we(vu),wu=N({},ot,{clipboardData:function(e){return"clipboardData"in e?e.clipboardData:window.clipboardData}}),ku=we(wu),xu=N({},ot,{data:0}),as=we(xu),Iu={Esc:"Escape",Spacebar:" ",Left:"ArrowLeft",Up:"ArrowUp",Right:"ArrowRight",Down:"ArrowDown",Del:"Delete",Win:"OS",Menu:"ContextMenu",Apps:"ContextMenu",Scroll:"ScrollLock",MozPrintableKey:"Unidentified"},Au={8:"Backspace",9:"Tab",12:"Clear",13:"Enter",16:"Shift",17:"Control",18:"Alt",19:"Pause",20:"CapsLock",27:"Escape",32:" ",33:"PageUp",34:"PageDown",35:"End",36:"Home",37:"ArrowLeft",38:"ArrowUp",39:"ArrowRight",40:"ArrowDown",45:"Insert",46:"Delete",112:"F1",113:"F2",114:"F3",115:"F4",116:"F5",117:"F6",118:"F7",119:"F8",120:"F9",121:"F10",122:"F11",123:"F12",144:"NumLock",145:"ScrollLock",224:"Meta"},Su={Alt:"altKey",Control:"ctrlKey",Meta:"metaKey",Shift:"shiftKey"};function Cu(e){var i=this.nativeEvent;return i.getModifierState?i.getModifierState(e):(e=Su[e])?!!i[e]:!1}function so(){return Cu}var Tu=N({},Yt,{key:function(e){if(e.key){var i=Iu[e.key]||e.key;if(i!=="Unidentified")return i}return e.type==="keypress"?(e=Sn(e),e===13?"Enter":String.fromCharCode(e)):e.type==="keydown"||e.type==="keyup"?Au[e.keyCode]||"Unidentified":""},code:0,location:0,ctrlKey:0,shiftKey:0,altKey:0,metaKey:0,repeat:0,locale:0,getModifierState:so,charCode:function(e){return e.type==="keypress"?Sn(e):0},keyCode:function(e){return e.type==="keydown"||e.type==="keyup"?e.keyCode:0},which:function(e){return e.type==="keypress"?Sn(e):e.type==="keydown"||e.type==="keyup"?e.keyCode:0}}),Pu=we(Tu),Ru=N({},ra,{pointerId:0,width:0,height:0,pressure:0,tangentialPressure:0,tiltX:0,tiltY:0,twist:0,pointerType:0,isPrimary:0}),rs=we(Ru),Mu=N({},Yt,{touches:0,targetTouches:0,changedTouches:0,altKey:0,metaKey:0,ctrlKey:0,shiftKey:0,getModifierState:so}),ju=we(Mu),Ou=N({},ot,{propertyName:0,elapsedTime:0,pseudoElement:0}),Fu=we(Ou),Du=N({},ra,{deltaX:function(e){return"deltaX"in e?e.deltaX:"wheelDeltaX"in e?-e.wheelDeltaX:0},deltaY:function(e){return"deltaY"in e?e.deltaY:"wheelDeltaY"in e?-e.wheelDeltaY:"wheelDelta"in e?-e.wheelDelta:0},deltaZ:0,deltaMode:0}),Lu=we(Du),zu=[9,13,27,32],lo=Ge&&"CompositionEvent"in window,At=null;Ge&&"documentMode"in document&&(At=document.documentMode);var qu=Ge&&"TextEvent"in window&&!At,Jl=Ge&&(!lo||At&&8<At&&11>=At),os=" ",ss=!1;function Kl(e,i){switch(e){case"keyup":return zu.indexOf(i.keyCode)!==-1;case"keydown":return i.keyCode!==229;case"keypress":case"mousedown":case"focusout":return!0;default:return!1}}function Gl(e){return e=e.detail,typeof e=="object"&&"data"in e?e.data:null}var zi=!1;function Eu(e,i){switch(e){case"compositionend":return Gl(i);case"keypress":return i.which!==32?null:(ss=!0,os);case"textInput":return e=i.data,e===os&&ss?null:e;default:return null}}function Bu(e,i){if(zi)return e==="compositionend"||!lo&&Kl(e,i)?(e=_l(),An=ro=ii=null,zi=!1,e):null;switch(e){case"paste":return null;case"keypress":if(!(i.ctrlKey||i.altKey||i.metaKey)||i.ctrlKey&&i.altKey){if(i.char&&1<i.char.length)return i.char;if(i.which)return String.fromCharCode(i.which)}return null;case"compositionend":return Jl&&i.locale!=="ko"?null:i.data;default:return null}}var Hu={color:!0,date:!0,datetime:!0,"datetime-local":!0,email:!0,month:!0,number:!0,password:!0,range:!0,search:!0,tel:!0,text:!0,time:!0,url:!0,week:!0};function ls(e){var i=e&&e.nodeName&&e.nodeName.toLowerCase();return i==="input"?!!Hu[e.type]:i==="textarea"}function Vl(e,i,t,n){Il(n),i=Hn(i,"onChange"),0<i.length&&(t=new oo("onChange","change",null,t,n),e.push({event:t,listeners:i}))}var St=null,qt=null;function Nu(e){nc(e,0)}function oa(e){var i=Bi(e);if(fl(i))return e}function _u(e,i){if(e==="change")return i}var Wl=!1;if(Ge){var Oa;if(Ge){var Fa="oninput"in document;if(!Fa){var cs=document.createElement("div");cs.setAttribute("oninput","return;"),Fa=typeof cs.oninput=="function"}Oa=Fa}else Oa=!1;Wl=Oa&&(!document.documentMode||9<document.documentMode)}function ds(){St&&(St.detachEvent("onpropertychange",Ul),qt=St=null)}function Ul(e){if(e.propertyName==="value"&&oa(qt)){var i=[];Vl(i,qt,e,eo(e)),Tl(Nu,i)}}function Ju(e,i,t){e==="focusin"?(ds(),St=i,qt=t,St.attachEvent("onpropertychange",Ul)):e==="focusout"&&ds()}function Ku(e){if(e==="selectionchange"||e==="keyup"||e==="keydown")return oa(qt)}function Gu(e,i){if(e==="click")return oa(i)}function Vu(e,i){if(e==="input"||e==="change")return oa(i)}function Wu(e,i){return e===i&&(e!==0||1/e===1/i)||e!==e&&i!==i}var De=typeof Object.is=="function"?Object.is:Wu;function Et(e,i){if(De(e,i))return!0;if(typeof e!="object"||e===null||typeof i!="object"||i===null)return!1;var t=Object.keys(e),n=Object.keys(i);if(t.length!==n.length)return!1;for(n=0;n<t.length;n++){var a=t[n];if(!Qa.call(i,a)||!De(e[a],i[a]))return!1}return!0}function us(e){for(;e&&e.firstChild;)e=e.firstChild;return e}function ps(e,i){var t=us(e);e=0;for(var n;t;){if(t.nodeType===3){if(n=e+t.textContent.length,e<=i&&n>=i)return{node:t,offset:i-e};e=n}e:{for(;t;){if(t.nextSibling){t=t.nextSibling;break e}t=t.parentNode}t=void 0}t=us(t)}}function Xl(e,i){return e&&i?e===i?!0:e&&e.nodeType===3?!1:i&&i.nodeType===3?Xl(e,i.parentNode):"contains"in e?e.contains(i):e.compareDocumentPosition?!!(e.compareDocumentPosition(i)&16):!1:!1}function Ql(){for(var e=window,i=Fn();i instanceof e.HTMLIFrameElement;){try{var t=typeof i.contentWindow.location.href=="string"}catch{t=!1}if(t)e=i.contentWindow;else break;i=Fn(e.document)}return i}function co(e){var i=e&&e.nodeName&&e.nodeName.toLowerCase();return i&&(i==="input"&&(e.type==="text"||e.type==="search"||e.type==="tel"||e.type==="url"||e.type==="password")||i==="textarea"||e.contentEditable==="true")}function Uu(e){var i=Ql(),t=e.focusedElem,n=e.selectionRange;if(i!==t&&t&&t.ownerDocument&&Xl(t.ownerDocument.documentElement,t)){if(n!==null&&co(t)){if(i=n.start,e=n.end,e===void 0&&(e=i),"selectionStart"in t)t.selectionStart=i,t.selectionEnd=Math.min(e,t.value.length);else if(e=(i=t.ownerDocument||document)&&i.defaultView||window,e.getSelection){e=e.getSelection();var a=t.textContent.length,r=Math.min(n.start,a);n=n.end===void 0?r:Math.min(n.end,a),!e.extend&&r>n&&(a=n,n=r,r=a),a=ps(t,r);var o=ps(t,n);a&&o&&(e.rangeCount!==1||e.anchorNode!==a.node||e.anchorOffset!==a.offset||e.focusNode!==o.node||e.focusOffset!==o.offset)&&(i=i.createRange(),i.setStart(a.node,a.offset),e.removeAllRanges(),r>n?(e.addRange(i),e.extend(o.node,o.offset)):(i.setEnd(o.node,o.offset),e.addRange(i)))}}for(i=[],e=t;e=e.parentNode;)e.nodeType===1&&i.push({element:e,left:e.scrollLeft,top:e.scrollTop});for(typeof t.focus=="function"&&t.focus(),t=0;t<i.length;t++)e=i[t],e.element.scrollLeft=e.left,e.element.scrollTop=e.top}}var Xu=Ge&&"documentMode"in document&&11>=document.documentMode,qi=null,gr=null,Ct=null,fr=!1;function hs(e,i,t){var n=t.window===t?t.document:t.nodeType===9?t:t.ownerDocument;fr||qi==null||qi!==Fn(n)||(n=qi,"selectionStart"in n&&co(n)?n={start:n.selectionStart,end:n.selectionEnd}:(n=(n.ownerDocument&&n.ownerDocument.defaultView||window).getSelection(),n={anchorNode:n.anchorNode,anchorOffset:n.anchorOffset,focusNode:n.focusNode,focusOffset:n.focusOffset}),Ct&&Et(Ct,n)||(Ct=n,n=Hn(gr,"onSelect"),0<n.length&&(i=new oo("onSelect","select",null,i,t),e.push({event:i,listeners:n}),i.target=qi)))}function pn(e,i){var t={};return t[e.toLowerCase()]=i.toLowerCase(),t["Webkit"+e]="webkit"+i,t["Moz"+e]="moz"+i,t}var Ei={animationend:pn("Animation","AnimationEnd"),animationiteration:pn("Animation","AnimationIteration"),animationstart:pn("Animation","AnimationStart"),transitionend:pn("Transition","TransitionEnd")},Da={},Zl={};Ge&&(Zl=document.createElement("div").style,"AnimationEvent"in window||(delete Ei.animationend.animation,delete Ei.animationiteration.animation,delete Ei.animationstart.animation),"TransitionEvent"in window||delete Ei.transitionend.transition);function sa(e){if(Da[e])return Da[e];if(!Ei[e])return e;var i=Ei[e],t;for(t in i)if(i.hasOwnProperty(t)&&t in Zl)return Da[e]=i[t];return e}var Yl=sa("animationend"),$l=sa("animationiteration"),ec=sa("animationstart"),ic=sa("transitionend"),tc=new Map,ms="abort auxClick cancel canPlay canPlayThrough click close contextMenu copy cut drag dragEnd dragEnter dragExit dragLeave dragOver dragStart drop durationChange emptied encrypted ended error gotPointerCapture input invalid keyDown keyPress keyUp load loadedData loadedMetadata loadStart lostPointerCapture mouseDown mouseMove mouseOut mouseOver mouseUp paste pause play playing pointerCancel pointerDown pointerMove pointerOut pointerOver pointerUp progress rateChange reset resize seeked seeking stalled submit suspend timeUpdate touchCancel touchEnd touchStart volumeChange scroll toggle touchMove waiting wheel".split(" ");function hi(e,i){tc.set(e,i),ji(i,[e])}for(var La=0;La<ms.length;La++){var za=ms[La],Qu=za.toLowerCase(),Zu=za[0].toUpperCase()+za.slice(1);hi(Qu,"on"+Zu)}hi(Yl,"onAnimationEnd");hi($l,"onAnimationIteration");hi(ec,"onAnimationStart");hi("dblclick","onDoubleClick");hi("focusin","onFocus");hi("focusout","onBlur");hi(ic,"onTransitionEnd");Yi("onMouseEnter",["mouseout","mouseover"]);Yi("onMouseLeave",["mouseout","mouseover"]);Yi("onPointerEnter",["pointerout","pointerover"]);Yi("onPointerLeave",["pointerout","pointerover"]);ji("onChange","change click focusin focusout input keydown keyup selectionchange".split(" "));ji("onSelect","focusout contextmenu dragend focusin keydown keyup mousedown mouseup selectionchange".split(" "));ji("onBeforeInput",["compositionend","keypress","textInput","paste"]);ji("onCompositionEnd","compositionend focusout keydown keypress keyup mousedown".split(" "));ji("onCompositionStart","compositionstart focusout keydown keypress keyup mousedown".split(" "));ji("onCompositionUpdate","compositionupdate focusout keydown keypress keyup mousedown".split(" "));var kt="abort canplay canplaythrough durationchange emptied encrypted ended error loadeddata loadedmetadata loadstart pause play playing progress ratechange resize seeked seeking stalled suspend timeupdate volumechange waiting".split(" "),Yu=new Set("cancel close invalid load scroll toggle".split(" ").concat(kt));function gs(e,i,t){var n=e.type||"unknown-event";e.currentTarget=t,Qd(n,i,void 0,e),e.currentTarget=null}function nc(e,i){i=(i&4)!==0;for(var t=0;t<e.length;t++){var n=e[t],a=n.event;n=n.listeners;e:{var r=void 0;if(i)for(var o=n.length-1;0<=o;o--){var s=n[o],l=s.instance,c=s.currentTarget;if(s=s.listener,l!==r&&a.isPropagationStopped())break e;gs(a,s,c),r=l}else for(o=0;o<n.length;o++){if(s=n[o],l=s.instance,c=s.currentTarget,s=s.listener,l!==r&&a.isPropagationStopped())break e;gs(a,s,c),r=l}}}if(Ln)throw e=ur,Ln=!1,ur=null,e}function z(e,i){var t=i[kr];t===void 0&&(t=i[kr]=new Set);var n=e+"__bubble";t.has(n)||(ac(i,e,2,!1),t.add(n))}function qa(e,i,t){var n=0;i&&(n|=4),ac(t,e,n,i)}var hn="_reactListening"+Math.random().toString(36).slice(2);function Bt(e){if(!e[hn]){e[hn]=!0,ul.forEach(function(t){t!=="selectionchange"&&(Yu.has(t)||qa(t,!1,e),qa(t,!0,e))});var i=e.nodeType===9?e:e.ownerDocument;i===null||i[hn]||(i[hn]=!0,qa("selectionchange",!1,i))}}function ac(e,i,t,n){switch(Nl(i)){case 1:var a=pu;break;case 4:a=hu;break;default:a=ao}t=a.bind(null,i,t,e),a=void 0,!dr||i!=="touchstart"&&i!=="touchmove"&&i!=="wheel"||(a=!0),n?a!==void 0?e.addEventListener(i,t,{capture:!0,passive:a}):e.addEventListener(i,t,!0):a!==void 0?e.addEventListener(i,t,{passive:a}):e.addEventListener(i,t,!1)}function Ea(e,i,t,n,a){var r=n;if(!(i&1)&&!(i&2)&&n!==null)e:for(;;){if(n===null)return;var o=n.tag;if(o===3||o===4){var s=n.stateNode.containerInfo;if(s===a||s.nodeType===8&&s.parentNode===a)break;if(o===4)for(o=n.return;o!==null;){var l=o.tag;if((l===3||l===4)&&(l=o.stateNode.containerInfo,l===a||l.nodeType===8&&l.parentNode===a))return;o=o.return}for(;s!==null;){if(o=ki(s),o===null)return;if(l=o.tag,l===5||l===6){n=r=o;continue e}s=s.parentNode}}n=n.return}Tl(function(){var c=r,f=eo(t),g=[];e:{var h=tc.get(e);if(h!==void 0){var y=oo,w=e;switch(e){case"keypress":if(Sn(t)===0)break e;case"keydown":case"keyup":y=Pu;break;case"focusin":w="focus",y=ja;break;case"focusout":w="blur",y=ja;break;case"beforeblur":case"afterblur":y=ja;break;case"click":if(t.button===2)break e;case"auxclick":case"dblclick":case"mousedown":case"mousemove":case"mouseup":case"mouseout":case"mouseover":case"contextmenu":y=ns;break;case"drag":case"dragend":case"dragenter":case"dragexit":case"dragleave":case"dragover":case"dragstart":case"drop":y=fu;break;case"touchcancel":case"touchend":case"touchmove":case"touchstart":y=ju;break;case Yl:case $l:case ec:y=bu;break;case ic:y=Fu;break;case"scroll":y=mu;break;case"wheel":y=Lu;break;case"copy":case"cut":case"paste":y=ku;break;case"gotpointercapture":case"lostpointercapture":case"pointercancel":case"pointerdown":case"pointermove":case"pointerout":case"pointerover":case"pointerup":y=rs}var k=(i&4)!==0,D=!k&&e==="scroll",u=k?h!==null?h+"Capture":null:h;k=[];for(var d=c,p;d!==null;){p=d;var v=p.stateNode;if(p.tag===5&&v!==null&&(p=v,u!==null&&(v=Ft(d,u),v!=null&&k.push(Ht(d,v,p)))),D)break;d=d.return}0<k.length&&(h=new y(h,w,null,t,f),g.push({event:h,listeners:k}))}}if(!(i&7)){e:{if(h=e==="mouseover"||e==="pointerover",y=e==="mouseout"||e==="pointerout",h&&t!==lr&&(w=t.relatedTarget||t.fromElement)&&(ki(w)||w[Ve]))break e;if((y||h)&&(h=f.window===f?f:(h=f.ownerDocument)?h.defaultView||h.parentWindow:window,y?(w=t.relatedTarget||t.toElement,y=c,w=w?ki(w):null,w!==null&&(D=Oi(w),w!==D||w.tag!==5&&w.tag!==6)&&(w=null)):(y=null,w=c),y!==w)){if(k=ns,v="onMouseLeave",u="onMouseEnter",d="mouse",(e==="pointerout"||e==="pointerover")&&(k=rs,v="onPointerLeave",u="onPointerEnter",d="pointer"),D=y==null?h:Bi(y),p=w==null?h:Bi(w),h=new k(v,d+"leave",y,t,f),h.target=D,h.relatedTarget=p,v=null,ki(f)===c&&(k=new k(u,d+"enter",w,t,f),k.target=p,k.relatedTarget=D,v=k),D=v,y&&w)i:{for(k=y,u=w,d=0,p=k;p;p=Fi(p))d++;for(p=0,v=u;v;v=Fi(v))p++;for(;0<d-p;)k=Fi(k),d--;for(;0<p-d;)u=Fi(u),p--;for(;d--;){if(k===u||u!==null&&k===u.alternate)break i;k=Fi(k),u=Fi(u)}k=null}else k=null;y!==null&&fs(g,h,y,k,!1),w!==null&&D!==null&&fs(g,D,w,k,!0)}}e:{if(h=c?Bi(c):window,y=h.nodeName&&h.nodeName.toLowerCase(),y==="select"||y==="input"&&h.type==="file")var I=_u;else if(ls(h))if(Wl)I=Vu;else{I=Ku;var S=Ju}else(y=h.nodeName)&&y.toLowerCase()==="input"&&(h.type==="checkbox"||h.type==="radio")&&(I=Gu);if(I&&(I=I(e,c))){Vl(g,I,t,f);break e}S&&S(e,h,c),e==="focusout"&&(S=h._wrapperState)&&S.controlled&&h.type==="number"&&nr(h,"number",h.value)}switch(S=c?Bi(c):window,e){case"focusin":(ls(S)||S.contentEditable==="true")&&(qi=S,gr=c,Ct=null);break;case"focusout":Ct=gr=qi=null;break;case"mousedown":fr=!0;break;case"contextmenu":case"mouseup":case"dragend":fr=!1,hs(g,t,f);break;case"selectionchange":if(Xu)break;case"keydown":case"keyup":hs(g,t,f)}var C;if(lo)e:{switch(e){case"compositionstart":var T="onCompositionStart";break e;case"compositionend":T="onCompositionEnd";break e;case"compositionupdate":T="onCompositionUpdate";break e}T=void 0}else zi?Kl(e,t)&&(T="onCompositionEnd"):e==="keydown"&&t.keyCode===229&&(T="onCompositionStart");T&&(Jl&&t.locale!=="ko"&&(zi||T!=="onCompositionStart"?T==="onCompositionEnd"&&zi&&(C=_l()):(ii=f,ro="value"in ii?ii.value:ii.textContent,zi=!0)),S=Hn(c,T),0<S.length&&(T=new as(T,e,null,t,f),g.push({event:T,listeners:S}),C?T.data=C:(C=Gl(t),C!==null&&(T.data=C)))),(C=qu?Eu(e,t):Bu(e,t))&&(c=Hn(c,"onBeforeInput"),0<c.length&&(f=new as("onBeforeInput","beforeinput",null,t,f),g.push({event:f,listeners:c}),f.data=C))}nc(g,i)})}function Ht(e,i,t){return{instance:e,listener:i,currentTarget:t}}function Hn(e,i){for(var t=i+"Capture",n=[];e!==null;){var a=e,r=a.stateNode;a.tag===5&&r!==null&&(a=r,r=Ft(e,t),r!=null&&n.unshift(Ht(e,r,a)),r=Ft(e,i),r!=null&&n.push(Ht(e,r,a))),e=e.return}return n}function Fi(e){if(e===null)return null;do e=e.return;while(e&&e.tag!==5);return e||null}function fs(e,i,t,n,a){for(var r=i._reactName,o=[];t!==null&&t!==n;){var s=t,l=s.alternate,c=s.stateNode;if(l!==null&&l===n)break;s.tag===5&&c!==null&&(s=c,a?(l=Ft(t,r),l!=null&&o.unshift(Ht(t,l,s))):a||(l=Ft(t,r),l!=null&&o.push(Ht(t,l,s)))),t=t.return}o.length!==0&&e.push({event:i,listeners:o})}var $u=/\r\n?/g,ep=/\u0000|\uFFFD/g;function ys(e){return(typeof e=="string"?e:""+e).replace($u,`
-`).replace(ep,"")}function mn(e,i,t){if(i=ys(i),ys(e)!==i&&t)throw Error(b(425))}function Nn(){}var yr=null,vr=null;function br(e,i){return e==="textarea"||e==="noscript"||typeof i.children=="string"||typeof i.children=="number"||typeof i.dangerouslySetInnerHTML=="object"&&i.dangerouslySetInnerHTML!==null&&i.dangerouslySetInnerHTML.__html!=null}var wr=typeof setTimeout=="function"?setTimeout:void 0,ip=typeof clearTimeout=="function"?clearTimeout:void 0,vs=typeof Promise=="function"?Promise:void 0,tp=typeof queueMicrotask=="function"?queueMicrotask:typeof vs<"u"?function(e){return vs.resolve(null).then(e).catch(np)}:wr;function np(e){setTimeout(function(){throw e})}function Ba(e,i){var t=i,n=0;do{var a=t.nextSibling;if(e.removeChild(t),a&&a.nodeType===8)if(t=a.data,t==="/$"){if(n===0){e.removeChild(a),zt(i);return}n--}else t!=="$"&&t!=="$?"&&t!=="$!"||n++;t=a}while(t);zt(i)}function oi(e){for(;e!=null;e=e.nextSibling){var i=e.nodeType;if(i===1||i===3)break;if(i===8){if(i=e.data,i==="$"||i==="$!"||i==="$?")break;if(i==="/$")return null}}return e}function bs(e){e=e.previousSibling;for(var i=0;e;){if(e.nodeType===8){var t=e.data;if(t==="$"||t==="$!"||t==="$?"){if(i===0)return e;i--}else t==="/$"&&i++}e=e.previousSibling}return null}var st=Math.random().toString(36).slice(2),qe="__reactFiber$"+st,Nt="__reactProps$"+st,Ve="__reactContainer$"+st,kr="__reactEvents$"+st,ap="__reactListeners$"+st,rp="__reactHandles$"+st;function ki(e){var i=e[qe];if(i)return i;for(var t=e.parentNode;t;){if(i=t[Ve]||t[qe]){if(t=i.alternate,i.child!==null||t!==null&&t.child!==null)for(e=bs(e);e!==null;){if(t=e[qe])return t;e=bs(e)}return i}e=t,t=e.parentNode}return null}function $t(e){return e=e[qe]||e[Ve],!e||e.tag!==5&&e.tag!==6&&e.tag!==13&&e.tag!==3?null:e}function Bi(e){if(e.tag===5||e.tag===6)return e.stateNode;throw Error(b(33))}function la(e){return e[Nt]||null}var xr=[],Hi=-1;function mi(e){return{current:e}}function q(e){0>Hi||(e.current=xr[Hi],xr[Hi]=null,Hi--)}function L(e,i){Hi++,xr[Hi]=e.current,e.current=i}var pi={},re=mi(pi),pe=mi(!1),Ci=pi;function $i(e,i){var t=e.type.contextTypes;if(!t)return pi;var n=e.stateNode;if(n&&n.__reactInternalMemoizedUnmaskedChildContext===i)return n.__reactInternalMemoizedMaskedChildContext;var a={},r;for(r in t)a[r]=i[r];return n&&(e=e.stateNode,e.__reactInternalMemoizedUnmaskedChildContext=i,e.__reactInternalMemoizedMaskedChildContext=a),a}function he(e){return e=e.childContextTypes,e!=null}function _n(){q(pe),q(re)}function ws(e,i,t){if(re.current!==pi)throw Error(b(168));L(re,i),L(pe,t)}function rc(e,i,t){var n=e.stateNode;if(i=i.childContextTypes,typeof n.getChildContext!="function")return t;n=n.getChildContext();for(var a in n)if(!(a in i))throw Error(b(108,Jd(e)||"Unknown",a));return N({},t,n)}function Jn(e){return e=(e=e.stateNode)&&e.__reactInternalMemoizedMergedChildContext||pi,Ci=re.current,L(re,e),L(pe,pe.current),!0}function ks(e,i,t){var n=e.stateNode;if(!n)throw Error(b(169));t?(e=rc(e,i,Ci),n.__reactInternalMemoizedMergedChildContext=e,q(pe),q(re),L(re,e)):q(pe),L(pe,t)}var Ne=null,ca=!1,Ha=!1;function oc(e){Ne===null?Ne=[e]:Ne.push(e)}function op(e){ca=!0,oc(e)}function gi(){if(!Ha&&Ne!==null){Ha=!0;var e=0,i=F;try{var t=Ne;for(F=1;e<t.length;e++){var n=t[e];do n=n(!0);while(n!==null)}Ne=null,ca=!1}catch(a){throw Ne!==null&&(Ne=Ne.slice(e+1)),jl(io,gi),a}finally{F=i,Ha=!1}}return null}var Ni=[],_i=0,Kn=null,Gn=0,ke=[],xe=0,Ti=null,_e=1,Je="";function bi(e,i){Ni[_i++]=Gn,Ni[_i++]=Kn,Kn=e,Gn=i}function sc(e,i,t){ke[xe++]=_e,ke[xe++]=Je,ke[xe++]=Ti,Ti=e;var n=_e;e=Je;var a=32-Oe(n)-1;n&=~(1<<a),t+=1;var r=32-Oe(i)+a;if(30<r){var o=a-a%5;r=(n&(1<<o)-1).toString(32),n>>=o,a-=o,_e=1<<32-Oe(i)+a|t<<a|n,Je=r+e}else _e=1<<r|t<<a|n,Je=e}function uo(e){e.return!==null&&(bi(e,1),sc(e,1,0))}function po(e){for(;e===Kn;)Kn=Ni[--_i],Ni[_i]=null,Gn=Ni[--_i],Ni[_i]=null;for(;e===Ti;)Ti=ke[--xe],ke[xe]=null,Je=ke[--xe],ke[xe]=null,_e=ke[--xe],ke[xe]=null}var ye=null,fe=null,E=!1,je=null;function lc(e,i){var t=Ie(5,null,null,0);t.elementType="DELETED",t.stateNode=i,t.return=e,i=e.deletions,i===null?(e.deletions=[t],e.flags|=16):i.push(t)}function xs(e,i){switch(e.tag){case 5:var t=e.type;return i=i.nodeType!==1||t.toLowerCase()!==i.nodeName.toLowerCase()?null:i,i!==null?(e.stateNode=i,ye=e,fe=oi(i.firstChild),!0):!1;case 6:return i=e.pendingProps===""||i.nodeType!==3?null:i,i!==null?(e.stateNode=i,ye=e,fe=null,!0):!1;case 13:return i=i.nodeType!==8?null:i,i!==null?(t=Ti!==null?{id:_e,overflow:Je}:null,e.memoizedState={dehydrated:i,treeContext:t,retryLane:1073741824},t=Ie(18,null,null,0),t.stateNode=i,t.return=e,e.child=t,ye=e,fe=null,!0):!1;default:return!1}}function Ir(e){return(e.mode&1)!==0&&(e.flags&128)===0}function Ar(e){if(E){var i=fe;if(i){var t=i;if(!xs(e,i)){if(Ir(e))throw Error(b(418));i=oi(t.nextSibling);var n=ye;i&&xs(e,i)?lc(n,t):(e.flags=e.flags&-4097|2,E=!1,ye=e)}}else{if(Ir(e))throw Error(b(418));e.flags=e.flags&-4097|2,E=!1,ye=e}}}function Is(e){for(e=e.return;e!==null&&e.tag!==5&&e.tag!==3&&e.tag!==13;)e=e.return;ye=e}function gn(e){if(e!==ye)return!1;if(!E)return Is(e),E=!0,!1;var i;if((i=e.tag!==3)&&!(i=e.tag!==5)&&(i=e.type,i=i!=="head"&&i!=="body"&&!br(e.type,e.memoizedProps)),i&&(i=fe)){if(Ir(e))throw cc(),Error(b(418));for(;i;)lc(e,i),i=oi(i.nextSibling)}if(Is(e),e.tag===13){if(e=e.memoizedState,e=e!==null?e.dehydrated:null,!e)throw Error(b(317));e:{for(e=e.nextSibling,i=0;e;){if(e.nodeType===8){var t=e.data;if(t==="/$"){if(i===0){fe=oi(e.nextSibling);break e}i--}else t!=="$"&&t!=="$!"&&t!=="$?"||i++}e=e.nextSibling}fe=null}}else fe=ye?oi(e.stateNode.nextSibling):null;return!0}function cc(){for(var e=fe;e;)e=oi(e.nextSibling)}function et(){fe=ye=null,E=!1}function ho(e){je===null?je=[e]:je.push(e)}var sp=Xe.ReactCurrentBatchConfig;function gt(e,i,t){if(e=t.ref,e!==null&&typeof e!="function"&&typeof e!="object"){if(t._owner){if(t=t._owner,t){if(t.tag!==1)throw Error(b(309));var n=t.stateNode}if(!n)throw Error(b(147,e));var a=n,r=""+e;return i!==null&&i.ref!==null&&typeof i.ref=="function"&&i.ref._stringRef===r?i.ref:(i=function(o){var s=a.refs;o===null?delete s[r]:s[r]=o},i._stringRef=r,i)}if(typeof e!="string")throw Error(b(284));if(!t._owner)throw Error(b(290,e))}return e}function fn(e,i){throw e=Object.prototype.toString.call(i),Error(b(31,e==="[object Object]"?"object with keys {"+Object.keys(i).join(", ")+"}":e))}function As(e){var i=e._init;return i(e._payload)}function dc(e){function i(u,d){if(e){var p=u.deletions;p===null?(u.deletions=[d],u.flags|=16):p.push(d)}}function t(u,d){if(!e)return null;for(;d!==null;)i(u,d),d=d.sibling;return null}function n(u,d){for(u=new Map;d!==null;)d.key!==null?u.set(d.key,d):u.set(d.index,d),d=d.sibling;return u}function a(u,d){return u=di(u,d),u.index=0,u.sibling=null,u}function r(u,d,p){return u.index=p,e?(p=u.alternate,p!==null?(p=p.index,p<d?(u.flags|=2,d):p):(u.flags|=2,d)):(u.flags|=1048576,d)}function o(u){return e&&u.alternate===null&&(u.flags|=2),u}function s(u,d,p,v){return d===null||d.tag!==6?(d=Wa(p,u.mode,v),d.return=u,d):(d=a(d,p),d.return=u,d)}function l(u,d,p,v){var I=p.type;return I===Li?f(u,d,p.props.children,v,p.key):d!==null&&(d.elementType===I||typeof I=="object"&&I!==null&&I.$$typeof===Ze&&As(I)===d.type)?(v=a(d,p.props),v.ref=gt(u,d,p),v.return=u,v):(v=On(p.type,p.key,p.props,null,u.mode,v),v.ref=gt(u,d,p),v.return=u,v)}function c(u,d,p,v){return d===null||d.tag!==4||d.stateNode.containerInfo!==p.containerInfo||d.stateNode.implementation!==p.implementation?(d=Ua(p,u.mode,v),d.return=u,d):(d=a(d,p.children||[]),d.return=u,d)}function f(u,d,p,v,I){return d===null||d.tag!==7?(d=Si(p,u.mode,v,I),d.return=u,d):(d=a(d,p),d.return=u,d)}function g(u,d,p){if(typeof d=="string"&&d!==""||typeof d=="number")return d=Wa(""+d,u.mode,p),d.return=u,d;if(typeof d=="object"&&d!==null){switch(d.$$typeof){case rn:return p=On(d.type,d.key,d.props,null,u.mode,p),p.ref=gt(u,null,d),p.return=u,p;case Di:return d=Ua(d,u.mode,p),d.return=u,d;case Ze:var v=d._init;return g(u,v(d._payload),p)}if(bt(d)||dt(d))return d=Si(d,u.mode,p,null),d.return=u,d;fn(u,d)}return null}function h(u,d,p,v){var I=d!==null?d.key:null;if(typeof p=="string"&&p!==""||typeof p=="number")return I!==null?null:s(u,d,""+p,v);if(typeof p=="object"&&p!==null){switch(p.$$typeof){case rn:return p.key===I?l(u,d,p,v):null;case Di:return p.key===I?c(u,d,p,v):null;case Ze:return I=p._init,h(u,d,I(p._payload),v)}if(bt(p)||dt(p))return I!==null?null:f(u,d,p,v,null);fn(u,p)}return null}function y(u,d,p,v,I){if(typeof v=="string"&&v!==""||typeof v=="number")return u=u.get(p)||null,s(d,u,""+v,I);if(typeof v=="object"&&v!==null){switch(v.$$typeof){case rn:return u=u.get(v.key===null?p:v.key)||null,l(d,u,v,I);case Di:return u=u.get(v.key===null?p:v.key)||null,c(d,u,v,I);case Ze:var S=v._init;return y(u,d,p,S(v._payload),I)}if(bt(v)||dt(v))return u=u.get(p)||null,f(d,u,v,I,null);fn(d,v)}return null}function w(u,d,p,v){for(var I=null,S=null,C=d,T=d=0,J=null;C!==null&&T<p.length;T++){C.index>T?(J=C,C=null):J=C.sibling;var j=h(u,C,p[T],v);if(j===null){C===null&&(C=J);break}e&&C&&j.alternate===null&&i(u,C),d=r(j,d,T),S===null?I=j:S.sibling=j,S=j,C=J}if(T===p.length)return t(u,C),E&&bi(u,T),I;if(C===null){for(;T<p.length;T++)C=g(u,p[T],v),C!==null&&(d=r(C,d,T),S===null?I=C:S.sibling=C,S=C);return E&&bi(u,T),I}for(C=n(u,C);T<p.length;T++)J=y(C,u,T,p[T],v),J!==null&&(e&&J.alternate!==null&&C.delete(J.key===null?T:J.key),d=r(J,d,T),S===null?I=J:S.sibling=J,S=J);return e&&C.forEach(function(Te){return i(u,Te)}),E&&bi(u,T),I}function k(u,d,p,v){var I=dt(p);if(typeof I!="function")throw Error(b(150));if(p=I.call(p),p==null)throw Error(b(151));for(var S=I=null,C=d,T=d=0,J=null,j=p.next();C!==null&&!j.done;T++,j=p.next()){C.index>T?(J=C,C=null):J=C.sibling;var Te=h(u,C,j.value,v);if(Te===null){C===null&&(C=J);break}e&&C&&Te.alternate===null&&i(u,C),d=r(Te,d,T),S===null?I=Te:S.sibling=Te,S=Te,C=J}if(j.done)return t(u,C),E&&bi(u,T),I;if(C===null){for(;!j.done;T++,j=p.next())j=g(u,j.value,v),j!==null&&(d=r(j,d,T),S===null?I=j:S.sibling=j,S=j);return E&&bi(u,T),I}for(C=n(u,C);!j.done;T++,j=p.next())j=y(C,u,T,j.value,v),j!==null&&(e&&j.alternate!==null&&C.delete(j.key===null?T:j.key),d=r(j,d,T),S===null?I=j:S.sibling=j,S=j);return e&&C.forEach(function(lt){return i(u,lt)}),E&&bi(u,T),I}function D(u,d,p,v){if(typeof p=="object"&&p!==null&&p.type===Li&&p.key===null&&(p=p.props.children),typeof p=="object"&&p!==null){switch(p.$$typeof){case rn:e:{for(var I=p.key,S=d;S!==null;){if(S.key===I){if(I=p.type,I===Li){if(S.tag===7){t(u,S.sibling),d=a(S,p.props.children),d.return=u,u=d;break e}}else if(S.elementType===I||typeof I=="object"&&I!==null&&I.$$typeof===Ze&&As(I)===S.type){t(u,S.sibling),d=a(S,p.props),d.ref=gt(u,S,p),d.return=u,u=d;break e}t(u,S);break}else i(u,S);S=S.sibling}p.type===Li?(d=Si(p.props.children,u.mode,v,p.key),d.return=u,u=d):(v=On(p.type,p.key,p.props,null,u.mode,v),v.ref=gt(u,d,p),v.return=u,u=v)}return o(u);case Di:e:{for(S=p.key;d!==null;){if(d.key===S)if(d.tag===4&&d.stateNode.containerInfo===p.containerInfo&&d.stateNode.implementation===p.implementation){t(u,d.sibling),d=a(d,p.children||[]),d.return=u,u=d;break e}else{t(u,d);break}else i(u,d);d=d.sibling}d=Ua(p,u.mode,v),d.return=u,u=d}return o(u);case Ze:return S=p._init,D(u,d,S(p._payload),v)}if(bt(p))return w(u,d,p,v);if(dt(p))return k(u,d,p,v);fn(u,p)}return typeof p=="string"&&p!==""||typeof p=="number"?(p=""+p,d!==null&&d.tag===6?(t(u,d.sibling),d=a(d,p),d.return=u,u=d):(t(u,d),d=Wa(p,u.mode,v),d.return=u,u=d),o(u)):t(u,d)}return D}var it=dc(!0),uc=dc(!1),Vn=mi(null),Wn=null,Ji=null,mo=null;function go(){mo=Ji=Wn=null}function fo(e){var i=Vn.current;q(Vn),e._currentValue=i}function Sr(e,i,t){for(;e!==null;){var n=e.alternate;if((e.childLanes&i)!==i?(e.childLanes|=i,n!==null&&(n.childLanes|=i)):n!==null&&(n.childLanes&i)!==i&&(n.childLanes|=i),e===t)break;e=e.return}}function Qi(e,i){Wn=e,mo=Ji=null,e=e.dependencies,e!==null&&e.firstContext!==null&&(e.lanes&i&&(ue=!0),e.firstContext=null)}function Se(e){var i=e._currentValue;if(mo!==e)if(e={context:e,memoizedValue:i,next:null},Ji===null){if(Wn===null)throw Error(b(308));Ji=e,Wn.dependencies={lanes:0,firstContext:e}}else Ji=Ji.next=e;return i}var xi=null;function yo(e){xi===null?xi=[e]:xi.push(e)}function pc(e,i,t,n){var a=i.interleaved;return a===null?(t.next=t,yo(i)):(t.next=a.next,a.next=t),i.interleaved=t,We(e,n)}function We(e,i){e.lanes|=i;var t=e.alternate;for(t!==null&&(t.lanes|=i),t=e,e=e.return;e!==null;)e.childLanes|=i,t=e.alternate,t!==null&&(t.childLanes|=i),t=e,e=e.return;return t.tag===3?t.stateNode:null}var Ye=!1;function vo(e){e.updateQueue={baseState:e.memoizedState,firstBaseUpdate:null,lastBaseUpdate:null,shared:{pending:null,interleaved:null,lanes:0},effects:null}}function hc(e,i){e=e.updateQueue,i.updateQueue===e&&(i.updateQueue={baseState:e.baseState,firstBaseUpdate:e.firstBaseUpdate,lastBaseUpdate:e.lastBaseUpdate,shared:e.shared,effects:e.effects})}function Ke(e,i){return{eventTime:e,lane:i,tag:0,payload:null,callback:null,next:null}}function si(e,i,t){var n=e.updateQueue;if(n===null)return null;if(n=n.shared,O&2){var a=n.pending;return a===null?i.next=i:(i.next=a.next,a.next=i),n.pending=i,We(e,t)}return a=n.interleaved,a===null?(i.next=i,yo(n)):(i.next=a.next,a.next=i),n.interleaved=i,We(e,t)}function Cn(e,i,t){if(i=i.updateQueue,i!==null&&(i=i.shared,(t&4194240)!==0)){var n=i.lanes;n&=e.pendingLanes,t|=n,i.lanes=t,to(e,t)}}function Ss(e,i){var t=e.updateQueue,n=e.alternate;if(n!==null&&(n=n.updateQueue,t===n)){var a=null,r=null;if(t=t.firstBaseUpdate,t!==null){do{var o={eventTime:t.eventTime,lane:t.lane,tag:t.tag,payload:t.payload,callback:t.callback,next:null};r===null?a=r=o:r=r.next=o,t=t.next}while(t!==null);r===null?a=r=i:r=r.next=i}else a=r=i;t={baseState:n.baseState,firstBaseUpdate:a,lastBaseUpdate:r,shared:n.shared,effects:n.effects},e.updateQueue=t;return}e=t.lastBaseUpdate,e===null?t.firstBaseUpdate=i:e.next=i,t.lastBaseUpdate=i}function Un(e,i,t,n){var a=e.updateQueue;Ye=!1;var r=a.firstBaseUpdate,o=a.lastBaseUpdate,s=a.shared.pending;if(s!==null){a.shared.pending=null;var l=s,c=l.next;l.next=null,o===null?r=c:o.next=c,o=l;var f=e.alternate;f!==null&&(f=f.updateQueue,s=f.lastBaseUpdate,s!==o&&(s===null?f.firstBaseUpdate=c:s.next=c,f.lastBaseUpdate=l))}if(r!==null){var g=a.baseState;o=0,f=c=l=null,s=r;do{var h=s.lane,y=s.eventTime;if((n&h)===h){f!==null&&(f=f.next={eventTime:y,lane:0,tag:s.tag,payload:s.payload,callback:s.callback,next:null});e:{var w=e,k=s;switch(h=i,y=t,k.tag){case 1:if(w=k.payload,typeof w=="function"){g=w.call(y,g,h);break e}g=w;break e;case 3:w.flags=w.flags&-65537|128;case 0:if(w=k.payload,h=typeof w=="function"?w.call(y,g,h):w,h==null)break e;g=N({},g,h);break e;case 2:Ye=!0}}s.callback!==null&&s.lane!==0&&(e.flags|=64,h=a.effects,h===null?a.effects=[s]:h.push(s))}else y={eventTime:y,lane:h,tag:s.tag,payload:s.payload,callback:s.callback,next:null},f===null?(c=f=y,l=g):f=f.next=y,o|=h;if(s=s.next,s===null){if(s=a.shared.pending,s===null)break;h=s,s=h.next,h.next=null,a.lastBaseUpdate=h,a.shared.pending=null}}while(!0);if(f===null&&(l=g),a.baseState=l,a.firstBaseUpdate=c,a.lastBaseUpdate=f,i=a.shared.interleaved,i!==null){a=i;do o|=a.lane,a=a.next;while(a!==i)}else r===null&&(a.shared.lanes=0);Ri|=o,e.lanes=o,e.memoizedState=g}}function Cs(e,i,t){if(e=i.effects,i.effects=null,e!==null)for(i=0;i<e.length;i++){var n=e[i],a=n.callback;if(a!==null){if(n.callback=null,n=t,typeof a!="function")throw Error(b(191,a));a.call(n)}}}var en={},Be=mi(en),_t=mi(en),Jt=mi(en);function Ii(e){if(e===en)throw Error(b(174));return e}function bo(e,i){switch(L(Jt,i),L(_t,e),L(Be,en),e=i.nodeType,e){case 9:case 11:i=(i=i.documentElement)?i.namespaceURI:rr(null,"");break;default:e=e===8?i.parentNode:i,i=e.namespaceURI||null,e=e.tagName,i=rr(i,e)}q(Be),L(Be,i)}function tt(){q(Be),q(_t),q(Jt)}function mc(e){Ii(Jt.current);var i=Ii(Be.current),t=rr(i,e.type);i!==t&&(L(_t,e),L(Be,t))}function wo(e){_t.current===e&&(q(Be),q(_t))}var B=mi(0);function Xn(e){for(var i=e;i!==null;){if(i.tag===13){var t=i.memoizedState;if(t!==null&&(t=t.dehydrated,t===null||t.data==="$?"||t.data==="$!"))return i}else if(i.tag===19&&i.memoizedProps.revealOrder!==void 0){if(i.flags&128)return i}else if(i.child!==null){i.child.return=i,i=i.child;continue}if(i===e)break;for(;i.sibling===null;){if(i.return===null||i.return===e)return null;i=i.return}i.sibling.return=i.return,i=i.sibling}return null}var Na=[];function ko(){for(var e=0;e<Na.length;e++)Na[e]._workInProgressVersionPrimary=null;Na.length=0}var Tn=Xe.ReactCurrentDispatcher,_a=Xe.ReactCurrentBatchConfig,Pi=0,H=null,U=null,Z=null,Qn=!1,Tt=!1,Kt=0,lp=0;function te(){throw Error(b(321))}function xo(e,i){if(i===null)return!1;for(var t=0;t<i.length&&t<e.length;t++)if(!De(e[t],i[t]))return!1;return!0}function Io(e,i,t,n,a,r){if(Pi=r,H=i,i.memoizedState=null,i.updateQueue=null,i.lanes=0,Tn.current=e===null||e.memoizedState===null?pp:hp,e=t(n,a),Tt){r=0;do{if(Tt=!1,Kt=0,25<=r)throw Error(b(301));r+=1,Z=U=null,i.updateQueue=null,Tn.current=mp,e=t(n,a)}while(Tt)}if(Tn.current=Zn,i=U!==null&&U.next!==null,Pi=0,Z=U=H=null,Qn=!1,i)throw Error(b(300));return e}function Ao(){var e=Kt!==0;return Kt=0,e}function ze(){var e={memoizedState:null,baseState:null,baseQueue:null,queue:null,next:null};return Z===null?H.memoizedState=Z=e:Z=Z.next=e,Z}function Ce(){if(U===null){var e=H.alternate;e=e!==null?e.memoizedState:null}else e=U.next;var i=Z===null?H.memoizedState:Z.next;if(i!==null)Z=i,U=e;else{if(e===null)throw Error(b(310));U=e,e={memoizedState:U.memoizedState,baseState:U.baseState,baseQueue:U.baseQueue,queue:U.queue,next:null},Z===null?H.memoizedState=Z=e:Z=Z.next=e}return Z}function Gt(e,i){return typeof i=="function"?i(e):i}function Ja(e){var i=Ce(),t=i.queue;if(t===null)throw Error(b(311));t.lastRenderedReducer=e;var n=U,a=n.baseQueue,r=t.pending;if(r!==null){if(a!==null){var o=a.next;a.next=r.next,r.next=o}n.baseQueue=a=r,t.pending=null}if(a!==null){r=a.next,n=n.baseState;var s=o=null,l=null,c=r;do{var f=c.lane;if((Pi&f)===f)l!==null&&(l=l.next={lane:0,action:c.action,hasEagerState:c.hasEagerState,eagerState:c.eagerState,next:null}),n=c.hasEagerState?c.eagerState:e(n,c.action);else{var g={lane:f,action:c.action,hasEagerState:c.hasEagerState,eagerState:c.eagerState,next:null};l===null?(s=l=g,o=n):l=l.next=g,H.lanes|=f,Ri|=f}c=c.next}while(c!==null&&c!==r);l===null?o=n:l.next=s,De(n,i.memoizedState)||(ue=!0),i.memoizedState=n,i.baseState=o,i.baseQueue=l,t.lastRenderedState=n}if(e=t.interleaved,e!==null){a=e;do r=a.lane,H.lanes|=r,Ri|=r,a=a.next;while(a!==e)}else a===null&&(t.lanes=0);return[i.memoizedState,t.dispatch]}function Ka(e){var i=Ce(),t=i.queue;if(t===null)throw Error(b(311));t.lastRenderedReducer=e;var n=t.dispatch,a=t.pending,r=i.memoizedState;if(a!==null){t.pending=null;var o=a=a.next;do r=e(r,o.action),o=o.next;while(o!==a);De(r,i.memoizedState)||(ue=!0),i.memoizedState=r,i.baseQueue===null&&(i.baseState=r),t.lastRenderedState=r}return[r,n]}function gc(){}function fc(e,i){var t=H,n=Ce(),a=i(),r=!De(n.memoizedState,a);if(r&&(n.memoizedState=a,ue=!0),n=n.queue,So(bc.bind(null,t,n,e),[e]),n.getSnapshot!==i||r||Z!==null&&Z.memoizedState.tag&1){if(t.flags|=2048,Vt(9,vc.bind(null,t,n,a,i),void 0,null),Y===null)throw Error(b(349));Pi&30||yc(t,i,a)}return a}function yc(e,i,t){e.flags|=16384,e={getSnapshot:i,value:t},i=H.updateQueue,i===null?(i={lastEffect:null,stores:null},H.updateQueue=i,i.stores=[e]):(t=i.stores,t===null?i.stores=[e]:t.push(e))}function vc(e,i,t,n){i.value=t,i.getSnapshot=n,wc(i)&&kc(e)}function bc(e,i,t){return t(function(){wc(i)&&kc(e)})}function wc(e){var i=e.getSnapshot;e=e.value;try{var t=i();return!De(e,t)}catch{return!0}}function kc(e){var i=We(e,1);i!==null&&Fe(i,e,1,-1)}function Ts(e){var i=ze();return typeof e=="function"&&(e=e()),i.memoizedState=i.baseState=e,e={pending:null,interleaved:null,lanes:0,dispatch:null,lastRenderedReducer:Gt,lastRenderedState:e},i.queue=e,e=e.dispatch=up.bind(null,H,e),[i.memoizedState,e]}function Vt(e,i,t,n){return e={tag:e,create:i,destroy:t,deps:n,next:null},i=H.updateQueue,i===null?(i={lastEffect:null,stores:null},H.updateQueue=i,i.lastEffect=e.next=e):(t=i.lastEffect,t===null?i.lastEffect=e.next=e:(n=t.next,t.next=e,e.next=n,i.lastEffect=e)),e}function xc(){return Ce().memoizedState}function Pn(e,i,t,n){var a=ze();H.flags|=e,a.memoizedState=Vt(1|i,t,void 0,n===void 0?null:n)}function da(e,i,t,n){var a=Ce();n=n===void 0?null:n;var r=void 0;if(U!==null){var o=U.memoizedState;if(r=o.destroy,n!==null&&xo(n,o.deps)){a.memoizedState=Vt(i,t,r,n);return}}H.flags|=e,a.memoizedState=Vt(1|i,t,r,n)}function Ps(e,i){return Pn(8390656,8,e,i)}function So(e,i){return da(2048,8,e,i)}function Ic(e,i){return da(4,2,e,i)}function Ac(e,i){return da(4,4,e,i)}function Sc(e,i){if(typeof i=="function")return e=e(),i(e),function(){i(null)};if(i!=null)return e=e(),i.current=e,function(){i.current=null}}function Cc(e,i,t){return t=t!=null?t.concat([e]):null,da(4,4,Sc.bind(null,i,e),t)}function Co(){}function Tc(e,i){var t=Ce();i=i===void 0?null:i;var n=t.memoizedState;return n!==null&&i!==null&&xo(i,n[1])?n[0]:(t.memoizedState=[e,i],e)}function Pc(e,i){var t=Ce();i=i===void 0?null:i;var n=t.memoizedState;return n!==null&&i!==null&&xo(i,n[1])?n[0]:(e=e(),t.memoizedState=[e,i],e)}function Rc(e,i,t){return Pi&21?(De(t,i)||(t=Dl(),H.lanes|=t,Ri|=t,e.baseState=!0),i):(e.baseState&&(e.baseState=!1,ue=!0),e.memoizedState=t)}function cp(e,i){var t=F;F=t!==0&&4>t?t:4,e(!0);var n=_a.transition;_a.transition={};try{e(!1),i()}finally{F=t,_a.transition=n}}function Mc(){return Ce().memoizedState}function dp(e,i,t){var n=ci(e);if(t={lane:n,action:t,hasEagerState:!1,eagerState:null,next:null},jc(e))Oc(i,t);else if(t=pc(e,i,t,n),t!==null){var a=se();Fe(t,e,n,a),Fc(t,i,n)}}function up(e,i,t){var n=ci(e),a={lane:n,action:t,hasEagerState:!1,eagerState:null,next:null};if(jc(e))Oc(i,a);else{var r=e.alternate;if(e.lanes===0&&(r===null||r.lanes===0)&&(r=i.lastRenderedReducer,r!==null))try{var o=i.lastRenderedState,s=r(o,t);if(a.hasEagerState=!0,a.eagerState=s,De(s,o)){var l=i.interleaved;l===null?(a.next=a,yo(i)):(a.next=l.next,l.next=a),i.interleaved=a;return}}catch{}finally{}t=pc(e,i,a,n),t!==null&&(a=se(),Fe(t,e,n,a),Fc(t,i,n))}}function jc(e){var i=e.alternate;return e===H||i!==null&&i===H}function Oc(e,i){Tt=Qn=!0;var t=e.pending;t===null?i.next=i:(i.next=t.next,t.next=i),e.pending=i}function Fc(e,i,t){if(t&4194240){var n=i.lanes;n&=e.pendingLanes,t|=n,i.lanes=t,to(e,t)}}var Zn={readContext:Se,useCallback:te,useContext:te,useEffect:te,useImperativeHandle:te,useInsertionEffect:te,useLayoutEffect:te,useMemo:te,useReducer:te,useRef:te,useState:te,useDebugValue:te,useDeferredValue:te,useTransition:te,useMutableSource:te,useSyncExternalStore:te,useId:te,unstable_isNewReconciler:!1},pp={readContext:Se,useCallback:function(e,i){return ze().memoizedState=[e,i===void 0?null:i],e},useContext:Se,useEffect:Ps,useImperativeHandle:function(e,i,t){return t=t!=null?t.concat([e]):null,Pn(4194308,4,Sc.bind(null,i,e),t)},useLayoutEffect:function(e,i){return Pn(4194308,4,e,i)},useInsertionEffect:function(e,i){return Pn(4,2,e,i)},useMemo:function(e,i){var t=ze();return i=i===void 0?null:i,e=e(),t.memoizedState=[e,i],e},useReducer:function(e,i,t){var n=ze();return i=t!==void 0?t(i):i,n.memoizedState=n.baseState=i,e={pending:null,interleaved:null,lanes:0,dispatch:null,lastRenderedReducer:e,lastRenderedState:i},n.queue=e,e=e.dispatch=dp.bind(null,H,e),[n.memoizedState,e]},useRef:function(e){var i=ze();return e={current:e},i.memoizedState=e},useState:Ts,useDebugValue:Co,useDeferredValue:function(e){return ze().memoizedState=e},useTransition:function(){var e=Ts(!1),i=e[0];return e=cp.bind(null,e[1]),ze().memoizedState=e,[i,e]},useMutableSource:function(){},useSyncExternalStore:function(e,i,t){var n=H,a=ze();if(E){if(t===void 0)throw Error(b(407));t=t()}else{if(t=i(),Y===null)throw Error(b(349));Pi&30||yc(n,i,t)}a.memoizedState=t;var r={value:t,getSnapshot:i};return a.queue=r,Ps(bc.bind(null,n,r,e),[e]),n.flags|=2048,Vt(9,vc.bind(null,n,r,t,i),void 0,null),t},useId:function(){var e=ze(),i=Y.identifierPrefix;if(E){var t=Je,n=_e;t=(n&~(1<<32-Oe(n)-1)).toString(32)+t,i=":"+i+"R"+t,t=Kt++,0<t&&(i+="H"+t.toString(32)),i+=":"}else t=lp++,i=":"+i+"r"+t.toString(32)+":";return e.memoizedState=i},unstable_isNewReconciler:!1},hp={readContext:Se,useCallback:Tc,useContext:Se,useEffect:So,useImperativeHandle:Cc,useInsertionEffect:Ic,useLayoutEffect:Ac,useMemo:Pc,useReducer:Ja,useRef:xc,useState:function(){return Ja(Gt)},useDebugValue:Co,useDeferredValue:function(e){var i=Ce();return Rc(i,U.memoizedState,e)},useTransition:function(){var e=Ja(Gt)[0],i=Ce().memoizedState;return[e,i]},useMutableSource:gc,useSyncExternalStore:fc,useId:Mc,unstable_isNewReconciler:!1},mp={readContext:Se,useCallback:Tc,useContext:Se,useEffect:So,useImperativeHandle:Cc,useInsertionEffect:Ic,useLayoutEffect:Ac,useMemo:Pc,useReducer:Ka,useRef:xc,useState:function(){return Ka(Gt)},useDebugValue:Co,useDeferredValue:function(e){var i=Ce();return U===null?i.memoizedState=e:Rc(i,U.memoizedState,e)},useTransition:function(){var e=Ka(Gt)[0],i=Ce().memoizedState;return[e,i]},useMutableSource:gc,useSyncExternalStore:fc,useId:Mc,unstable_isNewReconciler:!1};function Re(e,i){if(e&&e.defaultProps){i=N({},i),e=e.defaultProps;for(var t in e)i[t]===void 0&&(i[t]=e[t]);return i}return i}function Cr(e,i,t,n){i=e.memoizedState,t=t(n,i),t=t==null?i:N({},i,t),e.memoizedState=t,e.lanes===0&&(e.updateQueue.baseState=t)}var ua={isMounted:function(e){return(e=e._reactInternals)?Oi(e)===e:!1},enqueueSetState:function(e,i,t){e=e._reactInternals;var n=se(),a=ci(e),r=Ke(n,a);r.payload=i,t!=null&&(r.callback=t),i=si(e,r,a),i!==null&&(Fe(i,e,a,n),Cn(i,e,a))},enqueueReplaceState:function(e,i,t){e=e._reactInternals;var n=se(),a=ci(e),r=Ke(n,a);r.tag=1,r.payload=i,t!=null&&(r.callback=t),i=si(e,r,a),i!==null&&(Fe(i,e,a,n),Cn(i,e,a))},enqueueForceUpdate:function(e,i){e=e._reactInternals;var t=se(),n=ci(e),a=Ke(t,n);a.tag=2,i!=null&&(a.callback=i),i=si(e,a,n),i!==null&&(Fe(i,e,n,t),Cn(i,e,n))}};function Rs(e,i,t,n,a,r,o){return e=e.stateNode,typeof e.shouldComponentUpdate=="function"?e.shouldComponentUpdate(n,r,o):i.prototype&&i.prototype.isPureReactComponent?!Et(t,n)||!Et(a,r):!0}function Dc(e,i,t){var n=!1,a=pi,r=i.contextType;return typeof r=="object"&&r!==null?r=Se(r):(a=he(i)?Ci:re.current,n=i.contextTypes,r=(n=n!=null)?$i(e,a):pi),i=new i(t,r),e.memoizedState=i.state!==null&&i.state!==void 0?i.state:null,i.updater=ua,e.stateNode=i,i._reactInternals=e,n&&(e=e.stateNode,e.__reactInternalMemoizedUnmaskedChildContext=a,e.__reactInternalMemoizedMaskedChildContext=r),i}function Ms(e,i,t,n){e=i.state,typeof i.componentWillReceiveProps=="function"&&i.componentWillReceiveProps(t,n),typeof i.UNSAFE_componentWillReceiveProps=="function"&&i.UNSAFE_componentWillReceiveProps(t,n),i.state!==e&&ua.enqueueReplaceState(i,i.state,null)}function Tr(e,i,t,n){var a=e.stateNode;a.props=t,a.state=e.memoizedState,a.refs={},vo(e);var r=i.contextType;typeof r=="object"&&r!==null?a.context=Se(r):(r=he(i)?Ci:re.current,a.context=$i(e,r)),a.state=e.memoizedState,r=i.getDerivedStateFromProps,typeof r=="function"&&(Cr(e,i,r,t),a.state=e.memoizedState),typeof i.getDerivedStateFromProps=="function"||typeof a.getSnapshotBeforeUpdate=="function"||typeof a.UNSAFE_componentWillMount!="function"&&typeof a.componentWillMount!="function"||(i=a.state,typeof a.componentWillMount=="function"&&a.componentWillMount(),typeof a.UNSAFE_componentWillMount=="function"&&a.UNSAFE_componentWillMount(),i!==a.state&&ua.enqueueReplaceState(a,a.state,null),Un(e,t,a,n),a.state=e.memoizedState),typeof a.componentDidMount=="function"&&(e.flags|=4194308)}function nt(e,i){try{var t="",n=i;do t+=_d(n),n=n.return;while(n);var a=t}catch(r){a=`
+`+a[o].replace(" at new "," at ");return e.displayName&&l.includes("<anonymous>")&&(l=l.replace("<anonymous>",e.displayName)),l}while(1<=o&&0<=s);break}}}finally{Sa=!1,Error.prepareStackTrace=t}return(e=e?e.displayName||e.name:"")?vt(e):""}function Kd(e){switch(e.tag){case 5:return vt(e.type);case 16:return vt("Lazy");case 13:return vt("Suspense");case 19:return vt("SuspenseList");case 0:case 2:case 15:return e=Ca(e.type,!1),e;case 11:return e=Ca(e.type.render,!1),e;case 1:return e=Ca(e.type,!0),e;default:return""}}function er(e){if(e==null)return null;if(typeof e=="function")return e.displayName||e.name||null;if(typeof e=="string")return e;switch(e){case Li:return"Fragment";case Di:return"Portal";case Za:return"Profiler";case Zr:return"StrictMode";case Ya:return"Suspense";case $a:return"SuspenseList"}if(typeof e=="object")switch(e.$$typeof){case gl:return(e.displayName||"Context")+".Consumer";case ml:return(e._context.displayName||"Context")+".Provider";case Yr:var i=e.render;return e=e.displayName,e||(e=i.displayName||i.name||"",e=e!==""?"ForwardRef("+e+")":"ForwardRef"),e;case $r:return i=e.displayName||null,i!==null?i:er(e.type)||"Memo";case Ze:i=e._payload,e=e._init;try{return er(e(i))}catch{}}return null}function Gd(e){var i=e.type;switch(e.tag){case 24:return"Cache";case 9:return(i.displayName||"Context")+".Consumer";case 10:return(i._context.displayName||"Context")+".Provider";case 18:return"DehydratedFragment";case 11:return e=i.render,e=e.displayName||e.name||"",i.displayName||(e!==""?"ForwardRef("+e+")":"ForwardRef");case 7:return"Fragment";case 5:return i;case 4:return"Portal";case 3:return"Root";case 6:return"Text";case 16:return er(i);case 8:return i===Zr?"StrictMode":"Mode";case 22:return"Offscreen";case 12:return"Profiler";case 21:return"Scope";case 13:return"Suspense";case 19:return"SuspenseList";case 25:return"TracingMarker";case 1:case 0:case 17:case 2:case 14:case 15:if(typeof i=="function")return i.displayName||i.name||null;if(typeof i=="string")return i}return null}function ui(e){switch(typeof e){case"boolean":case"number":case"string":case"undefined":return e;case"object":return e;default:return""}}function yl(e){var i=e.type;return(e=e.nodeName)&&e.toLowerCase()==="input"&&(i==="checkbox"||i==="radio")}function Vd(e){var i=yl(e)?"checked":"value",t=Object.getOwnPropertyDescriptor(e.constructor.prototype,i),n=""+e[i];if(!e.hasOwnProperty(i)&&typeof t<"u"&&typeof t.get=="function"&&typeof t.set=="function"){var a=t.get,r=t.set;return Object.defineProperty(e,i,{configurable:!0,get:function(){return a.call(this)},set:function(o){n=""+o,r.call(this,o)}}),Object.defineProperty(e,i,{enumerable:t.enumerable}),{getValue:function(){return n},setValue:function(o){n=""+o},stopTracking:function(){e._valueTracker=null,delete e[i]}}}}function on(e){e._valueTracker||(e._valueTracker=Vd(e))}function vl(e){if(!e)return!1;var i=e._valueTracker;if(!i)return!0;var t=i.getValue(),n="";return e&&(n=yl(e)?e.checked?"true":"false":e.value),e=n,e!==t?(i.setValue(e),!0):!1}function Fn(e){if(e=e||(typeof document<"u"?document:void 0),typeof e>"u")return null;try{return e.activeElement||e.body}catch{return e.body}}function ir(e,i){var t=i.checked;return _({},i,{defaultChecked:void 0,defaultValue:void 0,value:void 0,checked:t??e._wrapperState.initialChecked})}function Wo(e,i){var t=i.defaultValue==null?"":i.defaultValue,n=i.checked!=null?i.checked:i.defaultChecked;t=ui(i.value!=null?i.value:t),e._wrapperState={initialChecked:n,initialValue:t,controlled:i.type==="checkbox"||i.type==="radio"?i.checked!=null:i.value!=null}}function bl(e,i){i=i.checked,i!=null&&Qr(e,"checked",i,!1)}function tr(e,i){bl(e,i);var t=ui(i.value),n=i.type;if(t!=null)n==="number"?(t===0&&e.value===""||e.value!=t)&&(e.value=""+t):e.value!==""+t&&(e.value=""+t);else if(n==="submit"||n==="reset"){e.removeAttribute("value");return}i.hasOwnProperty("value")?nr(e,i.type,t):i.hasOwnProperty("defaultValue")&&nr(e,i.type,ui(i.defaultValue)),i.checked==null&&i.defaultChecked!=null&&(e.defaultChecked=!!i.defaultChecked)}function Uo(e,i,t){if(i.hasOwnProperty("value")||i.hasOwnProperty("defaultValue")){var n=i.type;if(!(n!=="submit"&&n!=="reset"||i.value!==void 0&&i.value!==null))return;i=""+e._wrapperState.initialValue,t||i===e.value||(e.value=i),e.defaultValue=i}t=e.name,t!==""&&(e.name=""),e.defaultChecked=!!e._wrapperState.initialChecked,t!==""&&(e.name=t)}function nr(e,i,t){(i!=="number"||Fn(e.ownerDocument)!==e)&&(t==null?e.defaultValue=""+e._wrapperState.initialValue:e.defaultValue!==""+t&&(e.defaultValue=""+t))}var bt=Array.isArray;function Vi(e,i,t,n){if(e=e.options,i){i={};for(var a=0;a<t.length;a++)i["$"+t[a]]=!0;for(t=0;t<e.length;t++)a=i.hasOwnProperty("$"+e[t].value),e[t].selected!==a&&(e[t].selected=a),a&&n&&(e[t].defaultSelected=!0)}else{for(t=""+ui(t),i=null,a=0;a<e.length;a++){if(e[a].value===t){e[a].selected=!0,n&&(e[a].defaultSelected=!0);return}i!==null||e[a].disabled||(i=e[a])}i!==null&&(i.selected=!0)}}function ar(e,i){if(i.dangerouslySetInnerHTML!=null)throw Error(w(91));return _({},i,{value:void 0,defaultValue:void 0,children:""+e._wrapperState.initialValue})}function Xo(e,i){var t=i.value;if(t==null){if(t=i.children,i=i.defaultValue,t!=null){if(i!=null)throw Error(w(92));if(bt(t)){if(1<t.length)throw Error(w(93));t=t[0]}i=t}i==null&&(i=""),t=i}e._wrapperState={initialValue:ui(t)}}function wl(e,i){var t=ui(i.value),n=ui(i.defaultValue);t!=null&&(t=""+t,t!==e.value&&(e.value=t),i.defaultValue==null&&e.defaultValue!==t&&(e.defaultValue=t)),n!=null&&(e.defaultValue=""+n)}function Qo(e){var i=e.textContent;i===e._wrapperState.initialValue&&i!==""&&i!==null&&(e.value=i)}function kl(e){switch(e){case"svg":return"http://www.w3.org/2000/svg";case"math":return"http://www.w3.org/1998/Math/MathML";default:return"http://www.w3.org/1999/xhtml"}}function rr(e,i){return e==null||e==="http://www.w3.org/1999/xhtml"?kl(i):e==="http://www.w3.org/2000/svg"&&i==="foreignObject"?"http://www.w3.org/1999/xhtml":e}var sn,xl=function(e){return typeof MSApp<"u"&&MSApp.execUnsafeLocalFunction?function(i,t,n,a){MSApp.execUnsafeLocalFunction(function(){return e(i,t,n,a)})}:e}(function(e,i){if(e.namespaceURI!=="http://www.w3.org/2000/svg"||"innerHTML"in e)e.innerHTML=i;else{for(sn=sn||document.createElement("div"),sn.innerHTML="<svg>"+i.valueOf().toString()+"</svg>",i=sn.firstChild;e.firstChild;)e.removeChild(e.firstChild);for(;i.firstChild;)e.appendChild(i.firstChild)}});function Ot(e,i){if(i){var t=e.firstChild;if(t&&t===e.lastChild&&t.nodeType===3){t.nodeValue=i;return}}e.textContent=i}var xt={animationIterationCount:!0,aspectRatio:!0,borderImageOutset:!0,borderImageSlice:!0,borderImageWidth:!0,boxFlex:!0,boxFlexGroup:!0,boxOrdinalGroup:!0,columnCount:!0,columns:!0,flex:!0,flexGrow:!0,flexPositive:!0,flexShrink:!0,flexNegative:!0,flexOrder:!0,gridArea:!0,gridRow:!0,gridRowEnd:!0,gridRowSpan:!0,gridRowStart:!0,gridColumn:!0,gridColumnEnd:!0,gridColumnSpan:!0,gridColumnStart:!0,fontWeight:!0,lineClamp:!0,lineHeight:!0,opacity:!0,order:!0,orphans:!0,tabSize:!0,widows:!0,zIndex:!0,zoom:!0,fillOpacity:!0,floodOpacity:!0,stopOpacity:!0,strokeDasharray:!0,strokeDashoffset:!0,strokeMiterlimit:!0,strokeOpacity:!0,strokeWidth:!0},Wd=["Webkit","ms","Moz","O"];Object.keys(xt).forEach(function(e){Wd.forEach(function(i){i=i+e.charAt(0).toUpperCase()+e.substring(1),xt[i]=xt[e]})});function Il(e,i,t){return i==null||typeof i=="boolean"||i===""?"":t||typeof i!="number"||i===0||xt.hasOwnProperty(e)&&xt[e]?(""+i).trim():i+"px"}function Al(e,i){e=e.style;for(var t in i)if(i.hasOwnProperty(t)){var n=t.indexOf("--")===0,a=Il(t,i[t],n);t==="float"&&(t="cssFloat"),n?e.setProperty(t,a):e[t]=a}}var Ud=_({menuitem:!0},{area:!0,base:!0,br:!0,col:!0,embed:!0,hr:!0,img:!0,input:!0,keygen:!0,link:!0,meta:!0,param:!0,source:!0,track:!0,wbr:!0});function or(e,i){if(i){if(Ud[e]&&(i.children!=null||i.dangerouslySetInnerHTML!=null))throw Error(w(137,e));if(i.dangerouslySetInnerHTML!=null){if(i.children!=null)throw Error(w(60));if(typeof i.dangerouslySetInnerHTML!="object"||!("__html"in i.dangerouslySetInnerHTML))throw Error(w(61))}if(i.style!=null&&typeof i.style!="object")throw Error(w(62))}}function sr(e,i){if(e.indexOf("-")===-1)return typeof i.is=="string";switch(e){case"annotation-xml":case"color-profile":case"font-face":case"font-face-src":case"font-face-uri":case"font-face-format":case"font-face-name":case"missing-glyph":return!1;default:return!0}}var lr=null;function eo(e){return e=e.target||e.srcElement||window,e.correspondingUseElement&&(e=e.correspondingUseElement),e.nodeType===3?e.parentNode:e}var cr=null,Wi=null,Ui=null;function Zo(e){if(e=$t(e)){if(typeof cr!="function")throw Error(w(280));var i=e.stateNode;i&&(i=la(i),cr(e.stateNode,e.type,i))}}function Sl(e){Wi?Ui?Ui.push(e):Ui=[e]:Wi=e}function Cl(){if(Wi){var e=Wi,i=Ui;if(Ui=Wi=null,Zo(e),i)for(e=0;e<i.length;e++)Zo(i[e])}}function Tl(e,i){return e(i)}function Pl(){}var Ta=!1;function Rl(e,i,t){if(Ta)return e(i,t);Ta=!0;try{return Tl(e,i,t)}finally{Ta=!1,(Wi!==null||Ui!==null)&&(Pl(),Cl())}}function Ft(e,i){var t=e.stateNode;if(t===null)return null;var n=la(t);if(n===null)return null;t=n[i];e:switch(i){case"onClick":case"onClickCapture":case"onDoubleClick":case"onDoubleClickCapture":case"onMouseDown":case"onMouseDownCapture":case"onMouseMove":case"onMouseMoveCapture":case"onMouseUp":case"onMouseUpCapture":case"onMouseEnter":(n=!n.disabled)||(e=e.type,n=!(e==="button"||e==="input"||e==="select"||e==="textarea")),e=!n;break e;default:e=!1}if(e)return null;if(t&&typeof t!="function")throw Error(w(231,i,typeof t));return t}var dr=!1;if(Ge)try{var ut={};Object.defineProperty(ut,"passive",{get:function(){dr=!0}}),window.addEventListener("test",ut,ut),window.removeEventListener("test",ut,ut)}catch{dr=!1}function Xd(e,i,t,n,a,r,o,s,l){var c=Array.prototype.slice.call(arguments,3);try{i.apply(t,c)}catch(f){this.onError(f)}}var It=!1,Dn=null,Ln=!1,ur=null,Qd={onError:function(e){It=!0,Dn=e}};function Zd(e,i,t,n,a,r,o,s,l){It=!1,Dn=null,Xd.apply(Qd,arguments)}function Yd(e,i,t,n,a,r,o,s,l){if(Zd.apply(this,arguments),It){if(It){var c=Dn;It=!1,Dn=null}else throw Error(w(198));Ln||(Ln=!0,ur=c)}}function Oi(e){var i=e,t=e;if(e.alternate)for(;i.return;)i=i.return;else{e=i;do i=e,i.flags&4098&&(t=i.return),e=i.return;while(e)}return i.tag===3?t:null}function Ml(e){if(e.tag===13){var i=e.memoizedState;if(i===null&&(e=e.alternate,e!==null&&(i=e.memoizedState)),i!==null)return i.dehydrated}return null}function Yo(e){if(Oi(e)!==e)throw Error(w(188))}function $d(e){var i=e.alternate;if(!i){if(i=Oi(e),i===null)throw Error(w(188));return i!==e?null:e}for(var t=e,n=i;;){var a=t.return;if(a===null)break;var r=a.alternate;if(r===null){if(n=a.return,n!==null){t=n;continue}break}if(a.child===r.child){for(r=a.child;r;){if(r===t)return Yo(a),e;if(r===n)return Yo(a),i;r=r.sibling}throw Error(w(188))}if(t.return!==n.return)t=a,n=r;else{for(var o=!1,s=a.child;s;){if(s===t){o=!0,t=a,n=r;break}if(s===n){o=!0,n=a,t=r;break}s=s.sibling}if(!o){for(s=r.child;s;){if(s===t){o=!0,t=r,n=a;break}if(s===n){o=!0,n=r,t=a;break}s=s.sibling}if(!o)throw Error(w(189))}}if(t.alternate!==n)throw Error(w(190))}if(t.tag!==3)throw Error(w(188));return t.stateNode.current===t?e:i}function jl(e){return e=$d(e),e!==null?Ol(e):null}function Ol(e){if(e.tag===5||e.tag===6)return e;for(e=e.child;e!==null;){var i=Ol(e);if(i!==null)return i;e=e.sibling}return null}var Fl=ve.unstable_scheduleCallback,$o=ve.unstable_cancelCallback,eu=ve.unstable_shouldYield,iu=ve.unstable_requestPaint,V=ve.unstable_now,tu=ve.unstable_getCurrentPriorityLevel,io=ve.unstable_ImmediatePriority,Dl=ve.unstable_UserBlockingPriority,zn=ve.unstable_NormalPriority,nu=ve.unstable_LowPriority,Ll=ve.unstable_IdlePriority,aa=null,Ee=null;function au(e){if(Ee&&typeof Ee.onCommitFiberRoot=="function")try{Ee.onCommitFiberRoot(aa,e,void 0,(e.current.flags&128)===128)}catch{}}var Oe=Math.clz32?Math.clz32:su,ru=Math.log,ou=Math.LN2;function su(e){return e>>>=0,e===0?32:31-(ru(e)/ou|0)|0}var ln=64,cn=4194304;function wt(e){switch(e&-e){case 1:return 1;case 2:return 2;case 4:return 4;case 8:return 8;case 16:return 16;case 32:return 32;case 64:case 128:case 256:case 512:case 1024:case 2048:case 4096:case 8192:case 16384:case 32768:case 65536:case 131072:case 262144:case 524288:case 1048576:case 2097152:return e&4194240;case 4194304:case 8388608:case 16777216:case 33554432:case 67108864:return e&130023424;case 134217728:return 134217728;case 268435456:return 268435456;case 536870912:return 536870912;case 1073741824:return 1073741824;default:return e}}function qn(e,i){var t=e.pendingLanes;if(t===0)return 0;var n=0,a=e.suspendedLanes,r=e.pingedLanes,o=t&268435455;if(o!==0){var s=o&~a;s!==0?n=wt(s):(r&=o,r!==0&&(n=wt(r)))}else o=t&~a,o!==0?n=wt(o):r!==0&&(n=wt(r));if(n===0)return 0;if(i!==0&&i!==n&&!(i&a)&&(a=n&-n,r=i&-i,a>=r||a===16&&(r&4194240)!==0))return i;if(n&4&&(n|=t&16),i=e.entangledLanes,i!==0)for(e=e.entanglements,i&=n;0<i;)t=31-Oe(i),a=1<<t,n|=e[t],i&=~a;return n}function lu(e,i){switch(e){case 1:case 2:case 4:return i+250;case 8:case 16:case 32:case 64:case 128:case 256:case 512:case 1024:case 2048:case 4096:case 8192:case 16384:case 32768:case 65536:case 131072:case 262144:case 524288:case 1048576:case 2097152:return i+5e3;case 4194304:case 8388608:case 16777216:case 33554432:case 67108864:return-1;case 134217728:case 268435456:case 536870912:case 1073741824:return-1;default:return-1}}function cu(e,i){for(var t=e.suspendedLanes,n=e.pingedLanes,a=e.expirationTimes,r=e.pendingLanes;0<r;){var o=31-Oe(r),s=1<<o,l=a[o];l===-1?(!(s&t)||s&n)&&(a[o]=lu(s,i)):l<=i&&(e.expiredLanes|=s),r&=~s}}function pr(e){return e=e.pendingLanes&-1073741825,e!==0?e:e&1073741824?1073741824:0}function zl(){var e=ln;return ln<<=1,!(ln&4194240)&&(ln=64),e}function Pa(e){for(var i=[],t=0;31>t;t++)i.push(e);return i}function Zt(e,i,t){e.pendingLanes|=i,i!==536870912&&(e.suspendedLanes=0,e.pingedLanes=0),e=e.eventTimes,i=31-Oe(i),e[i]=t}function du(e,i){var t=e.pendingLanes&~i;e.pendingLanes=i,e.suspendedLanes=0,e.pingedLanes=0,e.expiredLanes&=i,e.mutableReadLanes&=i,e.entangledLanes&=i,i=e.entanglements;var n=e.eventTimes;for(e=e.expirationTimes;0<t;){var a=31-Oe(t),r=1<<a;i[a]=0,n[a]=-1,e[a]=-1,t&=~r}}function to(e,i){var t=e.entangledLanes|=i;for(e=e.entanglements;t;){var n=31-Oe(t),a=1<<n;a&i|e[n]&i&&(e[n]|=i),t&=~a}}var F=0;function ql(e){return e&=-e,1<e?4<e?e&268435455?16:536870912:4:1}var El,no,Bl,Hl,Nl,hr=!1,dn=[],ni=null,ai=null,ri=null,Dt=new Map,Lt=new Map,$e=[],uu="mousedown mouseup touchcancel touchend touchstart auxclick dblclick pointercancel pointerdown pointerup dragend dragstart drop compositionend compositionstart keydown keypress keyup input textInput copy cut paste click change contextmenu reset submit".split(" ");function es(e,i){switch(e){case"focusin":case"focusout":ni=null;break;case"dragenter":case"dragleave":ai=null;break;case"mouseover":case"mouseout":ri=null;break;case"pointerover":case"pointerout":Dt.delete(i.pointerId);break;case"gotpointercapture":case"lostpointercapture":Lt.delete(i.pointerId)}}function pt(e,i,t,n,a,r){return e===null||e.nativeEvent!==r?(e={blockedOn:i,domEventName:t,eventSystemFlags:n,nativeEvent:r,targetContainers:[a]},i!==null&&(i=$t(i),i!==null&&no(i)),e):(e.eventSystemFlags|=n,i=e.targetContainers,a!==null&&i.indexOf(a)===-1&&i.push(a),e)}function pu(e,i,t,n,a){switch(i){case"focusin":return ni=pt(ni,e,i,t,n,a),!0;case"dragenter":return ai=pt(ai,e,i,t,n,a),!0;case"mouseover":return ri=pt(ri,e,i,t,n,a),!0;case"pointerover":var r=a.pointerId;return Dt.set(r,pt(Dt.get(r)||null,e,i,t,n,a)),!0;case"gotpointercapture":return r=a.pointerId,Lt.set(r,pt(Lt.get(r)||null,e,i,t,n,a)),!0}return!1}function _l(e){var i=ki(e.target);if(i!==null){var t=Oi(i);if(t!==null){if(i=t.tag,i===13){if(i=Ml(t),i!==null){e.blockedOn=i,Nl(e.priority,function(){Bl(t)});return}}else if(i===3&&t.stateNode.current.memoizedState.isDehydrated){e.blockedOn=t.tag===3?t.stateNode.containerInfo:null;return}}}e.blockedOn=null}function In(e){if(e.blockedOn!==null)return!1;for(var i=e.targetContainers;0<i.length;){var t=mr(e.domEventName,e.eventSystemFlags,i[0],e.nativeEvent);if(t===null){t=e.nativeEvent;var n=new t.constructor(t.type,t);lr=n,t.target.dispatchEvent(n),lr=null}else return i=$t(t),i!==null&&no(i),e.blockedOn=t,!1;i.shift()}return!0}function is(e,i,t){In(e)&&t.delete(i)}function hu(){hr=!1,ni!==null&&In(ni)&&(ni=null),ai!==null&&In(ai)&&(ai=null),ri!==null&&In(ri)&&(ri=null),Dt.forEach(is),Lt.forEach(is)}function ht(e,i){e.blockedOn===i&&(e.blockedOn=null,hr||(hr=!0,ve.unstable_scheduleCallback(ve.unstable_NormalPriority,hu)))}function zt(e){function i(a){return ht(a,e)}if(0<dn.length){ht(dn[0],e);for(var t=1;t<dn.length;t++){var n=dn[t];n.blockedOn===e&&(n.blockedOn=null)}}for(ni!==null&&ht(ni,e),ai!==null&&ht(ai,e),ri!==null&&ht(ri,e),Dt.forEach(i),Lt.forEach(i),t=0;t<$e.length;t++)n=$e[t],n.blockedOn===e&&(n.blockedOn=null);for(;0<$e.length&&(t=$e[0],t.blockedOn===null);)_l(t),t.blockedOn===null&&$e.shift()}var Xi=Xe.ReactCurrentBatchConfig,En=!0;function mu(e,i,t,n){var a=F,r=Xi.transition;Xi.transition=null;try{F=1,ao(e,i,t,n)}finally{F=a,Xi.transition=r}}function gu(e,i,t,n){var a=F,r=Xi.transition;Xi.transition=null;try{F=4,ao(e,i,t,n)}finally{F=a,Xi.transition=r}}function ao(e,i,t,n){if(En){var a=mr(e,i,t,n);if(a===null)Ea(e,i,n,Bn,t),es(e,n);else if(pu(a,e,i,t,n))n.stopPropagation();else if(es(e,n),i&4&&-1<uu.indexOf(e)){for(;a!==null;){var r=$t(a);if(r!==null&&El(r),r=mr(e,i,t,n),r===null&&Ea(e,i,n,Bn,t),r===a)break;a=r}a!==null&&n.stopPropagation()}else Ea(e,i,n,null,t)}}var Bn=null;function mr(e,i,t,n){if(Bn=null,e=eo(n),e=ki(e),e!==null)if(i=Oi(e),i===null)e=null;else if(t=i.tag,t===13){if(e=Ml(i),e!==null)return e;e=null}else if(t===3){if(i.stateNode.current.memoizedState.isDehydrated)return i.tag===3?i.stateNode.containerInfo:null;e=null}else i!==e&&(e=null);return Bn=e,null}function Jl(e){switch(e){case"cancel":case"click":case"close":case"contextmenu":case"copy":case"cut":case"auxclick":case"dblclick":case"dragend":case"dragstart":case"drop":case"focusin":case"focusout":case"input":case"invalid":case"keydown":case"keypress":case"keyup":case"mousedown":case"mouseup":case"paste":case"pause":case"play":case"pointercancel":case"pointerdown":case"pointerup":case"ratechange":case"reset":case"resize":case"seeked":case"submit":case"touchcancel":case"touchend":case"touchstart":case"volumechange":case"change":case"selectionchange":case"textInput":case"compositionstart":case"compositionend":case"compositionupdate":case"beforeblur":case"afterblur":case"beforeinput":case"blur":case"fullscreenchange":case"focus":case"hashchange":case"popstate":case"select":case"selectstart":return 1;case"drag":case"dragenter":case"dragexit":case"dragleave":case"dragover":case"mousemove":case"mouseout":case"mouseover":case"pointermove":case"pointerout":case"pointerover":case"scroll":case"toggle":case"touchmove":case"wheel":case"mouseenter":case"mouseleave":case"pointerenter":case"pointerleave":return 4;case"message":switch(tu()){case io:return 1;case Dl:return 4;case zn:case nu:return 16;case Ll:return 536870912;default:return 16}default:return 16}}var ii=null,ro=null,An=null;function Kl(){if(An)return An;var e,i=ro,t=i.length,n,a="value"in ii?ii.value:ii.textContent,r=a.length;for(e=0;e<t&&i[e]===a[e];e++);var o=t-e;for(n=1;n<=o&&i[t-n]===a[r-n];n++);return An=a.slice(e,1<n?1-n:void 0)}function Sn(e){var i=e.keyCode;return"charCode"in e?(e=e.charCode,e===0&&i===13&&(e=13)):e=i,e===10&&(e=13),32<=e||e===13?e:0}function un(){return!0}function ts(){return!1}function we(e){function i(t,n,a,r,o){this._reactName=t,this._targetInst=a,this.type=n,this.nativeEvent=r,this.target=o,this.currentTarget=null;for(var s in e)e.hasOwnProperty(s)&&(t=e[s],this[s]=t?t(r):r[s]);return this.isDefaultPrevented=(r.defaultPrevented!=null?r.defaultPrevented:r.returnValue===!1)?un:ts,this.isPropagationStopped=ts,this}return _(i.prototype,{preventDefault:function(){this.defaultPrevented=!0;var t=this.nativeEvent;t&&(t.preventDefault?t.preventDefault():typeof t.returnValue!="unknown"&&(t.returnValue=!1),this.isDefaultPrevented=un)},stopPropagation:function(){var t=this.nativeEvent;t&&(t.stopPropagation?t.stopPropagation():typeof t.cancelBubble!="unknown"&&(t.cancelBubble=!0),this.isPropagationStopped=un)},persist:function(){},isPersistent:un}),i}var ot={eventPhase:0,bubbles:0,cancelable:0,timeStamp:function(e){return e.timeStamp||Date.now()},defaultPrevented:0,isTrusted:0},oo=we(ot),Yt=_({},ot,{view:0,detail:0}),fu=we(Yt),Ra,Ma,mt,ra=_({},Yt,{screenX:0,screenY:0,clientX:0,clientY:0,pageX:0,pageY:0,ctrlKey:0,shiftKey:0,altKey:0,metaKey:0,getModifierState:so,button:0,buttons:0,relatedTarget:function(e){return e.relatedTarget===void 0?e.fromElement===e.srcElement?e.toElement:e.fromElement:e.relatedTarget},movementX:function(e){return"movementX"in e?e.movementX:(e!==mt&&(mt&&e.type==="mousemove"?(Ra=e.screenX-mt.screenX,Ma=e.screenY-mt.screenY):Ma=Ra=0,mt=e),Ra)},movementY:function(e){return"movementY"in e?e.movementY:Ma}}),ns=we(ra),yu=_({},ra,{dataTransfer:0}),vu=we(yu),bu=_({},Yt,{relatedTarget:0}),ja=we(bu),wu=_({},ot,{animationName:0,elapsedTime:0,pseudoElement:0}),ku=we(wu),xu=_({},ot,{clipboardData:function(e){return"clipboardData"in e?e.clipboardData:window.clipboardData}}),Iu=we(xu),Au=_({},ot,{data:0}),as=we(Au),Su={Esc:"Escape",Spacebar:" ",Left:"ArrowLeft",Up:"ArrowUp",Right:"ArrowRight",Down:"ArrowDown",Del:"Delete",Win:"OS",Menu:"ContextMenu",Apps:"ContextMenu",Scroll:"ScrollLock",MozPrintableKey:"Unidentified"},Cu={8:"Backspace",9:"Tab",12:"Clear",13:"Enter",16:"Shift",17:"Control",18:"Alt",19:"Pause",20:"CapsLock",27:"Escape",32:" ",33:"PageUp",34:"PageDown",35:"End",36:"Home",37:"ArrowLeft",38:"ArrowUp",39:"ArrowRight",40:"ArrowDown",45:"Insert",46:"Delete",112:"F1",113:"F2",114:"F3",115:"F4",116:"F5",117:"F6",118:"F7",119:"F8",120:"F9",121:"F10",122:"F11",123:"F12",144:"NumLock",145:"ScrollLock",224:"Meta"},Tu={Alt:"altKey",Control:"ctrlKey",Meta:"metaKey",Shift:"shiftKey"};function Pu(e){var i=this.nativeEvent;return i.getModifierState?i.getModifierState(e):(e=Tu[e])?!!i[e]:!1}function so(){return Pu}var Ru=_({},Yt,{key:function(e){if(e.key){var i=Su[e.key]||e.key;if(i!=="Unidentified")return i}return e.type==="keypress"?(e=Sn(e),e===13?"Enter":String.fromCharCode(e)):e.type==="keydown"||e.type==="keyup"?Cu[e.keyCode]||"Unidentified":""},code:0,location:0,ctrlKey:0,shiftKey:0,altKey:0,metaKey:0,repeat:0,locale:0,getModifierState:so,charCode:function(e){return e.type==="keypress"?Sn(e):0},keyCode:function(e){return e.type==="keydown"||e.type==="keyup"?e.keyCode:0},which:function(e){return e.type==="keypress"?Sn(e):e.type==="keydown"||e.type==="keyup"?e.keyCode:0}}),Mu=we(Ru),ju=_({},ra,{pointerId:0,width:0,height:0,pressure:0,tangentialPressure:0,tiltX:0,tiltY:0,twist:0,pointerType:0,isPrimary:0}),rs=we(ju),Ou=_({},Yt,{touches:0,targetTouches:0,changedTouches:0,altKey:0,metaKey:0,ctrlKey:0,shiftKey:0,getModifierState:so}),Fu=we(Ou),Du=_({},ot,{propertyName:0,elapsedTime:0,pseudoElement:0}),Lu=we(Du),zu=_({},ra,{deltaX:function(e){return"deltaX"in e?e.deltaX:"wheelDeltaX"in e?-e.wheelDeltaX:0},deltaY:function(e){return"deltaY"in e?e.deltaY:"wheelDeltaY"in e?-e.wheelDeltaY:"wheelDelta"in e?-e.wheelDelta:0},deltaZ:0,deltaMode:0}),qu=we(zu),Eu=[9,13,27,32],lo=Ge&&"CompositionEvent"in window,At=null;Ge&&"documentMode"in document&&(At=document.documentMode);var Bu=Ge&&"TextEvent"in window&&!At,Gl=Ge&&(!lo||At&&8<At&&11>=At),os=" ",ss=!1;function Vl(e,i){switch(e){case"keyup":return Eu.indexOf(i.keyCode)!==-1;case"keydown":return i.keyCode!==229;case"keypress":case"mousedown":case"focusout":return!0;default:return!1}}function Wl(e){return e=e.detail,typeof e=="object"&&"data"in e?e.data:null}var zi=!1;function Hu(e,i){switch(e){case"compositionend":return Wl(i);case"keypress":return i.which!==32?null:(ss=!0,os);case"textInput":return e=i.data,e===os&&ss?null:e;default:return null}}function Nu(e,i){if(zi)return e==="compositionend"||!lo&&Vl(e,i)?(e=Kl(),An=ro=ii=null,zi=!1,e):null;switch(e){case"paste":return null;case"keypress":if(!(i.ctrlKey||i.altKey||i.metaKey)||i.ctrlKey&&i.altKey){if(i.char&&1<i.char.length)return i.char;if(i.which)return String.fromCharCode(i.which)}return null;case"compositionend":return Gl&&i.locale!=="ko"?null:i.data;default:return null}}var _u={color:!0,date:!0,datetime:!0,"datetime-local":!0,email:!0,month:!0,number:!0,password:!0,range:!0,search:!0,tel:!0,text:!0,time:!0,url:!0,week:!0};function ls(e){var i=e&&e.nodeName&&e.nodeName.toLowerCase();return i==="input"?!!_u[e.type]:i==="textarea"}function Ul(e,i,t,n){Sl(n),i=Hn(i,"onChange"),0<i.length&&(t=new oo("onChange","change",null,t,n),e.push({event:t,listeners:i}))}var St=null,qt=null;function Ju(e){rc(e,0)}function oa(e){var i=Bi(e);if(vl(i))return e}function Ku(e,i){if(e==="change")return i}var Xl=!1;if(Ge){var Oa;if(Ge){var Fa="oninput"in document;if(!Fa){var cs=document.createElement("div");cs.setAttribute("oninput","return;"),Fa=typeof cs.oninput=="function"}Oa=Fa}else Oa=!1;Xl=Oa&&(!document.documentMode||9<document.documentMode)}function ds(){St&&(St.detachEvent("onpropertychange",Ql),qt=St=null)}function Ql(e){if(e.propertyName==="value"&&oa(qt)){var i=[];Ul(i,qt,e,eo(e)),Rl(Ju,i)}}function Gu(e,i,t){e==="focusin"?(ds(),St=i,qt=t,St.attachEvent("onpropertychange",Ql)):e==="focusout"&&ds()}function Vu(e){if(e==="selectionchange"||e==="keyup"||e==="keydown")return oa(qt)}function Wu(e,i){if(e==="click")return oa(i)}function Uu(e,i){if(e==="input"||e==="change")return oa(i)}function Xu(e,i){return e===i&&(e!==0||1/e===1/i)||e!==e&&i!==i}var De=typeof Object.is=="function"?Object.is:Xu;function Et(e,i){if(De(e,i))return!0;if(typeof e!="object"||e===null||typeof i!="object"||i===null)return!1;var t=Object.keys(e),n=Object.keys(i);if(t.length!==n.length)return!1;for(n=0;n<t.length;n++){var a=t[n];if(!Qa.call(i,a)||!De(e[a],i[a]))return!1}return!0}function us(e){for(;e&&e.firstChild;)e=e.firstChild;return e}function ps(e,i){var t=us(e);e=0;for(var n;t;){if(t.nodeType===3){if(n=e+t.textContent.length,e<=i&&n>=i)return{node:t,offset:i-e};e=n}e:{for(;t;){if(t.nextSibling){t=t.nextSibling;break e}t=t.parentNode}t=void 0}t=us(t)}}function Zl(e,i){return e&&i?e===i?!0:e&&e.nodeType===3?!1:i&&i.nodeType===3?Zl(e,i.parentNode):"contains"in e?e.contains(i):e.compareDocumentPosition?!!(e.compareDocumentPosition(i)&16):!1:!1}function Yl(){for(var e=window,i=Fn();i instanceof e.HTMLIFrameElement;){try{var t=typeof i.contentWindow.location.href=="string"}catch{t=!1}if(t)e=i.contentWindow;else break;i=Fn(e.document)}return i}function co(e){var i=e&&e.nodeName&&e.nodeName.toLowerCase();return i&&(i==="input"&&(e.type==="text"||e.type==="search"||e.type==="tel"||e.type==="url"||e.type==="password")||i==="textarea"||e.contentEditable==="true")}function Qu(e){var i=Yl(),t=e.focusedElem,n=e.selectionRange;if(i!==t&&t&&t.ownerDocument&&Zl(t.ownerDocument.documentElement,t)){if(n!==null&&co(t)){if(i=n.start,e=n.end,e===void 0&&(e=i),"selectionStart"in t)t.selectionStart=i,t.selectionEnd=Math.min(e,t.value.length);else if(e=(i=t.ownerDocument||document)&&i.defaultView||window,e.getSelection){e=e.getSelection();var a=t.textContent.length,r=Math.min(n.start,a);n=n.end===void 0?r:Math.min(n.end,a),!e.extend&&r>n&&(a=n,n=r,r=a),a=ps(t,r);var o=ps(t,n);a&&o&&(e.rangeCount!==1||e.anchorNode!==a.node||e.anchorOffset!==a.offset||e.focusNode!==o.node||e.focusOffset!==o.offset)&&(i=i.createRange(),i.setStart(a.node,a.offset),e.removeAllRanges(),r>n?(e.addRange(i),e.extend(o.node,o.offset)):(i.setEnd(o.node,o.offset),e.addRange(i)))}}for(i=[],e=t;e=e.parentNode;)e.nodeType===1&&i.push({element:e,left:e.scrollLeft,top:e.scrollTop});for(typeof t.focus=="function"&&t.focus(),t=0;t<i.length;t++)e=i[t],e.element.scrollLeft=e.left,e.element.scrollTop=e.top}}var Zu=Ge&&"documentMode"in document&&11>=document.documentMode,qi=null,gr=null,Ct=null,fr=!1;function hs(e,i,t){var n=t.window===t?t.document:t.nodeType===9?t:t.ownerDocument;fr||qi==null||qi!==Fn(n)||(n=qi,"selectionStart"in n&&co(n)?n={start:n.selectionStart,end:n.selectionEnd}:(n=(n.ownerDocument&&n.ownerDocument.defaultView||window).getSelection(),n={anchorNode:n.anchorNode,anchorOffset:n.anchorOffset,focusNode:n.focusNode,focusOffset:n.focusOffset}),Ct&&Et(Ct,n)||(Ct=n,n=Hn(gr,"onSelect"),0<n.length&&(i=new oo("onSelect","select",null,i,t),e.push({event:i,listeners:n}),i.target=qi)))}function pn(e,i){var t={};return t[e.toLowerCase()]=i.toLowerCase(),t["Webkit"+e]="webkit"+i,t["Moz"+e]="moz"+i,t}var Ei={animationend:pn("Animation","AnimationEnd"),animationiteration:pn("Animation","AnimationIteration"),animationstart:pn("Animation","AnimationStart"),transitionend:pn("Transition","TransitionEnd")},Da={},$l={};Ge&&($l=document.createElement("div").style,"AnimationEvent"in window||(delete Ei.animationend.animation,delete Ei.animationiteration.animation,delete Ei.animationstart.animation),"TransitionEvent"in window||delete Ei.transitionend.transition);function sa(e){if(Da[e])return Da[e];if(!Ei[e])return e;var i=Ei[e],t;for(t in i)if(i.hasOwnProperty(t)&&t in $l)return Da[e]=i[t];return e}var ec=sa("animationend"),ic=sa("animationiteration"),tc=sa("animationstart"),nc=sa("transitionend"),ac=new Map,ms="abort auxClick cancel canPlay canPlayThrough click close contextMenu copy cut drag dragEnd dragEnter dragExit dragLeave dragOver dragStart drop durationChange emptied encrypted ended error gotPointerCapture input invalid keyDown keyPress keyUp load loadedData loadedMetadata loadStart lostPointerCapture mouseDown mouseMove mouseOut mouseOver mouseUp paste pause play playing pointerCancel pointerDown pointerMove pointerOut pointerOver pointerUp progress rateChange reset resize seeked seeking stalled submit suspend timeUpdate touchCancel touchEnd touchStart volumeChange scroll toggle touchMove waiting wheel".split(" ");function hi(e,i){ac.set(e,i),ji(i,[e])}for(var La=0;La<ms.length;La++){var za=ms[La],Yu=za.toLowerCase(),$u=za[0].toUpperCase()+za.slice(1);hi(Yu,"on"+$u)}hi(ec,"onAnimationEnd");hi(ic,"onAnimationIteration");hi(tc,"onAnimationStart");hi("dblclick","onDoubleClick");hi("focusin","onFocus");hi("focusout","onBlur");hi(nc,"onTransitionEnd");Yi("onMouseEnter",["mouseout","mouseover"]);Yi("onMouseLeave",["mouseout","mouseover"]);Yi("onPointerEnter",["pointerout","pointerover"]);Yi("onPointerLeave",["pointerout","pointerover"]);ji("onChange","change click focusin focusout input keydown keyup selectionchange".split(" "));ji("onSelect","focusout contextmenu dragend focusin keydown keyup mousedown mouseup selectionchange".split(" "));ji("onBeforeInput",["compositionend","keypress","textInput","paste"]);ji("onCompositionEnd","compositionend focusout keydown keypress keyup mousedown".split(" "));ji("onCompositionStart","compositionstart focusout keydown keypress keyup mousedown".split(" "));ji("onCompositionUpdate","compositionupdate focusout keydown keypress keyup mousedown".split(" "));var kt="abort canplay canplaythrough durationchange emptied encrypted ended error loadeddata loadedmetadata loadstart pause play playing progress ratechange resize seeked seeking stalled suspend timeupdate volumechange waiting".split(" "),ep=new Set("cancel close invalid load scroll toggle".split(" ").concat(kt));function gs(e,i,t){var n=e.type||"unknown-event";e.currentTarget=t,Yd(n,i,void 0,e),e.currentTarget=null}function rc(e,i){i=(i&4)!==0;for(var t=0;t<e.length;t++){var n=e[t],a=n.event;n=n.listeners;e:{var r=void 0;if(i)for(var o=n.length-1;0<=o;o--){var s=n[o],l=s.instance,c=s.currentTarget;if(s=s.listener,l!==r&&a.isPropagationStopped())break e;gs(a,s,c),r=l}else for(o=0;o<n.length;o++){if(s=n[o],l=s.instance,c=s.currentTarget,s=s.listener,l!==r&&a.isPropagationStopped())break e;gs(a,s,c),r=l}}}if(Ln)throw e=ur,Ln=!1,ur=null,e}function z(e,i){var t=i[kr];t===void 0&&(t=i[kr]=new Set);var n=e+"__bubble";t.has(n)||(oc(i,e,2,!1),t.add(n))}function qa(e,i,t){var n=0;i&&(n|=4),oc(t,e,n,i)}var hn="_reactListening"+Math.random().toString(36).slice(2);function Bt(e){if(!e[hn]){e[hn]=!0,hl.forEach(function(t){t!=="selectionchange"&&(ep.has(t)||qa(t,!1,e),qa(t,!0,e))});var i=e.nodeType===9?e:e.ownerDocument;i===null||i[hn]||(i[hn]=!0,qa("selectionchange",!1,i))}}function oc(e,i,t,n){switch(Jl(i)){case 1:var a=mu;break;case 4:a=gu;break;default:a=ao}t=a.bind(null,i,t,e),a=void 0,!dr||i!=="touchstart"&&i!=="touchmove"&&i!=="wheel"||(a=!0),n?a!==void 0?e.addEventListener(i,t,{capture:!0,passive:a}):e.addEventListener(i,t,!0):a!==void 0?e.addEventListener(i,t,{passive:a}):e.addEventListener(i,t,!1)}function Ea(e,i,t,n,a){var r=n;if(!(i&1)&&!(i&2)&&n!==null)e:for(;;){if(n===null)return;var o=n.tag;if(o===3||o===4){var s=n.stateNode.containerInfo;if(s===a||s.nodeType===8&&s.parentNode===a)break;if(o===4)for(o=n.return;o!==null;){var l=o.tag;if((l===3||l===4)&&(l=o.stateNode.containerInfo,l===a||l.nodeType===8&&l.parentNode===a))return;o=o.return}for(;s!==null;){if(o=ki(s),o===null)return;if(l=o.tag,l===5||l===6){n=r=o;continue e}s=s.parentNode}}n=n.return}Rl(function(){var c=r,f=eo(t),g=[];e:{var h=ac.get(e);if(h!==void 0){var y=oo,v=e;switch(e){case"keypress":if(Sn(t)===0)break e;case"keydown":case"keyup":y=Mu;break;case"focusin":v="focus",y=ja;break;case"focusout":v="blur",y=ja;break;case"beforeblur":case"afterblur":y=ja;break;case"click":if(t.button===2)break e;case"auxclick":case"dblclick":case"mousedown":case"mousemove":case"mouseup":case"mouseout":case"mouseover":case"contextmenu":y=ns;break;case"drag":case"dragend":case"dragenter":case"dragexit":case"dragleave":case"dragover":case"dragstart":case"drop":y=vu;break;case"touchcancel":case"touchend":case"touchmove":case"touchstart":y=Fu;break;case ec:case ic:case tc:y=ku;break;case nc:y=Lu;break;case"scroll":y=fu;break;case"wheel":y=qu;break;case"copy":case"cut":case"paste":y=Iu;break;case"gotpointercapture":case"lostpointercapture":case"pointercancel":case"pointerdown":case"pointermove":case"pointerout":case"pointerover":case"pointerup":y=rs}var k=(i&4)!==0,D=!k&&e==="scroll",u=k?h!==null?h+"Capture":null:h;k=[];for(var d=c,p;d!==null;){p=d;var b=p.stateNode;if(p.tag===5&&b!==null&&(p=b,u!==null&&(b=Ft(d,u),b!=null&&k.push(Ht(d,b,p)))),D)break;d=d.return}0<k.length&&(h=new y(h,v,null,t,f),g.push({event:h,listeners:k}))}}if(!(i&7)){e:{if(h=e==="mouseover"||e==="pointerover",y=e==="mouseout"||e==="pointerout",h&&t!==lr&&(v=t.relatedTarget||t.fromElement)&&(ki(v)||v[Ve]))break e;if((y||h)&&(h=f.window===f?f:(h=f.ownerDocument)?h.defaultView||h.parentWindow:window,y?(v=t.relatedTarget||t.toElement,y=c,v=v?ki(v):null,v!==null&&(D=Oi(v),v!==D||v.tag!==5&&v.tag!==6)&&(v=null)):(y=null,v=c),y!==v)){if(k=ns,b="onMouseLeave",u="onMouseEnter",d="mouse",(e==="pointerout"||e==="pointerover")&&(k=rs,b="onPointerLeave",u="onPointerEnter",d="pointer"),D=y==null?h:Bi(y),p=v==null?h:Bi(v),h=new k(b,d+"leave",y,t,f),h.target=D,h.relatedTarget=p,b=null,ki(f)===c&&(k=new k(u,d+"enter",v,t,f),k.target=p,k.relatedTarget=D,b=k),D=b,y&&v)i:{for(k=y,u=v,d=0,p=k;p;p=Fi(p))d++;for(p=0,b=u;b;b=Fi(b))p++;for(;0<d-p;)k=Fi(k),d--;for(;0<p-d;)u=Fi(u),p--;for(;d--;){if(k===u||u!==null&&k===u.alternate)break i;k=Fi(k),u=Fi(u)}k=null}else k=null;y!==null&&fs(g,h,y,k,!1),v!==null&&D!==null&&fs(g,D,v,k,!0)}}e:{if(h=c?Bi(c):window,y=h.nodeName&&h.nodeName.toLowerCase(),y==="select"||y==="input"&&h.type==="file")var I=Ku;else if(ls(h))if(Xl)I=Uu;else{I=Vu;var S=Gu}else(y=h.nodeName)&&y.toLowerCase()==="input"&&(h.type==="checkbox"||h.type==="radio")&&(I=Wu);if(I&&(I=I(e,c))){Ul(g,I,t,f);break e}S&&S(e,h,c),e==="focusout"&&(S=h._wrapperState)&&S.controlled&&h.type==="number"&&nr(h,"number",h.value)}switch(S=c?Bi(c):window,e){case"focusin":(ls(S)||S.contentEditable==="true")&&(qi=S,gr=c,Ct=null);break;case"focusout":Ct=gr=qi=null;break;case"mousedown":fr=!0;break;case"contextmenu":case"mouseup":case"dragend":fr=!1,hs(g,t,f);break;case"selectionchange":if(Zu)break;case"keydown":case"keyup":hs(g,t,f)}var C;if(lo)e:{switch(e){case"compositionstart":var T="onCompositionStart";break e;case"compositionend":T="onCompositionEnd";break e;case"compositionupdate":T="onCompositionUpdate";break e}T=void 0}else zi?Vl(e,t)&&(T="onCompositionEnd"):e==="keydown"&&t.keyCode===229&&(T="onCompositionStart");T&&(Gl&&t.locale!=="ko"&&(zi||T!=="onCompositionStart"?T==="onCompositionEnd"&&zi&&(C=Kl()):(ii=f,ro="value"in ii?ii.value:ii.textContent,zi=!0)),S=Hn(c,T),0<S.length&&(T=new as(T,e,null,t,f),g.push({event:T,listeners:S}),C?T.data=C:(C=Wl(t),C!==null&&(T.data=C)))),(C=Bu?Hu(e,t):Nu(e,t))&&(c=Hn(c,"onBeforeInput"),0<c.length&&(f=new as("onBeforeInput","beforeinput",null,t,f),g.push({event:f,listeners:c}),f.data=C))}rc(g,i)})}function Ht(e,i,t){return{instance:e,listener:i,currentTarget:t}}function Hn(e,i){for(var t=i+"Capture",n=[];e!==null;){var a=e,r=a.stateNode;a.tag===5&&r!==null&&(a=r,r=Ft(e,t),r!=null&&n.unshift(Ht(e,r,a)),r=Ft(e,i),r!=null&&n.push(Ht(e,r,a))),e=e.return}return n}function Fi(e){if(e===null)return null;do e=e.return;while(e&&e.tag!==5);return e||null}function fs(e,i,t,n,a){for(var r=i._reactName,o=[];t!==null&&t!==n;){var s=t,l=s.alternate,c=s.stateNode;if(l!==null&&l===n)break;s.tag===5&&c!==null&&(s=c,a?(l=Ft(t,r),l!=null&&o.unshift(Ht(t,l,s))):a||(l=Ft(t,r),l!=null&&o.push(Ht(t,l,s)))),t=t.return}o.length!==0&&e.push({event:i,listeners:o})}var ip=/\r\n?/g,tp=/\u0000|\uFFFD/g;function ys(e){return(typeof e=="string"?e:""+e).replace(ip,`
+`).replace(tp,"")}function mn(e,i,t){if(i=ys(i),ys(e)!==i&&t)throw Error(w(425))}function Nn(){}var yr=null,vr=null;function br(e,i){return e==="textarea"||e==="noscript"||typeof i.children=="string"||typeof i.children=="number"||typeof i.dangerouslySetInnerHTML=="object"&&i.dangerouslySetInnerHTML!==null&&i.dangerouslySetInnerHTML.__html!=null}var wr=typeof setTimeout=="function"?setTimeout:void 0,np=typeof clearTimeout=="function"?clearTimeout:void 0,vs=typeof Promise=="function"?Promise:void 0,ap=typeof queueMicrotask=="function"?queueMicrotask:typeof vs<"u"?function(e){return vs.resolve(null).then(e).catch(rp)}:wr;function rp(e){setTimeout(function(){throw e})}function Ba(e,i){var t=i,n=0;do{var a=t.nextSibling;if(e.removeChild(t),a&&a.nodeType===8)if(t=a.data,t==="/$"){if(n===0){e.removeChild(a),zt(i);return}n--}else t!=="$"&&t!=="$?"&&t!=="$!"||n++;t=a}while(t);zt(i)}function oi(e){for(;e!=null;e=e.nextSibling){var i=e.nodeType;if(i===1||i===3)break;if(i===8){if(i=e.data,i==="$"||i==="$!"||i==="$?")break;if(i==="/$")return null}}return e}function bs(e){e=e.previousSibling;for(var i=0;e;){if(e.nodeType===8){var t=e.data;if(t==="$"||t==="$!"||t==="$?"){if(i===0)return e;i--}else t==="/$"&&i++}e=e.previousSibling}return null}var st=Math.random().toString(36).slice(2),qe="__reactFiber$"+st,Nt="__reactProps$"+st,Ve="__reactContainer$"+st,kr="__reactEvents$"+st,op="__reactListeners$"+st,sp="__reactHandles$"+st;function ki(e){var i=e[qe];if(i)return i;for(var t=e.parentNode;t;){if(i=t[Ve]||t[qe]){if(t=i.alternate,i.child!==null||t!==null&&t.child!==null)for(e=bs(e);e!==null;){if(t=e[qe])return t;e=bs(e)}return i}e=t,t=e.parentNode}return null}function $t(e){return e=e[qe]||e[Ve],!e||e.tag!==5&&e.tag!==6&&e.tag!==13&&e.tag!==3?null:e}function Bi(e){if(e.tag===5||e.tag===6)return e.stateNode;throw Error(w(33))}function la(e){return e[Nt]||null}var xr=[],Hi=-1;function mi(e){return{current:e}}function q(e){0>Hi||(e.current=xr[Hi],xr[Hi]=null,Hi--)}function L(e,i){Hi++,xr[Hi]=e.current,e.current=i}var pi={},re=mi(pi),pe=mi(!1),Ci=pi;function $i(e,i){var t=e.type.contextTypes;if(!t)return pi;var n=e.stateNode;if(n&&n.__reactInternalMemoizedUnmaskedChildContext===i)return n.__reactInternalMemoizedMaskedChildContext;var a={},r;for(r in t)a[r]=i[r];return n&&(e=e.stateNode,e.__reactInternalMemoizedUnmaskedChildContext=i,e.__reactInternalMemoizedMaskedChildContext=a),a}function he(e){return e=e.childContextTypes,e!=null}function _n(){q(pe),q(re)}function ws(e,i,t){if(re.current!==pi)throw Error(w(168));L(re,i),L(pe,t)}function sc(e,i,t){var n=e.stateNode;if(i=i.childContextTypes,typeof n.getChildContext!="function")return t;n=n.getChildContext();for(var a in n)if(!(a in i))throw Error(w(108,Gd(e)||"Unknown",a));return _({},t,n)}function Jn(e){return e=(e=e.stateNode)&&e.__reactInternalMemoizedMergedChildContext||pi,Ci=re.current,L(re,e),L(pe,pe.current),!0}function ks(e,i,t){var n=e.stateNode;if(!n)throw Error(w(169));t?(e=sc(e,i,Ci),n.__reactInternalMemoizedMergedChildContext=e,q(pe),q(re),L(re,e)):q(pe),L(pe,t)}var Ne=null,ca=!1,Ha=!1;function lc(e){Ne===null?Ne=[e]:Ne.push(e)}function lp(e){ca=!0,lc(e)}function gi(){if(!Ha&&Ne!==null){Ha=!0;var e=0,i=F;try{var t=Ne;for(F=1;e<t.length;e++){var n=t[e];do n=n(!0);while(n!==null)}Ne=null,ca=!1}catch(a){throw Ne!==null&&(Ne=Ne.slice(e+1)),Fl(io,gi),a}finally{F=i,Ha=!1}}return null}var Ni=[],_i=0,Kn=null,Gn=0,ke=[],xe=0,Ti=null,_e=1,Je="";function bi(e,i){Ni[_i++]=Gn,Ni[_i++]=Kn,Kn=e,Gn=i}function cc(e,i,t){ke[xe++]=_e,ke[xe++]=Je,ke[xe++]=Ti,Ti=e;var n=_e;e=Je;var a=32-Oe(n)-1;n&=~(1<<a),t+=1;var r=32-Oe(i)+a;if(30<r){var o=a-a%5;r=(n&(1<<o)-1).toString(32),n>>=o,a-=o,_e=1<<32-Oe(i)+a|t<<a|n,Je=r+e}else _e=1<<r|t<<a|n,Je=e}function uo(e){e.return!==null&&(bi(e,1),cc(e,1,0))}function po(e){for(;e===Kn;)Kn=Ni[--_i],Ni[_i]=null,Gn=Ni[--_i],Ni[_i]=null;for(;e===Ti;)Ti=ke[--xe],ke[xe]=null,Je=ke[--xe],ke[xe]=null,_e=ke[--xe],ke[xe]=null}var ye=null,fe=null,B=!1,je=null;function dc(e,i){var t=Ie(5,null,null,0);t.elementType="DELETED",t.stateNode=i,t.return=e,i=e.deletions,i===null?(e.deletions=[t],e.flags|=16):i.push(t)}function xs(e,i){switch(e.tag){case 5:var t=e.type;return i=i.nodeType!==1||t.toLowerCase()!==i.nodeName.toLowerCase()?null:i,i!==null?(e.stateNode=i,ye=e,fe=oi(i.firstChild),!0):!1;case 6:return i=e.pendingProps===""||i.nodeType!==3?null:i,i!==null?(e.stateNode=i,ye=e,fe=null,!0):!1;case 13:return i=i.nodeType!==8?null:i,i!==null?(t=Ti!==null?{id:_e,overflow:Je}:null,e.memoizedState={dehydrated:i,treeContext:t,retryLane:1073741824},t=Ie(18,null,null,0),t.stateNode=i,t.return=e,e.child=t,ye=e,fe=null,!0):!1;default:return!1}}function Ir(e){return(e.mode&1)!==0&&(e.flags&128)===0}function Ar(e){if(B){var i=fe;if(i){var t=i;if(!xs(e,i)){if(Ir(e))throw Error(w(418));i=oi(t.nextSibling);var n=ye;i&&xs(e,i)?dc(n,t):(e.flags=e.flags&-4097|2,B=!1,ye=e)}}else{if(Ir(e))throw Error(w(418));e.flags=e.flags&-4097|2,B=!1,ye=e}}}function Is(e){for(e=e.return;e!==null&&e.tag!==5&&e.tag!==3&&e.tag!==13;)e=e.return;ye=e}function gn(e){if(e!==ye)return!1;if(!B)return Is(e),B=!0,!1;var i;if((i=e.tag!==3)&&!(i=e.tag!==5)&&(i=e.type,i=i!=="head"&&i!=="body"&&!br(e.type,e.memoizedProps)),i&&(i=fe)){if(Ir(e))throw uc(),Error(w(418));for(;i;)dc(e,i),i=oi(i.nextSibling)}if(Is(e),e.tag===13){if(e=e.memoizedState,e=e!==null?e.dehydrated:null,!e)throw Error(w(317));e:{for(e=e.nextSibling,i=0;e;){if(e.nodeType===8){var t=e.data;if(t==="/$"){if(i===0){fe=oi(e.nextSibling);break e}i--}else t!=="$"&&t!=="$!"&&t!=="$?"||i++}e=e.nextSibling}fe=null}}else fe=ye?oi(e.stateNode.nextSibling):null;return!0}function uc(){for(var e=fe;e;)e=oi(e.nextSibling)}function et(){fe=ye=null,B=!1}function ho(e){je===null?je=[e]:je.push(e)}var cp=Xe.ReactCurrentBatchConfig;function gt(e,i,t){if(e=t.ref,e!==null&&typeof e!="function"&&typeof e!="object"){if(t._owner){if(t=t._owner,t){if(t.tag!==1)throw Error(w(309));var n=t.stateNode}if(!n)throw Error(w(147,e));var a=n,r=""+e;return i!==null&&i.ref!==null&&typeof i.ref=="function"&&i.ref._stringRef===r?i.ref:(i=function(o){var s=a.refs;o===null?delete s[r]:s[r]=o},i._stringRef=r,i)}if(typeof e!="string")throw Error(w(284));if(!t._owner)throw Error(w(290,e))}return e}function fn(e,i){throw e=Object.prototype.toString.call(i),Error(w(31,e==="[object Object]"?"object with keys {"+Object.keys(i).join(", ")+"}":e))}function As(e){var i=e._init;return i(e._payload)}function pc(e){function i(u,d){if(e){var p=u.deletions;p===null?(u.deletions=[d],u.flags|=16):p.push(d)}}function t(u,d){if(!e)return null;for(;d!==null;)i(u,d),d=d.sibling;return null}function n(u,d){for(u=new Map;d!==null;)d.key!==null?u.set(d.key,d):u.set(d.index,d),d=d.sibling;return u}function a(u,d){return u=di(u,d),u.index=0,u.sibling=null,u}function r(u,d,p){return u.index=p,e?(p=u.alternate,p!==null?(p=p.index,p<d?(u.flags|=2,d):p):(u.flags|=2,d)):(u.flags|=1048576,d)}function o(u){return e&&u.alternate===null&&(u.flags|=2),u}function s(u,d,p,b){return d===null||d.tag!==6?(d=Wa(p,u.mode,b),d.return=u,d):(d=a(d,p),d.return=u,d)}function l(u,d,p,b){var I=p.type;return I===Li?f(u,d,p.props.children,b,p.key):d!==null&&(d.elementType===I||typeof I=="object"&&I!==null&&I.$$typeof===Ze&&As(I)===d.type)?(b=a(d,p.props),b.ref=gt(u,d,p),b.return=u,b):(b=On(p.type,p.key,p.props,null,u.mode,b),b.ref=gt(u,d,p),b.return=u,b)}function c(u,d,p,b){return d===null||d.tag!==4||d.stateNode.containerInfo!==p.containerInfo||d.stateNode.implementation!==p.implementation?(d=Ua(p,u.mode,b),d.return=u,d):(d=a(d,p.children||[]),d.return=u,d)}function f(u,d,p,b,I){return d===null||d.tag!==7?(d=Si(p,u.mode,b,I),d.return=u,d):(d=a(d,p),d.return=u,d)}function g(u,d,p){if(typeof d=="string"&&d!==""||typeof d=="number")return d=Wa(""+d,u.mode,p),d.return=u,d;if(typeof d=="object"&&d!==null){switch(d.$$typeof){case rn:return p=On(d.type,d.key,d.props,null,u.mode,p),p.ref=gt(u,null,d),p.return=u,p;case Di:return d=Ua(d,u.mode,p),d.return=u,d;case Ze:var b=d._init;return g(u,b(d._payload),p)}if(bt(d)||dt(d))return d=Si(d,u.mode,p,null),d.return=u,d;fn(u,d)}return null}function h(u,d,p,b){var I=d!==null?d.key:null;if(typeof p=="string"&&p!==""||typeof p=="number")return I!==null?null:s(u,d,""+p,b);if(typeof p=="object"&&p!==null){switch(p.$$typeof){case rn:return p.key===I?l(u,d,p,b):null;case Di:return p.key===I?c(u,d,p,b):null;case Ze:return I=p._init,h(u,d,I(p._payload),b)}if(bt(p)||dt(p))return I!==null?null:f(u,d,p,b,null);fn(u,p)}return null}function y(u,d,p,b,I){if(typeof b=="string"&&b!==""||typeof b=="number")return u=u.get(p)||null,s(d,u,""+b,I);if(typeof b=="object"&&b!==null){switch(b.$$typeof){case rn:return u=u.get(b.key===null?p:b.key)||null,l(d,u,b,I);case Di:return u=u.get(b.key===null?p:b.key)||null,c(d,u,b,I);case Ze:var S=b._init;return y(u,d,p,S(b._payload),I)}if(bt(b)||dt(b))return u=u.get(p)||null,f(d,u,b,I,null);fn(d,b)}return null}function v(u,d,p,b){for(var I=null,S=null,C=d,T=d=0,K=null;C!==null&&T<p.length;T++){C.index>T?(K=C,C=null):K=C.sibling;var j=h(u,C,p[T],b);if(j===null){C===null&&(C=K);break}e&&C&&j.alternate===null&&i(u,C),d=r(j,d,T),S===null?I=j:S.sibling=j,S=j,C=K}if(T===p.length)return t(u,C),B&&bi(u,T),I;if(C===null){for(;T<p.length;T++)C=g(u,p[T],b),C!==null&&(d=r(C,d,T),S===null?I=C:S.sibling=C,S=C);return B&&bi(u,T),I}for(C=n(u,C);T<p.length;T++)K=y(C,u,T,p[T],b),K!==null&&(e&&K.alternate!==null&&C.delete(K.key===null?T:K.key),d=r(K,d,T),S===null?I=K:S.sibling=K,S=K);return e&&C.forEach(function(Te){return i(u,Te)}),B&&bi(u,T),I}function k(u,d,p,b){var I=dt(p);if(typeof I!="function")throw Error(w(150));if(p=I.call(p),p==null)throw Error(w(151));for(var S=I=null,C=d,T=d=0,K=null,j=p.next();C!==null&&!j.done;T++,j=p.next()){C.index>T?(K=C,C=null):K=C.sibling;var Te=h(u,C,j.value,b);if(Te===null){C===null&&(C=K);break}e&&C&&Te.alternate===null&&i(u,C),d=r(Te,d,T),S===null?I=Te:S.sibling=Te,S=Te,C=K}if(j.done)return t(u,C),B&&bi(u,T),I;if(C===null){for(;!j.done;T++,j=p.next())j=g(u,j.value,b),j!==null&&(d=r(j,d,T),S===null?I=j:S.sibling=j,S=j);return B&&bi(u,T),I}for(C=n(u,C);!j.done;T++,j=p.next())j=y(C,u,T,j.value,b),j!==null&&(e&&j.alternate!==null&&C.delete(j.key===null?T:j.key),d=r(j,d,T),S===null?I=j:S.sibling=j,S=j);return e&&C.forEach(function(lt){return i(u,lt)}),B&&bi(u,T),I}function D(u,d,p,b){if(typeof p=="object"&&p!==null&&p.type===Li&&p.key===null&&(p=p.props.children),typeof p=="object"&&p!==null){switch(p.$$typeof){case rn:e:{for(var I=p.key,S=d;S!==null;){if(S.key===I){if(I=p.type,I===Li){if(S.tag===7){t(u,S.sibling),d=a(S,p.props.children),d.return=u,u=d;break e}}else if(S.elementType===I||typeof I=="object"&&I!==null&&I.$$typeof===Ze&&As(I)===S.type){t(u,S.sibling),d=a(S,p.props),d.ref=gt(u,S,p),d.return=u,u=d;break e}t(u,S);break}else i(u,S);S=S.sibling}p.type===Li?(d=Si(p.props.children,u.mode,b,p.key),d.return=u,u=d):(b=On(p.type,p.key,p.props,null,u.mode,b),b.ref=gt(u,d,p),b.return=u,u=b)}return o(u);case Di:e:{for(S=p.key;d!==null;){if(d.key===S)if(d.tag===4&&d.stateNode.containerInfo===p.containerInfo&&d.stateNode.implementation===p.implementation){t(u,d.sibling),d=a(d,p.children||[]),d.return=u,u=d;break e}else{t(u,d);break}else i(u,d);d=d.sibling}d=Ua(p,u.mode,b),d.return=u,u=d}return o(u);case Ze:return S=p._init,D(u,d,S(p._payload),b)}if(bt(p))return v(u,d,p,b);if(dt(p))return k(u,d,p,b);fn(u,p)}return typeof p=="string"&&p!==""||typeof p=="number"?(p=""+p,d!==null&&d.tag===6?(t(u,d.sibling),d=a(d,p),d.return=u,u=d):(t(u,d),d=Wa(p,u.mode,b),d.return=u,u=d),o(u)):t(u,d)}return D}var it=pc(!0),hc=pc(!1),Vn=mi(null),Wn=null,Ji=null,mo=null;function go(){mo=Ji=Wn=null}function fo(e){var i=Vn.current;q(Vn),e._currentValue=i}function Sr(e,i,t){for(;e!==null;){var n=e.alternate;if((e.childLanes&i)!==i?(e.childLanes|=i,n!==null&&(n.childLanes|=i)):n!==null&&(n.childLanes&i)!==i&&(n.childLanes|=i),e===t)break;e=e.return}}function Qi(e,i){Wn=e,mo=Ji=null,e=e.dependencies,e!==null&&e.firstContext!==null&&(e.lanes&i&&(ue=!0),e.firstContext=null)}function Se(e){var i=e._currentValue;if(mo!==e)if(e={context:e,memoizedValue:i,next:null},Ji===null){if(Wn===null)throw Error(w(308));Ji=e,Wn.dependencies={lanes:0,firstContext:e}}else Ji=Ji.next=e;return i}var xi=null;function yo(e){xi===null?xi=[e]:xi.push(e)}function mc(e,i,t,n){var a=i.interleaved;return a===null?(t.next=t,yo(i)):(t.next=a.next,a.next=t),i.interleaved=t,We(e,n)}function We(e,i){e.lanes|=i;var t=e.alternate;for(t!==null&&(t.lanes|=i),t=e,e=e.return;e!==null;)e.childLanes|=i,t=e.alternate,t!==null&&(t.childLanes|=i),t=e,e=e.return;return t.tag===3?t.stateNode:null}var Ye=!1;function vo(e){e.updateQueue={baseState:e.memoizedState,firstBaseUpdate:null,lastBaseUpdate:null,shared:{pending:null,interleaved:null,lanes:0},effects:null}}function gc(e,i){e=e.updateQueue,i.updateQueue===e&&(i.updateQueue={baseState:e.baseState,firstBaseUpdate:e.firstBaseUpdate,lastBaseUpdate:e.lastBaseUpdate,shared:e.shared,effects:e.effects})}function Ke(e,i){return{eventTime:e,lane:i,tag:0,payload:null,callback:null,next:null}}function si(e,i,t){var n=e.updateQueue;if(n===null)return null;if(n=n.shared,O&2){var a=n.pending;return a===null?i.next=i:(i.next=a.next,a.next=i),n.pending=i,We(e,t)}return a=n.interleaved,a===null?(i.next=i,yo(n)):(i.next=a.next,a.next=i),n.interleaved=i,We(e,t)}function Cn(e,i,t){if(i=i.updateQueue,i!==null&&(i=i.shared,(t&4194240)!==0)){var n=i.lanes;n&=e.pendingLanes,t|=n,i.lanes=t,to(e,t)}}function Ss(e,i){var t=e.updateQueue,n=e.alternate;if(n!==null&&(n=n.updateQueue,t===n)){var a=null,r=null;if(t=t.firstBaseUpdate,t!==null){do{var o={eventTime:t.eventTime,lane:t.lane,tag:t.tag,payload:t.payload,callback:t.callback,next:null};r===null?a=r=o:r=r.next=o,t=t.next}while(t!==null);r===null?a=r=i:r=r.next=i}else a=r=i;t={baseState:n.baseState,firstBaseUpdate:a,lastBaseUpdate:r,shared:n.shared,effects:n.effects},e.updateQueue=t;return}e=t.lastBaseUpdate,e===null?t.firstBaseUpdate=i:e.next=i,t.lastBaseUpdate=i}function Un(e,i,t,n){var a=e.updateQueue;Ye=!1;var r=a.firstBaseUpdate,o=a.lastBaseUpdate,s=a.shared.pending;if(s!==null){a.shared.pending=null;var l=s,c=l.next;l.next=null,o===null?r=c:o.next=c,o=l;var f=e.alternate;f!==null&&(f=f.updateQueue,s=f.lastBaseUpdate,s!==o&&(s===null?f.firstBaseUpdate=c:s.next=c,f.lastBaseUpdate=l))}if(r!==null){var g=a.baseState;o=0,f=c=l=null,s=r;do{var h=s.lane,y=s.eventTime;if((n&h)===h){f!==null&&(f=f.next={eventTime:y,lane:0,tag:s.tag,payload:s.payload,callback:s.callback,next:null});e:{var v=e,k=s;switch(h=i,y=t,k.tag){case 1:if(v=k.payload,typeof v=="function"){g=v.call(y,g,h);break e}g=v;break e;case 3:v.flags=v.flags&-65537|128;case 0:if(v=k.payload,h=typeof v=="function"?v.call(y,g,h):v,h==null)break e;g=_({},g,h);break e;case 2:Ye=!0}}s.callback!==null&&s.lane!==0&&(e.flags|=64,h=a.effects,h===null?a.effects=[s]:h.push(s))}else y={eventTime:y,lane:h,tag:s.tag,payload:s.payload,callback:s.callback,next:null},f===null?(c=f=y,l=g):f=f.next=y,o|=h;if(s=s.next,s===null){if(s=a.shared.pending,s===null)break;h=s,s=h.next,h.next=null,a.lastBaseUpdate=h,a.shared.pending=null}}while(!0);if(f===null&&(l=g),a.baseState=l,a.firstBaseUpdate=c,a.lastBaseUpdate=f,i=a.shared.interleaved,i!==null){a=i;do o|=a.lane,a=a.next;while(a!==i)}else r===null&&(a.shared.lanes=0);Ri|=o,e.lanes=o,e.memoizedState=g}}function Cs(e,i,t){if(e=i.effects,i.effects=null,e!==null)for(i=0;i<e.length;i++){var n=e[i],a=n.callback;if(a!==null){if(n.callback=null,n=t,typeof a!="function")throw Error(w(191,a));a.call(n)}}}var en={},Be=mi(en),_t=mi(en),Jt=mi(en);function Ii(e){if(e===en)throw Error(w(174));return e}function bo(e,i){switch(L(Jt,i),L(_t,e),L(Be,en),e=i.nodeType,e){case 9:case 11:i=(i=i.documentElement)?i.namespaceURI:rr(null,"");break;default:e=e===8?i.parentNode:i,i=e.namespaceURI||null,e=e.tagName,i=rr(i,e)}q(Be),L(Be,i)}function tt(){q(Be),q(_t),q(Jt)}function fc(e){Ii(Jt.current);var i=Ii(Be.current),t=rr(i,e.type);i!==t&&(L(_t,e),L(Be,t))}function wo(e){_t.current===e&&(q(Be),q(_t))}var H=mi(0);function Xn(e){for(var i=e;i!==null;){if(i.tag===13){var t=i.memoizedState;if(t!==null&&(t=t.dehydrated,t===null||t.data==="$?"||t.data==="$!"))return i}else if(i.tag===19&&i.memoizedProps.revealOrder!==void 0){if(i.flags&128)return i}else if(i.child!==null){i.child.return=i,i=i.child;continue}if(i===e)break;for(;i.sibling===null;){if(i.return===null||i.return===e)return null;i=i.return}i.sibling.return=i.return,i=i.sibling}return null}var Na=[];function ko(){for(var e=0;e<Na.length;e++)Na[e]._workInProgressVersionPrimary=null;Na.length=0}var Tn=Xe.ReactCurrentDispatcher,_a=Xe.ReactCurrentBatchConfig,Pi=0,N=null,U=null,Z=null,Qn=!1,Tt=!1,Kt=0,dp=0;function te(){throw Error(w(321))}function xo(e,i){if(i===null)return!1;for(var t=0;t<i.length&&t<e.length;t++)if(!De(e[t],i[t]))return!1;return!0}function Io(e,i,t,n,a,r){if(Pi=r,N=i,i.memoizedState=null,i.updateQueue=null,i.lanes=0,Tn.current=e===null||e.memoizedState===null?mp:gp,e=t(n,a),Tt){r=0;do{if(Tt=!1,Kt=0,25<=r)throw Error(w(301));r+=1,Z=U=null,i.updateQueue=null,Tn.current=fp,e=t(n,a)}while(Tt)}if(Tn.current=Zn,i=U!==null&&U.next!==null,Pi=0,Z=U=N=null,Qn=!1,i)throw Error(w(300));return e}function Ao(){var e=Kt!==0;return Kt=0,e}function ze(){var e={memoizedState:null,baseState:null,baseQueue:null,queue:null,next:null};return Z===null?N.memoizedState=Z=e:Z=Z.next=e,Z}function Ce(){if(U===null){var e=N.alternate;e=e!==null?e.memoizedState:null}else e=U.next;var i=Z===null?N.memoizedState:Z.next;if(i!==null)Z=i,U=e;else{if(e===null)throw Error(w(310));U=e,e={memoizedState:U.memoizedState,baseState:U.baseState,baseQueue:U.baseQueue,queue:U.queue,next:null},Z===null?N.memoizedState=Z=e:Z=Z.next=e}return Z}function Gt(e,i){return typeof i=="function"?i(e):i}function Ja(e){var i=Ce(),t=i.queue;if(t===null)throw Error(w(311));t.lastRenderedReducer=e;var n=U,a=n.baseQueue,r=t.pending;if(r!==null){if(a!==null){var o=a.next;a.next=r.next,r.next=o}n.baseQueue=a=r,t.pending=null}if(a!==null){r=a.next,n=n.baseState;var s=o=null,l=null,c=r;do{var f=c.lane;if((Pi&f)===f)l!==null&&(l=l.next={lane:0,action:c.action,hasEagerState:c.hasEagerState,eagerState:c.eagerState,next:null}),n=c.hasEagerState?c.eagerState:e(n,c.action);else{var g={lane:f,action:c.action,hasEagerState:c.hasEagerState,eagerState:c.eagerState,next:null};l===null?(s=l=g,o=n):l=l.next=g,N.lanes|=f,Ri|=f}c=c.next}while(c!==null&&c!==r);l===null?o=n:l.next=s,De(n,i.memoizedState)||(ue=!0),i.memoizedState=n,i.baseState=o,i.baseQueue=l,t.lastRenderedState=n}if(e=t.interleaved,e!==null){a=e;do r=a.lane,N.lanes|=r,Ri|=r,a=a.next;while(a!==e)}else a===null&&(t.lanes=0);return[i.memoizedState,t.dispatch]}function Ka(e){var i=Ce(),t=i.queue;if(t===null)throw Error(w(311));t.lastRenderedReducer=e;var n=t.dispatch,a=t.pending,r=i.memoizedState;if(a!==null){t.pending=null;var o=a=a.next;do r=e(r,o.action),o=o.next;while(o!==a);De(r,i.memoizedState)||(ue=!0),i.memoizedState=r,i.baseQueue===null&&(i.baseState=r),t.lastRenderedState=r}return[r,n]}function yc(){}function vc(e,i){var t=N,n=Ce(),a=i(),r=!De(n.memoizedState,a);if(r&&(n.memoizedState=a,ue=!0),n=n.queue,So(kc.bind(null,t,n,e),[e]),n.getSnapshot!==i||r||Z!==null&&Z.memoizedState.tag&1){if(t.flags|=2048,Vt(9,wc.bind(null,t,n,a,i),void 0,null),Y===null)throw Error(w(349));Pi&30||bc(t,i,a)}return a}function bc(e,i,t){e.flags|=16384,e={getSnapshot:i,value:t},i=N.updateQueue,i===null?(i={lastEffect:null,stores:null},N.updateQueue=i,i.stores=[e]):(t=i.stores,t===null?i.stores=[e]:t.push(e))}function wc(e,i,t,n){i.value=t,i.getSnapshot=n,xc(i)&&Ic(e)}function kc(e,i,t){return t(function(){xc(i)&&Ic(e)})}function xc(e){var i=e.getSnapshot;e=e.value;try{var t=i();return!De(e,t)}catch{return!0}}function Ic(e){var i=We(e,1);i!==null&&Fe(i,e,1,-1)}function Ts(e){var i=ze();return typeof e=="function"&&(e=e()),i.memoizedState=i.baseState=e,e={pending:null,interleaved:null,lanes:0,dispatch:null,lastRenderedReducer:Gt,lastRenderedState:e},i.queue=e,e=e.dispatch=hp.bind(null,N,e),[i.memoizedState,e]}function Vt(e,i,t,n){return e={tag:e,create:i,destroy:t,deps:n,next:null},i=N.updateQueue,i===null?(i={lastEffect:null,stores:null},N.updateQueue=i,i.lastEffect=e.next=e):(t=i.lastEffect,t===null?i.lastEffect=e.next=e:(n=t.next,t.next=e,e.next=n,i.lastEffect=e)),e}function Ac(){return Ce().memoizedState}function Pn(e,i,t,n){var a=ze();N.flags|=e,a.memoizedState=Vt(1|i,t,void 0,n===void 0?null:n)}function da(e,i,t,n){var a=Ce();n=n===void 0?null:n;var r=void 0;if(U!==null){var o=U.memoizedState;if(r=o.destroy,n!==null&&xo(n,o.deps)){a.memoizedState=Vt(i,t,r,n);return}}N.flags|=e,a.memoizedState=Vt(1|i,t,r,n)}function Ps(e,i){return Pn(8390656,8,e,i)}function So(e,i){return da(2048,8,e,i)}function Sc(e,i){return da(4,2,e,i)}function Cc(e,i){return da(4,4,e,i)}function Tc(e,i){if(typeof i=="function")return e=e(),i(e),function(){i(null)};if(i!=null)return e=e(),i.current=e,function(){i.current=null}}function Pc(e,i,t){return t=t!=null?t.concat([e]):null,da(4,4,Tc.bind(null,i,e),t)}function Co(){}function Rc(e,i){var t=Ce();i=i===void 0?null:i;var n=t.memoizedState;return n!==null&&i!==null&&xo(i,n[1])?n[0]:(t.memoizedState=[e,i],e)}function Mc(e,i){var t=Ce();i=i===void 0?null:i;var n=t.memoizedState;return n!==null&&i!==null&&xo(i,n[1])?n[0]:(e=e(),t.memoizedState=[e,i],e)}function jc(e,i,t){return Pi&21?(De(t,i)||(t=zl(),N.lanes|=t,Ri|=t,e.baseState=!0),i):(e.baseState&&(e.baseState=!1,ue=!0),e.memoizedState=t)}function up(e,i){var t=F;F=t!==0&&4>t?t:4,e(!0);var n=_a.transition;_a.transition={};try{e(!1),i()}finally{F=t,_a.transition=n}}function Oc(){return Ce().memoizedState}function pp(e,i,t){var n=ci(e);if(t={lane:n,action:t,hasEagerState:!1,eagerState:null,next:null},Fc(e))Dc(i,t);else if(t=mc(e,i,t,n),t!==null){var a=se();Fe(t,e,n,a),Lc(t,i,n)}}function hp(e,i,t){var n=ci(e),a={lane:n,action:t,hasEagerState:!1,eagerState:null,next:null};if(Fc(e))Dc(i,a);else{var r=e.alternate;if(e.lanes===0&&(r===null||r.lanes===0)&&(r=i.lastRenderedReducer,r!==null))try{var o=i.lastRenderedState,s=r(o,t);if(a.hasEagerState=!0,a.eagerState=s,De(s,o)){var l=i.interleaved;l===null?(a.next=a,yo(i)):(a.next=l.next,l.next=a),i.interleaved=a;return}}catch{}finally{}t=mc(e,i,a,n),t!==null&&(a=se(),Fe(t,e,n,a),Lc(t,i,n))}}function Fc(e){var i=e.alternate;return e===N||i!==null&&i===N}function Dc(e,i){Tt=Qn=!0;var t=e.pending;t===null?i.next=i:(i.next=t.next,t.next=i),e.pending=i}function Lc(e,i,t){if(t&4194240){var n=i.lanes;n&=e.pendingLanes,t|=n,i.lanes=t,to(e,t)}}var Zn={readContext:Se,useCallback:te,useContext:te,useEffect:te,useImperativeHandle:te,useInsertionEffect:te,useLayoutEffect:te,useMemo:te,useReducer:te,useRef:te,useState:te,useDebugValue:te,useDeferredValue:te,useTransition:te,useMutableSource:te,useSyncExternalStore:te,useId:te,unstable_isNewReconciler:!1},mp={readContext:Se,useCallback:function(e,i){return ze().memoizedState=[e,i===void 0?null:i],e},useContext:Se,useEffect:Ps,useImperativeHandle:function(e,i,t){return t=t!=null?t.concat([e]):null,Pn(4194308,4,Tc.bind(null,i,e),t)},useLayoutEffect:function(e,i){return Pn(4194308,4,e,i)},useInsertionEffect:function(e,i){return Pn(4,2,e,i)},useMemo:function(e,i){var t=ze();return i=i===void 0?null:i,e=e(),t.memoizedState=[e,i],e},useReducer:function(e,i,t){var n=ze();return i=t!==void 0?t(i):i,n.memoizedState=n.baseState=i,e={pending:null,interleaved:null,lanes:0,dispatch:null,lastRenderedReducer:e,lastRenderedState:i},n.queue=e,e=e.dispatch=pp.bind(null,N,e),[n.memoizedState,e]},useRef:function(e){var i=ze();return e={current:e},i.memoizedState=e},useState:Ts,useDebugValue:Co,useDeferredValue:function(e){return ze().memoizedState=e},useTransition:function(){var e=Ts(!1),i=e[0];return e=up.bind(null,e[1]),ze().memoizedState=e,[i,e]},useMutableSource:function(){},useSyncExternalStore:function(e,i,t){var n=N,a=ze();if(B){if(t===void 0)throw Error(w(407));t=t()}else{if(t=i(),Y===null)throw Error(w(349));Pi&30||bc(n,i,t)}a.memoizedState=t;var r={value:t,getSnapshot:i};return a.queue=r,Ps(kc.bind(null,n,r,e),[e]),n.flags|=2048,Vt(9,wc.bind(null,n,r,t,i),void 0,null),t},useId:function(){var e=ze(),i=Y.identifierPrefix;if(B){var t=Je,n=_e;t=(n&~(1<<32-Oe(n)-1)).toString(32)+t,i=":"+i+"R"+t,t=Kt++,0<t&&(i+="H"+t.toString(32)),i+=":"}else t=dp++,i=":"+i+"r"+t.toString(32)+":";return e.memoizedState=i},unstable_isNewReconciler:!1},gp={readContext:Se,useCallback:Rc,useContext:Se,useEffect:So,useImperativeHandle:Pc,useInsertionEffect:Sc,useLayoutEffect:Cc,useMemo:Mc,useReducer:Ja,useRef:Ac,useState:function(){return Ja(Gt)},useDebugValue:Co,useDeferredValue:function(e){var i=Ce();return jc(i,U.memoizedState,e)},useTransition:function(){var e=Ja(Gt)[0],i=Ce().memoizedState;return[e,i]},useMutableSource:yc,useSyncExternalStore:vc,useId:Oc,unstable_isNewReconciler:!1},fp={readContext:Se,useCallback:Rc,useContext:Se,useEffect:So,useImperativeHandle:Pc,useInsertionEffect:Sc,useLayoutEffect:Cc,useMemo:Mc,useReducer:Ka,useRef:Ac,useState:function(){return Ka(Gt)},useDebugValue:Co,useDeferredValue:function(e){var i=Ce();return U===null?i.memoizedState=e:jc(i,U.memoizedState,e)},useTransition:function(){var e=Ka(Gt)[0],i=Ce().memoizedState;return[e,i]},useMutableSource:yc,useSyncExternalStore:vc,useId:Oc,unstable_isNewReconciler:!1};function Re(e,i){if(e&&e.defaultProps){i=_({},i),e=e.defaultProps;for(var t in e)i[t]===void 0&&(i[t]=e[t]);return i}return i}function Cr(e,i,t,n){i=e.memoizedState,t=t(n,i),t=t==null?i:_({},i,t),e.memoizedState=t,e.lanes===0&&(e.updateQueue.baseState=t)}var ua={isMounted:function(e){return(e=e._reactInternals)?Oi(e)===e:!1},enqueueSetState:function(e,i,t){e=e._reactInternals;var n=se(),a=ci(e),r=Ke(n,a);r.payload=i,t!=null&&(r.callback=t),i=si(e,r,a),i!==null&&(Fe(i,e,a,n),Cn(i,e,a))},enqueueReplaceState:function(e,i,t){e=e._reactInternals;var n=se(),a=ci(e),r=Ke(n,a);r.tag=1,r.payload=i,t!=null&&(r.callback=t),i=si(e,r,a),i!==null&&(Fe(i,e,a,n),Cn(i,e,a))},enqueueForceUpdate:function(e,i){e=e._reactInternals;var t=se(),n=ci(e),a=Ke(t,n);a.tag=2,i!=null&&(a.callback=i),i=si(e,a,n),i!==null&&(Fe(i,e,n,t),Cn(i,e,n))}};function Rs(e,i,t,n,a,r,o){return e=e.stateNode,typeof e.shouldComponentUpdate=="function"?e.shouldComponentUpdate(n,r,o):i.prototype&&i.prototype.isPureReactComponent?!Et(t,n)||!Et(a,r):!0}function zc(e,i,t){var n=!1,a=pi,r=i.contextType;return typeof r=="object"&&r!==null?r=Se(r):(a=he(i)?Ci:re.current,n=i.contextTypes,r=(n=n!=null)?$i(e,a):pi),i=new i(t,r),e.memoizedState=i.state!==null&&i.state!==void 0?i.state:null,i.updater=ua,e.stateNode=i,i._reactInternals=e,n&&(e=e.stateNode,e.__reactInternalMemoizedUnmaskedChildContext=a,e.__reactInternalMemoizedMaskedChildContext=r),i}function Ms(e,i,t,n){e=i.state,typeof i.componentWillReceiveProps=="function"&&i.componentWillReceiveProps(t,n),typeof i.UNSAFE_componentWillReceiveProps=="function"&&i.UNSAFE_componentWillReceiveProps(t,n),i.state!==e&&ua.enqueueReplaceState(i,i.state,null)}function Tr(e,i,t,n){var a=e.stateNode;a.props=t,a.state=e.memoizedState,a.refs={},vo(e);var r=i.contextType;typeof r=="object"&&r!==null?a.context=Se(r):(r=he(i)?Ci:re.current,a.context=$i(e,r)),a.state=e.memoizedState,r=i.getDerivedStateFromProps,typeof r=="function"&&(Cr(e,i,r,t),a.state=e.memoizedState),typeof i.getDerivedStateFromProps=="function"||typeof a.getSnapshotBeforeUpdate=="function"||typeof a.UNSAFE_componentWillMount!="function"&&typeof a.componentWillMount!="function"||(i=a.state,typeof a.componentWillMount=="function"&&a.componentWillMount(),typeof a.UNSAFE_componentWillMount=="function"&&a.UNSAFE_componentWillMount(),i!==a.state&&ua.enqueueReplaceState(a,a.state,null),Un(e,t,a,n),a.state=e.memoizedState),typeof a.componentDidMount=="function"&&(e.flags|=4194308)}function nt(e,i){try{var t="",n=i;do t+=Kd(n),n=n.return;while(n);var a=t}catch(r){a=`
 Error generating stack: `+r.message+`
-`+r.stack}return{value:e,source:i,stack:a,digest:null}}function Ga(e,i,t){return{value:e,source:null,stack:t??null,digest:i??null}}function Pr(e,i){try{console.error(i.value)}catch(t){setTimeout(function(){throw t})}}var gp=typeof WeakMap=="function"?WeakMap:Map;function Lc(e,i,t){t=Ke(-1,t),t.tag=3,t.payload={element:null};var n=i.value;return t.callback=function(){$n||($n=!0,Er=n),Pr(e,i)},t}function zc(e,i,t){t=Ke(-1,t),t.tag=3;var n=e.type.getDerivedStateFromError;if(typeof n=="function"){var a=i.value;t.payload=function(){return n(a)},t.callback=function(){Pr(e,i)}}var r=e.stateNode;return r!==null&&typeof r.componentDidCatch=="function"&&(t.callback=function(){Pr(e,i),typeof n!="function"&&(li===null?li=new Set([this]):li.add(this));var o=i.stack;this.componentDidCatch(i.value,{componentStack:o!==null?o:""})}),t}function js(e,i,t){var n=e.pingCache;if(n===null){n=e.pingCache=new gp;var a=new Set;n.set(i,a)}else a=n.get(i),a===void 0&&(a=new Set,n.set(i,a));a.has(t)||(a.add(t),e=Rp.bind(null,e,i,t),i.then(e,e))}function Os(e){do{var i;if((i=e.tag===13)&&(i=e.memoizedState,i=i!==null?i.dehydrated!==null:!0),i)return e;e=e.return}while(e!==null);return null}function Fs(e,i,t,n,a){return e.mode&1?(e.flags|=65536,e.lanes=a,e):(e===i?e.flags|=65536:(e.flags|=128,t.flags|=131072,t.flags&=-52805,t.tag===1&&(t.alternate===null?t.tag=17:(i=Ke(-1,1),i.tag=2,si(t,i,1))),t.lanes|=1),e)}var fp=Xe.ReactCurrentOwner,ue=!1;function oe(e,i,t,n){i.child=e===null?uc(i,null,t,n):it(i,e.child,t,n)}function Ds(e,i,t,n,a){t=t.render;var r=i.ref;return Qi(i,a),n=Io(e,i,t,n,r,a),t=Ao(),e!==null&&!ue?(i.updateQueue=e.updateQueue,i.flags&=-2053,e.lanes&=~a,Ue(e,i,a)):(E&&t&&uo(i),i.flags|=1,oe(e,i,n,a),i.child)}function Ls(e,i,t,n,a){if(e===null){var r=t.type;return typeof r=="function"&&!Do(r)&&r.defaultProps===void 0&&t.compare===null&&t.defaultProps===void 0?(i.tag=15,i.type=r,qc(e,i,r,n,a)):(e=On(t.type,null,n,i,i.mode,a),e.ref=i.ref,e.return=i,i.child=e)}if(r=e.child,!(e.lanes&a)){var o=r.memoizedProps;if(t=t.compare,t=t!==null?t:Et,t(o,n)&&e.ref===i.ref)return Ue(e,i,a)}return i.flags|=1,e=di(r,n),e.ref=i.ref,e.return=i,i.child=e}function qc(e,i,t,n,a){if(e!==null){var r=e.memoizedProps;if(Et(r,n)&&e.ref===i.ref)if(ue=!1,i.pendingProps=n=r,(e.lanes&a)!==0)e.flags&131072&&(ue=!0);else return i.lanes=e.lanes,Ue(e,i,a)}return Rr(e,i,t,n,a)}function Ec(e,i,t){var n=i.pendingProps,a=n.children,r=e!==null?e.memoizedState:null;if(n.mode==="hidden")if(!(i.mode&1))i.memoizedState={baseLanes:0,cachePool:null,transitions:null},L(Gi,ge),ge|=t;else{if(!(t&1073741824))return e=r!==null?r.baseLanes|t:t,i.lanes=i.childLanes=1073741824,i.memoizedState={baseLanes:e,cachePool:null,transitions:null},i.updateQueue=null,L(Gi,ge),ge|=e,null;i.memoizedState={baseLanes:0,cachePool:null,transitions:null},n=r!==null?r.baseLanes:t,L(Gi,ge),ge|=n}else r!==null?(n=r.baseLanes|t,i.memoizedState=null):n=t,L(Gi,ge),ge|=n;return oe(e,i,a,t),i.child}function Bc(e,i){var t=i.ref;(e===null&&t!==null||e!==null&&e.ref!==t)&&(i.flags|=512,i.flags|=2097152)}function Rr(e,i,t,n,a){var r=he(t)?Ci:re.current;return r=$i(i,r),Qi(i,a),t=Io(e,i,t,n,r,a),n=Ao(),e!==null&&!ue?(i.updateQueue=e.updateQueue,i.flags&=-2053,e.lanes&=~a,Ue(e,i,a)):(E&&n&&uo(i),i.flags|=1,oe(e,i,t,a),i.child)}function zs(e,i,t,n,a){if(he(t)){var r=!0;Jn(i)}else r=!1;if(Qi(i,a),i.stateNode===null)Rn(e,i),Dc(i,t,n),Tr(i,t,n,a),n=!0;else if(e===null){var o=i.stateNode,s=i.memoizedProps;o.props=s;var l=o.context,c=t.contextType;typeof c=="object"&&c!==null?c=Se(c):(c=he(t)?Ci:re.current,c=$i(i,c));var f=t.getDerivedStateFromProps,g=typeof f=="function"||typeof o.getSnapshotBeforeUpdate=="function";g||typeof o.UNSAFE_componentWillReceiveProps!="function"&&typeof o.componentWillReceiveProps!="function"||(s!==n||l!==c)&&Ms(i,o,n,c),Ye=!1;var h=i.memoizedState;o.state=h,Un(i,n,o,a),l=i.memoizedState,s!==n||h!==l||pe.current||Ye?(typeof f=="function"&&(Cr(i,t,f,n),l=i.memoizedState),(s=Ye||Rs(i,t,s,n,h,l,c))?(g||typeof o.UNSAFE_componentWillMount!="function"&&typeof o.componentWillMount!="function"||(typeof o.componentWillMount=="function"&&o.componentWillMount(),typeof o.UNSAFE_componentWillMount=="function"&&o.UNSAFE_componentWillMount()),typeof o.componentDidMount=="function"&&(i.flags|=4194308)):(typeof o.componentDidMount=="function"&&(i.flags|=4194308),i.memoizedProps=n,i.memoizedState=l),o.props=n,o.state=l,o.context=c,n=s):(typeof o.componentDidMount=="function"&&(i.flags|=4194308),n=!1)}else{o=i.stateNode,hc(e,i),s=i.memoizedProps,c=i.type===i.elementType?s:Re(i.type,s),o.props=c,g=i.pendingProps,h=o.context,l=t.contextType,typeof l=="object"&&l!==null?l=Se(l):(l=he(t)?Ci:re.current,l=$i(i,l));var y=t.getDerivedStateFromProps;(f=typeof y=="function"||typeof o.getSnapshotBeforeUpdate=="function")||typeof o.UNSAFE_componentWillReceiveProps!="function"&&typeof o.componentWillReceiveProps!="function"||(s!==g||h!==l)&&Ms(i,o,n,l),Ye=!1,h=i.memoizedState,o.state=h,Un(i,n,o,a);var w=i.memoizedState;s!==g||h!==w||pe.current||Ye?(typeof y=="function"&&(Cr(i,t,y,n),w=i.memoizedState),(c=Ye||Rs(i,t,c,n,h,w,l)||!1)?(f||typeof o.UNSAFE_componentWillUpdate!="function"&&typeof o.componentWillUpdate!="function"||(typeof o.componentWillUpdate=="function"&&o.componentWillUpdate(n,w,l),typeof o.UNSAFE_componentWillUpdate=="function"&&o.UNSAFE_componentWillUpdate(n,w,l)),typeof o.componentDidUpdate=="function"&&(i.flags|=4),typeof o.getSnapshotBeforeUpdate=="function"&&(i.flags|=1024)):(typeof o.componentDidUpdate!="function"||s===e.memoizedProps&&h===e.memoizedState||(i.flags|=4),typeof o.getSnapshotBeforeUpdate!="function"||s===e.memoizedProps&&h===e.memoizedState||(i.flags|=1024),i.memoizedProps=n,i.memoizedState=w),o.props=n,o.state=w,o.context=l,n=c):(typeof o.componentDidUpdate!="function"||s===e.memoizedProps&&h===e.memoizedState||(i.flags|=4),typeof o.getSnapshotBeforeUpdate!="function"||s===e.memoizedProps&&h===e.memoizedState||(i.flags|=1024),n=!1)}return Mr(e,i,t,n,r,a)}function Mr(e,i,t,n,a,r){Bc(e,i);var o=(i.flags&128)!==0;if(!n&&!o)return a&&ks(i,t,!1),Ue(e,i,r);n=i.stateNode,fp.current=i;var s=o&&typeof t.getDerivedStateFromError!="function"?null:n.render();return i.flags|=1,e!==null&&o?(i.child=it(i,e.child,null,r),i.child=it(i,null,s,r)):oe(e,i,s,r),i.memoizedState=n.state,a&&ks(i,t,!0),i.child}function Hc(e){var i=e.stateNode;i.pendingContext?ws(e,i.pendingContext,i.pendingContext!==i.context):i.context&&ws(e,i.context,!1),bo(e,i.containerInfo)}function qs(e,i,t,n,a){return et(),ho(a),i.flags|=256,oe(e,i,t,n),i.child}var jr={dehydrated:null,treeContext:null,retryLane:0};function Or(e){return{baseLanes:e,cachePool:null,transitions:null}}function Nc(e,i,t){var n=i.pendingProps,a=B.current,r=!1,o=(i.flags&128)!==0,s;if((s=o)||(s=e!==null&&e.memoizedState===null?!1:(a&2)!==0),s?(r=!0,i.flags&=-129):(e===null||e.memoizedState!==null)&&(a|=1),L(B,a&1),e===null)return Ar(i),e=i.memoizedState,e!==null&&(e=e.dehydrated,e!==null)?(i.mode&1?e.data==="$!"?i.lanes=8:i.lanes=1073741824:i.lanes=1,null):(o=n.children,e=n.fallback,r?(n=i.mode,r=i.child,o={mode:"hidden",children:o},!(n&1)&&r!==null?(r.childLanes=0,r.pendingProps=o):r=ma(o,n,0,null),e=Si(e,n,t,null),r.return=i,e.return=i,r.sibling=e,i.child=r,i.child.memoizedState=Or(t),i.memoizedState=jr,e):To(i,o));if(a=e.memoizedState,a!==null&&(s=a.dehydrated,s!==null))return yp(e,i,o,n,s,a,t);if(r){r=n.fallback,o=i.mode,a=e.child,s=a.sibling;var l={mode:"hidden",children:n.children};return!(o&1)&&i.child!==a?(n=i.child,n.childLanes=0,n.pendingProps=l,i.deletions=null):(n=di(a,l),n.subtreeFlags=a.subtreeFlags&14680064),s!==null?r=di(s,r):(r=Si(r,o,t,null),r.flags|=2),r.return=i,n.return=i,n.sibling=r,i.child=n,n=r,r=i.child,o=e.child.memoizedState,o=o===null?Or(t):{baseLanes:o.baseLanes|t,cachePool:null,transitions:o.transitions},r.memoizedState=o,r.childLanes=e.childLanes&~t,i.memoizedState=jr,n}return r=e.child,e=r.sibling,n=di(r,{mode:"visible",children:n.children}),!(i.mode&1)&&(n.lanes=t),n.return=i,n.sibling=null,e!==null&&(t=i.deletions,t===null?(i.deletions=[e],i.flags|=16):t.push(e)),i.child=n,i.memoizedState=null,n}function To(e,i){return i=ma({mode:"visible",children:i},e.mode,0,null),i.return=e,e.child=i}function yn(e,i,t,n){return n!==null&&ho(n),it(i,e.child,null,t),e=To(i,i.pendingProps.children),e.flags|=2,i.memoizedState=null,e}function yp(e,i,t,n,a,r,o){if(t)return i.flags&256?(i.flags&=-257,n=Ga(Error(b(422))),yn(e,i,o,n)):i.memoizedState!==null?(i.child=e.child,i.flags|=128,null):(r=n.fallback,a=i.mode,n=ma({mode:"visible",children:n.children},a,0,null),r=Si(r,a,o,null),r.flags|=2,n.return=i,r.return=i,n.sibling=r,i.child=n,i.mode&1&&it(i,e.child,null,o),i.child.memoizedState=Or(o),i.memoizedState=jr,r);if(!(i.mode&1))return yn(e,i,o,null);if(a.data==="$!"){if(n=a.nextSibling&&a.nextSibling.dataset,n)var s=n.dgst;return n=s,r=Error(b(419)),n=Ga(r,n,void 0),yn(e,i,o,n)}if(s=(o&e.childLanes)!==0,ue||s){if(n=Y,n!==null){switch(o&-o){case 4:a=2;break;case 16:a=8;break;case 64:case 128:case 256:case 512:case 1024:case 2048:case 4096:case 8192:case 16384:case 32768:case 65536:case 131072:case 262144:case 524288:case 1048576:case 2097152:case 4194304:case 8388608:case 16777216:case 33554432:case 67108864:a=32;break;case 536870912:a=268435456;break;default:a=0}a=a&(n.suspendedLanes|o)?0:a,a!==0&&a!==r.retryLane&&(r.retryLane=a,We(e,a),Fe(n,e,a,-1))}return Fo(),n=Ga(Error(b(421))),yn(e,i,o,n)}return a.data==="$?"?(i.flags|=128,i.child=e.child,i=Mp.bind(null,e),a._reactRetry=i,null):(e=r.treeContext,fe=oi(a.nextSibling),ye=i,E=!0,je=null,e!==null&&(ke[xe++]=_e,ke[xe++]=Je,ke[xe++]=Ti,_e=e.id,Je=e.overflow,Ti=i),i=To(i,n.children),i.flags|=4096,i)}function Es(e,i,t){e.lanes|=i;var n=e.alternate;n!==null&&(n.lanes|=i),Sr(e.return,i,t)}function Va(e,i,t,n,a){var r=e.memoizedState;r===null?e.memoizedState={isBackwards:i,rendering:null,renderingStartTime:0,last:n,tail:t,tailMode:a}:(r.isBackwards=i,r.rendering=null,r.renderingStartTime=0,r.last=n,r.tail=t,r.tailMode=a)}function _c(e,i,t){var n=i.pendingProps,a=n.revealOrder,r=n.tail;if(oe(e,i,n.children,t),n=B.current,n&2)n=n&1|2,i.flags|=128;else{if(e!==null&&e.flags&128)e:for(e=i.child;e!==null;){if(e.tag===13)e.memoizedState!==null&&Es(e,t,i);else if(e.tag===19)Es(e,t,i);else if(e.child!==null){e.child.return=e,e=e.child;continue}if(e===i)break e;for(;e.sibling===null;){if(e.return===null||e.return===i)break e;e=e.return}e.sibling.return=e.return,e=e.sibling}n&=1}if(L(B,n),!(i.mode&1))i.memoizedState=null;else switch(a){case"forwards":for(t=i.child,a=null;t!==null;)e=t.alternate,e!==null&&Xn(e)===null&&(a=t),t=t.sibling;t=a,t===null?(a=i.child,i.child=null):(a=t.sibling,t.sibling=null),Va(i,!1,a,t,r);break;case"backwards":for(t=null,a=i.child,i.child=null;a!==null;){if(e=a.alternate,e!==null&&Xn(e)===null){i.child=a;break}e=a.sibling,a.sibling=t,t=a,a=e}Va(i,!0,t,null,r);break;case"together":Va(i,!1,null,null,void 0);break;default:i.memoizedState=null}return i.child}function Rn(e,i){!(i.mode&1)&&e!==null&&(e.alternate=null,i.alternate=null,i.flags|=2)}function Ue(e,i,t){if(e!==null&&(i.dependencies=e.dependencies),Ri|=i.lanes,!(t&i.childLanes))return null;if(e!==null&&i.child!==e.child)throw Error(b(153));if(i.child!==null){for(e=i.child,t=di(e,e.pendingProps),i.child=t,t.return=i;e.sibling!==null;)e=e.sibling,t=t.sibling=di(e,e.pendingProps),t.return=i;t.sibling=null}return i.child}function vp(e,i,t){switch(i.tag){case 3:Hc(i),et();break;case 5:mc(i);break;case 1:he(i.type)&&Jn(i);break;case 4:bo(i,i.stateNode.containerInfo);break;case 10:var n=i.type._context,a=i.memoizedProps.value;L(Vn,n._currentValue),n._currentValue=a;break;case 13:if(n=i.memoizedState,n!==null)return n.dehydrated!==null?(L(B,B.current&1),i.flags|=128,null):t&i.child.childLanes?Nc(e,i,t):(L(B,B.current&1),e=Ue(e,i,t),e!==null?e.sibling:null);L(B,B.current&1);break;case 19:if(n=(t&i.childLanes)!==0,e.flags&128){if(n)return _c(e,i,t);i.flags|=128}if(a=i.memoizedState,a!==null&&(a.rendering=null,a.tail=null,a.lastEffect=null),L(B,B.current),n)break;return null;case 22:case 23:return i.lanes=0,Ec(e,i,t)}return Ue(e,i,t)}var Jc,Fr,Kc,Gc;Jc=function(e,i){for(var t=i.child;t!==null;){if(t.tag===5||t.tag===6)e.appendChild(t.stateNode);else if(t.tag!==4&&t.child!==null){t.child.return=t,t=t.child;continue}if(t===i)break;for(;t.sibling===null;){if(t.return===null||t.return===i)return;t=t.return}t.sibling.return=t.return,t=t.sibling}};Fr=function(){};Kc=function(e,i,t,n){var a=e.memoizedProps;if(a!==n){e=i.stateNode,Ii(Be.current);var r=null;switch(t){case"input":a=ir(e,a),n=ir(e,n),r=[];break;case"select":a=N({},a,{value:void 0}),n=N({},n,{value:void 0}),r=[];break;case"textarea":a=ar(e,a),n=ar(e,n),r=[];break;default:typeof a.onClick!="function"&&typeof n.onClick=="function"&&(e.onclick=Nn)}or(t,n);var o;t=null;for(c in a)if(!n.hasOwnProperty(c)&&a.hasOwnProperty(c)&&a[c]!=null)if(c==="style"){var s=a[c];for(o in s)s.hasOwnProperty(o)&&(t||(t={}),t[o]="")}else c!=="dangerouslySetInnerHTML"&&c!=="children"&&c!=="suppressContentEditableWarning"&&c!=="suppressHydrationWarning"&&c!=="autoFocus"&&(jt.hasOwnProperty(c)?r||(r=[]):(r=r||[]).push(c,null));for(c in n){var l=n[c];if(s=a!=null?a[c]:void 0,n.hasOwnProperty(c)&&l!==s&&(l!=null||s!=null))if(c==="style")if(s){for(o in s)!s.hasOwnProperty(o)||l&&l.hasOwnProperty(o)||(t||(t={}),t[o]="");for(o in l)l.hasOwnProperty(o)&&s[o]!==l[o]&&(t||(t={}),t[o]=l[o])}else t||(r||(r=[]),r.push(c,t)),t=l;else c==="dangerouslySetInnerHTML"?(l=l?l.__html:void 0,s=s?s.__html:void 0,l!=null&&s!==l&&(r=r||[]).push(c,l)):c==="children"?typeof l!="string"&&typeof l!="number"||(r=r||[]).push(c,""+l):c!=="suppressContentEditableWarning"&&c!=="suppressHydrationWarning"&&(jt.hasOwnProperty(c)?(l!=null&&c==="onScroll"&&z("scroll",e),r||s===l||(r=[])):(r=r||[]).push(c,l))}t&&(r=r||[]).push("style",t);var c=r;(i.updateQueue=c)&&(i.flags|=4)}};Gc=function(e,i,t,n){t!==n&&(i.flags|=4)};function ft(e,i){if(!E)switch(e.tailMode){case"hidden":i=e.tail;for(var t=null;i!==null;)i.alternate!==null&&(t=i),i=i.sibling;t===null?e.tail=null:t.sibling=null;break;case"collapsed":t=e.tail;for(var n=null;t!==null;)t.alternate!==null&&(n=t),t=t.sibling;n===null?i||e.tail===null?e.tail=null:e.tail.sibling=null:n.sibling=null}}function ne(e){var i=e.alternate!==null&&e.alternate.child===e.child,t=0,n=0;if(i)for(var a=e.child;a!==null;)t|=a.lanes|a.childLanes,n|=a.subtreeFlags&14680064,n|=a.flags&14680064,a.return=e,a=a.sibling;else for(a=e.child;a!==null;)t|=a.lanes|a.childLanes,n|=a.subtreeFlags,n|=a.flags,a.return=e,a=a.sibling;return e.subtreeFlags|=n,e.childLanes=t,i}function bp(e,i,t){var n=i.pendingProps;switch(po(i),i.tag){case 2:case 16:case 15:case 0:case 11:case 7:case 8:case 12:case 9:case 14:return ne(i),null;case 1:return he(i.type)&&_n(),ne(i),null;case 3:return n=i.stateNode,tt(),q(pe),q(re),ko(),n.pendingContext&&(n.context=n.pendingContext,n.pendingContext=null),(e===null||e.child===null)&&(gn(i)?i.flags|=4:e===null||e.memoizedState.isDehydrated&&!(i.flags&256)||(i.flags|=1024,je!==null&&(Nr(je),je=null))),Fr(e,i),ne(i),null;case 5:wo(i);var a=Ii(Jt.current);if(t=i.type,e!==null&&i.stateNode!=null)Kc(e,i,t,n,a),e.ref!==i.ref&&(i.flags|=512,i.flags|=2097152);else{if(!n){if(i.stateNode===null)throw Error(b(166));return ne(i),null}if(e=Ii(Be.current),gn(i)){n=i.stateNode,t=i.type;var r=i.memoizedProps;switch(n[qe]=i,n[Nt]=r,e=(i.mode&1)!==0,t){case"dialog":z("cancel",n),z("close",n);break;case"iframe":case"object":case"embed":z("load",n);break;case"video":case"audio":for(a=0;a<kt.length;a++)z(kt[a],n);break;case"source":z("error",n);break;case"img":case"image":case"link":z("error",n),z("load",n);break;case"details":z("toggle",n);break;case"input":Wo(n,r),z("invalid",n);break;case"select":n._wrapperState={wasMultiple:!!r.multiple},z("invalid",n);break;case"textarea":Xo(n,r),z("invalid",n)}or(t,r),a=null;for(var o in r)if(r.hasOwnProperty(o)){var s=r[o];o==="children"?typeof s=="string"?n.textContent!==s&&(r.suppressHydrationWarning!==!0&&mn(n.textContent,s,e),a=["children",s]):typeof s=="number"&&n.textContent!==""+s&&(r.suppressHydrationWarning!==!0&&mn(n.textContent,s,e),a=["children",""+s]):jt.hasOwnProperty(o)&&s!=null&&o==="onScroll"&&z("scroll",n)}switch(t){case"input":on(n),Uo(n,r,!0);break;case"textarea":on(n),Qo(n);break;case"select":case"option":break;default:typeof r.onClick=="function"&&(n.onclick=Nn)}n=a,i.updateQueue=n,n!==null&&(i.flags|=4)}else{o=a.nodeType===9?a:a.ownerDocument,e==="http://www.w3.org/1999/xhtml"&&(e=bl(t)),e==="http://www.w3.org/1999/xhtml"?t==="script"?(e=o.createElement("div"),e.innerHTML="<script><\/script>",e=e.removeChild(e.firstChild)):typeof n.is=="string"?e=o.createElement(t,{is:n.is}):(e=o.createElement(t),t==="select"&&(o=e,n.multiple?o.multiple=!0:n.size&&(o.size=n.size))):e=o.createElementNS(e,t),e[qe]=i,e[Nt]=n,Jc(e,i,!1,!1),i.stateNode=e;e:{switch(o=sr(t,n),t){case"dialog":z("cancel",e),z("close",e),a=n;break;case"iframe":case"object":case"embed":z("load",e),a=n;break;case"video":case"audio":for(a=0;a<kt.length;a++)z(kt[a],e);a=n;break;case"source":z("error",e),a=n;break;case"img":case"image":case"link":z("error",e),z("load",e),a=n;break;case"details":z("toggle",e),a=n;break;case"input":Wo(e,n),a=ir(e,n),z("invalid",e);break;case"option":a=n;break;case"select":e._wrapperState={wasMultiple:!!n.multiple},a=N({},n,{value:void 0}),z("invalid",e);break;case"textarea":Xo(e,n),a=ar(e,n),z("invalid",e);break;default:a=n}or(t,a),s=a;for(r in s)if(s.hasOwnProperty(r)){var l=s[r];r==="style"?xl(e,l):r==="dangerouslySetInnerHTML"?(l=l?l.__html:void 0,l!=null&&wl(e,l)):r==="children"?typeof l=="string"?(t!=="textarea"||l!=="")&&Ot(e,l):typeof l=="number"&&Ot(e,""+l):r!=="suppressContentEditableWarning"&&r!=="suppressHydrationWarning"&&r!=="autoFocus"&&(jt.hasOwnProperty(r)?l!=null&&r==="onScroll"&&z("scroll",e):l!=null&&Qr(e,r,l,o))}switch(t){case"input":on(e),Uo(e,n,!1);break;case"textarea":on(e),Qo(e);break;case"option":n.value!=null&&e.setAttribute("value",""+ui(n.value));break;case"select":e.multiple=!!n.multiple,r=n.value,r!=null?Vi(e,!!n.multiple,r,!1):n.defaultValue!=null&&Vi(e,!!n.multiple,n.defaultValue,!0);break;default:typeof a.onClick=="function"&&(e.onclick=Nn)}switch(t){case"button":case"input":case"select":case"textarea":n=!!n.autoFocus;break e;case"img":n=!0;break e;default:n=!1}}n&&(i.flags|=4)}i.ref!==null&&(i.flags|=512,i.flags|=2097152)}return ne(i),null;case 6:if(e&&i.stateNode!=null)Gc(e,i,e.memoizedProps,n);else{if(typeof n!="string"&&i.stateNode===null)throw Error(b(166));if(t=Ii(Jt.current),Ii(Be.current),gn(i)){if(n=i.stateNode,t=i.memoizedProps,n[qe]=i,(r=n.nodeValue!==t)&&(e=ye,e!==null))switch(e.tag){case 3:mn(n.nodeValue,t,(e.mode&1)!==0);break;case 5:e.memoizedProps.suppressHydrationWarning!==!0&&mn(n.nodeValue,t,(e.mode&1)!==0)}r&&(i.flags|=4)}else n=(t.nodeType===9?t:t.ownerDocument).createTextNode(n),n[qe]=i,i.stateNode=n}return ne(i),null;case 13:if(q(B),n=i.memoizedState,e===null||e.memoizedState!==null&&e.memoizedState.dehydrated!==null){if(E&&fe!==null&&i.mode&1&&!(i.flags&128))cc(),et(),i.flags|=98560,r=!1;else if(r=gn(i),n!==null&&n.dehydrated!==null){if(e===null){if(!r)throw Error(b(318));if(r=i.memoizedState,r=r!==null?r.dehydrated:null,!r)throw Error(b(317));r[qe]=i}else et(),!(i.flags&128)&&(i.memoizedState=null),i.flags|=4;ne(i),r=!1}else je!==null&&(Nr(je),je=null),r=!0;if(!r)return i.flags&65536?i:null}return i.flags&128?(i.lanes=t,i):(n=n!==null,n!==(e!==null&&e.memoizedState!==null)&&n&&(i.child.flags|=8192,i.mode&1&&(e===null||B.current&1?X===0&&(X=3):Fo())),i.updateQueue!==null&&(i.flags|=4),ne(i),null);case 4:return tt(),Fr(e,i),e===null&&Bt(i.stateNode.containerInfo),ne(i),null;case 10:return fo(i.type._context),ne(i),null;case 17:return he(i.type)&&_n(),ne(i),null;case 19:if(q(B),r=i.memoizedState,r===null)return ne(i),null;if(n=(i.flags&128)!==0,o=r.rendering,o===null)if(n)ft(r,!1);else{if(X!==0||e!==null&&e.flags&128)for(e=i.child;e!==null;){if(o=Xn(e),o!==null){for(i.flags|=128,ft(r,!1),n=o.updateQueue,n!==null&&(i.updateQueue=n,i.flags|=4),i.subtreeFlags=0,n=t,t=i.child;t!==null;)r=t,e=n,r.flags&=14680066,o=r.alternate,o===null?(r.childLanes=0,r.lanes=e,r.child=null,r.subtreeFlags=0,r.memoizedProps=null,r.memoizedState=null,r.updateQueue=null,r.dependencies=null,r.stateNode=null):(r.childLanes=o.childLanes,r.lanes=o.lanes,r.child=o.child,r.subtreeFlags=0,r.deletions=null,r.memoizedProps=o.memoizedProps,r.memoizedState=o.memoizedState,r.updateQueue=o.updateQueue,r.type=o.type,e=o.dependencies,r.dependencies=e===null?null:{lanes:e.lanes,firstContext:e.firstContext}),t=t.sibling;return L(B,B.current&1|2),i.child}e=e.sibling}r.tail!==null&&G()>at&&(i.flags|=128,n=!0,ft(r,!1),i.lanes=4194304)}else{if(!n)if(e=Xn(o),e!==null){if(i.flags|=128,n=!0,t=e.updateQueue,t!==null&&(i.updateQueue=t,i.flags|=4),ft(r,!0),r.tail===null&&r.tailMode==="hidden"&&!o.alternate&&!E)return ne(i),null}else 2*G()-r.renderingStartTime>at&&t!==1073741824&&(i.flags|=128,n=!0,ft(r,!1),i.lanes=4194304);r.isBackwards?(o.sibling=i.child,i.child=o):(t=r.last,t!==null?t.sibling=o:i.child=o,r.last=o)}return r.tail!==null?(i=r.tail,r.rendering=i,r.tail=i.sibling,r.renderingStartTime=G(),i.sibling=null,t=B.current,L(B,n?t&1|2:t&1),i):(ne(i),null);case 22:case 23:return Oo(),n=i.memoizedState!==null,e!==null&&e.memoizedState!==null!==n&&(i.flags|=8192),n&&i.mode&1?ge&1073741824&&(ne(i),i.subtreeFlags&6&&(i.flags|=8192)):ne(i),null;case 24:return null;case 25:return null}throw Error(b(156,i.tag))}function wp(e,i){switch(po(i),i.tag){case 1:return he(i.type)&&_n(),e=i.flags,e&65536?(i.flags=e&-65537|128,i):null;case 3:return tt(),q(pe),q(re),ko(),e=i.flags,e&65536&&!(e&128)?(i.flags=e&-65537|128,i):null;case 5:return wo(i),null;case 13:if(q(B),e=i.memoizedState,e!==null&&e.dehydrated!==null){if(i.alternate===null)throw Error(b(340));et()}return e=i.flags,e&65536?(i.flags=e&-65537|128,i):null;case 19:return q(B),null;case 4:return tt(),null;case 10:return fo(i.type._context),null;case 22:case 23:return Oo(),null;case 24:return null;default:return null}}var vn=!1,ae=!1,kp=typeof WeakSet=="function"?WeakSet:Set,x=null;function Ki(e,i){var t=e.ref;if(t!==null)if(typeof t=="function")try{t(null)}catch(n){_(e,i,n)}else t.current=null}function Dr(e,i,t){try{t()}catch(n){_(e,i,n)}}var Bs=!1;function xp(e,i){if(yr=En,e=Ql(),co(e)){if("selectionStart"in e)var t={start:e.selectionStart,end:e.selectionEnd};else e:{t=(t=e.ownerDocument)&&t.defaultView||window;var n=t.getSelection&&t.getSelection();if(n&&n.rangeCount!==0){t=n.anchorNode;var a=n.anchorOffset,r=n.focusNode;n=n.focusOffset;try{t.nodeType,r.nodeType}catch{t=null;break e}var o=0,s=-1,l=-1,c=0,f=0,g=e,h=null;i:for(;;){for(var y;g!==t||a!==0&&g.nodeType!==3||(s=o+a),g!==r||n!==0&&g.nodeType!==3||(l=o+n),g.nodeType===3&&(o+=g.nodeValue.length),(y=g.firstChild)!==null;)h=g,g=y;for(;;){if(g===e)break i;if(h===t&&++c===a&&(s=o),h===r&&++f===n&&(l=o),(y=g.nextSibling)!==null)break;g=h,h=g.parentNode}g=y}t=s===-1||l===-1?null:{start:s,end:l}}else t=null}t=t||{start:0,end:0}}else t=null;for(vr={focusedElem:e,selectionRange:t},En=!1,x=i;x!==null;)if(i=x,e=i.child,(i.subtreeFlags&1028)!==0&&e!==null)e.return=i,x=e;else for(;x!==null;){i=x;try{var w=i.alternate;if(i.flags&1024)switch(i.tag){case 0:case 11:case 15:break;case 1:if(w!==null){var k=w.memoizedProps,D=w.memoizedState,u=i.stateNode,d=u.getSnapshotBeforeUpdate(i.elementType===i.type?k:Re(i.type,k),D);u.__reactInternalSnapshotBeforeUpdate=d}break;case 3:var p=i.stateNode.containerInfo;p.nodeType===1?p.textContent="":p.nodeType===9&&p.documentElement&&p.removeChild(p.documentElement);break;case 5:case 6:case 4:case 17:break;default:throw Error(b(163))}}catch(v){_(i,i.return,v)}if(e=i.sibling,e!==null){e.return=i.return,x=e;break}x=i.return}return w=Bs,Bs=!1,w}function Pt(e,i,t){var n=i.updateQueue;if(n=n!==null?n.lastEffect:null,n!==null){var a=n=n.next;do{if((a.tag&e)===e){var r=a.destroy;a.destroy=void 0,r!==void 0&&Dr(i,t,r)}a=a.next}while(a!==n)}}function pa(e,i){if(i=i.updateQueue,i=i!==null?i.lastEffect:null,i!==null){var t=i=i.next;do{if((t.tag&e)===e){var n=t.create;t.destroy=n()}t=t.next}while(t!==i)}}function Lr(e){var i=e.ref;if(i!==null){var t=e.stateNode;switch(e.tag){case 5:e=t;break;default:e=t}typeof i=="function"?i(e):i.current=e}}function Vc(e){var i=e.alternate;i!==null&&(e.alternate=null,Vc(i)),e.child=null,e.deletions=null,e.sibling=null,e.tag===5&&(i=e.stateNode,i!==null&&(delete i[qe],delete i[Nt],delete i[kr],delete i[ap],delete i[rp])),e.stateNode=null,e.return=null,e.dependencies=null,e.memoizedProps=null,e.memoizedState=null,e.pendingProps=null,e.stateNode=null,e.updateQueue=null}function Wc(e){return e.tag===5||e.tag===3||e.tag===4}function Hs(e){e:for(;;){for(;e.sibling===null;){if(e.return===null||Wc(e.return))return null;e=e.return}for(e.sibling.return=e.return,e=e.sibling;e.tag!==5&&e.tag!==6&&e.tag!==18;){if(e.flags&2||e.child===null||e.tag===4)continue e;e.child.return=e,e=e.child}if(!(e.flags&2))return e.stateNode}}function zr(e,i,t){var n=e.tag;if(n===5||n===6)e=e.stateNode,i?t.nodeType===8?t.parentNode.insertBefore(e,i):t.insertBefore(e,i):(t.nodeType===8?(i=t.parentNode,i.insertBefore(e,t)):(i=t,i.appendChild(e)),t=t._reactRootContainer,t!=null||i.onclick!==null||(i.onclick=Nn));else if(n!==4&&(e=e.child,e!==null))for(zr(e,i,t),e=e.sibling;e!==null;)zr(e,i,t),e=e.sibling}function qr(e,i,t){var n=e.tag;if(n===5||n===6)e=e.stateNode,i?t.insertBefore(e,i):t.appendChild(e);else if(n!==4&&(e=e.child,e!==null))for(qr(e,i,t),e=e.sibling;e!==null;)qr(e,i,t),e=e.sibling}var $=null,Me=!1;function Qe(e,i,t){for(t=t.child;t!==null;)Uc(e,i,t),t=t.sibling}function Uc(e,i,t){if(Ee&&typeof Ee.onCommitFiberUnmount=="function")try{Ee.onCommitFiberUnmount(aa,t)}catch{}switch(t.tag){case 5:ae||Ki(t,i);case 6:var n=$,a=Me;$=null,Qe(e,i,t),$=n,Me=a,$!==null&&(Me?(e=$,t=t.stateNode,e.nodeType===8?e.parentNode.removeChild(t):e.removeChild(t)):$.removeChild(t.stateNode));break;case 18:$!==null&&(Me?(e=$,t=t.stateNode,e.nodeType===8?Ba(e.parentNode,t):e.nodeType===1&&Ba(e,t),zt(e)):Ba($,t.stateNode));break;case 4:n=$,a=Me,$=t.stateNode.containerInfo,Me=!0,Qe(e,i,t),$=n,Me=a;break;case 0:case 11:case 14:case 15:if(!ae&&(n=t.updateQueue,n!==null&&(n=n.lastEffect,n!==null))){a=n=n.next;do{var r=a,o=r.destroy;r=r.tag,o!==void 0&&(r&2||r&4)&&Dr(t,i,o),a=a.next}while(a!==n)}Qe(e,i,t);break;case 1:if(!ae&&(Ki(t,i),n=t.stateNode,typeof n.componentWillUnmount=="function"))try{n.props=t.memoizedProps,n.state=t.memoizedState,n.componentWillUnmount()}catch(s){_(t,i,s)}Qe(e,i,t);break;case 21:Qe(e,i,t);break;case 22:t.mode&1?(ae=(n=ae)||t.memoizedState!==null,Qe(e,i,t),ae=n):Qe(e,i,t);break;default:Qe(e,i,t)}}function Ns(e){var i=e.updateQueue;if(i!==null){e.updateQueue=null;var t=e.stateNode;t===null&&(t=e.stateNode=new kp),i.forEach(function(n){var a=jp.bind(null,e,n);t.has(n)||(t.add(n),n.then(a,a))})}}function Pe(e,i){var t=i.deletions;if(t!==null)for(var n=0;n<t.length;n++){var a=t[n];try{var r=e,o=i,s=o;e:for(;s!==null;){switch(s.tag){case 5:$=s.stateNode,Me=!1;break e;case 3:$=s.stateNode.containerInfo,Me=!0;break e;case 4:$=s.stateNode.containerInfo,Me=!0;break e}s=s.return}if($===null)throw Error(b(160));Uc(r,o,a),$=null,Me=!1;var l=a.alternate;l!==null&&(l.return=null),a.return=null}catch(c){_(a,i,c)}}if(i.subtreeFlags&12854)for(i=i.child;i!==null;)Xc(i,e),i=i.sibling}function Xc(e,i){var t=e.alternate,n=e.flags;switch(e.tag){case 0:case 11:case 14:case 15:if(Pe(i,e),Le(e),n&4){try{Pt(3,e,e.return),pa(3,e)}catch(k){_(e,e.return,k)}try{Pt(5,e,e.return)}catch(k){_(e,e.return,k)}}break;case 1:Pe(i,e),Le(e),n&512&&t!==null&&Ki(t,t.return);break;case 5:if(Pe(i,e),Le(e),n&512&&t!==null&&Ki(t,t.return),e.flags&32){var a=e.stateNode;try{Ot(a,"")}catch(k){_(e,e.return,k)}}if(n&4&&(a=e.stateNode,a!=null)){var r=e.memoizedProps,o=t!==null?t.memoizedProps:r,s=e.type,l=e.updateQueue;if(e.updateQueue=null,l!==null)try{s==="input"&&r.type==="radio"&&r.name!=null&&yl(a,r),sr(s,o);var c=sr(s,r);for(o=0;o<l.length;o+=2){var f=l[o],g=l[o+1];f==="style"?xl(a,g):f==="dangerouslySetInnerHTML"?wl(a,g):f==="children"?Ot(a,g):Qr(a,f,g,c)}switch(s){case"input":tr(a,r);break;case"textarea":vl(a,r);break;case"select":var h=a._wrapperState.wasMultiple;a._wrapperState.wasMultiple=!!r.multiple;var y=r.value;y!=null?Vi(a,!!r.multiple,y,!1):h!==!!r.multiple&&(r.defaultValue!=null?Vi(a,!!r.multiple,r.defaultValue,!0):Vi(a,!!r.multiple,r.multiple?[]:"",!1))}a[Nt]=r}catch(k){_(e,e.return,k)}}break;case 6:if(Pe(i,e),Le(e),n&4){if(e.stateNode===null)throw Error(b(162));a=e.stateNode,r=e.memoizedProps;try{a.nodeValue=r}catch(k){_(e,e.return,k)}}break;case 3:if(Pe(i,e),Le(e),n&4&&t!==null&&t.memoizedState.isDehydrated)try{zt(i.containerInfo)}catch(k){_(e,e.return,k)}break;case 4:Pe(i,e),Le(e);break;case 13:Pe(i,e),Le(e),a=e.child,a.flags&8192&&(r=a.memoizedState!==null,a.stateNode.isHidden=r,!r||a.alternate!==null&&a.alternate.memoizedState!==null||(Mo=G())),n&4&&Ns(e);break;case 22:if(f=t!==null&&t.memoizedState!==null,e.mode&1?(ae=(c=ae)||f,Pe(i,e),ae=c):Pe(i,e),Le(e),n&8192){if(c=e.memoizedState!==null,(e.stateNode.isHidden=c)&&!f&&e.mode&1)for(x=e,f=e.child;f!==null;){for(g=x=f;x!==null;){switch(h=x,y=h.child,h.tag){case 0:case 11:case 14:case 15:Pt(4,h,h.return);break;case 1:Ki(h,h.return);var w=h.stateNode;if(typeof w.componentWillUnmount=="function"){n=h,t=h.return;try{i=n,w.props=i.memoizedProps,w.state=i.memoizedState,w.componentWillUnmount()}catch(k){_(n,t,k)}}break;case 5:Ki(h,h.return);break;case 22:if(h.memoizedState!==null){Js(g);continue}}y!==null?(y.return=h,x=y):Js(g)}f=f.sibling}e:for(f=null,g=e;;){if(g.tag===5){if(f===null){f=g;try{a=g.stateNode,c?(r=a.style,typeof r.setProperty=="function"?r.setProperty("display","none","important"):r.display="none"):(s=g.stateNode,l=g.memoizedProps.style,o=l!=null&&l.hasOwnProperty("display")?l.display:null,s.style.display=kl("display",o))}catch(k){_(e,e.return,k)}}}else if(g.tag===6){if(f===null)try{g.stateNode.nodeValue=c?"":g.memoizedProps}catch(k){_(e,e.return,k)}}else if((g.tag!==22&&g.tag!==23||g.memoizedState===null||g===e)&&g.child!==null){g.child.return=g,g=g.child;continue}if(g===e)break e;for(;g.sibling===null;){if(g.return===null||g.return===e)break e;f===g&&(f=null),g=g.return}f===g&&(f=null),g.sibling.return=g.return,g=g.sibling}}break;case 19:Pe(i,e),Le(e),n&4&&Ns(e);break;case 21:break;default:Pe(i,e),Le(e)}}function Le(e){var i=e.flags;if(i&2){try{e:{for(var t=e.return;t!==null;){if(Wc(t)){var n=t;break e}t=t.return}throw Error(b(160))}switch(n.tag){case 5:var a=n.stateNode;n.flags&32&&(Ot(a,""),n.flags&=-33);var r=Hs(e);qr(e,r,a);break;case 3:case 4:var o=n.stateNode.containerInfo,s=Hs(e);zr(e,s,o);break;default:throw Error(b(161))}}catch(l){_(e,e.return,l)}e.flags&=-3}i&4096&&(e.flags&=-4097)}function Ip(e,i,t){x=e,Qc(e)}function Qc(e,i,t){for(var n=(e.mode&1)!==0;x!==null;){var a=x,r=a.child;if(a.tag===22&&n){var o=a.memoizedState!==null||vn;if(!o){var s=a.alternate,l=s!==null&&s.memoizedState!==null||ae;s=vn;var c=ae;if(vn=o,(ae=l)&&!c)for(x=a;x!==null;)o=x,l=o.child,o.tag===22&&o.memoizedState!==null?Ks(a):l!==null?(l.return=o,x=l):Ks(a);for(;r!==null;)x=r,Qc(r),r=r.sibling;x=a,vn=s,ae=c}_s(e)}else a.subtreeFlags&8772&&r!==null?(r.return=a,x=r):_s(e)}}function _s(e){for(;x!==null;){var i=x;if(i.flags&8772){var t=i.alternate;try{if(i.flags&8772)switch(i.tag){case 0:case 11:case 15:ae||pa(5,i);break;case 1:var n=i.stateNode;if(i.flags&4&&!ae)if(t===null)n.componentDidMount();else{var a=i.elementType===i.type?t.memoizedProps:Re(i.type,t.memoizedProps);n.componentDidUpdate(a,t.memoizedState,n.__reactInternalSnapshotBeforeUpdate)}var r=i.updateQueue;r!==null&&Cs(i,r,n);break;case 3:var o=i.updateQueue;if(o!==null){if(t=null,i.child!==null)switch(i.child.tag){case 5:t=i.child.stateNode;break;case 1:t=i.child.stateNode}Cs(i,o,t)}break;case 5:var s=i.stateNode;if(t===null&&i.flags&4){t=s;var l=i.memoizedProps;switch(i.type){case"button":case"input":case"select":case"textarea":l.autoFocus&&t.focus();break;case"img":l.src&&(t.src=l.src)}}break;case 6:break;case 4:break;case 12:break;case 13:if(i.memoizedState===null){var c=i.alternate;if(c!==null){var f=c.memoizedState;if(f!==null){var g=f.dehydrated;g!==null&&zt(g)}}}break;case 19:case 17:case 21:case 22:case 23:case 25:break;default:throw Error(b(163))}ae||i.flags&512&&Lr(i)}catch(h){_(i,i.return,h)}}if(i===e){x=null;break}if(t=i.sibling,t!==null){t.return=i.return,x=t;break}x=i.return}}function Js(e){for(;x!==null;){var i=x;if(i===e){x=null;break}var t=i.sibling;if(t!==null){t.return=i.return,x=t;break}x=i.return}}function Ks(e){for(;x!==null;){var i=x;try{switch(i.tag){case 0:case 11:case 15:var t=i.return;try{pa(4,i)}catch(l){_(i,t,l)}break;case 1:var n=i.stateNode;if(typeof n.componentDidMount=="function"){var a=i.return;try{n.componentDidMount()}catch(l){_(i,a,l)}}var r=i.return;try{Lr(i)}catch(l){_(i,r,l)}break;case 5:var o=i.return;try{Lr(i)}catch(l){_(i,o,l)}}}catch(l){_(i,i.return,l)}if(i===e){x=null;break}var s=i.sibling;if(s!==null){s.return=i.return,x=s;break}x=i.return}}var Ap=Math.ceil,Yn=Xe.ReactCurrentDispatcher,Po=Xe.ReactCurrentOwner,Ae=Xe.ReactCurrentBatchConfig,O=0,Y=null,W=null,ee=0,ge=0,Gi=mi(0),X=0,Wt=null,Ri=0,ha=0,Ro=0,Rt=null,de=null,Mo=0,at=1/0,He=null,$n=!1,Er=null,li=null,bn=!1,ti=null,ea=0,Mt=0,Br=null,Mn=-1,jn=0;function se(){return O&6?G():Mn!==-1?Mn:Mn=G()}function ci(e){return e.mode&1?O&2&&ee!==0?ee&-ee:sp.transition!==null?(jn===0&&(jn=Dl()),jn):(e=F,e!==0||(e=window.event,e=e===void 0?16:Nl(e.type)),e):1}function Fe(e,i,t,n){if(50<Mt)throw Mt=0,Br=null,Error(b(185));Zt(e,t,n),(!(O&2)||e!==Y)&&(e===Y&&(!(O&2)&&(ha|=t),X===4&&ei(e,ee)),me(e,n),t===1&&O===0&&!(i.mode&1)&&(at=G()+500,ca&&gi()))}function me(e,i){var t=e.callbackNode;su(e,i);var n=qn(e,e===Y?ee:0);if(n===0)t!==null&&$o(t),e.callbackNode=null,e.callbackPriority=0;else if(i=n&-n,e.callbackPriority!==i){if(t!=null&&$o(t),i===1)e.tag===0?op(Gs.bind(null,e)):oc(Gs.bind(null,e)),tp(function(){!(O&6)&&gi()}),t=null;else{switch(Ll(n)){case 1:t=io;break;case 4:t=Ol;break;case 16:t=zn;break;case 536870912:t=Fl;break;default:t=zn}t=ad(t,Zc.bind(null,e))}e.callbackPriority=i,e.callbackNode=t}}function Zc(e,i){if(Mn=-1,jn=0,O&6)throw Error(b(327));var t=e.callbackNode;if(Zi()&&e.callbackNode!==t)return null;var n=qn(e,e===Y?ee:0);if(n===0)return null;if(n&30||n&e.expiredLanes||i)i=ia(e,n);else{i=n;var a=O;O|=2;var r=$c();(Y!==e||ee!==i)&&(He=null,at=G()+500,Ai(e,i));do try{Tp();break}catch(s){Yc(e,s)}while(!0);go(),Yn.current=r,O=a,W!==null?i=0:(Y=null,ee=0,i=X)}if(i!==0){if(i===2&&(a=pr(e),a!==0&&(n=a,i=Hr(e,a))),i===1)throw t=Wt,Ai(e,0),ei(e,n),me(e,G()),t;if(i===6)ei(e,n);else{if(a=e.current.alternate,!(n&30)&&!Sp(a)&&(i=ia(e,n),i===2&&(r=pr(e),r!==0&&(n=r,i=Hr(e,r))),i===1))throw t=Wt,Ai(e,0),ei(e,n),me(e,G()),t;switch(e.finishedWork=a,e.finishedLanes=n,i){case 0:case 1:throw Error(b(345));case 2:wi(e,de,He);break;case 3:if(ei(e,n),(n&130023424)===n&&(i=Mo+500-G(),10<i)){if(qn(e,0)!==0)break;if(a=e.suspendedLanes,(a&n)!==n){se(),e.pingedLanes|=e.suspendedLanes&a;break}e.timeoutHandle=wr(wi.bind(null,e,de,He),i);break}wi(e,de,He);break;case 4:if(ei(e,n),(n&4194240)===n)break;for(i=e.eventTimes,a=-1;0<n;){var o=31-Oe(n);r=1<<o,o=i[o],o>a&&(a=o),n&=~r}if(n=a,n=G()-n,n=(120>n?120:480>n?480:1080>n?1080:1920>n?1920:3e3>n?3e3:4320>n?4320:1960*Ap(n/1960))-n,10<n){e.timeoutHandle=wr(wi.bind(null,e,de,He),n);break}wi(e,de,He);break;case 5:wi(e,de,He);break;default:throw Error(b(329))}}}return me(e,G()),e.callbackNode===t?Zc.bind(null,e):null}function Hr(e,i){var t=Rt;return e.current.memoizedState.isDehydrated&&(Ai(e,i).flags|=256),e=ia(e,i),e!==2&&(i=de,de=t,i!==null&&Nr(i)),e}function Nr(e){de===null?de=e:de.push.apply(de,e)}function Sp(e){for(var i=e;;){if(i.flags&16384){var t=i.updateQueue;if(t!==null&&(t=t.stores,t!==null))for(var n=0;n<t.length;n++){var a=t[n],r=a.getSnapshot;a=a.value;try{if(!De(r(),a))return!1}catch{return!1}}}if(t=i.child,i.subtreeFlags&16384&&t!==null)t.return=i,i=t;else{if(i===e)break;for(;i.sibling===null;){if(i.return===null||i.return===e)return!0;i=i.return}i.sibling.return=i.return,i=i.sibling}}return!0}function ei(e,i){for(i&=~Ro,i&=~ha,e.suspendedLanes|=i,e.pingedLanes&=~i,e=e.expirationTimes;0<i;){var t=31-Oe(i),n=1<<t;e[t]=-1,i&=~n}}function Gs(e){if(O&6)throw Error(b(327));Zi();var i=qn(e,0);if(!(i&1))return me(e,G()),null;var t=ia(e,i);if(e.tag!==0&&t===2){var n=pr(e);n!==0&&(i=n,t=Hr(e,n))}if(t===1)throw t=Wt,Ai(e,0),ei(e,i),me(e,G()),t;if(t===6)throw Error(b(345));return e.finishedWork=e.current.alternate,e.finishedLanes=i,wi(e,de,He),me(e,G()),null}function jo(e,i){var t=O;O|=1;try{return e(i)}finally{O=t,O===0&&(at=G()+500,ca&&gi())}}function Mi(e){ti!==null&&ti.tag===0&&!(O&6)&&Zi();var i=O;O|=1;var t=Ae.transition,n=F;try{if(Ae.transition=null,F=1,e)return e()}finally{F=n,Ae.transition=t,O=i,!(O&6)&&gi()}}function Oo(){ge=Gi.current,q(Gi)}function Ai(e,i){e.finishedWork=null,e.finishedLanes=0;var t=e.timeoutHandle;if(t!==-1&&(e.timeoutHandle=-1,ip(t)),W!==null)for(t=W.return;t!==null;){var n=t;switch(po(n),n.tag){case 1:n=n.type.childContextTypes,n!=null&&_n();break;case 3:tt(),q(pe),q(re),ko();break;case 5:wo(n);break;case 4:tt();break;case 13:q(B);break;case 19:q(B);break;case 10:fo(n.type._context);break;case 22:case 23:Oo()}t=t.return}if(Y=e,W=e=di(e.current,null),ee=ge=i,X=0,Wt=null,Ro=ha=Ri=0,de=Rt=null,xi!==null){for(i=0;i<xi.length;i++)if(t=xi[i],n=t.interleaved,n!==null){t.interleaved=null;var a=n.next,r=t.pending;if(r!==null){var o=r.next;r.next=a,n.next=o}t.pending=n}xi=null}return e}function Yc(e,i){do{var t=W;try{if(go(),Tn.current=Zn,Qn){for(var n=H.memoizedState;n!==null;){var a=n.queue;a!==null&&(a.pending=null),n=n.next}Qn=!1}if(Pi=0,Z=U=H=null,Tt=!1,Kt=0,Po.current=null,t===null||t.return===null){X=1,Wt=i,W=null;break}e:{var r=e,o=t.return,s=t,l=i;if(i=ee,s.flags|=32768,l!==null&&typeof l=="object"&&typeof l.then=="function"){var c=l,f=s,g=f.tag;if(!(f.mode&1)&&(g===0||g===11||g===15)){var h=f.alternate;h?(f.updateQueue=h.updateQueue,f.memoizedState=h.memoizedState,f.lanes=h.lanes):(f.updateQueue=null,f.memoizedState=null)}var y=Os(o);if(y!==null){y.flags&=-257,Fs(y,o,s,r,i),y.mode&1&&js(r,c,i),i=y,l=c;var w=i.updateQueue;if(w===null){var k=new Set;k.add(l),i.updateQueue=k}else w.add(l);break e}else{if(!(i&1)){js(r,c,i),Fo();break e}l=Error(b(426))}}else if(E&&s.mode&1){var D=Os(o);if(D!==null){!(D.flags&65536)&&(D.flags|=256),Fs(D,o,s,r,i),ho(nt(l,s));break e}}r=l=nt(l,s),X!==4&&(X=2),Rt===null?Rt=[r]:Rt.push(r),r=o;do{switch(r.tag){case 3:r.flags|=65536,i&=-i,r.lanes|=i;var u=Lc(r,l,i);Ss(r,u);break e;case 1:s=l;var d=r.type,p=r.stateNode;if(!(r.flags&128)&&(typeof d.getDerivedStateFromError=="function"||p!==null&&typeof p.componentDidCatch=="function"&&(li===null||!li.has(p)))){r.flags|=65536,i&=-i,r.lanes|=i;var v=zc(r,s,i);Ss(r,v);break e}}r=r.return}while(r!==null)}id(t)}catch(I){i=I,W===t&&t!==null&&(W=t=t.return);continue}break}while(!0)}function $c(){var e=Yn.current;return Yn.current=Zn,e===null?Zn:e}function Fo(){(X===0||X===3||X===2)&&(X=4),Y===null||!(Ri&268435455)&&!(ha&268435455)||ei(Y,ee)}function ia(e,i){var t=O;O|=2;var n=$c();(Y!==e||ee!==i)&&(He=null,Ai(e,i));do try{Cp();break}catch(a){Yc(e,a)}while(!0);if(go(),O=t,Yn.current=n,W!==null)throw Error(b(261));return Y=null,ee=0,X}function Cp(){for(;W!==null;)ed(W)}function Tp(){for(;W!==null&&!Yd();)ed(W)}function ed(e){var i=nd(e.alternate,e,ge);e.memoizedProps=e.pendingProps,i===null?id(e):W=i,Po.current=null}function id(e){var i=e;do{var t=i.alternate;if(e=i.return,i.flags&32768){if(t=wp(t,i),t!==null){t.flags&=32767,W=t;return}if(e!==null)e.flags|=32768,e.subtreeFlags=0,e.deletions=null;else{X=6,W=null;return}}else if(t=bp(t,i,ge),t!==null){W=t;return}if(i=i.sibling,i!==null){W=i;return}W=i=e}while(i!==null);X===0&&(X=5)}function wi(e,i,t){var n=F,a=Ae.transition;try{Ae.transition=null,F=1,Pp(e,i,t,n)}finally{Ae.transition=a,F=n}return null}function Pp(e,i,t,n){do Zi();while(ti!==null);if(O&6)throw Error(b(327));t=e.finishedWork;var a=e.finishedLanes;if(t===null)return null;if(e.finishedWork=null,e.finishedLanes=0,t===e.current)throw Error(b(177));e.callbackNode=null,e.callbackPriority=0;var r=t.lanes|t.childLanes;if(lu(e,r),e===Y&&(W=Y=null,ee=0),!(t.subtreeFlags&2064)&&!(t.flags&2064)||bn||(bn=!0,ad(zn,function(){return Zi(),null})),r=(t.flags&15990)!==0,t.subtreeFlags&15990||r){r=Ae.transition,Ae.transition=null;var o=F;F=1;var s=O;O|=4,Po.current=null,xp(e,t),Xc(t,e),Uu(vr),En=!!yr,vr=yr=null,e.current=t,Ip(t),$d(),O=s,F=o,Ae.transition=r}else e.current=t;if(bn&&(bn=!1,ti=e,ea=a),r=e.pendingLanes,r===0&&(li=null),tu(t.stateNode),me(e,G()),i!==null)for(n=e.onRecoverableError,t=0;t<i.length;t++)a=i[t],n(a.value,{componentStack:a.stack,digest:a.digest});if($n)throw $n=!1,e=Er,Er=null,e;return ea&1&&e.tag!==0&&Zi(),r=e.pendingLanes,r&1?e===Br?Mt++:(Mt=0,Br=e):Mt=0,gi(),null}function Zi(){if(ti!==null){var e=Ll(ea),i=Ae.transition,t=F;try{if(Ae.transition=null,F=16>e?16:e,ti===null)var n=!1;else{if(e=ti,ti=null,ea=0,O&6)throw Error(b(331));var a=O;for(O|=4,x=e.current;x!==null;){var r=x,o=r.child;if(x.flags&16){var s=r.deletions;if(s!==null){for(var l=0;l<s.length;l++){var c=s[l];for(x=c;x!==null;){var f=x;switch(f.tag){case 0:case 11:case 15:Pt(8,f,r)}var g=f.child;if(g!==null)g.return=f,x=g;else for(;x!==null;){f=x;var h=f.sibling,y=f.return;if(Vc(f),f===c){x=null;break}if(h!==null){h.return=y,x=h;break}x=y}}}var w=r.alternate;if(w!==null){var k=w.child;if(k!==null){w.child=null;do{var D=k.sibling;k.sibling=null,k=D}while(k!==null)}}x=r}}if(r.subtreeFlags&2064&&o!==null)o.return=r,x=o;else e:for(;x!==null;){if(r=x,r.flags&2048)switch(r.tag){case 0:case 11:case 15:Pt(9,r,r.return)}var u=r.sibling;if(u!==null){u.return=r.return,x=u;break e}x=r.return}}var d=e.current;for(x=d;x!==null;){o=x;var p=o.child;if(o.subtreeFlags&2064&&p!==null)p.return=o,x=p;else e:for(o=d;x!==null;){if(s=x,s.flags&2048)try{switch(s.tag){case 0:case 11:case 15:pa(9,s)}}catch(I){_(s,s.return,I)}if(s===o){x=null;break e}var v=s.sibling;if(v!==null){v.return=s.return,x=v;break e}x=s.return}}if(O=a,gi(),Ee&&typeof Ee.onPostCommitFiberRoot=="function")try{Ee.onPostCommitFiberRoot(aa,e)}catch{}n=!0}return n}finally{F=t,Ae.transition=i}}return!1}function Vs(e,i,t){i=nt(t,i),i=Lc(e,i,1),e=si(e,i,1),i=se(),e!==null&&(Zt(e,1,i),me(e,i))}function _(e,i,t){if(e.tag===3)Vs(e,e,t);else for(;i!==null;){if(i.tag===3){Vs(i,e,t);break}else if(i.tag===1){var n=i.stateNode;if(typeof i.type.getDerivedStateFromError=="function"||typeof n.componentDidCatch=="function"&&(li===null||!li.has(n))){e=nt(t,e),e=zc(i,e,1),i=si(i,e,1),e=se(),i!==null&&(Zt(i,1,e),me(i,e));break}}i=i.return}}function Rp(e,i,t){var n=e.pingCache;n!==null&&n.delete(i),i=se(),e.pingedLanes|=e.suspendedLanes&t,Y===e&&(ee&t)===t&&(X===4||X===3&&(ee&130023424)===ee&&500>G()-Mo?Ai(e,0):Ro|=t),me(e,i)}function td(e,i){i===0&&(e.mode&1?(i=cn,cn<<=1,!(cn&130023424)&&(cn=4194304)):i=1);var t=se();e=We(e,i),e!==null&&(Zt(e,i,t),me(e,t))}function Mp(e){var i=e.memoizedState,t=0;i!==null&&(t=i.retryLane),td(e,t)}function jp(e,i){var t=0;switch(e.tag){case 13:var n=e.stateNode,a=e.memoizedState;a!==null&&(t=a.retryLane);break;case 19:n=e.stateNode;break;default:throw Error(b(314))}n!==null&&n.delete(i),td(e,t)}var nd;nd=function(e,i,t){if(e!==null)if(e.memoizedProps!==i.pendingProps||pe.current)ue=!0;else{if(!(e.lanes&t)&&!(i.flags&128))return ue=!1,vp(e,i,t);ue=!!(e.flags&131072)}else ue=!1,E&&i.flags&1048576&&sc(i,Gn,i.index);switch(i.lanes=0,i.tag){case 2:var n=i.type;Rn(e,i),e=i.pendingProps;var a=$i(i,re.current);Qi(i,t),a=Io(null,i,n,e,a,t);var r=Ao();return i.flags|=1,typeof a=="object"&&a!==null&&typeof a.render=="function"&&a.$$typeof===void 0?(i.tag=1,i.memoizedState=null,i.updateQueue=null,he(n)?(r=!0,Jn(i)):r=!1,i.memoizedState=a.state!==null&&a.state!==void 0?a.state:null,vo(i),a.updater=ua,i.stateNode=a,a._reactInternals=i,Tr(i,n,e,t),i=Mr(null,i,n,!0,r,t)):(i.tag=0,E&&r&&uo(i),oe(null,i,a,t),i=i.child),i;case 16:n=i.elementType;e:{switch(Rn(e,i),e=i.pendingProps,a=n._init,n=a(n._payload),i.type=n,a=i.tag=Fp(n),e=Re(n,e),a){case 0:i=Rr(null,i,n,e,t);break e;case 1:i=zs(null,i,n,e,t);break e;case 11:i=Ds(null,i,n,e,t);break e;case 14:i=Ls(null,i,n,Re(n.type,e),t);break e}throw Error(b(306,n,""))}return i;case 0:return n=i.type,a=i.pendingProps,a=i.elementType===n?a:Re(n,a),Rr(e,i,n,a,t);case 1:return n=i.type,a=i.pendingProps,a=i.elementType===n?a:Re(n,a),zs(e,i,n,a,t);case 3:e:{if(Hc(i),e===null)throw Error(b(387));n=i.pendingProps,r=i.memoizedState,a=r.element,hc(e,i),Un(i,n,null,t);var o=i.memoizedState;if(n=o.element,r.isDehydrated)if(r={element:n,isDehydrated:!1,cache:o.cache,pendingSuspenseBoundaries:o.pendingSuspenseBoundaries,transitions:o.transitions},i.updateQueue.baseState=r,i.memoizedState=r,i.flags&256){a=nt(Error(b(423)),i),i=qs(e,i,n,t,a);break e}else if(n!==a){a=nt(Error(b(424)),i),i=qs(e,i,n,t,a);break e}else for(fe=oi(i.stateNode.containerInfo.firstChild),ye=i,E=!0,je=null,t=uc(i,null,n,t),i.child=t;t;)t.flags=t.flags&-3|4096,t=t.sibling;else{if(et(),n===a){i=Ue(e,i,t);break e}oe(e,i,n,t)}i=i.child}return i;case 5:return mc(i),e===null&&Ar(i),n=i.type,a=i.pendingProps,r=e!==null?e.memoizedProps:null,o=a.children,br(n,a)?o=null:r!==null&&br(n,r)&&(i.flags|=32),Bc(e,i),oe(e,i,o,t),i.child;case 6:return e===null&&Ar(i),null;case 13:return Nc(e,i,t);case 4:return bo(i,i.stateNode.containerInfo),n=i.pendingProps,e===null?i.child=it(i,null,n,t):oe(e,i,n,t),i.child;case 11:return n=i.type,a=i.pendingProps,a=i.elementType===n?a:Re(n,a),Ds(e,i,n,a,t);case 7:return oe(e,i,i.pendingProps,t),i.child;case 8:return oe(e,i,i.pendingProps.children,t),i.child;case 12:return oe(e,i,i.pendingProps.children,t),i.child;case 10:e:{if(n=i.type._context,a=i.pendingProps,r=i.memoizedProps,o=a.value,L(Vn,n._currentValue),n._currentValue=o,r!==null)if(De(r.value,o)){if(r.children===a.children&&!pe.current){i=Ue(e,i,t);break e}}else for(r=i.child,r!==null&&(r.return=i);r!==null;){var s=r.dependencies;if(s!==null){o=r.child;for(var l=s.firstContext;l!==null;){if(l.context===n){if(r.tag===1){l=Ke(-1,t&-t),l.tag=2;var c=r.updateQueue;if(c!==null){c=c.shared;var f=c.pending;f===null?l.next=l:(l.next=f.next,f.next=l),c.pending=l}}r.lanes|=t,l=r.alternate,l!==null&&(l.lanes|=t),Sr(r.return,t,i),s.lanes|=t;break}l=l.next}}else if(r.tag===10)o=r.type===i.type?null:r.child;else if(r.tag===18){if(o=r.return,o===null)throw Error(b(341));o.lanes|=t,s=o.alternate,s!==null&&(s.lanes|=t),Sr(o,t,i),o=r.sibling}else o=r.child;if(o!==null)o.return=r;else for(o=r;o!==null;){if(o===i){o=null;break}if(r=o.sibling,r!==null){r.return=o.return,o=r;break}o=o.return}r=o}oe(e,i,a.children,t),i=i.child}return i;case 9:return a=i.type,n=i.pendingProps.children,Qi(i,t),a=Se(a),n=n(a),i.flags|=1,oe(e,i,n,t),i.child;case 14:return n=i.type,a=Re(n,i.pendingProps),a=Re(n.type,a),Ls(e,i,n,a,t);case 15:return qc(e,i,i.type,i.pendingProps,t);case 17:return n=i.type,a=i.pendingProps,a=i.elementType===n?a:Re(n,a),Rn(e,i),i.tag=1,he(n)?(e=!0,Jn(i)):e=!1,Qi(i,t),Dc(i,n,a),Tr(i,n,a,t),Mr(null,i,n,!0,e,t);case 19:return _c(e,i,t);case 22:return Ec(e,i,t)}throw Error(b(156,i.tag))};function ad(e,i){return jl(e,i)}function Op(e,i,t,n){this.tag=e,this.key=t,this.sibling=this.child=this.return=this.stateNode=this.type=this.elementType=null,this.index=0,this.ref=null,this.pendingProps=i,this.dependencies=this.memoizedState=this.updateQueue=this.memoizedProps=null,this.mode=n,this.subtreeFlags=this.flags=0,this.deletions=null,this.childLanes=this.lanes=0,this.alternate=null}function Ie(e,i,t,n){return new Op(e,i,t,n)}function Do(e){return e=e.prototype,!(!e||!e.isReactComponent)}function Fp(e){if(typeof e=="function")return Do(e)?1:0;if(e!=null){if(e=e.$$typeof,e===Yr)return 11;if(e===$r)return 14}return 2}function di(e,i){var t=e.alternate;return t===null?(t=Ie(e.tag,i,e.key,e.mode),t.elementType=e.elementType,t.type=e.type,t.stateNode=e.stateNode,t.alternate=e,e.alternate=t):(t.pendingProps=i,t.type=e.type,t.flags=0,t.subtreeFlags=0,t.deletions=null),t.flags=e.flags&14680064,t.childLanes=e.childLanes,t.lanes=e.lanes,t.child=e.child,t.memoizedProps=e.memoizedProps,t.memoizedState=e.memoizedState,t.updateQueue=e.updateQueue,i=e.dependencies,t.dependencies=i===null?null:{lanes:i.lanes,firstContext:i.firstContext},t.sibling=e.sibling,t.index=e.index,t.ref=e.ref,t}function On(e,i,t,n,a,r){var o=2;if(n=e,typeof e=="function")Do(e)&&(o=1);else if(typeof e=="string")o=5;else e:switch(e){case Li:return Si(t.children,a,r,i);case Zr:o=8,a|=8;break;case Za:return e=Ie(12,t,i,a|2),e.elementType=Za,e.lanes=r,e;case Ya:return e=Ie(13,t,i,a),e.elementType=Ya,e.lanes=r,e;case $a:return e=Ie(19,t,i,a),e.elementType=$a,e.lanes=r,e;case ml:return ma(t,a,r,i);default:if(typeof e=="object"&&e!==null)switch(e.$$typeof){case pl:o=10;break e;case hl:o=9;break e;case Yr:o=11;break e;case $r:o=14;break e;case Ze:o=16,n=null;break e}throw Error(b(130,e==null?e:typeof e,""))}return i=Ie(o,t,i,a),i.elementType=e,i.type=n,i.lanes=r,i}function Si(e,i,t,n){return e=Ie(7,e,n,i),e.lanes=t,e}function ma(e,i,t,n){return e=Ie(22,e,n,i),e.elementType=ml,e.lanes=t,e.stateNode={isHidden:!1},e}function Wa(e,i,t){return e=Ie(6,e,null,i),e.lanes=t,e}function Ua(e,i,t){return i=Ie(4,e.children!==null?e.children:[],e.key,i),i.lanes=t,i.stateNode={containerInfo:e.containerInfo,pendingChildren:null,implementation:e.implementation},i}function Dp(e,i,t,n,a){this.tag=i,this.containerInfo=e,this.finishedWork=this.pingCache=this.current=this.pendingChildren=null,this.timeoutHandle=-1,this.callbackNode=this.pendingContext=this.context=null,this.callbackPriority=0,this.eventTimes=Pa(0),this.expirationTimes=Pa(-1),this.entangledLanes=this.finishedLanes=this.mutableReadLanes=this.expiredLanes=this.pingedLanes=this.suspendedLanes=this.pendingLanes=0,this.entanglements=Pa(0),this.identifierPrefix=n,this.onRecoverableError=a,this.mutableSourceEagerHydrationData=null}function Lo(e,i,t,n,a,r,o,s,l){return e=new Dp(e,i,t,s,l),i===1?(i=1,r===!0&&(i|=8)):i=0,r=Ie(3,null,null,i),e.current=r,r.stateNode=e,r.memoizedState={element:n,isDehydrated:t,cache:null,transitions:null,pendingSuspenseBoundaries:null},vo(r),e}function Lp(e,i,t){var n=3<arguments.length&&arguments[3]!==void 0?arguments[3]:null;return{$$typeof:Di,key:n==null?null:""+n,children:e,containerInfo:i,implementation:t}}function rd(e){if(!e)return pi;e=e._reactInternals;e:{if(Oi(e)!==e||e.tag!==1)throw Error(b(170));var i=e;do{switch(i.tag){case 3:i=i.stateNode.context;break e;case 1:if(he(i.type)){i=i.stateNode.__reactInternalMemoizedMergedChildContext;break e}}i=i.return}while(i!==null);throw Error(b(171))}if(e.tag===1){var t=e.type;if(he(t))return rc(e,t,i)}return i}function od(e,i,t,n,a,r,o,s,l){return e=Lo(t,n,!0,e,a,r,o,s,l),e.context=rd(null),t=e.current,n=se(),a=ci(t),r=Ke(n,a),r.callback=i??null,si(t,r,a),e.current.lanes=a,Zt(e,a,n),me(e,n),e}function ga(e,i,t,n){var a=i.current,r=se(),o=ci(a);return t=rd(t),i.context===null?i.context=t:i.pendingContext=t,i=Ke(r,o),i.payload={element:e},n=n===void 0?null:n,n!==null&&(i.callback=n),e=si(a,i,o),e!==null&&(Fe(e,a,o,r),Cn(e,a,o)),o}function ta(e){if(e=e.current,!e.child)return null;switch(e.child.tag){case 5:return e.child.stateNode;default:return e.child.stateNode}}function Ws(e,i){if(e=e.memoizedState,e!==null&&e.dehydrated!==null){var t=e.retryLane;e.retryLane=t!==0&&t<i?t:i}}function zo(e,i){Ws(e,i),(e=e.alternate)&&Ws(e,i)}function zp(){return null}var sd=typeof reportError=="function"?reportError:function(e){console.error(e)};function qo(e){this._internalRoot=e}fa.prototype.render=qo.prototype.render=function(e){var i=this._internalRoot;if(i===null)throw Error(b(409));ga(e,i,null,null)};fa.prototype.unmount=qo.prototype.unmount=function(){var e=this._internalRoot;if(e!==null){this._internalRoot=null;var i=e.containerInfo;Mi(function(){ga(null,e,null,null)}),i[Ve]=null}};function fa(e){this._internalRoot=e}fa.prototype.unstable_scheduleHydration=function(e){if(e){var i=El();e={blockedOn:null,target:e,priority:i};for(var t=0;t<$e.length&&i!==0&&i<$e[t].priority;t++);$e.splice(t,0,e),t===0&&Hl(e)}};function Eo(e){return!(!e||e.nodeType!==1&&e.nodeType!==9&&e.nodeType!==11)}function ya(e){return!(!e||e.nodeType!==1&&e.nodeType!==9&&e.nodeType!==11&&(e.nodeType!==8||e.nodeValue!==" react-mount-point-unstable "))}function Us(){}function qp(e,i,t,n,a){if(a){if(typeof n=="function"){var r=n;n=function(){var c=ta(o);r.call(c)}}var o=od(i,n,e,0,null,!1,!1,"",Us);return e._reactRootContainer=o,e[Ve]=o.current,Bt(e.nodeType===8?e.parentNode:e),Mi(),o}for(;a=e.lastChild;)e.removeChild(a);if(typeof n=="function"){var s=n;n=function(){var c=ta(l);s.call(c)}}var l=Lo(e,0,!1,null,null,!1,!1,"",Us);return e._reactRootContainer=l,e[Ve]=l.current,Bt(e.nodeType===8?e.parentNode:e),Mi(function(){ga(i,l,t,n)}),l}function va(e,i,t,n,a){var r=t._reactRootContainer;if(r){var o=r;if(typeof a=="function"){var s=a;a=function(){var l=ta(o);s.call(l)}}ga(i,o,e,a)}else o=qp(t,i,e,a,n);return ta(o)}zl=function(e){switch(e.tag){case 3:var i=e.stateNode;if(i.current.memoizedState.isDehydrated){var t=wt(i.pendingLanes);t!==0&&(to(i,t|1),me(i,G()),!(O&6)&&(at=G()+500,gi()))}break;case 13:Mi(function(){var n=We(e,1);if(n!==null){var a=se();Fe(n,e,1,a)}}),zo(e,1)}};no=function(e){if(e.tag===13){var i=We(e,134217728);if(i!==null){var t=se();Fe(i,e,134217728,t)}zo(e,134217728)}};ql=function(e){if(e.tag===13){var i=ci(e),t=We(e,i);if(t!==null){var n=se();Fe(t,e,i,n)}zo(e,i)}};El=function(){return F};Bl=function(e,i){var t=F;try{return F=e,i()}finally{F=t}};cr=function(e,i,t){switch(i){case"input":if(tr(e,t),i=t.name,t.type==="radio"&&i!=null){for(t=e;t.parentNode;)t=t.parentNode;for(t=t.querySelectorAll("input[name="+JSON.stringify(""+i)+'][type="radio"]'),i=0;i<t.length;i++){var n=t[i];if(n!==e&&n.form===e.form){var a=la(n);if(!a)throw Error(b(90));fl(n),tr(n,a)}}}break;case"textarea":vl(e,t);break;case"select":i=t.value,i!=null&&Vi(e,!!t.multiple,i,!1)}};Sl=jo;Cl=Mi;var Ep={usingClientEntryPoint:!1,Events:[$t,Bi,la,Il,Al,jo]},yt={findFiberByHostInstance:ki,bundleType:0,version:"18.3.1",rendererPackageName:"react-dom"},Bp={bundleType:yt.bundleType,version:yt.version,rendererPackageName:yt.rendererPackageName,rendererConfig:yt.rendererConfig,overrideHookState:null,overrideHookStateDeletePath:null,overrideHookStateRenamePath:null,overrideProps:null,overridePropsDeletePath:null,overridePropsRenamePath:null,setErrorHandler:null,setSuspenseHandler:null,scheduleUpdate:null,currentDispatcherRef:Xe.ReactCurrentDispatcher,findHostInstanceByFiber:function(e){return e=Rl(e),e===null?null:e.stateNode},findFiberByHostInstance:yt.findFiberByHostInstance||zp,findHostInstancesForRefresh:null,scheduleRefresh:null,scheduleRoot:null,setRefreshHandler:null,getCurrentFiber:null,reconcilerVersion:"18.3.1-next-f1338f8080-20240426"};if(typeof __REACT_DEVTOOLS_GLOBAL_HOOK__<"u"){var wn=__REACT_DEVTOOLS_GLOBAL_HOOK__;if(!wn.isDisabled&&wn.supportsFiber)try{aa=wn.inject(Bp),Ee=wn}catch{}}be.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED=Ep;be.createPortal=function(e,i){var t=2<arguments.length&&arguments[2]!==void 0?arguments[2]:null;if(!Eo(i))throw Error(b(200));return Lp(e,i,null,t)};be.createRoot=function(e,i){if(!Eo(e))throw Error(b(299));var t=!1,n="",a=sd;return i!=null&&(i.unstable_strictMode===!0&&(t=!0),i.identifierPrefix!==void 0&&(n=i.identifierPrefix),i.onRecoverableError!==void 0&&(a=i.onRecoverableError)),i=Lo(e,1,!1,null,null,t,!1,n,a),e[Ve]=i.current,Bt(e.nodeType===8?e.parentNode:e),new qo(i)};be.findDOMNode=function(e){if(e==null)return null;if(e.nodeType===1)return e;var i=e._reactInternals;if(i===void 0)throw typeof e.render=="function"?Error(b(188)):(e=Object.keys(e).join(","),Error(b(268,e)));return e=Rl(i),e=e===null?null:e.stateNode,e};be.flushSync=function(e){return Mi(e)};be.hydrate=function(e,i,t){if(!ya(i))throw Error(b(200));return va(null,e,i,!0,t)};be.hydrateRoot=function(e,i,t){if(!Eo(e))throw Error(b(405));var n=t!=null&&t.hydratedSources||null,a=!1,r="",o=sd;if(t!=null&&(t.unstable_strictMode===!0&&(a=!0),t.identifierPrefix!==void 0&&(r=t.identifierPrefix),t.onRecoverableError!==void 0&&(o=t.onRecoverableError)),i=od(i,null,e,1,t??null,a,!1,r,o),e[Ve]=i.current,Bt(e),n)for(e=0;e<n.length;e++)t=n[e],a=t._getVersion,a=a(t._source),i.mutableSourceEagerHydrationData==null?i.mutableSourceEagerHydrationData=[t,a]:i.mutableSourceEagerHydrationData.push(t,a);return new fa(i)};be.render=function(e,i,t){if(!ya(i))throw Error(b(200));return va(null,e,i,!1,t)};be.unmountComponentAtNode=function(e){if(!ya(e))throw Error(b(40));return e._reactRootContainer?(Mi(function(){va(null,null,e,!1,function(){e._reactRootContainer=null,e[Ve]=null})}),!0):!1};be.unstable_batchedUpdates=jo;be.unstable_renderSubtreeIntoContainer=function(e,i,t,n){if(!ya(t))throw Error(b(200));if(e==null||e._reactInternals===void 0)throw Error(b(38));return va(e,i,t,!1,n)};be.version="18.3.1-next-f1338f8080-20240426";function ld(){if(!(typeof __REACT_DEVTOOLS_GLOBAL_HOOK__>"u"||typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE!="function"))try{__REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(ld)}catch(e){console.error(e)}}ld(),ll.exports=be;var Hp=ll.exports,cd,Xs=Hp;cd=Xs.createRoot,Xs.hydrateRoot;const dd="ortho-v1";function Np(){try{const e=JSON.parse(localStorage.getItem(dd));if(e&&typeof e=="object"&&Array.isArray(e.favorites)&&Array.isArray(e.recents))return{localArticles:[],...e}}catch{}return{favorites:[],recents:[],localArticles:[]}}function _p(e){try{localStorage.setItem(dd,JSON.stringify(e))}catch{}}function Jp(e,i){const t=e.favorites.includes(i);return{...e,favorites:t?e.favorites.filter(n=>n!==i):[...e.favorites,i]}}function Kp(e,i){const t=[i,...e.recents.filter(n=>n!==i)].slice(0,10);return{...e,recents:t}}function Gp(){var e;return((e=crypto.randomUUID)==null?void 0:e.call(crypto))||`${Date.now()}-${Math.random().toString(36).slice(2)}`}function Vp(e,i){const t=e.localArticles.some(a=>a.id===i.id),n={...i,updatedAt:Date.now()};return{...e,localArticles:t?e.localArticles.map(a=>a.id===i.id?n:a):[...e.localArticles,n]}}function Wp(e,i){return{...e,localArticles:e.localArticles.filter(t=>t.id!==i),favorites:e.favorites.filter(t=>t!==i),recents:e.recents.filter(t=>t!==i)}}function Up(e,i){if(!i||typeof i!="object")return e;const t=Object.fromEntries(e.localArticles.map(n=>[n.id,n]));for(const n of i.localArticles||[])n&&n.id&&(!t[n.id]||(n.updatedAt||0)>(t[n.id].updatedAt||0))&&(t[n.id]=n);return{favorites:[...new Set([...e.favorites,...i.favorites||[]])],recents:[...new Set([...e.recents,...i.recents||[]])].slice(0,10),localArticles:Object.values(t)}}const Xp=`---
+`+r.stack}return{value:e,source:i,stack:a,digest:null}}function Ga(e,i,t){return{value:e,source:null,stack:t??null,digest:i??null}}function Pr(e,i){try{console.error(i.value)}catch(t){setTimeout(function(){throw t})}}var yp=typeof WeakMap=="function"?WeakMap:Map;function qc(e,i,t){t=Ke(-1,t),t.tag=3,t.payload={element:null};var n=i.value;return t.callback=function(){$n||($n=!0,Er=n),Pr(e,i)},t}function Ec(e,i,t){t=Ke(-1,t),t.tag=3;var n=e.type.getDerivedStateFromError;if(typeof n=="function"){var a=i.value;t.payload=function(){return n(a)},t.callback=function(){Pr(e,i)}}var r=e.stateNode;return r!==null&&typeof r.componentDidCatch=="function"&&(t.callback=function(){Pr(e,i),typeof n!="function"&&(li===null?li=new Set([this]):li.add(this));var o=i.stack;this.componentDidCatch(i.value,{componentStack:o!==null?o:""})}),t}function js(e,i,t){var n=e.pingCache;if(n===null){n=e.pingCache=new yp;var a=new Set;n.set(i,a)}else a=n.get(i),a===void 0&&(a=new Set,n.set(i,a));a.has(t)||(a.add(t),e=jp.bind(null,e,i,t),i.then(e,e))}function Os(e){do{var i;if((i=e.tag===13)&&(i=e.memoizedState,i=i!==null?i.dehydrated!==null:!0),i)return e;e=e.return}while(e!==null);return null}function Fs(e,i,t,n,a){return e.mode&1?(e.flags|=65536,e.lanes=a,e):(e===i?e.flags|=65536:(e.flags|=128,t.flags|=131072,t.flags&=-52805,t.tag===1&&(t.alternate===null?t.tag=17:(i=Ke(-1,1),i.tag=2,si(t,i,1))),t.lanes|=1),e)}var vp=Xe.ReactCurrentOwner,ue=!1;function oe(e,i,t,n){i.child=e===null?hc(i,null,t,n):it(i,e.child,t,n)}function Ds(e,i,t,n,a){t=t.render;var r=i.ref;return Qi(i,a),n=Io(e,i,t,n,r,a),t=Ao(),e!==null&&!ue?(i.updateQueue=e.updateQueue,i.flags&=-2053,e.lanes&=~a,Ue(e,i,a)):(B&&t&&uo(i),i.flags|=1,oe(e,i,n,a),i.child)}function Ls(e,i,t,n,a){if(e===null){var r=t.type;return typeof r=="function"&&!Do(r)&&r.defaultProps===void 0&&t.compare===null&&t.defaultProps===void 0?(i.tag=15,i.type=r,Bc(e,i,r,n,a)):(e=On(t.type,null,n,i,i.mode,a),e.ref=i.ref,e.return=i,i.child=e)}if(r=e.child,!(e.lanes&a)){var o=r.memoizedProps;if(t=t.compare,t=t!==null?t:Et,t(o,n)&&e.ref===i.ref)return Ue(e,i,a)}return i.flags|=1,e=di(r,n),e.ref=i.ref,e.return=i,i.child=e}function Bc(e,i,t,n,a){if(e!==null){var r=e.memoizedProps;if(Et(r,n)&&e.ref===i.ref)if(ue=!1,i.pendingProps=n=r,(e.lanes&a)!==0)e.flags&131072&&(ue=!0);else return i.lanes=e.lanes,Ue(e,i,a)}return Rr(e,i,t,n,a)}function Hc(e,i,t){var n=i.pendingProps,a=n.children,r=e!==null?e.memoizedState:null;if(n.mode==="hidden")if(!(i.mode&1))i.memoizedState={baseLanes:0,cachePool:null,transitions:null},L(Gi,ge),ge|=t;else{if(!(t&1073741824))return e=r!==null?r.baseLanes|t:t,i.lanes=i.childLanes=1073741824,i.memoizedState={baseLanes:e,cachePool:null,transitions:null},i.updateQueue=null,L(Gi,ge),ge|=e,null;i.memoizedState={baseLanes:0,cachePool:null,transitions:null},n=r!==null?r.baseLanes:t,L(Gi,ge),ge|=n}else r!==null?(n=r.baseLanes|t,i.memoizedState=null):n=t,L(Gi,ge),ge|=n;return oe(e,i,a,t),i.child}function Nc(e,i){var t=i.ref;(e===null&&t!==null||e!==null&&e.ref!==t)&&(i.flags|=512,i.flags|=2097152)}function Rr(e,i,t,n,a){var r=he(t)?Ci:re.current;return r=$i(i,r),Qi(i,a),t=Io(e,i,t,n,r,a),n=Ao(),e!==null&&!ue?(i.updateQueue=e.updateQueue,i.flags&=-2053,e.lanes&=~a,Ue(e,i,a)):(B&&n&&uo(i),i.flags|=1,oe(e,i,t,a),i.child)}function zs(e,i,t,n,a){if(he(t)){var r=!0;Jn(i)}else r=!1;if(Qi(i,a),i.stateNode===null)Rn(e,i),zc(i,t,n),Tr(i,t,n,a),n=!0;else if(e===null){var o=i.stateNode,s=i.memoizedProps;o.props=s;var l=o.context,c=t.contextType;typeof c=="object"&&c!==null?c=Se(c):(c=he(t)?Ci:re.current,c=$i(i,c));var f=t.getDerivedStateFromProps,g=typeof f=="function"||typeof o.getSnapshotBeforeUpdate=="function";g||typeof o.UNSAFE_componentWillReceiveProps!="function"&&typeof o.componentWillReceiveProps!="function"||(s!==n||l!==c)&&Ms(i,o,n,c),Ye=!1;var h=i.memoizedState;o.state=h,Un(i,n,o,a),l=i.memoizedState,s!==n||h!==l||pe.current||Ye?(typeof f=="function"&&(Cr(i,t,f,n),l=i.memoizedState),(s=Ye||Rs(i,t,s,n,h,l,c))?(g||typeof o.UNSAFE_componentWillMount!="function"&&typeof o.componentWillMount!="function"||(typeof o.componentWillMount=="function"&&o.componentWillMount(),typeof o.UNSAFE_componentWillMount=="function"&&o.UNSAFE_componentWillMount()),typeof o.componentDidMount=="function"&&(i.flags|=4194308)):(typeof o.componentDidMount=="function"&&(i.flags|=4194308),i.memoizedProps=n,i.memoizedState=l),o.props=n,o.state=l,o.context=c,n=s):(typeof o.componentDidMount=="function"&&(i.flags|=4194308),n=!1)}else{o=i.stateNode,gc(e,i),s=i.memoizedProps,c=i.type===i.elementType?s:Re(i.type,s),o.props=c,g=i.pendingProps,h=o.context,l=t.contextType,typeof l=="object"&&l!==null?l=Se(l):(l=he(t)?Ci:re.current,l=$i(i,l));var y=t.getDerivedStateFromProps;(f=typeof y=="function"||typeof o.getSnapshotBeforeUpdate=="function")||typeof o.UNSAFE_componentWillReceiveProps!="function"&&typeof o.componentWillReceiveProps!="function"||(s!==g||h!==l)&&Ms(i,o,n,l),Ye=!1,h=i.memoizedState,o.state=h,Un(i,n,o,a);var v=i.memoizedState;s!==g||h!==v||pe.current||Ye?(typeof y=="function"&&(Cr(i,t,y,n),v=i.memoizedState),(c=Ye||Rs(i,t,c,n,h,v,l)||!1)?(f||typeof o.UNSAFE_componentWillUpdate!="function"&&typeof o.componentWillUpdate!="function"||(typeof o.componentWillUpdate=="function"&&o.componentWillUpdate(n,v,l),typeof o.UNSAFE_componentWillUpdate=="function"&&o.UNSAFE_componentWillUpdate(n,v,l)),typeof o.componentDidUpdate=="function"&&(i.flags|=4),typeof o.getSnapshotBeforeUpdate=="function"&&(i.flags|=1024)):(typeof o.componentDidUpdate!="function"||s===e.memoizedProps&&h===e.memoizedState||(i.flags|=4),typeof o.getSnapshotBeforeUpdate!="function"||s===e.memoizedProps&&h===e.memoizedState||(i.flags|=1024),i.memoizedProps=n,i.memoizedState=v),o.props=n,o.state=v,o.context=l,n=c):(typeof o.componentDidUpdate!="function"||s===e.memoizedProps&&h===e.memoizedState||(i.flags|=4),typeof o.getSnapshotBeforeUpdate!="function"||s===e.memoizedProps&&h===e.memoizedState||(i.flags|=1024),n=!1)}return Mr(e,i,t,n,r,a)}function Mr(e,i,t,n,a,r){Nc(e,i);var o=(i.flags&128)!==0;if(!n&&!o)return a&&ks(i,t,!1),Ue(e,i,r);n=i.stateNode,vp.current=i;var s=o&&typeof t.getDerivedStateFromError!="function"?null:n.render();return i.flags|=1,e!==null&&o?(i.child=it(i,e.child,null,r),i.child=it(i,null,s,r)):oe(e,i,s,r),i.memoizedState=n.state,a&&ks(i,t,!0),i.child}function _c(e){var i=e.stateNode;i.pendingContext?ws(e,i.pendingContext,i.pendingContext!==i.context):i.context&&ws(e,i.context,!1),bo(e,i.containerInfo)}function qs(e,i,t,n,a){return et(),ho(a),i.flags|=256,oe(e,i,t,n),i.child}var jr={dehydrated:null,treeContext:null,retryLane:0};function Or(e){return{baseLanes:e,cachePool:null,transitions:null}}function Jc(e,i,t){var n=i.pendingProps,a=H.current,r=!1,o=(i.flags&128)!==0,s;if((s=o)||(s=e!==null&&e.memoizedState===null?!1:(a&2)!==0),s?(r=!0,i.flags&=-129):(e===null||e.memoizedState!==null)&&(a|=1),L(H,a&1),e===null)return Ar(i),e=i.memoizedState,e!==null&&(e=e.dehydrated,e!==null)?(i.mode&1?e.data==="$!"?i.lanes=8:i.lanes=1073741824:i.lanes=1,null):(o=n.children,e=n.fallback,r?(n=i.mode,r=i.child,o={mode:"hidden",children:o},!(n&1)&&r!==null?(r.childLanes=0,r.pendingProps=o):r=ma(o,n,0,null),e=Si(e,n,t,null),r.return=i,e.return=i,r.sibling=e,i.child=r,i.child.memoizedState=Or(t),i.memoizedState=jr,e):To(i,o));if(a=e.memoizedState,a!==null&&(s=a.dehydrated,s!==null))return bp(e,i,o,n,s,a,t);if(r){r=n.fallback,o=i.mode,a=e.child,s=a.sibling;var l={mode:"hidden",children:n.children};return!(o&1)&&i.child!==a?(n=i.child,n.childLanes=0,n.pendingProps=l,i.deletions=null):(n=di(a,l),n.subtreeFlags=a.subtreeFlags&14680064),s!==null?r=di(s,r):(r=Si(r,o,t,null),r.flags|=2),r.return=i,n.return=i,n.sibling=r,i.child=n,n=r,r=i.child,o=e.child.memoizedState,o=o===null?Or(t):{baseLanes:o.baseLanes|t,cachePool:null,transitions:o.transitions},r.memoizedState=o,r.childLanes=e.childLanes&~t,i.memoizedState=jr,n}return r=e.child,e=r.sibling,n=di(r,{mode:"visible",children:n.children}),!(i.mode&1)&&(n.lanes=t),n.return=i,n.sibling=null,e!==null&&(t=i.deletions,t===null?(i.deletions=[e],i.flags|=16):t.push(e)),i.child=n,i.memoizedState=null,n}function To(e,i){return i=ma({mode:"visible",children:i},e.mode,0,null),i.return=e,e.child=i}function yn(e,i,t,n){return n!==null&&ho(n),it(i,e.child,null,t),e=To(i,i.pendingProps.children),e.flags|=2,i.memoizedState=null,e}function bp(e,i,t,n,a,r,o){if(t)return i.flags&256?(i.flags&=-257,n=Ga(Error(w(422))),yn(e,i,o,n)):i.memoizedState!==null?(i.child=e.child,i.flags|=128,null):(r=n.fallback,a=i.mode,n=ma({mode:"visible",children:n.children},a,0,null),r=Si(r,a,o,null),r.flags|=2,n.return=i,r.return=i,n.sibling=r,i.child=n,i.mode&1&&it(i,e.child,null,o),i.child.memoizedState=Or(o),i.memoizedState=jr,r);if(!(i.mode&1))return yn(e,i,o,null);if(a.data==="$!"){if(n=a.nextSibling&&a.nextSibling.dataset,n)var s=n.dgst;return n=s,r=Error(w(419)),n=Ga(r,n,void 0),yn(e,i,o,n)}if(s=(o&e.childLanes)!==0,ue||s){if(n=Y,n!==null){switch(o&-o){case 4:a=2;break;case 16:a=8;break;case 64:case 128:case 256:case 512:case 1024:case 2048:case 4096:case 8192:case 16384:case 32768:case 65536:case 131072:case 262144:case 524288:case 1048576:case 2097152:case 4194304:case 8388608:case 16777216:case 33554432:case 67108864:a=32;break;case 536870912:a=268435456;break;default:a=0}a=a&(n.suspendedLanes|o)?0:a,a!==0&&a!==r.retryLane&&(r.retryLane=a,We(e,a),Fe(n,e,a,-1))}return Fo(),n=Ga(Error(w(421))),yn(e,i,o,n)}return a.data==="$?"?(i.flags|=128,i.child=e.child,i=Op.bind(null,e),a._reactRetry=i,null):(e=r.treeContext,fe=oi(a.nextSibling),ye=i,B=!0,je=null,e!==null&&(ke[xe++]=_e,ke[xe++]=Je,ke[xe++]=Ti,_e=e.id,Je=e.overflow,Ti=i),i=To(i,n.children),i.flags|=4096,i)}function Es(e,i,t){e.lanes|=i;var n=e.alternate;n!==null&&(n.lanes|=i),Sr(e.return,i,t)}function Va(e,i,t,n,a){var r=e.memoizedState;r===null?e.memoizedState={isBackwards:i,rendering:null,renderingStartTime:0,last:n,tail:t,tailMode:a}:(r.isBackwards=i,r.rendering=null,r.renderingStartTime=0,r.last=n,r.tail=t,r.tailMode=a)}function Kc(e,i,t){var n=i.pendingProps,a=n.revealOrder,r=n.tail;if(oe(e,i,n.children,t),n=H.current,n&2)n=n&1|2,i.flags|=128;else{if(e!==null&&e.flags&128)e:for(e=i.child;e!==null;){if(e.tag===13)e.memoizedState!==null&&Es(e,t,i);else if(e.tag===19)Es(e,t,i);else if(e.child!==null){e.child.return=e,e=e.child;continue}if(e===i)break e;for(;e.sibling===null;){if(e.return===null||e.return===i)break e;e=e.return}e.sibling.return=e.return,e=e.sibling}n&=1}if(L(H,n),!(i.mode&1))i.memoizedState=null;else switch(a){case"forwards":for(t=i.child,a=null;t!==null;)e=t.alternate,e!==null&&Xn(e)===null&&(a=t),t=t.sibling;t=a,t===null?(a=i.child,i.child=null):(a=t.sibling,t.sibling=null),Va(i,!1,a,t,r);break;case"backwards":for(t=null,a=i.child,i.child=null;a!==null;){if(e=a.alternate,e!==null&&Xn(e)===null){i.child=a;break}e=a.sibling,a.sibling=t,t=a,a=e}Va(i,!0,t,null,r);break;case"together":Va(i,!1,null,null,void 0);break;default:i.memoizedState=null}return i.child}function Rn(e,i){!(i.mode&1)&&e!==null&&(e.alternate=null,i.alternate=null,i.flags|=2)}function Ue(e,i,t){if(e!==null&&(i.dependencies=e.dependencies),Ri|=i.lanes,!(t&i.childLanes))return null;if(e!==null&&i.child!==e.child)throw Error(w(153));if(i.child!==null){for(e=i.child,t=di(e,e.pendingProps),i.child=t,t.return=i;e.sibling!==null;)e=e.sibling,t=t.sibling=di(e,e.pendingProps),t.return=i;t.sibling=null}return i.child}function wp(e,i,t){switch(i.tag){case 3:_c(i),et();break;case 5:fc(i);break;case 1:he(i.type)&&Jn(i);break;case 4:bo(i,i.stateNode.containerInfo);break;case 10:var n=i.type._context,a=i.memoizedProps.value;L(Vn,n._currentValue),n._currentValue=a;break;case 13:if(n=i.memoizedState,n!==null)return n.dehydrated!==null?(L(H,H.current&1),i.flags|=128,null):t&i.child.childLanes?Jc(e,i,t):(L(H,H.current&1),e=Ue(e,i,t),e!==null?e.sibling:null);L(H,H.current&1);break;case 19:if(n=(t&i.childLanes)!==0,e.flags&128){if(n)return Kc(e,i,t);i.flags|=128}if(a=i.memoizedState,a!==null&&(a.rendering=null,a.tail=null,a.lastEffect=null),L(H,H.current),n)break;return null;case 22:case 23:return i.lanes=0,Hc(e,i,t)}return Ue(e,i,t)}var Gc,Fr,Vc,Wc;Gc=function(e,i){for(var t=i.child;t!==null;){if(t.tag===5||t.tag===6)e.appendChild(t.stateNode);else if(t.tag!==4&&t.child!==null){t.child.return=t,t=t.child;continue}if(t===i)break;for(;t.sibling===null;){if(t.return===null||t.return===i)return;t=t.return}t.sibling.return=t.return,t=t.sibling}};Fr=function(){};Vc=function(e,i,t,n){var a=e.memoizedProps;if(a!==n){e=i.stateNode,Ii(Be.current);var r=null;switch(t){case"input":a=ir(e,a),n=ir(e,n),r=[];break;case"select":a=_({},a,{value:void 0}),n=_({},n,{value:void 0}),r=[];break;case"textarea":a=ar(e,a),n=ar(e,n),r=[];break;default:typeof a.onClick!="function"&&typeof n.onClick=="function"&&(e.onclick=Nn)}or(t,n);var o;t=null;for(c in a)if(!n.hasOwnProperty(c)&&a.hasOwnProperty(c)&&a[c]!=null)if(c==="style"){var s=a[c];for(o in s)s.hasOwnProperty(o)&&(t||(t={}),t[o]="")}else c!=="dangerouslySetInnerHTML"&&c!=="children"&&c!=="suppressContentEditableWarning"&&c!=="suppressHydrationWarning"&&c!=="autoFocus"&&(jt.hasOwnProperty(c)?r||(r=[]):(r=r||[]).push(c,null));for(c in n){var l=n[c];if(s=a!=null?a[c]:void 0,n.hasOwnProperty(c)&&l!==s&&(l!=null||s!=null))if(c==="style")if(s){for(o in s)!s.hasOwnProperty(o)||l&&l.hasOwnProperty(o)||(t||(t={}),t[o]="");for(o in l)l.hasOwnProperty(o)&&s[o]!==l[o]&&(t||(t={}),t[o]=l[o])}else t||(r||(r=[]),r.push(c,t)),t=l;else c==="dangerouslySetInnerHTML"?(l=l?l.__html:void 0,s=s?s.__html:void 0,l!=null&&s!==l&&(r=r||[]).push(c,l)):c==="children"?typeof l!="string"&&typeof l!="number"||(r=r||[]).push(c,""+l):c!=="suppressContentEditableWarning"&&c!=="suppressHydrationWarning"&&(jt.hasOwnProperty(c)?(l!=null&&c==="onScroll"&&z("scroll",e),r||s===l||(r=[])):(r=r||[]).push(c,l))}t&&(r=r||[]).push("style",t);var c=r;(i.updateQueue=c)&&(i.flags|=4)}};Wc=function(e,i,t,n){t!==n&&(i.flags|=4)};function ft(e,i){if(!B)switch(e.tailMode){case"hidden":i=e.tail;for(var t=null;i!==null;)i.alternate!==null&&(t=i),i=i.sibling;t===null?e.tail=null:t.sibling=null;break;case"collapsed":t=e.tail;for(var n=null;t!==null;)t.alternate!==null&&(n=t),t=t.sibling;n===null?i||e.tail===null?e.tail=null:e.tail.sibling=null:n.sibling=null}}function ne(e){var i=e.alternate!==null&&e.alternate.child===e.child,t=0,n=0;if(i)for(var a=e.child;a!==null;)t|=a.lanes|a.childLanes,n|=a.subtreeFlags&14680064,n|=a.flags&14680064,a.return=e,a=a.sibling;else for(a=e.child;a!==null;)t|=a.lanes|a.childLanes,n|=a.subtreeFlags,n|=a.flags,a.return=e,a=a.sibling;return e.subtreeFlags|=n,e.childLanes=t,i}function kp(e,i,t){var n=i.pendingProps;switch(po(i),i.tag){case 2:case 16:case 15:case 0:case 11:case 7:case 8:case 12:case 9:case 14:return ne(i),null;case 1:return he(i.type)&&_n(),ne(i),null;case 3:return n=i.stateNode,tt(),q(pe),q(re),ko(),n.pendingContext&&(n.context=n.pendingContext,n.pendingContext=null),(e===null||e.child===null)&&(gn(i)?i.flags|=4:e===null||e.memoizedState.isDehydrated&&!(i.flags&256)||(i.flags|=1024,je!==null&&(Nr(je),je=null))),Fr(e,i),ne(i),null;case 5:wo(i);var a=Ii(Jt.current);if(t=i.type,e!==null&&i.stateNode!=null)Vc(e,i,t,n,a),e.ref!==i.ref&&(i.flags|=512,i.flags|=2097152);else{if(!n){if(i.stateNode===null)throw Error(w(166));return ne(i),null}if(e=Ii(Be.current),gn(i)){n=i.stateNode,t=i.type;var r=i.memoizedProps;switch(n[qe]=i,n[Nt]=r,e=(i.mode&1)!==0,t){case"dialog":z("cancel",n),z("close",n);break;case"iframe":case"object":case"embed":z("load",n);break;case"video":case"audio":for(a=0;a<kt.length;a++)z(kt[a],n);break;case"source":z("error",n);break;case"img":case"image":case"link":z("error",n),z("load",n);break;case"details":z("toggle",n);break;case"input":Wo(n,r),z("invalid",n);break;case"select":n._wrapperState={wasMultiple:!!r.multiple},z("invalid",n);break;case"textarea":Xo(n,r),z("invalid",n)}or(t,r),a=null;for(var o in r)if(r.hasOwnProperty(o)){var s=r[o];o==="children"?typeof s=="string"?n.textContent!==s&&(r.suppressHydrationWarning!==!0&&mn(n.textContent,s,e),a=["children",s]):typeof s=="number"&&n.textContent!==""+s&&(r.suppressHydrationWarning!==!0&&mn(n.textContent,s,e),a=["children",""+s]):jt.hasOwnProperty(o)&&s!=null&&o==="onScroll"&&z("scroll",n)}switch(t){case"input":on(n),Uo(n,r,!0);break;case"textarea":on(n),Qo(n);break;case"select":case"option":break;default:typeof r.onClick=="function"&&(n.onclick=Nn)}n=a,i.updateQueue=n,n!==null&&(i.flags|=4)}else{o=a.nodeType===9?a:a.ownerDocument,e==="http://www.w3.org/1999/xhtml"&&(e=kl(t)),e==="http://www.w3.org/1999/xhtml"?t==="script"?(e=o.createElement("div"),e.innerHTML="<script><\/script>",e=e.removeChild(e.firstChild)):typeof n.is=="string"?e=o.createElement(t,{is:n.is}):(e=o.createElement(t),t==="select"&&(o=e,n.multiple?o.multiple=!0:n.size&&(o.size=n.size))):e=o.createElementNS(e,t),e[qe]=i,e[Nt]=n,Gc(e,i,!1,!1),i.stateNode=e;e:{switch(o=sr(t,n),t){case"dialog":z("cancel",e),z("close",e),a=n;break;case"iframe":case"object":case"embed":z("load",e),a=n;break;case"video":case"audio":for(a=0;a<kt.length;a++)z(kt[a],e);a=n;break;case"source":z("error",e),a=n;break;case"img":case"image":case"link":z("error",e),z("load",e),a=n;break;case"details":z("toggle",e),a=n;break;case"input":Wo(e,n),a=ir(e,n),z("invalid",e);break;case"option":a=n;break;case"select":e._wrapperState={wasMultiple:!!n.multiple},a=_({},n,{value:void 0}),z("invalid",e);break;case"textarea":Xo(e,n),a=ar(e,n),z("invalid",e);break;default:a=n}or(t,a),s=a;for(r in s)if(s.hasOwnProperty(r)){var l=s[r];r==="style"?Al(e,l):r==="dangerouslySetInnerHTML"?(l=l?l.__html:void 0,l!=null&&xl(e,l)):r==="children"?typeof l=="string"?(t!=="textarea"||l!=="")&&Ot(e,l):typeof l=="number"&&Ot(e,""+l):r!=="suppressContentEditableWarning"&&r!=="suppressHydrationWarning"&&r!=="autoFocus"&&(jt.hasOwnProperty(r)?l!=null&&r==="onScroll"&&z("scroll",e):l!=null&&Qr(e,r,l,o))}switch(t){case"input":on(e),Uo(e,n,!1);break;case"textarea":on(e),Qo(e);break;case"option":n.value!=null&&e.setAttribute("value",""+ui(n.value));break;case"select":e.multiple=!!n.multiple,r=n.value,r!=null?Vi(e,!!n.multiple,r,!1):n.defaultValue!=null&&Vi(e,!!n.multiple,n.defaultValue,!0);break;default:typeof a.onClick=="function"&&(e.onclick=Nn)}switch(t){case"button":case"input":case"select":case"textarea":n=!!n.autoFocus;break e;case"img":n=!0;break e;default:n=!1}}n&&(i.flags|=4)}i.ref!==null&&(i.flags|=512,i.flags|=2097152)}return ne(i),null;case 6:if(e&&i.stateNode!=null)Wc(e,i,e.memoizedProps,n);else{if(typeof n!="string"&&i.stateNode===null)throw Error(w(166));if(t=Ii(Jt.current),Ii(Be.current),gn(i)){if(n=i.stateNode,t=i.memoizedProps,n[qe]=i,(r=n.nodeValue!==t)&&(e=ye,e!==null))switch(e.tag){case 3:mn(n.nodeValue,t,(e.mode&1)!==0);break;case 5:e.memoizedProps.suppressHydrationWarning!==!0&&mn(n.nodeValue,t,(e.mode&1)!==0)}r&&(i.flags|=4)}else n=(t.nodeType===9?t:t.ownerDocument).createTextNode(n),n[qe]=i,i.stateNode=n}return ne(i),null;case 13:if(q(H),n=i.memoizedState,e===null||e.memoizedState!==null&&e.memoizedState.dehydrated!==null){if(B&&fe!==null&&i.mode&1&&!(i.flags&128))uc(),et(),i.flags|=98560,r=!1;else if(r=gn(i),n!==null&&n.dehydrated!==null){if(e===null){if(!r)throw Error(w(318));if(r=i.memoizedState,r=r!==null?r.dehydrated:null,!r)throw Error(w(317));r[qe]=i}else et(),!(i.flags&128)&&(i.memoizedState=null),i.flags|=4;ne(i),r=!1}else je!==null&&(Nr(je),je=null),r=!0;if(!r)return i.flags&65536?i:null}return i.flags&128?(i.lanes=t,i):(n=n!==null,n!==(e!==null&&e.memoizedState!==null)&&n&&(i.child.flags|=8192,i.mode&1&&(e===null||H.current&1?X===0&&(X=3):Fo())),i.updateQueue!==null&&(i.flags|=4),ne(i),null);case 4:return tt(),Fr(e,i),e===null&&Bt(i.stateNode.containerInfo),ne(i),null;case 10:return fo(i.type._context),ne(i),null;case 17:return he(i.type)&&_n(),ne(i),null;case 19:if(q(H),r=i.memoizedState,r===null)return ne(i),null;if(n=(i.flags&128)!==0,o=r.rendering,o===null)if(n)ft(r,!1);else{if(X!==0||e!==null&&e.flags&128)for(e=i.child;e!==null;){if(o=Xn(e),o!==null){for(i.flags|=128,ft(r,!1),n=o.updateQueue,n!==null&&(i.updateQueue=n,i.flags|=4),i.subtreeFlags=0,n=t,t=i.child;t!==null;)r=t,e=n,r.flags&=14680066,o=r.alternate,o===null?(r.childLanes=0,r.lanes=e,r.child=null,r.subtreeFlags=0,r.memoizedProps=null,r.memoizedState=null,r.updateQueue=null,r.dependencies=null,r.stateNode=null):(r.childLanes=o.childLanes,r.lanes=o.lanes,r.child=o.child,r.subtreeFlags=0,r.deletions=null,r.memoizedProps=o.memoizedProps,r.memoizedState=o.memoizedState,r.updateQueue=o.updateQueue,r.type=o.type,e=o.dependencies,r.dependencies=e===null?null:{lanes:e.lanes,firstContext:e.firstContext}),t=t.sibling;return L(H,H.current&1|2),i.child}e=e.sibling}r.tail!==null&&V()>at&&(i.flags|=128,n=!0,ft(r,!1),i.lanes=4194304)}else{if(!n)if(e=Xn(o),e!==null){if(i.flags|=128,n=!0,t=e.updateQueue,t!==null&&(i.updateQueue=t,i.flags|=4),ft(r,!0),r.tail===null&&r.tailMode==="hidden"&&!o.alternate&&!B)return ne(i),null}else 2*V()-r.renderingStartTime>at&&t!==1073741824&&(i.flags|=128,n=!0,ft(r,!1),i.lanes=4194304);r.isBackwards?(o.sibling=i.child,i.child=o):(t=r.last,t!==null?t.sibling=o:i.child=o,r.last=o)}return r.tail!==null?(i=r.tail,r.rendering=i,r.tail=i.sibling,r.renderingStartTime=V(),i.sibling=null,t=H.current,L(H,n?t&1|2:t&1),i):(ne(i),null);case 22:case 23:return Oo(),n=i.memoizedState!==null,e!==null&&e.memoizedState!==null!==n&&(i.flags|=8192),n&&i.mode&1?ge&1073741824&&(ne(i),i.subtreeFlags&6&&(i.flags|=8192)):ne(i),null;case 24:return null;case 25:return null}throw Error(w(156,i.tag))}function xp(e,i){switch(po(i),i.tag){case 1:return he(i.type)&&_n(),e=i.flags,e&65536?(i.flags=e&-65537|128,i):null;case 3:return tt(),q(pe),q(re),ko(),e=i.flags,e&65536&&!(e&128)?(i.flags=e&-65537|128,i):null;case 5:return wo(i),null;case 13:if(q(H),e=i.memoizedState,e!==null&&e.dehydrated!==null){if(i.alternate===null)throw Error(w(340));et()}return e=i.flags,e&65536?(i.flags=e&-65537|128,i):null;case 19:return q(H),null;case 4:return tt(),null;case 10:return fo(i.type._context),null;case 22:case 23:return Oo(),null;case 24:return null;default:return null}}var vn=!1,ae=!1,Ip=typeof WeakSet=="function"?WeakSet:Set,x=null;function Ki(e,i){var t=e.ref;if(t!==null)if(typeof t=="function")try{t(null)}catch(n){J(e,i,n)}else t.current=null}function Dr(e,i,t){try{t()}catch(n){J(e,i,n)}}var Bs=!1;function Ap(e,i){if(yr=En,e=Yl(),co(e)){if("selectionStart"in e)var t={start:e.selectionStart,end:e.selectionEnd};else e:{t=(t=e.ownerDocument)&&t.defaultView||window;var n=t.getSelection&&t.getSelection();if(n&&n.rangeCount!==0){t=n.anchorNode;var a=n.anchorOffset,r=n.focusNode;n=n.focusOffset;try{t.nodeType,r.nodeType}catch{t=null;break e}var o=0,s=-1,l=-1,c=0,f=0,g=e,h=null;i:for(;;){for(var y;g!==t||a!==0&&g.nodeType!==3||(s=o+a),g!==r||n!==0&&g.nodeType!==3||(l=o+n),g.nodeType===3&&(o+=g.nodeValue.length),(y=g.firstChild)!==null;)h=g,g=y;for(;;){if(g===e)break i;if(h===t&&++c===a&&(s=o),h===r&&++f===n&&(l=o),(y=g.nextSibling)!==null)break;g=h,h=g.parentNode}g=y}t=s===-1||l===-1?null:{start:s,end:l}}else t=null}t=t||{start:0,end:0}}else t=null;for(vr={focusedElem:e,selectionRange:t},En=!1,x=i;x!==null;)if(i=x,e=i.child,(i.subtreeFlags&1028)!==0&&e!==null)e.return=i,x=e;else for(;x!==null;){i=x;try{var v=i.alternate;if(i.flags&1024)switch(i.tag){case 0:case 11:case 15:break;case 1:if(v!==null){var k=v.memoizedProps,D=v.memoizedState,u=i.stateNode,d=u.getSnapshotBeforeUpdate(i.elementType===i.type?k:Re(i.type,k),D);u.__reactInternalSnapshotBeforeUpdate=d}break;case 3:var p=i.stateNode.containerInfo;p.nodeType===1?p.textContent="":p.nodeType===9&&p.documentElement&&p.removeChild(p.documentElement);break;case 5:case 6:case 4:case 17:break;default:throw Error(w(163))}}catch(b){J(i,i.return,b)}if(e=i.sibling,e!==null){e.return=i.return,x=e;break}x=i.return}return v=Bs,Bs=!1,v}function Pt(e,i,t){var n=i.updateQueue;if(n=n!==null?n.lastEffect:null,n!==null){var a=n=n.next;do{if((a.tag&e)===e){var r=a.destroy;a.destroy=void 0,r!==void 0&&Dr(i,t,r)}a=a.next}while(a!==n)}}function pa(e,i){if(i=i.updateQueue,i=i!==null?i.lastEffect:null,i!==null){var t=i=i.next;do{if((t.tag&e)===e){var n=t.create;t.destroy=n()}t=t.next}while(t!==i)}}function Lr(e){var i=e.ref;if(i!==null){var t=e.stateNode;switch(e.tag){case 5:e=t;break;default:e=t}typeof i=="function"?i(e):i.current=e}}function Uc(e){var i=e.alternate;i!==null&&(e.alternate=null,Uc(i)),e.child=null,e.deletions=null,e.sibling=null,e.tag===5&&(i=e.stateNode,i!==null&&(delete i[qe],delete i[Nt],delete i[kr],delete i[op],delete i[sp])),e.stateNode=null,e.return=null,e.dependencies=null,e.memoizedProps=null,e.memoizedState=null,e.pendingProps=null,e.stateNode=null,e.updateQueue=null}function Xc(e){return e.tag===5||e.tag===3||e.tag===4}function Hs(e){e:for(;;){for(;e.sibling===null;){if(e.return===null||Xc(e.return))return null;e=e.return}for(e.sibling.return=e.return,e=e.sibling;e.tag!==5&&e.tag!==6&&e.tag!==18;){if(e.flags&2||e.child===null||e.tag===4)continue e;e.child.return=e,e=e.child}if(!(e.flags&2))return e.stateNode}}function zr(e,i,t){var n=e.tag;if(n===5||n===6)e=e.stateNode,i?t.nodeType===8?t.parentNode.insertBefore(e,i):t.insertBefore(e,i):(t.nodeType===8?(i=t.parentNode,i.insertBefore(e,t)):(i=t,i.appendChild(e)),t=t._reactRootContainer,t!=null||i.onclick!==null||(i.onclick=Nn));else if(n!==4&&(e=e.child,e!==null))for(zr(e,i,t),e=e.sibling;e!==null;)zr(e,i,t),e=e.sibling}function qr(e,i,t){var n=e.tag;if(n===5||n===6)e=e.stateNode,i?t.insertBefore(e,i):t.appendChild(e);else if(n!==4&&(e=e.child,e!==null))for(qr(e,i,t),e=e.sibling;e!==null;)qr(e,i,t),e=e.sibling}var $=null,Me=!1;function Qe(e,i,t){for(t=t.child;t!==null;)Qc(e,i,t),t=t.sibling}function Qc(e,i,t){if(Ee&&typeof Ee.onCommitFiberUnmount=="function")try{Ee.onCommitFiberUnmount(aa,t)}catch{}switch(t.tag){case 5:ae||Ki(t,i);case 6:var n=$,a=Me;$=null,Qe(e,i,t),$=n,Me=a,$!==null&&(Me?(e=$,t=t.stateNode,e.nodeType===8?e.parentNode.removeChild(t):e.removeChild(t)):$.removeChild(t.stateNode));break;case 18:$!==null&&(Me?(e=$,t=t.stateNode,e.nodeType===8?Ba(e.parentNode,t):e.nodeType===1&&Ba(e,t),zt(e)):Ba($,t.stateNode));break;case 4:n=$,a=Me,$=t.stateNode.containerInfo,Me=!0,Qe(e,i,t),$=n,Me=a;break;case 0:case 11:case 14:case 15:if(!ae&&(n=t.updateQueue,n!==null&&(n=n.lastEffect,n!==null))){a=n=n.next;do{var r=a,o=r.destroy;r=r.tag,o!==void 0&&(r&2||r&4)&&Dr(t,i,o),a=a.next}while(a!==n)}Qe(e,i,t);break;case 1:if(!ae&&(Ki(t,i),n=t.stateNode,typeof n.componentWillUnmount=="function"))try{n.props=t.memoizedProps,n.state=t.memoizedState,n.componentWillUnmount()}catch(s){J(t,i,s)}Qe(e,i,t);break;case 21:Qe(e,i,t);break;case 22:t.mode&1?(ae=(n=ae)||t.memoizedState!==null,Qe(e,i,t),ae=n):Qe(e,i,t);break;default:Qe(e,i,t)}}function Ns(e){var i=e.updateQueue;if(i!==null){e.updateQueue=null;var t=e.stateNode;t===null&&(t=e.stateNode=new Ip),i.forEach(function(n){var a=Fp.bind(null,e,n);t.has(n)||(t.add(n),n.then(a,a))})}}function Pe(e,i){var t=i.deletions;if(t!==null)for(var n=0;n<t.length;n++){var a=t[n];try{var r=e,o=i,s=o;e:for(;s!==null;){switch(s.tag){case 5:$=s.stateNode,Me=!1;break e;case 3:$=s.stateNode.containerInfo,Me=!0;break e;case 4:$=s.stateNode.containerInfo,Me=!0;break e}s=s.return}if($===null)throw Error(w(160));Qc(r,o,a),$=null,Me=!1;var l=a.alternate;l!==null&&(l.return=null),a.return=null}catch(c){J(a,i,c)}}if(i.subtreeFlags&12854)for(i=i.child;i!==null;)Zc(i,e),i=i.sibling}function Zc(e,i){var t=e.alternate,n=e.flags;switch(e.tag){case 0:case 11:case 14:case 15:if(Pe(i,e),Le(e),n&4){try{Pt(3,e,e.return),pa(3,e)}catch(k){J(e,e.return,k)}try{Pt(5,e,e.return)}catch(k){J(e,e.return,k)}}break;case 1:Pe(i,e),Le(e),n&512&&t!==null&&Ki(t,t.return);break;case 5:if(Pe(i,e),Le(e),n&512&&t!==null&&Ki(t,t.return),e.flags&32){var a=e.stateNode;try{Ot(a,"")}catch(k){J(e,e.return,k)}}if(n&4&&(a=e.stateNode,a!=null)){var r=e.memoizedProps,o=t!==null?t.memoizedProps:r,s=e.type,l=e.updateQueue;if(e.updateQueue=null,l!==null)try{s==="input"&&r.type==="radio"&&r.name!=null&&bl(a,r),sr(s,o);var c=sr(s,r);for(o=0;o<l.length;o+=2){var f=l[o],g=l[o+1];f==="style"?Al(a,g):f==="dangerouslySetInnerHTML"?xl(a,g):f==="children"?Ot(a,g):Qr(a,f,g,c)}switch(s){case"input":tr(a,r);break;case"textarea":wl(a,r);break;case"select":var h=a._wrapperState.wasMultiple;a._wrapperState.wasMultiple=!!r.multiple;var y=r.value;y!=null?Vi(a,!!r.multiple,y,!1):h!==!!r.multiple&&(r.defaultValue!=null?Vi(a,!!r.multiple,r.defaultValue,!0):Vi(a,!!r.multiple,r.multiple?[]:"",!1))}a[Nt]=r}catch(k){J(e,e.return,k)}}break;case 6:if(Pe(i,e),Le(e),n&4){if(e.stateNode===null)throw Error(w(162));a=e.stateNode,r=e.memoizedProps;try{a.nodeValue=r}catch(k){J(e,e.return,k)}}break;case 3:if(Pe(i,e),Le(e),n&4&&t!==null&&t.memoizedState.isDehydrated)try{zt(i.containerInfo)}catch(k){J(e,e.return,k)}break;case 4:Pe(i,e),Le(e);break;case 13:Pe(i,e),Le(e),a=e.child,a.flags&8192&&(r=a.memoizedState!==null,a.stateNode.isHidden=r,!r||a.alternate!==null&&a.alternate.memoizedState!==null||(Mo=V())),n&4&&Ns(e);break;case 22:if(f=t!==null&&t.memoizedState!==null,e.mode&1?(ae=(c=ae)||f,Pe(i,e),ae=c):Pe(i,e),Le(e),n&8192){if(c=e.memoizedState!==null,(e.stateNode.isHidden=c)&&!f&&e.mode&1)for(x=e,f=e.child;f!==null;){for(g=x=f;x!==null;){switch(h=x,y=h.child,h.tag){case 0:case 11:case 14:case 15:Pt(4,h,h.return);break;case 1:Ki(h,h.return);var v=h.stateNode;if(typeof v.componentWillUnmount=="function"){n=h,t=h.return;try{i=n,v.props=i.memoizedProps,v.state=i.memoizedState,v.componentWillUnmount()}catch(k){J(n,t,k)}}break;case 5:Ki(h,h.return);break;case 22:if(h.memoizedState!==null){Js(g);continue}}y!==null?(y.return=h,x=y):Js(g)}f=f.sibling}e:for(f=null,g=e;;){if(g.tag===5){if(f===null){f=g;try{a=g.stateNode,c?(r=a.style,typeof r.setProperty=="function"?r.setProperty("display","none","important"):r.display="none"):(s=g.stateNode,l=g.memoizedProps.style,o=l!=null&&l.hasOwnProperty("display")?l.display:null,s.style.display=Il("display",o))}catch(k){J(e,e.return,k)}}}else if(g.tag===6){if(f===null)try{g.stateNode.nodeValue=c?"":g.memoizedProps}catch(k){J(e,e.return,k)}}else if((g.tag!==22&&g.tag!==23||g.memoizedState===null||g===e)&&g.child!==null){g.child.return=g,g=g.child;continue}if(g===e)break e;for(;g.sibling===null;){if(g.return===null||g.return===e)break e;f===g&&(f=null),g=g.return}f===g&&(f=null),g.sibling.return=g.return,g=g.sibling}}break;case 19:Pe(i,e),Le(e),n&4&&Ns(e);break;case 21:break;default:Pe(i,e),Le(e)}}function Le(e){var i=e.flags;if(i&2){try{e:{for(var t=e.return;t!==null;){if(Xc(t)){var n=t;break e}t=t.return}throw Error(w(160))}switch(n.tag){case 5:var a=n.stateNode;n.flags&32&&(Ot(a,""),n.flags&=-33);var r=Hs(e);qr(e,r,a);break;case 3:case 4:var o=n.stateNode.containerInfo,s=Hs(e);zr(e,s,o);break;default:throw Error(w(161))}}catch(l){J(e,e.return,l)}e.flags&=-3}i&4096&&(e.flags&=-4097)}function Sp(e,i,t){x=e,Yc(e)}function Yc(e,i,t){for(var n=(e.mode&1)!==0;x!==null;){var a=x,r=a.child;if(a.tag===22&&n){var o=a.memoizedState!==null||vn;if(!o){var s=a.alternate,l=s!==null&&s.memoizedState!==null||ae;s=vn;var c=ae;if(vn=o,(ae=l)&&!c)for(x=a;x!==null;)o=x,l=o.child,o.tag===22&&o.memoizedState!==null?Ks(a):l!==null?(l.return=o,x=l):Ks(a);for(;r!==null;)x=r,Yc(r),r=r.sibling;x=a,vn=s,ae=c}_s(e)}else a.subtreeFlags&8772&&r!==null?(r.return=a,x=r):_s(e)}}function _s(e){for(;x!==null;){var i=x;if(i.flags&8772){var t=i.alternate;try{if(i.flags&8772)switch(i.tag){case 0:case 11:case 15:ae||pa(5,i);break;case 1:var n=i.stateNode;if(i.flags&4&&!ae)if(t===null)n.componentDidMount();else{var a=i.elementType===i.type?t.memoizedProps:Re(i.type,t.memoizedProps);n.componentDidUpdate(a,t.memoizedState,n.__reactInternalSnapshotBeforeUpdate)}var r=i.updateQueue;r!==null&&Cs(i,r,n);break;case 3:var o=i.updateQueue;if(o!==null){if(t=null,i.child!==null)switch(i.child.tag){case 5:t=i.child.stateNode;break;case 1:t=i.child.stateNode}Cs(i,o,t)}break;case 5:var s=i.stateNode;if(t===null&&i.flags&4){t=s;var l=i.memoizedProps;switch(i.type){case"button":case"input":case"select":case"textarea":l.autoFocus&&t.focus();break;case"img":l.src&&(t.src=l.src)}}break;case 6:break;case 4:break;case 12:break;case 13:if(i.memoizedState===null){var c=i.alternate;if(c!==null){var f=c.memoizedState;if(f!==null){var g=f.dehydrated;g!==null&&zt(g)}}}break;case 19:case 17:case 21:case 22:case 23:case 25:break;default:throw Error(w(163))}ae||i.flags&512&&Lr(i)}catch(h){J(i,i.return,h)}}if(i===e){x=null;break}if(t=i.sibling,t!==null){t.return=i.return,x=t;break}x=i.return}}function Js(e){for(;x!==null;){var i=x;if(i===e){x=null;break}var t=i.sibling;if(t!==null){t.return=i.return,x=t;break}x=i.return}}function Ks(e){for(;x!==null;){var i=x;try{switch(i.tag){case 0:case 11:case 15:var t=i.return;try{pa(4,i)}catch(l){J(i,t,l)}break;case 1:var n=i.stateNode;if(typeof n.componentDidMount=="function"){var a=i.return;try{n.componentDidMount()}catch(l){J(i,a,l)}}var r=i.return;try{Lr(i)}catch(l){J(i,r,l)}break;case 5:var o=i.return;try{Lr(i)}catch(l){J(i,o,l)}}}catch(l){J(i,i.return,l)}if(i===e){x=null;break}var s=i.sibling;if(s!==null){s.return=i.return,x=s;break}x=i.return}}var Cp=Math.ceil,Yn=Xe.ReactCurrentDispatcher,Po=Xe.ReactCurrentOwner,Ae=Xe.ReactCurrentBatchConfig,O=0,Y=null,W=null,ee=0,ge=0,Gi=mi(0),X=0,Wt=null,Ri=0,ha=0,Ro=0,Rt=null,de=null,Mo=0,at=1/0,He=null,$n=!1,Er=null,li=null,bn=!1,ti=null,ea=0,Mt=0,Br=null,Mn=-1,jn=0;function se(){return O&6?V():Mn!==-1?Mn:Mn=V()}function ci(e){return e.mode&1?O&2&&ee!==0?ee&-ee:cp.transition!==null?(jn===0&&(jn=zl()),jn):(e=F,e!==0||(e=window.event,e=e===void 0?16:Jl(e.type)),e):1}function Fe(e,i,t,n){if(50<Mt)throw Mt=0,Br=null,Error(w(185));Zt(e,t,n),(!(O&2)||e!==Y)&&(e===Y&&(!(O&2)&&(ha|=t),X===4&&ei(e,ee)),me(e,n),t===1&&O===0&&!(i.mode&1)&&(at=V()+500,ca&&gi()))}function me(e,i){var t=e.callbackNode;cu(e,i);var n=qn(e,e===Y?ee:0);if(n===0)t!==null&&$o(t),e.callbackNode=null,e.callbackPriority=0;else if(i=n&-n,e.callbackPriority!==i){if(t!=null&&$o(t),i===1)e.tag===0?lp(Gs.bind(null,e)):lc(Gs.bind(null,e)),ap(function(){!(O&6)&&gi()}),t=null;else{switch(ql(n)){case 1:t=io;break;case 4:t=Dl;break;case 16:t=zn;break;case 536870912:t=Ll;break;default:t=zn}t=od(t,$c.bind(null,e))}e.callbackPriority=i,e.callbackNode=t}}function $c(e,i){if(Mn=-1,jn=0,O&6)throw Error(w(327));var t=e.callbackNode;if(Zi()&&e.callbackNode!==t)return null;var n=qn(e,e===Y?ee:0);if(n===0)return null;if(n&30||n&e.expiredLanes||i)i=ia(e,n);else{i=n;var a=O;O|=2;var r=id();(Y!==e||ee!==i)&&(He=null,at=V()+500,Ai(e,i));do try{Rp();break}catch(s){ed(e,s)}while(!0);go(),Yn.current=r,O=a,W!==null?i=0:(Y=null,ee=0,i=X)}if(i!==0){if(i===2&&(a=pr(e),a!==0&&(n=a,i=Hr(e,a))),i===1)throw t=Wt,Ai(e,0),ei(e,n),me(e,V()),t;if(i===6)ei(e,n);else{if(a=e.current.alternate,!(n&30)&&!Tp(a)&&(i=ia(e,n),i===2&&(r=pr(e),r!==0&&(n=r,i=Hr(e,r))),i===1))throw t=Wt,Ai(e,0),ei(e,n),me(e,V()),t;switch(e.finishedWork=a,e.finishedLanes=n,i){case 0:case 1:throw Error(w(345));case 2:wi(e,de,He);break;case 3:if(ei(e,n),(n&130023424)===n&&(i=Mo+500-V(),10<i)){if(qn(e,0)!==0)break;if(a=e.suspendedLanes,(a&n)!==n){se(),e.pingedLanes|=e.suspendedLanes&a;break}e.timeoutHandle=wr(wi.bind(null,e,de,He),i);break}wi(e,de,He);break;case 4:if(ei(e,n),(n&4194240)===n)break;for(i=e.eventTimes,a=-1;0<n;){var o=31-Oe(n);r=1<<o,o=i[o],o>a&&(a=o),n&=~r}if(n=a,n=V()-n,n=(120>n?120:480>n?480:1080>n?1080:1920>n?1920:3e3>n?3e3:4320>n?4320:1960*Cp(n/1960))-n,10<n){e.timeoutHandle=wr(wi.bind(null,e,de,He),n);break}wi(e,de,He);break;case 5:wi(e,de,He);break;default:throw Error(w(329))}}}return me(e,V()),e.callbackNode===t?$c.bind(null,e):null}function Hr(e,i){var t=Rt;return e.current.memoizedState.isDehydrated&&(Ai(e,i).flags|=256),e=ia(e,i),e!==2&&(i=de,de=t,i!==null&&Nr(i)),e}function Nr(e){de===null?de=e:de.push.apply(de,e)}function Tp(e){for(var i=e;;){if(i.flags&16384){var t=i.updateQueue;if(t!==null&&(t=t.stores,t!==null))for(var n=0;n<t.length;n++){var a=t[n],r=a.getSnapshot;a=a.value;try{if(!De(r(),a))return!1}catch{return!1}}}if(t=i.child,i.subtreeFlags&16384&&t!==null)t.return=i,i=t;else{if(i===e)break;for(;i.sibling===null;){if(i.return===null||i.return===e)return!0;i=i.return}i.sibling.return=i.return,i=i.sibling}}return!0}function ei(e,i){for(i&=~Ro,i&=~ha,e.suspendedLanes|=i,e.pingedLanes&=~i,e=e.expirationTimes;0<i;){var t=31-Oe(i),n=1<<t;e[t]=-1,i&=~n}}function Gs(e){if(O&6)throw Error(w(327));Zi();var i=qn(e,0);if(!(i&1))return me(e,V()),null;var t=ia(e,i);if(e.tag!==0&&t===2){var n=pr(e);n!==0&&(i=n,t=Hr(e,n))}if(t===1)throw t=Wt,Ai(e,0),ei(e,i),me(e,V()),t;if(t===6)throw Error(w(345));return e.finishedWork=e.current.alternate,e.finishedLanes=i,wi(e,de,He),me(e,V()),null}function jo(e,i){var t=O;O|=1;try{return e(i)}finally{O=t,O===0&&(at=V()+500,ca&&gi())}}function Mi(e){ti!==null&&ti.tag===0&&!(O&6)&&Zi();var i=O;O|=1;var t=Ae.transition,n=F;try{if(Ae.transition=null,F=1,e)return e()}finally{F=n,Ae.transition=t,O=i,!(O&6)&&gi()}}function Oo(){ge=Gi.current,q(Gi)}function Ai(e,i){e.finishedWork=null,e.finishedLanes=0;var t=e.timeoutHandle;if(t!==-1&&(e.timeoutHandle=-1,np(t)),W!==null)for(t=W.return;t!==null;){var n=t;switch(po(n),n.tag){case 1:n=n.type.childContextTypes,n!=null&&_n();break;case 3:tt(),q(pe),q(re),ko();break;case 5:wo(n);break;case 4:tt();break;case 13:q(H);break;case 19:q(H);break;case 10:fo(n.type._context);break;case 22:case 23:Oo()}t=t.return}if(Y=e,W=e=di(e.current,null),ee=ge=i,X=0,Wt=null,Ro=ha=Ri=0,de=Rt=null,xi!==null){for(i=0;i<xi.length;i++)if(t=xi[i],n=t.interleaved,n!==null){t.interleaved=null;var a=n.next,r=t.pending;if(r!==null){var o=r.next;r.next=a,n.next=o}t.pending=n}xi=null}return e}function ed(e,i){do{var t=W;try{if(go(),Tn.current=Zn,Qn){for(var n=N.memoizedState;n!==null;){var a=n.queue;a!==null&&(a.pending=null),n=n.next}Qn=!1}if(Pi=0,Z=U=N=null,Tt=!1,Kt=0,Po.current=null,t===null||t.return===null){X=1,Wt=i,W=null;break}e:{var r=e,o=t.return,s=t,l=i;if(i=ee,s.flags|=32768,l!==null&&typeof l=="object"&&typeof l.then=="function"){var c=l,f=s,g=f.tag;if(!(f.mode&1)&&(g===0||g===11||g===15)){var h=f.alternate;h?(f.updateQueue=h.updateQueue,f.memoizedState=h.memoizedState,f.lanes=h.lanes):(f.updateQueue=null,f.memoizedState=null)}var y=Os(o);if(y!==null){y.flags&=-257,Fs(y,o,s,r,i),y.mode&1&&js(r,c,i),i=y,l=c;var v=i.updateQueue;if(v===null){var k=new Set;k.add(l),i.updateQueue=k}else v.add(l);break e}else{if(!(i&1)){js(r,c,i),Fo();break e}l=Error(w(426))}}else if(B&&s.mode&1){var D=Os(o);if(D!==null){!(D.flags&65536)&&(D.flags|=256),Fs(D,o,s,r,i),ho(nt(l,s));break e}}r=l=nt(l,s),X!==4&&(X=2),Rt===null?Rt=[r]:Rt.push(r),r=o;do{switch(r.tag){case 3:r.flags|=65536,i&=-i,r.lanes|=i;var u=qc(r,l,i);Ss(r,u);break e;case 1:s=l;var d=r.type,p=r.stateNode;if(!(r.flags&128)&&(typeof d.getDerivedStateFromError=="function"||p!==null&&typeof p.componentDidCatch=="function"&&(li===null||!li.has(p)))){r.flags|=65536,i&=-i,r.lanes|=i;var b=Ec(r,s,i);Ss(r,b);break e}}r=r.return}while(r!==null)}nd(t)}catch(I){i=I,W===t&&t!==null&&(W=t=t.return);continue}break}while(!0)}function id(){var e=Yn.current;return Yn.current=Zn,e===null?Zn:e}function Fo(){(X===0||X===3||X===2)&&(X=4),Y===null||!(Ri&268435455)&&!(ha&268435455)||ei(Y,ee)}function ia(e,i){var t=O;O|=2;var n=id();(Y!==e||ee!==i)&&(He=null,Ai(e,i));do try{Pp();break}catch(a){ed(e,a)}while(!0);if(go(),O=t,Yn.current=n,W!==null)throw Error(w(261));return Y=null,ee=0,X}function Pp(){for(;W!==null;)td(W)}function Rp(){for(;W!==null&&!eu();)td(W)}function td(e){var i=rd(e.alternate,e,ge);e.memoizedProps=e.pendingProps,i===null?nd(e):W=i,Po.current=null}function nd(e){var i=e;do{var t=i.alternate;if(e=i.return,i.flags&32768){if(t=xp(t,i),t!==null){t.flags&=32767,W=t;return}if(e!==null)e.flags|=32768,e.subtreeFlags=0,e.deletions=null;else{X=6,W=null;return}}else if(t=kp(t,i,ge),t!==null){W=t;return}if(i=i.sibling,i!==null){W=i;return}W=i=e}while(i!==null);X===0&&(X=5)}function wi(e,i,t){var n=F,a=Ae.transition;try{Ae.transition=null,F=1,Mp(e,i,t,n)}finally{Ae.transition=a,F=n}return null}function Mp(e,i,t,n){do Zi();while(ti!==null);if(O&6)throw Error(w(327));t=e.finishedWork;var a=e.finishedLanes;if(t===null)return null;if(e.finishedWork=null,e.finishedLanes=0,t===e.current)throw Error(w(177));e.callbackNode=null,e.callbackPriority=0;var r=t.lanes|t.childLanes;if(du(e,r),e===Y&&(W=Y=null,ee=0),!(t.subtreeFlags&2064)&&!(t.flags&2064)||bn||(bn=!0,od(zn,function(){return Zi(),null})),r=(t.flags&15990)!==0,t.subtreeFlags&15990||r){r=Ae.transition,Ae.transition=null;var o=F;F=1;var s=O;O|=4,Po.current=null,Ap(e,t),Zc(t,e),Qu(vr),En=!!yr,vr=yr=null,e.current=t,Sp(t),iu(),O=s,F=o,Ae.transition=r}else e.current=t;if(bn&&(bn=!1,ti=e,ea=a),r=e.pendingLanes,r===0&&(li=null),au(t.stateNode),me(e,V()),i!==null)for(n=e.onRecoverableError,t=0;t<i.length;t++)a=i[t],n(a.value,{componentStack:a.stack,digest:a.digest});if($n)throw $n=!1,e=Er,Er=null,e;return ea&1&&e.tag!==0&&Zi(),r=e.pendingLanes,r&1?e===Br?Mt++:(Mt=0,Br=e):Mt=0,gi(),null}function Zi(){if(ti!==null){var e=ql(ea),i=Ae.transition,t=F;try{if(Ae.transition=null,F=16>e?16:e,ti===null)var n=!1;else{if(e=ti,ti=null,ea=0,O&6)throw Error(w(331));var a=O;for(O|=4,x=e.current;x!==null;){var r=x,o=r.child;if(x.flags&16){var s=r.deletions;if(s!==null){for(var l=0;l<s.length;l++){var c=s[l];for(x=c;x!==null;){var f=x;switch(f.tag){case 0:case 11:case 15:Pt(8,f,r)}var g=f.child;if(g!==null)g.return=f,x=g;else for(;x!==null;){f=x;var h=f.sibling,y=f.return;if(Uc(f),f===c){x=null;break}if(h!==null){h.return=y,x=h;break}x=y}}}var v=r.alternate;if(v!==null){var k=v.child;if(k!==null){v.child=null;do{var D=k.sibling;k.sibling=null,k=D}while(k!==null)}}x=r}}if(r.subtreeFlags&2064&&o!==null)o.return=r,x=o;else e:for(;x!==null;){if(r=x,r.flags&2048)switch(r.tag){case 0:case 11:case 15:Pt(9,r,r.return)}var u=r.sibling;if(u!==null){u.return=r.return,x=u;break e}x=r.return}}var d=e.current;for(x=d;x!==null;){o=x;var p=o.child;if(o.subtreeFlags&2064&&p!==null)p.return=o,x=p;else e:for(o=d;x!==null;){if(s=x,s.flags&2048)try{switch(s.tag){case 0:case 11:case 15:pa(9,s)}}catch(I){J(s,s.return,I)}if(s===o){x=null;break e}var b=s.sibling;if(b!==null){b.return=s.return,x=b;break e}x=s.return}}if(O=a,gi(),Ee&&typeof Ee.onPostCommitFiberRoot=="function")try{Ee.onPostCommitFiberRoot(aa,e)}catch{}n=!0}return n}finally{F=t,Ae.transition=i}}return!1}function Vs(e,i,t){i=nt(t,i),i=qc(e,i,1),e=si(e,i,1),i=se(),e!==null&&(Zt(e,1,i),me(e,i))}function J(e,i,t){if(e.tag===3)Vs(e,e,t);else for(;i!==null;){if(i.tag===3){Vs(i,e,t);break}else if(i.tag===1){var n=i.stateNode;if(typeof i.type.getDerivedStateFromError=="function"||typeof n.componentDidCatch=="function"&&(li===null||!li.has(n))){e=nt(t,e),e=Ec(i,e,1),i=si(i,e,1),e=se(),i!==null&&(Zt(i,1,e),me(i,e));break}}i=i.return}}function jp(e,i,t){var n=e.pingCache;n!==null&&n.delete(i),i=se(),e.pingedLanes|=e.suspendedLanes&t,Y===e&&(ee&t)===t&&(X===4||X===3&&(ee&130023424)===ee&&500>V()-Mo?Ai(e,0):Ro|=t),me(e,i)}function ad(e,i){i===0&&(e.mode&1?(i=cn,cn<<=1,!(cn&130023424)&&(cn=4194304)):i=1);var t=se();e=We(e,i),e!==null&&(Zt(e,i,t),me(e,t))}function Op(e){var i=e.memoizedState,t=0;i!==null&&(t=i.retryLane),ad(e,t)}function Fp(e,i){var t=0;switch(e.tag){case 13:var n=e.stateNode,a=e.memoizedState;a!==null&&(t=a.retryLane);break;case 19:n=e.stateNode;break;default:throw Error(w(314))}n!==null&&n.delete(i),ad(e,t)}var rd;rd=function(e,i,t){if(e!==null)if(e.memoizedProps!==i.pendingProps||pe.current)ue=!0;else{if(!(e.lanes&t)&&!(i.flags&128))return ue=!1,wp(e,i,t);ue=!!(e.flags&131072)}else ue=!1,B&&i.flags&1048576&&cc(i,Gn,i.index);switch(i.lanes=0,i.tag){case 2:var n=i.type;Rn(e,i),e=i.pendingProps;var a=$i(i,re.current);Qi(i,t),a=Io(null,i,n,e,a,t);var r=Ao();return i.flags|=1,typeof a=="object"&&a!==null&&typeof a.render=="function"&&a.$$typeof===void 0?(i.tag=1,i.memoizedState=null,i.updateQueue=null,he(n)?(r=!0,Jn(i)):r=!1,i.memoizedState=a.state!==null&&a.state!==void 0?a.state:null,vo(i),a.updater=ua,i.stateNode=a,a._reactInternals=i,Tr(i,n,e,t),i=Mr(null,i,n,!0,r,t)):(i.tag=0,B&&r&&uo(i),oe(null,i,a,t),i=i.child),i;case 16:n=i.elementType;e:{switch(Rn(e,i),e=i.pendingProps,a=n._init,n=a(n._payload),i.type=n,a=i.tag=Lp(n),e=Re(n,e),a){case 0:i=Rr(null,i,n,e,t);break e;case 1:i=zs(null,i,n,e,t);break e;case 11:i=Ds(null,i,n,e,t);break e;case 14:i=Ls(null,i,n,Re(n.type,e),t);break e}throw Error(w(306,n,""))}return i;case 0:return n=i.type,a=i.pendingProps,a=i.elementType===n?a:Re(n,a),Rr(e,i,n,a,t);case 1:return n=i.type,a=i.pendingProps,a=i.elementType===n?a:Re(n,a),zs(e,i,n,a,t);case 3:e:{if(_c(i),e===null)throw Error(w(387));n=i.pendingProps,r=i.memoizedState,a=r.element,gc(e,i),Un(i,n,null,t);var o=i.memoizedState;if(n=o.element,r.isDehydrated)if(r={element:n,isDehydrated:!1,cache:o.cache,pendingSuspenseBoundaries:o.pendingSuspenseBoundaries,transitions:o.transitions},i.updateQueue.baseState=r,i.memoizedState=r,i.flags&256){a=nt(Error(w(423)),i),i=qs(e,i,n,t,a);break e}else if(n!==a){a=nt(Error(w(424)),i),i=qs(e,i,n,t,a);break e}else for(fe=oi(i.stateNode.containerInfo.firstChild),ye=i,B=!0,je=null,t=hc(i,null,n,t),i.child=t;t;)t.flags=t.flags&-3|4096,t=t.sibling;else{if(et(),n===a){i=Ue(e,i,t);break e}oe(e,i,n,t)}i=i.child}return i;case 5:return fc(i),e===null&&Ar(i),n=i.type,a=i.pendingProps,r=e!==null?e.memoizedProps:null,o=a.children,br(n,a)?o=null:r!==null&&br(n,r)&&(i.flags|=32),Nc(e,i),oe(e,i,o,t),i.child;case 6:return e===null&&Ar(i),null;case 13:return Jc(e,i,t);case 4:return bo(i,i.stateNode.containerInfo),n=i.pendingProps,e===null?i.child=it(i,null,n,t):oe(e,i,n,t),i.child;case 11:return n=i.type,a=i.pendingProps,a=i.elementType===n?a:Re(n,a),Ds(e,i,n,a,t);case 7:return oe(e,i,i.pendingProps,t),i.child;case 8:return oe(e,i,i.pendingProps.children,t),i.child;case 12:return oe(e,i,i.pendingProps.children,t),i.child;case 10:e:{if(n=i.type._context,a=i.pendingProps,r=i.memoizedProps,o=a.value,L(Vn,n._currentValue),n._currentValue=o,r!==null)if(De(r.value,o)){if(r.children===a.children&&!pe.current){i=Ue(e,i,t);break e}}else for(r=i.child,r!==null&&(r.return=i);r!==null;){var s=r.dependencies;if(s!==null){o=r.child;for(var l=s.firstContext;l!==null;){if(l.context===n){if(r.tag===1){l=Ke(-1,t&-t),l.tag=2;var c=r.updateQueue;if(c!==null){c=c.shared;var f=c.pending;f===null?l.next=l:(l.next=f.next,f.next=l),c.pending=l}}r.lanes|=t,l=r.alternate,l!==null&&(l.lanes|=t),Sr(r.return,t,i),s.lanes|=t;break}l=l.next}}else if(r.tag===10)o=r.type===i.type?null:r.child;else if(r.tag===18){if(o=r.return,o===null)throw Error(w(341));o.lanes|=t,s=o.alternate,s!==null&&(s.lanes|=t),Sr(o,t,i),o=r.sibling}else o=r.child;if(o!==null)o.return=r;else for(o=r;o!==null;){if(o===i){o=null;break}if(r=o.sibling,r!==null){r.return=o.return,o=r;break}o=o.return}r=o}oe(e,i,a.children,t),i=i.child}return i;case 9:return a=i.type,n=i.pendingProps.children,Qi(i,t),a=Se(a),n=n(a),i.flags|=1,oe(e,i,n,t),i.child;case 14:return n=i.type,a=Re(n,i.pendingProps),a=Re(n.type,a),Ls(e,i,n,a,t);case 15:return Bc(e,i,i.type,i.pendingProps,t);case 17:return n=i.type,a=i.pendingProps,a=i.elementType===n?a:Re(n,a),Rn(e,i),i.tag=1,he(n)?(e=!0,Jn(i)):e=!1,Qi(i,t),zc(i,n,a),Tr(i,n,a,t),Mr(null,i,n,!0,e,t);case 19:return Kc(e,i,t);case 22:return Hc(e,i,t)}throw Error(w(156,i.tag))};function od(e,i){return Fl(e,i)}function Dp(e,i,t,n){this.tag=e,this.key=t,this.sibling=this.child=this.return=this.stateNode=this.type=this.elementType=null,this.index=0,this.ref=null,this.pendingProps=i,this.dependencies=this.memoizedState=this.updateQueue=this.memoizedProps=null,this.mode=n,this.subtreeFlags=this.flags=0,this.deletions=null,this.childLanes=this.lanes=0,this.alternate=null}function Ie(e,i,t,n){return new Dp(e,i,t,n)}function Do(e){return e=e.prototype,!(!e||!e.isReactComponent)}function Lp(e){if(typeof e=="function")return Do(e)?1:0;if(e!=null){if(e=e.$$typeof,e===Yr)return 11;if(e===$r)return 14}return 2}function di(e,i){var t=e.alternate;return t===null?(t=Ie(e.tag,i,e.key,e.mode),t.elementType=e.elementType,t.type=e.type,t.stateNode=e.stateNode,t.alternate=e,e.alternate=t):(t.pendingProps=i,t.type=e.type,t.flags=0,t.subtreeFlags=0,t.deletions=null),t.flags=e.flags&14680064,t.childLanes=e.childLanes,t.lanes=e.lanes,t.child=e.child,t.memoizedProps=e.memoizedProps,t.memoizedState=e.memoizedState,t.updateQueue=e.updateQueue,i=e.dependencies,t.dependencies=i===null?null:{lanes:i.lanes,firstContext:i.firstContext},t.sibling=e.sibling,t.index=e.index,t.ref=e.ref,t}function On(e,i,t,n,a,r){var o=2;if(n=e,typeof e=="function")Do(e)&&(o=1);else if(typeof e=="string")o=5;else e:switch(e){case Li:return Si(t.children,a,r,i);case Zr:o=8,a|=8;break;case Za:return e=Ie(12,t,i,a|2),e.elementType=Za,e.lanes=r,e;case Ya:return e=Ie(13,t,i,a),e.elementType=Ya,e.lanes=r,e;case $a:return e=Ie(19,t,i,a),e.elementType=$a,e.lanes=r,e;case fl:return ma(t,a,r,i);default:if(typeof e=="object"&&e!==null)switch(e.$$typeof){case ml:o=10;break e;case gl:o=9;break e;case Yr:o=11;break e;case $r:o=14;break e;case Ze:o=16,n=null;break e}throw Error(w(130,e==null?e:typeof e,""))}return i=Ie(o,t,i,a),i.elementType=e,i.type=n,i.lanes=r,i}function Si(e,i,t,n){return e=Ie(7,e,n,i),e.lanes=t,e}function ma(e,i,t,n){return e=Ie(22,e,n,i),e.elementType=fl,e.lanes=t,e.stateNode={isHidden:!1},e}function Wa(e,i,t){return e=Ie(6,e,null,i),e.lanes=t,e}function Ua(e,i,t){return i=Ie(4,e.children!==null?e.children:[],e.key,i),i.lanes=t,i.stateNode={containerInfo:e.containerInfo,pendingChildren:null,implementation:e.implementation},i}function zp(e,i,t,n,a){this.tag=i,this.containerInfo=e,this.finishedWork=this.pingCache=this.current=this.pendingChildren=null,this.timeoutHandle=-1,this.callbackNode=this.pendingContext=this.context=null,this.callbackPriority=0,this.eventTimes=Pa(0),this.expirationTimes=Pa(-1),this.entangledLanes=this.finishedLanes=this.mutableReadLanes=this.expiredLanes=this.pingedLanes=this.suspendedLanes=this.pendingLanes=0,this.entanglements=Pa(0),this.identifierPrefix=n,this.onRecoverableError=a,this.mutableSourceEagerHydrationData=null}function Lo(e,i,t,n,a,r,o,s,l){return e=new zp(e,i,t,s,l),i===1?(i=1,r===!0&&(i|=8)):i=0,r=Ie(3,null,null,i),e.current=r,r.stateNode=e,r.memoizedState={element:n,isDehydrated:t,cache:null,transitions:null,pendingSuspenseBoundaries:null},vo(r),e}function qp(e,i,t){var n=3<arguments.length&&arguments[3]!==void 0?arguments[3]:null;return{$$typeof:Di,key:n==null?null:""+n,children:e,containerInfo:i,implementation:t}}function sd(e){if(!e)return pi;e=e._reactInternals;e:{if(Oi(e)!==e||e.tag!==1)throw Error(w(170));var i=e;do{switch(i.tag){case 3:i=i.stateNode.context;break e;case 1:if(he(i.type)){i=i.stateNode.__reactInternalMemoizedMergedChildContext;break e}}i=i.return}while(i!==null);throw Error(w(171))}if(e.tag===1){var t=e.type;if(he(t))return sc(e,t,i)}return i}function ld(e,i,t,n,a,r,o,s,l){return e=Lo(t,n,!0,e,a,r,o,s,l),e.context=sd(null),t=e.current,n=se(),a=ci(t),r=Ke(n,a),r.callback=i??null,si(t,r,a),e.current.lanes=a,Zt(e,a,n),me(e,n),e}function ga(e,i,t,n){var a=i.current,r=se(),o=ci(a);return t=sd(t),i.context===null?i.context=t:i.pendingContext=t,i=Ke(r,o),i.payload={element:e},n=n===void 0?null:n,n!==null&&(i.callback=n),e=si(a,i,o),e!==null&&(Fe(e,a,o,r),Cn(e,a,o)),o}function ta(e){if(e=e.current,!e.child)return null;switch(e.child.tag){case 5:return e.child.stateNode;default:return e.child.stateNode}}function Ws(e,i){if(e=e.memoizedState,e!==null&&e.dehydrated!==null){var t=e.retryLane;e.retryLane=t!==0&&t<i?t:i}}function zo(e,i){Ws(e,i),(e=e.alternate)&&Ws(e,i)}function Ep(){return null}var cd=typeof reportError=="function"?reportError:function(e){console.error(e)};function qo(e){this._internalRoot=e}fa.prototype.render=qo.prototype.render=function(e){var i=this._internalRoot;if(i===null)throw Error(w(409));ga(e,i,null,null)};fa.prototype.unmount=qo.prototype.unmount=function(){var e=this._internalRoot;if(e!==null){this._internalRoot=null;var i=e.containerInfo;Mi(function(){ga(null,e,null,null)}),i[Ve]=null}};function fa(e){this._internalRoot=e}fa.prototype.unstable_scheduleHydration=function(e){if(e){var i=Hl();e={blockedOn:null,target:e,priority:i};for(var t=0;t<$e.length&&i!==0&&i<$e[t].priority;t++);$e.splice(t,0,e),t===0&&_l(e)}};function Eo(e){return!(!e||e.nodeType!==1&&e.nodeType!==9&&e.nodeType!==11)}function ya(e){return!(!e||e.nodeType!==1&&e.nodeType!==9&&e.nodeType!==11&&(e.nodeType!==8||e.nodeValue!==" react-mount-point-unstable "))}function Us(){}function Bp(e,i,t,n,a){if(a){if(typeof n=="function"){var r=n;n=function(){var c=ta(o);r.call(c)}}var o=ld(i,n,e,0,null,!1,!1,"",Us);return e._reactRootContainer=o,e[Ve]=o.current,Bt(e.nodeType===8?e.parentNode:e),Mi(),o}for(;a=e.lastChild;)e.removeChild(a);if(typeof n=="function"){var s=n;n=function(){var c=ta(l);s.call(c)}}var l=Lo(e,0,!1,null,null,!1,!1,"",Us);return e._reactRootContainer=l,e[Ve]=l.current,Bt(e.nodeType===8?e.parentNode:e),Mi(function(){ga(i,l,t,n)}),l}function va(e,i,t,n,a){var r=t._reactRootContainer;if(r){var o=r;if(typeof a=="function"){var s=a;a=function(){var l=ta(o);s.call(l)}}ga(i,o,e,a)}else o=Bp(t,i,e,a,n);return ta(o)}El=function(e){switch(e.tag){case 3:var i=e.stateNode;if(i.current.memoizedState.isDehydrated){var t=wt(i.pendingLanes);t!==0&&(to(i,t|1),me(i,V()),!(O&6)&&(at=V()+500,gi()))}break;case 13:Mi(function(){var n=We(e,1);if(n!==null){var a=se();Fe(n,e,1,a)}}),zo(e,1)}};no=function(e){if(e.tag===13){var i=We(e,134217728);if(i!==null){var t=se();Fe(i,e,134217728,t)}zo(e,134217728)}};Bl=function(e){if(e.tag===13){var i=ci(e),t=We(e,i);if(t!==null){var n=se();Fe(t,e,i,n)}zo(e,i)}};Hl=function(){return F};Nl=function(e,i){var t=F;try{return F=e,i()}finally{F=t}};cr=function(e,i,t){switch(i){case"input":if(tr(e,t),i=t.name,t.type==="radio"&&i!=null){for(t=e;t.parentNode;)t=t.parentNode;for(t=t.querySelectorAll("input[name="+JSON.stringify(""+i)+'][type="radio"]'),i=0;i<t.length;i++){var n=t[i];if(n!==e&&n.form===e.form){var a=la(n);if(!a)throw Error(w(90));vl(n),tr(n,a)}}}break;case"textarea":wl(e,t);break;case"select":i=t.value,i!=null&&Vi(e,!!t.multiple,i,!1)}};Tl=jo;Pl=Mi;var Hp={usingClientEntryPoint:!1,Events:[$t,Bi,la,Sl,Cl,jo]},yt={findFiberByHostInstance:ki,bundleType:0,version:"18.3.1",rendererPackageName:"react-dom"},Np={bundleType:yt.bundleType,version:yt.version,rendererPackageName:yt.rendererPackageName,rendererConfig:yt.rendererConfig,overrideHookState:null,overrideHookStateDeletePath:null,overrideHookStateRenamePath:null,overrideProps:null,overridePropsDeletePath:null,overridePropsRenamePath:null,setErrorHandler:null,setSuspenseHandler:null,scheduleUpdate:null,currentDispatcherRef:Xe.ReactCurrentDispatcher,findHostInstanceByFiber:function(e){return e=jl(e),e===null?null:e.stateNode},findFiberByHostInstance:yt.findFiberByHostInstance||Ep,findHostInstancesForRefresh:null,scheduleRefresh:null,scheduleRoot:null,setRefreshHandler:null,getCurrentFiber:null,reconcilerVersion:"18.3.1-next-f1338f8080-20240426"};if(typeof __REACT_DEVTOOLS_GLOBAL_HOOK__<"u"){var wn=__REACT_DEVTOOLS_GLOBAL_HOOK__;if(!wn.isDisabled&&wn.supportsFiber)try{aa=wn.inject(Np),Ee=wn}catch{}}be.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED=Hp;be.createPortal=function(e,i){var t=2<arguments.length&&arguments[2]!==void 0?arguments[2]:null;if(!Eo(i))throw Error(w(200));return qp(e,i,null,t)};be.createRoot=function(e,i){if(!Eo(e))throw Error(w(299));var t=!1,n="",a=cd;return i!=null&&(i.unstable_strictMode===!0&&(t=!0),i.identifierPrefix!==void 0&&(n=i.identifierPrefix),i.onRecoverableError!==void 0&&(a=i.onRecoverableError)),i=Lo(e,1,!1,null,null,t,!1,n,a),e[Ve]=i.current,Bt(e.nodeType===8?e.parentNode:e),new qo(i)};be.findDOMNode=function(e){if(e==null)return null;if(e.nodeType===1)return e;var i=e._reactInternals;if(i===void 0)throw typeof e.render=="function"?Error(w(188)):(e=Object.keys(e).join(","),Error(w(268,e)));return e=jl(i),e=e===null?null:e.stateNode,e};be.flushSync=function(e){return Mi(e)};be.hydrate=function(e,i,t){if(!ya(i))throw Error(w(200));return va(null,e,i,!0,t)};be.hydrateRoot=function(e,i,t){if(!Eo(e))throw Error(w(405));var n=t!=null&&t.hydratedSources||null,a=!1,r="",o=cd;if(t!=null&&(t.unstable_strictMode===!0&&(a=!0),t.identifierPrefix!==void 0&&(r=t.identifierPrefix),t.onRecoverableError!==void 0&&(o=t.onRecoverableError)),i=ld(i,null,e,1,t??null,a,!1,r,o),e[Ve]=i.current,Bt(e),n)for(e=0;e<n.length;e++)t=n[e],a=t._getVersion,a=a(t._source),i.mutableSourceEagerHydrationData==null?i.mutableSourceEagerHydrationData=[t,a]:i.mutableSourceEagerHydrationData.push(t,a);return new fa(i)};be.render=function(e,i,t){if(!ya(i))throw Error(w(200));return va(null,e,i,!1,t)};be.unmountComponentAtNode=function(e){if(!ya(e))throw Error(w(40));return e._reactRootContainer?(Mi(function(){va(null,null,e,!1,function(){e._reactRootContainer=null,e[Ve]=null})}),!0):!1};be.unstable_batchedUpdates=jo;be.unstable_renderSubtreeIntoContainer=function(e,i,t,n){if(!ya(t))throw Error(w(200));if(e==null||e._reactInternals===void 0)throw Error(w(38));return va(e,i,t,!1,n)};be.version="18.3.1-next-f1338f8080-20240426";function dd(){if(!(typeof __REACT_DEVTOOLS_GLOBAL_HOOK__>"u"||typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE!="function"))try{__REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(dd)}catch(e){console.error(e)}}dd(),dl.exports=be;var _p=dl.exports,ud,Xs=_p;ud=Xs.createRoot,Xs.hydrateRoot;const pd="ortho-v1";function Jp(){try{const e=JSON.parse(localStorage.getItem(pd));if(e&&typeof e=="object"&&Array.isArray(e.favorites)&&Array.isArray(e.recents))return{localArticles:[],...e}}catch{}return{favorites:[],recents:[],localArticles:[]}}function Kp(e){try{localStorage.setItem(pd,JSON.stringify(e))}catch{}}function Gp(e,i){const t=e.favorites.includes(i);return{...e,favorites:t?e.favorites.filter(n=>n!==i):[...e.favorites,i]}}function Vp(e,i){const t=[i,...e.recents.filter(n=>n!==i)].slice(0,10);return{...e,recents:t}}function Wp(){var e;return((e=crypto.randomUUID)==null?void 0:e.call(crypto))||`${Date.now()}-${Math.random().toString(36).slice(2)}`}function Up(e,i){const t=e.localArticles.some(a=>a.id===i.id),n={...i,updatedAt:Date.now()};return{...e,localArticles:t?e.localArticles.map(a=>a.id===i.id?n:a):[...e.localArticles,n]}}function Xp(e,i){return{...e,localArticles:e.localArticles.filter(t=>t.id!==i),favorites:e.favorites.filter(t=>t!==i),recents:e.recents.filter(t=>t!==i)}}function Qp(e,i){if(!i||typeof i!="object")return e;const t=Object.fromEntries(e.localArticles.map(n=>[n.id,n]));for(const n of i.localArticles||[])n&&n.id&&(!t[n.id]||(n.updatedAt||0)>(t[n.id].updatedAt||0))&&(t[n.id]=n);return{favorites:[...new Set([...e.favorites,...i.favorites||[]])],recents:[...new Set([...e.recents,...i.recents||[]])].slice(0,10),localArticles:Object.values(t)}}const Zp=`---
 title: Template — Case prep checklist
 tags: template
 ---
@@ -56,7 +56,7 @@ paragraph.
 - Site marked
 - Fill in… additional item
 - Fill in… additional item
-`,Qp=`---
+`,Yp=`---
 title: Template — Classification
 tags: template
 ---
@@ -86,7 +86,7 @@ or things easy to miss.
 ## References
 
 Fill in… source citation(s).
-`,Zp=`---
+`,$p=`---
 title: Achilles Tendinopathy Classification — Insertional, Mid-Portion & Haglund Deformity
 tags: Sports, Multi-region, Achilles tendinopathy, insertional Achilles tendinopathy, mid-portion Achilles tendinopathy, Haglund deformity, retrocalcaneal bursitis, pump bump, eccentric loading, heavy slow resistance, HSR, Alfredson protocol
 specialty: Sports
@@ -124,7 +124,7 @@ This classification divides chronic Achilles tendon disease by anatomic site and
 - Coombes BK, Bisset L, Vicenzino B. Efficacy and safety of corticosteroid injections and other injections for management of tendinopathy: a systematic review of randomised controlled trials. *Lancet.* 2010.
 
 *Full context: "Tendinopathies, Muscle Injuries & Ankle Instability" in the Diagnoses section.*
-`,Yp=`---
+`,eh=`---
 title: Ahlbäck Classification — Compartmental Knee Osteoarthritis (HTO/UKA Candidacy)
 tags: Arthroplasty, Knee & Leg, Knee osteoarthritis, High tibial osteotomy, Unicompartmental knee arthroplasty, HTO, UKA, compartmental bone loss
 specialty: Arthroplasty
@@ -158,7 +158,7 @@ The Ahlbäck classification (1968) was described specifically to grade **compart
 - Ahlbäck S. Osteoarthrosis of the knee: a radiographic investigation. *Acta Radiol Diagn (Stockh)*. 1968.
 
 *Full context: "Knee Osteoarthritis, Osteotomy, UKA & TKA" in the Diagnoses section.*
-`,$p=`---
+`,ih=`---
 title: Allman Classification — Clavicle Fractures
 tags: Trauma, Shoulder & Elbow, clavicle fracture, Robinson classification
 specialty: Trauma
@@ -189,7 +189,7 @@ The Allman classification is the original anatomic classification of clavicle fr
 - Allman FL. Fractures and ligamentous injuries of the clavicle and its articulation. *J Bone Joint Surg Am*. 1967.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,eh=`---
+`,th=`---
 title: Anderson–D'Alonzo Classification — Odontoid Fractures
 tags: Spine, odontoid fracture, dens fracture, C2 fracture, upper cervical spine, nonunion, anterior odontoid screw, posterior C1-C2 fusion, transverse atlantal ligament
 specialty: Spine
@@ -227,7 +227,7 @@ The Anderson–D'Alonzo classification describes odontoid (dens) fractures by th
 - DGOU expert-consensus treatment algorithm for geriatric odontoid fractures. *Global Spine Journal.* 2023.
 
 *Full context: "Spine Trauma" in the Diagnoses section.*
-`,ih=`---
+`,nh=`---
 title: AO/OTA Classification — Proximal Humerus (Chapter 11)
 tags: Trauma, Shoulder & Elbow, proximal humerus fracture, AVN risk, AO/OTA, PROFHER
 specialty: Trauma
@@ -261,7 +261,7 @@ Each group subdivides further (.1/.2/.3 and impacted/displaced qualifiers), mirr
 - Handoll HH, Brorson S, et al. ProFHER trial — surgical versus non-surgical treatment for proximal humeral fracture in adults. *JAMA*. 2015; long-term follow-up through 2024.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,th=`---
+`,ah=`---
 title: AO/OTA Classification — Humeral Shaft (Chapter 12)
 tags: Trauma, Shoulder & Elbow, humeral shaft fracture, functional bracing, AO/OTA, radial nerve palsy
 specialty: Trauma
@@ -294,7 +294,7 @@ AO/OTA Chapter 12 classifies humeral shaft fractures by fracture pattern complex
 - Sarmiento A, Zagorski JB, Zych GA, Latta LL, Capps CA. Functional bracing for the treatment of fractures of the humeral shaft. *J Bone Joint Surg Am*. 2000.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,nh=`---
+`,rh=`---
 title: AO/OTA 13 Classification — Distal Humerus Fracture
 tags: Trauma, Shoulder & Elbow, Distal humerus fracture, AO/OTA 13, elbow trauma, dual-column fracture, total elbow arthroplasty
 specialty: Trauma
@@ -330,7 +330,7 @@ Subgroups (.1/.2/.3) further stratify simple vs. wedge vs. multifragmentary patt
 - Distal humeral hemiarthroplasty compared to total elbow replacement for distal humeral fractures: registry analysis of 906 procedures (2023, *Journal of Shoulder and Elbow Surgery*).
 
 *Full context: "Elbow & Forearm Fractures / Dislocations" in the Diagnoses section.*
-`,ah=`---
+`,oh=`---
 title: AO/OTA 23 Classification — Distal Radius Fractures
 tags: Trauma, Hand & Wrist, distal radius fracture, AO/OTA 23, colles fracture, wrist trauma
 specialty: Trauma
@@ -361,7 +361,7 @@ The AO/OTA 23 system classifies distal radius fractures hierarchically by articu
 - AO Foundation / AO Surgery Reference — Distal radius (23) fracture classification module.
 
 *Full context: "Distal Radius & DRUJ Injuries" in the Diagnoses section.*
-`,rh=`---
+`,sh=`---
 title: AO/OTA 31 Classification — Proximal Femur Fractures
 tags: Trauma, Pelvis & Hip, AO/OTA 31, proximal femur fracture, femoral neck fracture, intertrochanteric fracture, femoral head fracture, lateral wall, Russell-Taylor, Seinsheimer
 specialty: Trauma
@@ -392,11 +392,11 @@ The AO/OTA 31 classification is the comprehensive alphanumeric system for proxim
 - Meinberg EG, Agel J, Roberts CS, Karam MD, Kellam JF. **Fracture and Dislocation Classification Compendium 2018 (AO/OTA).** J Orthop Trauma. 2018;32 Suppl 1:S1-S170.
 
 *Full context: "Proximal Femur Fractures" in the Diagnoses section.*
-`,oh=`---
+`,lh=`---
 title: AO/OTA Classification — Femoral Shaft Fractures (32)
 tags: Trauma, Knee & Femur, femoral shaft fracture, diaphyseal fracture, AO/OTA, intramedullary nailing, Winquist-Hansen
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 
@@ -424,11 +424,11 @@ AO/OTA 32 classifies femoral diaphyseal (shaft) fractures by fracture pattern an
 - Meinberg EG, Agel J, Roberts CS, Karam MD, Kellam JF. Fracture and Dislocation Classification Compendium — 2018 (AO/OTA Classification). *J Orthop Trauma*. 2018.
 
 *Full context: "Femoral Shaft & Distal Femur Fractures" in the Diagnoses section.*
-`,sh=`---
+`,ch=`---
 title: AO/OTA Classification — Distal Femur Fractures (33)
 tags: Trauma, Knee & Femur, distal femur fracture, supracondylar fracture, Hoffa fragment, AO/OTA, retrograde nail, locked plating, nail-plate construct, distal femoral replacement
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 
@@ -464,7 +464,7 @@ AO/OTA 33 classifies distal femur fractures by articular involvement — extra-a
 - Ricci WM, Streubel PN, Morshed S, et al. Risk factors for failure of locked plate fixation of distal femur fractures: an analysis of 335 cases. *J Orthop Trauma*. 2014.
 
 *Full context: "Femoral Shaft & Distal Femur Fractures" in the Diagnoses section.*
-`,lh=`---
+`,dh=`---
 title: AO/OTA Classification — Proximal Tibia/Plateau Fractures (41)
 tags: Trauma, Knee & Leg, tibial plateau fracture, AO/OTA 41, Schatzker, Luo three-column, registry classification
 specialty: Trauma
@@ -495,7 +495,7 @@ AO/OTA 41 is the universal alphanumeric coding for proximal tibia/fibula (platea
 - Marsh JL, Slongo TF, Agel J, et al. Fracture and dislocation classification compendium — 2007 (AO/OTA classification). *J Orthop Trauma.* 2007 (and subsequent OTA/AO revisions).
 
 *Full context: "Tibial Plateau, Shaft & Pilon Fractures" in the Diagnoses section.*
-`,ch=`---
+`,uh=`---
 title: AO/OTA Classification — Tibial Shaft Fractures (42)
 tags: Trauma, Knee & Leg, tibial shaft fracture, AO/OTA 42, intramedullary nailing, nonunion, registry classification
 specialty: Trauma
@@ -526,7 +526,7 @@ AO/OTA 42 is the universal alphanumeric coding for tibial/fibular shaft (diaphys
 - Marsh JL, Slongo TF, Agel J, et al. Fracture and dislocation classification compendium — 2007 (AO/OTA classification). *J Orthop Trauma.* 2007 (and subsequent OTA/AO revisions).
 
 *Full context: "Tibial Plateau, Shaft & Pilon Fractures" in the Diagnoses section.*
-`,dh=`---
+`,ph=`---
 title: AO/OTA Classification — Distal Tibia/Pilon Fractures (43)
 tags: Trauma, Knee & Leg, pilon fracture, plafond fracture, AO/OTA 43, Rüedi-Allgöwer, staged fixation, registry classification
 specialty: Trauma
@@ -557,7 +557,7 @@ AO/OTA 43 is the universal alphanumeric coding for distal tibia (pilon/plafond) 
 - Marsh JL, Slongo TF, Agel J, et al. Fracture and dislocation classification compendium — 2007 (AO/OTA classification). *J Orthop Trauma.* 2007 (and subsequent OTA/AO revisions).
 
 *Full context: "Tibial Plateau, Shaft & Pilon Fractures" in the Diagnoses section.*
-`,uh=`---
+`,hh=`---
 title: AO Spine Subaxial Cervical Injury Classification — Cervical Spine Trauma (C3–C7)
 tags: Spine, cervical spine injury, subaxial cervical fracture, facet dislocation, facet fracture, spinal cord injury, tension band, AO Spine classification, SLIC
 specialty: Spine
@@ -593,7 +593,7 @@ The AO Spine Subaxial Cervical Injury Classification grades C3–C7 fractures an
 - Vaccaro AR, et al. AO Spine Subaxial Cervical Spine Injury Classification System. *Global Spine Journal.* 2016.
 
 *Full context: "Spine Trauma" in the Diagnoses section.*
-`,ph=`---
+`,mh=`---
 title: AO Spine Thoracolumbar Injury Classification — Thoracolumbar Spine Trauma
 tags: Spine, thoracolumbar burst fracture, Chance fracture, flexion-distraction injury, spinal cord injury, TLICS, three-column spine, AO Spine classification
 specialty: Spine
@@ -631,7 +631,7 @@ The AO Spine Thoracolumbar Injury Classification grades thoracolumbar fractures 
 - ESTES (European Society for Trauma and Emergency Surgery) recommendation on thoracolumbar spine fractures. 2023.
 
 *Full context: "Spine Trauma" in the Diagnoses section.*
-`,hh=`---
+`,gh=`---
 title: AORI Classification — Femoral/Tibial Bone Defects in Revision TKA
 tags: Arthroplasty, Multi-region, aseptic loosening, revision total knee arthroplasty, AORI classification, Anderson Orthopaedic Research Institute, metaphyseal cones and sleeves, constraint ladder
 specialty: Arthroplasty
@@ -666,7 +666,7 @@ The AORI (Anderson Orthopaedic Research Institute) classification grades femoral
 - [Porous Tantalum Tibial Metaphyseal Cones in Revision Total Knee Arthroplasty: Excellent 10-Year Survivorship](https://www.arthroplastyjournal.org/article/S0883-5403(24)00382-6/fulltext) (2024).
 
 *Full context: "Periprosthetic Fractures & Revision Arthroplasty" in the Diagnoses section.*
-`,mh=`---
+`,fh=`---
 title: ARCO 2019 Classification — Osteonecrosis of the Femoral Head
 tags: Arthroplasty, Pelvis & Hip, osteonecrosis of the femoral head, avascular necrosis, AVN, ARCO staging, hip preservation, core decompression, femoral head collapse
 specialty: Arthroplasty
@@ -702,7 +702,7 @@ The ARCO (Association Research Circulation Osseous) system stages osteonecrosis 
 - 2023 interobserver reliability study of the 2021 ARCO classification (kappa 0.652, 90.25% agreement).
 
 *Full context: "Femoral Head Osteonecrosis & Hip Preservation" in the Diagnoses section.*
-`,gh=`---
+`,yh=`---
 title: ASA Physical Status Classification — Perioperative Risk Stratification
 tags: Principles & Procedures, Multi-region, ASA grade, anesthesia risk, perioperative optimization, surgical risk stratification, comorbidity grading
 specialty: Principles & Procedures
@@ -738,7 +738,7 @@ The American Society of Anesthesiologists (ASA) Physical Status Classification g
 - American Society of Anesthesiologists (ASA) Physical Status Classification System, current version.
 
 *Full context: "Perioperative Care & Surgical Principles" in the Diagnoses section.*
-`,fh=`---
+`,vh=`---
 title: ASBMR Criteria — Atypical Femoral Fracture (AFF)
 tags: Oncology & Metabolic, Multi-region, atypical femoral fracture, AFF, bisphosphonate, denosumab, antiresorptive therapy, ASBMR
 specialty: Oncology & Metabolic
@@ -777,7 +777,7 @@ The ASBMR (American Society for Bone and Mineral Research) criteria define atypi
 - Bhattacharyya T, Chapurlat R. Atypical femoral fractures: pathophysiology and management. *Bone.* clinical review series.
 
 *Full context: "MSK Infection & Metabolic Bone Disease" in the Diagnoses section.*
-`,yh=`---
+`,bh=`---
 title: ASIA Impairment Scale (AIS) — Spinal Cord Injury Neurologic Classification
 tags: Spine, spinal cord injury, ASIA, AIS, ISNCSCI, sacral sparing, spinal shock, decompression timing, neurologic recovery, zone of partial preservation
 specialty: Spine
@@ -814,7 +814,7 @@ The ASIA Impairment Scale (AIS), part of the International Standards for Neurolo
 - Tetreault LA, Kwon BK, Evaniew N, Alvi MA, Skelly AC, Fehlings MG. A Clinical Practice Guideline on the Timing of Surgical Decompression and Hemodynamic Management of Acute Spinal Cord Injury. *Global Spine Journal.* 2024.
 
 *Full context: "Spine Trauma" in the Diagnoses section.*
-`,vh=`---
+`,wh=`---
 title: Bado Classification — Monteggia Injury
 tags: Trauma, Shoulder & Elbow, Monteggia injury, Bado classification, Jupiter modification, elbow trauma, forearm fracture, radial head dislocation
 specialty: Trauma
@@ -850,7 +850,7 @@ Adult Monteggia Bado I is roughly **70%** of adult cases; missed proximal radial
 - Rehim SA, Maynard MA, Sebastin SJ, Chung KC. Monteggia fracture dislocations: a historical review. *J Hand Surg Am.* 2014.
 
 *Full context: "Elbow & Forearm Fractures / Dislocations" in the Diagnoses section.*
-`,bh=`---
+`,kh=`---
 title: BAMIC Classification — Muscle Strain Injury (Hamstring/Quadriceps/Calf)
 tags: Sports, Multi-region, muscle strain, hamstring injury, quadriceps strain, calf strain, gastrocnemius strain, tennis leg, BAMIC, British Athletics Muscle Injury Classification, MRI grading, return to play, intramuscular tendon injury
 specialty: Sports
@@ -893,7 +893,7 @@ Grade + letter (e.g., "2b," "3c") is the standard reporting format in elite spor
 - [The BAMIC grading system as a predictor of return to play following hamstring injury in professional football players](https://pubmed.ncbi.nlm.nih.gov/36148699/) — Science & Medicine in Football (grade-RTP correlation, intramuscular tendon impact).
 
 *Full context: "Tendinopathies, Muscle Injuries & Ankle Instability" in the Diagnoses section.*
-`,wh=`---
+`,xh=`---
 title: Bilsky Classification — Epidural Spinal Cord Compression (ESCC)
 tags: Spine, Metastatic spine disease, spinal metastasis, epidural spinal cord compression, MSCC, NOMS framework, separation surgery, SBRT
 specialty: Spine
@@ -931,7 +931,7 @@ The Bilsky Epidural Spinal Cord Compression (ESCC) scale grades the degree of ep
 - Role of Separation Surgery and Advanced Radiotherapy: SBRT vs. 3D-CRT. 2025.
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,kh=`---
+`,Ih=`---
 title: Blazina Classification — Patellar Tendinopathy (Jumper's Knee)
 tags: Sports, Knee & Leg, patellar tendinopathy, jumper's knee, extensor mechanism, patellar tendon rupture, tendon loading
 specialty: Sports
@@ -966,7 +966,7 @@ The Blazina classification stages patellar tendinopathy ("jumper's knee") by the
 - [Mixed comparison of eccentric, isometric, and HSR training for patellar tendinopathy — network meta-analysis](https://pubmed.ncbi.nlm.nih.gov/39559237/) (2024, Heliyon).
 
 *Full context: "Patellofemoral Disorders & Extensor Mechanism" in the Diagnoses section.*
-`,xh=`---
+`,Ah=`---
 title: Brodsky Classification — Anatomic Location of Charcot Neuroarthropathy
 tags: Foot & Ankle, Charcot neuroarthropathy, Charcot foot, diabetic foot, rocker-bottom deformity, tibiotalocalcaneal arthrodesis, TTC
 specialty: Foot & Ankle
@@ -999,7 +999,7 @@ An anatomic classification of Charcot neuroarthropathy by the joint region prima
 - Sammarco VJ. Superconstructs in the treatment of Charcot foot deformity: plantar plating, locked plating, and axial screw fixation. *Foot Ankle Clin.* 2009.
 
 *Full context: "Hindfoot, Ankle & Diabetic Foot Disorders" in the Diagnoses section.*
-`,Ih=`---
+`,Sh=`---
 title: Budapest Criteria — Complex Regional Pain Syndrome (CRPS)
 tags: Oncology & Metabolic, Multi-region, CRPS, complex regional pain syndrome, causalgia, Sudeck's atrophy, sympathetic block, ASIPP
 specialty: Oncology & Metabolic
@@ -1036,7 +1036,7 @@ Diagnosis additionally requires **continuing pain disproportionate to any inciti
 - [Chronic CRPS Diagnosis and Treatment: 2025 ASIPP Guidelines](https://painmed.org/diagnosing-treating-chronic-crps/)
 
 *Full context: "MSK Infection & Metabolic Bone Disease" in the Diagnoses section.*
-`,Ah=`---
+`,Ch=`---
 title: Campanacci Classification — Giant Cell Tumor of Bone
 tags: Oncology & Metabolic, Multi-region, giant cell tumor of bone, GCT, Campanacci grading, denosumab, curettage, RANKL
 specialty: Oncology & Metabolic
@@ -1071,7 +1071,7 @@ The Campanacci classification grades giant cell tumor (GCT) of bone radiographic
 - Current indications for denosumab in benign bone tumours (*EFORT Open Reviews*, 2023). https://eor.bioscientifica.com/view/journals/eor/8/12/EOR-23-0138.xml
 
 *Full context: "Bone & Soft Tissue Tumors" in the Diagnoses section.*
-`,Sh=`---
+`,Th=`---
 title: Caprini Risk Assessment Model — Perioperative VTE Risk Stratification
 tags: Principles & Procedures, Multi-region, VTE prophylaxis in orthopedics, Caprini/VTE risk stratification, vte prophylaxis, perioperative care, thromboprophylaxis, arthroplasty, hip fracture
 specialty: Principles & Procedures
@@ -1115,7 +1115,7 @@ The Caprini Risk Assessment Model is an additive point-scoring tool used to stra
 - Journal of Arthroplasty (2024): analysis of clinical practice guideline recommendations on aspirin as first-line VTE chemoprophylaxis in arthroplasty.
 
 *Full context: "Perioperative Care & Surgical Principles" in the Diagnoses section.*
-`,Ch=`---
+`,Ph=`---
 title: Caton-Deschamps Index — Patellar Height
 tags: Sports, Knee & Leg, patella alta, patella baja, patellar instability, patellofemoral, tibial tubercle osteotomy, patellar height
 specialty: Sports
@@ -1148,7 +1148,7 @@ The Caton-Deschamps (CD) index measures patellar height on a true lateral knee r
 - Caton J, Deschamps G, et al. "Patella infera: apropos of 128 cases." *Rev Chir Orthop Reparatrice Appar Mot.* 1982 (original Caton-Deschamps index description).
 
 *Full context: "Patellofemoral Disorders & Extensor Mechanism" in the Diagnoses section.*
-`,Th=`---
+`,Rh=`---
 title: CFA Classification — Chronic Ankle Instability Framework
 tags: Sports, Multi-region, chronic ankle instability, CAI, mechanical instability, functional instability, CAIT, Cumberland Ankle Instability Tool, lateral ankle sprain, Broström-Gould, suture-tape augmentation
 specialty: Sports
@@ -1186,7 +1186,7 @@ The CFA framework is an integrative reference structure for chronic ankle instab
 - DiGiovanni CW, Brodsky A. Current concepts: lateral ankle instability. *Foot Ankle Int.* 2006.
 
 *Full context: "Tendinopathies, Muscle Injuries & Ankle Instability" in the Diagnoses section.*
-`,Ph=`---
+`,Mh=`---
 title: Cierny-Mader Classification — Chronic Osteomyelitis
 tags: Oncology & Metabolic, Multi-region, adult osteomyelitis, chronic osteomyelitis, sequestrum, involucrum, biofilm, dead-space management, B-host optimization
 specialty: Oncology & Metabolic
@@ -1232,7 +1232,7 @@ Clinical stage = anatomic type + host class.
 - Cierny G, Mader JT, Penninck JJ. A clinical staging system for adult osteomyelitis. *Clin Orthop Relat Res.* 1985 (and subsequent 2003 update).
 
 *Full context: "MSK Infection & Metabolic Bone Disease" in the Diagnoses section.*
-`,Rh=`---
+`,jh=`---
 title: Clavien-Dindo Classification — Surgical Complications
 tags: Principles & Procedures, Multi-region, Clavien-Dindo (complications), complication grading, perioperative morbidity, reoperation, ICU escalation
 specialty: Principles & Procedures
@@ -1269,7 +1269,7 @@ The Clavien-Dindo classification grades the severity of a postoperative complica
 - Dindo D, Demartines N, Clavien PA. "Classification of Surgical Complications: A New Proposal with Evaluation in a Cohort of 6336 Patients and Results of a Survey." *Annals of Surgery*, 2004.
 
 *Full context: "Perioperative Care & Surgical Principles" in the Diagnoses section.*
-`,Mh=`---
+`,Oh=`---
 title: Cobb Angle Thresholds — Scoliosis
 tags: Spine, Adolescent idiopathic scoliosis, AIS, Cobb angle, scoliosis measurement, bracing threshold, fusion threshold, BrAIST, curve progression
 specialty: Spine
@@ -1306,7 +1306,7 @@ The Cobb angle is the continuous radiographic measurement used to define and gra
 - Wearing a brace above 18 hrs/day shows a dose–response effect. 2025.
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,jh=`---
+`,Fh=`---
 title: Cofield Classification — Rotator Cuff Tear Size
 tags: Sports, Shoulder & Elbow, rotator cuff tear, Cofield, tear size, massive cuff tear, single-row repair, double-row repair, reparability
 specialty: Sports
@@ -1339,7 +1339,7 @@ The Cofield classification grades full-thickness rotator cuff tears by their max
 - Cofield RH. Rotator cuff disease of the shoulder. J Bone Joint Surg Am. 1985.
 
 *Full context: "Rotator Cuff & Biceps Pathology" in the Diagnoses section.*
-`,Oh=`---
+`,Dh=`---
 title: Coleman Block Test — Cavovarus Foot Hindfoot Flexibility
 tags: Foot & Ankle, cavovarus foot, pes cavus, hindfoot flexibility, Charcot-Marie-Tooth, calcaneal osteotomy, peroneus longus overpull
 specialty: Foot & Ankle
@@ -1370,7 +1370,7 @@ A clinical test used to determine whether hindfoot varus in a cavovarus foot is 
 - Coleman SS, Chesnut WJ. A simple test for hindfoot flexibility in the cavovarus foot. *Clin Orthop Relat Res.* 1977.
 
 *Full context: "Hindfoot, Ankle & Diabetic Foot Disorders" in the Diagnoses section.*
-`,Fh=`---
+`,Lh=`---
 title: Coughlin Classification — Bunionette (Tailor's Bunion)
 tags: Foot & Ankle, bunionette, tailor's bunion, 5th metatarsal, 4th-5th intermetatarsal angle, lateral condylectomy, distal chevron osteotomy, diaphyseal osteotomy
 specialty: Foot & Ankle
@@ -1404,7 +1404,7 @@ The Coughlin classification categorizes bunionette (tailor's bunion) deformity �
 - Lewis et al., 2024 systematic review/meta-analysis of percutaneous/MIS fifth-metatarsal osteotomy techniques.
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,Dh=`---
+`,zh=`---
 title: Coughlin/Nery Plantar Plate Tear Grading — Lesser MTP Instability
 tags: Foot & Ankle, plantar plate tear, 2nd MTP instability, crossover toe, metatarsalgia, lesser toe deformity, Weil osteotomy, plantar plate repair, V-sign, MTP dorsal drawer
 specialty: Foot & Ankle
@@ -1440,7 +1440,7 @@ The Coughlin/Nery classification grades plantar plate tears of the 2nd (occasion
 - Retrospective review of 196 primary second plantar plate repairs, mean 48-month follow-up (ScienceDirect); 2024 study of 31 patients undergoing plantar-approach repair after shortening osteotomy (ECIOS/PMC 2024).
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,Lh=`---
+`,qh=`---
 title: Coughlin-Shurnas Classification — Hallux Rigidus
 tags: Foot & Ankle, hallux rigidus, 1st MTP osteoarthritis, dorsal osteophyte, dorsal bunion, cheilectomy, Moberg osteotomy, arthrodesis, synthetic cartilage implant, Cartiva, MOTION trial
 specialty: Foot & Ankle
@@ -1478,7 +1478,7 @@ The Coughlin-Shurnas classification grades hallux rigidus (degenerative osteoart
 - Mid-term Cartiva outcomes, *Bone & Joint Open* 2024; PMC 2024 surgical outcomes series (reoperation-rate context).
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,zh=`---
+`,Eh=`---
 title: Coronal Plane Alignment of the Knee (CPAK) Classification
 tags: Arthroplasty, Knee & Leg, Total knee arthroplasty, kinematic alignment, functional alignment, CPAK, aHKA, aJLO, coronal phenotype
 specialty: Arthroplasty
@@ -1527,7 +1527,7 @@ Crossing the two 3-level parameters yields nine phenotypes (CPAK I–IX).
 - Effect of CPAK Classification on Clinical Outcomes After High Tibial Osteotomy (2025).
 
 *Full context: "Knee Osteoarthritis, Osteotomy, UKA & TKA" in the Diagnoses section.*
-`,qh=`---
+`,Bh=`---
 title: Crowe Classification — Hip Dysplasia/Dislocation
 tags: Arthroplasty, Pelvis & Hip, adult hip dysplasia, total hip arthroplasty, subtrochanteric shortening osteotomy, Crowe classification, Hartofilakidis classification, high hip dislocation
 specialty: Arthroplasty
@@ -1560,7 +1560,7 @@ The Crowe classification grades the degree of proximal femoral head migration in
 - Crowe JF, Mani VJ, Ranawat CS. Total hip replacement in congenital dislocation and dysplasia of the hip. *J Bone Joint Surg Am*. 1979.
 
 *Full context: "Femoral Head Osteonecrosis & Hip Preservation" in the Diagnoses section.*
-`,Eh=`---
+`,Hh=`---
 title: Dejour Classification — Trochlear Dysplasia
 tags: Sports, Knee & Leg, patellar instability, patellar dislocation, trochlear dysplasia, MPFL reconstruction, trochleoplasty, crossing sign, supratrochlear spur, double contour
 specialty: Sports
@@ -1597,7 +1597,7 @@ The Dejour classification grades trochlear dysplasia — a developmental failure
 - Balcarek P, et al. (ESSKA 2024 Formal Consensus, Part 2). "Management of first-time patellar dislocation." *Knee Surg Sports Traumatol Arthrosc.* 2025.
 
 *Full context: "Patellofemoral Disorders & Extensor Mechanism" in the Diagnoses section.*
-`,Bh=`---
+`,Nh=`---
 title: Denis Classification — Sacral Fractures
 tags: Trauma, Pelvis & Hip, sacral fracture, zone-based classification, lumbosacral plexus injury, cauda equina, percutaneous screw fixation, lumbopelvic fixation
 specialty: Trauma
@@ -1629,7 +1629,7 @@ The Denis classification grades sacral fractures by **zone relative to the neura
 - Denis F, Davis S, Comfort T. Sacral fractures: an important problem. Retrospective analysis of 236 cases. *Clin Orthop Relat Res*. 1988.
 
 *Full context: "Pelvic Ring & Acetabular Fractures" in the Diagnoses section.*
-`,Hh=`---
+`,_h=`---
 title: Dimeglio Classification — Clubfoot Severity
 tags: Pediatrics, Multi-region, clubfoot, congenital talipes equinovarus, CTEV, Ponseti method, Dimeglio classification, teratologic clubfoot
 specialty: Pediatrics
@@ -1664,7 +1664,7 @@ Four reducibility parameters, each graded 0–4 (0 = fully correctable/hypercorr
 - Ponseti IV. *Congenital Clubfoot: Fundamentals of Treatment.* Oxford University Press.
 
 *Full context: "Pediatric Orthopedic Conditions" in the Diagnoses section.*
-`,Nh=`---
+`,Jh=`---
 title: Donaldson Classification — Bone Cement Implantation Syndrome (BCIS)
 tags: Principles & Procedures, Multi-region, Cement & bone cement implantation syndrome, bone cement implantation syndrome, cemented arthroplasty, hip hemiarthroplasty, intraoperative hypotension
 specialty: Principles & Procedures
@@ -1697,7 +1697,7 @@ The Donaldson grading system stages bone cement implantation syndrome (BCIS) —
 - Donaldson AJ, et al. "Bone cement implantation syndrome." *British Journal of Anaesthesia*.
 
 *Full context: "Perioperative Care & Surgical Principles" in the Diagnoses section.*
-`,_h=`---
+`,Kh=`---
 title: Dorr Classification — Proximal Femoral Bone Quality
 tags: Arthroplasty, Pelvis & Hip, total hip arthroplasty, THA, Dorr classification, proximal femoral canal morphology, bone quality, cemented vs uncemented, canal-flare index, periprosthetic fracture
 specialty: Arthroplasty
@@ -1732,7 +1732,7 @@ The Dorr classification describes proximal femoral canal morphology and bone qua
 - Femoral fixation for primary THA — international registry perspective, 2024–2025.
 
 *Full context: "Hip Osteoarthritis & Total Hip Arthroplasty" in the Diagnoses section.*
-`,Jh=`---
+`,Gh=`---
 title: Eaton-Littler Classification — Thumb CMC (Trapeziometacarpal) Arthritis
 tags: Hand & Wrist, thumb CMC arthritis, trapeziometacarpal arthritis, trapeziectomy, LRTI, suspensionplasty, CMC arthrodesis, Robert view, grind test
 specialty: Hand & Wrist
@@ -1771,7 +1771,7 @@ The Eaton-Littler classification stages thumb carpometacarpal (trapeziometacarpa
 - Baljer B, Vinycomb T, Low N. Surgery for Thumb (Trapeziometacarpal Joint) Osteoarthritis. *Cochrane Database Syst Rev.* 2026.
 
 *Full context: "Hand & Wrist Conditions" in the Diagnoses section.*
-`,Kh=`---
+`,Vh=`---
 title: EBJIS Classification — Periprosthetic Joint Infection Diagnosis
 tags: Arthroplasty, Multi-region, periprosthetic joint infection, PJI, EBJIS definition, infection diagnosis, sinus tract, aseptic loosening, alpha-defensin, synovial WBC
 specialty: Arthroplasty
@@ -1804,7 +1804,7 @@ The EBJIS (European Bone and Joint Infection Society) 2021 definition, developed
 - **Diagnosing periprosthetic joint infections: a comparison of infection definitions — EBJIS 2021, ICM 2018, and IDSA 2013.** *Bone & Joint Research.*
 
 *Full context: "Periprosthetic Joint Infection" in the Diagnoses section.*
-`,Gh=`---
+`,Wh=`---
 title: Eichenholtz Classification — Charcot Neuroarthropathy
 tags: Foot & Ankle, Charcot neuroarthropathy, Charcot foot, diabetic foot, total contact casting, TCC, CROW walker, offloading
 specialty: Foot & Ankle
@@ -1842,7 +1842,7 @@ Stages the natural history of active Charcot neuroarthropathy by radiographic an
 - Cheong et al., *J Foot Ankle Res*, 2024 — risk factors for recurrent/contralateral Charcot.
 
 *Full context: "Hindfoot, Ankle & Diabetic Foot Disorders" in the Diagnoses section.*
-`,Vh=`---
+`,Uh=`---
 title: Elbow Dislocation Classification — Directional and Stability Patterns
 tags: Trauma, Shoulder & Elbow, Elbow dislocation, terrible triad, posterolateral rotatory instability, varus posteromedial rotatory instability, LUCL, MCL, elbow trauma
 specialty: Trauma
@@ -1880,7 +1880,7 @@ This is a complementary directional/stability framework for elbow dislocation, u
 - Conservative and surgical management of simple elbow dislocations — SMDA-SEC consensus and guidelines (*Orthopedic Reviews*).
 
 *Full context: "Elbow & Forearm Fractures / Dislocations" in the Diagnoses section.*
-`,Wh=`---
+`,Xh=`---
 title: Ellman Classification — Partial-Thickness Rotator Cuff Tears
 tags: Sports, Shoulder & Elbow, rotator cuff tear, partial-thickness tear, Ellman, articular-sided, bursal-sided, intratendinous, debridement, in-situ repair
 specialty: Sports
@@ -1912,7 +1912,7 @@ The Ellman classification grades partial-thickness rotator cuff tears by depth (
 - Ellman H. Diagnosis and treatment of incomplete rotator cuff tears. Clin Orthop Relat Res. 1990.
 
 *Full context: "Rotator Cuff & Biceps Pathology" in the Diagnoses section.*
-`,Uh=`---
+`,Qh=`---
 title: Enneking / MSTS Staging — Bone & Soft Tissue Tumors
 tags: Oncology & Metabolic, Multi-region, bone tumor, soft tissue sarcoma, orthopedic oncology, Enneking staging, Musculoskeletal Tumor Society, surgical staging, margins
 specialty: Oncology & Metabolic
@@ -1966,7 +1966,7 @@ The Enneking (Musculoskeletal Tumor Society, MSTS) system is the primary surgica
 - Mankin HJ, Mankin CJ, Simon MA. The hazards of the biopsy, revisited. Members of the Musculoskeletal Tumor Society. *J Bone Joint Surg Am*. 1996.
 
 *Full context: "Bone & Soft Tissue Tumors" in the Diagnoses section.*
-`,Xh=`---
+`,Zh=`---
 title: Enneking Staging — Primary Spine Tumors
 tags: Spine, Primary spine tumors, chordoma, chondrosarcoma, giant cell tumor, osteoid osteoma, aneurysmal bone cyst, margin planning, WBB staging, en bloc resection
 specialty: Spine
@@ -2004,7 +2004,7 @@ The Enneking staging system grades primary bone/spine tumors by grade and compar
 - *(The monograph does not cite a dedicated primary source for Enneking staging itself; the system is presented as background context for primary-tumor surgical planning.)*
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,Qh=`---
+`,Yh=`---
 title: Evans-Jensen Classification — Intertrochanteric Fractures
 tags: Trauma, Pelvis & Hip, intertrochanteric fracture, hip fracture, Evans-Jensen, reverse obliquity, stability, sliding hip screw, cephalomedullary nail
 specialty: Trauma
@@ -2040,7 +2040,7 @@ The Evans-Jensen classification grades intertrochanteric fractures by mechanical
 - Cephalomedullary Nailing has a Higher Reoperation Rate Compared to Sliding Hip Screw Fixation — PubMed, 2023. https://pubmed.ncbi.nlm.nih.gov/37873525/
 
 *Full context: "Proximal Femur Fractures" in the Diagnoses section.*
-`,Zh=`---
+`,$h=`---
 title: Extensor Tendon Zones — Hand & Wrist
 tags: Hand & Wrist, extensor tendon injury, mallet finger, boutonnière deformity, sagittal band injury, fight bite, relative motion splinting
 specialty: Hand & Wrist
@@ -2082,7 +2082,7 @@ The extensor tendon zones divide the extensor mechanism from the fingertip to th
 - Shaw AV, Verma Y, et al. Relative Motion Orthoses for Early Active Motion After Finger Extensor and Flexor Tendon Repairs: A Systematic Review. *J Hand Ther.* 2023.
 
 *Full context: "Hand & Wrist Conditions" in the Diagnoses section.*
-`,Yh=`---
+`,em=`---
 title: Fanelli Classification — Posterolateral Corner (PLC) Injury
 tags: Sports, Knee & Leg, posterolateral corner, PLC injury, LCL injury, popliteofibular ligament, Fanelli classification, dial test, varus instability
 specialty: Sports
@@ -2116,7 +2116,7 @@ The Fanelli classification grades posterolateral corner (PLC) injury functionall
 - LaPrade RF, Wentorf FA, Fritts H, et al. A prospective outcome study of anatomic reconstruction of the posterolateral corner. Am J Sports Med.
 
 *Full context: "Knee Ligament Injuries (ACL, PCL, MLKI)" in the Diagnoses section.*
-`,$h=`---
+`,im=`---
 title: Favard Classification — Glenoid Erosion in Cuff-Tear Arthropathy
 tags: Arthroplasty, Shoulder & Elbow, rotator cuff tear arthropathy, cuff-tear arthropathy, reverse total shoulder arthroplasty, rTSA, glenoid baseplate, notching, Favard
 specialty: Arthroplasty
@@ -2149,7 +2149,7 @@ The Favard classification (E0–E4) describes the superior and central glenoid w
 - Favard L, Levigne C, Nerot C, Gerber C, De Wilde L, Mole D. Reverse prostheses in arthropathies with cuff tear: are survivorship and function maintained over time? *Clin Orthop Relat Res*. 2011.
 
 *Full context: "Shoulder & Elbow Arthritis and Arthroplasty" in the Diagnoses section.*
-`,em=`---
+`,tm=`---
 title: Fernandez Classification — Distal Radius Fractures
 tags: Trauma, Hand & Wrist, distal radius fracture, Fernandez classification, mechanism-based classification, buttress plating, wrist trauma
 specialty: Trauma
@@ -2183,7 +2183,7 @@ The Fernandez classification organizes distal radius fractures by injury mechani
 - Fernandez DL. Fractures of the distal radius: operative treatment. *Instructional Course Lectures*. 1993.
 
 *Full context: "Distal Radius & DRUJ Injuries" in the Diagnoses section.*
-`,im=`---
+`,nm=`---
 title: FFP / Rommens Classification — Fragility Fractures of the Pelvis
 tags: Trauma, Pelvis & Hip, fragility fracture, pubic rami fracture, sacral insufficiency fracture, geriatric trauma, spinopelvic dissociation, osteoporosis, cement augmentation
 specialty: Trauma
@@ -2222,7 +2222,7 @@ The FFP (Fragility Fractures of the Pelvis) / Rommens classification grades low-
 - AO Foundation, "Fragility Fractures of the Pelvis (FFP): Diagnosis, Classification & Treatment Options," 2025 clinical update.
 
 *Full context: "Pelvic Ring & Acetabular Fractures" in the Diagnoses section.*
-`,tm=`---
+`,am=`---
 title: Ficat-Arlet Classification — Osteonecrosis of the Femoral Head
 tags: Arthroplasty, Pelvis & Hip, osteonecrosis of the femoral head, avascular necrosis, AVN, Ficat-Arlet staging, hip preservation, core decompression
 specialty: Arthroplasty
@@ -2255,7 +2255,7 @@ The Ficat-Arlet system is the classic, historically dominant staging scale for o
 - Ficat RP. Idiopathic bone necrosis of the femoral head: early diagnosis and treatment. *J Bone Joint Surg Br*. 1985.
 
 *Full context: "Femoral Head Osteonecrosis & Hip Preservation" in the Diagnoses section.*
-`,nm=`---
+`,rm=`---
 title: FRAX & DEXA T-Score — Osteoporosis Risk Assessment
 tags: Oncology & Metabolic, Multi-region, osteoporosis, fragility fracture, DEXA, FRAX, T-score, vertebral fracture assessment, NOGG, Fracture Liaison Service
 specialty: Oncology & Metabolic
@@ -2294,7 +2294,7 @@ DEXA T-score and FRAX together form the standard framework for diagnosing osteop
 - [NOGG 2024 Guideline (PDF)](https://www.nogg.org.uk/sites/nogg/download/NOGG-Guideline-2024.pdf?v5=)
 
 *Full context: "MSK Infection & Metabolic Bone Disease" in the Diagnoses section.*
-`,am=`---
+`,om=`---
 title: FRI Consensus Definition — Confirmatory & Suggestive Criteria
 tags: Oncology & Metabolic, Multi-region, fracture-related infection, FRI, biofilm, implant retention, DAIR, sonication, deep tissue sampling
 specialty: Oncology & Metabolic
@@ -2335,7 +2335,7 @@ The FRI consensus definition classifies infection around orthopedic fracture-fix
 - [Fracture-Related Infections: Current Status and Perspectives from ISAC](https://www.mdpi.com/2079-6382/14/11/1095)
 
 *Full context: "MSK Infection & Metabolic Bone Disease" in the Diagnoses section.*
-`,rm=`---
+`,sm=`---
 title: Frykman Classification — Distal Radius Fractures
 tags: Trauma, Hand & Wrist, distal radius fracture, Frykman classification, ulnar styloid fracture, DRUJ instability, wrist trauma
 specialty: Trauma
@@ -2371,7 +2371,7 @@ The Frykman classification categorizes distal radius fractures by whether the ra
 - Frykman G. Fracture of the distal radius including sequelae — shoulder-hand-finger syndrome, disturbance in the distal radio-ulnar joint and impairment of nerve function. *Acta Orthop Scand Suppl*. 1967.
 
 *Full context: "Distal Radius & DRUJ Injuries" in the Diagnoses section.*
-`,om=`---
+`,lm=`---
 title: Garcia-Elias Staging — Scapholunate Instability Progression
 tags: Hand & Wrist, scapholunate ligament injury, SLIL, DISI, carpal instability, dynamic instability, static instability, Geissler classification, dorsal capsulodesis, ligament reconstruction
 specialty: Hand & Wrist
@@ -2413,7 +2413,7 @@ The Garcia-Elias model stages scapholunate (SL) ligament failure as a biomechani
 - Mylonas T, Stefanou N, Koskiniotis A, et al. Mid-term outcomes of scapholunate ligament reconstruction with internal brace augmentation. *J Hand Surg Eur Vol.* 2026.
 
 *Full context: "Scaphoid Fractures & Carpal Instability" in the Diagnoses section.*
-`,sm=`---
+`,cm=`---
 title: Garden Classification — Femoral Neck Fractures
 tags: Trauma, Pelvis & Hip, femoral neck fracture, hip fracture, Garden, displacement, AVN risk, arthroplasty vs fixation
 specialty: Trauma
@@ -2449,7 +2449,7 @@ The Garden classification grades femoral neck fractures by degree of displacemen
 - Bhandari M, Devereaux PJ, Swiontkowski MF, et al. **HEALTH Investigators. Total Hip Arthroplasty or Hemiarthroplasty for Hip Fracture.** N Engl J Med. 2019;381:2199-2208.
 
 *Full context: "Proximal Femur Fractures" in the Diagnoses section.*
-`,lm=`---
+`,dm=`---
 title: Gartland Classification — Supracondylar Humerus Fractures
 tags: Pediatrics, Elbow, Supracondylar humerus fracture, Gartland, Wilkins modification, Leitch type IV, CRPP, pediatric trauma
 specialty: Pediatrics
@@ -2487,7 +2487,7 @@ The Gartland classification grades **extension-type** pediatric supracondylar hu
 - British Orthopaedic Association Standards for Trauma (BOAST) — guidance on the management of paediatric supracondylar fractures of the humerus.
 
 *Full context: "Pediatric Fractures & Trauma" in the Diagnoses section.*
-`,cm=`---
+`,um=`---
 title: Gärtner Classification — Calcific Tendinopathy of the Shoulder
 tags: Sports, Shoulder & Elbow, calcific tendinopathy, Gartner, Gärtner, Molé, barbotage, needling, ESWT, supraspinatus, resorptive phase
 specialty: Sports
@@ -2520,7 +2520,7 @@ The Gärtner classification grades calcific tendinopathy deposits by their radio
 - Gärtner J, Heyer A. [Calcific tendinitis of the shoulder]. Orthopade. 1995.
 
 *Full context: "Rotator Cuff & Biceps Pathology" in the Diagnoses section.*
-`,dm=`---
+`,pm=`---
 title: Glenoid Track / On-Track–Off-Track Classification — Anterior Shoulder Instability
 tags: Sports, Shoulder & Elbow, anterior shoulder instability, Yamamoto, Di Giacomo, Hill-Sachs lesion, bipolar bone loss, engaging lesion, remplissage, Latarjet, bone loss algorithm
 specialty: Sports
@@ -2562,7 +2562,7 @@ The glenoid track / on-track–off-track concept (Yamamoto, Di Giacomo) integrat
 - Burkhart SS, De Beer JF. Traumatic glenohumeral bone defects and their relationship to failure of arthroscopic Bankart repairs: significance of the inverted-pear glenoid and the humeral engaging Hill-Sachs lesion. *Arthroscopy.* 2000.
 
 *Full context: "Shoulder Instability" in the Diagnoses section.*
-`,um=`---
+`,hm=`---
 title: GMFCS Classification — Cerebral Palsy Hip Surveillance and Treatment Selection
 tags: Pediatrics, Multi-region, cerebral palsy, GMFCS, Gross Motor Function Classification System, hip surveillance, migration percentage, SDR, intrathecal baclofen, SEMLS
 specialty: Pediatrics
@@ -2603,7 +2603,7 @@ Age-banded descriptors below reflect the 6–12-year band.
 - Joseph PJS, Khattak M, Masudi ST, Minta L, Perry DC. Radiological assessment of hip disease in children with cerebral palsy: development of a core measurement set. *Bone & Joint Open*, 2023.
 
 *Full context: "Pediatric Orthopedic Conditions" in the Diagnoses section.*
-`,pm=`---
+`,mm=`---
 title: Goutallier Classification — Fatty Infiltration of the Rotator Cuff
 tags: Sports, Shoulder & Elbow, rotator cuff tear, Goutallier, Fuchs modification, fatty infiltration, muscle atrophy, tangent sign, massive irreparable cuff tear, reparability, superior capsular reconstruction, lower trapezius transfer, reverse total shoulder arthroplasty
 specialty: Sports
@@ -2637,7 +2637,7 @@ The Goutallier classification (as modified by Fuchs) grades fatty infiltration o
 - Goutallier D, Postel JM, Bernageau J, Lavau L, Voisin MC. Fatty muscle degeneration in cuff ruptures: pre- and postoperative evaluation by CT scan. Clin Orthop Relat Res. 1994.
 
 *Full context: "Rotator Cuff & Biceps Pathology" in the Diagnoses section.*
-`,hm=`---
+`,gm=`---
 title: Graf Classification — Hip Ultrasound (DDH)
 tags: Pediatrics, Pelvis & Hip, developmental dysplasia of the hip, DDH, hip ultrasound, alpha angle, beta angle, Pavlik harness, infant hip screening, Graf
 specialty: Pediatrics
@@ -2676,7 +2676,7 @@ The Graf classification is a static/morphological ultrasound method for staging 
 - Pargas-Colina et al. Standardized In-harness Ultrasound Protocol Improves Success Rate of Brace Treatment for Dislocated Hips. *J Pediatr Orthop*. 2024.
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,mm=`---
+`,fm=`---
 title: Green Classification — Trigger Finger Severity
 tags: Hand & Wrist, trigger finger, stenosing flexor tenosynovitis, A1 pulley, corticosteroid injection, diabetes
 specialty: Hand & Wrist
@@ -2712,7 +2712,7 @@ The Green classification grades trigger finger (stenosing flexor tenosynovitis) 
 - Green DP. Diagnostic and therapeutic value of corticosteroid injection in trigger finger (Green's clinical staging system as later codified in *Green's Operative Hand Surgery*).
 
 *Full context: "Hand & Wrist Conditions" in the Diagnoses section.*
-`,gm=`---
+`,ym=`---
 title: Gustilo-Anderson Classification — Infection-Risk Context & Gaenslen Approach
 tags: Oncology & Metabolic, Multi-region, open fractures, fracture-related infection, FRI risk stratification, Gaenslen approach, calcaneal osteomyelitis, prophylactic antibiotics
 specialty: Oncology & Metabolic
@@ -2746,7 +2746,7 @@ Gustilo-Anderson grades open fracture severity and is discussed here not as an i
 - BOAST (British Orthopaedic Association Standards for Trauma) guidelines on open fractures and on the management of hot/swollen joints.
 
 *Full context: "MSK Infection & Metabolic Bone Disease" in the Diagnoses section.*
-`,fm=`---
+`,vm=`---
 title: Gustilo-Anderson Classification — Open Fractures
 tags: Trauma, Multi-region, open fracture, Gustilo-Anderson, wound grading, soft-tissue injury, antibiotic selection, orthoplastic surgery
 specialty: Trauma
@@ -2784,7 +2784,7 @@ The Gustilo-Anderson classification grades open long-bone fractures by wound siz
 - Orthopaedic Trauma Association Open Fracture Classification Committee. A new classification scheme for open fractures. J Orthop Trauma. 2010.
 
 *Full context: "Open Fractures, Polytrauma & Bone Healing Principles" in the Diagnoses section.*
-`,ym=`---
+`,bm=`---
 title: Hallux Valgus Severity Classification (HVA/IMA) — Forefoot
 tags: Foot & Ankle, hallux valgus, bunion, HVA, IMA, DMAA, metatarsus primus varus, hallux valgus interphalangeus, sesamoid position, Hardy Clapham grading, chevron osteotomy, scarf osteotomy, Lapidus, weight-bearing radiographs
 specialty: Foot & Ankle
@@ -2821,7 +2821,7 @@ This radiographic severity grading uses the hallux valgus angle (HVA — between
 - Weight-bearing CT literature on first metatarsal pronation, 2023–2026 (Skeletal Radiology; Frontiers in Surgery 2025; Foot & Ankle International 2025).
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,vm=`---
+`,wm=`---
 title: Hamada Classification — Rotator Cuff Tear Arthropathy
 tags: Arthroplasty, Shoulder & Elbow, rotator cuff tear arthropathy, cuff-tear arthropathy, reverse total shoulder arthroplasty, rTSA, acromiohumeral distance, Hamada, Goutallier, Fuchs, fatty infiltration
 specialty: Arthroplasty
@@ -2857,7 +2857,7 @@ The Hamada classification grades rotator cuff tear arthropathy (grades 1 through
 - Hamada K, Fukuda H, Mikasa M, Kobayashi Y. Roentgenographic findings in massive rotator cuff tears: a long-term observation. *Clin Orthop Relat Res*. 1990.
 
 *Full context: "Shoulder & Elbow Arthritis and Arthroplasty" in the Diagnoses section.*
-`,bm=`---
+`,km=`---
 title: Hammer, Claw & Mallet Toe Classification — Lesser Toe Deformities
 tags: Foot & Ankle, lesser toe deformity, hammer toe, claw toe, mallet toe, crossover toe, plantar plate, Charcot-Marie-Tooth, flexor tenotomy, Girdlestone-Taylor, PIP arthroplasty, Weil osteotomy
 specialty: Foot & Ankle
@@ -2891,7 +2891,7 @@ This clinical classification distinguishes the three lesser toe deformity patter
 - Mann RA, Coughlin MJ. *Mann's Surgery of the Foot and Ankle* (lesser toe deformity chapters).
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,wm=`---
+`,xm=`---
 title: Hartofilakidis Classification — Dysplastic/Dislocated Hip
 tags: Arthroplasty, Pelvis & Hip, adult hip dysplasia, total hip arthroplasty, subtrochanteric shortening osteotomy, Hartofilakidis classification, Crowe classification, high hip dislocation
 specialty: Arthroplasty
@@ -2923,7 +2923,7 @@ The Hartofilakidis classification is an alternative, arguably more surgically re
 - Hartofilakidis G, Stamos K, Karachalios T, et al. Congenital hip disease in adults: classification of acetabular deficiencies and operative treatment with acetabuloplasty combined with total hip arthroplasty. *J Bone Joint Surg Am*. 1996.
 
 *Full context: "Femoral Head Osteonecrosis & Hip Preservation" in the Diagnoses section.*
-`,km=`---
+`,Im=`---
 title: Hawkins Classification — Talar Neck Fractures
 tags: Trauma, Foot & Ankle, talus fracture, talar neck fracture, Canale-Kelly modification, avascular necrosis, Hawkins sign
 specialty: Trauma
@@ -2961,7 +2961,7 @@ The Hawkins classification grades talar neck fractures by the degree of subtalar
 - Identifying Risk Factors for Osteonecrosis After Talar Fracture, 2023 (PubMed).
 
 *Full context: "Ankle, Hindfoot & Midfoot Trauma" in the Diagnoses section.*
-`,xm=`---
+`,Am=`---
 title: Hepple / Berndt-Harty Classification — Osteochondral Lesions of the Talus
 tags: Foot & Ankle, osteochondral lesion of the talus, OLT, osteochondritis dissecans talus, bone marrow stimulation, microfracture, OATS, ACI, weightbearing CT
 specialty: Foot & Ankle
@@ -3014,7 +3014,7 @@ Staging systems for osteochondral lesions of the talus (OLT). **Berndt-Harty** (
 - Efrima et al., *Knee Surg Sports Traumatol Arthrosc*, 2024 — WBCT distance mapping for OLT size/location.
 
 *Full context: "Hindfoot, Ankle & Diabetic Foot Disorders" in the Diagnoses section.*
-`,Im=`---
+`,Sm=`---
 title: Herbert-Fisher Classification — Acute Scaphoid Fracture
 tags: Hand & Wrist, scaphoid fracture, scaphoid nonunion, carpal instability, Herbert screw, headless compression screw, proximal pole fracture, waist fracture
 specialty: Hand & Wrist
@@ -3056,7 +3056,7 @@ The Herbert-Fisher classification grades acute and healing scaphoid fractures by
 - Dias JJ, Brealey SD, Coleman E, et al. Cast versus surgical fixation, SWIFFT 5-year radiological follow-up. *Bone Joint J.* 2026.
 
 *Full context: "Scaphoid Fractures & Carpal Instability" in the Diagnoses section.*
-`,Am=`---
+`,Cm=`---
 title: Herring Lateral Pillar Classification — Legg-Calvé-Perthes Disease
 tags: Pediatrics, Pelvis & Hip, Legg-Calvé-Perthes disease, Perthes, lateral pillar, Herring, containment surgery, head-at-risk signs, Catterall
 specialty: Pediatrics
@@ -3090,7 +3090,7 @@ The Herring lateral pillar classification grades Perthes disease by the height o
 - Herring JA, Kim HT, Browne R. Legg-Calvé-Perthes disease: part II, prospective multicenter study of the effect of treatment on outcome. *J Bone Joint Surg Am*. 2004.
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,Sm=`---
+`,Tm=`---
 title: 2018 ICM/MSIS Criteria — Periprosthetic Joint Infection Diagnosis
 tags: Arthroplasty, Multi-region, periprosthetic joint infection, PJI, 2018 ICM/MSIS criteria, ICM 2025, infection diagnosis, alpha-defensin, synovial WBC, sinus tract
 specialty: Arthroplasty
@@ -3146,7 +3146,7 @@ The 2018 International Consensus Meeting / Musculoskeletal Infection Society (IC
 - **International Consensus Meeting on Orthopaedic Infection: Differences Between ICM 2018 and ICM 2025.** *Journal of Arthroplasty.* 2025.
 
 *Full context: "Periprosthetic Joint Infection" in the Diagnoses section.*
-`,Cm=`---
+`,Pm=`---
 title: ICRS Classification — Knee Chondral Lesions
 tags: Sports, Knee & Leg, focal chondral defect, articular cartilage lesion, cartilage repair, OAT, MACI, osteochondral allograft, ICRS, Outerbridge
 specialty: Sports
@@ -3182,7 +3182,7 @@ The International Cartilage Repair Society (ICRS) classification grades the dept
 - Autologous Chondrocyte Implantation, MACI, OAT, and Osteochondral Allograft Improve Knee Function and Pain, systematic review and meta-analysis, 2025 — confirms defect size, containment, and patient characteristics (not a single "best" technique) drive selection.
 
 *Full context: "Meniscus Tears & Articular Cartilage Lesions" in the Diagnoses section.*
-`,Tm=`---
+`,Rm=`---
 title: ICRS OCD Staging — Osteochondritis Dissecans of the Knee
 tags: Sports, Knee & Leg, osteochondritis dissecans, OCD, OCD fixation, OCD drilling, fragment fixation, ICRS, cartilage stability staging
 specialty: Sports
@@ -3218,7 +3218,7 @@ A separate ICRS arthroscopic staging system (distinct from the ICRS chondral-les
 - AAOS Osteochondritis Dissecans Clinical Practice Guideline Rapid Update, 2024 — reaffirms MRI-based instability staging and supports fixation over excision for unstable-but-viable fragments.
 
 *Full context: "Meniscus Tears & Articular Cartilage Lesions" in the Diagnoses section.*
-`,Pm=`---
+`,Mm=`---
 title: Ideberg Classification — Glenoid Fractures
 tags: Trauma, Shoulder & Elbow, glenoid fracture, scapula fracture, superior shoulder suspensory complex, floating shoulder, Goss modification
 specialty: Trauma
@@ -3257,7 +3257,7 @@ The Ideberg classification (as modified by Goss/Ideberg) classifies intra-articu
 - Zlowodzki M, Bhandari M, Zelle BA, Kregor PJ, Cole PA. Treatment of scapula fractures: systematic review of 520 fractures in 22 case series. *J Orthop Trauma*. 2006.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,Rm=`---
+`,jm=`---
 title: IDSA/IWGDF Infection Severity Grading — Diabetic Foot Infection
 tags: Foot & Ankle, diabetic foot infection, diabetic foot ulcer, osteomyelitis, probe-to-bone, WIfI, sepsis, antibiotics
 specialty: Foot & Ankle
@@ -3294,7 +3294,7 @@ Grades local and systemic severity of infection once a diabetic foot wound is pr
 - NICE. Diabetic foot problems: prevention and management. NICE guideline NG19 (updated).
 
 *Full context: "Hindfoot, Ankle & Diabetic Foot Disorders" in the Diagnoses section.*
-`,Mm=`---
+`,Om=`---
 title: IHDI Classification — Developmental Dysplasia of the Hip
 tags: Pediatrics, Pelvis & Hip, developmental dysplasia of the hip, DDH, IHDI, International Hip Dysplasia Institute, hip dislocation grading, Perkin's line, Hilgenreiner's line
 specialty: Pediatrics
@@ -3328,7 +3328,7 @@ The IHDI (International Hip Dysplasia Institute) classification standardizes the
 - Tönnis D. Congenital Dysplasia and Dislocation of the Hip in Children and Adults. Springer.
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,jm=`---
+`,Fm=`---
 title: ISIS Score (Instability Severity Index Score) — Anterior Shoulder Instability
 tags: Sports, Shoulder & Elbow, anterior shoulder instability, Balg Boileau, arthroscopic Bankart repair, Latarjet selection, glenoid bone loss, Hill-Sachs lesion, recurrence risk, bone-block decision
 specialty: Sports
@@ -3366,7 +3366,7 @@ The ISIS (Instability Severity Index Score, Balg & Boileau) is a six-variable pr
 - Blommestein et al. Multicenter validation of ISIS as a predictor of recurrence after arthroscopic Bankart repair. *KSSTA.* 2024.
 
 *Full context: "Shoulder Instability" in the Diagnoses section.*
-`,Om=`---
+`,Dm=`---
 title: Jefferson Fracture (C1 Ring) Stability Assessment
 tags: Spine, Jefferson fracture, C1 fracture, atlas fracture, transverse atlantal ligament, rule of Spence, Dickman classification, upper cervical spine, halo vest
 specialty: Spine
@@ -3399,7 +3399,7 @@ The Jefferson fracture is a fracture of the C1 (atlas) ring, described by fractu
 - AO Surgery Reference upper cervical injury classification update. May 2024.
 
 *Full context: "Spine Trauma" in the Diagnoses section.*
-`,Fm=`---
+`,Lm=`---
 title: Judet Classification — Pediatric Radial Neck Fractures
 tags: Pediatrics, Elbow, Radial neck fracture, Judet, Métaizeau technique, Israeli technique, pediatric trauma
 specialty: Pediatrics
@@ -3434,7 +3434,7 @@ The Judet classification grades pediatric radial neck fractures by degree of ang
 - Métaizeau JP, et al. "Reduction and fixation of displaced radial neck fractures by closed intramedullary pinning." *Journal of Pediatric Orthopedics*. 1993.
 
 *Full context: "Pediatric Fractures & Trauma" in the Diagnoses section.*
-`,Dm=`---
+`,zm=`---
 title: Judet-Letournel Classification — Acetabular Fractures
 tags: Trauma, Pelvis & Hip, acetabular fracture, elementary fracture pattern, associated fracture pattern, both-column fracture, Kocher-Langenbeck, ilioinguinal, Stoppa, roof arc, Matta reduction grading
 specialty: Trauma
@@ -3484,7 +3484,7 @@ The Judet-Letournel classification describes acetabular fractures by their relat
 - Matta JM. Fractures of the acetabulum: accuracy of reduction and clinical results in patients managed operatively within three weeks after the injury. *J Bone Joint Surg Am*. 1996.
 
 *Full context: "Pelvic Ring & Acetabular Fractures" in the Diagnoses section.*
-`,Lm=`---
+`,qm=`---
 title: K-line Classification — OPLL Surgical Planning
 tags: Spine, Cervical, OPLL, ossification of the posterior longitudinal ligament, K-line, dynamic K-line, canal-occupying ratio, laminoplasty, cervical myelopathy
 specialty: Spine
@@ -3518,7 +3518,7 @@ Described by Fujiyoshi et al., the K-line is drawn on a lateral cervical radiogr
 - K-Line Conversion Predicts Outcomes: Laminectomy-Fusion vs. Laminoplasty in K-line-negative OPLL. 2025. https://www.thespinejournalonline.com/article/S1529-9430(25)00244-X/abstract
 
 *Full context: "Cervical Degenerative Spine" in the Diagnoses section.*
-`,zm=`---
+`,Em=`---
 title: Kanavel's Cardinal Signs — Pyogenic Flexor Tenosynovitis
 tags: Hand & Wrist, hand infection, pyogenic flexor tenosynovitis, flexor sheath infection, surgical emergency, felon
 specialty: Hand & Wrist
@@ -3555,7 +3555,7 @@ Kanavel's four cardinal signs are the classic clinical criteria for diagnosing p
 - Hennessy M, Forder BH, Tucker S, Wormald JCR. Optimal Management of Pyogenic Flexor Tenosynovitis of the Hand: A Cohort Study. *J Hand Microsurg.* 2026.
 
 *Full context: "Hand & Wrist Conditions" in the Diagnoses section.*
-`,qm=`---
+`,Bm=`---
 title: Kellgren-Lawrence Classification — Hip Osteoarthritis
 tags: Arthroplasty, Pelvis & Hip, hip osteoarthritis, coxarthrosis, Kellgren-Lawrence, KL grade, radiographic OA severity, joint space narrowing, osteophytes, THA candidacy
 specialty: Arthroplasty
@@ -3591,7 +3591,7 @@ The Kellgren-Lawrence (KL) grade describes radiographic osteoarthritis severity 
 - National Institute for Health and Care Excellence. Osteoarthritis in over 16s: diagnosis and management (NG226). NICE, 2022.
 
 *Full context: "Hip Osteoarthritis & Total Hip Arthroplasty" in the Diagnoses section.*
-`,Em=`---
+`,Hm=`---
 title: Kellgren-Lawrence Grade as Injection-Response Modifier
 tags: Principles & Procedures, Multi-region, Kellgren-Lawrence, K-L grade, injection therapy, orthobiologics, corticosteroid, hyaluronic acid, PRP, BMAC, knee osteoarthritis, treatment ladder
 specialty: Principles & Procedures
@@ -3628,7 +3628,7 @@ The Kellgren-Lawrence (K-L) grade is the standard 0–4 radiographic severity sc
 - American Academy of Orthopaedic Surgeons (AAOS). Management of Osteoarthritis of the Knee (Non-Arthroplasty), Clinical Practice Guideline, 3rd/4th edition update.
 
 *Full context: "Injection Therapies & Orthobiologics" in the Diagnoses section.*
-`,Bm=`---
+`,Nm=`---
 title: Kellgren-Lawrence Classification — Knee Osteoarthritis
 tags: Arthroplasty, Knee & Leg, Knee osteoarthritis, radiographic OA grading, KL grade, HTO, UKA, TKA, PFA
 specialty: Arthroplasty
@@ -3662,7 +3662,7 @@ The Kellgren-Lawrence (KL) grade is the original (1957) and still most widely us
 - Kellgren JH, Lawrence JS. Radiological assessment of osteo-arthrosis. *Ann Rheum Dis*. 1957.
 
 *Full context: "Knee Osteoarthritis, Osteotomy, UKA & TKA" in the Diagnoses section.*
-`,Hm=`---
+`,_m=`---
 title: Kocher Criteria — Septic Arthritis vs Transient Synovitis (Pediatric Hip)
 tags: Pediatrics, Pelvis & Hip, septic arthritis, transient synovitis, Kocher criteria, Caird modification, Kingella kingae, irritable hip, clinical prediction rule
 specialty: Pediatrics
@@ -3702,7 +3702,7 @@ The Kocher criteria are a clinical prediction rule for differentiating septic ar
 - Hagedoorn et al. Comparison of Clinical Prediction Rules in Pre-school Aged Children With Septic Hip Arthritis Due to Different Pathogens. *J Pediatr Orthop*. 2023.
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,Nm=`---
+`,Jm=`---
 title: Kocher Criteria — Septic Arthritis vs Transient Synovitis (Child)
 tags: Pediatrics, Multi-region, septic arthritis, transient synovitis, irritable hip, Kocher criteria, Caird modification, Kingella kingae, pediatric osteomyelitis
 specialty: Pediatrics
@@ -3739,7 +3739,7 @@ Four independent predictors: (1) non-weight-bearing on the affected limb, (2) ES
 - Caird MS, Flynn JM, Leung YL, Millman JE, D'Italia JG, Dormans JP. Factors distinguishing septic arthritis from transient synovitis of the hip in children. *J Bone Joint Surg Am.*
 
 *Full context: "Pediatric Orthopedic Conditions" in the Diagnoses section.*
-`,_m=`---
+`,Km=`---
 title: Lafosse Classification — Subscapularis Tears
 tags: Sports, Shoulder & Elbow, subscapularis tear, Lafosse, biceps pulley lesion, biceps subluxation, belly-press test, lift-off test, arthroscopic repair, interval slide, lesser tuberosity
 specialty: Sports
@@ -3771,7 +3771,7 @@ The Lafosse classification grades subscapularis tears by extent, from partial up
 - Lafosse L, Jost B, Reiland Y, Audebert S, Toussaint B, Gobezie R. Structural integrity and clinical outcomes after arthroscopic repair of isolated subscapularis tears. J Bone Joint Surg Am. 2007.
 
 *Full context: "Rotator Cuff & Biceps Pathology" in the Diagnoses section.*
-`,Jm=`---
+`,Gm=`---
 title: Langenskiöld Classification — Infantile Blount Disease
 tags: Pediatrics, Multi-region, Blount disease, tibia vara, genu varum, Langenskiöld classification, guided growth, proximal tibial osteotomy
 specialty: Pediatrics
@@ -3809,7 +3809,7 @@ The Langenskiöld classification stages infantile Blount disease (tibia vara) by
 - Tageldeen Mohamed M, et al. Percutaneous Transphyseal Screw Hemiepiphysiodesis (PETS) for Tibia Vara in Blount's Disease. *J Pediatr Orthop*, 2026.
 
 *Full context: "Pediatric Orthopedic Conditions" in the Diagnoses section.*
-`,Km=`---
+`,Vm=`---
 title: LaPrade Classification — Meniscal Root Tears
 tags: Sports, Knee & Leg, meniscus root tear, meniscal root tear, root repair, transtibial pull-out repair, suture-anchor repair, meniscus tear, LaPrade classification
 specialty: Sports
@@ -3850,7 +3850,7 @@ The LaPrade classification types meniscal root tears by pattern and location rel
 - Effectiveness of Meniscus Root Tear Repair Versus Conservative Therapy and Adjunct Therapies, 2025 — consolidates evidence favoring surgical repair over conservative management in eligible patients.
 
 *Full context: "Meniscus Tears & Articular Cartilage Lesions" in the Diagnoses section.*
-`,Gm=`---
+`,Wm=`---
 title: Lauge-Hansen Classification — Ankle Fractures
 tags: Trauma, Foot & Ankle, ankle fracture, syndesmosis injury, Weber/Danis, mechanism of injury, supination-external rotation, pronation-external rotation
 specialty: Trauma
@@ -3885,7 +3885,7 @@ The Lauge-Hansen classification is a mechanism-based system that describes ankle
 - Michelson JD. Fractures about the ankle. *J Bone Joint Surg Am*.
 
 *Full context: "Ankle, Hindfoot & Midfoot Trauma" in the Diagnoses section.*
-`,Vm=`---
+`,Um=`---
 title: Lee Classification — Lumbar Disc Herniation Zones
 tags: Spine, Lumbar, disc herniation, sciatica, radiculopathy, surgical approach planning, foraminal stenosis, far-lateral herniation, endoscopic discectomy, microdiscectomy
 specialty: Spine
@@ -3917,7 +3917,7 @@ The Lee classification standardizes the axial and sagittal location of a lumbar 
 - Lee S, Lee JW, Yeom JS, et al. A practical MRI grading system for lumbar foraminal stenosis (the Lee zone classification concept for herniation location is a related/derivative application used in surgical planning literature).
 
 *Full context: "Lumbar Degenerative Spine" in the Diagnoses section.*
-`,Wm=`---
+`,Xm=`---
 title: Lenke Classification — Adolescent Idiopathic Scoliosis
 tags: Spine, Adolescent idiopathic scoliosis, AIS, curve type, lumbar modifier, sagittal thoracic modifier, selective thoracic fusion, coronal decompensation, fusion levels
 specialty: Spine
@@ -3956,7 +3956,7 @@ The Lenke classification (2001) is the standard system for adolescent idiopathic
 - Lenke LG, Betz RR, Harms J, et al. Adolescent idiopathic scoliosis: a new classification to determine extent of spinal arthrodesis. *J Bone Joint Surg Am.* 2001.
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,Um=`---
+`,Qm=`---
 title: Levine-Edwards Classification — Hangman Fractures (Traumatic Spondylolisthesis of C2)
 tags: Spine, hangman fracture, C2 fracture, traumatic spondylolisthesis of the axis, pars interarticularis fracture, upper cervical spine, halo vest, ACDF
 specialty: Spine
@@ -3988,7 +3988,7 @@ The Levine-Edwards classification grades bilateral C2 pars interarticularis frac
 - Levine AM, Edwards CC. The management of traumatic spondylolisthesis of the axis. *Journal of Bone and Joint Surgery (Am).* 1985.
 
 *Full context: "Spine Trauma" in the Diagnoses section.*
-`,Xm=`---
+`,Zm=`---
 title: Lewis-Rorabeck Classification — Periprosthetic Fracture Around a TKA
 tags: Arthroplasty, Multi-region, periprosthetic fracture around TKA, revision knee arthroplasty, Lewis-Rorabeck classification, supracondylar femur fracture, anterior femoral notching
 specialty: Arthroplasty
@@ -4020,7 +4020,7 @@ The Lewis-Rorabeck classification grades periprosthetic fractures around or abov
 - Lewis PL, Rorabeck CH. Periprosthetic fractures. In: Engh GA, Rorabeck CH, eds. *Revision Total Knee Arthroplasty.* 1997.
 
 *Full context: "Periprosthetic Fractures & Revision Arthroplasty" in the Diagnoses section.*
-`,Qm=`---
+`,Ym=`---
 title: Lichtman Classification — Kienböck Disease
 tags: Hand & Wrist, Kienbock disease, lunate osteonecrosis, carpal instability, ulnar variance, carpal height ratio, joint leveling, revascularization
 specialty: Hand & Wrist
@@ -4057,7 +4057,7 @@ The Lichtman classification stages Kienböck disease (avascular necrosis of the 
 - Vaghela KR, Selby A, Heras-Palou C, Johnson N. Lunate prosthetic arthroplasty for the treatment of Kienböck's disease: A systematic review. *J Hand Microsurg.* 2024.
 
 *Full context: "Scaphoid Fractures & Carpal Instability" in the Diagnoses section.*
-`,Zm=`---
+`,$m=`---
 title: Loder Classification — SCFE Stability
 tags: Pediatrics, Pelvis & Hip, slipped capital femoral epiphysis, SCFE, Loder, stability, avascular necrosis risk, in-situ pinning, modified Dunn
 specialty: Pediatrics
@@ -4088,7 +4088,7 @@ The Loder classification grades SCFE by clinical weight-bearing stability rather
 - Loder RT, Richards BS, Shapiro PS, Reznick LR, Aronson DD. Acute slipped capital femoral epiphysis: the importance of physeal stability. *J Bone Joint Surg Am*. 1993.
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,Ym=`---
+`,eg=`---
 title: Lodwick–Madewell Classification — Bone Lesion Radiographic Pattern
 tags: Oncology & Metabolic, Multi-region, bone tumor, Lodwick classification, zone of transition, periosteal reaction, radiographic pattern, biopsy referral
 specialty: Oncology & Metabolic
@@ -4122,7 +4122,7 @@ The Lodwick–Madewell classification grades the plain-radiographic pattern of b
 - Lodwick GS, Wilson AJ, Farrell C, Virtama P, Dittrich F. Determining growth rates of focal lesions of bone from radiographs. *Radiology*. 1980.
 
 *Full context: "Bone & Soft Tissue Tumors" in the Diagnoses section.*
-`,$m=`---
+`,ig=`---
 title: LRINEC Score — Necrotizing Fasciitis (Limits)
 tags: Oncology & Metabolic, Multi-region, necrotizing fasciitis, LRINEC, surgical emergency, finger test, soft tissue infection
 specialty: Oncology & Metabolic
@@ -4168,7 +4168,7 @@ The LRINEC (Laboratory Risk Indicator for Necrotizing Fasciitis) score uses six 
 - [Consensus on the diagnosis and treatment of adult necrotizing fasciitis (2025 edition)](https://academic.oup.com/burnstrauma/article/doi/10.1093/burnst/tkaf031/8160908)
 
 *Full context: "MSK Infection & Metabolic Bone Disease" in the Diagnoses section.*
-`,eg=`---
+`,tg=`---
 title: Luo Three-Column Classification — Tibial Plateau Fractures
 tags: Trauma, Knee & Leg, tibial plateau fracture, Luo three-column, Schatzker, posterior column, bicondylar fracture, surgical approach planning
 specialty: Trauma
@@ -4202,7 +4202,7 @@ The Luo three-column classification (Luo et al., 2010) maps fracture lines on an
 - Current concepts in tibial plateau fracture management — Spanish Orthopaedic Trauma Association review (2025), covering CT-based (Luo-style) surgical planning. [PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC12045298/)
 
 *Full context: "Tibial Plateau, Shaft & Pilon Fractures" in the Diagnoses section.*
-`,ig=`---
+`,ng=`---
 title: Mason & Molloy Classification — Posterior Malleolus Fractures
 tags: Trauma, Foot & Ankle, ankle fracture, posterior malleolus fracture, syndesmosis injury, Liverpool treatment algorithm, PITFL
 specialty: Trauma
@@ -4236,7 +4236,7 @@ The Mason & Molloy classification (paired with the Liverpool treatment algorithm
 - Enhancing Consistency in Posterior Malleolus Fracture Classification — Mason & Molloy interobserver reliability study, *Cureus*, 2023.
 
 *Full context: "Ankle, Hindfoot & Midfoot Trauma" in the Diagnoses section.*
-`,tg=`---
+`,ag=`---
 title: Mason Classification — Radial Head Fracture
 tags: Trauma, Shoulder & Elbow, Radial head fracture, Mason classification, modified Hotchkiss, elbow trauma, terrible triad, Essex-Lopresti injury
 specialty: Trauma
@@ -4274,7 +4274,7 @@ The Mason classification (modified by Hotchkiss) grades radial head fractures by
 - Plate or Arthroplasty for complex Mason III radial head fractures? Mid-to-long-term results from a blinded-assessor study (2024, *Injury*).
 
 *Full context: "Elbow & Forearm Fractures / Dislocations" in the Diagnoses section.*
-`,ng=`---
+`,rg=`---
 title: Mayfield Classification — Progressive Perilunate Instability
 tags: Hand & Wrist, perilunate dislocation, carpal instability, scapholunate ligament injury, lunotriquetral injury, greater arc injury, lesser arc injury, spilled teacup sign
 specialty: Hand & Wrist
@@ -4312,7 +4312,7 @@ The Mayfield classification describes the progressive, circumferential ligamento
 - Abola MV, Gerber BA, Rocks MC, et al. A Comparison of Outcomes in Acute Perilunate Injuries: Systematic Review and Meta-Analysis of Treatment Approaches. *Hand (N Y).* 2024/2025.
 
 *Full context: "Scaphoid Fractures & Carpal Instability" in the Diagnoses section.*
-`,ag=`---
+`,og=`---
 title: Mayo Classification — Scaphoid Fracture Location
 tags: Hand & Wrist, scaphoid fracture, scaphoid nonunion, carpal instability, proximal pole, scaphoid waist, retrograde blood supply
 specialty: Hand & Wrist
@@ -4350,7 +4350,7 @@ The monograph does not cite a dedicated original publication for the Mayo locati
 - Dias JJ, Brealey SD, Fairhurst C, et al. Surgery versus cast immobilisation for adults with a bicortical fracture of the scaphoid waist (SWIFFT): a pragmatic, multicentre, open-label, randomised superiority trial. *Lancet.* 2020.
 
 *Full context: "Scaphoid Fractures & Carpal Instability" in the Diagnoses section.*
-`,rg=`---
+`,sg=`---
 title: Mayo Classification — Olecranon Fracture
 tags: Trauma, Shoulder & Elbow, Olecranon fracture, Mayo classification, elbow trauma, transolecranon fracture-dislocation, tension-band wiring
 specialty: Trauma
@@ -4387,7 +4387,7 @@ The Mayo classification grades olecranon fractures by displacement, comminution,
 - Ring D, Jupiter JB, Sanders RW, Mast J, Simpson NS. Transolecranon fracture-dislocation of the elbow. *J Orthop Trauma.* 1997.
 
 *Full context: "Elbow & Forearm Fractures / Dislocations" in the Diagnoses section.*
-`,og=`---
+`,lg=`---
 title: McGowan Classification — Cubital Tunnel Syndrome
 tags: Hand & Wrist, cubital tunnel syndrome, ulnar nerve compression, Osborne's ligament, in situ decompression, ulnar nerve transposition
 specialty: Hand & Wrist
@@ -4422,7 +4422,7 @@ The McGowan classification grades cubital tunnel syndrome (ulnar nerve compressi
 - McGowan AJ. The results of transposition of the ulnar nerve for traumatic ulnar neuritis. *J Bone Joint Surg Br.* 1950.
 
 *Full context: "Hand & Wrist Conditions" in the Diagnoses section.*
-`,sg=`---
+`,cg=`---
 title: MCL Grading (I–III) — Knee Medial Collateral Ligament Injury
 tags: Sports, Knee & Leg, MCL injury, medial collateral ligament, valgus stress test, MCL grading, brace treatment, posteromedial corner
 specialty: Sports
@@ -4454,7 +4454,7 @@ MCL grading (I–III) stages medial collateral ligament injury by the amount of 
 - Stannard JP, Brown SL, Farris RC, et al. The posteromedial corner of the knee: repair versus reconstruction. Am J Sports Med.
 
 *Full context: "Knee Ligament Injuries (ACL, PCL, MLKI)" in the Diagnoses section.*
-`,lg=`---
+`,dg=`---
 title: McPherson Host-Grading Classification — Periprosthetic Joint Infection
 tags: Arthroplasty, Multi-region, periprosthetic joint infection, PJI, McPherson host grading, host optimization, suppression, resection arthroplasty, soft-tissue coverage
 specialty: Arthroplasty
@@ -4496,7 +4496,7 @@ The McPherson host-grading system risk-stratifies patients with periprosthetic j
 - McPherson EJ, Woodson C, Holtom P, et al. **Periprosthetic total hip infection: outcomes using a staging system.** *Clinical Orthopaedics and Related Research.* 2002.
 
 *Full context: "Periprosthetic Joint Infection" in the Diagnoses section.*
-`,cg=`---
+`,ug=`---
 title: Melone Classification — Distal Radius Fractures
 tags: Trauma, Hand & Wrist, distal radius fracture, die-punch fracture, Melone classification, lunate facet, fragment-specific fixation, wrist trauma
 specialty: Trauma
@@ -4529,7 +4529,7 @@ The Melone classification describes complex intra-articular ("die-punch") distal
 - Melone CP Jr. Articular fractures of the distal radius. *Orthop Clin North Am*. 1984.
 
 *Full context: "Distal Radius & DRUJ Injuries" in the Diagnoses section.*
-`,dg=`---
+`,pg=`---
 title: Meniscus Tear Morphology Classification — Knee
 tags: Sports, Knee & Leg, meniscus tear, meniscus root tear, bucket-handle tear, radial tear, horizontal cleavage tear, flap tear, tear morphology, meniscectomy, meniscus repair
 specialty: Sports
@@ -4568,7 +4568,7 @@ This descriptive scheme classifies meniscus tears by their plane and pattern rel
 - Ectorc J, Verdonk R, ESSKA European Meniscus Consensus Project (2016, 2019 iterations) — current governing consensus framework for meniscal management.
 
 *Full context: "Meniscus Tears & Articular Cartilage Lesions" in the Diagnoses section.*
-`,ug=`---
+`,hg=`---
 title: Meyerding Classification — Lumbar Spondylolisthesis
 tags: Spine, Lumbar, degenerative spondylolisthesis, isthmic spondylolisthesis, spondylolisthesis severity, slip grade, spondyloptosis, decompression vs fusion
 specialty: Spine
@@ -4606,7 +4606,7 @@ The Meyerding classification grades the severity of spondylolisthesis — anteri
 - Martin CT, et al. AO Spine Clinical Practice Recommendations for the Surgical Management of Degenerative Spondylolisthesis: When to Decompress Alone and When to Fuse. *Global Spine Journal*. 2025.
 
 *Full context: "Lumbar Degenerative Spine" in the Diagnoses section.*
-`,pg=`---
+`,mg=`---
 title: Meyers-McKeever Classification — Tibial Spine Avulsion Fractures
 tags: Pediatrics, Knee, Tibial spine avulsion, Meyers-McKeever, Zaricznyj, ACL avulsion, pediatric trauma
 specialty: Pediatrics
@@ -4642,7 +4642,7 @@ The Meyers-McKeever classification (with a Zaricznyj type IV addition for commin
 - Shankar et al. "Clinical Outcome of Arthroscopic Reduction and Fixation by Pull-Through Suture Technique in Tibial Spine Fractures." *Cureus*. 2025.
 
 *Full context: "Pediatric Fractures & Trauma" in the Diagnoses section.*
-`,hg=`---
+`,gg=`---
 title: Milch / Jakob-Weiss Classification — Lateral Condyle Fractures
 tags: Pediatrics, Elbow, Lateral condyle fracture, Milch, Jakob, Weiss, pediatric trauma
 specialty: Pediatrics
@@ -4681,7 +4681,7 @@ Two classification systems are used together in practice for pediatric lateral c
 - Chang et al. Percutaneous screw fixation for delayed union of lateral condyle fractures, *Journal of Pediatric Orthopedics*. 2025.
 
 *Full context: "Pediatric Fractures & Trauma" in the Diagnoses section.*
-`,mg=`---
+`,fg=`---
 title: Mirels Score — Impending Pathologic Fracture Risk
 tags: Oncology & Metabolic, Multi-region, metastatic bone disease, multiple myeloma, pathologic fracture, prophylactic fixation, Mirels score, bone metastases
 specialty: Oncology & Metabolic
@@ -4724,7 +4724,7 @@ The Mirels score quantifies the risk of impending pathologic fracture through a 
 - Mirels' score for upper limb metastatic lesions: do we need a different cutoff? (*JSES International*). https://jsesinternational.org/article/S2666-6383(22)00093-7/fulltext
 
 *Full context: "Bone & Soft Tissue Tumors" in the Diagnoses section.*
-`,gg=`---
+`,yg=`---
 title: mJOA Score — Degenerative Cervical Myelopathy
 tags: Spine, Cervical, degenerative cervical myelopathy, DCM, OPLL, cervical myelopathy, modified Japanese Orthopaedic Association, mJOA, recovery ratio
 specialty: Spine
@@ -4772,7 +4772,7 @@ The modified Japanese Orthopaedic Association (mJOA) score is the primary clinic
 - Fehlings MG, Tetreault LA, Kurpad S, et al. AO Spine Clinical Practice Recommendations for Diagnosis and Management of Degenerative Cervical Myelopathy: Evidence-Based Decision Making — A Review of Cutting Edge Recent Literature. *Global Spine Journal.* 2025. https://pubmed.ncbi.nlm.nih.gov/40257837/
 
 *Full context: "Cervical Degenerative Spine" in the Diagnoses section.*
-`,fg=`---
+`,vg=`---
 title: Modic Classification — Vertebral Endplate Marrow Changes
 tags: Spine, Lumbar, Modic changes, endplate signal change, discogenic low back pain, degenerative disc disease, fusion, pseudarthrosis risk
 specialty: Spine
@@ -4803,7 +4803,7 @@ The Modic classification categorizes vertebral endplate/marrow signal changes se
 - Modic MT, Steinberg PM, Ross JS, Masaryk TJ, Carter JR. Degenerative disk disease: assessment of changes in vertebral body marrow with MR imaging. *Radiology*. 1988.
 
 *Full context: "Lumbar Degenerative Spine" in the Diagnoses section.*
-`,yg=`---
+`,bg=`---
 title: Myerson Classification — Lisfranc Injuries
 tags: Trauma, Foot & Ankle, Lisfranc injury, tarsometatarsal fracture-dislocation, midfoot trauma, Nunley-Vertullo, primary arthrodesis
 specialty: Trauma
@@ -4837,7 +4837,7 @@ The Myerson classification describes Lisfranc (tarsometatarsal, TMT) fracture-di
 - Myerson MS, et al. Fracture dislocations of the tarsometatarsal joints: end results correlated with pathology and treatment. *Foot Ankle*. 1986.
 
 *Full context: "Ankle, Hindfoot & Midfoot Trauma" in the Diagnoses section.*
-`,vg=`---
+`,wg=`---
 title: Neer Classification — Distal Clavicle Fractures
 tags: Trauma, Shoulder & Elbow, clavicle fracture, distal clavicle, coracoclavicular ligament, Robinson classification, Allman classification
 specialty: Trauma
@@ -4872,7 +4872,7 @@ The Neer classification of distal (lateral) clavicle fractures — commonly pair
 - Robinson CM. Fractures of the clavicle in the adult: epidemiology and classification. *J Bone Joint Surg Br*. 1998.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,bg=`---
+`,kg=`---
 title: Neer Classification — Proximal Humerus Fractures
 tags: Trauma, Shoulder & Elbow, proximal humerus fracture, Codman segments, AVN risk, Hertel criteria, PROFHER
 specialty: Trauma
@@ -4910,7 +4910,7 @@ The Neer classification organizes proximal humerus fractures by the four Codman/
 - Court-Brown CM, Garg A, McQueen MM. The epidemiology of proximal humeral fractures. *Acta Orthop Scand*. 2001.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,wg=`---
+`,xg=`---
 title: Nonunion Classification — Hypertrophic, Oligotrophic & Atrophic
 tags: Trauma, Multi-region, nonunion, hypertrophic nonunion, oligotrophic nonunion, atrophic nonunion, Diamond Concept, delayed union
 specialty: Trauma
@@ -4947,7 +4947,7 @@ Nonunion is failure of a fracture to unite with cessation of the biological heal
 - Surgical nonunion treatment of large-sized defects of femur and tibia based on the diamond concept, Bone & Joint Open (2024/2025).
 
 *Full context: "Open Fractures, Polytrauma & Bone Healing Principles" in the Diagnoses section.*
-`,kg=`---
+`,Ig=`---
 title: Nunley-Vertullo Classification — Subtle (Athletic) Lisfranc Injuries
 tags: Trauma, Foot & Ankle, Lisfranc injury, subtle Lisfranc sprain, midfoot trauma, athletic injury, Myerson classification
 specialty: Trauma
@@ -4980,7 +4980,7 @@ The Nunley-Vertullo classification stages low-energy, "subtle" Lisfranc injuries
 - Nunley JA, Vertullo CJ. Classification, investigation, and management of midfoot sprains: Lisfranc injuries in the athlete. *Am J Sports Med*. 2002.
 
 *Full context: "Ankle, Hindfoot & Midfoot Trauma" in the Diagnoses section.*
-`,xg=`---
+`,Ag=`---
 title: Nurick Grade — Cervical Myelopathy
 tags: Spine, Cervical, degenerative cervical myelopathy, DCM, cervical spondylotic myelopathy, Nurick grade, gait grading
 specialty: Spine
@@ -5014,7 +5014,7 @@ The Nurick grade is an older, gait-centric grading system for cervical myelopath
 - Nurick S. The pathogenesis of the spinal cord disorder associated with cervical spondylosis. *Brain.* 1972.
 
 *Full context: "Cervical Degenerative Spine" in the Diagnoses section.*
-`,Ig=`---
+`,Sg=`---
 title: O'Driscoll Classification — Coronoid Fracture
 tags: Trauma, Shoulder & Elbow, Coronoid fracture, O'Driscoll classification, terrible triad, varus posteromedial rotatory instability, elbow trauma
 specialty: Trauma
@@ -5048,7 +5048,7 @@ The O'Driscoll classification categorizes coronoid fractures by fragment locatio
 - Doornberg JN, Ring D. Fracture of the anteromedial facet of the coronoid process. *J Bone Joint Surg Am.* 2006.
 
 *Full context: "Elbow & Forearm Fractures / Dislocations" in the Diagnoses section.*
-`,Ag=`---
+`,Cg=`---
 title: OPLL Morphologic Classification
 tags: Spine, Cervical, OPLL, ossification of the posterior longitudinal ligament, segmental OPLL, continuous OPLL, mixed OPLL, localized OPLL, canal-occupying ratio, K-line, dural ossification
 specialty: Spine
@@ -5083,7 +5083,7 @@ OPLL (ossification of the posterior longitudinal ligament) is heterotopic ossifi
 - K-Line Conversion Predicts Outcomes: Laminectomy-Fusion vs. Laminoplasty in K-line-negative OPLL. 2025. https://www.thespinejournalonline.com/article/S1529-9430(25)00244-X/abstract
 
 *Full context: "Cervical Degenerative Spine" in the Diagnoses section.*
-`,Sg=`---
+`,Tg=`---
 title: OTA Open Fracture Classification (OTA-OFC) — Open Fractures
 tags: Trauma, Multi-region, open fracture, OTA-OFC, five-component grading, amputation risk, infection risk, reconstructive planning
 specialty: Trauma
@@ -5119,7 +5119,7 @@ Each component is scored independently rather than combined into a single overal
 - Gustilo RB, Anderson JT. Prevention of infection in the treatment of one thousand and twenty-five open fractures of long bones. J Bone Joint Surg Am. 1976.
 
 *Full context: "Open Fractures, Polytrauma & Bone Healing Principles" in the Diagnoses section.*
-`,Cg=`---
+`,Pg=`---
 title: Outerbridge Classification — Knee Chondral Lesions
 tags: Sports, Knee & Leg, focal chondral defect, articular cartilage lesion, cartilage repair, chondromalacia, OAT, MACI, osteochondral allograft, Outerbridge, ICRS
 specialty: Sports
@@ -5154,7 +5154,7 @@ The Outerbridge classification grades chondral lesions Grade 0–IV by arthrosco
 - Brittberg M, Peterson L, et al. (ICRS founding literature) — comparative ICRS cartilage lesion grading system.
 
 *Full context: "Meniscus Tears & Articular Cartilage Lesions" in the Diagnoses section.*
-`,Tg=`---
+`,Rg=`---
 title: Palmer Classification — TFCC Injuries
 tags: Trauma, Hand & Wrist, TFCC injury (acute), Palmer classification, DRUJ instability, triangular fibrocartilage complex, ulnar-sided wrist pain, wrist trauma
 specialty: Trauma
@@ -5195,7 +5195,7 @@ The Palmer classification categorizes triangular fibrocartilage complex (TFCC) l
 - [Arthroscopic algorithm for acute traumatic TFCC tears](https://pmc.ncbi.nlm.nih.gov/articles/PMC11626739/) (Journal of Hand Microsurgery, Jan 2025).
 
 *Full context: "Distal Radius & DRUJ Injuries" in the Diagnoses section.*
-`,Pg=`---
+`,Mg=`---
 title: Paprosky Classification — Acetabular Bone Defects (Revision Arthroplasty)
 tags: Arthroplasty, Multi-region, aseptic loosening, revision total hip arthroplasty, acetabular bone loss, Paprosky classification, pelvic discontinuity, cup-cage construct, custom triflange
 specialty: Arthroplasty
@@ -5229,7 +5229,7 @@ The Paprosky classification grades acetabular bone loss for revision total hip a
 - Paprosky WG, Perona PG, Lawrence JM. Acetabular defect classification and surgical reconstruction in revision arthroplasty: a 6-year follow-up evaluation. *J Arthroplasty.* 1994.
 
 *Full context: "Periprosthetic Fractures & Revision Arthroplasty" in the Diagnoses section.*
-`,Rg=`---
+`,jg=`---
 title: Paprosky Classification — Acetabular Bone Defects (Revision Reference)
 tags: Arthroplasty, Pelvis & Hip, revision total hip arthroplasty, acetabular bone loss, Paprosky classification, cup-cage construct, triflange, porous metal augment, pelvic discontinuity
 specialty: Arthroplasty
@@ -5264,7 +5264,7 @@ The Paprosky classification grades acetabular bone loss (types I–IIIB) for rev
 - Emerging techniques for massive acetabular bone loss in revision hip arthroplasty — AAOS Now, 2025.
 
 *Full context: "Hip Osteoarthritis & Total Hip Arthroplasty" in the Diagnoses section.*
-`,Mg=`---
+`,Og=`---
 title: Paprosky Classification — Femoral Bone Defects (Revision Arthroplasty)
 tags: Arthroplasty, Multi-region, aseptic loosening, revision total hip arthroplasty, femoral bone loss, Paprosky classification, tapered-fluted stem, diaphyseal scratch-fit, impaction bone grafting
 specialty: Arthroplasty
@@ -5301,7 +5301,7 @@ The Paprosky femoral classification grades femoral bone loss for revision total 
 - [Periprosthetic Femur Fractures Managed by Revision Arthroplasty](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12317294/) (2024–2025).
 
 *Full context: "Periprosthetic Fractures & Revision Arthroplasty" in the Diagnoses section.*
-`,jg=`---
+`,Fg=`---
 title: Patte Classification — Rotator Cuff Tendon Retraction
 tags: Sports, Shoulder & Elbow, rotator cuff tear, Patte, tendon retraction, reparability, interval slide, margin convalescence, massive irreparable cuff tear
 specialty: Sports
@@ -5333,7 +5333,7 @@ The Patte classification grades rotator cuff tendon retraction — assessed intr
 - Patte D. Classification of rotator cuff lesions. Clin Orthop Relat Res. 1990.
 
 *Full context: "Rotator Cuff & Biceps Pathology" in the Diagnoses section.*
-`,Og=`---
+`,Dg=`---
 title: Pauwels Classification — Femoral Neck Fractures
 tags: Trauma, Pelvis & Hip, femoral neck fracture, hip fracture, Pauwels, shear angle, biomechanics, cannulated screws, Femoral Neck System, FNS
 specialty: Trauma
@@ -5367,7 +5367,7 @@ The Pauwels classification grades femoral neck fractures by the angle of the fra
 - Femoral neck locking plate versus multiple cannulated screws — randomized controlled trial (PMC), 2025–2026. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12359918/
 
 *Full context: "Proximal Femur Fractures" in the Diagnoses section.*
-`,Fg=`---
+`,Lg=`---
 title: PCFD Consensus Classification — Progressive Collapsing Foot Deformity
 tags: Foot & Ankle, progressive collapsing foot deformity, PCFD, adult acquired flatfoot deformity, adult flatfoot, tibialis posterior dysfunction, TPD, Johnson-Strom, Myerson, peritalar subluxation
 specialty: Foot & Ankle
@@ -5410,7 +5410,7 @@ The 2020 international consensus classification (de Cesar Netto et al., *Foot & 
 - Poutoglidou et al., *Foot Ankle Surg*, 2024 — patient-reported outcomes vs radiographic correction in PCFD reconstruction.
 
 *Full context: "Hindfoot, Ankle & Diabetic Foot Disorders" in the Diagnoses section.*
-`,Dg=`---
+`,zg=`---
 title: PCL Grading by Posterior Tibial Translation — Isolated PCL Injury
 tags: Sports, Knee & Leg, PCL injury, posterior cruciate ligament, posterior drawer, posterior sag, Godfrey test, stress radiographs, Telos device
 specialty: Sports
@@ -5446,7 +5446,7 @@ This supplementary grading system stages isolated PCL injury by the amount of po
 - Operative and Non-operative Management Can Result in Acceptable Long-Term Outcomes for Isolated PCL Injuries in Paediatric Patients (Batley et al., J Exp Orthop 2025).
 
 *Full context: "Knee Ligament Injuries (ACL, PCL, MLKI)" in the Diagnoses section.*
-`,Lg=`---
+`,qg=`---
 title: Pfirrmann Classification — Lumbar Disc Degeneration
 tags: Spine, Lumbar, disc degeneration, degenerative disc disease, T2 MRI, discogenic back pain, disc herniation
 specialty: Spine
@@ -5480,7 +5480,7 @@ The Pfirrmann classification grades lumbar disc degeneration on sagittal T2-weig
 - Brinjikji W, Luetmer PH, Comstock B, et al. Systematic literature review of imaging features of spinal degeneration in asymptomatic populations. *AJNR Am J Neuroradiol*. 2015.
 
 *Full context: "Lumbar Degenerative Spine" in the Diagnoses section.*
-`,zg=`---
+`,Eg=`---
 title: Pipkin Classification — Femoral Head Fractures
 tags: Trauma, Pelvis & Hip, femoral head fracture, hip dislocation, Pipkin, surgical hip dislocation, Ganz approach, avascular necrosis, acetabular fracture
 specialty: Trauma
@@ -5515,7 +5515,7 @@ The Pipkin classification grades femoral head fractures occurring with a hip dis
 - Ganz R, Gill TJ, Gautier E, et al. **Surgical dislocation of the adult hip: a technique with full access to the femoral head and acetabulum without the risk of avascular necrosis.** J Bone Joint Surg Br. 2001;83:1119-1124.
 
 *Full context: "Proximal Femur Fractures" in the Diagnoses section.*
-`,qg=`---
+`,Bg=`---
 title: Pirani Score — Clubfoot Severity and Casting Monitoring
 tags: Pediatrics, Multi-region, clubfoot, congenital talipes equinovarus, CTEV, Ponseti method, Pirani score, casting, relapse monitoring
 specialty: Pediatrics
@@ -5557,7 +5557,7 @@ Six binary/half-point signs (0 = normal, 0.5 = mild, 1 = severe), split into a h
 - Ponseti IV. *Congenital Clubfoot: Fundamentals of Treatment.* Oxford University Press.
 
 *Full context: "Pediatric Orthopedic Conditions" in the Diagnoses section.*
-`,Eg=`---
+`,Hg=`---
 title: PRP Preparation Classification — Leukocyte-Rich vs Leukocyte-Poor
 tags: Principles & Procedures, Multi-region, platelet-rich plasma, PRP, leukocyte-rich, leukocyte-poor, LR-PRP, LP-PRP, orthobiologics, tendinopathy, knee osteoarthritis
 specialty: Principles & Procedures
@@ -5593,7 +5593,7 @@ Not all PRP is the same intervention: preparations differ substantially by leuko
 - Driscoll A et al. Platelet-Rich Plasma Injections for Rotator Cuff Pathology Have Higher Complication Rates of Adhesive Capsulitis. *Arthroscopy*. 2026.
 
 *Full context: "Injection Therapies & Orthobiologics" in the Diagnoses section.*
-`,Bg=`---
+`,Ng=`---
 title: Puranen-Orava Classification — Hamstring Strain
 tags: Sports, Multi-region, hamstring strain, hamstring injury, Puranen-Orava, clinical grading, BAMIC correlate, return to play, muscle injury
 specialty: Sports
@@ -5625,7 +5625,7 @@ The Puranen-Orava classification is a legacy clinical severity grading system fo
 - Pollock N, et al. British athletics muscle injury classification: a new grading system. *Br J Sports Med.* 2014. (BAMIC — the MRI-based system this clinical grade correlates against.)
 
 *Full context: "Tendinopathies, Muscle Injuries & Ankle Instability" in the Diagnoses section.*
-`,Hg=`---
+`,_g=`---
 title: Risser Classification — Skeletal Maturity in Scoliosis
 tags: Spine, Adolescent idiopathic scoliosis, AIS, skeletal maturity, iliac apophysis, bracing candidacy, Sanders staging, BrAIST, growth remaining
 specialty: Spine
@@ -5661,7 +5661,7 @@ The Risser sign grades skeletal maturity by the degree of ossification of the il
 - Weinstein SL, Dolan LA, Wright JG, Dobbs MB. Effects of bracing in adolescents with idiopathic scoliosis (BrAIST). *N Engl J Med.* 2013.
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,Ng=`---
+`,Jg=`---
 title: Robinson Classification — Clavicle Fractures
 tags: Trauma, Shoulder & Elbow, clavicle fracture, nonunion, Allman classification, COTS trial
 specialty: Trauma
@@ -5696,7 +5696,7 @@ The Robinson classification is a more granular, prognostic system for clavicle f
 - Canadian Orthopaedic Trauma Society. Nonoperative treatment compared with plate fixation of displaced midshaft clavicular fractures: a multicenter, randomized clinical trial. *J Bone Joint Surg Am*. 2007.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,_g=`---
+`,Kg=`---
 title: Rockwood Classification — Acromioclavicular Joint Injury
 tags: Trauma, Shoulder & Elbow, acromioclavicular joint, AC joint injury, coracoclavicular ligament, deltotrapezial fascia
 specialty: Trauma
@@ -5734,7 +5734,7 @@ The Rockwood classification grades acromioclavicular (AC) joint injuries by the 
 - Systematic review and meta-analysis: surgical vs conservative treatment of acute Rockwood type III AC joint dislocation. *EFORT Open Reviews*. 2025.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,Jg=`---
+`,Gg=`---
 title: Rüedi-Allgöwer Classification — Pilon Fractures
 tags: Trauma, Knee & Leg, pilon fracture, plafond fracture, Rüedi-Allgöwer, AO/OTA 43, staged fixation
 specialty: Trauma
@@ -5766,7 +5766,7 @@ The Rüedi-Allgöwer classification (1969) is a simple, pilon-specific, three-ty
 - Sirkin M, Sanders R, DiPasquale T, Herscovici D. A staged protocol for soft tissue management in the treatment of complex pilon fractures. *J Orthop Trauma.* 1999.
 
 *Full context: "Tibial Plateau, Shaft & Pilon Fractures" in the Diagnoses section.*
-`,Kg=`---
+`,Vg=`---
 title: Russe Classification — Scaphoid Fracture Orientation
 tags: Hand & Wrist, scaphoid fracture, scaphoid nonunion, carpal instability, fracture-line orientation, vertical oblique, shear forces
 specialty: Hand & Wrist
@@ -5798,7 +5798,7 @@ The Russe classification describes scaphoid fractures by the orientation of the 
 - Dias JJ, Brealey SD, Fairhurst C, et al. Surgery versus cast immobilisation for adults with a bicortical fracture of the scaphoid waist (SWIFFT): a pragmatic, multicentre, open-label, randomised superiority trial. *Lancet.* 2020.
 
 *Full context: "Scaphoid Fractures & Carpal Instability" in the Diagnoses section.*
-`,Gg=`---
+`,Wg=`---
 title: Salenius-Vankka Curve — Physiologic Tibiofemoral Angle by Age
 tags: Pediatrics, Multi-region, physiologic bowing, genu varum, genu valgum, rotational and angular deformities, Salenius-Vankka curve, Blount disease
 specialty: Pediatrics
@@ -5833,7 +5833,7 @@ The Salenius-Vankka curve is a normative reference of the tibiofemoral (knee) an
 - Levine AM, Drennan JC. Physiological bowing and tibia vara: the metaphyseal-diaphyseal angle in the measurement of bowleg deformities. *J Bone Joint Surg Am.*
 
 *Full context: "Pediatric Orthopedic Conditions" in the Diagnoses section.*
-`,Vg=`---
+`,Ug=`---
 title: Salter-Harris Classification — Pediatric Physeal Fractures
 tags: Pediatrics, Multi-region, Physeal fractures, Salter-Harris, physis, growth plate, growth arrest, pediatric trauma
 specialty: Pediatrics
@@ -5869,7 +5869,7 @@ The Salter-Harris classification describes fractures through the **physis** (gro
 - Flynn JM, Skaggs DL, Waters PM, eds. *Rockwood and Wilkins' Fractures in Children*, current edition.
 
 *Full context: "Pediatric Fractures & Trauma" in the Diagnoses section.*
-`,Wg=`---
+`,Xg=`---
 title: Samilson-Prieto Classification — Secondary/Post-Instability Glenohumeral Osteoarthritis
 tags: Arthroplasty, Shoulder & Elbow, glenohumeral osteoarthritis, secondary osteoarthritis, post-instability arthropathy, dislocation arthropathy, inferior humeral osteophyte, Samilson-Prieto
 specialty: Arthroplasty
@@ -5900,7 +5900,7 @@ The Samilson-Prieto classification grades secondary glenohumeral osteoarthritis 
 - Samilson RL, Prieto V. Dislocation arthropathy of the shoulder. *J Bone Joint Surg Am*. 1983.
 
 *Full context: "Shoulder & Elbow Arthritis and Arthroplasty" in the Diagnoses section.*
-`,Ug=`---
+`,Qg=`---
 title: Samilson-Prieto Classification — Glenohumeral Arthropathy after Shoulder Instability
 tags: Sports, Shoulder & Elbow, shoulder instability, dislocation arthropathy, glenohumeral arthropathy, post-instability arthritis, Putti-Platt, Magnuson-Stack, Samilson-Prieto
 specialty: Sports
@@ -5932,7 +5932,7 @@ The Samilson-Prieto classification radiographically grades degenerative changes 
 - Samilson RL, Prieto V. Dislocation arthropathy of the shoulder. *J Bone Joint Surg Am.* 1983.
 
 *Full context: "Shoulder Instability" in the Diagnoses section.*
-`,Xg=`---
+`,Zg=`---
 title: Sanders Classification — Calcaneus Fractures
 tags: Trauma, Foot & Ankle, calcaneus fracture, intra-articular fracture, posterior facet, primary subtalar arthrodesis, Böhler angle, Gissane angle
 specialty: Trauma
@@ -5970,7 +5970,7 @@ The Sanders classification grades displaced intra-articular calcaneus fractures 
 - Primary subtalar arthrodesis in displaced intra-articular calcaneal fracture — systematic review.
 
 *Full context: "Ankle, Hindfoot & Midfoot Trauma" in the Diagnoses section.*
-`,Qg=`---
+`,Yg=`---
 title: Schatzker Classification — Tibial Plateau Fractures
 tags: Trauma, Knee & Leg, tibial plateau fracture, Schatzker, Luo three-column, AO/OTA 41, bicondylar fracture, knee dislocation
 specialty: Trauma
@@ -6005,7 +6005,7 @@ The Schatzker classification is a six-type, plain-radiograph-based system for ti
 - Schatzker J, McBroom R, Bruce D. The tibial plateau fracture: the Toronto experience 1968–1975. *Clin Orthop Relat Res.* 1979.
 
 *Full context: "Tibial Plateau, Shaft & Pilon Fractures" in the Diagnoses section.*
-`,Zg=`---
+`,$g=`---
 title: Schenck Classification — Knee Dislocation
 tags: Sports, Knee & Leg, multiligament knee injury, MLKI, knee dislocation, KD, Schenck classification, vascular injury, peroneal nerve injury, Kennedy classification (historical)
 specialty: Sports
@@ -6044,7 +6044,7 @@ The Schenck classification (KD I–V) grades knee dislocation / multiligament kn
 - New Algorithm for Management of Multiligament Knee Injuries: A Tertiary Level Trauma Center Experience (2024–2025).
 
 *Full context: "Knee Ligament Injuries (ACL, PCL, MLKI)" in the Diagnoses section.*
-`,Yg=`---
+`,ef=`---
 title: Schizas Classification — Lumbar Central Spinal Stenosis
 tags: Spine, Lumbar, spinal stenosis, neurogenic claudication, axial T2 MRI, decompression, morphological grading
 specialty: Spine
@@ -6076,7 +6076,7 @@ The Schizas classification is a morphological grading system for lumbar central 
 - Schizas C, Theumann N, Burn A, et al. Qualitative grading of severity of lumbar spinal stenosis based on the morphology of the dural sac on magnetic resonance images. *Spine*. 2010.
 
 *Full context: "Lumbar Degenerative Spine" in the Diagnoses section.*
-`,$g=`---
+`,tf=`---
 title: Segond Fracture & Reverse Segond Fracture — Associated Ligament Injury Patterns
 tags: Sports, Knee & Leg, Segond fracture, reverse Segond fracture, ACL rupture, PCL injury, MCL injury, anterolateral ligament, bone avulsion, radiographic marker
 specialty: Sports
@@ -6107,7 +6107,7 @@ The Segond fracture and its counterpart, the reverse Segond fracture, are small 
 - Segond P. Recherches cliniques et expérimentales sur les épanchements sanguins du genou par entorse (classic description of the Segond fracture).
 
 *Full context: "Knee Ligament Injuries (ACL, PCL, MLKI)" in the Diagnoses section.*
-`,ef=`---
+`,nf=`---
 title: Seinsheimer Classification — Subtrochanteric Fractures
 tags: Trauma, Pelvis & Hip, subtrochanteric fracture, hip fracture, Seinsheimer, lesser trochanter, cephalomedullary nail, atypical femur fracture
 specialty: Trauma
@@ -6141,7 +6141,7 @@ The Seinsheimer classification grades subtrochanteric femur fractures by fragmen
 - Seinsheimer F. **Subtrochanteric fractures of the femur.** J Bone Joint Surg Am. 1978;60:300-306.
 
 *Full context: "Proximal Femur Fractures" in the Diagnoses section.*
-`,tf=`---
+`,af=`---
 title: Sesamoid Pathology Diagnostic Categories — Forefoot
 tags: Foot & Ankle, sesamoid pathology, tibial sesamoid, fibular sesamoid, bipartite sesamoid, sesamoiditis, sesamoid fracture, sesamoid osteonecrosis, sesamoid AVN
 specialty: Foot & Ankle
@@ -6175,7 +6175,7 @@ This diagnostic framework distinguishes the four sesamoid pathology categories �
 - Mann RA, Coughlin MJ. *Mann's Surgery of the Foot and Ankle* (sesamoid disorders chapter).
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,nf=`---
+`,rf=`---
 title: SINS — Spinal Instability Neoplastic Score
 tags: Spine, Metastatic spine disease, spinal metastasis, mechanical instability, pathologic fracture, vertebral compression fracture, NOMS framework, Spine Oncology Study Group
 specialty: Spine
@@ -6227,7 +6227,7 @@ The Spinal Instability Neoplastic Score (SINS) is a six-domain, 0–18 point sco
 - Laufer I, Rubin DG, Lis E, et al. The NOMS framework: approach to the treatment of spinal metastatic tumors. *Oncologist.* 2013.
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,af=`---
+`,of=`---
 title: SLIC — Subaxial Cervical Spine Injury Classification
 tags: Spine, cervical spine injury, subaxial cervical fracture, facet dislocation, discoligamentous complex, spinal cord injury, AO Spine subaxial cervical classification
 specialty: Spine
@@ -6262,7 +6262,7 @@ SLIC is a point-based severity score for subaxial cervical (C3–C7) trauma that
 - Vaccaro AR, et al. Subaxial Cervical Spine Injury Classification System (SLIC). *Spine.* 2007.
 
 *Full context: "Spine Trauma" in the Diagnoses section.*
-`,rf=`---
+`,sf=`---
 title: Smillie Staging — Freiberg Disease
 tags: Foot & Ankle, Freiberg disease, Köhler's second disease, lesser metatarsal head osteonecrosis, 2nd metatarsal, Gauthier osteotomy, Kinnard technique, joint-preserving osteotomy
 specialty: Foot & Ankle
@@ -6297,7 +6297,7 @@ Smillie staging grades the radiographic progression of Freiberg disease (osteone
 - Gauthier G, Elbaz R. Freiberg's infraction: a subchondral bone fatigue fracture. A new surgical treatment. *Clin Orthop Relat Res.* 1979 (dorsiflexion closing-wedge osteotomy technique).
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,of=`---
+`,lf=`---
 title: Snyder Classification — SLAP Lesions
 tags: Sports, Shoulder & Elbow, SLAP tear, SLAP lesion, Snyder, biceps anchor, superior labrum, peel-back mechanism, biceps tenodesis, overhead athlete, throwing athlete, Maffet, Morgan
 specialty: Sports
@@ -6335,7 +6335,7 @@ An extended classification (types V–X, Maffet/Morgan) describes SLAP lesions c
 - Lack S, et al. Biceps Tenodesis and SLAP Repair Show Similar Outcomes in Overhead Throwing Athletes With Baseball Pitchers Exhibiting Worse Rates of Return to Sport: A Systematic Review. Arthroscopy. 2025.
 
 *Full context: "Rotator Cuff & Biceps Pathology" in the Diagnoses section.*
-`,sf=`---
+`,cf=`---
 title: Southwick Angle — SCFE Severity Grading
 tags: Pediatrics, Pelvis & Hip, slipped capital femoral epiphysis, SCFE, Southwick, head-shaft angle, femoroacetabular impingement, in-situ fixation, corrective osteotomy
 specialty: Pediatrics
@@ -6368,7 +6368,7 @@ The Southwick (head-shaft) angle grades SCFE severity radiographically, measured
 - Aprato et al. Pinning and Arthroscopic Trimming for Mild SCFE: Comparative Study With Traditional In Situ Pinning and Modified Dunn Procedure. *J Pediatr Orthop*. 2025.
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,lf=`---
+`,df=`---
 title: SRS-Schwab Classification — Adult Spinal Deformity
 tags: Spine, Adult spinal deformity, ASD, sagittal balance, PI-LL mismatch, SVA, pelvic tilt, osteotomy planning, GAP score, degenerative scoliosis
 specialty: Spine
@@ -6408,7 +6408,7 @@ The SRS-Schwab classification (2012) grades adult spinal deformity by coronal cu
 - Clinical outcomes and proximal junctional failure: normative vs. functional alignment. 2023.
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,cf=`---
+`,uf=`---
 title: Stanmore Triangle Classification — Shoulder Instability
 tags: Sports, Shoulder & Elbow, shoulder instability, polar type classification, muscle patterning instability, multidirectional instability, MDI, rehabilitation framework, Jaggi, Lambert
 specialty: Sports
@@ -6440,7 +6440,7 @@ The Stanmore Triangle is a conceptual, non-numerical classification of shoulder 
 - Jaggi A, Lambert S. Rehabilitation for shoulder instability (Stanmore classification framework). *Br J Sports Med.* 2010.
 
 *Full context: "Shoulder Instability" in the Diagnoses section.*
-`,df=`---
+`,pf=`---
 title: Steinberg Classification — Osteonecrosis of the Femoral Head
 tags: Arthroplasty, Pelvis & Hip, osteonecrosis of the femoral head, avascular necrosis, AVN, Steinberg staging, University of Pennsylvania classification, hip preservation, core decompression, lesion size
 specialty: Arthroplasty
@@ -6475,7 +6475,7 @@ The Steinberg (University of Pennsylvania) classification is a quantitative stag
 - Steinberg ME, Hayken GD, Steinberg DR. A quantitative system for staging avascular necrosis. *J Bone Joint Surg Br*. 1995.
 
 *Full context: "Femoral Head Osteonecrosis & Hip Preservation" in the Diagnoses section.*
-`,uf=`---
+`,hf=`---
 title: Stulberg Classification — Legg-Calvé-Perthes Outcome
 tags: Pediatrics, Pelvis & Hip, Legg-Calvé-Perthes disease, Perthes, Stulberg, skeletal maturity outcome, congruency, femoroacetabular sphericity, osteoarthritis risk
 specialty: Pediatrics
@@ -6510,11 +6510,11 @@ The Stulberg classification grades the final outcome of Perthes disease at skele
 - Herring JA, Kim HT, Browne R. Legg-Calvé-Perthes disease: part II, prospective multicenter study of the effect of treatment on outcome. *J Bone Joint Surg Am*. 2004.
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,pf=`---
+`,mf=`---
 title: Su Classification — Periprosthetic Distal Femur Fractures (TKA)
 tags: Trauma, Knee & Femur, periprosthetic fracture, total knee arthroplasty, distal femoral replacement, revision arthroplasty, Su classification
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 
@@ -6540,7 +6540,7 @@ The Su classification stages periprosthetic distal femur fractures occurring aro
 - Su ET, DeWal H, Di Cesare PE. Periprosthetic femoral fractures above total knee replacements. *J Am Acad Orthop Surg*. 2004.
 
 *Full context: "Femoral Shaft & Distal Femur Fractures" in the Diagnoses section.*
-`,hf=`---
+`,gf=`---
 title: Su Classification — Supracondylar Femur Fracture Above a TKA (Refines Lewis-Rorabeck II)
 tags: Arthroplasty, Multi-region, periprosthetic fracture around TKA, revision knee arthroplasty, Su classification, Lewis-Rorabeck, retrograde nailing, femoral component box geometry
 specialty: Arthroplasty
@@ -6570,7 +6570,7 @@ The Su classification refines Lewis-Rorabeck type II periprosthetic fractures ar
 - Su ET, DeWal H, Di Cesare PE. Periprosthetic femoral fractures above total knee replacements. *J Am Acad Orthop Surg.* 2004.
 
 *Full context: "Periprosthetic Fractures & Revision Arthroplasty" in the Diagnoses section.*
-`,mf=`---
+`,ff=`---
 title: Tietjen Classification — Pectoralis Major Rupture
 tags: Sports, Shoulder & Elbow, pectoralis major rupture, Tietjen, bench press, sternocostal head, musculotendinous junction, tendon avulsion, anabolic steroid use, acute repair, allograft reconstruction
 specialty: Sports
@@ -6607,7 +6607,7 @@ Each location type is further graded as **partial** or **complete**, which — c
 - ElMaraghy AW, Devereaux MW. A systematic review and comprehensive classification of pectoralis major tears. J Shoulder Elbow Surg. 2012.
 
 *Full context: "Rotator Cuff & Biceps Pathology" in the Diagnoses section.*
-`,gf=`---
+`,yf=`---
 title: Tile/AO Classification — Pelvic Ring Injuries
 tags: Trauma, Pelvis & Hip, pelvic ring injury, stability-based classification, posterior fixation, open-book fracture, lateral compression, vertical shear
 specialty: Trauma
@@ -6645,7 +6645,7 @@ The Tile/AO classification grades pelvic ring injuries by **mechanical stability
 - Tile M. Pelvic ring fractures: should they be fixed? *J Bone Joint Surg Br*. 1988; AO/OTA classification of pelvic ring injuries (Tile modification).
 
 *Full context: "Pelvic Ring & Acetabular Fractures" in the Diagnoses section.*
-`,ff=`---
+`,vf=`---
 title: TLICS — Thoracolumbar Injury Classification and Severity Score
 tags: Spine, thoracolumbar burst fracture, Chance fracture, posterior ligamentous complex, spinal cord injury, AO Spine thoracolumbar classification, decompression timing
 specialty: Spine
@@ -6681,7 +6681,7 @@ TLICS is a point-based severity score for thoracolumbar trauma that sums three c
 - Vaccaro AR, et al. Validation of the AO Spine Thoracolumbar Injury Classification System treatment algorithm; letter/response debate. *Spine.* 2023–2024.
 
 *Full context: "Spine Trauma" in the Diagnoses section.*
-`,yf=`---
+`,bf=`---
 title: Tokuhashi Score — Metastatic Spine Disease Prognosis
 tags: Spine, Metastatic spine disease, spinal metastasis, prognostic scoring, survival prediction, Tomita, NOMS framework
 specialty: Spine
@@ -6713,7 +6713,7 @@ The revised Tokuhashi score is a 0–15 point prognostic scoring system for meta
 - Laufer I, Rubin DG, Lis E, et al. The NOMS framework: approach to the treatment of spinal metastatic tumors. *Oncologist.* 2013.
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,vf=`---
+`,wf=`---
 title: Tomita Score — Metastatic Spine Disease Surgical Strategy
 tags: Spine, Metastatic spine disease, spinal metastasis, prognostic scoring, surgical strategy, Tokuhashi, NOMS framework
 specialty: Spine
@@ -6746,7 +6746,7 @@ The Tomita score is a 2–10 point prognostic and strategy scoring system for me
 - Laufer I, Rubin DG, Lis E, et al. The NOMS framework: approach to the treatment of spinal metastatic tumors. *Oncologist.* 2013.
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,bf=`---
+`,kf=`---
 title: Tönnis Classification — Acetabular Dysplasia (PAO Candidacy)
 tags: Arthroplasty, Pelvis & Hip, adult hip dysplasia, periacetabular osteotomy, PAO, Tönnis grade, Tönnis classification, hip preservation, secondary osteoarthritis
 specialty: Arthroplasty
@@ -6779,7 +6779,7 @@ The Tönnis classification grades secondary osteoarthritis in the dysplastic hip
 - Tönnis D. Congenital dysplasia and dislocation of the hip in children and adults. Springer, 1987 (Tönnis angle and osteoarthritis grading).
 
 *Full context: "Femoral Head Osteonecrosis & Hip Preservation" in the Diagnoses section.*
-`,wf=`---
+`,xf=`---
 title: Tönnis Classification — Pediatric Hip Dislocation (DDH)
 tags: Pediatrics, Pelvis & Hip, developmental dysplasia of the hip, DDH, Tönnis, hip dislocation grading, Perthes-Perkin line, IHDI
 specialty: Pediatrics
@@ -6812,7 +6812,7 @@ The Tönnis classification is a radiographic grading system for DDH dislocation 
 - Narayanan U, et al. Reliability of a new radiographic classification for developmental dysplasia of the hip (IHDI classification). *J Pediatr Orthop*.
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,kf=`---
+`,If=`---
 title: Tönnis Grade — Hip Osteoarthritis
 tags: Arthroplasty, Pelvis & Hip, hip osteoarthritis, coxarthrosis, Tönnis grade, Tonnis classification, hip-specific OA severity, periacetabular osteotomy, joint preservation, THA candidacy
 specialty: Arthroplasty
@@ -6846,7 +6846,7 @@ The Tönnis grade is a hip-specific radiographic osteoarthritis severity scale (
 - Tönnis D. *Congenital Dysplasia and Dislocation of the Hip in Children and Adults.* Springer, 1987 (Tönnis grading of hip osteoarthritis).
 
 *Full context: "Hip Osteoarthritis & Total Hip Arthroplasty" in the Diagnoses section.*
-`,xf=`---
+`,Af=`---
 title: Torg-Pavlov Ratio — Cervical Canal Stenosis
 tags: Spine, Cervical, cervical canal stenosis, cervical cord neurapraxia, stinger, Torg-Pavlov ratio, Torg ratio, developmental stenosis, return to play
 specialty: Spine
@@ -6878,7 +6878,7 @@ The Torg-Pavlov ratio is a radiographic screening measure for developmental (con
 - Torg JS, Pavlov H, Genuario SE, et al. Neurapraxia of the cervical spinal cord with transient quadriplegia. *Journal of Bone and Joint Surgery (Am).* 1986.
 
 *Full context: "Cervical Degenerative Spine" in the Diagnoses section.*
-`,If=`---
+`,Sf=`---
 title: Tscherne Classification — Closed Soft-Tissue Injury
 tags: Trauma, Multi-region, closed fracture, soft-tissue injury, Tscherne, Oestern, damage control, compartment syndrome
 specialty: Trauma
@@ -6911,7 +6911,7 @@ The Tscherne classification grades the severity of soft-tissue injury accompanyi
 - AO Foundation. AO Principles of Fracture Management (reference text for absolute vs relative stability, damage control principles, and open fracture care pathways).
 
 *Full context: "Open Fractures, Polytrauma & Bone Healing Principles" in the Diagnoses section.*
-`,Af=`---
+`,Cf=`---
 title: Tsukayama/Zimmerli Classification — PJI Timing
 tags: Arthroplasty, Multi-region, periprosthetic joint infection, PJI, Tsukayama/Zimmerli timing, DAIR, biofilm, acute hematogenous infection, chronic infection
 specialty: Arthroplasty
@@ -6945,7 +6945,7 @@ The Tsukayama/Zimmerli timing classification stages periprosthetic joint infecti
 - Zimmerli W, Trampuz A, Ochsner PE. **Prosthetic-joint infections.** *New England Journal of Medicine.* 2004.
 
 *Full context: "Periprosthetic Joint Infection" in the Diagnoses section.*
-`,Sf=`---
+`,Tf=`---
 title: TT-TG Distance Thresholds — Patellar Instability
 tags: Sports, Knee & Leg, patellar instability, patellofemoral, tibial tubercle osteotomy, MPFL reconstruction, derotational osteotomy, tibial tubercle-trochlear groove distance
 specialty: Sports
@@ -6980,7 +6980,7 @@ TT-TG distance is measured on axial CT or MRI as the distance between a line thr
 - [TT-PCL / TT-posterior intercondylar eminence distance as alternative to TT-TG](https://pmc.ncbi.nlm.nih.gov/articles/PMC11509304/) (2024).
 
 *Full context: "Patellofemoral Disorders & Extensor Mechanism" in the Diagnoses section.*
-`,Cf=`---
+`,Pf=`---
 title: Tubiana Classification — Dupuytren Disease
 tags: Hand & Wrist, Dupuytren disease, palmar fascia, collagenase, needle fasciotomy, limited fasciectomy, pretendinous cord, tabletop test
 specialty: Hand & Wrist
@@ -7023,7 +7023,7 @@ The Tubiana classification stages Dupuytren disease by total flexion contracture
 - Shaheen A, et al. Effectiveness and Safety of Dupuytren Contracture Treatments: A Systematic Review and Meta-Analysis Using the GRADE Approach. *Plast Reconstr Surg.* 2025.
 
 *Full context: "Hand & Wrist Conditions" in the Diagnoses section.*
-`,Tf=`---
+`,Rf=`---
 title: Vancouver / Unified Classification System (UCS) — Periprosthetic Femur Fracture (Hip)
 tags: Arthroplasty, Multi-region, periprosthetic femur fracture, revision hip arthroplasty, stem stability, Vancouver classification, Unified Classification System, UCS, ORIF vs revision
 specialty: Arthroplasty
@@ -7064,7 +7064,7 @@ The Vancouver classification (extended conceptually as the Unified Classificatio
 - [Risk Factors and Predictors of 1-Year Mortality in 262 Vancouver Type C Periprosthetic Femoral Fractures: PIPPAS Prospective Multicenter Observational Study](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12428945/) (2025).
 
 *Full context: "Periprosthetic Fractures & Revision Arthroplasty" in the Diagnoses section.*
-`,Pf=`---
+`,Mf=`---
 title: Verdan Flexor Tendon Zones — Hand & Wrist
 tags: Hand & Wrist, flexor tendon injury, flexor tendon repair, zone II, no man's land, jersey finger, WALANT, early active motion
 specialty: Hand & Wrist
@@ -7102,7 +7102,7 @@ The Verdan zones divide the flexor tendon course from fingertip to forearm into 
 - Tang JB, Lalonde D, Fernandes CH, Sadek AF, Besmens IS. The IFSSH Consensus and Current Guidelines on Flexor Tendon Repairs and Reconstruction. *J Hand Surg Eur Vol.* 2026.
 
 *Full context: "Hand & Wrist Conditions" in the Diagnoses section.*
-`,Rf=`---
+`,jf=`---
 title: Walch Classification — Glenohumeral Osteoarthritis Glenoid Morphology
 tags: Arthroplasty, Shoulder & Elbow, glenohumeral osteoarthritis, glenoid morphology, glenoid version, posterior glenoid wear, aTSA, rTSA, Walch, Bercik modification, BIO-RSA
 specialty: Arthroplasty
@@ -7142,7 +7142,7 @@ The Walch classification grades glenoid morphology in primary glenohumeral osteo
 - Bercik MJ, Kruse K, Yalizis M, Gauci MO, Chaoui J, Walch G. A modification to the Walch classification of the glenoid in primary glenohumeral osteoarthritis using three-dimensional imaging. *J Shoulder Elbow Surg*. 2016.
 
 *Full context: "Shoulder & Elbow Arthritis and Arthroplasty" in the Diagnoses section.*
-`,Mf=`---
+`,Of=`---
 title: Waldenström Staging — Legg-Calvé-Perthes Disease
 tags: Pediatrics, Pelvis & Hip, Legg-Calvé-Perthes disease, Perthes, Waldenström, radiographic staging, fragmentation, containment surgery timing
 specialty: Pediatrics
@@ -7176,7 +7176,7 @@ The Waldenström stages describe the radiographic natural history of Perthes dis
 - Zhang et al. Long-term radiographic outcomes following containment surgery for Legg-Calve-Perthes disease in the reossification stage. *Front Pediatr*. 2026.
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,jf=`---
+`,Ff=`---
 title: Warwick Agreement — FAI Syndrome Definition & Management Framework
 tags: Arthroplasty, Pelvis & Hip, femoroacetabular impingement, FAI syndrome, labral tear, Warwick agreement, hip arthroscopy, cam morphology, pincer morphology, consensus statement
 specialty: Arthroplasty
@@ -7211,7 +7211,7 @@ The Warwick Agreement (Griffin et al., *Br J Sports Med* 2016) is a 2016 interna
 - Griffin DR, Dickenson EJ, Wall PDH, et al. Hip arthroscopy versus best conservative care for the treatment of femoroacetabular impingement syndrome (UK FASHIoN): a multicentre randomised controlled trial. *Lancet*. 2018.
 
 *Full context: "Femoral Head Osteonecrosis & Hip Preservation" in the Diagnoses section.*
-`,Of=`---
+`,Df=`---
 title: Watson Classification — SLAC/SNAC Wrist
 tags: Hand & Wrist, SLAC wrist, SNAC wrist, scapholunate ligament injury, scaphoid nonunion, wrist arthritis, carpal collapse, proximal row carpectomy, four-corner fusion
 specialty: Hand & Wrist
@@ -7249,7 +7249,7 @@ The Watson classification stages the predictable radial-to-ulnar progression of 
 - Hones KM, et al. Proximal Row Carpectomy with and without Capitate Resurfacing: A Preliminary Systematic Review and Meta-Analysis. *JBJS Rev.* 2024.
 
 *Full context: "Scaphoid Fractures & Carpal Instability" in the Diagnoses section.*
-`,Ff=`---
+`,Lf=`---
 title: Weber/Danis Classification — Ankle Fractures
 tags: Trauma, Foot & Ankle, ankle fracture, syndesmosis injury, AO/Danis-Weber, Maisonneuve fracture, fibula fracture, deltoid ligament
 specialty: Trauma
@@ -7283,7 +7283,7 @@ The Weber/Danis (AO/Danis-Weber) classification grades ankle fractures by the le
 - Michelson JD. Fractures about the ankle. *J Bone Joint Surg Am*.
 
 *Full context: "Ankle, Hindfoot & Midfoot Trauma" in the Diagnoses section.*
-`,Df=`---
+`,zf=`---
 title: Weinstein-Boriani-Biagini (WBB) Staging — Spine Tumor Resection Planning
 tags: Spine, Primary spine tumors, chordoma, chondrosarcoma, sacral chordoma, en bloc resection, sacrectomy, Enneking staging, surgical corridor planning
 specialty: Spine
@@ -7315,7 +7315,7 @@ The Weinstein-Boriani-Biagini (WBB) system is a surgical staging tool that maps 
 - *(The monograph does not cite a dedicated primary source for the WBB system itself; it is presented as background context for primary-tumor surgical planning.)*
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,Lf=`---
+`,qf=`---
 title: WIfI Classification — Threatened Limb Risk Stratification (Diabetic Foot)
 tags: Foot & Ankle, diabetic foot, critical limb ischemia, WIfI, revascularization, ABI, amputation risk, wound infection ischemia
 specialty: Foot & Ankle
@@ -7351,11 +7351,11 @@ The combined clinical stage (1 = very low risk, through 4 = high risk of major a
 - Senneville É, et al. IWGDF/IDSA Guidelines on the Diagnosis and Treatment of Diabetic Foot Infections. *Clin Infect Dis / Diabetes Metab Res Rev.* 2023.
 
 *Full context: "Hindfoot, Ankle & Diabetic Foot Disorders" in the Diagnoses section.*
-`,zf=`---
+`,Ef=`---
 title: Winquist-Hansen Classification — Femoral Shaft Fracture Comminution
 tags: Trauma, Knee & Femur, femoral shaft fracture, comminution, intramedullary nailing, static interlocking, Winquist-Hansen, AO/OTA 32
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 
@@ -7384,7 +7384,7 @@ The Winquist-Hansen classification describes the degree of cortical comminution 
 - Winquist RA, Hansen ST, Clawson DK. Closed intramedullary nailing of femoral fractures: a report of five hundred and twenty cases. *J Bone Joint Surg Am*. 1984.
 
 *Full context: "Femoral Shaft & Distal Femur Fractures" in the Diagnoses section.*
-`,qf=`---
+`,Bf=`---
 title: Young-Burgess Classification — Pelvic Ring Injuries
 tags: Trauma, Pelvis & Hip, pelvic ring injury, lateral compression, anteroposterior compression, vertical shear, mechanism-based classification, hemorrhage risk, transfusion requirement
 specialty: Trauma
@@ -7422,7 +7422,7 @@ The Young-Burgess system classifies pelvic ring injuries by the **mechanism/vect
 - Burgess AR, Eastridge BJ, Young JW, et al. Pelvic ring disruptions: effective classification system and treatment protocols. *J Trauma*. 1990.
 
 *Full context: "Pelvic Ring & Acetabular Fractures" in the Diagnoses section.*
-`,Ef=`---
+`,Hf=`---
 title: Ankle, Hindfoot & Midfoot Trauma
 tags: Trauma, Foot & Ankle, Ankle fracture, Syndesmosis injury, Talus fracture, Calcaneus fracture, Lisfranc injury, Navicular & cuboid fracture, Weber/Danis, Lauge-Hansen, Hawkins (talus), Sanders (calcaneus), Myerson & Nunley-Vertullo (Lisfranc), ankle fracture, syndesmosis, talus fracture, calcaneus fracture, lisfranc, hindfoot trauma, midfoot trauma, orif
 region: Foot & Ankle
@@ -7738,7 +7738,7 @@ The navicular sits in the medial column between talar head and cuneiforms; its c
 - Nunley JA, Vertullo CJ. Classification, investigation, and management of midfoot sprains: Lisfranc injuries in the athlete. *Am J Sports Med*. 2002.
 - Mason LW, Molloy AP. Posterior malleolar ankle fractures: an effort at improving classification and treatment algorithms. *Foot Ankle Surg*, and associated Liverpool treatment algorithm publications.
 - Sangeorzan BJ, et al. Displaced intra-articular fractures of the tarsal navicular. *J Bone Joint Surg Am*. 1989.
-`,Bf=`---
+`,Nf=`---
 title: Bone & Soft Tissue Tumors
 tags: Oncology & Metabolic, Multi-region, Osteosarcoma, Ewing sarcoma, Chondrosarcoma, Giant cell tumor of bone, Osteoid osteoma, Osteochondroma, Enchondroma, Aneurysmal & unicameral bone cysts, Fibrous dysplasia, Soft tissue sarcoma (overview), Lipoma vs liposarcoma workup, Metastatic bone disease, Multiple myeloma (ortho perspective), Enneking/MSTS staging, Mirels score, Campanacci (GCT), Lodwick (radiographic patterns), orthopedic oncology, bone tumor, soft tissue sarcoma, biopsy, denosumab, pathologic fracture, mirels score, enneking staging
 region: Multi-region
@@ -8074,7 +8074,7 @@ Rehabilitation is dictated by the reconstruction, not the diagnosis — the phas
 - [Bone sarcomas: ESMO–EURACAN–GENTURIS–ERN PaedCan Clinical Practice Guideline for diagnosis, treatment and follow-up](https://pubmed.ncbi.nlm.nih.gov/34500044/), *Annals of Oncology*, 2021.
 - International Myeloma Working Group (IMWG) consensus criteria and imaging recommendations, *Lancet Oncology* / *Blood*.
 - Van der Geest ICM, et al. Denosumab for treatment of giant cell tumor of bone: current evidence and controversy. Review literature, *J Bone Joint Surg* / sarcoma society consensus statements.
-`,Hf=`---
+`,_f=`---
 title: Cervical Degenerative Spine
 tags: Spine, Cervical radiculopathy, Degenerative cervical myelopathy, Cervical disc herniation, OPLL, Cervical spondylosis, mJOA severity, Nurick, Torg-Pavlov ratio, K-line (OPLL), cervical myelopathy, radiculopathy, acdf, arthroplasty, opll, laminoplasty, spondylosis, mjoa
 region: Spine
@@ -8424,7 +8424,7 @@ Continuous and mixed types carry the highest canal-occupying ratios and the high
 - AAN Guidelines Subcommittee. Epidural Steroids for Cervical and Lumbar Radicular Pain and Spinal Stenosis Systematic Review Summary. *Neurology.* 2025.
 - Tetreault L, Kopjar B, Nouri A, et al. The modified Japanese Orthopaedic Association scale: establishing criteria for mild, moderate and severe degenerative cervical myelopathy. *European Spine Journal.* 2017.
 - Davies BM, Mowforth OD, Smith EK, Kotter MR. Degenerative cervical myelopathy. *BMJ.* 2018 (foundational clinical review underpinning the awareness/underdiagnosis literature cited above).
-`,Nf=`---
+`,Jf=`---
 title: Distal Radius & DRUJ Injuries
 tags: Trauma, Hand & Wrist, Distal radius fracture, DRUJ instability, TFCC injury (acute), Ulnar styloid fracture, AO/OTA 23, Fernandez, Frykman, Melone, Palmer (TFCC), distal radius, colles fracture, druj, tfcc, volar locking plate, wrist trauma, ulnar styloid, carpal tunnel
 region: Hand & Wrist
@@ -8753,7 +8753,7 @@ This is one of the most extensively re-litigated questions in trauma surgery ove
 - Kleinman WB. Stability of the distal radioulnar joint: biomechanics, pathophysiology, physical diagnosis, and restoration of function — what we have learned in 25 years. *J Hand Surg Am*. 2007.
 - Nicolaidis SC, Hildreth DH, Lichtman DM. Acute injuries of the distal radioulnar joint. *Hand Clin*. 2000.
 - Mehta SP, et al. Distal Radius Fracture Rehabilitation: Clinical Practice Guidelines Linked to the ICF. Academy of Orthopaedic Physical Therapy / Academy of Hand and Upper Extremity Physical Therapy, APTA. *J Orthop Sports Phys Ther*. 2024.
-`,_f=`---
+`,Kf=`---
 title: Elbow & Forearm Fractures / Dislocations
 tags: Trauma, Shoulder & Elbow, Distal humerus fracture, Radial head fracture, Olecranon fracture, Terrible triad injury, Elbow dislocation, Monteggia injury, Galeazzi injury, Both-bone forearm fracture, Essex-Lopresti injury, AO/OTA 13, Mason (radial head), Mayo (olecranon), Bado (Monteggia), O’Driscoll (coronoid), elbow trauma, forearm fracture, terrible triad, monteggia, galeazzi, radial head, olecranon, distal humerus
 region: Shoulder & Elbow
@@ -9090,10 +9090,10 @@ Not part of the five required classification systems above, but essential comple
 - Frank RM, Aleem AW, Streit JJ, et al. Radial head arthroplasty: current concepts, controversies, and future directions. *J Shoulder Elbow Surg.* 2015 (review synthesizing sizing, indications, and complications).
 - Rehim SA, Maynard MA, Sebastin SJ, Chung KC. Monteggia fracture dislocations: a historical review. *J Hand Surg Am.* 2014.
 - Moore TM, Lester DK, Sarmiento A. The stabilizing effect of soft-tissue constraints in artificial Galeazzi fractures. *Clin Orthop Relat Res.* 1985.
-`,Jf=`---
+`,Gf=`---
 title: Femoral Shaft & Distal Femur Fractures
 tags: Trauma, Knee & Femur, Femoral shaft fracture, Distal femur fracture, Bilateral femur fractures, Winquist-Hansen, AO/OTA 32 & 33, femoral shaft fracture, distal femur fracture, intramedullary nailing, damage control orthopedics, nail-plate construct, distal femoral replacement, polytrauma, periprosthetic fracture
-region: Knee & Femur
+region: Knee & Leg
 specialty: Trauma
 updated: 2026-08-15
 ---
@@ -9390,7 +9390,7 @@ Not applicable as a primary treatment modality for acute femoral shaft or distal
 - Court-Brown CM, Caesar B. Epidemiology of adult fractures: a review. *Injury*. 2006. (Population-level incidence data underlying the epidemiologic figures cited for femoral shaft and distal femur fractures.)
 - Su ET, DeWal H, Di Cesare PE. Periprosthetic femoral fractures above total knee replacements. *J Am Acad Orthop Surg*. 2004. (Source of the Su classification referenced under periprosthetic distal femur fracture management.)
 - Giannoudis PV, Giannoudis VP, Horwitz DS. Time to think outside the box: 'Prompt-Individualised-Safe Management' (PR.I.S.M.) should replace 'Damage Control Orthopaedics' (DCO) in the physiological staging of multiply injured trauma patients. *Injury*. 2016. (Influential reframing of DCO decision-making toward individualized physiologic staging, reflected in this monograph's emphasis on real-time physiology over rigid protocol.)
-`,Kf=`---
+`,Vf=`---
 title: Forefoot Disorders
 tags: Foot & Ankle, Hallux valgus, Hallux rigidus, Lesser toe deformities (hammer/claw/mallet), Morton neuroma, Metatarsalgia, Freiberg disease, Sesamoid pathology, Bunionette, HVA/IMA severity grades, Coughlin-Shurnas (hallux rigidus), Hammer vs claw vs mallet definitions, hallux valgus, bunion, mis bunionectomy, cheilectomy, morton neuroma, metatarsalgia, freiberg disease, sesamoiditis, bunionette, lapidus
 region: Foot & Ankle
@@ -9733,7 +9733,7 @@ Stage I (subchondral fracture, no collapse) through Stage V (flattened, arthriti
 - Roukis TS. Percutaneous and minimally invasive forefoot surgery: historical review and evolution to 3rd-generation technique. *Foot Ankle Surg.* — background on the transition from 1st/2nd-generation percutaneous osteotomy without fixation to contemporary fixed constructs.
 - Bösch P, Wanke S, Legenstein R. Hallux valgus correction by the method of Bösch: a new technique with a seven-to-ten-year follow-up. *Foot Ankle Clin.* 2000 (historical basis for percutaneous distal metatarsal osteotomy, precursor to modern MIS technique).
 - Jastifer JR, Coughlin MJ. Long-term follow-up of hallux MTP joint arthrodesis. *Foot Ankle Int.* (union rate and functional outcome data underpinning arthrodesis as reference standard).
-`,Gf=`---
+`,Wf=`---
 title: Hand & Wrist Conditions
 tags: Hand & Wrist, Carpal tunnel syndrome, Cubital tunnel syndrome, Dupuytren disease, Trigger finger, De Quervain tenosynovitis, Thumb CMC arthritis, Flexor tendon injury, Extensor tendon injury / mallet finger, Ganglion cyst, Metacarpal & phalangeal fractures, Fingertip injuries, Hand infections (flexor sheath, felon), Verdan flexor zones, Extensor zones, Eaton-Littler (CMC1), Tubiana (Dupuytren), Green (trigger), McGowan (cubital), Kanavel signs (flexor sheath), carpal tunnel, dupuytren, trigger finger, flexor tendon, walant, cmc arthritis, hand fracture, hand infection
 region: Hand & Wrist
@@ -10076,7 +10076,7 @@ updated: 2026-08-15
 - Challoumas D, Hamad A, Rana V, Putti A, Millar NL. Surgery for Trapeziometacarpal Joint Arthritis: A Network Meta-Analysis of Randomized Studies. *J Hand Surg Glob Online.* 2025.
 - Baljer B, Vinycomb T, Low N. Surgery for Thumb (Trapeziometacarpal Joint) Osteoarthritis. *Cochrane Database Syst Rev.* 2026.
 - Lalonde DH. Wide-Awake Local Anesthesia No Tourniquet (WALANT) technique — foundational description and subsequent expansion literature (see Degreef & Lalonde, *EFORT Open Rev.* 2024, for current synthesis).
-`,Vf=`---
+`,Uf=`---
 title: Hindfoot, Ankle & Diabetic Foot Disorders
 tags: Foot & Ankle, Progressive collapsing foot deformity (adult flatfoot), Cavovarus foot, Ankle osteoarthritis, Osteochondral lesion of the talus, Plantar fasciitis, Insertional & midportion Achilles disorders (surgical), Posterior ankle impingement, Tarsal coalition (adult presentation), Charcot neuroarthropathy, Diabetic foot ulcer & infection, Tibialis posterior dysfunction, PCFD consensus classification (replacing Johnson-Strom/Myerson), Coleman block interpretation, Eichenholtz (Charcot), Brodsky (anatomic), Hepple/Berndt-Harty (OLT), IDSA/WIfI (diabetic foot), flatfoot, cavovarus, ankle arthritis, osteochondral lesion, plantar fasciitis, achilles tendinopathy, charcot foot, diabetic foot ulcer
 region: Foot & Ankle
@@ -10399,7 +10399,7 @@ Clinical resolution of warmth (temperature differential normalizing) and radiogr
 - van Dijk CN, Scholten PE, Krips R. A two-portal endoscopic approach for diagnosis and treatment of posterior ankle pathology. *Arthroscopy.* 2000.
 - Goldberg AJ, et al. Total Ankle Replacement Versus Arthrodesis for End-Stage Ankle Osteoarthritis (TARVA): A Randomized Controlled Trial. *Ann Intern Med.* 2022.
 - NICE. Diabetic foot problems: prevention and management. NICE guideline NG19 (updated).
-`,Wf=`---
+`,Xf=`---
 title: Hip Osteoarthritis & Total Hip Arthroplasty
 tags: Arthroplasty, Pelvis & Hip, Hip osteoarthritis, Inflammatory hip arthritis, Total hip arthroplasty, Kellgren-Lawrence, Tönnis (OA grade), Dorr (femoral bone), Paprosky (defects, reference), hip arthroplasty, coxarthrosis, thr, dual mobility, spinopelvic, vte prophylaxis, bearing surfaces, revision hip
 region: Pelvis & Hip
@@ -10742,7 +10742,7 @@ International consensus remains fragmented, but the practical synthesis: **CHEST
 - National Institute for Health and Care Excellence. Osteoarthritis in over 16s: diagnosis and management (NG226). NICE, 2022.
 - OARSI. Guidelines for the non-surgical management of knee, hip, and polyarticular osteoarthritis. *Osteoarthritis Cartilage.* 2019 (core OARSI framework, cited context for hip-specific applicability).
 - Parvizi J, et al. (ICM Philadelphia consensus documents on VTE and periprosthetic joint infection), International Consensus Meeting on Venous Thromboembolism, 2022.
-`,Uf=`---
+`,Qf=`---
 title: Injection Therapies & Orthobiologics
 tags: Principles & Procedures, Multi-region, Corticosteroid injection (intra-articular & soft tissue), Hyaluronic acid viscosupplementation, Platelet-rich plasma, Bone marrow aspirate concentrate, Prolotherapy, Genicular nerve blocks & RFA, Epidural & selective nerve root blocks (overview), Barbotage, Aspiration techniques, PRP preparations (LR-PRP vs LP-PRP), Kellgren-Lawrence as injection-response modifier, orthobiologics, corticosteroid, viscosupplementation, prp, bmac, prolotherapy, genicular, injection-technique
 region: Multi-region
@@ -11100,7 +11100,7 @@ updated: 2026-08-15
 - Rabago D, Best TM, Beamsley M, Patterson J. A systematic review of prolotherapy for chronic musculoskeletal pain. *Clin J Sport Med*. (foundational prolotherapy evidence base, updated by subsequent RCTs above).
 - FDA Drug Safety Communication: FDA requires label changes to warn of rare but serious neurologic problems after epidural corticosteroid injections for pain (2014) — basis for non-particulate steroid mandate in cervical transforaminal injections.
 - Parikh SN, et al. / ICM (International Consensus Meeting) criteria for periprosthetic joint infection diagnosis (Musculoskeletal Infection Society, most recent consensus update).
-`,Xf=`---
+`,Zf=`---
 title: Knee Ligament Injuries (ACL, PCL, MLKI)
 tags: Sports, Knee & Leg, ACL rupture, PCL injury, MCL injury, LCL/posterolateral corner injury, Multiligament knee injury, Knee dislocation, Schenck (KD), Fanelli (PLC), MCL grading I-III, Segond fracture (association), acl, pcl, mcl, posterolateral-corner, knee-dislocation, multiligament, sports-medicine, return-to-sport
 region: Knee & Leg
@@ -11428,7 +11428,7 @@ Passing this composite battery meaningfully reduces graft-rupture risk but has *
 - Stannard JP, Brown SL, Farris RC, et al. The posteromedial corner of the knee: repair versus reconstruction. Am J Sports Med.
 - Kocher MS, Micheli LJ. Physeal-sparing reconstruction of the anterior cruciate ligament in skeletally immature prepubescent children and adolescents. J Bone Joint Surg.
 - Ardern CL, Webster KE, Taylor NF, Feller JA. Return to sport following ACL reconstruction: a systematic review of rates and factors. Br J Sports Med.
-`,Qf=`---
+`,Yf=`---
 title: Knee Osteoarthritis, Osteotomy, UKA & TKA
 tags: Arthroplasty, Knee & Leg, Knee osteoarthritis, High tibial osteotomy, Unicompartmental knee arthroplasty, Total knee arthroplasty, Patellofemoral arthritis, Kellgren-Lawrence, Ahlbäck, Coronal Plane Alignment of the Knee (CPAK), knee oa, hto, uka, tka, cpak, kinematic alignment, robotic arthroplasty, patellofemoral arthroplasty
 region: Knee & Leg
@@ -11766,7 +11766,7 @@ Aseptic loosening, stiffness/arthrofibrosis (manipulation under anesthesia typic
 - Insall JN, Salvati E. Patella position in the normal knee joint (patellar height reference standard used in PF arthritis workup).
 
 **Concerns / evidence caveats**: exact CPAK-type population prevalence percentages and precise device-specific UKA revision figures from the 2025 AJRR supplement were not independently retrievable in full detail from the search snippets available and are therefore described qualitatively rather than with fabricated precise numbers; readers should consult the primary AJRR 2025 supplement and original CPAK description for exact cohort statistics before using them in a manuscript or formal presentation.
-`,Zf=`---
+`,$f=`---
 title: Lumbar Degenerative Spine
 tags: Spine, Lumbar disc herniation, Lumbar spinal stenosis, Degenerative spondylolisthesis, Isthmic spondylolisthesis, Degenerative disc disease, Cauda equina syndrome, Facet arthropathy, Low back pain (non-specific), Meyerding, Pfirrmann, Modic changes, Lee (herniation zones), Schizas (stenosis morphology), lumbar spine, sciatica, discectomy, spinal stenosis, spondylolisthesis, cauda equina, facet joint, low back pain
 region: Spine
@@ -12113,7 +12113,7 @@ Practical selection: TLIF is the default workhorse when direct decompression and
 - AAOS Clinical Practice Guideline: Diagnosis and Treatment of Degenerative Lumbar Spinal Stenosis (and companion Non-Surgical Interventions for Lumbar Spinal Stenosis guideline).
 - Martin CT, et al. AO Spine Clinical Practice Recommendations for the Surgical Management of Degenerative Spondylolisthesis: When to Decompress Alone and When to Fuse. *Global Spine Journal*. 2025.
 - Brinjikji W, Luetmer PH, Comstock B, et al. Systematic literature review of imaging features of spinal degeneration in asymptomatic populations. *AJNR Am J Neuroradiol*. 2015.
-`,Yf=`---
+`,ey=`---
 title: Meniscus Tears & Articular Cartilage Lesions
 tags: Sports, Knee & Leg, Meniscus tear, Meniscus root tear, Discoid meniscus, Ramp lesion, Focal chondral defect, Osteochondritis dissecans (adult knee), Spontaneous insufficiency fracture of the knee (SIFK), Tear morphology (vertical/horizontal/radial/root/bucket-handle), LaPrade (root), ICRS, Outerbridge, meniscus, root tear, ramp lesion, discoid meniscus, chondral defect, osteochondritis dissecans, sifk, cartilage repair
 region: Knee & Leg
@@ -12453,7 +12453,7 @@ Rehabilitation should follow the 2024 formal EU-US Meniscus Rehabilitation Conse
 - Hangody L, et al. — original mosaicplasty/OAT technique and outcome literature.
 - Ectorc J, Verdonk R, ESSKA European Meniscus Consensus Project (2016, 2019 iterations) and the 2024 Formal EU-US Meniscus Rehabilitation Consensus (ESSKA-AOSSM-AASPT) cited above — current governing consensus framework for meniscal management and rehabilitation.
 - AAOS Clinical Practice Guideline: Osteochondritis Dissecans, 2023 Rapid Update (cited above with URL).
-`,$f=`---
+`,iy=`---
 title: MSK Infection & Metabolic Bone Disease
 tags: Oncology & Metabolic, Multi-region, Adult osteomyelitis, Fracture-related infection, Native septic arthritis, Necrotizing fasciitis, Tuberculous & atypical MSK infection, Osteoporosis & fragility fracture pathway, Atypical femoral fracture, Paget disease, Osteomalacia & vitamin D deficiency, Hyperparathyroid bone disease, CRPS (complex regional pain syndrome), Cierny-Mader, FRI consensus definition, LRINEC (limits), Gaenslen/Gustilo context, FRAX & DEXA T-score, ASBMR AFF criteria, Budapest criteria (CRPS), osteomyelitis, fracture-related infection, septic arthritis, necrotizing fasciitis, osteoporosis, atypical femoral fracture, paget disease, crps
 region: Multi-region
@@ -12807,7 +12807,7 @@ Diagnosis additionally requires **continuing pain disproportionate to any inciti
 - Zollinger PE, Tuinebreijer WE, Breederveld RS, Kreis RW. Can vitamin C prevent complex regional pain syndrome in patients with wrist fractures? A randomized, controlled, multicenter dose-response study. *J Bone Joint Surg Am.* 2007.
 - Kemler MA, de Vet HCW, Barendse GAM, van den Wildenberg FAJM, van Kleef M. Effect of spinal cord stimulation for chronic complex regional pain syndrome type I: five-year follow-up. *J Neurosurg.* 2008.
 - BOAST (British Orthopaedic Association Standards for Trauma) guidelines on open fractures and on the management of hot/swollen joints.
-`,ey=`---
+`,ty=`---
 title: Open Fractures, Polytrauma & Bone Healing Principles
 tags: Trauma, Multi-region, Open fracture, Acute compartment syndrome, Polytrauma, Nonunion, Malunion, Segmental bone loss, Fat embolism syndrome, Gustilo-Anderson, Tscherne (closed soft tissue), OTA-OFC, Non-union types (hypertrophic/atrophic/oligotrophic), open fracture, polytrauma, damage control orthopedics, compartment syndrome, nonunion, masquelet, bone transport, fat embolism
 region: Multi-region
@@ -13154,7 +13154,7 @@ Management implication: OTA-OFC's individual-component scoring predicts infectio
 - Paley D. Problems, obstacles, and complications of limb lengthening by the Ilizarov technique. Clin Orthop Relat Res. 1990 (foundational bone transport/deformity correction principles).
 - AO Foundation. AO Principles of Fracture Management (reference text for absolute vs relative stability, damage control principles, and open fracture care pathways).
 - Bhandari M, Guyatt GH, et al. A trial of wound irrigation in patients with open fracture wounds (FLOW trial). N Engl J Med. 2015.
-`,iy=`---
+`,ny=`---
 title: Femoral Head Osteonecrosis & Hip Preservation
 tags: Arthroplasty, Pelvis & Hip, Osteonecrosis of the femoral head, Femoroacetabular impingement, Adult hip dysplasia, Labral tear, Gluteal tendinopathy / GTPS, ARCO 2019, Ficat-Arlet, Steinberg, Tönnis (dysplasia), Crowe, Hartofilakidis, Warwick agreement (FAI), osteonecrosis, avn, hip preservation, fai, dysplasia, pao, hip arthroscopy, gtps
 region: Pelvis & Hip
@@ -13507,7 +13507,7 @@ Return-to-work timing after hip arthroscopy: sedentary work 1–2 weeks, physica
 - Griffin DR, Dickenson EJ, Wall PDH, et al. Hip arthroscopy versus best conservative care for the treatment of femoroacetabular impingement syndrome (UK FASHIoN): a multicentre randomised controlled trial. *Lancet*. 2018 (landmark pragmatic RCT establishing arthroscopy's superiority over best conservative care at 12 months for FAI syndrome, and the trial context referenced throughout this monograph's FAI treatment framework).
 - Mont MA, Jones LC, Hungerford DS. Nontraumatic osteonecrosis of the femoral head: ten years later. *J Bone Joint Surg Am*. 2006 (core decompression evidence synthesis, classic reference).
 - Lavigne M, Parvizi J, Beck M, et al. Anterior femoroacetabular impingement: part I, techniques of joint-preserving surgery. *Clin Orthop Relat Res*. 2004.
-`,ty=`---
+`,ay=`---
 title: Patellofemoral Disorders & Extensor Mechanism
 tags: Sports, Knee & Leg, Patellar instability / dislocation, Trochlear dysplasia, Patellofemoral pain syndrome, Patellar tendinopathy, Patellar tendon rupture, Quadriceps tendon rupture, Dejour (trochlear dysplasia), Caton-Deschamps (patellar height), TT-TG distance thresholds, Blazina (jumper's knee), patellofemoral, patellar instability, mpfl, trochlear dysplasia, jumper's knee, extensor mechanism, tt-tg, patella alta
 region: Knee & Leg
@@ -13828,7 +13828,7 @@ Modern management, formalized in the **ESSKA 2024 formal consensus on first-time
 - Rossi R, Bruzzone M, et al. "Trochleoplasty for the treatment of recurrent patellar dislocation: systematic review and meta-analysis." (foundational trochleoplasty outcomes literature, various years).
 - AAOS Clinical Practice Guidelines — Management of Patellar Instability (where applicable AAOS position statements exist; cross-reference against current AAOS OrthoGuidelines portal for most current version).
 - Ramponi DR, et al. / StatPearls contributors. "Patellar Tendon Rupture." *StatPearls* (NCBI Bookshelf), updated periodically.
-`,ny=`---
+`,ry=`---
 title: Pediatric Orthopedic Conditions
 tags: Pediatrics, Multi-region, Clubfoot, Pediatric osteomyelitis, Septic arthritis (child), Osgood-Schlatter & apophysitides, Juvenile OCD of the knee, Limb length discrepancy, Rotational & angular deformities (physiologic), Blount disease, Congenital muscular torticollis, Tarsal coalition (pediatric), Flexible flatfoot, Cerebral palsy orthopedic management (overview), Pirani (clubfoot), Dimeglio, Kocher criteria, Langenskiöld (Blount), Salenius-Vankka curve (physiologic), GMFCS (CP), clubfoot, ponseti, pediatric osteomyelitis, septic arthritis hip, blount disease, cerebral palsy hip surveillance, torticollis, tarsal coalition, juvenile ocd
 region: Multi-region
@@ -14177,7 +14177,7 @@ GMFCS level also guides selection among spasticity treatments (SDR favored for a
 - Shea KG, Jacobs JC Jr, Carey JL, Anderson AF, Oxford JT (Research on OCD of the Knee — ROCK study group). Osteochondritis dissecans knee histology studies and juvenile OCD natural history literature.
 - Howard JJ, Graham HK, et al. Hip displacement in children with cerebral palsy: surveillance to surgery — a current concepts review. *SICOT-J*, 2024.
 - Joseph PJS, Khattak M, Masudi ST, Minta L, Perry DC. Radiological assessment of hip disease in children with cerebral palsy: development of a core measurement set. *Bone Jt Open*, 2023.
-`,ay=`---
+`,oy=`---
 title: Pediatric Hip Disorders
 tags: Pediatrics, Pelvis & Hip, Developmental dysplasia of the hip, Legg-Calvé-Perthes disease, Slipped capital femoral epiphysis, Transient synovitis, Femoral anteversion & coxa vara, Graf (ultrasound), IHDI, Tönnis (dislocation), Herring lateral pillar, Waldenström stages, Stulberg outcome, Loder stability, Southwick angle, ddh, perthes, scfe, pavlik, hip dysplasia, kocher criteria, femoral anteversion, coxa vara
 region: Pelvis & Hip
@@ -14528,7 +14528,7 @@ Predicted probability of septic arthritis in the original Kocher derivation coho
 - Ganz R, Huff TW, Leunig M. Extended retinacular soft-tissue flap for intra-articular hip surgery: surgical technique, indications, and results of application. *Instr Course Lect*. 2009 (basis of modified Dunn approach via surgical hip dislocation).
 - AAOS Clinical Practice Guideline / Appropriate Use Criteria on Detection and Nonoperative Management of Pediatric Developmental Dysplasia of the Hip in Infants up to Six Months of Age.
 - POSNA (Pediatric Orthopaedic Society of North America) clinical practice guidance summaries on DDH screening, Perthes disease, and SCFE.
-`,ry=`---
+`,sy=`---
 title: Pediatric Fractures & Trauma
 tags: Pediatrics, Multi-region, Physeal fractures, Supracondylar humerus fracture, Lateral condyle fracture, Medial epicondyle fracture, Radial neck fracture, Both-bone forearm fracture, Distal radius buckle/greenstick, Pediatric femur fracture, Tibial spine avulsion, Toddler fracture, Transitional ankle fractures (Tillaux/triplane), Non-accidental injury, Salter-Harris, Gartland (+ type IV), Milch/Jakob/Weiss (lateral condyle), Judet (radial neck), Meyers-McKeever (tibial spine), pediatric trauma, physis, supracondylar humerus, salter-harris, gartland, elastic nailing, tibial spine, non-accidental injury
 region: Multi-region
@@ -14878,7 +14878,7 @@ Extension, not flexion, is the reducing position for tibial spine fractures (opp
 - Flynn JM, Skaggs DL, Waters PM, eds. *Rockwood and Wilkins' Fractures in Children*, current edition — standard comprehensive reference for all diagnoses in this cluster.
 - Perry DC, et al. FORCE trial, *Lancet* and *Health Technology Assessment*, 2022 (full citation and link in Recent Evidence above).
 - Grahn P, et al. Medial epicondyle fracture RCT, *JAMA Network Open*, 2025 (full citation and link in Recent Evidence above).
-`,oy=`---
+`,ly=`---
 title: Pelvic Ring & Acetabular Fractures
 tags: Trauma, Pelvis & Hip, Pelvic ring injury, Acetabular fracture, Sacral fracture, Pubic rami fracture (fragility), Young-Burgess, Tile/AO, Judet-Letournel, Denis (sacrum), FFP/Rommens (fragility pelvis), pelvic trauma, acetabulum, sacral fracture, fragility fracture, REBOA, angioembolization, hemipelvectomy, geriatric trauma
 region: Pelvis & Hip
@@ -15189,7 +15189,7 @@ Denis zone correlates directly with neurologic risk and should be documented bef
 - Starr AJ, Reinert CM, Jones AL. Percutaneous fixation of the columns of the acetabulum: a new technique. *J Orthop Trauma*. 1998 (technique basis for percutaneous column screws).
 - Zhang R, et al. Clinical Guidelines for the Diagnosis and Treatment of Fragility Fractures of the Pelvis. *Orthop Surg*. 2023.
 - Joint Trauma System. Pelvic Fracture Care, Clinical Practice Guideline, 2026.
-`,sy=`---
+`,cy=`---
 title: Perioperative Care & Surgical Principles
 tags: Principles & Procedures, Multi-region, VTE prophylaxis in orthopedics, Surgical antibiotic prophylaxis, Tranexamic acid use, Blood management, Tourniquet use, Cement & bone cement implantation syndrome, ERAS in arthroplasty & trauma, Regional anesthesia considerations, Opioid-sparing multimodal analgesia, Antibiotic stewardship & allergy delabeling, Frailty & orthogeriatric co-management, DAIR-prevention wound care, Caprini/VTE risk stratification, ASA grade, Clavien-Dindo (complications), vte prophylaxis, tranexamic acid, bone cement implantation syndrome, eras protocol, surgical antibiotic prophylaxis, regional anesthesia, orthogeriatrics, periprosthetic joint infection prevention
 region: Multi-region
@@ -15559,7 +15559,7 @@ This phased pathway applies across elective arthroplasty and operative trauma, w
 - Donaldson AJ, et al. "Bone cement implantation syndrome." *British Journal of Anaesthesia*.
 - National Institute for Health and Care Excellence (NICE). Hip fracture: management (guideline), and Venous thromboembolism in over 16s: reducing the risk of hospital-acquired deep vein thrombosis or pulmonary embolism (guideline).
 - Horlocker TT, et al. "Regional Anesthesia in the Patient Receiving Antithrombotic or Thrombolytic Therapy" (ASRA guidelines). *Regional Anesthesia & Pain Medicine*.
-`,ly=`---
+`,dy=`---
 title: Periprosthetic Fractures & Revision Arthroplasty
 tags: Arthroplasty, Multi-region, Periprosthetic femur fracture (hip), Periprosthetic fracture around TKA, Aseptic loosening, Polyethylene wear & osteolysis, Instability after THA, Stiffness after TKA, Metal-related ARMD, Vancouver/UCS, Lewis-Rorabeck, Su (femur above TKA), Paprosky (femoral & acetabular defects), AORI (knee defects), periprosthetic fracture, revision hip, revision knee, aseptic loosening, osteolysis, instability, arthrofibrosis, armd
 region: Multi-region
@@ -15908,7 +15908,7 @@ Constraint is added only to the degree required by the residual soft-tissue/liga
 - Matsen Ko L, Coleman EA. Osteolysis: diagnosis and management. J Am Acad Orthop Surg. 2016.
 - Springer BD, Fehring TK, Griffin WL, Odum SM, Masonis JL. Why revision total hip arthroplasty fails. Clin Orthop Relat Res. 2009.
 - Wera GD, Ting NT, Moric M, et al. Classification and management of the unstable total hip arthroplasty. J Arthroplasty. 2012.
-`,cy=`---
+`,uy=`---
 title: Periprosthetic Joint Infection
 tags: Arthroplasty, Multi-region, Acute PJI, Chronic PJI, Culture-negative PJI, EBJIS definition, 2018 ICM/MSIS criteria, Tsukayama/Zimmerli timing, McPherson host grading, pji, dair, two-stage revision, alpha-defensin, biofilm, arthroplasty infection, spacer, suppression
 region: Multi-region
@@ -16254,7 +16254,7 @@ Rehabilitation differs fundamentally by pathway (DAIR vs two-stage) and must be 
 - Wouthuyzen-Bakker M, Sebillotte M, Lomas J, et al. **Development and validation of a preoperative risk score (KLIC-score) to predict DAIR failure in early postoperative PJI.** *Journal of Infection.* 2019.
 - Osmon DR, Berbari EF, Berendt AR, et al. **Diagnosis and Management of Prosthetic Joint Infection: Clinical Practice Guidelines by the Infectious Diseases Society of America (IDSA).** *Clinical Infectious Diseases.* 2013.
 - Diaz-Ledezma C, Higuera CA, Parvizi J. **Success after treatment of periprosthetic joint infection: a Delphi-based international multidisciplinary consensus.** *Clinical Orthopaedics and Related Research.* 2013.
-`,dy=`---
+`,py=`---
 title: Proximal Femur Fractures
 tags: Trauma, Pelvis & Hip, Femoral neck fracture, Intertrochanteric fracture, Subtrochanteric fracture, Femoral head fracture, Garden, Pauwels, AO/OTA 31, Evans-Jensen, Seinsheimer, Pipkin, hip fracture, femoral neck, intertrochanteric, subtrochanteric, pipkin, cephalomedullary nail, hemiarthroplasty, orthogeriatrics
 region: Pelvis & Hip
@@ -16606,7 +16606,7 @@ After emergent closed reduction of the hip dislocation (within 6 h to minimize A
 - Pipkin G. **Treatment of grade IV fracture-dislocation of the hip.** J Bone Joint Surg Am. 1957;39-A:1027-1042.
 - Meinberg EG, Agel J, Roberts CS, Karam MD, Kellam JF. **Fracture and Dislocation Classification Compendium 2018 (AO/OTA).** J Orthop Trauma. 2018;32 Suppl 1:S1-S170.
 - Ganz R, Gill TJ, Gautier E, et al. **Surgical dislocation of the adult hip: a technique with full access to the femoral head and acetabulum without the risk of avascular necrosis.** J Bone Joint Surg Br. 2001;83:1119-1124.
-`,uy=`---
+`,hy=`---
 title: Rotator Cuff & Biceps Pathology
 tags: Sports, Shoulder & Elbow, Rotator cuff tear, Subacromial pain syndrome, Calcific tendinopathy, Massive irreparable cuff tear, SLAP tear, Biceps tendinopathy, Pectoralis major rupture, Cofield (tear size), Goutallier (fatty infiltration), Patte (retraction), Snyder (SLAP), Ellman (partial tears), Gärtner (calcific), rotator cuff, subacromial impingement, calcific tendinopathy, SLAP lesion, biceps tenodesis, massive cuff tear, superior capsular reconstruction, pectoralis major rupture
 region: Shoulder & Elbow
@@ -16954,7 +16954,7 @@ Some series subdivide further (Molé classification integrates deposit type with
 - ElMaraghy AW, Devereaux MW. A systematic review and comprehensive classification of pectoralis major tears. J Shoulder Elbow Surg. 2012.
 - Yamaguchi K, et al. The demographic and morphological features of rotator cuff disease: a comparison of asymptomatic and symptomatic shoulders. J Bone Joint Surg Am. 2006 (asymptomatic tear prevalence data).
 - Mihata T, Lee TQ, Watanabe C, et al. Clinical results of arthroscopic superior capsule reconstruction for irreparable rotator cuff tears. Arthroscopy. 2013 (original SCR technique/outcome series).
-`,py=`---
+`,my=`---
 title: Scaphoid Fractures & Carpal Instability
 tags: Hand & Wrist, Scaphoid fracture, Scaphoid nonunion, Scapholunate ligament injury, Lunotriquetral injury, Perilunate dislocation, SNAC/SLAC wrist, Kienböck disease, TFCC injury (chronic)/ulnar impaction, Herbert-Fisher, Mayo/Russe, Mayfield (perilunate), Watson (SLAC stages), Lichtman (Kienböck), Garcia-Elias (SL staging), scaphoid, carpal instability, slac, snac, kienbock, tfcc, perilunate dislocation, wrist arthritis
 region: Hand & Wrist
@@ -17313,7 +17313,7 @@ updated: 2026-08-15
 - Brunelli GA, Brunelli GR. A new technique to correct carpal instability with scaphoid rotary subluxation: a preliminary report. *J Hand Surg Am.* 1995.
 - Karl JW, Swart E, Strauch RJ. Diagnosis of occult scaphoid fractures: a cost-effectiveness analysis. *J Bone Joint Surg Am.* 2015.
 - Patel NK, Davies N, Mansour R, Culpan P, Bhattarai R, Bhatia M. Cost and clinical effectiveness of MRI in occult scaphoid fractures: a randomised controlled trial. *Emerg Med J.* 2013.
-`,hy=`---
+`,gy=`---
 title: Shoulder & Elbow Arthritis and Arthroplasty
 tags: Arthroplasty, Shoulder & Elbow, Glenohumeral osteoarthritis, Rotator cuff tear arthropathy, Anatomic total shoulder arthroplasty, Reverse shoulder arthroplasty, Elbow osteoarthritis, Total elbow arthroplasty, Frozen shoulder (adhesive capsulitis), Walch (glenoid), Hamada (cuff arthropathy), Favard, Samilson-Prieto, shoulder arthroplasty, reverse total shoulder, glenoid version, rotator cuff arthropathy, frozen shoulder, elbow arthroplasty, walch classification, bio-rsa
 region: Shoulder & Elbow
@@ -17655,7 +17655,7 @@ updated: 2026-08-15
 - Coonrad RW, Morrey BF. Coonrad-Morrey total elbow arthroplasty: results and design evolution. *J Bone Joint Surg Am* / AAOS Instructional Course Lectures.
 - Rangan A, Brealey SD, Keding A, et al. Management of adults with primary frozen shoulder in secondary care (UK FROST): a multicentre, pragmatic, three-arm, superiority randomised clinical trial. *Lancet*. 2020.
 - Outerbridge RE, Kashiwagi D. Debridement arthroplasty for osteoarthritis of the elbow (Outerbridge-Kashiwagi procedure). *Clin Orthop Relat Res* series.
-`,my=`---
+`,fy=`---
 title: Shoulder Girdle & Humerus Fractures
 tags: Trauma, Shoulder & Elbow, Clavicle fracture, Proximal humerus fracture, Humeral shaft fracture, Scapula & glenoid fracture, AC joint injury, SC joint injury, Neer, AO/OTA 11 & 12, Allman/Robinson (clavicle), Ideberg (glenoid), Rockwood (AC joint), clavicle, proximal humerus, humeral shaft, scapula, glenoid, acromioclavicular, sternoclavicular, radial nerve palsy
 region: Shoulder & Elbow
@@ -18010,7 +18010,7 @@ Corticosteroid or local anesthetic injection has a limited but real role in this
 - Williams GR Jr, Naranja J, Klimkiewicz J, Karduna A, Iannotti JP, Ramsey M. The floating shoulder: a biomechanical basis for classification and management. *J Bone Joint Surg Am*. 2001.
 - Zanca P. Shoulder pain: involvement of the acromioclavicular joint (analysis of 1,000 cases). *Am J Roentgenol*. 1971 (Zanca view).
 - Ideberg R. Fractures of the scapula involving the glenoid fossa. In: *Surgery of the Shoulder*. 1984.
-`,gy=`---
+`,yy=`---
 title: Shoulder Instability
 tags: Sports, Shoulder & Elbow, Anterior shoulder instability, Posterior instability, Multidirectional instability, Bony Bankart, Hill-Sachs lesion, HAGL lesion, Stanmore triangle, ISIS score, Glenoid track / on-off track, Samilson-Prieto (arthropathy), shoulder instability, bankart, latarjet, glenoid bone loss, hill-sachs, remplissage, mdi, glenoid track
 region: Shoulder & Elbow
@@ -18358,7 +18358,7 @@ The single highest-leverage decision in the entire cluster is what to do after a
 | RTS | Return to sport |
 | PICO | Perimeter-fit circle method for glenoid bone loss quantification on CT |
 | TSA / rTSA | Total shoulder arthroplasty / reverse total shoulder arthroplasty |
-`,fy=`---
+`,vy=`---
 title: Spinal Deformity, Infection & Tumors
 tags: Spine, Adolescent idiopathic scoliosis, Adult spinal deformity, Scheuermann kyphosis, Spondylodiscitis, Spinal epidural abscess, Metastatic spine disease, Primary spine tumors, Lenke, Cobb angle thresholds, SRS-Schwab (adult), Risser, SINS, Bilsky ESCC, Tokuhashi/Tomita (reference), scoliosis, kyphosis, sagittal balance, vertebral osteomyelitis, epidural abscess, spinal metastasis, chordoma, deformity correction
 region: Spine
@@ -18715,7 +18715,7 @@ Not one of the classifications formally requested for this monograph, but essent
 - Darouiche RO. Spinal epidural abscess. *N Engl J Med.* 2006.
 - Newton PO, et al. Anterior vertebral body tethering for skeletally immature patients with progressive idiopathic scoliosis — outcomes and technique series. *J Bone Joint Surg Am.*
 - Boachie-Adjei O, Lonner B. Scheuermann kyphosis: current concepts in evaluation and treatment. Standard spine deformity reference texts (SRS/AO Spine deformity textbooks).
-`,yy=`---
+`,by=`---
 title: Spine Trauma
 tags: Spine, Cervical spine injury, Odontoid fracture, Hangman fracture, Jefferson fracture, Thoracolumbar burst fracture, Chance/flexion-distraction injury, Spinal cord injury, Central cord syndrome, Osteoporotic vertebral compression fracture, AO Spine subaxial & thoracolumbar, TLICS, SLIC, Anderson-D’Alonzo, Levine-Edwards, ASIA impairment scale, spine trauma, cervical fracture, thoracolumbar fracture, spinal cord injury, odontoid fracture, vertebral compression fracture, decompression timing
 region: Spine
@@ -19072,7 +19072,7 @@ Cervical spine injury accounts for roughly 2–4% of blunt trauma patients overa
 - **Buchbinder R, et al.** A randomized trial of vertebroplasty for painful osteoporotic vertebral fractures. *New England Journal of Medicine.* 2009.
 - **Clark W, et al. (VAPOUR trial).** Safety and efficacy of vertebroplasty for acute painful osteoporotic fractures (VAPOUR): a randomised, double-blind, placebo-controlled trial. *Lancet.* 2016.
 - **North American Spine Society (NASS).** Evidence-Based Clinical Guideline for the Diagnosis and Treatment of Osteoporotic Vertebral Compression Fractures — see 2025 guideline summary update above.
-`,vy=`---
+`,wy=`---
 title: Tendinopathies, Muscle Injuries & Ankle Instability
 tags: Sports, Multi-region, Achilles tendon rupture, Achilles tendinopathy, Lateral epicondylitis, Medial epicondylitis, Hamstring injury, Proximal hamstring avulsion, Quadriceps/calf strain, Lateral ankle sprain, Chronic lateral ankle instability, Peroneal tendon pathology, Distal biceps rupture, BAMIC (muscle injury), Haglund/insertional vs mid-portion Achilles, Puranen-Orava/MRI grading (hamstring), CFA (ankle instability, reference), tendinopathy, muscle strain, ankle sprain, achilles, epicondylitis, hamstring, chronic ankle instability, biceps rupture
 region: Multi-region
@@ -19421,7 +19421,7 @@ Use this framework clinically to decide: (1) non-op vs operative candidacy (mech
 - ESSKA-AFAS International Consensus Statement on Peroneal Tendon Pathologies (multi-society consensus).
 - Morrey BF, Askew LJ, An KN, Dobyns JH. Rupture of the distal tendon of the biceps brachii: a biomechanical study. *J Bone Joint Surg Am.* 1985.
 - Ramsey ML. Distal biceps tendon injuries: diagnosis and management. *J Am Acad Orthop Surg.* 1999.
-`,by=`---
+`,ky=`---
 title: Tibial Plateau, Shaft & Pilon Fractures
 tags: Trauma, Knee & Leg, Tibial plateau fracture, Tibial shaft fracture, Pilon (plafond) fracture, Schatzker, Luo three-column, AO/OTA 41/42/43, Rüedi-Allgöwer, tibial plateau, tibial shaft, pilon fracture, plafond fracture, compartment syndrome, suprapatellar nailing, staged fixation, external fixation
 region: Knee & Leg
@@ -19680,7 +19680,7 @@ The staged protocol (Sirkin et al., 1999) remains the accepted standard for high
 - Sirkin M, Sanders R, DiPasquale T, Herscovici D. A staged protocol for soft tissue management in the treatment of complex pilon fractures. *J Orthop Trauma.* 1999.
 - McQueen MM, Court-Brown CM. Compartment monitoring in tibial fractures: the pressure threshold for decompression. *J Bone Joint Surg Br.* 1996.
 - OTA/AAOS Open Fracture Antibiotic Prophylaxis guidance (EAST Practice Management Guideline, updated).
-`,wy=`---
+`,xy=`---
 title: How to add content
 tags: meta, howto, formatting
 ---
@@ -19789,7 +19789,7 @@ Pipe-syntax tables render as a scrollable table:
 Don't rely on any Markdown feature not listed above (no images, no nested
 lists, no HTML) — the renderer is intentionally minimal and hand-written, so
 unsupported syntax will just print literally instead of rendering.
-`,ky=`---
+`,Iy=`---
 title: Template — Technique
 tags: template
 ---
@@ -19820,7 +19820,7 @@ Fill in… common mistakes and how to avoid them.
 ## Post-op protocol
 
 Fill in… weight-bearing status, follow-up schedule, and other post-op notes.
-`,xy=`---
+`,Ay=`---
 title: Acromioclavicular Joint Reconstruction
 tags: Trauma, Shoulder & Elbow, acromioclavicular joint, AC joint injury, Rockwood classification, coracoclavicular ligament, Weaver-Dunn, suprascapular nerve
 specialty: Trauma
@@ -19858,7 +19858,7 @@ Superior "sabre" incision centered on the coracoid and distal clavicle. Key stru
 - Return to contact/overhead sport at 4–6 months, once graft/construct maturation and full strength are confirmed.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,Iy=`---
+`,Sy=`---
 title: Anterior Cervical Discectomy and Fusion (ACDF)
 tags: Spine, Cervical, cervical radiculopathy, cervical disc herniation, degenerative cervical myelopathy, OPLL, cervical spondylosis, ACDF, anterior cervical discectomy and fusion, cervical fusion
 specialty: Spine
@@ -19904,7 +19904,7 @@ Standard anterior cervical exposure and positioning principles apply across all 
 - **Fusion rates**: single-level ACDF with plate ~95–97%+; rates decline with increasing levels and with smoking.
 
 *Full context: "Cervical Degenerative Spine" in the Diagnoses section.*
-`,Ay=`---
+`,Cy=`---
 title: Acetabular ORIF — Approach Selection & Fixation
 tags: Trauma, Pelvis & Hip, acetabular fracture, Kocher-Langenbeck approach, ilioinguinal approach, Stoppa approach, extended iliofemoral approach, sciatic nerve, corona mortis, quadrilateral surface, heterotopic ossification, Judet-Letournel classification
 specialty: Trauma
@@ -19949,7 +19949,7 @@ Approach is selected by Judet-Letournel fracture pattern. Kocher-Langenbeck for 
 - Return to sport: non-contact low-impact activity (cycling, swimming) at 4–6 months; pivoting/contact sport at 9–12 months, contingent on radiographic union, full painless ROM, and functional strength testing — many surgeons counsel against return to high-impact pivoting sport indefinitely given articular cartilage injury burden.
 
 *Full context: "Pelvic Ring & Acetabular Fractures" in the Diagnoses section.*
-`,Sy=`---
+`,Ty=`---
 title: Achilles Surgery — Insertional & Midportion Debridement, Zadek Osteotomy
 tags: Foot & Ankle, Achilles tendinopathy, insertional Achilles tendinopathy, midportion Achilles tendinopathy, Haglund deformity, Zadek osteotomy, FHL tendon transfer, gastrocnemius recession, suture anchor reattachment
 specialty: Foot & Ankle
@@ -19993,7 +19993,7 @@ Endoscopic/minimally invasive approaches for insertional disease achieve compara
 **Zadek osteotomy**: allows comparatively earlier progressive WB (often boot WB from 2 weeks) since the insertion itself is undisturbed, with osteotomy union (~6 weeks) guiding progression.
 
 *Full context: "Hindfoot, Ankle & Diabetic Foot Disorders" in the Diagnoses section.*
-`,Cy=`---
+`,Py=`---
 title: Achilles Tendinopathy Surgery — Debridement, Haglund Resection & FHL Augmentation
 tags: Sports, Multi-region, Achilles tendinopathy, mid-portion tendinopathy, insertional tendinopathy, Haglund resection, FHL tendon transfer, tendon debridement, suture anchor reattachment
 specialty: Sports
@@ -20030,7 +20030,7 @@ Approach and exposure follow site of disease: mid-portion procedures are perform
 The monograph does not detail a distinct staged rehabilitation timeline specific to post-surgical tendinopathy debridement; expected recovery is guided by the same principles as the general Achilles tendon reconditioning framework — progressive protected loading once the surgical repair/reattachment is secure, followed by graded return to activity — with FHL augmentation specifically intended to allow more confident progressive loading after extensive debridement by protecting against rupture and restoring push-off power. Reported outcomes: persistent pain in ~10-25% of patients even after surgery; wound healing problems more common with insertional/Haglund resection; re-rupture risk if FHL augmentation is omitted despite extensive debridement.
 
 *Full context: "Tendinopathies, Muscle Injuries & Ankle Instability" in the Diagnoses section.*
-`,Ty=`---
+`,Ry=`---
 title: Achilles Tendon Rupture Repair — Percutaneous, Open & Chronic Reconstruction
 tags: Sports, Multi-region, Achilles tendon rupture, percutaneous repair, mini-open repair, open repair, Krackow suture, Bunnell suture, FHL tendon transfer, V-Y advancement, turndown flap, chronic Achilles rupture, sural nerve injury
 specialty: Sports
@@ -20074,7 +20074,7 @@ Representative accelerated/functional pathway (applies to operative and non-oper
 - Complications: wound infection (open ~6% vs percutaneous/mini-open ~0.4%), sural nerve injury (higher with purely percutaneous technique), re-rupture (~2-3% operative, up to ~4% non-operative with modern functional rehab), deep vein thrombosis, adhesions/stiffness, sural neuroma.
 
 *Full context: "Tendinopathies, Muscle Injuries & Ankle Instability" in the Diagnoses section.*
-`,Py=`---
+`,My=`---
 title: ACL Reconstruction (± Lateral Extra-Articular Tenodesis)
 tags: Sports, Knee & Leg, ACL rupture, ACL reconstruction, ACLR, lateral extra-articular tenodesis, LET, anterolateral ligament reconstruction, ALL, graft choice, Segond fracture, ramp lesion, pediatric ACL
 specialty: Sports
@@ -20118,7 +20118,7 @@ Not detailed at the setup/room level in this monograph. The pivot-shift exam —
 - **Return to work**: desk work 1–2 weeks with crutches as needed; light manual 4–8 weeks; heavy manual/labor 4–6 months.
 
 *Full context: "Knee Ligament Injuries (ACL, PCL, MLKI)" in the Diagnoses section.*
-`,Ry=`---
+`,jy=`---
 title: Acute THA with Column Fixation ("Fix-and-Replace") — Geriatric Acetabular Fracture
 tags: Trauma, Pelvis & Hip, acetabular fracture, total hip arthroplasty, geriatric trauma, dual-mobility cup, both-column fracture, post-traumatic osteoarthritis, fix-and-replace
 specialty: Trauma
@@ -20152,7 +20152,7 @@ Builds on the same approach selection as acetabular ORIF (Kocher-Langenbeck, ili
 Standard THA rehabilitation protocol, accelerated relative to ORIF-alone: weight-bearing as tolerated is typically permitted from the outset, since implant stability supersedes fracture-fixation concerns. Dislocation precautions are tailored to approach and construct — a dual-mobility or constrained liner may allow relaxed standard precautions. In comparative series, fix-and-replace is associated with earlier mobilization and lower rates of secondary arthroplasty conversion than staged ORIF-then-THA.
 
 *Full context: "Pelvic Ring & Acetabular Fractures" in the Diagnoses section.*
-`,My=`---
+`,Oy=`---
 title: Adult Spinal Deformity Correction — Osteotomy Ladder and Long Fusion to Pelvis
 tags: Spine, Adult spinal deformity, ASD, sagittal balance, pedicle subtraction osteotomy, PSO, Smith-Petersen osteotomy, vertebral column resection, proximal junctional kyphosis, PJK, interbody fusion
 specialty: Spine
@@ -20199,7 +20199,7 @@ Circumferential minimally invasive (cMIS) strategies are increasingly used in lo
 - **6–12+ months**: CT fusion assessment around 1 year; individualized clearance for heavy labor/sport; ongoing PJK surveillance with standing films at 3, 6, and 12 months, then annually.
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,jy=`---
+`,Fy=`---
 title: Anatomic Total Shoulder Arthroplasty (aTSA)
 tags: Arthroplasty, Shoulder & Elbow, glenohumeral osteoarthritis, aTSA, deltopectoral approach, subscapularis management, lesser tuberosity osteotomy, Walch classification, glenoid version
 specialty: Arthroplasty
@@ -20247,7 +20247,7 @@ Deltopectoral approach. The monograph does not specify additional positioning or
 - **Return to sport**: low-demand recreational activity (golf, swimming) typically 4–6 months.
 
 *Full context: "Shoulder & Elbow Arthritis and Arthroplasty" in the Diagnoses section.*
-`,Oy=`---
+`,Dy=`---
 title: Ankle Fracture ORIF with Syndesmosis Stabilization
 tags: Trauma, Foot & Ankle, ankle fracture, syndesmosis injury, Weber/Danis, Lauge-Hansen, Maisonneuve fracture, suture-button, syndesmotic screw, WAX trial
 specialty: Trauma
@@ -20290,11 +20290,11 @@ Standard lateral approach to the fibula with intraoperative fluoroscopy availabl
 - Syndesmosis-specific: suture-button constructs generally tolerate the same early WB protocols as isolated fibula fixation given their dynamic nature; screw constructs historically prompted more conservative/delayed WB until screw removal or radiographic consolidation, though this gap is narrowing with rigid, well-reduced contemporary constructs. Return to sport for a fixed syndesmosis injury is typically 4–6 months.
 
 *Full context: "Ankle, Hindfoot & Midfoot Trauma" in the Diagnoses section.*
-`,Fy=`---
+`,Ly=`---
 title: Antegrade Intramedullary Nailing — Femoral Shaft Fracture
 tags: Trauma, Knee & Femur, femoral shaft fracture, AO/OTA 32, Winquist-Hansen, reamed nailing, static interlocking, blocking screws, malrotation
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 
@@ -20336,7 +20336,7 @@ Supine on a fracture table (with traction) or lateral decubitus. Start point at 
 - **Return to sport**: pivoting/contact sport deferred until full radiographic union and restoration of at least ~90% of contralateral strength on isokinetic/functional testing, typically 5-9 months.
 
 *Full context: "Femoral Shaft & Distal Femur Fractures" in the Diagnoses section.*
-`,Dy=`---
+`,zy=`---
 title: Anterior Odontoid Screw Fixation — Type II Odontoid Fractures
 tags: Spine, odontoid fracture, dens fracture, C2 fracture, Anderson-D'Alonzo classification, upper cervical spine, C1-C2 rotation preservation
 specialty: Spine
@@ -20370,7 +20370,7 @@ Requires a trajectory that permits a cannulated screw to be passed from the ante
 Post-op management follows the general odontoid fracture rehabilitation pathway: bracing/orthosis or wound care and pain control in the acute phase (0–2 weeks); progressive out-of-bed tolerance with brace-protected activity through the subacute phase (2–12 weeks), with interval imaging (flexion-extension radiographs or CT) at 6–12 weeks to confirm healing before brace weaning; progressive loading and brace weaning once radiographic union/stability is confirmed (3–6 months). Return to sedentary work is often possible by 6–8 weeks for stable injuries; heavy manual labor typically requires 3–6 months with formal functional capacity evaluation. Return-to-sport/high-demand clearance, particularly for contact/collision sports, is individualized and typically requires solid radiographic fusion (≥4–6 months), full pain-free ROM, and normalized strength.
 
 *Full context: "Spine Trauma" in the Diagnoses section.*
-`,Ly=`---
+`,qy=`---
 title: Arthroscopic Bankart Repair ± Remplissage — Anterior Shoulder Instability
 tags: Sports, Shoulder & Elbow, anterior shoulder instability, Bankart lesion, ALPSA, Hill-Sachs lesion, remplissage, infraspinatus tenodesis, glenoid track, on-track off-track, ISIS score
 specialty: Sports
@@ -20415,7 +20415,7 @@ Arthroscopic technique; standard shoulder arthroscopy portals are used to access
 - Reported recurrence: isolated Bankart 10–20% (up to 67% in high-risk young contact athletes); Bankart + remplissage ~10% vs. 30% for Bankart alone at medium-term follow-up (Woodmass et al., *AJSM* 2024 RCT).
 
 *Full context: "Shoulder Instability" in the Diagnoses section.*
-`,zy=`---
+`,Ey=`---
 title: Arthroscopic Reduction and Fixation — Tibial Spine Avulsion Fracture
 tags: Pediatrics, Knee, Tibial spine avulsion, Meyers-McKeever, Zaricznyj, arthroscopy, suture fixation, screw fixation, pediatric trauma
 specialty: Pediatrics
@@ -20454,7 +20454,7 @@ Aspiration of a tense knee hemarthrosis is both diagnostic (fat globules confirm
 - Formal ACL-injury-prevention/neuromuscular training is reasonable before clearance, given the shared mechanism with ACL tears.
 
 *Full context: "Pediatric Fractures & Trauma" in the Diagnoses section.*
-`,qy=`---
+`,By=`---
 title: Arthroscopic Rotator Cuff Repair
 tags: Sports, Shoulder & Elbow, rotator cuff tear, single-row repair, double-row repair, transosseous-equivalent, suture-bridge, margin convalescence, interval slide, acromioplasty, biceps tenodesis, Cofield, Patte, Goutallier
 specialty: Sports
@@ -20503,7 +20503,7 @@ Not detailed beyond the general arthroscopic shoulder setup implied by the techn
 - **Return to sport**: non-contact/non-overhead sport ~4–6 months; overhead/throwing and contact sport 6–9 months, contingent on full painless ROM, ≥90% (85–90%) strength symmetry, negative lag signs, and (where available) imaging confirmation of healing for high-risk repairs (massive tears, revision surgery, elite athletes).
 
 *Full context: "Rotator Cuff & Biceps Pathology" in the Diagnoses section.*
-`,Ey=`---
+`,Hy=`---
 title: Prophylactic & Definitive Intramedullary Nailing — Atypical Femoral Fracture
 tags: Oncology & Metabolic, Multi-region, atypical femoral fracture, AFF, prophylactic nailing, bisphosphonate, denosumab, suppressed remodeling, teriparatide
 specialty: Oncology & Metabolic
@@ -20546,7 +20546,7 @@ Full-length nail construct is required given the diaphyseal, subtrochanteric-to-
 **Beyond 12 weeks:** Delayed union is more common than in standard femoral shaft fractures; do not resume high-impact loading or unrestricted return to sport until solid radiographic union is confirmed, generally not before 4–6 months and often longer.
 
 *Full context: "MSK Infection & Metabolic Bone Disease" in the Diagnoses section.*
-`,By=`---
+`,Ny=`---
 title: Ultrasound-Guided Barbotage — Calcific Tendinopathy
 tags: Sports, Shoulder & Elbow, calcific tendinopathy, barbotage, needling, percutaneous needle aspiration, lavage, Gartner classification, ESWT, corticosteroid injection, arthroscopic excision, supraspinatus
 specialty: Sports
@@ -20585,7 +20585,7 @@ Performed under ultrasound guidance, using either a single- or two-needle techni
 - Overall course is much faster than after rotator cuff repair, unless a concomitant cuff repair was performed at the same setting, in which case follow the cuff-repair protocol instead.
 
 *Full context: "Rotator Cuff & Biceps Pathology" in the Diagnoses section.*
-`,Hy=`---
+`,_y=`---
 title: Biceps Tenodesis (and Tenotomy)
 tags: Sports, Shoulder & Elbow, long head of biceps, LHB, biceps tenodesis, tenotomy, subpectoral, suprapectoral, SLAP tear, Popeye deformity, interference screw, cortical button, suture anchor
 specialty: Sports
@@ -20625,7 +20625,7 @@ Two fixation locations are used: **open subpectoral** or **arthroscopic suprapec
 - Return to heavy lifting/sport at 3–4 months.
 
 *Full context: "Rotator Cuff & Biceps Pathology" in the Diagnoses section.*
-`,Ny=`---
+`,Jy=`---
 title: Blount Disease Surgical Correction — Guided Growth to Osteotomy
 tags: Pediatrics, Multi-region, Blount disease, tibia vara, genu varum, guided growth, 8-plate, proximal tibial valgus osteotomy, Langenskiöld classification, physeal bar resection
 specialty: Pediatrics
@@ -20662,7 +20662,7 @@ Guided growth uses a lateral proximal tibial (and, if needed, proximal fibular) 
 - **Osteotomy:** protected weight-bearing 4–6 weeks (longer with external fixator until adequate callus), progressive weight-bearing and knee/ankle ROM physiotherapy through weeks 6–12, full activity typically by 3–4 months.
 
 *Full context: "Pediatric Orthopedic Conditions" in the Diagnoses section.*
-`,_y=`---
+`,Ky=`---
 title: Bone Marrow Aspirate Concentrate — Harvest & Injection
 tags: Principles & Procedures, Multi-region, BMAC, bone marrow aspirate concentrate, mesenchymal stromal cells, iliac crest aspiration, knee osteoarthritis, focal chondral defect, microfracture, osteonecrosis femoral head, nonunion, orthobiologics
 specialty: Principles & Procedures
@@ -20700,7 +20700,7 @@ Marrow is harvested from the iliac crest, most commonly the posterior superior i
 - Manual labor/heavy lifting: 1–2 weeks post-harvest/injection to allow the expected inflammatory phase to settle before heavy loading (when not otherwise dictated by a combined surgical procedure).
 
 *Full context: "Injection Therapies & Orthobiologics" in the Diagnoses section.*
-`,Jy=`---
+`,Gy=`---
 title: Bone Transport — Distraction Osteogenesis (Ilizarov Principle)
 tags: Trauma, Multi-region, segmental bone loss, bone transport, distraction osteogenesis, Ilizarov, external fixation, docking site
 specialty: Trauma
@@ -20742,7 +20742,7 @@ A circular or hexapod external fixator (Ilizarov-type frame) is applied to span 
 - Return to work/sport is defined case-by-case and typically delayed 9–18 months for large segmental reconstructions given the prolonged biological remodeling timeline.
 
 *Full context: "Open Fractures, Polytrauma & Bone Healing Principles" in the Diagnoses section.*
-`,Ky=`---
+`,Vy=`---
 title: Bony Bankart Fixation — Anterior Shoulder Instability
 tags: Sports, Shoulder & Elbow, bony Bankart, anterior glenoid rim fracture, anterior shoulder instability, glenoid bone loss, suture anchor fixation, screw fixation, bone block conversion
 specialty: Sports
@@ -20776,7 +20776,7 @@ Arthroscopic setup as for standard instability surgery; CT is mandatory pre-oper
 The monograph does not detail a rehabilitation protocol specific to bony Bankart fixation. General return-to-sport criteria described for instability surgery apply across procedures and are not purely time-based: full painless active and passive ROM within 5–10° of the contralateral side, rotator cuff/periscapular strength ≥90% of the contralateral limb, negative apprehension/relocation testing, and successful sport-specific functional progression before clearance to contact/collision sport.
 
 *Full context: "Shoulder Instability" in the Diagnoses section.*
-`,Gy=`---
+`,Wy=`---
 title: Both-Bone Forearm Fracture Fixation — Dual Plating vs. IM Nailing
 tags: Trauma, Shoulder & Elbow, Both-bone forearm fracture, radial bow, dual plating, intramedullary nailing, forearm fracture, radioulnar synostosis
 specialty: Trauma
@@ -20815,7 +20815,7 @@ Use **separate incisions** for the radius and ulna when dual plating — a singl
 - **Return to work/sport:** light duty ~6 weeks; full manual labor/contact sport 3–4 months, contingent on union and rotational strength.
 
 *Full context: "Elbow & Forearm Fractures / Dislocations" in the Diagnoses section.*
-`,Vy=`---
+`,Uy=`---
 title: Calcaneus Fracture ORIF — Extensile Lateral & Sinus Tarsi Approaches
 tags: Trauma, Foot & Ankle, calcaneus fracture, Sanders classification, extensile lateral approach, sinus tarsi approach, primary subtalar arthrodesis, Böhler angle
 specialty: Trauma
@@ -20854,7 +20854,7 @@ Delay surgery until soft-tissue swelling permits (positive "wrinkle sign," typic
 - 3–6 months: full weight-bearing, strengthening, gait normalization; heavy manual labor/return to sport often delayed 6–12 months. A meaningful minority (10–15%+) require secondary procedures (hardware removal, subtalar fusion for post-traumatic arthritis) in the first 1–2 years, higher after ORIF than after non-op per HeFT long-term data.
 
 *Full context: "Ankle, Hindfoot & Midfoot Trauma" in the Diagnoses section.*
-`,Wy=`---
+`,Xy=`---
 title: Carpal Tunnel Release — Open, Endoscopic & WALANT
 tags: Hand & Wrist, carpal tunnel syndrome, median nerve, transverse carpal ligament, WALANT, endoscopic release, pillar pain
 specialty: Hand & Wrist
@@ -20894,7 +20894,7 @@ WALANT (lidocaine + epinephrine, no tourniquet) is now widely adopted for both o
 - Grip strength recovery continues over 3 months, with full recovery of strength and resolution of pillar pain up to 3-6 months.
 
 *Full context: "Hand & Wrist Conditions" in the Diagnoses section.*
-`,Uy=`---
+`,Qy=`---
 title: Cartilage Restoration Ladder — Focal Chondral & Osteochondral Defects (Knee)
 tags: Sports, Knee & Leg, focal chondral defect, articular cartilage lesion, microfracture, OAT, mosaicplasty, MACI, ACI, osteochondral allograft, OCA, ICRS, Outerbridge, high tibial osteotomy
 specialty: Sports
@@ -20956,7 +20956,7 @@ Microfracture and the biopsy stage of MACI are performed arthroscopically. Impla
 - **Return to pivoting sport**: typically 9–12 months for MACI (graft maturation is slow — hyaline-like tissue continues remodeling well past 12 months), 6–9 months for OAT, 9–12 months for OCA; criteria-based on absence of effusion, full strength symmetry, and (where available) imaging evidence of graft incorporation/fill.
 
 *Full context: "Meniscus Tears & Articular Cartilage Lesions" in the Diagnoses section.*
-`,Xy=`---
+`,Zy=`---
 title: Cavovarus Foot Reconstruction
 tags: Foot & Ankle, cavovarus foot, pes cavus, Coleman block test, Charcot-Marie-Tooth, Dwyer osteotomy, peroneus longus to brevis transfer, triple arthrodesis, dorsiflexion osteotomy first metatarsal
 specialty: Foot & Ankle
@@ -20993,7 +20993,7 @@ Splint NWB 2 weeks; cast/boot NWB to 6 weeks pending osteotomy consolidation; pr
 General return-to-work/sport principles: sedentary work resumes earliest (often 2–6 weeks post-op); standing/walking-intensive work requires solid union/wound healing plus demonstrated weightbearing tolerance; return to impact sport requires radiographic union, full painless ROM, and strength ≥85–90% of the contralateral limb on functional testing.
 
 *Full context: "Hindfoot, Ankle & Diabetic Foot Disorders" in the Diagnoses section.*
-`,Qy=`---
+`,Yy=`---
 title: Cementation Technique — Bone Cement Implantation Syndrome Prevention
 tags: Principles & Procedures, Multi-region, Cement & bone cement implantation syndrome, cemented arthroplasty, hip hemiarthroplasty, femoral canal preparation, Donaldson grading
 specialty: Principles & Procedures
@@ -21030,7 +21030,7 @@ No technique-specific positioning beyond standard positioning for the procedure 
 No distinct postoperative pathway specific to cementation technique; patients follow the same phased rehabilitation pathway as the underlying procedure (see the general perioperative rehabilitation protocol), with any intraoperative BCIS event documented and factored into postoperative monitoring intensity (e.g. extended cardiopulmonary observation after a Grade 2–3 event).
 
 *Full context: "Perioperative Care & Surgical Principles" in the Diagnoses section.*
-`,Zy=`---
+`,$y=`---
 title: Cephalomedullary Nailing — Intertrochanteric Fractures
 tags: Trauma, Pelvis & Hip, intertrochanteric fracture, hip fracture, Evans-Jensen classification, AO/OTA 31-A, cephalomedullary nail, CMN, sliding hip screw, tip-apex distance, lateral wall
 specialty: Trauma
@@ -21073,7 +21073,7 @@ Fracture table with fluoroscopy for AP and lateral imaging. Nail entry point for
 - Return to sedentary work typically 4–8 weeks; physically demanding work 3–6 months contingent on radiographic union and functional strength testing.
 
 *Full context: "Proximal Femur Fractures" in the Diagnoses section.*
-`,Yy=`---
+`,ev=`---
 title: Long Cephalomedullary Nailing — Subtrochanteric Fractures
 tags: Trauma, Pelvis & Hip, subtrochanteric fracture, hip fracture, Seinsheimer classification, cephalomedullary nail, CMN, Poller screw, cerclage cable, locking plate, atypical femur fracture, AFF
 specialty: Trauma
@@ -21118,7 +21118,7 @@ Lateral decubitus or supine positioning with a bump, with full-length femur imag
 - Return to sedentary work typically 4–8 weeks; physically demanding work 3–6 months contingent on radiographic union and functional strength testing. High-demand recreational activity (relevant to younger subtrochanteric fracture patients) is generally deferred until full radiographic union and symmetric strength/hop testing, typically 4–9 months depending on fracture complexity.
 
 *Full context: "Proximal Femur Fractures" in the Diagnoses section.*
-`,$y=`---
+`,iv=`---
 title: Cervical Disc Arthroplasty (Artificial Disc Replacement)
 tags: Spine, Cervical, cervical radiculopathy, cervical disc herniation, cervical spondylosis, cervical disc arthroplasty, CDA, artificial disc replacement, motion preservation
 specialty: Spine
@@ -21157,7 +21157,7 @@ Standard anterior cervical exposure and positioning apply, as for ACDF. CDA is r
 - Return to contact/collision sport is individualized — motion preservation does not remove risk to adjacent unprotected levels.
 
 *Full context: "Cervical Degenerative Spine" in the Diagnoses section.*
-`,ev=`---
+`,tv=`---
 title: Cervical Epidural Steroid Injection (ESI)
 tags: Spine, Cervical, cervical radiculopathy, cervical disc herniation, epidural steroid injection, ESI, transforaminal injection, interlaminar injection, selective nerve root block, medial branch block, radiofrequency ablation
 specialty: Spine
@@ -21194,7 +21194,7 @@ Perform under image guidance — fluoroscopy or ultrasound — given the small b
 - For facet-mediated axial pain confirmed by diagnostic medial branch block, proceed to radiofrequency ablation rather than repeated ESI.
 
 *Full context: "Cervical Degenerative Spine" in the Diagnoses section.*
-`,iv=`---
+`,nv=`---
 title: Charcot Foot Reconstruction — Superconstruct Principle
 tags: Foot & Ankle, Charcot neuroarthropathy, Charcot foot, diabetic foot, superconstruct, Eichenholtz classification, Brodsky classification, tibiotalocalcaneal arthrodesis, TTC nail, external fixation, exostectomy
 specialty: Foot & Ankle
@@ -21230,7 +21230,7 @@ Total contact casting (TCC), changed weekly initially, transitioning as edema/sw
 For arthrodesis specifically (non-Charcot comparison bullet applies inversely here): NWB is extended to 8–12+ weeks in Charcot/neuropathic patients (vs. 6 weeks in non-Charcot arthrodesis) given impaired bone healing biology, with serial radiographs (± CT if union uncertain) before progressing weightbearing.
 
 *Full context: "Hindfoot, Ankle & Diabetic Foot Disorders" in the Diagnoses section.*
-`,tv=`---
+`,av=`---
 title: Cheilectomy (± Moberg Osteotomy) — Hallux Rigidus
 tags: Foot & Ankle, hallux rigidus, cheilectomy, Moberg osteotomy, dorsal osteophyte, dorsal bunion, 1st MTP joint, Coughlin-Shurnas
 specialty: Foot & Ankle
@@ -21269,7 +21269,7 @@ Dorsal approach to the 1st MTP joint. Preoperative clinical exam should specific
 - General return-to-sport gating applies: near-full pain-free active ROM, pain-free single-leg heel-rise/hop, swelling resolved, graduated activity progression — soft-tissue-only procedures like cheilectomy are typically cleared for contact/pivoting sport by 6–8 weeks, earlier than osteotomy/fusion procedures.
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,nv=`---
+`,rv=`---
 title: Radical Debridement & Dead-Space Management — Chronic Osteomyelitis
 tags: Oncology & Metabolic, Multi-region, chronic osteomyelitis, Cierny-Mader, sequestrum, dead space, local antibiotic carrier, external fixation, Masquelet, vascularized bone graft
 specialty: Oncology & Metabolic
@@ -21311,7 +21311,7 @@ Determined by the anatomic site of infection. Soft-tissue coverage (local or fre
 **Beyond 6 weeks:** Strengthening progresses once bony union/soft-tissue healing is secure. Return to work is individualized to job physical demand and wound/bone status, often 3–6 months for physically demanding roles after major reconstruction. Return to sport only after radiographic union and infection-marker normalization sustained off antibiotics.
 
 *Full context: "MSK Infection & Metabolic Bone Disease" in the Diagnoses section.*
-`,av=`---
+`,ov=`---
 title: Clavicle ORIF — Plating & Intramedullary Fixation
 tags: Trauma, Shoulder & Elbow, clavicle fracture, distal clavicle, Robinson classification, Neer classification, hook plate, coracoclavicular suture-button
 specialty: Trauma
@@ -21350,7 +21350,7 @@ Direct anterosuperior or anteroinferior longitudinal incision over the clavicle.
 - Counsel patients to avoid contact/high-risk activity until full radiographic union, and expect a period of relative bone weakness for several weeks after elective plate removal (refracture risk).
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,rv=`---
+`,sv=`---
 title: Closed Reduction & Casting — Distal Radius Fractures
 tags: Trauma, Hand & Wrist, distal radius fracture, closed reduction, hematoma block, casting, Cotton-Loder position, wrist trauma
 specialty: Trauma
@@ -21397,7 +21397,7 @@ Hematoma block (intra-fracture lidocaine injection) is adequate for most closed 
 - **Return to sport**: pain-free full composite ROM, grip strength ≥85–90% of contralateral side, radiographic union, and sport-specific functional testing — generally not before 3 months for high-demand/impact sport.
 
 *Full context: "Distal Radius & DRUJ Injuries" in the Diagnoses section.*
-`,ov=`---
+`,lv=`---
 title: Constraint Ladder — Revision TKA
 tags: Arthroplasty, Multi-region, revision knee arthroplasty, AORI classification, posterior-stabilized, varus-valgus constrained, condylar-constrained knee, rotating-hinge, metaphyseal cones and sleeves, tapered-fluted stem, distal femoral replacement
 specialty: Arthroplasty
@@ -21438,7 +21438,7 @@ updated: 2026-08-15
 - Cone/sleeve constructs have excellent early-to-mid-term survivorship in isolation (implant-specific revision rates often <5% at 5–10 years), even though overall reoperation-for-any-reason rates in the broader complex reconstruction remain meaningfully higher, reflecting the elevated baseline risk of infection, instability, or extensor mechanism complications in these cases.
 
 *Full context: "Periprosthetic Fractures & Revision Arthroplasty" in the Diagnoses section.*
-`,sv=`---
+`,cv=`---
 title: Core Decompression ± Biologic Augmentation — Femoral Head Osteonecrosis
 tags: Arthroplasty, Pelvis & Hip, osteonecrosis of the femoral head, avascular necrosis, AVN, core decompression, BMAC, bone marrow aspirate concentrate, biologic augmentation, ARCO, Ficat-Arlet, Steinberg, hip preservation
 specialty: Arthroplasty
@@ -21482,7 +21482,7 @@ Performed under fluoroscopic guidance. Choice of a multiple small-diameter "mult
 Bilateral involvement is present in 50–80% of atraumatic ONFH, so contralateral hip surveillance imaging is part of the same follow-up program.
 
 *Full context: "Femoral Head Osteonecrosis & Hip Preservation" in the Diagnoses section.*
-`,lv=`---
+`,dv=`---
 title: Corrective Osteotomy — Malunion (Acute vs Gradual Correction)
 tags: Trauma, Multi-region, malunion, corrective osteotomy, deformity correction, CORA, Taylor Spatial Frame, circular external fixator
 specialty: Trauma
@@ -21521,7 +21521,7 @@ Preoperative planning is mandatory before any osteotomy: full deformity analysis
 - Return to sport/heavy work typically 6–12 months after corrective osteotomy, contingent on solid union and restored strength/proprioception.
 
 *Full context: "Open Fractures, Polytrauma & Bone Healing Principles" in the Diagnoses section.*
-`,cv=`---
+`,uv=`---
 title: Corticosteroid Injection — Intra-Articular & Soft Tissue
 tags: Principles & Procedures, Multi-region, corticosteroid injection, triamcinolone, methylprednisolone, betamethasone, osteoarthritis flare, adhesive capsulitis, trigger finger, CMC1 OA, subacromial impingement, plantar fasciitis, lateral epicondylitis, pre-arthroplasty timing
 specialty: Principles & Procedures
@@ -21571,7 +21571,7 @@ Site-specific positioning and entry points:
 - **Return to work/sport:** Sedentary work typically same day to 2–3 days; manual labor/heavy lifting 3–7 days post steroid.
 
 *Full context: "Injection Therapies & Orthobiologics" in the Diagnoses section.*
-`,dv=`---
+`,pv=`---
 title: Valgus-Producing Osteotomy — Developmental Coxa Vara
 tags: Pediatrics, Pelvis & Hip, coxa vara, valgus osteotomy, Hilgenreiner-epiphyseal angle, neck-shaft angle, Fish sign, subtrochanteric osteotomy, blade plate
 specialty: Pediatrics
@@ -21607,7 +21607,7 @@ Subtrochanteric level, with or without concurrent derotation.
 - Long-term: continued radiographic surveillance through skeletal maturity regardless of initial correction quality, given the meaningful minority requiring revision osteotomy for recurrence.
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,uv=`---
+`,hv=`---
 title: Closed Reduction and Percutaneous Pinning — Pediatric Supracondylar Humerus Fracture
 tags: Pediatrics, Elbow, Supracondylar humerus fracture, Gartland, CRPP, lateral-entry pinning, crossed pinning, pink pulseless hand, pediatric trauma
 specialty: Pediatrics
@@ -21648,7 +21648,7 @@ Reduction is performed under fluoroscopy, restoring the **anterior humeral line*
 - **Return to sport:** contact sports/gymnastics/monkey bars typically permitted at 6–8 weeks once radiographic union is confirmed and functional strength/motion has returned.
 
 *Full context: "Pediatric Fractures & Trauma" in the Diagnoses section.*
-`,pv=`---
+`,mv=`---
 title: Cubital Tunnel Decompression — In Situ Release & Ulnar Nerve Transposition
 tags: Hand & Wrist, cubital tunnel syndrome, ulnar nerve, McGowan classification, Osborne's ligament, medial epicondylectomy
 specialty: Hand & Wrist
@@ -21686,7 +21686,7 @@ Not specified beyond the operative approach itself; technique selection (in situ
 - Sensory recovery precedes motor recovery after either technique; intrinsic recovery in McGowan III cases may remain incomplete regardless of technique or timing.
 
 *Full context: "Hand & Wrist Conditions" in the Diagnoses section.*
-`,hv=`---
+`,gv=`---
 title: DAIR (Debridement, Antibiotics, and Implant Retention) — Periprosthetic Joint Infection
 tags: Arthroplasty, Multi-region, periprosthetic joint infection, PJI, DAIR, implant retention, KLIC score, CRIME80 score, rifampin, biofilm, Tsukayama/Zimmerli timing
 specialty: Arthroplasty
@@ -21741,11 +21741,11 @@ Standard revision-arthroplasty setup for the joint involved. Full arthrotomy acc
 **Return to sport/high-demand activity:** Generally deferred until antibiotics are complete and sustained clinical remission is confirmed (commonly ≥6 months from DAIR), with shared decision-making given residual reinfection risk.
 
 *Full context: "Periprosthetic Joint Infection" in the Diagnoses section.*
-`,mv=`---
+`,fv=`---
 title: Damage-Control External Fixation — Femoral Shaft Fracture (Polytrauma)
 tags: Trauma, Knee & Femur, femoral shaft fracture, polytrauma, damage control orthopedics, external fixation, early total care, fat embolism syndrome, bilateral femur fractures
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 
@@ -21781,7 +21781,7 @@ Spanning or non-spanning external fixator, applied rapidly (typically <30-45 min
 - Bilateral femur fracture patients require closer monitoring for fat embolism syndrome, ARDS, and VTE in the first 48-72 hours, and typically need bilateral simultaneous mobilization planning (two physiotherapists or a hoist, wheeled frame/platform walker) given the absence of a "good leg" to pivot on.
 
 *Full context: "Femoral Shaft & Distal Femur Fractures" in the Diagnoses section.*
-`,gv=`---
+`,yv=`---
 title: Damage Control Orthopaedics — Polytrauma Staging
 tags: Trauma, Multi-region, polytrauma, damage control orthopedics, early total care, Hannover Pape staging, pelvic ring injury, damage control resuscitation
 specialty: Trauma
@@ -21823,7 +21823,7 @@ ATLS primary survey and hemorrhage control take priority over detailed fracture 
 - Return to work/sport is driven by the most functionally limiting individual injury; formal functional capacity evaluation is useful before clearing manual-labor occupations after major polytrauma.
 
 *Full context: "Open Fractures, Polytrauma & Bone Healing Principles" in the Diagnoses section.*
-`,fv=`---
+`,vv=`---
 title: Closed Reduction and Spica Casting — Developmental Dysplasia of the Hip
 tags: Pediatrics, Pelvis & Hip, developmental dysplasia of the hip, DDH, closed reduction, spica cast, arthrography, adductor tenotomy, safe zone of abduction, Pavlik failure
 specialty: Pediatrics
@@ -21866,7 +21866,7 @@ If the safe zone remains too narrow despite adductor tenotomy, or interposed sof
 - Return to normal activity: unrestricted once the orthosis is weaned and reduction/containment is confirmed stable — most toddlers resume normal gait development on their own developmental timeline.
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,yv=`---
+`,bv=`---
 title: Open Reduction and Pelvic/Femoral Osteotomy — Developmental Dysplasia of the Hip
 tags: Pediatrics, Pelvis & Hip, developmental dysplasia of the hip, DDH, open reduction, Smith-Petersen approach, Ludloff approach, femoral shortening derotation osteotomy, Salter osteotomy, Pemberton acetabuloplasty, Dega osteotomy, San Diego osteotomy, Ganz periacetabular osteotomy
 specialty: Pediatrics
@@ -21911,7 +21911,7 @@ Anterior (Smith-Petersen) approach is most common for isolated open reduction in
 - Return to normal activity: after cast/brace removal and confirmed stable reduction (~3–4 months); low-impact activity once orthosis weaned, higher-impact play per surgeon judgment, typically by 6 months.
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,vv=`---
+`,wv=`---
 title: Debridement and Instrumented Reconstruction — Spondylodiscitis
 tags: Spine, Spondylodiscitis, vertebral osteomyelitis, spinal infection, epidural abscess, corpectomy, structural reconstruction, instrumentation in infected field, percutaneous stabilization
 specialty: Spine
@@ -21953,7 +21953,7 @@ Approach (anterior corpectomy versus posterior-only versus combined) is selected
 - In patients with a preceding neurologic deficit, formal inpatient or outpatient neurorehabilitation (gait training, strengthening) proceeds in parallel with the antibiotic course.
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,bv=`---
+`,kv=`---
 title: Diabetic Foot Ulcer Debridement & Limb Salvage
 tags: Foot & Ankle, diabetic foot ulcer, diabetic foot infection, osteomyelitis, limb salvage, revascularization, WIfI classification, Achilles tendon lengthening, gastrocnemius recession, amputation
 specialty: Foot & Ankle
@@ -21991,7 +21991,7 @@ Limb salvage is a multidisciplinary team effort — vascular surgery, infectious
 Total contact casting (TCC) or instant-TCC changed weekly to every 2 weeks; typical healing trajectory for a well-offloaded, adequately perfused plantar forefoot ulcer is 6–8 weeks. Failure to reduce wound area by ≥40–50% at 4 weeks predicts non-healing and should trigger reassessment of perfusion, infection, offloading compliance, and adjunctive therapy.
 
 *Full context: "Hindfoot, Ankle & Diabetic Foot Disorders" in the Diagnoses section.*
-`,wv=`---
+`,xv=`---
 title: Diagnostic Joint Aspiration
 tags: Principles & Procedures, Multi-region, joint aspiration, arthrocentesis, septic arthritis, prosthetic joint infection, PJI, crystal arthropathy, gout, pseudogout, CPPD, synovial fluid analysis
 specialty: Principles & Procedures
@@ -22032,7 +22032,7 @@ For hip aspiration, always use image guidance (fluoroscopy or US) — blind hip 
 Not applicable in the therapeutic sense — this is a diagnostic procedure. Manage the underlying condition per the aspiration result (e.g., proceed to septic arthritis treatment pathway, crystal arthropathy management, or PJI workup) rather than following a generic post-injection protocol.
 
 *Full context: "Injection Therapies & Orthobiologics" in the Diagnoses section.*
-`,kv=`---
+`,Iv=`---
 title: Diamond Concept — Nonunion Revision Fixation & Biologic Augmentation
 tags: Trauma, Multi-region, nonunion, Diamond Concept, revision fixation, bone graft, Reamer-Irrigator-Aspirator, BMP, bone marrow aspirate concentrate
 specialty: Trauma
@@ -22071,7 +22071,7 @@ Theatre setup for revision skeletal fixation combined with bone graft harvest �
 - Implant-related mechanical failure (screw/plate loosening or breakage) at a nonunion site signals inadequate initial stability and should prompt revision rather than a repeat attempt with the same construct.
 
 *Full context: "Open Fractures, Polytrauma & Bone Healing Principles" in the Diagnoses section.*
-`,xv=`---
+`,Av=`---
 title: Discoid Meniscus Surgery — Saucerization & Peripheral Repair
 tags: Sports, Knee & Leg, discoid meniscus, Wrisberg variant, saucerization, meniscus repair, pediatric knee, snapping knee, bow-tie sign
 specialty: Sports
@@ -22110,7 +22110,7 @@ Standard knee arthroscopy. Diagnosis is typically confirmed pre-operatively by M
 The monograph does not specify a discoid-specific phased weight-bearing/ROM protocol distinct from the generic rehabilitation framework (Phase I–V, criteria-based progression). Follow the general post-arthroscopy framework, individualized to whether saucerization alone or saucerization + peripheral repair was performed (the latter warranting a more protected course analogous to peripheral meniscus repair given the repair construct).
 
 *Full context: "Meniscus Tears & Articular Cartilage Lesions" in the Diagnoses section.*
-`,Iv=`---
+`,Sv=`---
 title: Distal Biceps Tendon Repair — Single- & Double-Incision Technique
 tags: Sports, Multi-region, distal biceps rupture, distal biceps tendon repair, cortical button fixation, interference screw, single-incision repair, double-incision repair, Boyd-Anderson approach, posterior interosseous nerve, PIN neuropraxia, heterotopic ossification
 specialty: Sports
@@ -22151,11 +22151,11 @@ Supine positioning with the arm on a hand table; document pre-operative posterio
 - Complications: PIN neuropraxia (single-incision, usually transient), lateral antebrachial cutaneous nerve injury/numbness, heterotopic ossification/proximal radioulnar synostosis (higher with two-incision technique if posterior dissection is not meticulous), re-rupture (uncommon with modern fixation, low single-digit %), persistent strength deficit.
 
 *Full context: "Tendinopathies, Muscle Injuries & Ankle Instability" in the Diagnoses section.*
-`,Av=`---
+`,Cv=`---
 title: Distal Femoral Replacement (DFR)
 tags: Trauma, Knee & Femur, distal femur fracture, AO/OTA 33-C3, periprosthetic fracture, Su classification, hinged endoprosthesis, orthogeriatric, frail elderly
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 
@@ -22188,7 +22188,7 @@ Standard positioning for a hinged knee arthroplasty. DFR uses a hinged distal fe
 - Orthogeriatric/MDT perioperative pathway mirrors hip fracture care: same-day/next-day mobilization, delirium prevention, nutrition, bone-health/osteoporosis treatment initiation, and falls assessment, given the shared frail elderly population and comparable mortality risk profile.
 
 *Full context: "Femoral Shaft & Distal Femur Fractures" in the Diagnoses section.*
-`,Sv=`---
+`,Tv=`---
 title: Distal Humerus Fracture Fixation — ORIF and Total Elbow Arthroplasty
 tags: Trauma, Shoulder & Elbow, Distal humerus fracture, AO/OTA 13, dual-plate fixation, total elbow arthroplasty, hemiarthroplasty, elbow trauma
 specialty: Trauma
@@ -22240,7 +22240,7 @@ CT with 2D/3D reconstruction should be obtained preoperatively for essentially a
 - Avoid impact/repetitive loading permanently.
 
 *Full context: "Elbow & Forearm Fractures / Dislocations" in the Diagnoses section.*
-`,Cv=`---
+`,Pv=`---
 title: DRUJ Stabilization — K-wire Transfixation, Open Reduction, and Ulnar Styloid Fixation
 tags: Trauma, Hand & Wrist, DRUJ instability, ulnar styloid fracture, distal radius fracture, TFCC injury (acute), wrist trauma
 specialty: Trauma
@@ -22280,7 +22280,7 @@ Perform pronation/supination stress testing under fluoroscopy with the elbow at 
 - **Imaging**: post-op, then at wire removal (~4–6 wk), then at return-to-rotation milestones.
 
 *Full context: "Distal Radius & DRUJ Injuries" in the Diagnoses section.*
-`,Tv=`---
+`,Rv=`---
 title: ECRB / Flexor-Pronator Debridement — Lateral & Medial Epicondylitis
 tags: Sports, Multi-region, lateral epicondylitis, tennis elbow, medial epicondylitis, golfer's elbow, ECRB debridement, flexor-pronator release, arthroscopic elbow debridement, lateral ulnar collateral ligament
 specialty: Sports
@@ -22319,7 +22319,7 @@ Can be performed open or arthroscopically for the lateral side. Arthroscopic app
 - Complications: persistent/recurrent pain (~10-15%), lateral elbow instability if the lateral ulnar collateral ligament is inadvertently violated during aggressive ECRB debridement, infection, incomplete relief.
 
 *Full context: "Tendinopathies, Muscle Injuries & Ankle Instability" in the Diagnoses section.*
-`,Pv=`---
+`,Mv=`---
 title: Elbow Debridement — Outerbridge-Kashiwagi (OK) Procedure
 tags: Shoulder & Elbow, elbow osteoarthritis, Outerbridge-Kashiwagi procedure, ulnohumeral arthroplasty, column procedure, elbow arthroscopy, ulnar nerve decompression, loose bodies
 specialty: Arthroplasty
@@ -22358,7 +22358,7 @@ CT is used preoperatively for loose-body mapping and planning. Nerve conduction 
 - Reported outcomes (2024 series): Mayo Elbow Performance Score improvement from ≈60.7 to ≈84.6, with low complication (≈2.8%) and reoperation (≈4.2%) rates.
 
 *Full context: "Shoulder & Elbow Arthritis and Arthroplasty" in the Diagnoses section.*
-`,Rv=`---
+`,jv=`---
 title: Emergency Decompression — Cauda Equina Syndrome
 tags: Spine, Lumbar, cauda equina syndrome, CES, saddle anesthesia, bladder dysfunction, emergency MRI, laminectomy, discectomy, GIRFT pathway, medicolegal
 specialty: Spine
@@ -22394,7 +22394,7 @@ Standard posterior spinal exposure, positioned and planned around the causative 
 - Counsel from the outset that a meaningful minority of patients have permanent bladder, bowel, or sexual dysfunction despite timely surgery, and reflect this in rehabilitation goal-setting.
 
 *Full context: "Lumbar Degenerative Spine" in the Diagnoses section.*
-`,Mv=`---
+`,Ov=`---
 title: En Bloc Resection and Sacrectomy — Primary Malignant Spine Tumors
 tags: Spine, Primary spine tumors, chordoma, sacral chordoma, chondrosarcoma, Enneking staging, WBB staging, wide margin resection, preoperative embolization, proton radiotherapy
 specialty: Spine
@@ -22434,7 +22434,7 @@ Malignant primary spine tumors — chordoma (the most common primary malignant s
 The monograph does not detail a dedicated rehabilitation phase schedule for primary spine tumor resection distinct from general post-oncologic-spine-surgery recovery. Postoperative management centers on wound healing surveillance (given the elevated risk from large resections and any planned adjuvant RT), functional rehabilitation tailored to any nerve-root-sacrifice deficits (particularly bowel/bladder/sexual function after sacrectomy), and long-term oncologic surveillance for local recurrence and late metastasis.
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,jv=`---
+`,Fv=`---
 title: ERAS Pathway — Arthroplasty & Trauma
 tags: Principles & Procedures, Multi-region, ERAS in arthroplasty & trauma, eras protocol, enhanced recovery, hip fracture, total hip arthroplasty, total knee arthroplasty, orthogeriatrics, early mobilization
 specialty: Principles & Procedures
@@ -22485,7 +22485,7 @@ Not a positioning-dependent procedure — ERAS is a perioperative pathway bundle
 ERAS discharge and rehabilitation follow the general phased perioperative pathway: same-day/POD1 mobilization with weight-bearing as tolerated for standard cemented fixation; early active/active-assisted ROM and VTE prophylaxis initiation in Phase 1; progressive gait training and suture/staple removal at 10–14 days in Phase 2 (Week 1–2); progressive resistance training, driving resumption at 4–6 weeks, and return to sedentary/desk work at 2–4 weeks in Phase 3 (Week 2–6); return to manual labor around 3 months and low-impact recreational activity at 3 months in Phase 4; and individualized return to higher-impact activity at 6–12 months in Phase 5. Discharge itself is based on objective functional criteria rather than a fixed postoperative day.
 
 *Full context: "Perioperative Care & Surgical Principles" in the Diagnoses section.*
-`,Ov=`---
+`,Dv=`---
 title: Elastic Stable Intramedullary Nailing — Pediatric Both-Bone Forearm Fracture
 tags: Pediatrics, Forearm, Both-bone forearm fracture, ESIN, elastic nailing, Nancy nails, radioulnar synostosis, pediatric trauma
 specialty: Pediatrics
@@ -22525,7 +22525,7 @@ ESIN is inserted via **retrograde radius** and **antegrade or retrograde ulna** 
 - For comparison, nonoperative cast treatment runs 6 weeks total, transitioning from long-arm to short-arm cast at 3–4 weeks in many protocols.
 
 *Full context: "Pediatric Fractures & Trauma" in the Diagnoses section.*
-`,Fv=`---
+`,Lv=`---
 title: Essex-Lopresti Injury — Operative Management
 tags: Trauma, Shoulder & Elbow, Essex-Lopresti injury, radial head arthroplasty, interosseous membrane reconstruction, DRUJ pinning, ulnocarpal impaction, longitudinal forearm instability
 specialty: Trauma
@@ -22562,11 +22562,11 @@ Obtain a true AP wrist film and measure ulnar variance, comparing to the contral
 - **Return to work/sport:** light duty ~6 weeks; full manual labor/contact sport 3–4 months, contingent on union/implant stability and rotational strength.
 
 *Full context: "Elbow & Forearm Fractures / Dislocations" in the Diagnoses section.*
-`,Dv=`---
+`,zv=`---
 title: Exchange Nailing — Femoral Shaft Nonunion
 tags: Trauma, Knee & Femur, femoral shaft fracture, nonunion, intramedullary nailing, reamed nailing, bone grafting, infected nonunion
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 
@@ -22596,7 +22596,7 @@ Standard positioning and setup for antegrade femoral nailing (see Antegrade Intr
 - Follow the standard femoral shaft nailing rehabilitation pathway thereafter (early mobilization, weight bearing per construct stability, progressive strengthening), with close radiographic follow-up to confirm healing given the prior failure to unite.
 
 *Full context: "Femoral Shaft & Distal Femur Fractures" in the Diagnoses section.*
-`,Lv=`---
+`,qv=`---
 title: Extended Curettage with Adjuvant Therapy — Benign & Low-Grade Bone Tumors
 tags: Oncology & Metabolic, Multi-region, giant cell tumor of bone, GCT, aneurysmal bone cyst, ABC, unicameral bone cyst, UBC, chondrosarcoma grade I, curettage, PMMA cement, phenol, cryotherapy, argon beam, Campanacci
 specialty: Oncology & Metabolic
@@ -22648,7 +22648,7 @@ Positioning follows the anatomic site of the lesion. A headlight is used to allo
 Return to work is typically sedentary at 6–12 weeks once wound-healed and pain-controlled, with physical labor delayed 4–6 months or longer depending on reconstruction. For benign lesions treated with curettage alone (small/moderate cavity, good bone quality restored), return to full activity including sport is reasonable by 3–6 months once radiographic healing/incorporation is confirmed and the bone is judged to have regained adequate structural strength.
 
 *Full context: "Bone & Soft Tissue Tumors" in the Diagnoses section.*
-`,zv=`---
+`,Ev=`---
 title: Femoral Derotational Osteotomy — Excessive Femoral Anteversion
 tags: Pediatrics, Pelvis & Hip, femoral anteversion, in-toeing, derotational osteotomy, subtrochanteric osteotomy, distal femoral osteotomy, MPFL reconstruction, intramedullary nail vs plate
 specialty: Pediatrics
@@ -22687,7 +22687,7 @@ Level of osteotomy is chosen by associated pathology: subtrochanteric for isolat
 - Return to school: 2–3 weeks (partial weight-bearing, crutch-assisted).
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,qv=`---
+`,Bv=`---
 title: 1st MTP Arthrodesis — Hallux Rigidus
 tags: Foot & Ankle, hallux rigidus, 1st MTP arthrodesis, fusion, Coughlin-Shurnas grade 4, Keller resection arthroplasty, union rate
 specialty: Foot & Ankle
@@ -22728,7 +22728,7 @@ Dorsal approach to the 1st MTP joint with preparation for rigid fixation (crosse
 - General return-to-sport gating: radiographic union confirmed, near-full pain-free active ROM versus the contralateral side, pain-free single-leg heel-rise/hop, swelling resolved, graduated walk → run → sport-specific drills; contact/pivoting sport typically not cleared before **12–16 weeks** for fusion procedures.
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,Ev=`---
+`,Hv=`---
 title: Flexible Intramedullary Nailing — Pediatric Femoral Shaft Fracture
 tags: Pediatrics, Femur, Pediatric femur fracture, ESIN, Nancy nails, flexible nailing, trochanteric-entry nail, spica casting, pediatric trauma
 specialty: Pediatrics
@@ -22769,7 +22769,7 @@ Flexible nails are inserted **retrograde through medial and lateral distal metap
 - Formal physiotherapy is used more often after femur fracture than elbow fracture, particularly for adolescents with rigid fixation, to address quadriceps/hip-abductor strength deficits.
 
 *Full context: "Pediatric Fractures & Trauma" in the Diagnoses section.*
-`,Bv=`---
+`,Nv=`---
 title: Flexor Tendon Repair — Core-Epitendinous Repair & Early Active Motion
 tags: Hand & Wrist, flexor tendon injury, Verdan flexor tendon zones, zone II, jersey finger, WALANT, quadriga, early active motion
 specialty: Hand & Wrist
@@ -22813,7 +22813,7 @@ Early active motion (EAM) protocol, contingent on ≥4-strand core repair:
 - **Weeks 8-12:** progressive strengthening; return to full unrestricted activity/heavy labor and contact sport generally not before 10-12 weeks, guided by tendon gliding and strength milestones rather than calendar alone.
 
 *Full context: "Hand & Wrist Conditions" in the Diagnoses section.*
-`,Hv=`---
+`,_v=`---
 title: Four-Compartment Fasciotomy — Leg
 tags: Trauma, Multi-region, acute compartment syndrome, fasciotomy, deep posterior compartment, delayed closure, Volkmann contracture
 specialty: Trauma
@@ -22853,7 +22853,7 @@ Performed emergently, without waiting for imaging, once the diagnosis is clinica
 - Delayed or incomplete decompression risks Volkmann's ischemic contracture, permanent nerve palsy (foot/wrist drop), myonecrosis requiring debridement or amputation, and rhabdomyolysis with acute kidney injury.
 
 *Full context: "Open Fractures, Polytrauma & Bone Healing Principles" in the Diagnoses section.*
-`,Nv=`---
+`,Jv=`---
 title: DAIR vs. Staged Exchange — Fracture-Related Infection
 tags: Oncology & Metabolic, Multi-region, fracture-related infection, FRI, DAIR, implant retention, staged exchange, biofilm, rifampin, sonication
 specialty: Oncology & Metabolic
@@ -22895,7 +22895,7 @@ Standard exposure for the fixation construct involved. Use dedicated instruments
 **Beyond 6 weeks:** Strengthening progresses once bony union/soft-tissue healing is secure. Return to work is individualized to job physical demand and wound/bone status, often 3–6 months for physically demanding roles after major reconstruction. Return to sport only after radiographic union and infection-marker normalization sustained off antibiotics.
 
 *Full context: "MSK Infection & Metabolic Bone Disease" in the Diagnoses section.*
-`,_v=`---
+`,Kv=`---
 title: Manipulation Under Anesthesia & Arthroscopic Capsular Release — Frozen Shoulder
 tags: Shoulder & Elbow, frozen shoulder, adhesive capsulitis, manipulation under anesthesia, MUA, arthroscopic capsular release, ACR, UK FROST
 specialty: Arthroplasty
@@ -22933,7 +22933,7 @@ MUA is performed under general or regional anaesthesia. Arthroscopic capsular re
 - Return to full function typically 6–12 weeks; recurrence of stiffness is the main risk if therapy is not sustained.
 
 *Full context: "Shoulder & Elbow Arthritis and Arthroplasty" in the Diagnoses section.*
-`,Jv=`---
+`,Gv=`---
 title: Gauthier (Dorsiflexion Closing-Wedge) Osteotomy — Freiberg Disease
 tags: Foot & Ankle, Freiberg disease, Gauthier osteotomy, Kinnard technique, dorsiflexion closing-wedge osteotomy, Smillie stage III, lesser metatarsal head osteonecrosis
 specialty: Foot & Ankle
@@ -22970,7 +22970,7 @@ Dorsal approach to the affected lesser metatarsal head (overwhelmingly the 2nd, 
 - **Return to activity**: typically **8–12 weeks**, guided by radiographic healing.
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,Kv=`---
+`,Vv=`---
 title: Genicular Nerve Block & Radiofrequency Ablation
 tags: Principles & Procedures, Knee & Leg, genicular nerve block, genicular RFA, radiofrequency ablation, chronic knee osteoarthritis, diagnostic block, cooled RFA, SLGN, SMGN, IMGN, non-surgical candidate
 specialty: Principles & Procedures
@@ -23009,7 +23009,7 @@ Fluoroscopic or US guidance is used for the diagnostic block; RFA is typically p
 - No formal activity restriction beyond immediate post-procedure comfort — encourage resumption of prior activity level as pain allows, since the goal is functional pain control rather than tissue healing.
 
 *Full context: "Injection Therapies & Orthobiologics" in the Diagnoses section.*
-`,Gv=`---
+`,Wv=`---
 title: Endoscopic/Open Gluteus Medius-Minimus Repair — Gluteal Tendinopathy/GTPS
 tags: Arthroplasty, Pelvis & Hip, gluteal tendinopathy, GTPS, greater trochanteric pain syndrome, gluteus medius tear, gluteus minimus tear, endoscopic repair, Goutallier grading, iliotibial band release
 specialty: Arthroplasty
@@ -23050,7 +23050,7 @@ Technique parallels rotator cuff repair principles applied to the hip. Endoscopi
 | IV | 6–9 months | — | Return to running/impact activity once strength ≥85–90% of contralateral side and pain-free single-leg stance/step-down testing achieved |
 
 *Full context: "Femoral Head Osteonecrosis & Hip Preservation" in the Diagnoses section.*
-`,Vv=`---
+`,Uv=`---
 title: Guided Growth and Epiphysiodesis — Limb Length Discrepancy
 tags: Pediatrics, Multi-region, limb length discrepancy, LLD, guided growth, hemiepiphysiodesis, 8-plate, PETS, Phemister, Paley multiplier, limb lengthening, Ilizarov, PRECICE
 specialty: Pediatrics
@@ -23088,7 +23088,7 @@ Percutaneous/minimally invasive techniques for guided growth and permanent epiph
 - Implant removal (guided growth) timed to the desired correction endpoint.
 
 *Full context: "Pediatric Orthopedic Conditions" in the Diagnoses section.*
-`,Wv=`---
+`,Xv=`---
 title: HAGL Repair — Humeral Avulsion of the Glenohumeral Ligament
 tags: Sports, Shoulder & Elbow, HAGL lesion, humeral avulsion glenohumeral ligament, anterior shoulder instability, floating IGHL, axillary pouch, inferior glenohumeral ligament
 specialty: Sports
@@ -23123,7 +23123,7 @@ Open approach (deltopectoral, subscapularis split or peel) remains more common g
 The monograph does not detail a dedicated rehabilitation protocol for HAGL repair specifically. Reported recurrent instability after HAGL repair is low provided the isolated lesion is correctly identified and repaired, with low reoperation rates. General instability return-to-sport criteria apply: full painless ROM within 5–10° of the contralateral side, ≥90% strength symmetry, negative apprehension testing, and successful functional progression before return to sport.
 
 *Full context: "Shoulder Instability" in the Diagnoses section.*
-`,Uv=`---
+`,Qv=`---
 title: Hallux Valgus Corrective Osteotomy — Chevron, Scarf, Akin & MIS Bunionectomy
 tags: Foot & Ankle, hallux valgus, bunion, distal chevron osteotomy, scarf osteotomy, Akin osteotomy, MIS bunionectomy, percutaneous chevron, PECA, biplanar chevron
 specialty: Foot & Ankle
@@ -23172,7 +23172,7 @@ Standard forefoot approach with weight-bearing radiographs (HVA, IMA, DMAA) obta
 - General return-to-sport gating (all forefoot osteotomy procedures): radiographic union confirmed, near-full pain-free active ROM versus the contralateral side, pain-free single-leg heel-rise and single-leg hop, swelling resolved enough for normal athletic footwear, and a graduated walk → brisk walk → jog → run → sport-specific drills progression, with contact/pivoting sport typically not cleared before 12–16 weeks.
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,Xv=`---
+`,Zv=`---
 title: Surgical Drainage — Hand Infections (Flexor Sheath, Felon, Paronychia, Fight Bite)
 tags: Hand & Wrist, hand infection, pyogenic flexor tenosynovitis, Kanavel signs, felon, paronychia, fight bite, MRSA, Eikenella
 specialty: Hand & Wrist
@@ -23208,7 +23208,7 @@ Not specified beyond the incision/exposure choices below for each infection type
 Early motion as soon as the wound/soft tissue allows (within days once acute inflammation is controlled) to prevent tendon adhesion and joint stiffness — arguably the most important long-term determinant of outcome after flexor sheath washout. Formal hand therapy referral is standard once infection is controlled. Return to work is variable: days for desk work once wounds allow, weeks for manual labor. Full functional recovery can take months, and some stiffness/reduced motion is a realistic expectation after severe or delayed-presentation infections.
 
 *Full context: "Hand & Wrist Conditions" in the Diagnoses section.*
-`,Qv=`---
+`,Yv=`---
 title: Hangman Fracture Fixation — ACDF vs Posterior C2 Fixation
 tags: Spine, hangman fracture, traumatic spondylolisthesis of the axis, Levine-Edwards classification, C2 fracture, ACDF, posterior C2 pars/pedicle screw fixation, halo vest
 specialty: Spine
@@ -23242,7 +23242,7 @@ Choice of approach depends on injury pattern: anterior positioning/exposure for 
 Post-op management follows the general upper cervical fracture rehabilitation pathway: wound care and pain control acutely (0–2 weeks); formal ROM restrictions until early fusion consolidation (~6–8 weeks) in the subacute phase (2–12 weeks), with interval imaging at 6–12 weeks; progressive loading and brace weaning once radiographic fusion is confirmed (3–6 months). Return to sedentary work is often possible by 6–8 weeks for stable fixation; heavy manual labor typically requires 3–6 months. Return-to-sport/contact-activity clearance requires solid radiographic fusion (≥4–6 months), full pain-free ROM, and normalized strength, and remains individualized and conservative for cervical spine injuries.
 
 *Full context: "Spine Trauma" in the Diagnoses section.*
-`,Zv=`---
+`,$v=`---
 title: High Tibial Osteotomy — Medial Compartment Knee Osteoarthritis
 tags: Arthroplasty, Knee & Leg, Knee osteoarthritis, HTO, opening-wedge osteotomy, closing-wedge osteotomy, Fujisawa point, varus malalignment
 specialty: Arthroplasty
@@ -23290,7 +23290,7 @@ The monograph does not detail room/positioning specifics beyond standard supine 
 | Return to work | Variable | — | — | Sedentary work 2–4 weeks; physical/manual labor 3–4 months |
 
 *Full context: "Knee Osteoarthritis, Osteotomy, UKA & TKA" in the Diagnoses section.*
-`,Yv=`---
+`,eb=`---
 title: Hip Arthroplasty (Hemiarthroplasty / THA) — Displaced Femoral Neck Fracture
 tags: Trauma, Pelvis & Hip, femoral neck fracture, hip fracture, Garden classification, hemiarthroplasty, total hip arthroplasty, THA, HEALTH trial, WHiTE 5, cemented stem
 specialty: Trauma
@@ -23334,7 +23334,7 @@ Posterior or anterolateral/direct anterior approach, surgeon-preference-driven. 
 - Universal secondary-prevention bundle: falls-risk assessment, bone mineral density testing (or presumptive treatment given the fracture itself qualifies as a major osteoporotic fracture), and anti-osteoporotic pharmacotherapy initiated ideally before discharge.
 
 *Full context: "Proximal Femur Fractures" in the Diagnoses section.*
-`,$v=`---
+`,ib=`---
 title: Hip Arthroscopy — Femoroacetabular Impingement & Labral Pathology
 tags: Arthroplasty, Pelvis & Hip, femoroacetabular impingement, FAI syndrome, labral tear, hip arthroscopy, femoral osteochondroplasty, acetabuloplasty, capsular management, Warwick agreement, Tönnis grade
 specialty: Arthroplasty
@@ -23379,7 +23379,7 @@ Patient selection is typically confirmed preoperatively with a diagnostic intra-
 Return-to-work timing: sedentary work 1–2 weeks, physically demanding/manual labor 8–12 weeks depending on procedure extent (isolated labral repair faster than combined extensive osteochondroplasty).
 
 *Full context: "Femoral Head Osteonecrosis & Hip Preservation" in the Diagnoses section.*
-`,eb=`---
+`,tb=`---
 title: Humeral Shaft Intramedullary Nailing
 tags: Trauma, Shoulder & Elbow, humeral shaft fracture, radial nerve palsy, AO/OTA, polytrauma, pathologic fracture
 specialty: Trauma
@@ -23417,7 +23417,7 @@ Antegrade nailing: superior entry through the rotator cuff interval. Retrograde 
 - Return to heavy lifting/contact sport typically 4–6 months.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,ib=`---
+`,nb=`---
 title: Humeral Shaft ORIF — Plating
 tags: Trauma, Shoulder & Elbow, humeral shaft fracture, radial nerve palsy, AO/OTA, Henry approach, HUMMER trial
 specialty: Trauma
@@ -23456,7 +23456,7 @@ Anterolateral (Henry-type) approach for proximal/middle-third fractures; posteri
 - Return to heavy lifting/contact sport typically 4–6 months.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,tb=`---
+`,ab=`---
 title: Inferior Capsular Shift / Arthroscopic Capsular Plication — Multidirectional Instability (MDI)
 tags: Sports, Shoulder & Elbow, multidirectional instability, MDI, inferior capsular shift, capsular plication, rotator interval closure, sulcus sign, Stanmore Type III
 specialty: Sports
@@ -23490,7 +23490,7 @@ Choice is between an open procedure and an arthroscopic procedure, decided by la
 The monograph presents MDI's structured rehabilitation as the primary non-operative pathway (Phase 1, 0–6 weeks: pain control and isometric activation avoiding provocative positions; Phase 2, 6–12 weeks: progressive dynamic strengthening of scapular stabilizers and rotator cuff with closed-chain proprioceptive drills; Phase 3, 3–6 months: sport-specific/functional progression) rather than a dedicated post-surgical protocol for capsular shift/plication specifically. General return-to-sport criteria apply across procedures and are not purely time-based: full painless ROM within 5–10° of the contralateral side, ≥90% strength symmetry, negative apprehension/relocation testing, and successful sport-specific functional progression before clearance.
 
 *Full context: "Shoulder Instability" in the Diagnoses section.*
-`,nb=`---
+`,rb=`---
 title: Interposition Arthroplasty — Elbow
 tags: Shoulder & Elbow, elbow osteoarthritis, interposition arthroplasty, fascia lata graft, Achilles tendon allograft, dermal graft, hinged external fixator, bone-preserving salvage
 specialty: Arthroplasty
@@ -23525,7 +23525,7 @@ No specific positioning or setup detail beyond the graft and fixator construct i
 - No further phased rehabilitation detail (weight-bearing/ROM milestones, return-to-work/sport timeline) is specified in the source.
 
 *Full context: "Shoulder & Elbow Arthritis and Arthroplasty" in the Diagnoses section.*
-`,ab=`---
+`,ob=`---
 title: Intramedullary Nailing — Metastatic Bone Disease & Impending Pathologic Fracture
 tags: Oncology & Metabolic, Multi-region, metastatic bone disease, multiple myeloma, pathologic fracture, prophylactic fixation, Mirels score, intramedullary nailing, endoprosthetic replacement
 specialty: Oncology & Metabolic
@@ -23574,7 +23574,7 @@ Positioning follows standard technique for the long bone being nailed. Preoperat
 Post-fixation radiation is typically initiated ~2–3 weeks after surgery once wound healing allows. Metastatic bone disease patients prioritize immediate mobilization and pain control over strict phase adherence, given competing survival and quality-of-life considerations. Return to work: sedentary work typically 6–12 weeks after IM nailing once wound-healed and pain-controlled; physical labor delayed 4–6 months or longer and may never be fully regained after proximal femoral/pelvic endoprosthetic reconstruction. Systemic anticancer therapy plus a bone-modifying agent (denosumab or zoledronic acid) reduces skeletal-related events and should continue alongside surgical recovery; denosumab does not require renal dose adjustment, an advantage in myeloma patients with renal impairment, but carries osteonecrosis-of-the-jaw and rebound-hypercalcemia risk on discontinuation.
 
 *Full context: "Bone & Soft Tissue Tumors" in the Diagnoses section.*
-`,rb=`---
+`,sb=`---
 title: Fusion and Pars Repair — Isthmic Spondylolisthesis
 tags: Spine, Lumbar, isthmic spondylolisthesis, spondylolysis, pars interarticularis defect, Meyerding classification, TLIF, ALIF, direct pars repair, Buck's repair, Scott wiring, L5 nerve root, slip reduction
 specialty: Spine
@@ -23608,7 +23608,7 @@ Posterior approach for decompression, fusion, and pars repair constructs. For hi
 Follow the general instrumented fusion protocol: early mobilization with brace per surgeon preference in weeks 0–2, advancing walking/isometric core activation through weeks 2–6, progressive core/paraspinal strengthening from weeks 6–12, and functional strengthening/conditioning from months 3–6, with return to high-demand manual labor or axial-loading sport generally not before 4–6 months guided by clinical exam and radiographic fusion progression. Union rates for instrumented fusion in this population are reported in the 90–97% range in modern series; smoking, diabetes, osteoporosis, and multilevel constructs reduce union rates and should prompt more conservative timelines. For adolescents managed with a low-grade pars stress lesion in a brace rather than surgically, typical bracing duration is 8–12 weeks with serial clinical reassessment, and return to provocative sport only after a pain-free period and, where imaging was used to confirm healing (SPECT/CT or MRI), radiological evidence of lesion consolidation.
 
 *Full context: "Lumbar Degenerative Spine" in the Diagnoses section.*
-`,ob=`---
+`,lb=`---
 title: Juvenile OCD Surgical Management — Drilling, Fixation, and Cartilage Restoration
 tags: Pediatrics, Multi-region, juvenile osteochondritis dissecans, JOCD, knee, transarticular drilling, retroarticular drilling, internal fixation, OATS, particulated cartilage, microfracture
 specialty: Pediatrics
@@ -23646,7 +23646,7 @@ Arthroscopic approach for drilling, fixation, and debridement/OATS. Arthroscopic
 - Non-operative trial (for context/comparison): weeks 0–12 activity/impact restriction with brace or cast in younger/more symptomatic patients; month 3 repeat imaging to assess healing; months 4–6 progressive strengthening and functional loading, with full-impact/pivoting sport only after confirmed radiographic/clinical healing.
 
 *Full context: "Pediatric Orthopedic Conditions" in the Diagnoses section.*
-`,sb=`---
+`,cb=`---
 title: Kienböck Disease — Joint Leveling & Revascularization
 tags: Hand & Wrist, Kienbock disease, Lichtman classification, radial shortening osteotomy, capitate shortening, STT fusion, core decompression, revascularization, lunate collapse
 specialty: Hand & Wrist
@@ -23681,7 +23681,7 @@ Ulnar variance must be measured on a true neutral-rotation PA radiograph (should
 Cast/splint immobilization 6–8 weeks (longer, up to 10–12 weeks, for limited intercarpal fusions until trabecular bridging is seen on CT); progressive AROM and strengthening from 8–12 weeks; return to heavy labor at 3–4 months. Vascularized graft procedures often follow a similar 8–12 week protected phase before loading.
 
 *Full context: "Scaphoid Fractures & Carpal Instability" in the Diagnoses section.*
-`,lb=`---
+`,db=`---
 title: Laminectomy with Instrumented Posterior Fusion — Cervical Myelopathy and OPLL
 tags: Spine, Cervical, degenerative cervical myelopathy, DCM, OPLL, cervical spondylotic myelopathy, laminectomy, posterior instrumented fusion, K-line, C5 palsy, kyphosis
 specialty: Spine
@@ -23722,7 +23722,7 @@ Standard posterior cervical positioning applies, with the same general precautio
 - **Return to work**: sedentary 2–6 weeks; manual labor individualized, often delayed 3+ months given fusion/bone healing. Return to contact sport is generally discouraged — both construct integrity and underlying cord vulnerability argue against it.
 
 *Full context: "Cervical Degenerative Spine" in the Diagnoses section.*
-`,cb=`---
+`,ub=`---
 title: Laminoplasty — Cervical Myelopathy and OPLL
 tags: Spine, Cervical, degenerative cervical myelopathy, DCM, OPLL, cervical spondylotic myelopathy, laminoplasty, open-door laminoplasty, French-door laminoplasty, K-line, C5 palsy
 specialty: Spine
@@ -23763,7 +23763,7 @@ Standard posterior cervical positioning applies. As with other high-risk cervica
 - **Return to work**: sedentary 2–4 weeks; manual labor individualized, 8–12+ weeks, often delayed until neurological/functional recovery plateau. Return to contact sport is generally discouraged given underlying cord vulnerability, regardless of construct healing.
 
 *Full context: "Cervical Degenerative Spine" in the Diagnoses section.*
-`,db=`---
+`,pb=`---
 title: Lapidus Procedure — 1st TMT Arthrodesis for Hallux Valgus
 tags: Foot & Ankle, hallux valgus, Lapidus, 1st TMT arthrodesis, tarsometatarsal fusion, 1st ray hypermobility, nonunion, proximal osteotomy
 specialty: Foot & Ankle
@@ -23803,7 +23803,7 @@ Standard medial/dorsomedial forefoot approach to the 1st TMT (tarsometatarsal, L
 - General return-to-sport gating: near-full pain-free active ROM, pain-free single-leg heel-rise/hop, swelling resolved to fit normal athletic footwear, graduated walk → run → sport-specific drills, with contact/pivoting sport typically not before 12–16 weeks.
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,ub=`---
+`,hb=`---
 title: Latarjet Procedure — Coracoid Transfer for Anterior Shoulder Instability
 tags: Sports, Shoulder & Elbow, anterior shoulder instability, glenoid bone loss, coracoid transfer, Eden-Hybinette, iliac crest bone graft, distal tibial allograft, revision instability, screw fixation
 specialty: Sports
@@ -23846,7 +23846,7 @@ Performed open or arthroscopically; arthroscopic technique is technically demand
 - Reported recurrent instability rate 2–8%; reoperation 5–15% (screw removal a major driver); nonunion 5–10%.
 
 *Full context: "Shoulder Instability" in the Diagnoses section.*
-`,pb=`---
+`,mb=`---
 title: Lateral Condyle Fracture Fixation — Pediatric Elbow
 tags: Pediatrics, Elbow, Lateral condyle fracture, Milch, Jakob-Weiss, K-wire fixation, cannulated screw, pediatric trauma
 specialty: Pediatrics
@@ -23885,7 +23885,7 @@ Open reduction, when needed, uses a **posterolateral or lateral approach**, taki
 - Early recognition of interval displacement or delayed union (via weekly-film follow-up when treated nonoperatively) allows salvage with percutaneous screw fixation before progression to established nonunion.
 
 *Full context: "Pediatric Fractures & Trauma" in the Diagnoses section.*
-`,hb=`---
+`,gb=`---
 title: Limb-Salvage Wide Resection & Endoprosthetic Reconstruction — Primary Bone Sarcoma
 tags: Oncology & Metabolic, Multi-region, osteosarcoma, Ewing sarcoma, chondrosarcoma, endoprosthesis, limb salvage, wide resection, expandable prosthesis, allograft-prosthetic composite, rotationplasty
 specialty: Oncology & Metabolic
@@ -23941,7 +23941,7 @@ Return to work: sedentary work typically 6–12 weeks after limb-salvage reconst
 Post-treatment surveillance: local imaging every 3 months years 1–2 then spacing out, with CT chest every 3 months years 1–2, then every 4–6 months years 3–5, then annually, for a minimum of 5–10 years given late-relapse potential (osteosarcoma/Ewing sarcoma).
 
 *Full context: "Bone & Soft Tissue Tumors" in the Diagnoses section.*
-`,mb=`---
+`,fb=`---
 title: Lisfranc Injury Fixation — ORIF & Primary Arthrodesis
 tags: Trauma, Foot & Ankle, Lisfranc injury, tarsometatarsal fracture-dislocation, Myerson classification, Nunley-Vertullo classification, primary arthrodesis, transarticular screws, bridge plating
 specialty: Trauma
@@ -23982,11 +23982,11 @@ Weight-bearing AP/oblique/lateral foot radiographs and CT define bony detail and
 - Return to sport for athletes: typically 6–9 months, later for high-demand cutting/jumping sports; counsel patients that post-traumatic arthritis is common even with anatomic reduction and good early function. Sedentary work 6–10 weeks, manual labor 4–6 months.
 
 *Full context: "Ankle, Hindfoot & Midfoot Trauma" in the Diagnoses section.*
-`,gb=`---
+`,yb=`---
 title: Locked Lateral Distal Femoral Plating (LISS) — Distal Femur Fracture
 tags: Trauma, Knee & Femur, distal femur fracture, AO/OTA 33, LISS, MIPO, varus collapse, medial column deficiency
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 
@@ -24023,7 +24023,7 @@ Submuscular, minimally invasive plate osteosynthesis (MIPO) technique — a late
 - **Return to sport**: high-demand/pivoting sport generally deferred 6-9 months, contingent on radiographic union, painless full ROM, and quadriceps/hamstring strength ≥85-90% of the contralateral limb.
 
 *Full context: "Femoral Shaft & Distal Femur Fractures" in the Diagnoses section.*
-`,fb=`---
+`,vb=`---
 title: Lower Trapezius Tendon Transfer (LTT)
 tags: Sports, Shoulder & Elbow, massive irreparable cuff tear, lower trapezius tendon transfer, LTT, latissimus dorsi transfer, Hornblower sign, external rotation, spinal accessory nerve, superior capsular reconstruction, posterosuperior cuff
 specialty: Sports
@@ -24062,7 +24062,7 @@ Not detailed in the source beyond the graft-bridging technique below and the gen
 - Full recovery/plateau often 9–12 months, given transfer incorporation timelines.
 
 *Full context: "Rotator Cuff & Biceps Pathology" in the Diagnoses section.*
-`,yb=`---
+`,bb=`---
 title: Decompression with Instrumented Fusion — Degenerative Lumbar Spondylolisthesis
 tags: Spine, Lumbar, degenerative spondylolisthesis, Meyerding classification, PLIF, TLIF, OLIF, ALIF, LLIF, XLIF, pedicle screw fixation, decompression alone vs fusion, SLIP trial, NORDSTEN-DS
 specialty: Spine
@@ -24113,7 +24113,7 @@ Posterior approach for decompression, posterolateral fusion, PLIF, and TLIF. Ant
 - Routine imaging: AP/lateral radiographs at 6 weeks, 3 months, and 6–12 months; flexion-extension or CT if fusion status is uncertain before high-demand clearance; earlier imaging for hardware-related pain or suspected pseudarthrosis/instrumentation failure.
 
 *Full context: "Lumbar Degenerative Spine" in the Diagnoses section.*
-`,vb=`---
+`,wb=`---
 title: Decompression — Lumbar Spinal Stenosis
 tags: Spine, Lumbar, spinal stenosis, neurogenic claudication, laminectomy, laminotomy, over-the-top decompression, iatrogenic instability, tubular decompression, facet-sparing
 specialty: Spine
@@ -24150,7 +24150,7 @@ Posterior approach; technique choice (open vs minimally invasive tubular) depend
 - Routine imaging: standing radiographs at 6–12 weeks if instability was a pre-operative concern; obtain earlier/additional imaging for progressive deformity or new mechanical back pain.
 
 *Full context: "Lumbar Degenerative Spine" in the Diagnoses section.*
-`,bb=`---
+`,kb=`---
 title: Microdiscectomy and Endoscopic Discectomy — Lumbar Disc Herniation
 tags: Spine, Lumbar, disc herniation, sciatica, radiculopathy, microdiscectomy, tubular discectomy, endoscopic discectomy, PELD, Lee zone classification, dural tear, recurrent herniation
 specialty: Spine
@@ -24191,7 +24191,7 @@ Standard open or tubular microdiscectomy is performed via a posterior interlamin
 - Routine post-op imaging is not needed if the clinical course is favorable; obtain imaging for new/worsening neurological deficit or suspected recurrent herniation/epidural hematoma.
 
 *Full context: "Lumbar Degenerative Spine" in the Diagnoses section.*
-`,wb=`---
+`,xb=`---
 title: Manipulation Under Anesthesia — Stiff TKA
 tags: Arthroplasty, Multi-region, stiffness after TKA, arthrofibrosis, manipulation under anesthesia, MUA, arthroscopic lysis of adhesions, range of motion
 specialty: Arthroplasty
@@ -24234,7 +24234,7 @@ updated: 2026-08-15
 - **Weeks 2–6:** continued intensive physiotherapy, transition to home program with periodic supervised reassessment.
 
 *Full context: "Periprosthetic Fractures & Revision Arthroplasty" in the Diagnoses section.*
-`,kb=`---
+`,Ib=`---
 title: Masquelet Induced Membrane Technique — Segmental Bone Defect Reconstruction
 tags: Trauma, Multi-region, segmental bone loss, Masquelet, induced membrane, critical-size defect, PMMA cement spacer, bone graft
 specialty: Trauma
@@ -24275,7 +24275,7 @@ A staged, two-surgery protocol. Stage 1 requires stable skeletal fixation (plate
 - Return to work/sport is defined case-by-case and typically delayed 9–18 months for large segmental reconstructions given the prolonged biological remodeling timeline.
 
 *Full context: "Open Fractures, Polytrauma & Bone Healing Principles" in the Diagnoses section.*
-`,xb=`---
+`,Ab=`---
 title: MCL / Posteromedial Corner Repair-Reconstruction
 tags: Sports, Knee & Leg, MCL injury, medial collateral ligament, posteromedial corner, primary repair, hamstring reconstruction, allograft, Stener-like displacement
 specialty: Sports
@@ -24311,7 +24311,7 @@ Not detailed at the setup/room level in this monograph.
 - Return to sport typically 4–6 months, longer if combined with cruciate reconstruction.
 
 *Full context: "Knee Ligament Injuries (ACL, PCL, MLKI)" in the Diagnoses section.*
-`,Ib=`---
+`,Sb=`---
 title: Medial Epicondyle Fracture Fixation — Pediatric Elbow
 tags: Pediatrics, Elbow, Medial epicondyle fracture, ulnar nerve, screw fixation, suture fixation, throwing athlete, pediatric trauma
 specialty: Pediatrics
@@ -24347,7 +24347,7 @@ The ulnar nerve should be identified and protected during exposure.
 - **Return to competitive throwing** is delayed to **3–4 months** with a structured, gradual throwing progression, given the valgus-stress environment of the healed fixation.
 
 *Full context: "Pediatric Fractures & Trauma" in the Diagnoses section.*
-`,Ab=`---
+`,Cb=`---
 title: Meniscal Root Repair — Transtibial Pull-Out & Suture-Anchor Fixation
 tags: Sports, Knee & Leg, meniscus root tear, LaPrade classification, transtibial pull-out repair, suture-anchor repair, root repair, meniscal extrusion, high tibial osteotomy
 specialty: Sports
@@ -24395,7 +24395,7 @@ Standard knee arthroscopy. Suture-anchor (all-inside) fixation directly into the
 - Return to sport: generally 6–9 months, later than peripheral repair, reflecting slower root-tunnel healing biology and the higher consequence of failure.
 
 *Full context: "Meniscus Tears & Articular Cartilage Lesions" in the Diagnoses section.*
-`,Sb=`---
+`,Tb=`---
 title: Meniscus Repair — Peripheral Longitudinal & Bucket-Handle Tears
 tags: Sports, Knee & Leg, meniscus tear, bucket-handle tear, vertical longitudinal tear, inside-out repair, all-inside repair, outside-in repair, ACL reconstruction, locked knee
 specialty: Sports
@@ -24447,7 +24447,7 @@ Standard knee arthroscopy setup. Inside-out repair requires a posteromedial (med
 - Rehabilitation should follow the 2024 formal EU-US Meniscus Rehabilitation Consensus (ESSKA-AOSSM-AASPT) framework, emphasizing criteria-based (not purely time-based) progression individualized to tear pattern/location, repair construct, and concurrent procedures.
 
 *Full context: "Meniscus Tears & Articular Cartilage Lesions" in the Diagnoses section.*
-`,Cb=`---
+`,Pb=`---
 title: Metacarpal & Phalangeal Fracture Fixation
 tags: Hand & Wrist, metacarpal fracture, phalangeal fracture, boxer's fracture, Bennett fracture, Rolando fracture, K-wire fixation, headless screw fixation
 specialty: Hand & Wrist
@@ -24488,7 +24488,7 @@ Standard AP/lateral/oblique hand radiographs guide fracture pattern assessment; 
 - Return to contact sport/heavy manual labor is generally allowed at 6-8 weeks with radiographic union.
 
 *Full context: "Hand & Wrist Conditions" in the Diagnoses section.*
-`,Tb=`---
+`,Rb=`---
 title: Métaizeau Technique — Pediatric Radial Neck Fracture Reduction
 tags: Pediatrics, Elbow, Radial neck fracture, Judet, Métaizeau technique, Israeli technique, elastic nailing, pediatric trauma
 specialty: Pediatrics
@@ -24525,7 +24525,7 @@ The radial neck physis is intracapsular and the radial head is a secondary ossif
 - Broader elbow-region recovery pattern applies: active ROM after immobilization/nail removal, motion regained over several weeks, return to sport typically at 6–8 weeks once union and function have returned.
 
 *Full context: "Pediatric Fractures & Trauma" in the Diagnoses section.*
-`,Pb=`---
+`,Mb=`---
 title: Modified Broström-Gould Repair — Lateral Ankle Ligament Reconstruction
 tags: Sports, Multi-region, chronic ankle instability, lateral ankle sprain, modified Broström-Gould, suture-tape internal brace augmentation, free tendon graft reconstruction, ATFL repair, CFL repair, arthroscopic ankle stabilization
 specialty: Sports
@@ -24566,7 +24566,7 @@ Can be performed open or arthroscopically. Arthroscopic technique allows concurr
 - Complications: superficial peroneal nerve injury/neuroma (most common), sural nerve injury (open lateral approaches), residual/recurrent instability (failure rate variably reported, generally low single digits to low teens depending on series and risk factors), stiffness, wound complications.
 
 *Full context: "Tendinopathies, Muscle Injuries & Ankle Instability" in the Diagnoses section.*
-`,Rb=`---
+`,jb=`---
 title: Monteggia and Galeazzi Fracture Fixation
 tags: Trauma, Shoulder & Elbow, Monteggia injury, Galeazzi injury, Bado classification, DRUJ instability, anatomic plating, forearm fracture
 specialty: Trauma
@@ -24611,7 +24611,7 @@ Image the joint above and below any forearm fracture as standard practice. Obtai
 - **Return to work/sport:** light duty ~6 weeks; full manual labor/contact sport 3–4 months, contingent on union and rotational strength.
 
 *Full context: "Elbow & Forearm Fractures / Dislocations" in the Diagnoses section.*
-`,Mb=`---
+`,Ob=`---
 title: Neurectomy — Morton Neuroma
 tags: Foot & Ankle, Morton neuroma, interdigital neuroma, neurectomy, dorsal approach, plantar approach, stump neuroma, alcohol sclerosing injection, web-space numbness
 specialty: Foot & Ankle
@@ -24650,7 +24650,7 @@ Choice of **dorsal approach** (less wound-healing morbidity; standard first choi
 - Reported success (symptom resolution) is in the range of **80–90%**.
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,jb=`---
+`,Fb=`---
 title: MPFL Reconstruction — Patellar Instability
 tags: Sports, Knee & Leg, patellar instability, patellar dislocation, MPFL, medial patellofemoral ligament, trochlear dysplasia, Schöttle point, à-la-carte algorithm
 specialty: Sports
@@ -24697,7 +24697,7 @@ Standard knee arthroscopy/open hybrid setup for graft harvest and femoral tunnel
 - **Return to sport**: typically **6–9 months**, criteria-based — quadriceps strength ≥90% contralateral limb, single-leg hop test symmetry ≥90%, no apprehension on exam, completion of sport-specific agility progression without symptoms. If a bony procedure (TTO) was combined, radiographic union (typically by 8–12 weeks) is required before impact/pivoting sport.
 
 *Full context: "Patellofemoral Disorders & Extensor Mechanism" in the Diagnoses section.*
-`,Ob=`---
+`,Db=`---
 title: Multiligament Knee Reconstruction — Staged Surgical Management of Knee Dislocation
 tags: Sports, Knee & Leg, multiligament knee injury, MLKI, knee dislocation, Schenck classification, external fixation, staged reconstruction, vascular injury, arthrofibrosis, Murray consensus 2024
 specialty: Sports
@@ -24742,11 +24742,11 @@ Managed as a representative 4-stage framework:
 - **Return to work**: sedentary/desk-based 4–8 weeks; light manual 3–6 months; heavy manual/labor 6–12 months, individualized.
 
 *Full context: "Knee Ligament Injuries (ACL, PCL, MLKI)" in the Diagnoses section.*
-`,Fb=`---
+`,Lb=`---
 title: Combined Nail-Plate Construct — Distal Femur Fracture
 tags: Trauma, Knee & Femur, distal femur fracture, AO/OTA 33-C, nail-plate construct, dual plating, periprosthetic fracture, medial comminution
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 
@@ -24776,7 +24776,7 @@ Combines a retrograde intramedullary nail with a lateral locking plate; setup fo
 - Otherwise follows the general distal femur fracture protocol: early protected knee ROM (0-90°) to prevent arthrofibrosis, progressive flexion toward 90-110° by 2-6 weeks and ≥110-120° by 6-12 weeks, progression to full weight bearing as radiographic healing allows, and return to high-demand/pivoting sport generally deferred 6-9 months pending union, painless full ROM, and quadriceps/hamstring strength ≥85-90% of the contralateral limb.
 
 *Full context: "Femoral Shaft & Distal Femur Fractures" in the Diagnoses section.*
-`,Db=`---
+`,zb=`---
 title: Joint Decompression & Washout — Native Septic Arthritis
 tags: Oncology & Metabolic, Multi-region, native septic arthritis, arthrocentesis, arthroscopic washout, open arthrotomy, hip septic arthritis
 specialty: Oncology & Metabolic
@@ -24819,7 +24819,7 @@ Diagnostic arthrocentesis is mandatory before starting antibiotics whenever feas
 **Beyond 6 weeks:** Strengthening progresses once infection is controlled. Return to work is individualized to job physical demand and joint status. Return to sport only after infection-marker normalization sustained off antibiotics.
 
 *Full context: "MSK Infection & Metabolic Bone Disease" in the Diagnoses section.*
-`,Lb=`---
+`,qb=`---
 title: Navicular & Cuboid Fracture Fixation
 tags: Trauma, Foot & Ankle, navicular fracture, cuboid fracture, nutcracker fracture, midfoot trauma, stress fracture, lateral column
 specialty: Trauma
@@ -24855,7 +24855,7 @@ Minimal specific setup beyond standard foot positioning; CT defines body fractur
 NWB cast 6–8 weeks for displaced/operatively fixed fractures (navicular in particular, given watershed vascularity and historically slow/unreliable union), then progressive weight-bearing in a boot over 2–4 weeks, with full activity by 4–6 months. Stress fractures treated operatively may return to sport somewhat faster (10–12 weeks) than those treated with prolonged non-operative immobilization. Sedentary work 4–8 weeks, manual labor 3–5 months.
 
 *Full context: "Ankle, Hindfoot & Midfoot Trauma" in the Diagnoses section.*
-`,zb=`---
+`,Eb=`---
 title: Radical Debridement — Necrotizing Fasciitis
 tags: Oncology & Metabolic, Multi-region, necrotizing fasciitis, finger test, surgical emergency, planned re-look, toxic shock, LRINEC
 specialty: Oncology & Metabolic
@@ -24897,7 +24897,7 @@ Primarily a clinical diagnosis. Cross-sectional imaging (CT showing fascial gas 
 **Months 3–12:** Long-term functional and cosmetic rehabilitation, often with plastic-surgery-led scar therapy, compression garments, and staged secondary reconstructive procedures. Return to work is highly variable — weeks for a limited-debridement survivor to many months for extensive limb reconstruction or after amputation, where prosthetic rehabilitation becomes the primary pathway.
 
 *Full context: "MSK Infection & Metabolic Bone Disease" in the Diagnoses section.*
-`,qb=`---
+`,Bb=`---
 title: OCD Fixation & Drilling — Adult Knee
 tags: Sports, Knee & Leg, osteochondritis dissecans, OCD, arthroscopic drilling, fragment fixation, ICRS OCD staging, medial femoral condyle, cartilage restoration
 specialty: Sports
@@ -24939,7 +24939,7 @@ Standard knee arthroscopy. Pre-operative radiographic workup should include AP, 
 - The 2024 AAOS Osteochondritis Dissecans Clinical Practice Guideline Rapid Update reaffirms MRI-based instability staging and supports drilling for stable lesions failing non-operative care, with fixation preferred over excision for unstable-but-viable fragments.
 
 *Full context: "Meniscus Tears & Articular Cartilage Lesions" in the Diagnoses section.*
-`,Eb=`---
+`,Hb=`---
 title: Olecranon Fracture Fixation — Tension-Band Wiring and Plating
 tags: Trauma, Shoulder & Elbow, Olecranon fracture, Mayo classification, tension-band wiring, transolecranon fracture-dislocation, elbow trauma
 specialty: Trauma
@@ -24980,7 +24980,7 @@ Assess skin integrity circumferentially before proceeding — olecranon and prox
 - **3 months:** full strengthening; return to contact/manual labor once radiographically healed and strength restored.
 
 *Full context: "Elbow & Forearm Fractures / Dislocations" in the Diagnoses section.*
-`,Bb=`---
+`,Nb=`---
 title: Osteochondral Lesion of the Talus — Treatment Ladder
 tags: Foot & Ankle, osteochondral lesion of the talus, OLT, bone marrow stimulation, microfracture, osteochondral autograft transfer, OATS, autologous chondrocyte implantation, ACI, fresh osteochondral allograft, malleolar osteotomy
 specialty: Foot & Ankle
@@ -25019,7 +25019,7 @@ Restorative procedures (OATS, particulated allograft, ACI) typically require a m
 **Restorative procedures (OATS/ACI)**: more conservative — non-weightbearing 6 weeks, protected weightbearing to 10–12 weeks, full activity typically not before 6–9 months given the biology of graft incorporation/maturation.
 
 *Full context: "Hindfoot, Ankle & Diabetic Foot Disorders" in the Diagnoses section.*
-`,Hb=`---
+`,_b=`---
 title: One-Stage Exchange Arthroplasty — Chronic Periprosthetic Joint Infection
 tags: Arthroplasty, Multi-region, periprosthetic joint infection, PJI, one-stage exchange, Endo-Klinik, antibiotic-loaded cement, rifampin, revision arthroplasty
 specialty: Arthroplasty
@@ -25057,7 +25057,7 @@ Performed under a single anesthetic. The procedure requires a planned "clean" ph
 The monograph does not detail a distinct rehabilitation pathway for one-stage exchange — its rehabilitation section is explicitly organized around DAIR versus two-stage pathways. The antibiotic strategy follows the same systemic framework as the rest of the treatment algorithm: minimum 12-week total systemic antibiotic course (the ICM 2025-endorsed floor), with indefinite suppressive therapy considered in McPherson host C, difficult-to-treat organisms, or incomplete source control. Serial CRP/ESR monitoring and wound surveillance at follow-up apply as for any PJI treatment pathway, with a low threshold to re-image or re-aspirate if pain, swelling, drainage, or a marker plateau/rebound occurs.
 
 *Full context: "Periprosthetic Joint Infection" in the Diagnoses section.*
-`,Nb=`---
+`,Jb=`---
 title: Open Fracture Debridement & Fix-and-Flap Sequencing
 tags: Trauma, Multi-region, open fracture, debridement, fix and flap, orthoplastic surgery, soft-tissue coverage, negative pressure wound therapy, vascular injury
 specialty: Trauma
@@ -25101,7 +25101,7 @@ Antibiotics are started as early as possible, ideally in the ED before any opera
 - Months 3–6+: sedentary work often feasible by 6–8 weeks once pain-controlled and mobile; manual labor/heavy lifting typically deferred until radiographic union confirmed and functional strength ≥ 80–90% of contralateral limb, often 4–6 months for IIIB injuries; return to impact sport individualized, generally not before 6–9 months with full radiographic union.
 
 *Full context: "Open Fractures, Polytrauma & Bone Healing Principles" in the Diagnoses section.*
-`,_b=`---
+`,Kb=`---
 title: Partial Sesamoidectomy — Sesamoid Pathology
 tags: Foot & Ankle, sesamoid pathology, sesamoidectomy, tibial sesamoid, fibular sesamoid, iatrogenic hallux valgus, iatrogenic hallux varus, sesamoid nonunion, ORIF
 specialty: Foot & Ankle
@@ -25139,7 +25139,7 @@ Approach to the affected sesamoid (the tibial sesamoid is far more frequently sy
 - **Return to running/impact/push-off-intensive sport**: often **8–12 weeks**, since the FHB sling and 1st MTP push-off mechanics need to accommodate the altered sesamoid anatomy.
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,Jb=`---
+`,Gb=`---
 title: Patellar Tendon Repair — Acute Rupture
 tags: Sports, Knee & Leg, patellar tendon rupture, extensor mechanism, transosseous repair, suture anchor repair, internal brace, patella alta
 specialty: Sports
@@ -25183,7 +25183,7 @@ Standard supine open approach to the extensor mechanism; intraoperative fluorosc
 - **Return to work**: sedentary work often at 2–4 weeks (brace-dependent mobility); physical/manual labor requiring kneeling, squatting, or ladder work typically delayed to 4–6 months pending strength and functional milestones.
 
 *Full context: "Patellofemoral Disorders & Extensor Mechanism" in the Diagnoses section.*
-`,Kb=`---
+`,Vb=`---
 title: Patellofemoral Arthroplasty — Isolated Patellofemoral Arthritis
 tags: Arthroplasty, Knee & Leg, Patellofemoral arthritis, PFA, Iwano grade, inlay implant, onlay implant, trochlear dysplasia
 specialty: Arthroplasty
@@ -25222,7 +25222,7 @@ Not detailed in the monograph beyond standard patellofemoral joint exposure; pre
 Generally follows a UKA-like accelerated pathway (immediate weight-bearing as tolerated, early ROM, faster functional recovery than TKA) given the absence of tibiofemoral bone resection — return to low-impact activity by 6–8 weeks, full recovery by 3 months in most series.
 
 *Full context: "Knee Osteoarthritis, Osteotomy, UKA & TKA" in the Diagnoses section.*
-`,Gb=`---
+`,Wb=`---
 title: PCFD Reconstruction Ladder — Progressive Collapsing Foot Deformity
 tags: Foot & Ankle, progressive collapsing foot deformity, PCFD, adult flatfoot, tibialis posterior dysfunction, medializing calcaneal osteotomy, FDL transfer, lateral column lengthening, Cotton osteotomy, triple arthrodesis
 specialty: Foot & Ankle
@@ -25269,7 +25269,7 @@ For the tendon-driven TPD subset specifically: Stage I (tenosynovitis, no deform
 Return-to-work/sport general principles: sedentary work resumes earliest (often 2–6 weeks post-op depending on procedure); standing/walking-intensive work requires solid union/wound healing plus demonstrated weightbearing tolerance; return to impact sport requires radiographic union, full painless ROM, and strength ≥85–90% of the contralateral limb on functional testing.
 
 *Full context: "Hindfoot, Ankle & Diabetic Foot Disorders" in the Diagnoses section.*
-`,Vb=`---
+`,Ub=`---
 title: PCL Reconstruction
 tags: Sports, Knee & Leg, PCL injury, posterior cruciate ligament reconstruction, single-bundle, double-bundle, transtibial technique, tibial inlay, killer turn, posteromedial corner
 specialty: Sports
@@ -25309,7 +25309,7 @@ Not detailed at the setup/room level in this monograph.
 - The monograph's detailed phased return-to-sport timeline (weeks 0–4, 4–12, months 3–6) is described for the non-operative PCL pathway specifically; for reconstructed PCL, sport-specific and cutting/pivoting progression follows restoration of stability and strength on the milestones above, with periodic laxity reassessment guiding progression.
 
 *Full context: "Knee Ligament Injuries (ACL, PCL, MLKI)" in the Diagnoses section.*
-`,Wb=`---
+`,Xb=`---
 title: Pectoralis Major Repair
 tags: Sports, Shoulder & Elbow, pectoralis major rupture, Tietjen classification, bench press, cortical button, suture anchor, transosseous tunnels, allograft reconstruction, Achilles allograft, acute repair, anabolic steroid use
 specialty: Sports
@@ -25347,7 +25347,7 @@ Not detailed in the source beyond the fixation-technique choices below.
 - Return to heavy bench-press/contact sport typically 4–6 months, with some protocols extending to 6–9 months for allograft reconstructions.
 
 *Full context: "Rotator Cuff & Biceps Pathology" in the Diagnoses section.*
-`,Ub=`---
+`,Qb=`---
 title: Pelvic Ring Definitive Fixation — Percutaneous Screws & Symphyseal Plating
 tags: Trauma, Pelvis & Hip, pelvic ring injury, iliosacral screw, transiliac-transsacral screw, TITS screw, lumbopelvic fixation, symphyseal plating, ramus screw, sacral dysmorphism, cement augmentation
 specialty: Trauma
@@ -25399,7 +25399,7 @@ Percutaneous, fluoroscopically guided technique for most posterior ring fixation
 **Fragility fractures fixed percutaneously**: weight-bearing as tolerated is generally permitted immediately, since the fixation strategy is chosen specifically to allow immediate loading in this population — a key advantage of surgical fixation over conservative care for FFP II–IV.
 
 *Full context: "Pelvic Ring & Acetabular Fractures" in the Diagnoses section.*
-`,Xb=`---
+`,Zb=`---
 title: Percutaneous Epiphyseal Screw Fixation — Transitional Ankle Fracture
 tags: Pediatrics, Ankle, Transitional ankle fractures, Tillaux fracture, triplane fracture, epiphyseal screw fixation, pediatric trauma
 specialty: Pediatrics
@@ -25434,7 +25434,7 @@ CT with 1–2 mm cuts is the imaging standard for surgical planning — it more 
 - Return to running typically at **8–10 weeks**, and full return to cutting/pivoting sport at **3–4 months** once radiographic union and symmetric strength/hop testing are achieved.
 
 *Full context: "Pediatric Fractures & Trauma" in the Diagnoses section.*
-`,Qb=`---
+`,Yb=`---
 title: Percutaneous K-wire Fixation — Distal Radius Fractures
 tags: Trauma, Hand & Wrist, distal radius fracture, K-wire fixation, percutaneous pinning, DRAFFT2, wrist trauma
 specialty: Trauma
@@ -25473,7 +25473,7 @@ Fluoroscopic guidance for closed or limited-open reduction and percutaneous pin 
 - **Return to work/sport**: manual labor/heavy lifting typically deferred until ~12 weeks with radiographic union and functional grip strength; return to contact/collision sport generally 3–4 months, individualized to fracture pattern and fixation stability.
 
 *Full context: "Distal Radius & DRUJ Injuries" in the Diagnoses section.*
-`,Zb=`---
+`,$b=`---
 title: Percutaneous Screw Fixation (Cannulated Screws / FNS) — Femoral Neck Fracture
 tags: Trauma, Pelvis & Hip, femoral neck fracture, hip fracture, Garden classification, Pauwels classification, cannulated screws, Femoral Neck System, FNS, in situ fixation, tip-apex distance
 specialty: Trauma
@@ -25517,7 +25517,7 @@ Fracture table or radiolucent table with fluoroscopy for AP and cross-table late
 - High-demand recreational activity/sport (relevant to younger patients) is generally deferred until full radiographic union and symmetric strength/hop testing, typically 4–9 months depending on fracture complexity.
 
 *Full context: "Proximal Femur Fractures" in the Diagnoses section.*
-`,Yb=`---
+`,ew=`---
 title: Percutaneous Screw Fixation — Scaphoid Fracture
 tags: Hand & Wrist, scaphoid fracture, Herbert-Fisher classification, headless compression screw, Acutrak, Herbert screw, volar approach, dorsal approach, proximal pole fracture
 specialty: Hand & Wrist
@@ -25552,7 +25552,7 @@ Fluoroscopic guidance is used throughout to confirm central screw placement on b
 Short-term splint/removable brace for comfort 1–2 weeks (the screw provides enough stability for early motion), active range of motion (AROM) starting within the first 1–2 weeks, progressive strengthening from 6 weeks, return to sport/heavy manual work at 8–12 weeks pending radiographic union (union is typically evident by 6–8 weeks with rigid fixation). Return to contact/collision sport or loaded wrist-extension sport (gymnastics, football, climbing, racquet sports) is generally not before 3–4 months and should be confirmed with CT if there is any doubt about union.
 
 *Full context: "Scaphoid Fractures & Carpal Instability" in the Diagnoses section.*
-`,$b=`---
+`,iw=`---
 title: Percutaneous Vertebral Augmentation — Vertebroplasty & Kyphoplasty
 tags: Spine, osteoporotic vertebral compression fracture, OVCF, vertebroplasty, kyphoplasty, cement leakage, adjacent-level fracture, MAP goal not applicable, bipedicular approach
 specialty: Spine
@@ -25590,7 +25590,7 @@ Performed under biplanar fluoroscopy or CT guidance, using a bipedicular or unil
 Vertebral augmentation is an adjunct to, not a replacement for, the broader OVCF conservative-care pathway: analgesia, early mobilization, extension bracing for comfort, and initiation/optimization of osteoporosis therapy (calcium/vitamin D, bisphosphonate or anabolic agent per bone density and fracture risk) since the fracture is a sentinel event for future fracture risk (roughly 5-fold increased risk of a subsequent vertebral fracture). Interval reassessment includes DEXA follow-up, medication adherence review, fall-risk assessment/modification, and balance/posture (extensor-strengthening) programs shown to reduce subsequent fracture risk. Contemporary 2025 network meta-analyses (46 studies, n=5,660) favor augmentation (vertebroplasty or kyphoplasty) over nonsurgical management for pain (VAS), disability (ODI), and quality of life (EQ-5D) in appropriately selected acute OVCF, while flagging adjacent-level fracture risk as a real trade-off.
 
 *Full context: "Spine Trauma" in the Diagnoses section.*
-`,ew=`---
+`,tw=`---
 title: Periacetabular Osteotomy (Bernese/Ganz PAO) — Adult Hip Dysplasia
 tags: Arthroplasty, Pelvis & Hip, adult hip dysplasia, periacetabular osteotomy, PAO, Bernese osteotomy, Ganz osteotomy, Tönnis grade, LCEA, hip preservation, FAO
 specialty: Arthroplasty
@@ -25635,7 +25635,7 @@ Peri-acetabular cuts are made through the ischium, superior pubic ramus, ilium, 
 Reported 10–20 year THA-free survivorship in appropriately selected patients (Tönnis 0 preoperatively) exceeds 60–90% in mature cohort series.
 
 *Full context: "Femoral Head Osteonecrosis & Hip Preservation" in the Diagnoses section.*
-`,iw=`---
+`,nw=`---
 title: Perilunate Dislocation — Reduction & Ligament Repair
 tags: Hand & Wrist, perilunate dislocation, Mayfield classification, carpal instability, spilled teacup sign, median nerve compression, greater arc injury, K-wire fixation
 specialty: Hand & Wrist
@@ -25673,7 +25673,7 @@ Emergent closed reduction is performed under sedation. Trans-scaphoid (greater-a
 Cast/brace with K-wires in place for 8–10 weeks, followed by wire removal and gradual AROM. Hand therapy focuses on regaining the flexion/extension arc, which is often permanently reduced 20–30% versus the contralateral side. Strengthening begins at 3 months; return to heavy labor/sport at 4–6 months, with counseling that residual stiffness and long-term SLAC-pattern arthritis risk remain even with optimal treatment.
 
 *Full context: "Scaphoid Fractures & Carpal Instability" in the Diagnoses section.*
-`,tw=`---
+`,aw=`---
 title: Periprosthetic Femur Fracture — ORIF (Vancouver A / B1 / C)
 tags: Arthroplasty, Multi-region, periprosthetic femur fracture, revision hip arthroplasty, Vancouver classification, locking plate, cerclage, cortical strut allograft, extended trochanteric osteotomy
 specialty: Arthroplasty
@@ -25716,7 +25716,7 @@ updated: 2026-08-15
 - Every displaced periprosthetic hip fracture in a patient over 65 should trigger the same orthogeriatric co-management pathway used for native hip fractures (same-admission surgery target, delirium prevention, VTE prophylaxis, bone-health assessment and osteoporosis treatment initiation) given comparable mortality burden — including in implant-uninvolved Vancouver C fractures.
 
 *Full context: "Periprosthetic Fractures & Revision Arthroplasty" in the Diagnoses section.*
-`,nw=`---
+`,rw=`---
 title: Periprosthetic Femur Fracture — Revision Arthroplasty (Vancouver B2 / B3)
 tags: Arthroplasty, Multi-region, periprosthetic femur fracture, revision hip arthroplasty, Vancouver classification, tapered-fluted stem, extended trochanteric osteotomy, impaction bone grafting, proximal femoral replacement, allograft-prosthetic composite
 specialty: Arthroplasty
@@ -25760,7 +25760,7 @@ updated: 2026-08-15
 - Complications to watch for: dislocation (highest immediately post-revision), aseptic re-loosening and periprosthetic joint infection (both elevated versus primary arthroplasty from longer surgical time and more extensive dissection), leg length discrepancy, nerve palsy (sciatic/femoral, particularly with limb lengthening), and hardware failure/recurrent periprosthetic fracture at the proximal end of a long stem/plate.
 
 *Full context: "Periprosthetic Fractures & Revision Arthroplasty" in the Diagnoses section.*
-`,aw=`---
+`,ow=`---
 title: Periprosthetic TKA Fracture — Fixation & Revision (Lewis-Rorabeck II / III)
 tags: Arthroplasty, Multi-region, periprosthetic fracture around TKA, revision knee arthroplasty, Lewis-Rorabeck classification, Su classification, locked distal femoral plating, retrograde intramedullary nailing, distal femoral replacement
 specialty: Arthroplasty
@@ -25806,7 +25806,7 @@ updated: 2026-08-15
 Complications to watch for: nonunion/malunion (higher with ORIF around a loose or osteoporotic construct), hardware failure and recurrent periprosthetic fracture at the proximal end of the construct, dislocation, and periprosthetic joint infection. Periprosthetic fractures in the elderly carry hip-fracture-equivalent mortality risk and should be treated with the same medical optimization urgency.
 
 *Full context: "Periprosthetic Fractures & Revision Arthroplasty" in the Diagnoses section.*
-`,rw=`---
+`,sw=`---
 title: Peroneal Tendon Repair & Reconstruction
 tags: Sports, Multi-region, peroneal tendon tear, peroneal subluxation, peroneal tendon dislocation, tenosynovectomy, tubularization, tenodesis, FHL tendon transfer, FDL tendon transfer, superior peroneal retinaculum repair, fibular groove deepening
 specialty: Sports
@@ -25847,7 +25847,7 @@ Exposure is centered posterior to the lateral malleolus and the fibular groove; 
 - Outcomes: AOFAS improves ~70→89 post-operatively; complication rate up to ~20-39% (mostly minor) across series, with more modern SPR-focused series trending toward near-zero major complications.
 
 *Full context: "Tendinopathies, Muscle Injuries & Ankle Instability" in the Diagnoses section.*
-`,ow=`---
+`,lw=`---
 title: Containment Surgery — Legg-Calvé-Perthes Disease
 tags: Pediatrics, Pelvis & Hip, Legg-Calvé-Perthes disease, Perthes, containment surgery, femoral varus derotation osteotomy, Salter osteotomy, Pemberton acetabuloplasty, shelf acetabuloplasty, Chiari osteotomy, Herring lateral pillar
 specialty: Pediatrics
@@ -25889,7 +25889,7 @@ Choice between femoral, acetabular, or combined containment is assessed dynamica
 - Long-term: surveillance radiographs through skeletal maturity to determine final Stulberg class; patients with Stulberg III–V benefit from patient education regarding earlier-onset hip osteoarthritis risk and activity counseling, with periodic adult hip surveillance thereafter.
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,sw=`---
+`,cw=`---
 title: Platelet-Rich Plasma Injection
 tags: Principles & Procedures, Multi-region, PRP, leukocyte-rich, leukocyte-poor, knee osteoarthritis, lateral epicondylitis, patellar tendinopathy, rotator cuff tendinopathy, plantar fasciitis, orthobiologics, needle fenestration, dry needling
 specialty: Principles & Procedures
@@ -25931,7 +25931,7 @@ Confirm the diagnosis with imaging (US/MRI) before committing to a PRP series �
 - **Return to sport/high-impact activity:** Individualized; most tendinopathy PRP series use a structured criterion-based return (pain-free functional testing, symmetric strength ≥90% of contralateral limb) rather than a fixed calendar date, typically not before 4–6 weeks post-injection. Manual labor/heavy lifting: 1–2 weeks post-injection to allow the expected inflammatory phase to settle before heavy loading.
 
 *Full context: "Injection Therapies & Orthobiologics" in the Diagnoses section.*
-`,lw=`---
+`,dw=`---
 title: PLC/LCL Repair-Reconstruction
 tags: Sports, Knee & Leg, posterolateral corner, PLC injury, LCL injury, Fanelli classification, Larson reconstruction, Arciero reconstruction, popliteofibular ligament, popliteus, peroneal nerve
 specialty: Sports
@@ -25968,7 +25968,7 @@ Not detailed at the setup/room level in this monograph.
 - Return to cutting/pivoting sport typically not before 9–12 months, given the biomechanical demands on the reconstructed corner.
 
 *Full context: "Knee Ligament Injuries (ACL, PCL, MLKI)" in the Diagnoses section.*
-`,cw=`---
+`,uw=`---
 title: Ponseti Method — Idiopathic Clubfoot
 tags: Pediatrics, Multi-region, clubfoot, congenital talipes equinovarus, CTEV, Ponseti method, serial casting, percutaneous Achilles tenotomy, foot abduction brace, Pirani score, Dimeglio classification
 specialty: Pediatrics
@@ -26010,7 +26010,7 @@ Weekly outpatient clinic visits. Long-leg casting with the knee flexed ~90° to 
 - **Beyond brace discontinuation:** annual follow-up recommended through skeletal maturity, since late relapse and dynamic supination can present into the school-age years.
 
 *Full context: "Pediatric Orthopedic Conditions" in the Diagnoses section.*
-`,dw=`---
+`,pw=`---
 title: Posterior C1-C2 Fusion (Goel-Harms Technique) — Jefferson & Odontoid Fractures
 tags: Spine, Jefferson fracture, odontoid fracture, C1-C2 fusion, occipitocervical fusion, transverse atlantal ligament, Anderson-D'Alonzo classification, upper cervical spine, Magerl transarticular screws
 specialty: Spine
@@ -26046,7 +26046,7 @@ Requires fluoroscopic or navigated visualization for C1 lateral mass and C2 pedi
 Post-op management follows the general upper cervical fracture rehabilitation pathway: wound care and pain control acutely (0–2 weeks) with brace-protected mobilization typically beginning within 24–72h; formal ROM restrictions until early fusion consolidation (~6–8 weeks) in the subacute phase (2–12 weeks), with interval imaging at 6–12 weeks; progressive loading and brace weaning once radiographic fusion is confirmed (3–6 months). Return to sedentary work is often possible by 6–8 weeks for stable fixation; heavy manual labor typically requires 3–6 months. Return-to-sport/contact-activity clearance requires solid radiographic fusion (≥4–6 months), full pain-free ROM, and normalized strength, and remains individualized and conservative for cervical injuries, particularly those involving C1-C2.
 
 *Full context: "Spine Trauma" in the Diagnoses section.*
-`,uw=`---
+`,hw=`---
 title: Posterior Cervical Foraminotomy (Frykholm/Keyhole)
 tags: Spine, Cervical, cervical radiculopathy, cervical disc herniation, foraminal stenosis, posterior cervical foraminotomy, Frykholm procedure, keyhole foraminotomy, motion-preserving
 specialty: Spine
@@ -26079,7 +26079,7 @@ The monograph does not detail procedure-specific positioning for foraminotomy be
 - Return to contact/collision sport: individualized — this is the lowest-morbidity option among the operative choices, since there is no fusion to protect.
 
 *Full context: "Cervical Degenerative Spine" in the Diagnoses section.*
-`,pw=`---
+`,mw=`---
 title: Posterior Labral Repair — Posterior Shoulder Instability
 tags: Sports, Shoulder & Elbow, posterior shoulder instability, reverse Bankart, posterior capsulolabral repair, all-suture anchors, offensive lineman, powerlifter, reverse Hill-Sachs, posterior glenoid bone loss
 specialty: Sports
@@ -26117,7 +26117,7 @@ Arthroscopic technique in a tight posterior glenohumeral working space; low-prof
 - Outcomes: recent systematic reviews/meta-analyses report ~90–92% return to sport/work and favorable patient-reported outcomes at short-to-midterm follow-up, including in collision-sport cohorts; minimum-10-year data show durable outcomes for isolated posterior capsulolabral repair.
 
 *Full context: "Shoulder Instability" in the Diagnoses section.*
-`,hw=`---
+`,gw=`---
 title: Posterior Malleolus Fixation — Mason & Molloy-Guided Approach Selection
 tags: Trauma, Foot & Ankle, ankle fracture, posterior malleolus fracture, Mason & Molloy classification, syndesmosis injury, Liverpool treatment algorithm
 specialty: Trauma
@@ -26153,7 +26153,7 @@ Approach is selected by fracture morphology rather than fixed positioning: Type 
 Follows the same phased protocol as ankle fracture ORIF overall: splint/boot with strict elevation and NWB/toe-touch for the first 2 weeks, transition to protected weight-bearing from 2 weeks post-ORIF per contemporary evidence (WAX trial, 2024 AAOS guideline) if fixation is stable and anatomically reduced, progressive weight-bearing to full WB by 6–12 weeks, and return to impact activity by 12 weeks once radiographic union, full painless ROM, and ≥90% strength symmetry are achieved. Return to sedentary work 2–6 weeks, manual labor 3–4 months.
 
 *Full context: "Ankle, Hindfoot & Midfoot Trauma" in the Diagnoses section.*
-`,mw=`---
+`,fw=`---
 title: Posterior Spinal Fusion with Segmental Pedicle Screw Instrumentation — Adolescent Idiopathic Scoliosis
 tags: Spine, Adolescent idiopathic scoliosis, AIS, Lenke classification, selective thoracic fusion, direct vertebral derotation, lowest instrumented vertebra, crankshaft phenomenon, coronal decompensation
 specialty: Spine
@@ -26193,7 +26193,7 @@ Segmental pedicle screw instrumentation is placed via a standard posterior midli
 - **Reported complication rates**: pseudarthrosis ~1–3% with modern segmental screw constructs, surgical site infection ~1–2%, neurologic injury <1% (reduced further with intraoperative neuromonitoring).
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,gw=`---
+`,yw=`---
 title: Preperitoneal Pelvic Packing — Damage-Control Hemorrhage Control
 tags: Trauma, Pelvis & Hip, pelvic ring injury, hemorrhagic shock, external fixation, pelvic C-clamp, REBOA, angioembolization, damage-control orthopaedics, presacral venous plexus
 specialty: Trauma
@@ -26234,7 +26234,7 @@ Performed in the operating room, not interventional radiology, so that packing a
 Weight-bearing and mobilization follow the pelvic ring definitive-fixation pathway once staged internal fixation is complete: touch-down/toe-touch weight-bearing at 0–6 weeks if posterior fixation is percutaneous with good bone quality and anatomic reduction (non-weight-bearing if fixation is tenuous), continued DVT prophylaxis, and bed mobility/transfer training in the acute phase. Progressive weight-bearing at 6–12 weeks guided by radiographic healing, with full weight-bearing typically by 12 weeks for percutaneous posterior fixation in good bone (longer for lumbopelvic constructs or severe comminution).
 
 *Full context: "Pelvic Ring & Acetabular Fractures" in the Diagnoses section.*
-`,fw=`---
+`,vw=`---
 title: Progressive Tendon Loading — Patellar Tendinopathy
 tags: Sports, Knee & Leg, patellar tendinopathy, jumper's knee, Blazina classification, heavy slow resistance, eccentric loading, isometric loading, VISA-P
 specialty: Sports
@@ -26276,7 +26276,7 @@ Progressive tendon loading is the central conservative treatment for patellar te
 - **Return to sport**: criteria-based — VISA-P score improvement plateaued or near-normal, pain ≤2–3/10 with full training load, symmetric single-leg hop/landing mechanics; may take 3–6 months for Blazina II–III, occasionally longer for elite jumping-sport athletes.
 
 *Full context: "Patellofemoral Disorders & Extensor Mechanism" in the Diagnoses section.*
-`,yw=`---
+`,bw=`---
 title: Prolotherapy Injection
 tags: Principles & Procedures, Multi-region, prolotherapy, dextrose prolotherapy, hypertonic dextrose, knee osteoarthritis, lateral epicondylitis, chronic low back pain, ligament entheses, proliferative therapy
 specialty: Principles & Procedures
@@ -26314,7 +26314,7 @@ Lower cost than PRP/BMAC since no processing equipment is required — a practic
 - **Manual labor/heavy lifting:** 1–2 weeks post-injection to allow the expected inflammatory phase to settle before heavy loading.
 
 *Full context: "Injection Therapies & Orthobiologics" in the Diagnoses section.*
-`,vw=`---
+`,ww=`---
 title: Proximal Hamstring Avulsion Repair — Suture Anchor Fixation
 tags: Sports, Multi-region, proximal hamstring avulsion, hamstring tendon repair, suture anchor repair, ischial tuberosity, sciatic nerve, hamstring syndrome, revision hamstring repair
 specialty: Sports
@@ -26356,7 +26356,7 @@ Prone or modified lithotomy approach to expose the ischial tuberosity footprint.
 - Complications: sciatic nerve irritation/neurapraxia (most common — often transient, due to traction/retraction near the nerve), infection, heterotopic ossification, re-rupture, persistent posterior thigh/sitting discomfort; overall complication rate reported around 15% (major complications ~4-5%) in recent systematic review.
 
 *Full context: "Tendinopathies, Muscle Injuries & Ankle Instability" in the Diagnoses section.*
-`,bw=`---
+`,kw=`---
 title: Proximal Humerus Intramedullary Nailing
 tags: Trauma, Shoulder & Elbow, proximal humerus fracture, Neer classification, osteoporotic bone, rotator cuff, supraspinatus
 specialty: Trauma
@@ -26390,7 +26390,7 @@ Superior approach, splitting (not detaching) the supraspinatus to access the ent
 No nail-specific rehabilitation timeline is described beyond the general proximal humerus pathway: early passive/active-assisted ROM, resisted strengthening deferred until radiographic union is evident (typically by 6–12 wk), and full unrestricted activity by 3–6 months once strength and ROM are near-symmetric with no residual instability.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,ww=`---
+`,xw=`---
 title: Proximal Humerus ORIF — Locking Plate Fixation
 tags: Trauma, Shoulder & Elbow, proximal humerus fracture, Neer classification, calcar screw, avascular necrosis, deltopectoral approach
 specialty: Trauma
@@ -26431,7 +26431,7 @@ Deltopectoral approach (standard), protecting the cephalic vein in the deltopect
 - The PROFHER trial found no clinically important difference in Oxford Shoulder Score between locked-plate ORIF and nonoperative treatment of displaced fractures in older adults (mean age ~66) at 2 and 5 years — reinforces individualized selection, particularly in lower-demand elderly patients.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,kw=`---
+`,Iw=`---
 title: Quadriceps Tendon Repair — Acute Rupture
 tags: Sports, Knee & Leg, quadriceps tendon rupture, extensor mechanism, transosseous repair, suture anchor repair, chronic kidney disease, patella baja
 specialty: Sports
@@ -26473,7 +26473,7 @@ Standard supine open approach to the extensor mechanism; the earlier repair is p
 - **Return to work**: sedentary work often at 2–4 weeks (brace-dependent mobility); physical/manual labor requiring kneeling, squatting, or ladder work typically delayed to 4–6 months pending strength and functional milestones.
 
 *Full context: "Patellofemoral Disorders & Extensor Mechanism" in the Diagnoses section.*
-`,xw=`---
+`,Aw=`---
 title: Radial Head Fracture — ORIF and Arthroplasty
 tags: Trauma, Shoulder & Elbow, Radial head fracture, Mason classification, radial head arthroplasty, terrible triad, Essex-Lopresti injury, Kocher approach
 specialty: Trauma
@@ -26514,7 +26514,7 @@ Approach via the **Kocher interval** (between anconeus and ECU) for radial head 
 - **6–12 weeks:** strengthening once healed/implant stable; return to full activity by 3 months in most patients.
 
 *Full context: "Elbow & Forearm Fractures / Dislocations" in the Diagnoses section.*
-`,Iw=`---
+`,Sw=`---
 title: Radiofrequency Ablation — Osteoid Osteoma
 tags: Oncology & Metabolic, Multi-region, osteoid osteoma, radiofrequency ablation, RFA, cryoablation, nidus, percutaneous ablation, COX-2
 specialty: Oncology & Metabolic
@@ -26553,7 +26553,7 @@ CT-guided percutaneous approach, performed under image guidance to localize and 
 RFA is an outpatient percutaneous procedure; the monograph does not specify a phased weight-bearing/rehabilitation protocol distinct from routine post-procedural recovery. Reported single-treatment success is approximately 85–95%, with retreatment available for the minority who fail; a 2024 series reported 100% technical success with no complications and a 1.6% recurrence rate, successfully retreated with repeat RFA. A systematic review/meta-analysis of spinal osteoid osteoma confirms RFA is as safe and effective as surgical excision for that subset. Follow up with clinical reassessment of pain relief; recurrent or persistent pain warrants repeat imaging and consideration of retreatment.
 
 *Full context: "Bone & Soft Tissue Tumors" in the Diagnoses section.*
-`,Aw=`---
+`,Cw=`---
 title: Ramp Lesion Repair — Meniscocapsular Junction (with ACL Reconstruction)
 tags: Sports, Knee & Leg, ramp lesion, meniscocapsular tear, meniscotibial ligament, ACL reconstruction, posteromedial portal, trans-notch view, all-inside repair, inside-out repair
 specialty: Sports
@@ -26593,11 +26593,11 @@ Probing is performed with the knee in a figure-4 position. Because the tear lies
 The monograph does not specify a ramp-repair-specific rehabilitation timeline distinct from the concurrent ACL reconstruction protocol. Rehabilitation should follow the 2024 formal EU-US Meniscus Rehabilitation Consensus (ESSKA-AOSSM-AASPT) framework — criteria-based, not purely time-based, progression individualized to tear pattern/location, repair construct, and the concurrent ACLR procedure.
 
 *Full context: "Meniscus Tears & Articular Cartilage Lesions" in the Diagnoses section.*
-`,Sw=`---
+`,Tw=`---
 title: Retrograde Intramedullary Nailing — Distal Femur Fracture
 tags: Trauma, Knee & Femur, distal femur fracture, AO/OTA 33, floating knee, femoral neck fracture, multi-planar interlocking, Blumensaat's line
 specialty: Trauma
-region: Knee & Femur
+region: Knee & Leg
 updated: 2026-08-15
 ---
 
@@ -26634,7 +26634,7 @@ Entry point just anterior to the PCL origin, in line with Blumensaat's line on t
 - **Return to sport**: high-demand/pivoting sport generally deferred 6-9 months, contingent on radiographic union, painless full ROM, and quadriceps/hamstring strength ≥85-90% of the contralateral limb.
 
 *Full context: "Femoral Shaft & Distal Femur Fractures" in the Diagnoses section.*
-`,Cw=`---
+`,Pw=`---
 title: Reverse Total Shoulder Arthroplasty (rTSA)
 tags: Arthroplasty, Shoulder & Elbow, rotator cuff tear arthropathy, reverse shoulder arthroplasty, rTSA, BIO-RSA, glenoid baseplate augmentation, scapular notching, Grammont, Hamada classification, Favard classification
 specialty: Arthroplasty
@@ -26682,7 +26682,7 @@ Not detailed in the source beyond the general shoulder arthroplasty exposure pri
 - **Return to sport**: low-demand recreational activity typically 4–6 months; contact/overhead athletic activity is individualized and often discouraged long-term given implant constraints.
 
 *Full context: "Shoulder & Elbow Arthritis and Arthroplasty" in the Diagnoses section.*
-`,Tw=`---
+`,Rw=`---
 title: Revision THA for Recurrent Instability
 tags: Arthroplasty, Multi-region, instability after THA, dislocation, revision hip arthroplasty, dual mobility, constrained liner, hip-spine syndrome, abductor insufficiency
 specialty: Arthroplasty
@@ -26723,7 +26723,7 @@ updated: 2026-08-15
 - Dislocation risk is highest immediately post-revision, particularly with extensive soft-tissue release; aseptic re-loosening and periprosthetic joint infection are both elevated versus primary arthroplasty.
 
 *Full context: "Periprosthetic Fractures & Revision Arthroplasty" in the Diagnoses section.*
-`,Pw=`---
+`,Mw=`---
 title: Sternoclavicular Joint Reduction — Closed & Open
 tags: Trauma, Shoulder & Elbow, sternoclavicular joint, SC joint injury, posterior dislocation, mediastinal injury, physeal fracture
 specialty: Trauma
@@ -26758,7 +26758,7 @@ Transverse incision over the joint for open reduction. Thoracic surgery should b
 The monograph does not specify a dedicated postoperative rehabilitation timeline for SC joint surgery; general activity modification and symptomatic management apply following reduction, with attention to the elevated risk of chronic instability/pain after posterior dislocations with associated ligament disruption.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,Rw=`---
+`,jw=`---
 title: Scaphoid Nonunion Bone Grafting — Vascularized & Non-Vascularized
 tags: Hand & Wrist, scaphoid nonunion, avascular necrosis, humpback deformity, Russe inlay, Matti-Russe, 1,2-ICSRA graft, medial femoral condyle graft, vascularized bone graft
 specialty: Hand & Wrist
@@ -26797,7 +26797,7 @@ Preoperative MRI (or reliance on intraoperative punctate bleeding) is used to as
 Thumb-spica immobilization 6–8 weeks (longer, 10–12 weeks, for vascularized MFC grafts with a structural block). Serial CT to confirm union before advancing loading — union is commonly assessed at 10–12 weeks postoperatively but may take up to 4–6 months. AROM and progressive strengthening follow confirmed union; return to unrestricted heavy use only after union is confirmed, often 4–6 months total.
 
 *Full context: "Scaphoid Fractures & Carpal Instability" in the Diagnoses section.*
-`,Mw=`---
+`,Ow=`---
 title: Scapholunate Ligament Repair & Reconstruction
 tags: Hand & Wrist, scapholunate ligament injury, SLIL, DISI, carpal instability, dorsal capsulodesis, Brunelli tenodesis, bone-retinaculum-bone graft, Internal Brace, arthroscopic capsulodesis
 specialty: Hand & Wrist
@@ -26842,7 +26842,7 @@ Diagnostic wrist arthroscopy is used both to confirm the Geissler grade (correla
 K-wire protection typically maintained 8–10 weeks; wrist immobilized in a cast/removable brace during this period with wires in place. After wire removal: begin gentle AROM (weeks 8–10), dart-thrower's-motion pattern training and scapholunate proprioceptive/neuromuscular retraining (a hallmark of modern SL rehab, exploiting the plane of motion that minimizes SL joint strain), progressive strengthening from ~12 weeks, return to sport/heavy labor at 4–6 months. A removable protective orthosis/taping for an additional 4–6 weeks after return to high-risk sport is a reasonable transitional measure.
 
 *Full context: "Scaphoid Fractures & Carpal Instability" in the Diagnoses section.*
-`,jw=`---
+`,Fw=`---
 title: Scapular & Glenoid ORIF
 tags: Trauma, Shoulder & Elbow, scapula fracture, glenoid fracture, Ideberg classification, glenopolar angle, Judet approach, floating shoulder
 specialty: Trauma
@@ -26877,7 +26877,7 @@ Posterior approach (Judet or minimally-invasive modified Judet) for glenoid neck
 - Intra-articular glenoid fixation follows a similar but slightly more conservative timeline respecting articular healing, with resisted loading deferred to ~8–10 wk.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,Ow=`---
+`,Dw=`---
 title: In-Situ Screw Fixation — Slipped Capital Femoral Epiphysis
 tags: Pediatrics, Pelvis & Hip, slipped capital femoral epiphysis, SCFE, in-situ pinning, cannulated screw, tip-apex, Loder classification, chondrolysis, prophylactic contralateral fixation
 specialty: Pediatrics
@@ -26920,7 +26920,7 @@ Fracture table with fluoroscopy. For unstable slips, only gentle positional redu
 - Return to school: 1–2 weeks for stable slips (crutch-assisted return acceptable); 2–4 weeks, protected, for unstable slips.
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,Fw=`---
+`,Lw=`---
 title: Modified Dunn Procedure — Slipped Capital Femoral Epiphysis
 tags: Pediatrics, Pelvis & Hip, slipped capital femoral epiphysis, SCFE, modified Dunn, Ganz surgical hip dislocation, unstable slip, femoroacetabular impingement, osteochondroplasty
 specialty: Pediatrics
@@ -26956,7 +26956,7 @@ Performed via a Ganz surgical hip dislocation approach, which allows direct visu
 Because the modified Dunn procedure is reserved for unstable/severe slips, post-operative management follows the unstable-slip pathway: strictly protected touch-down-only weight-bearing for a longer initial period (given the higher baseline AVN risk of this population and the theoretical benefit of unloading the compromised epiphysis), progressive weight-bearing as tolerated by weeks 2–6, and full weight-bearing typically by weeks 6–12 with hip/core physiotherapy and gait normalization. AVN surveillance (clinical and radiographic ± MRI) is required through at least the first postoperative year, since radiographic AVN changes may not appear for several months. Return to sport is deferred, often 6+ months, pending serial MRI/radiographic reassurance. Contralateral hip surveillance continues through skeletal maturity if prophylactic fixation was not performed.
 
 *Full context: "Pediatric Hip Disorders" in the Diagnoses section.*
-`,Dw=`---
+`,zw=`---
 title: Separation Surgery + SBRT — Metastatic Spinal Cord Compression
 tags: Spine, Metastatic spine disease, spinal metastasis, NOMS framework, Bilsky ESCC, stereotactic body radiotherapy, minimally invasive stabilization, epidural decompression
 specialty: Spine
@@ -26998,7 +26998,7 @@ The monograph emphasizes multidisciplinary tumor board discussion (surgery, radi
 - Minimally invasive stabilization approaches (percutaneous pedicle screw fixation, vertebral augmentation, radiofrequency ablation) are supported by a 2024 systematic review of >3,000 metastatic spine disease patients showing good pain control and reduced perioperative morbidity versus open surgery.
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,Lw=`---
+`,qw=`---
 title: Hemiarthroplasty & Reverse Total Shoulder Arthroplasty — Proximal Humerus Fractures
 tags: Trauma, Shoulder & Elbow, proximal humerus fracture, Neer classification, rTSA, hemiarthroplasty, axillary nerve, scapular notching, PROFHER
 specialty: Trauma
@@ -27035,7 +27035,7 @@ Deltopectoral approach (standard), protecting the cephalic vein in the deltopect
 - A 2024–2025 multicenter RCT found rTSA superior to locked plate fixation at 2 years for displaced fractures in the elderly, reinforcing the trend toward rTSA as primary (not salvage) treatment in appropriately selected older patients. However, a PLOS One systematic review/meta-analysis (2025, ~10 studies, 244 plate vs 287 rTSA patients) found functional superiority of either treatment remains statistically unresolved — individualize by patient factors rather than assuming a blanket protocol shift.
 
 *Full context: "Shoulder Girdle & Humerus Fractures" in the Diagnoses section.*
-`,zw=`---
+`,Ew=`---
 title: Arthroscopic SLAP Repair
 tags: Sports, Shoulder & Elbow, SLAP tear, SLAP lesion, Snyder classification, suture anchor, peel-back mechanism, biceps tenodesis, overhead athlete, throwing athlete, GIRD
 specialty: Sports
@@ -27077,7 +27077,7 @@ Not detailed beyond arthroscopic access with the arm positioned in abduction–e
 - Full return to competitive overhead sport typically 6–9 months (throwers on the longer end).
 
 *Full context: "Rotator Cuff & Biceps Pathology" in the Diagnoses section.*
-`,qw=`---
+`,Bw=`---
 title: SNAC/SLAC Wrist Salvage Ladder
 tags: Hand & Wrist, SLAC wrist, SNAC wrist, Watson classification, radial styloidectomy, four-corner fusion, proximal row carpectomy, total wrist fusion, total wrist arthroplasty, wrist denervation
 specialty: Hand & Wrist
@@ -27114,7 +27114,7 @@ Stage-appropriate procedure is selected intraoperatively/preoperatively based on
 The monograph does not provide a stage-specific rehabilitation table for salvage procedures. General principles for this diagnostic cluster apply: certified hand therapy input from the earliest safe point (edema control, scar management, desensitization); a graded return-to-work/return-to-sport protocol (light duty at union/fusion onset → progressive loading → unrestricted at confirmed radiographic union/fusion and functional strength ≥90% of contralateral side) is preferred over a fixed calendar date. As a general benchmark from related fusion/reconstruction procedures in this cluster, protected immobilization phases run 6–12+ weeks (longer for fusion procedures until trabecular bridging is confirmed on CT), with return to heavy labor typically at 3–4 months and full unrestricted use later depending on the specific salvage procedure performed.
 
 *Full context: "Scaphoid Fractures & Carpal Instability" in the Diagnoses section.*
-`,Ew=`---
+`,Hw=`---
 title: Staged Protocol — Pilon Fractures (Spanning External Fixation to Definitive ORIF)
 tags: Trauma, Knee & Leg, pilon fracture, plafond fracture, Rüedi-Allgöwer, AO/OTA 43, external fixation, ligamentotaxis, staged fixation, wrinkle sign
 specialty: Trauma
@@ -27157,7 +27157,7 @@ Stage 1 uses calcaneal and proximal tibial external fixator pins crossing the an
 - **Return to sport/impact activity:** highly individualized, often 6–12 months; a meaningful proportion of high-energy Rüedi III/AO 43-C3 patients will not return to pre-injury impact activity due to post-traumatic osteoarthritis.
 
 *Full context: "Tibial Plateau, Shaft & Pilon Fractures" in the Diagnoses section.*
-`,Bw=`---
+`,Nw=`---
 title: Sternocleidomastoid Release — Congenital Muscular Torticollis
 tags: Pediatrics, Multi-region, congenital muscular torticollis, CMT, sternocleidomastoid, unipolar release, bipolar release, Z-plasty, endoscopic release
 specialty: Pediatrics
@@ -27197,7 +27197,7 @@ Choice of technique depends on severity and surgeon preference; associated hip d
 - Full activity typically by 6–8 weeks.
 
 *Full context: "Pediatric Orthopedic Conditions" in the Diagnoses section.*
-`,Hw=`---
+`,_w=`---
 title: Subaxial Cervical Fracture-Dislocation Fixation — SLIC ≥5, AO Type C or B2/B3 with N Deficit
 tags: Spine, subaxial cervical fracture, facet dislocation, SLIC, AO Spine subaxial cervical classification, ACDF, lateral mass screw fixation, closed reduction, Gardner-Wells tongs, ankylosing spondylitis, DISH
 specialty: Spine
@@ -27233,7 +27233,7 @@ Closed reduction under fluoroscopy uses Gardner-Wells tongs/traction in an awake
 Post-op fixation patients typically mobilize with brace support per surgeon protocol, with formal ROM restrictions (avoid combined flexion-rotation for facet injuries, avoid extension in extension-type injuries) until early fusion consolidation (~6–8 weeks). Interval imaging at 6–12 weeks confirms healing/stability. Progressive resistance exercise and dynamic core stabilization follow once fusion is trending (3–6 months). Return to sedentary work is often possible by 6–8 weeks for stable fixation; heavy manual labor typically requires 3–6 months, longer if fusion levels are extensive or a neurologic deficit persists. Return-to-sport/contact-activity clearance requires solid radiographic fusion (≥4–6 months), full pain-free ROM, and normalized strength (≥90% of contralateral/baseline), and clearance for contact/collision sports remains individualized and controversial, particularly for constructs involving C1-C2.
 
 *Full context: "Spine Trauma" in the Diagnoses section.*
-`,Nw=`---
+`,Jw=`---
 title: Superior Capsular Reconstruction (SCR)
 tags: Sports, Shoulder & Elbow, massive irreparable cuff tear, superior capsular reconstruction, SCR, fascia lata autograft, dermal allograft, pseudoparalysis, Goutallier, Patte, tangent sign, lower trapezius transfer
 specialty: Sports
@@ -27273,7 +27273,7 @@ Not detailed in the source beyond graft harvest considerations: fascia lata is h
 - Full recovery/plateau often 9–12 months, given graft incorporation timelines.
 
 *Full context: "Rotator Cuff & Biceps Pathology" in the Diagnoses section.*
-`,_w=`---
+`,Kw=`---
 title: Intramedullary Nailing — Tibial Shaft Fractures (Suprapatellar Technique)
 tags: Trauma, Knee & Leg, tibial shaft fracture, AO/OTA 42, suprapatellar nailing, infrapatellar nailing, blocking screws, Poller screws, reamed nailing, open fracture, compartment syndrome
 specialty: Trauma
@@ -27316,7 +27316,7 @@ The suprapatellar semi-extended approach allows nailing with the knee in 10–20
 - **Return to sport:** running/pivoting sport generally deferred until solid radiographic union (bridging callus on 3+ cortices) and pain-free single-leg hop testing, commonly 4–6 months, longer for open/complex fractures.
 
 *Full context: "Tibial Plateau, Shaft & Pilon Fractures" in the Diagnoses section.*
-`,Jw=`---
+`,Gw=`---
 title: Surgical Antibiotic Prophylaxis Protocol — Orthopedic Surgery
 tags: Principles & Procedures, Multi-region, Surgical antibiotic prophylaxis, Antibiotic stewardship & allergy delabeling, cefazolin, penicillin allergy, surgical site infection, MRSA decolonization
 specialty: Principles & Procedures
@@ -27356,7 +27356,7 @@ Not applicable in the surgical-positioning sense — this is a preoperative and 
 - No prophylaxis-specific follow-up beyond standard wound surveillance; persistent wound drainage beyond postoperative day 5–7 should trigger wound review and PJI workup rather than continued or restarted antibiotics.
 
 *Full context: "Perioperative Care & Surgical Principles" in the Diagnoses section.*
-`,Kw=`---
+`,Vw=`---
 title: Surgical Hip Dislocation (Ganz Approach) — Femoral Head Fracture ORIF
 tags: Trauma, Pelvis & Hip, femoral head fracture, hip dislocation, Pipkin classification, surgical hip dislocation, Ganz approach, trochanteric flip osteotomy, Kocher-Langenbeck, avascular necrosis
 specialty: Trauma
@@ -27402,7 +27402,7 @@ Emergent closed reduction of the hip dislocation must occur first (within 6 h to
 - Return to sedentary work typically 4–8 weeks once pain-controlled; physically demanding work 3–6 months contingent on radiographic union and functional strength testing. High-demand recreational activity/sport (relevant mainly to younger patients) is generally deferred until full radiographic union and symmetric strength/hop testing, typically 4–9 months depending on fracture complexity.
 
 *Full context: "Proximal Femur Fractures" in the Diagnoses section.*
-`,Gw=`---
+`,Ww=`---
 title: Synthetic Cartilage Implant (Cartiva) — Hallux Rigidus
 tags: Foot & Ankle, hallux rigidus, synthetic cartilage implant, Cartiva, polyvinyl alcohol hydrogel, MOTION trial, motion-preserving arthroplasty, 1st MTP hemiarthroplasty
 specialty: Foot & Ankle
@@ -27440,7 +27440,7 @@ Dorsal approach to the 1st MTP joint, as for cheilectomy/arthrodesis. Minimal bo
 - General return-to-sport gating: near-full pain-free active ROM, pain-free single-leg heel-rise/hop, swelling resolved, graduated activity progression.
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,Vw=`---
+`,Uw=`---
 title: Talar Neck Fracture ORIF
 tags: Trauma, Foot & Ankle, talus fracture, talar neck fracture, Hawkins classification, avascular necrosis, medial malleolar osteotomy, headless compression screws
 specialty: Trauma
@@ -27481,7 +27481,7 @@ Dual anteromedial and anterolateral approaches are used to visualize both column
 - Return to sport/heavy labor is generally deferred to 6–12 months given slow union and the AVN risk window. Sedentary work 6–12 weeks.
 
 *Full context: "Ankle, Hindfoot & Midfoot Trauma" in the Diagnoses section.*
-`,Ww=`---
+`,Xw=`---
 title: Tarsal Coalition Resection with Interposition
 tags: Pediatrics, Multi-region, tarsal coalition, calcaneonavicular coalition, talocalcaneal coalition, peroneal spastic flatfoot, coalition resection, interposition graft, subtalar arthrodesis
 specialty: Pediatrics
@@ -27519,7 +27519,7 @@ Preoperative CT is the gold standard for characterizing coalition extent, precis
 - Return to sport typically 3–4 months.
 
 *Full context: "Pediatric Orthopedic Conditions" in the Diagnoses section.*
-`,Uw=`---
+`,Qw=`---
 title: Terrible Triad Injury — Sequential Fixation Protocol
 tags: Trauma, Shoulder & Elbow, Terrible triad injury, elbow dislocation, O'Driscoll coronoid classification, Mason classification, LCL repair, coronoid fixation, radial head arthroplasty, hinged external fixator
 specialty: Trauma
@@ -27567,7 +27567,7 @@ An alternative sequencing — **coronoid-first repair through an anterior approa
 - **Return to sport:** non-contact sport once a painless functional arc (30°–130° flexion, adequate rotation) and satisfactory strength are achieved, typically 3–4 months; contact/collision sport deferred to ~4–6 months and individualized to fixation stability and residual laxity on exam.
 
 *Full context: "Elbow & Forearm Fractures / Dislocations" in the Diagnoses section.*
-`,Xw=`---
+`,Zw=`---
 title: TFCC Repair — Arthroscopic and Open Techniques
 tags: Trauma, Hand & Wrist, TFCC injury (acute), Palmer classification, DRUJ instability, triangular fibrocartilage complex, wrist arthroscopy, wrist trauma
 specialty: Trauma
@@ -27606,7 +27606,7 @@ Wrist arthroscopy setup for arthroscopic repair; open exposure for transosseous 
 - **Return to sport**: individualized for TFCC repairs, where forearm rotation loading is the rate-limiting recovery domain; generally not before 3 months for high-demand/impact activity.
 
 *Full context: "Distal Radius & DRUJ Injuries" in the Diagnoses section.*
-`,Qw=`---
+`,Yw=`---
 title: Total Hip Arthroplasty with Subtrochanteric Shortening Osteotomy — Complex Dysplasia
 tags: Arthroplasty, Pelvis & Hip, adult hip dysplasia, total hip arthroplasty, subtrochanteric shortening derotational osteotomy, Crowe classification, Hartofilakidis classification, high hip dislocation, structural autograft
 specialty: Arthroplasty
@@ -27644,7 +27644,7 @@ Standard THA positioning and approach apply; the monograph's technical discussio
 The monograph does not detail a separate phased rehabilitation protocol specific to this procedure. General THA precautions apply, with particular attention to osteotomy-site healing and postoperative sciatic/femoral nerve function monitoring given the elevated risk of nerve injury with concurrent correction of severe deformity.
 
 *Full context: "Femoral Head Osteonecrosis & Hip Preservation" in the Diagnoses section.*
-`,Zw=`---
+`,$w=`---
 title: Posterior Segmental Fixation — Thoracolumbar Burst & Chance (Flexion-Distraction) Fractures
 tags: Spine, thoracolumbar burst fracture, Chance fracture, flexion-distraction injury, TLICS, AO Spine thoracolumbar classification, pedicle screw fixation, ligamentotaxis, decompression, index-level screw
 specialty: Spine
@@ -27681,7 +27681,7 @@ Posterior midline exposure for pedicle screw instrumentation; anterior corpectom
 Wound care and pain control acutely (0–2 weeks), with mobilization typically beginning per surgeon protocol within 24–72 hours (bed rest is avoided given pneumonia, DVT, and deconditioning risk). In the subacute phase (2–12 weeks), patients mobilize with brace support per protocol, with interval imaging at 6–12 weeks to confirm fixation stability. Progressive resistance exercise and dynamic core stabilization follow once fusion is trending (3–6 months). Return to sedentary work is often possible by 6–8 weeks for stable fixation; heavy manual labor typically requires 3–6 months, longer with extensive fusion levels or persistent neurologic deficit. Return-to-sport/high-demand clearance requires solid radiographic fusion (typically ≥4–6 months), full pain-free ROM, normalized strength, and clearance imaging showing no hardware failure or progressive deformity.
 
 *Full context: "Spine Trauma" in the Diagnoses section.*
-`,Yw=`---
+`,ek=`---
 title: Tibial Plateau ORIF — Staged Fixation & Column-Based Approach Selection
 tags: Trauma, Knee & Leg, tibial plateau fracture, Schatzker, Luo three-column, bicondylar fracture, external fixation, ligamentotaxis, buttress plate, fibular head osteotomy, compartment syndrome
 specialty: Trauma
@@ -27726,7 +27726,7 @@ Occasionally a direct posterior approach is used for isolated posterior column s
 - **6–12+ months:** return to impact/pivoting sport individualized to fracture severity, articular congruity achieved, and residual laxity. A 2025 RCT found immediate weight-bearing after stable internal fixation yielded better clinical outcomes with similar radiographic outcomes compared with delayed weight-bearing in selected patients — an evolving area suggesting some current protocols may be more conservative than necessary in well-fixed constructs, though this should be individualized rather than applied blanket-fashion to comminuted or elderly osteoporotic patterns.
 
 *Full context: "Tibial Plateau, Shaft & Pilon Fractures" in the Diagnoses section.*
-`,$w=`---
+`,ik=`---
 title: Tibial Tubercle Osteotomy — Patellar Instability
 tags: Sports, Knee & Leg, patellar instability, TT-TG, patella alta, Elmslie-Trillat, Fulkerson, Roux-Goldthwait, MPFL reconstruction, à-la-carte algorithm
 specialty: Sports
@@ -27773,7 +27773,7 @@ Performed as part of a combined patellar stabilization procedure (typically alon
 - When combined with MPFL-R, the broader rehabilitation timeline (ROM progression, brace weaning, strengthening, return-to-sport criteria at 6–9 months) follows the same instability rehabilitation protocol, gated by the TTO-specific weight-bearing and union restrictions above.
 
 *Full context: "Patellofemoral Disorders & Extensor Mechanism" in the Diagnoses section.*
-`,ek=`---
+`,tk=`---
 title: Total Ankle Replacement vs. Arthrodesis — End-Stage Ankle Osteoarthritis
 tags: Foot & Ankle, ankle osteoarthritis, total ankle replacement, TAR, ankle arthrodesis, tibiotalar fusion, TARVA trial, post-traumatic ankle arthritis
 specialty: Foot & Ankle
@@ -27813,7 +27813,7 @@ Not detailed at the approach/room-setup level in the source material.
 **Total ankle replacement**: protocol varies by implant/approach, but a common pathway is splint NWB 2 weeks, then transition to a CAM boot with progressive weightbearing beginning around 2–4 weeks (faster than arthrodesis since press-fit/cemented fixation does not require bony union across a joint); early ROM exercises started once the wound is stable; formal PT emphasizing ankle ROM, gait training, and proprioception from 4–6 weeks; return to low-impact activity 3–4 months; avoid high-impact/running activity indefinitely per most surgeons given implant longevity concerns. Modern designs report ~90% implant survivorship at 10 years in registries and selected series.
 
 *Full context: "Hindfoot, Ankle & Diabetic Foot Disorders" in the Diagnoses section.*
-`,ik=`---
+`,nk=`---
 title: Total Elbow Arthroplasty (TEA)
 tags: Shoulder & Elbow, elbow osteoarthritis, total elbow arthroplasty, TEA, Coonrad-Morrey, linked elbow arthroplasty, unlinked elbow arthroplasty, lifting restriction, triceps approach
 specialty: Arthroplasty
@@ -27851,7 +27851,7 @@ A triceps-splitting or triceps-reflecting approach is used in at least some case
 - Target functional outcome: flexion contracture <30°, functional arc 30–130°.
 
 *Full context: "Shoulder & Elbow Arthritis and Arthroplasty" in the Diagnoses section.*
-`,tk=`---
+`,ak=`---
 title: Total Hip Arthroplasty — Primary, for Hip Osteoarthritis
 tags: Arthroplasty, Pelvis & Hip, hip osteoarthritis, coxarthrosis, inflammatory hip arthritis, total hip arthroplasty, THA, posterior approach, direct anterior approach, DAA, direct lateral approach, Hardinge, dual mobility, spinopelvic, cemented vs uncemented, bearing surface, Dorr classification, Tönnis grade
 specialty: Arthroplasty
@@ -27914,7 +27914,7 @@ Radiographically confirmed hip joint destruction (Tönnis ≥2, generally Kellgr
 **Inflammatory arthritis note:** coordinate the rehabilitation timeline with rheumatology, since disease flares can transiently limit PT participation; polyarticular involvement (contralateral hip, knees, shoulders) may slow expected milestones and requires individualized goal-setting; osteopenic bone quality reinforces adherence to any surgeon-specific loading precautions in the first 6 weeks even when WBAT is otherwise permitted.
 
 *Full context: "Hip Osteoarthritis & Total Hip Arthroplasty" in the Diagnoses section.*
-`,nk=`---
+`,rk=`---
 title: Total Knee Arthroplasty — Multicompartmental Knee Osteoarthritis
 tags: Arthroplasty, Knee & Leg, Knee osteoarthritis, TKA, mechanical alignment, kinematic alignment, restricted kinematic alignment, functional alignment, robotic arthroplasty, cementless TKA, patellar resurfacing
 specialty: Arthroplasty
@@ -27970,7 +27970,7 @@ Not detailed in the monograph beyond the requirement for full-length hip-to-ankl
 VTE prophylaxis: contemporary AAOS/ACCP-aligned protocols support aspirin as adequate prophylaxis for standard-risk patients, reserving more potent anticoagulation (LMWH, DOACs) for patients with elevated VTE risk factors.
 
 *Full context: "Knee Osteoarthritis, Osteotomy, UKA & TKA" in the Diagnoses section.*
-`,ak=`---
+`,ok=`---
 title: Pneumatic Tourniquet Use — Extremity Surgery
 tags: Principles & Procedures, Multi-region, Tourniquet use, limb occlusion pressure, exsanguination, bloodless field, total knee arthroplasty, tourniquet-less TKA, tourniquet-related nerve palsy
 specialty: Principles & Procedures
@@ -28010,7 +28010,7 @@ Cuff pressure is set at the limb occlusion pressure plus a 50–100mmHg safety m
 No tourniquet-specific postoperative protocol beyond standard limb monitoring for neurovascular status and compartment syndrome signs in the immediate postoperative period; the choice of tourniquet strategy is folded into the broader ERAS/blood-management pathway (see the ERAS and TXA protocols) rather than followed by a distinct rehabilitation track of its own.
 
 *Full context: "Perioperative Care & Surgical Principles" in the Diagnoses section.*
-`,rk=`---
+`,sk=`---
 title: Tranexamic Acid Administration — Perioperative Blood Management
 tags: Principles & Procedures, Multi-region, Tranexamic acid use, Blood management, TXA, fibrinolysis, blood loss reduction, hip fracture, arthroplasty
 specialty: Principles & Procedures
@@ -28049,7 +28049,7 @@ Not applicable in the surgical-positioning sense — TXA is a pharmacologic adju
 No dedicated TXA-specific postoperative monitoring beyond standard perioperative VTE and bleeding surveillance; TXA is folded into the broader blood-management and ERAS pathway rather than followed by its own distinct protocol. Restrictive transfusion threshold (Hb <8g/dL symptomatic or <7g/dL asymptomatic) applies regardless of TXA use.
 
 *Full context: "Perioperative Care & Surgical Principles" in the Diagnoses section.*
-`,ok=`---
+`,lk=`---
 title: Trapeziectomy-Based Reconstruction — Thumb CMC Arthritis
 tags: Hand & Wrist, thumb CMC arthritis, trapeziometacarpal arthritis, Eaton-Littler classification, LRTI, suspensionplasty, CMC arthrodesis, implant arthroplasty
 specialty: Hand & Wrist
@@ -28089,7 +28089,7 @@ Not specified beyond the standard exposure needed for each reconstructive option
 - CMC arthrodesis: immobilization 6-8 weeks until radiographic union, then progressive mobilization of adjacent joints (IP, wrist) that were spared, with heavy loading deferred to approximately 3 months.
 
 *Full context: "Hand & Wrist Conditions" in the Diagnoses section.*
-`,sk=`---
+`,ck=`---
 title: Trochleoplasty — Trochlear Dysplasia
 tags: Sports, Knee & Leg, trochlear dysplasia, patellar instability, Dejour classification, Bereiter technique, MPFL reconstruction, à-la-carte algorithm
 specialty: Sports
@@ -28126,7 +28126,7 @@ Performed as an open bony procedure, typically combined with or followed by MPFL
 - Pediatric outcomes data show low recurrent instability (~1%) but a notable arthrofibrosis rate (~13%), reinforcing the value of a structured, closely supervised motion protocol in younger patients.
 
 *Full context: "Patellofemoral Disorders & Extensor Mechanism" in the Diagnoses section.*
-`,lk=`---
+`,dk=`---
 title: Two-Portal Posterior Hindfoot Endoscopy — Posterior Ankle Impingement
 tags: Foot & Ankle, posterior ankle impingement, os trigonum, Stieda process, FHL tenosynovitis, van Dijk technique, dancer's ankle, footballer's ankle
 specialty: Foot & Ankle
@@ -28161,7 +28161,7 @@ Prone position, using posterolateral and posteromedial portals (van Dijk techniq
 Weightbearing as tolerated in a supportive boot or shoe within days; early ROM; return to sport typically 4–8 weeks depending on sport demands and whether concurrent FHL or ligament work was performed. Contemporary reviews confirm two-portal posterior hindfoot endoscopy as the standard of care, with high satisfaction and rapid return to sport in athletes.
 
 *Full context: "Hindfoot, Ankle & Diabetic Foot Disorders" in the Diagnoses section.*
-`,ck=`---
+`,uk=`---
 title: Two-Stage Exchange Arthroplasty — Chronic Periprosthetic Joint Infection
 tags: Arthroplasty, Multi-region, periprosthetic joint infection, PJI, two-stage exchange, antibiotic spacer, articulating spacer, static spacer, revision arthroplasty, rifampin
 specialty: Arthroplasty
@@ -28214,7 +28214,7 @@ A staged procedure across two separate anesthetic events, separated by a systemi
 **Monitoring:** Serial CRP/ESR at defined intervals as a treatment-response surrogate (not a stand-alone "cure" criterion), wound surveillance at every visit, and a low threshold to re-image or re-aspirate if pain, swelling, drainage, or marker plateau/rebound occurs.
 
 *Full context: "Periprosthetic Joint Infection" in the Diagnoses section.*
-`,dk=`---
+`,pk=`---
 title: Ulnar Shortening Osteotomy
 tags: Hand & Wrist, ulnar impaction, TFCC injury chronic, ulnar-positive variance, DRUJ stability, step-cut osteotomy, compression plate
 specialty: Hand & Wrist
@@ -28250,7 +28250,7 @@ A dedicated cutting/compression guide/jig system is used to ensure parallel cuts
 Splint/brace for 2 weeks, then removable brace. AROM of the wrist/forearm (pronosupination) is started early (within 1–2 weeks) to avoid stiffness — forearm rotation is the ROM domain most at risk and should be tracked specifically. Avoid axial loading/heavy gripping until the osteotomy shows bridging callus (typically 8–12 weeks). Full unrestricted use/sport by 3–4 months.
 
 *Full context: "Scaphoid Fractures & Carpal Instability" in the Diagnoses section.*
-`,uk=`---
+`,hk=`---
 title: Unicompartmental Knee Arthroplasty — Medial/Lateral Compartment Knee Osteoarthritis
 tags: Arthroplasty, Knee & Leg, Knee osteoarthritis, UKA, Kozinn-Scott criteria, mobile-bearing, fixed-bearing, robotic arthroplasty
 specialty: Arthroplasty
@@ -28297,7 +28297,7 @@ Not detailed in the monograph beyond the general operative setup for compartment
 | Return to work/sport | 6–12 weeks (desk work often 1–2 weeks) | — | — | Manual labor 8–12 weeks; low-impact sport (golf, cycling, doubles tennis) 6–12 weeks — UKA's faster recovery profile versus TKA is one of its principal selling points to active patients |
 
 *Full context: "Knee Osteoarthritis, Osteotomy, UKA & TKA" in the Diagnoses section.*
-`,pk=`---
+`,mk=`---
 title: Vascularized Bone Grafting & Rotational Osteotomy — Femoral Head Osteonecrosis
 tags: Arthroplasty, Pelvis & Hip, osteonecrosis of the femoral head, avascular necrosis, AVN, vascularized fibular graft, vascularized iliac crest graft, Sugioka osteotomy, rotational osteotomy, hip preservation, ARCO
 specialty: Arthroplasty
@@ -28342,7 +28342,7 @@ Vascularized fibular grafting requires microsurgical setup for the vascular anas
 The monograph does not detail a distinct phased rehabilitation protocol for these two procedures. Reported survivorship for vascularized fibular grafting in expert hands is 70–80% at 5–10 years in selected series — historically the best reported joint-preservation results for large lesions. General ONFH joint-preservation principles apply: protected weight-bearing during the early healing/decision window and serial surveillance imaging to detect interval collapse.
 
 *Full context: "Femoral Head Osteonecrosis & Hip Preservation" in the Diagnoses section.*
-`,hk=`---
+`,gk=`---
 title: Vertebral Body Tethering (VBT) — Adolescent Idiopathic Scoliosis
 tags: Spine, Adolescent idiopathic scoliosis, AIS, fusionless surgery, growth modulation, Sanders staging, FDA Humanitarian Device Exemption, tether breakage, thoracic curve
 specialty: Spine
@@ -28378,7 +28378,7 @@ Placed via anterior vertebral body access to allow screw placement along the con
 The monograph does not detail a VBT-specific rehabilitation protocol distinct from general fusionless-surgery recovery; follow-up centers on serial radiographic monitoring of curve correction, growth, and tether integrity, with close surveillance for the failure modes above (breakage, overcorrection, need for conversion to fusion) through skeletal maturity and beyond.
 
 *Full context: "Spinal Deformity, Infection & Tumors" in the Diagnoses section.*
-`,mk=`---
+`,fk=`---
 title: Volar Locking Plate Fixation — Distal Radius Fractures
 tags: Trauma, Hand & Wrist, distal radius fracture, volar locking plate, watershed line, Fernandez, AO/OTA 23, Melone, DRUJ instability, wrist trauma
 specialty: Trauma
@@ -28423,7 +28423,7 @@ Modified Henry (flexor carpi radialis) volar approach. Plate placement proximal 
 - **Return to sport**: pain-free full composite ROM, grip strength ≥85–90% of contralateral side, radiographic union, and sport-specific functional testing — generally not before 3 months for high-demand/impact sport.
 
 *Full context: "Distal Radius & DRUJ Injuries" in the Diagnoses section.*
-`,gk=`---
+`,yk=`---
 title: Perioperative VTE Prophylaxis — Total Hip Arthroplasty
 tags: Arthroplasty, Pelvis & Hip, total hip arthroplasty, THA, VTE prophylaxis, venous thromboembolism, aspirin, ICM 2022, CHEST guidelines, deep vein thrombosis, pulmonary embolism, mechanical compression
 specialty: Arthroplasty
@@ -28464,7 +28464,7 @@ Not applicable in the surgical-positioning sense — this is a perioperative pha
 - No dedicated additional follow-up beyond standard THA surveillance; reassess if new-onset leg swelling, calf pain, or respiratory symptoms arise during the prophylaxis window.
 
 *Full context: "Hip Osteoarthritis & Total Hip Arthroplasty" in the Diagnoses section.*
-`,fk=`---
+`,vk=`---
 title: Weil Osteotomy, DMMO & Plantar Plate Repair — Lesser Toe and Metatarsalgia Correction
 tags: Foot & Ankle, metatarsalgia, crossover toe, Weil osteotomy, DMMO, plantar plate repair, floating toe, PIP arthroplasty, PIP arthrodesis, lesser MTP overload
 specialty: Foot & Ankle
@@ -28508,7 +28508,7 @@ Dorsal approach to the affected lesser MTP joint(s) for open Weil and plantar pl
 - **Return to sport**: typically **8–12 weeks**, longer if plantar plate repair was performed given the need for soft-tissue healing under tension.
 
 *Full context: "Forefoot Disorders" in the Diagnoses section.*
-`,yk=`---
+`,bk=`---
 title: Wide Resection with Perioperative Radiation — Soft Tissue Sarcoma
 tags: Oncology & Metabolic, Multi-region, soft tissue sarcoma, STS, wide resection, radiation therapy, preoperative radiation, postoperative radiation, neoadjuvant chemotherapy, FNCLCC
 specialty: Oncology & Metabolic
@@ -28554,7 +28554,7 @@ The monograph does not specify a phased weight-bearing/ROM protocol specific to 
 Post-treatment surveillance for high-grade STS: physical exam ± local MRI every 3–4 months years 1–3, then every 6 months years 4–5; CT chest every 3–4 months years 1–3, spacing out thereafter; total surveillance duration 5–10 years.
 
 *Full context: "Bone & Soft Tissue Tumors" in the Diagnoses section.*
-`,vk=`---
+`,wk=`---
 title: Perioperative Wound Closure & DAIR-Prevention Protocol
 tags: Principles & Procedures, Multi-region, DAIR-prevention wound care, periprosthetic joint infection prevention, surgical site infection, incisional NPWT, wound drainage, layered closure
 specialty: Principles & Procedures
@@ -28595,14 +28595,14 @@ Not applicable in the surgical-positioning sense — this protocol covers preope
 - Bone-health/secondary-fracture-prevention follow-up continues in parallel for fragility-fracture patients, independent of wound status.
 
 *Full context: "Perioperative Care & Surgical Principles" in the Diagnoses section.*
-`,bk=Object.assign({"./content/checklists/_template-case-prep.md":Xp,"./content/classifications/_template-classification.md":Qp,"./content/classifications/achilles-tendinopathy-insertional-midportion-haglund-classification.md":Zp,"./content/classifications/ahlback-classification-knee.md":Yp,"./content/classifications/allman-classification-clavicle.md":$p,"./content/classifications/anderson-dalonzo-odontoid-classification.md":eh,"./content/classifications/ao-ota-11-proximal-humerus.md":ih,"./content/classifications/ao-ota-12-humeral-shaft.md":th,"./content/classifications/ao-ota-13-distal-humerus.md":nh,"./content/classifications/ao-ota-23-distal-radius.md":ah,"./content/classifications/ao-ota-31-proximal-femur.md":rh,"./content/classifications/ao-ota-32-femoral-shaft.md":oh,"./content/classifications/ao-ota-33-distal-femur.md":sh,"./content/classifications/ao-ota-41-tibial-plateau.md":lh,"./content/classifications/ao-ota-42-tibial-shaft.md":ch,"./content/classifications/ao-ota-43-pilon.md":dh,"./content/classifications/ao-spine-subaxial-cervical-injury-classification.md":uh,"./content/classifications/ao-spine-thoracolumbar-injury-classification.md":ph,"./content/classifications/aori-classification-knee-defects-revision-tka.md":hh,"./content/classifications/arco-2019-classification-osteonecrosis-femoral-head.md":mh,"./content/classifications/asa-physical-status-classification-perioperative.md":gh,"./content/classifications/asbmr-atypical-femoral-fracture-criteria.md":fh,"./content/classifications/asia-impairment-scale-spinal-cord-injury.md":yh,"./content/classifications/bado-monteggia.md":vh,"./content/classifications/bamic-classification-muscle-injury.md":bh,"./content/classifications/bilsky-classification-epidural-spinal-cord-compression.md":wh,"./content/classifications/blazina-classification-patellar-tendinopathy.md":kh,"./content/classifications/brodsky-classification-charcot-foot.md":xh,"./content/classifications/budapest-criteria-crps.md":Ih,"./content/classifications/campanacci-classification-giant-cell-tumor.md":Ah,"./content/classifications/caprini-score-perioperative-vte-risk.md":Sh,"./content/classifications/caton-deschamps-index.md":Ch,"./content/classifications/cfa-classification-chronic-ankle-instability.md":Th,"./content/classifications/cierny-mader-classification-osteomyelitis.md":Ph,"./content/classifications/clavien-dindo-classification-surgical-complications.md":Rh,"./content/classifications/cobb-angle-thresholds-scoliosis.md":Mh,"./content/classifications/cofield-classification-rotator-cuff-tear-size.md":jh,"./content/classifications/coleman-block-test-cavovarus-foot.md":Oh,"./content/classifications/coughlin-classification-bunionette.md":Fh,"./content/classifications/coughlin-nery-plantar-plate-tear-classification.md":Dh,"./content/classifications/coughlin-shurnas-classification-hallux-rigidus.md":Lh,"./content/classifications/cpak-classification-knee.md":zh,"./content/classifications/crowe-classification-hip-dysplasia.md":qh,"./content/classifications/dejour-classification-trochlear-dysplasia.md":Eh,"./content/classifications/denis-classification-sacral-fractures.md":Bh,"./content/classifications/dimeglio-classification-clubfoot.md":Hh,"./content/classifications/donaldson-classification-bone-cement-implantation-syndrome.md":Nh,"./content/classifications/dorr-classification-femoral-bone.md":_h,"./content/classifications/eaton-littler-classification-thumb-cmc.md":Jh,"./content/classifications/ebjis-classification-pji.md":Kh,"./content/classifications/eichenholtz-classification-charcot-foot.md":Gh,"./content/classifications/elbow-dislocation-stability-classification.md":Vh,"./content/classifications/ellman-classification-partial-thickness-rotator-cuff-tears.md":Wh,"./content/classifications/enneking-msts-staging-bone-soft-tissue-tumors.md":Uh,"./content/classifications/enneking-staging-primary-spine-tumors.md":Xh,"./content/classifications/evans-jensen-classification-intertrochanteric.md":Qh,"./content/classifications/extensor-tendon-zones-hand.md":Zh,"./content/classifications/fanelli-classification-posterolateral-corner.md":Yh,"./content/classifications/favard-classification-glenoid-erosion-cuff-tear-arthropathy.md":$h,"./content/classifications/fernandez-classification-distal-radius.md":em,"./content/classifications/ffp-rommens-classification-fragility-pelvis.md":im,"./content/classifications/ficat-arlet-classification-osteonecrosis.md":tm,"./content/classifications/frax-dexa-t-score-osteoporosis.md":nm,"./content/classifications/fri-consensus-definition-confirmatory-criteria.md":am,"./content/classifications/frykman-classification-distal-radius.md":rm,"./content/classifications/garcia-elias-staging-scapholunate-instability.md":om,"./content/classifications/garden-classification-femoral-neck.md":sm,"./content/classifications/gartland-classification-supracondylar-humerus-fracture.md":lm,"./content/classifications/gartner-classification-calcific-tendinopathy-shoulder.md":cm,"./content/classifications/glenoid-track-on-off-track-shoulder-instability.md":dm,"./content/classifications/gmfcs-cerebral-palsy.md":um,"./content/classifications/goutallier-classification-fatty-infiltration-rotator-cuff.md":pm,"./content/classifications/graf-classification-hip-ultrasound-ddh.md":hm,"./content/classifications/green-classification-trigger-finger.md":mm,"./content/classifications/gustilo-anderson-classification-infection-risk-context.md":gm,"./content/classifications/gustilo-anderson-open-fractures.md":fm,"./content/classifications/hallux-valgus-severity-hva-ima-classification.md":ym,"./content/classifications/hamada-classification-cuff-tear-arthropathy.md":vm,"./content/classifications/hammer-claw-mallet-toe-classification.md":bm,"./content/classifications/hartofilakidis-classification-hip-dysplasia.md":wm,"./content/classifications/hawkins-classification-talar-neck-fracture.md":km,"./content/classifications/hepple-berndt-harty-classification-osteochondral-lesion-talus.md":xm,"./content/classifications/herbert-fisher-classification-scaphoid-fracture.md":Im,"./content/classifications/herring-lateral-pillar-classification-perthes.md":Am,"./content/classifications/icm-msis-classification-pji.md":Sm,"./content/classifications/icrs-classification-knee-cartilage.md":Cm,"./content/classifications/icrs-ocd-staging-knee.md":Tm,"./content/classifications/ideberg-classification-glenoid.md":Pm,"./content/classifications/idsa-iwgdf-classification-diabetic-foot-infection.md":Rm,"./content/classifications/ihdi-classification-developmental-dysplasia-hip.md":Mm,"./content/classifications/isis-score-shoulder-instability.md":jm,"./content/classifications/jefferson-fracture-c1-ring-stability.md":Om,"./content/classifications/judet-classification-radial-neck-fracture.md":Fm,"./content/classifications/judet-letournel-acetabular-fractures.md":Dm,"./content/classifications/k-line-opll.md":Lm,"./content/classifications/kanavel-signs-flexor-sheath-infection.md":zm,"./content/classifications/kellgren-lawrence-hip.md":qm,"./content/classifications/kellgren-lawrence-injection-response.md":Em,"./content/classifications/kellgren-lawrence-knee.md":Bm,"./content/classifications/kocher-criteria-septic-arthritis-pediatric-hip.md":Hm,"./content/classifications/kocher-criteria-septic-arthritis-transient-synovitis.md":Nm,"./content/classifications/lafosse-classification-subscapularis-tears.md":_m,"./content/classifications/langenskiold-classification-blount-disease.md":Jm,"./content/classifications/laprade-classification-meniscal-root-tears.md":Km,"./content/classifications/lauge-hansen-classification-ankle-fracture.md":Gm,"./content/classifications/lee-classification-lumbar-disc-herniation-zones.md":Vm,"./content/classifications/lenke-classification-adolescent-idiopathic-scoliosis.md":Wm,"./content/classifications/levine-edwards-hangman-classification.md":Um,"./content/classifications/lewis-rorabeck-classification-periprosthetic-tka-fracture.md":Xm,"./content/classifications/lichtman-classification-kienbock-disease.md":Qm,"./content/classifications/loder-classification-scfe-stability.md":Zm,"./content/classifications/lodwick-madewell-classification-bone-lesions.md":Ym,"./content/classifications/lrinec-score-necrotizing-fasciitis.md":$m,"./content/classifications/luo-three-column-classification-tibial-plateau.md":eg,"./content/classifications/mason-molloy-classification-posterior-malleolus-fracture.md":ig,"./content/classifications/mason-radial-head-fracture.md":tg,"./content/classifications/mayfield-classification-perilunate-instability.md":ng,"./content/classifications/mayo-classification-scaphoid-fracture-location.md":ag,"./content/classifications/mayo-olecranon-fracture.md":rg,"./content/classifications/mcgowan-classification-cubital-tunnel-syndrome.md":og,"./content/classifications/mcl-grading-classification-knee.md":sg,"./content/classifications/mcpherson-host-grading-classification-pji.md":lg,"./content/classifications/melone-classification-distal-radius.md":cg,"./content/classifications/meniscus-tear-morphology.md":dg,"./content/classifications/meyerding-classification-lumbar-spondylolisthesis.md":ug,"./content/classifications/meyers-mckeever-classification-tibial-spine-avulsion.md":pg,"./content/classifications/milch-jakob-weiss-classification-lateral-condyle-fracture.md":hg,"./content/classifications/mirels-score-pathologic-fracture-risk.md":mg,"./content/classifications/mjoa-severity-score-cervical-myelopathy.md":gg,"./content/classifications/modic-classification-vertebral-endplate-changes.md":fg,"./content/classifications/myerson-classification-lisfranc-injury.md":yg,"./content/classifications/neer-classification-distal-clavicle.md":vg,"./content/classifications/neer-classification-proximal-humerus.md":bg,"./content/classifications/nonunion-types-classification.md":wg,"./content/classifications/nunley-vertullo-classification-lisfranc-injury.md":kg,"./content/classifications/nurick-grade-cervical-myelopathy.md":xg,"./content/classifications/odriscoll-coronoid-fracture.md":Ig,"./content/classifications/opll-morphologic-classification.md":Ag,"./content/classifications/ota-open-fracture-classification.md":Sg,"./content/classifications/outerbridge-classification-knee-cartilage.md":Cg,"./content/classifications/palmer-classification-tfcc.md":Tg,"./content/classifications/paprosky-classification-acetabular-defects-revision-arthroplasty.md":Pg,"./content/classifications/paprosky-classification-acetabular-defects.md":Rg,"./content/classifications/paprosky-classification-femoral-defects-revision-arthroplasty.md":Mg,"./content/classifications/patte-classification-rotator-cuff-retraction.md":jg,"./content/classifications/pauwels-classification-femoral-neck.md":Og,"./content/classifications/pcfd-consensus-classification-flatfoot.md":Fg,"./content/classifications/pcl-grading-posterior-tibial-translation.md":Dg,"./content/classifications/pfirrmann-classification-lumbar-disc-degeneration.md":Lg,"./content/classifications/pipkin-classification-femoral-head.md":zg,"./content/classifications/pirani-score-clubfoot.md":qg,"./content/classifications/prp-preparation-classification-lr-vs-lp.md":Eg,"./content/classifications/puranen-orava-classification-hamstring-strain.md":Bg,"./content/classifications/risser-classification-scoliosis-skeletal-maturity.md":Hg,"./content/classifications/robinson-classification-clavicle.md":Ng,"./content/classifications/rockwood-classification-ac-joint.md":_g,"./content/classifications/ruedi-allgower-classification-pilon.md":Jg,"./content/classifications/russe-classification-scaphoid-fracture-orientation.md":Kg,"./content/classifications/salenius-vankka-curve-physiologic-tibiofemoral-angle.md":Gg,"./content/classifications/salter-harris-classification-physeal-fractures.md":Vg,"./content/classifications/samilson-prieto-classification-glenohumeral-oa.md":Wg,"./content/classifications/samilson-prieto-classification-post-instability-arthropathy.md":Ug,"./content/classifications/sanders-classification-calcaneus-fracture.md":Xg,"./content/classifications/schatzker-classification-tibial-plateau.md":Qg,"./content/classifications/schenck-classification-knee-dislocation.md":Zg,"./content/classifications/schizas-classification-lumbar-spinal-stenosis.md":Yg,"./content/classifications/segond-fracture-reverse-segond-knee.md":$g,"./content/classifications/seinsheimer-classification-subtrochanteric.md":ef,"./content/classifications/sesamoid-pathology-diagnostic-categories.md":tf,"./content/classifications/sins-spinal-instability-neoplastic-score.md":nf,"./content/classifications/slic-subaxial-cervical-spine-injury-classification.md":af,"./content/classifications/smillie-staging-freiberg-disease.md":rf,"./content/classifications/snyder-classification-slap-lesions.md":of,"./content/classifications/southwick-angle-scfe-severity.md":sf,"./content/classifications/srs-schwab-classification-adult-spinal-deformity.md":lf,"./content/classifications/stanmore-triangle-shoulder-instability.md":cf,"./content/classifications/steinberg-classification-osteonecrosis.md":df,"./content/classifications/stulberg-classification-perthes-outcome.md":uf,"./content/classifications/su-classification-periprosthetic-distal-femur.md":pf,"./content/classifications/su-classification-periprosthetic-fracture-revision-arthroplasty.md":hf,"./content/classifications/tietjen-classification-pectoralis-major-rupture.md":mf,"./content/classifications/tile-ao-classification-pelvic-ring.md":gf,"./content/classifications/tlics-thoracolumbar-injury-severity-score.md":ff,"./content/classifications/tokuhashi-score-metastatic-spine-disease.md":yf,"./content/classifications/tomita-score-metastatic-spine-disease.md":vf,"./content/classifications/tonnis-classification-hip-dysplasia-pao.md":bf,"./content/classifications/tonnis-classification-pediatric-hip-dislocation.md":wf,"./content/classifications/tonnis-grade-hip-osteoarthritis.md":kf,"./content/classifications/torg-pavlov-ratio-cervical-canal-stenosis.md":xf,"./content/classifications/tscherne-classification-closed-soft-tissue-injury.md":If,"./content/classifications/tsukayama-zimmerli-classification-pji.md":Af,"./content/classifications/tt-tg-distance-thresholds.md":Sf,"./content/classifications/tubiana-classification-dupuytren-disease.md":Cf,"./content/classifications/vancouver-ucs-classification-periprosthetic-femur-fracture.md":Tf,"./content/classifications/verdan-flexor-tendon-zones.md":Pf,"./content/classifications/walch-classification-glenohumeral-oa.md":Rf,"./content/classifications/waldenstrom-staging-perthes-disease.md":Mf,"./content/classifications/warwick-agreement-fai-syndrome.md":jf,"./content/classifications/watson-classification-slac-snac-wrist.md":Of,"./content/classifications/weber-danis-classification-ankle-fracture.md":Ff,"./content/classifications/weinstein-boriani-biagini-wbb-staging-spine-tumors.md":Df,"./content/classifications/wifi-classification-diabetic-foot.md":Lf,"./content/classifications/winquist-hansen-classification.md":zf,"./content/classifications/young-burgess-classification-pelvic-ring.md":qf,"./content/diagnoses/ankle-hindfoot-midfoot-trauma.md":Ef,"./content/diagnoses/bone-soft-tissue-tumors.md":Bf,"./content/diagnoses/cervical-spine-degenerative.md":Hf,"./content/diagnoses/distal-radius-fractures.md":Nf,"./content/diagnoses/elbow-forearm-fractures.md":_f,"./content/diagnoses/femoral-shaft-distal-femur-fractures.md":Jf,"./content/diagnoses/forefoot-disorders.md":Kf,"./content/diagnoses/hand-wrist-conditions.md":Gf,"./content/diagnoses/hindfoot-ankle-disorders.md":Vf,"./content/diagnoses/hip-osteoarthritis-tha.md":Wf,"./content/diagnoses/injections-orthobiologics.md":Uf,"./content/diagnoses/knee-ligament-injuries.md":Xf,"./content/diagnoses/knee-osteoarthritis-tka.md":Qf,"./content/diagnoses/lumbar-degenerative-spine.md":Zf,"./content/diagnoses/meniscus-cartilage-lesions.md":Yf,"./content/diagnoses/msk-infection-metabolic-bone.md":$f,"./content/diagnoses/open-fractures-polytrauma-principles.md":ey,"./content/diagnoses/osteonecrosis-hip-preservation.md":iy,"./content/diagnoses/patellofemoral-extensor-mechanism.md":ty,"./content/diagnoses/pediatric-conditions.md":ny,"./content/diagnoses/pediatric-hip-disorders.md":ay,"./content/diagnoses/pediatric-trauma.md":ry,"./content/diagnoses/pelvic-acetabular-fractures.md":oy,"./content/diagnoses/perioperative-care-principles.md":sy,"./content/diagnoses/periprosthetic-fractures-revision-arthroplasty.md":ly,"./content/diagnoses/periprosthetic-joint-infection.md":cy,"./content/diagnoses/proximal-femur-fractures.md":dy,"./content/diagnoses/rotator-cuff-biceps-pathology.md":uy,"./content/diagnoses/scaphoid-carpal-instability.md":py,"./content/diagnoses/shoulder-elbow-arthritis-arthroplasty.md":hy,"./content/diagnoses/shoulder-girdle-humerus-fractures.md":my,"./content/diagnoses/shoulder-instability.md":gy,"./content/diagnoses/spinal-deformity-infection-tumor.md":fy,"./content/diagnoses/spine-trauma.md":yy,"./content/diagnoses/tendinopathies-muscle-ankle-instability.md":vy,"./content/diagnoses/tibia-fractures.md":by,"./content/notes/how-to-add-content.md":wy,"./content/techniques/_template-technique.md":ky,"./content/techniques/ac-joint-reconstruction.md":xy,"./content/techniques/acdf-anterior-cervical-discectomy-fusion.md":Iy,"./content/techniques/acetabular-orif-approach-selection.md":Ay,"./content/techniques/achilles-surgery-insertional-midportion-zadek-osteotomy.md":Sy,"./content/techniques/achilles-tendinopathy-debridement-fhl-augmentation.md":Cy,"./content/techniques/achilles-tendon-rupture-repair.md":Ty,"./content/techniques/acl-reconstruction-lateral-extra-articular-tenodesis.md":Py,"./content/techniques/acute-tha-fix-and-replace-acetabular-fracture.md":Ry,"./content/techniques/adult-spinal-deformity-correction-osteotomy-ladder.md":My,"./content/techniques/anatomic-total-shoulder-arthroplasty.md":jy,"./content/techniques/ankle-fracture-syndesmosis-orif.md":Oy,"./content/techniques/antegrade-im-nailing-femoral-shaft.md":Fy,"./content/techniques/anterior-odontoid-screw-fixation.md":Dy,"./content/techniques/arthroscopic-bankart-repair-remplissage.md":Ly,"./content/techniques/arthroscopic-reduction-fixation-tibial-spine-avulsion.md":zy,"./content/techniques/arthroscopic-rotator-cuff-repair.md":qy,"./content/techniques/atypical-femoral-fracture-im-nailing.md":Ey,"./content/techniques/barbotage-calcific-tendinopathy.md":By,"./content/techniques/biceps-tenodesis.md":Hy,"./content/techniques/blount-disease-guided-growth-osteotomy.md":Ny,"./content/techniques/bone-marrow-aspirate-concentrate-harvest-injection.md":_y,"./content/techniques/bone-transport-distraction-osteogenesis.md":Jy,"./content/techniques/bony-bankart-fixation.md":Ky,"./content/techniques/both-bone-forearm-fracture-fixation.md":Gy,"./content/techniques/calcaneus-fracture-orif.md":Vy,"./content/techniques/carpal-tunnel-release-open-endoscopic-walant.md":Wy,"./content/techniques/cartilage-restoration-ladder-knee.md":Uy,"./content/techniques/cavovarus-foot-reconstruction.md":Xy,"./content/techniques/cementation-technique-bcis-prevention.md":Qy,"./content/techniques/cephalomedullary-nailing-intertrochanteric.md":Zy,"./content/techniques/cephalomedullary-nailing-subtrochanteric.md":Yy,"./content/techniques/cervical-disc-arthroplasty.md":$y,"./content/techniques/cervical-epidural-steroid-injection.md":ev,"./content/techniques/charcot-foot-reconstruction-superconstruct.md":iv,"./content/techniques/cheilectomy-moberg-osteotomy-hallux-rigidus.md":tv,"./content/techniques/chronic-osteomyelitis-debridement-dead-space-management.md":nv,"./content/techniques/clavicle-orif-plating.md":av,"./content/techniques/closed-reduction-casting-distal-radius.md":rv,"./content/techniques/constraint-ladder-revision-tka.md":ov,"./content/techniques/core-decompression-biologic-augmentation-osteonecrosis.md":sv,"./content/techniques/corrective-osteotomy-malunion.md":lv,"./content/techniques/corticosteroid-injection-intra-articular-soft-tissue.md":cv,"./content/techniques/coxa-vara-valgus-osteotomy.md":dv,"./content/techniques/crpp-pediatric-supracondylar-humerus-fracture.md":uv,"./content/techniques/cubital-tunnel-decompression-transposition.md":pv,"./content/techniques/dair-debridement-antibiotics-implant-retention.md":hv,"./content/techniques/damage-control-external-fixation-femur.md":mv,"./content/techniques/damage-control-orthopaedics-polytrauma-staging.md":gv,"./content/techniques/ddh-closed-reduction-spica-casting.md":fv,"./content/techniques/ddh-open-reduction-osteotomy.md":yv,"./content/techniques/debridement-instrumented-fusion-spondylodiscitis.md":vv,"./content/techniques/diabetic-foot-ulcer-debridement-limb-salvage.md":bv,"./content/techniques/diagnostic-joint-aspiration.md":wv,"./content/techniques/diamond-concept-nonunion-fixation.md":kv,"./content/techniques/discoid-meniscus-saucerization-repair.md":xv,"./content/techniques/distal-biceps-tendon-repair.md":Iv,"./content/techniques/distal-femoral-replacement.md":Av,"./content/techniques/distal-humerus-fracture-fixation-orif-tea.md":Sv,"./content/techniques/druj-stabilization-fixation.md":Cv,"./content/techniques/ecrb-flexor-pronator-debridement-epicondylitis.md":Tv,"./content/techniques/elbow-debridement-outerbridge-kashiwagi.md":Pv,"./content/techniques/emergency-decompression-cauda-equina-syndrome.md":Rv,"./content/techniques/en-bloc-resection-sacrectomy-primary-spine-tumor.md":Mv,"./content/techniques/eras-pathway-arthroplasty-trauma.md":jv,"./content/techniques/esin-both-bone-forearm-fracture-pediatric.md":Ov,"./content/techniques/essex-lopresti-operative-management.md":Fv,"./content/techniques/exchange-nailing-femoral-shaft-nonunion.md":Dv,"./content/techniques/extended-curettage-adjuvant-benign-bone-tumors.md":Lv,"./content/techniques/femoral-derotational-osteotomy-anteversion.md":zv,"./content/techniques/first-mtp-arthrodesis-hallux-rigidus.md":qv,"./content/techniques/flexible-intramedullary-nailing-pediatric-femur-fracture.md":Ev,"./content/techniques/flexor-tendon-repair-early-active-motion.md":Bv,"./content/techniques/four-compartment-fasciotomy-leg.md":Hv,"./content/techniques/fracture-related-infection-dair-staged-exchange.md":Nv,"./content/techniques/frozen-shoulder-mua-arthroscopic-capsular-release.md":_v,"./content/techniques/gauthier-osteotomy-freiberg-disease.md":Jv,"./content/techniques/genicular-nerve-block-radiofrequency-ablation.md":Kv,"./content/techniques/gluteus-medius-minimus-repair-gtps.md":Gv,"./content/techniques/guided-growth-epiphysiodesis-limb-length-discrepancy.md":Vv,"./content/techniques/hagl-repair.md":Wv,"./content/techniques/hallux-valgus-osteotomy-chevron-scarf-akin-mis.md":Uv,"./content/techniques/hand-infection-surgical-drainage.md":Xv,"./content/techniques/hangman-fracture-fixation.md":Qv,"./content/techniques/high-tibial-osteotomy.md":Zv,"./content/techniques/hip-arthroplasty-femoral-neck-fracture.md":Yv,"./content/techniques/hip-arthroscopy-fai-labral-pathology.md":$v,"./content/techniques/humeral-shaft-intramedullary-nailing.md":eb,"./content/techniques/humeral-shaft-orif-plating.md":ib,"./content/techniques/inferior-capsular-shift-plication-mdi.md":tb,"./content/techniques/interposition-arthroplasty-elbow.md":nb,"./content/techniques/intramedullary-nailing-metastatic-bone-disease.md":ab,"./content/techniques/isthmic-spondylolisthesis-fusion-pars-repair.md":rb,"./content/techniques/juvenile-ocd-knee-drilling-fixation-cartilage-restoration.md":ob,"./content/techniques/kienbock-disease-joint-leveling-revascularization.md":sb,"./content/techniques/laminectomy-instrumented-fusion-cervical-myelopathy.md":lb,"./content/techniques/laminoplasty-cervical-myelopathy-opll.md":cb,"./content/techniques/lapidus-procedure-1st-tmt-arthrodesis-hallux-valgus.md":db,"./content/techniques/latarjet-procedure.md":ub,"./content/techniques/lateral-condyle-fracture-fixation-pediatric.md":pb,"./content/techniques/limb-salvage-resection-endoprosthetic-reconstruction-bone-sarcoma.md":hb,"./content/techniques/lisfranc-injury-fixation.md":mb,"./content/techniques/locked-distal-femoral-plating-liss.md":gb,"./content/techniques/lower-trapezius-tendon-transfer.md":fb,"./content/techniques/lumbar-decompression-fusion-degenerative-spondylolisthesis.md":yb,"./content/techniques/lumbar-decompression-spinal-stenosis.md":vb,"./content/techniques/lumbar-microdiscectomy-endoscopic-discectomy.md":bb,"./content/techniques/manipulation-under-anesthesia-stiff-tka.md":wb,"./content/techniques/masquelet-induced-membrane-technique.md":kb,"./content/techniques/mcl-posteromedial-corner-repair-reconstruction.md":xb,"./content/techniques/medial-epicondyle-fracture-fixation-pediatric.md":Ib,"./content/techniques/meniscal-root-repair-transtibial-pullout.md":Ab,"./content/techniques/meniscus-repair-peripheral-tears.md":Sb,"./content/techniques/metacarpal-phalangeal-fracture-fixation.md":Cb,"./content/techniques/metaizeau-technique-radial-neck-fracture-reduction.md":Tb,"./content/techniques/modified-brostrom-gould-ankle-ligament-reconstruction.md":Pb,"./content/techniques/monteggia-galeazzi-fixation.md":Rb,"./content/techniques/morton-neuroma-neurectomy.md":Mb,"./content/techniques/mpfl-reconstruction.md":jb,"./content/techniques/multiligament-knee-reconstruction-staged-management.md":Ob,"./content/techniques/nail-plate-combined-construct-distal-femur.md":Fb,"./content/techniques/native-septic-arthritis-washout.md":Db,"./content/techniques/navicular-cuboid-fracture-fixation.md":Lb,"./content/techniques/necrotizing-fasciitis-radical-debridement.md":zb,"./content/techniques/ocd-fixation-drilling-adult-knee.md":qb,"./content/techniques/olecranon-fracture-fixation.md":Eb,"./content/techniques/olt-treatment-ladder-bone-marrow-stimulation-restorative.md":Bb,"./content/techniques/one-stage-exchange-arthroplasty-pji.md":Hb,"./content/techniques/open-fracture-debridement-fix-and-flap.md":Nb,"./content/techniques/partial-sesamoidectomy-sesamoid-pathology.md":_b,"./content/techniques/patellar-tendon-repair.md":Jb,"./content/techniques/patellofemoral-arthroplasty.md":Kb,"./content/techniques/pcfd-flatfoot-reconstruction-ladder.md":Gb,"./content/techniques/pcl-reconstruction.md":Vb,"./content/techniques/pectoralis-major-repair.md":Wb,"./content/techniques/pelvic-ring-definitive-fixation-percutaneous-screws.md":Ub,"./content/techniques/percutaneous-epiphyseal-screw-fixation-transitional-ankle-fracture.md":Xb,"./content/techniques/percutaneous-kwire-fixation-distal-radius.md":Qb,"./content/techniques/percutaneous-screw-fixation-femoral-neck.md":Zb,"./content/techniques/percutaneous-screw-fixation-scaphoid-fracture.md":Yb,"./content/techniques/percutaneous-vertebral-augmentation-vertebroplasty-kyphoplasty.md":$b,"./content/techniques/periacetabular-osteotomy-pao.md":ew,"./content/techniques/perilunate-dislocation-reduction-repair.md":iw,"./content/techniques/periprosthetic-femur-fracture-orif-vancouver-a-b1-c.md":tw,"./content/techniques/periprosthetic-femur-fracture-revision-arthroplasty-vancouver-b2-b3.md":nw,"./content/techniques/periprosthetic-tka-fracture-fixation-revision.md":aw,"./content/techniques/peroneal-tendon-repair-reconstruction.md":rw,"./content/techniques/perthes-containment-surgery.md":ow,"./content/techniques/platelet-rich-plasma-injection.md":sw,"./content/techniques/plc-lcl-repair-reconstruction.md":lw,"./content/techniques/ponseti-method-clubfoot-casting-tenotomy-bracing.md":cw,"./content/techniques/posterior-c1-c2-fusion-goel-harms.md":dw,"./content/techniques/posterior-cervical-foraminotomy.md":uw,"./content/techniques/posterior-labral-repair-shoulder.md":pw,"./content/techniques/posterior-malleolus-fixation-mason-molloy.md":hw,"./content/techniques/posterior-spinal-fusion-pedicle-screw-ais.md":mw,"./content/techniques/preperitoneal-pelvic-packing-hemorrhage-control.md":gw,"./content/techniques/progressive-tendon-loading-patellar-tendinopathy.md":fw,"./content/techniques/prolotherapy-injection.md":yw,"./content/techniques/proximal-hamstring-avulsion-repair.md":vw,"./content/techniques/proximal-humerus-intramedullary-nailing.md":bw,"./content/techniques/proximal-humerus-orif-locking-plate.md":ww,"./content/techniques/quadriceps-tendon-repair.md":kw,"./content/techniques/radial-head-fracture-orif-and-arthroplasty.md":xw,"./content/techniques/radiofrequency-ablation-osteoid-osteoma.md":Iw,"./content/techniques/ramp-lesion-repair.md":Aw,"./content/techniques/retrograde-im-nailing-distal-femur.md":Sw,"./content/techniques/reverse-total-shoulder-arthroplasty.md":Cw,"./content/techniques/revision-tha-recurrent-instability.md":Tw,"./content/techniques/sc-joint-reduction.md":Pw,"./content/techniques/scaphoid-nonunion-bone-grafting.md":Rw,"./content/techniques/scapholunate-ligament-repair-reconstruction.md":Mw,"./content/techniques/scapular-glenoid-orif.md":jw,"./content/techniques/scfe-in-situ-pinning.md":Ow,"./content/techniques/scfe-modified-dunn-procedure.md":Fw,"./content/techniques/separation-surgery-sbrt-metastatic-spinal-cord-compression.md":Dw,"./content/techniques/shoulder-arthroplasty-proximal-humerus-fracture.md":Lw,"./content/techniques/slap-repair-arthroscopic.md":zw,"./content/techniques/snac-slac-wrist-salvage-ladder.md":qw,"./content/techniques/staged-orif-pilon-fracture.md":Ew,"./content/techniques/sternocleidomastoid-release-torticollis.md":Bw,"./content/techniques/subaxial-cervical-fracture-dislocation-fixation.md":Hw,"./content/techniques/superior-capsular-reconstruction.md":Nw,"./content/techniques/suprapatellar-im-nailing-tibial-shaft.md":_w,"./content/techniques/surgical-antibiotic-prophylaxis-protocol.md":Jw,"./content/techniques/surgical-hip-dislocation-femoral-head-orif.md":Kw,"./content/techniques/synthetic-cartilage-implant-cartiva-hallux-rigidus.md":Gw,"./content/techniques/talar-neck-fracture-orif.md":Vw,"./content/techniques/tarsal-coalition-resection-interposition.md":Ww,"./content/techniques/terrible-triad-sequential-fixation.md":Uw,"./content/techniques/tfcc-repair-arthroscopic-open.md":Xw,"./content/techniques/tha-subtrochanteric-shortening-osteotomy-dysplasia.md":Qw,"./content/techniques/thoracolumbar-posterior-segmental-fixation-burst-chance.md":Zw,"./content/techniques/tibial-plateau-orif-staged-fixation.md":Yw,"./content/techniques/tibial-tubercle-osteotomy.md":$w,"./content/techniques/total-ankle-replacement-vs-arthrodesis-ankle-oa.md":ek,"./content/techniques/total-elbow-arthroplasty.md":ik,"./content/techniques/total-hip-arthroplasty-primary-osteoarthritis.md":tk,"./content/techniques/total-knee-arthroplasty.md":nk,"./content/techniques/tourniquet-use-extremity-surgery.md":ak,"./content/techniques/tranexamic-acid-administration-protocol.md":rk,"./content/techniques/trapeziectomy-thumb-cmc-arthritis.md":ok,"./content/techniques/trochleoplasty.md":sk,"./content/techniques/two-portal-posterior-hindfoot-endoscopy.md":lk,"./content/techniques/two-stage-exchange-arthroplasty-pji.md":ck,"./content/techniques/ulnar-shortening-osteotomy.md":dk,"./content/techniques/unicompartmental-knee-arthroplasty.md":uk,"./content/techniques/vascularized-bone-grafting-rotational-osteotomy-osteonecrosis.md":pk,"./content/techniques/vertebral-body-tethering-ais.md":hk,"./content/techniques/volar-locking-plate-distal-radius.md":mk,"./content/techniques/vte-prophylaxis-tha.md":gk,"./content/techniques/weil-osteotomy-dmmo-plantar-plate-repair.md":fk,"./content/techniques/wide-resection-radiation-soft-tissue-sarcoma.md":yk,"./content/techniques/wound-closure-dair-prevention-protocol.md":vk});function wk(e){const i={title:"",tags:[]};let t=e;const n=e.replace(/^﻿/,"");if(n.startsWith("---")){const a=n.indexOf(`
+`,kk=Object.assign({"./content/checklists/_template-case-prep.md":Zp,"./content/classifications/_template-classification.md":Yp,"./content/classifications/achilles-tendinopathy-insertional-midportion-haglund-classification.md":$p,"./content/classifications/ahlback-classification-knee.md":eh,"./content/classifications/allman-classification-clavicle.md":ih,"./content/classifications/anderson-dalonzo-odontoid-classification.md":th,"./content/classifications/ao-ota-11-proximal-humerus.md":nh,"./content/classifications/ao-ota-12-humeral-shaft.md":ah,"./content/classifications/ao-ota-13-distal-humerus.md":rh,"./content/classifications/ao-ota-23-distal-radius.md":oh,"./content/classifications/ao-ota-31-proximal-femur.md":sh,"./content/classifications/ao-ota-32-femoral-shaft.md":lh,"./content/classifications/ao-ota-33-distal-femur.md":ch,"./content/classifications/ao-ota-41-tibial-plateau.md":dh,"./content/classifications/ao-ota-42-tibial-shaft.md":uh,"./content/classifications/ao-ota-43-pilon.md":ph,"./content/classifications/ao-spine-subaxial-cervical-injury-classification.md":hh,"./content/classifications/ao-spine-thoracolumbar-injury-classification.md":mh,"./content/classifications/aori-classification-knee-defects-revision-tka.md":gh,"./content/classifications/arco-2019-classification-osteonecrosis-femoral-head.md":fh,"./content/classifications/asa-physical-status-classification-perioperative.md":yh,"./content/classifications/asbmr-atypical-femoral-fracture-criteria.md":vh,"./content/classifications/asia-impairment-scale-spinal-cord-injury.md":bh,"./content/classifications/bado-monteggia.md":wh,"./content/classifications/bamic-classification-muscle-injury.md":kh,"./content/classifications/bilsky-classification-epidural-spinal-cord-compression.md":xh,"./content/classifications/blazina-classification-patellar-tendinopathy.md":Ih,"./content/classifications/brodsky-classification-charcot-foot.md":Ah,"./content/classifications/budapest-criteria-crps.md":Sh,"./content/classifications/campanacci-classification-giant-cell-tumor.md":Ch,"./content/classifications/caprini-score-perioperative-vte-risk.md":Th,"./content/classifications/caton-deschamps-index.md":Ph,"./content/classifications/cfa-classification-chronic-ankle-instability.md":Rh,"./content/classifications/cierny-mader-classification-osteomyelitis.md":Mh,"./content/classifications/clavien-dindo-classification-surgical-complications.md":jh,"./content/classifications/cobb-angle-thresholds-scoliosis.md":Oh,"./content/classifications/cofield-classification-rotator-cuff-tear-size.md":Fh,"./content/classifications/coleman-block-test-cavovarus-foot.md":Dh,"./content/classifications/coughlin-classification-bunionette.md":Lh,"./content/classifications/coughlin-nery-plantar-plate-tear-classification.md":zh,"./content/classifications/coughlin-shurnas-classification-hallux-rigidus.md":qh,"./content/classifications/cpak-classification-knee.md":Eh,"./content/classifications/crowe-classification-hip-dysplasia.md":Bh,"./content/classifications/dejour-classification-trochlear-dysplasia.md":Hh,"./content/classifications/denis-classification-sacral-fractures.md":Nh,"./content/classifications/dimeglio-classification-clubfoot.md":_h,"./content/classifications/donaldson-classification-bone-cement-implantation-syndrome.md":Jh,"./content/classifications/dorr-classification-femoral-bone.md":Kh,"./content/classifications/eaton-littler-classification-thumb-cmc.md":Gh,"./content/classifications/ebjis-classification-pji.md":Vh,"./content/classifications/eichenholtz-classification-charcot-foot.md":Wh,"./content/classifications/elbow-dislocation-stability-classification.md":Uh,"./content/classifications/ellman-classification-partial-thickness-rotator-cuff-tears.md":Xh,"./content/classifications/enneking-msts-staging-bone-soft-tissue-tumors.md":Qh,"./content/classifications/enneking-staging-primary-spine-tumors.md":Zh,"./content/classifications/evans-jensen-classification-intertrochanteric.md":Yh,"./content/classifications/extensor-tendon-zones-hand.md":$h,"./content/classifications/fanelli-classification-posterolateral-corner.md":em,"./content/classifications/favard-classification-glenoid-erosion-cuff-tear-arthropathy.md":im,"./content/classifications/fernandez-classification-distal-radius.md":tm,"./content/classifications/ffp-rommens-classification-fragility-pelvis.md":nm,"./content/classifications/ficat-arlet-classification-osteonecrosis.md":am,"./content/classifications/frax-dexa-t-score-osteoporosis.md":rm,"./content/classifications/fri-consensus-definition-confirmatory-criteria.md":om,"./content/classifications/frykman-classification-distal-radius.md":sm,"./content/classifications/garcia-elias-staging-scapholunate-instability.md":lm,"./content/classifications/garden-classification-femoral-neck.md":cm,"./content/classifications/gartland-classification-supracondylar-humerus-fracture.md":dm,"./content/classifications/gartner-classification-calcific-tendinopathy-shoulder.md":um,"./content/classifications/glenoid-track-on-off-track-shoulder-instability.md":pm,"./content/classifications/gmfcs-cerebral-palsy.md":hm,"./content/classifications/goutallier-classification-fatty-infiltration-rotator-cuff.md":mm,"./content/classifications/graf-classification-hip-ultrasound-ddh.md":gm,"./content/classifications/green-classification-trigger-finger.md":fm,"./content/classifications/gustilo-anderson-classification-infection-risk-context.md":ym,"./content/classifications/gustilo-anderson-open-fractures.md":vm,"./content/classifications/hallux-valgus-severity-hva-ima-classification.md":bm,"./content/classifications/hamada-classification-cuff-tear-arthropathy.md":wm,"./content/classifications/hammer-claw-mallet-toe-classification.md":km,"./content/classifications/hartofilakidis-classification-hip-dysplasia.md":xm,"./content/classifications/hawkins-classification-talar-neck-fracture.md":Im,"./content/classifications/hepple-berndt-harty-classification-osteochondral-lesion-talus.md":Am,"./content/classifications/herbert-fisher-classification-scaphoid-fracture.md":Sm,"./content/classifications/herring-lateral-pillar-classification-perthes.md":Cm,"./content/classifications/icm-msis-classification-pji.md":Tm,"./content/classifications/icrs-classification-knee-cartilage.md":Pm,"./content/classifications/icrs-ocd-staging-knee.md":Rm,"./content/classifications/ideberg-classification-glenoid.md":Mm,"./content/classifications/idsa-iwgdf-classification-diabetic-foot-infection.md":jm,"./content/classifications/ihdi-classification-developmental-dysplasia-hip.md":Om,"./content/classifications/isis-score-shoulder-instability.md":Fm,"./content/classifications/jefferson-fracture-c1-ring-stability.md":Dm,"./content/classifications/judet-classification-radial-neck-fracture.md":Lm,"./content/classifications/judet-letournel-acetabular-fractures.md":zm,"./content/classifications/k-line-opll.md":qm,"./content/classifications/kanavel-signs-flexor-sheath-infection.md":Em,"./content/classifications/kellgren-lawrence-hip.md":Bm,"./content/classifications/kellgren-lawrence-injection-response.md":Hm,"./content/classifications/kellgren-lawrence-knee.md":Nm,"./content/classifications/kocher-criteria-septic-arthritis-pediatric-hip.md":_m,"./content/classifications/kocher-criteria-septic-arthritis-transient-synovitis.md":Jm,"./content/classifications/lafosse-classification-subscapularis-tears.md":Km,"./content/classifications/langenskiold-classification-blount-disease.md":Gm,"./content/classifications/laprade-classification-meniscal-root-tears.md":Vm,"./content/classifications/lauge-hansen-classification-ankle-fracture.md":Wm,"./content/classifications/lee-classification-lumbar-disc-herniation-zones.md":Um,"./content/classifications/lenke-classification-adolescent-idiopathic-scoliosis.md":Xm,"./content/classifications/levine-edwards-hangman-classification.md":Qm,"./content/classifications/lewis-rorabeck-classification-periprosthetic-tka-fracture.md":Zm,"./content/classifications/lichtman-classification-kienbock-disease.md":Ym,"./content/classifications/loder-classification-scfe-stability.md":$m,"./content/classifications/lodwick-madewell-classification-bone-lesions.md":eg,"./content/classifications/lrinec-score-necrotizing-fasciitis.md":ig,"./content/classifications/luo-three-column-classification-tibial-plateau.md":tg,"./content/classifications/mason-molloy-classification-posterior-malleolus-fracture.md":ng,"./content/classifications/mason-radial-head-fracture.md":ag,"./content/classifications/mayfield-classification-perilunate-instability.md":rg,"./content/classifications/mayo-classification-scaphoid-fracture-location.md":og,"./content/classifications/mayo-olecranon-fracture.md":sg,"./content/classifications/mcgowan-classification-cubital-tunnel-syndrome.md":lg,"./content/classifications/mcl-grading-classification-knee.md":cg,"./content/classifications/mcpherson-host-grading-classification-pji.md":dg,"./content/classifications/melone-classification-distal-radius.md":ug,"./content/classifications/meniscus-tear-morphology.md":pg,"./content/classifications/meyerding-classification-lumbar-spondylolisthesis.md":hg,"./content/classifications/meyers-mckeever-classification-tibial-spine-avulsion.md":mg,"./content/classifications/milch-jakob-weiss-classification-lateral-condyle-fracture.md":gg,"./content/classifications/mirels-score-pathologic-fracture-risk.md":fg,"./content/classifications/mjoa-severity-score-cervical-myelopathy.md":yg,"./content/classifications/modic-classification-vertebral-endplate-changes.md":vg,"./content/classifications/myerson-classification-lisfranc-injury.md":bg,"./content/classifications/neer-classification-distal-clavicle.md":wg,"./content/classifications/neer-classification-proximal-humerus.md":kg,"./content/classifications/nonunion-types-classification.md":xg,"./content/classifications/nunley-vertullo-classification-lisfranc-injury.md":Ig,"./content/classifications/nurick-grade-cervical-myelopathy.md":Ag,"./content/classifications/odriscoll-coronoid-fracture.md":Sg,"./content/classifications/opll-morphologic-classification.md":Cg,"./content/classifications/ota-open-fracture-classification.md":Tg,"./content/classifications/outerbridge-classification-knee-cartilage.md":Pg,"./content/classifications/palmer-classification-tfcc.md":Rg,"./content/classifications/paprosky-classification-acetabular-defects-revision-arthroplasty.md":Mg,"./content/classifications/paprosky-classification-acetabular-defects.md":jg,"./content/classifications/paprosky-classification-femoral-defects-revision-arthroplasty.md":Og,"./content/classifications/patte-classification-rotator-cuff-retraction.md":Fg,"./content/classifications/pauwels-classification-femoral-neck.md":Dg,"./content/classifications/pcfd-consensus-classification-flatfoot.md":Lg,"./content/classifications/pcl-grading-posterior-tibial-translation.md":zg,"./content/classifications/pfirrmann-classification-lumbar-disc-degeneration.md":qg,"./content/classifications/pipkin-classification-femoral-head.md":Eg,"./content/classifications/pirani-score-clubfoot.md":Bg,"./content/classifications/prp-preparation-classification-lr-vs-lp.md":Hg,"./content/classifications/puranen-orava-classification-hamstring-strain.md":Ng,"./content/classifications/risser-classification-scoliosis-skeletal-maturity.md":_g,"./content/classifications/robinson-classification-clavicle.md":Jg,"./content/classifications/rockwood-classification-ac-joint.md":Kg,"./content/classifications/ruedi-allgower-classification-pilon.md":Gg,"./content/classifications/russe-classification-scaphoid-fracture-orientation.md":Vg,"./content/classifications/salenius-vankka-curve-physiologic-tibiofemoral-angle.md":Wg,"./content/classifications/salter-harris-classification-physeal-fractures.md":Ug,"./content/classifications/samilson-prieto-classification-glenohumeral-oa.md":Xg,"./content/classifications/samilson-prieto-classification-post-instability-arthropathy.md":Qg,"./content/classifications/sanders-classification-calcaneus-fracture.md":Zg,"./content/classifications/schatzker-classification-tibial-plateau.md":Yg,"./content/classifications/schenck-classification-knee-dislocation.md":$g,"./content/classifications/schizas-classification-lumbar-spinal-stenosis.md":ef,"./content/classifications/segond-fracture-reverse-segond-knee.md":tf,"./content/classifications/seinsheimer-classification-subtrochanteric.md":nf,"./content/classifications/sesamoid-pathology-diagnostic-categories.md":af,"./content/classifications/sins-spinal-instability-neoplastic-score.md":rf,"./content/classifications/slic-subaxial-cervical-spine-injury-classification.md":of,"./content/classifications/smillie-staging-freiberg-disease.md":sf,"./content/classifications/snyder-classification-slap-lesions.md":lf,"./content/classifications/southwick-angle-scfe-severity.md":cf,"./content/classifications/srs-schwab-classification-adult-spinal-deformity.md":df,"./content/classifications/stanmore-triangle-shoulder-instability.md":uf,"./content/classifications/steinberg-classification-osteonecrosis.md":pf,"./content/classifications/stulberg-classification-perthes-outcome.md":hf,"./content/classifications/su-classification-periprosthetic-distal-femur.md":mf,"./content/classifications/su-classification-periprosthetic-fracture-revision-arthroplasty.md":gf,"./content/classifications/tietjen-classification-pectoralis-major-rupture.md":ff,"./content/classifications/tile-ao-classification-pelvic-ring.md":yf,"./content/classifications/tlics-thoracolumbar-injury-severity-score.md":vf,"./content/classifications/tokuhashi-score-metastatic-spine-disease.md":bf,"./content/classifications/tomita-score-metastatic-spine-disease.md":wf,"./content/classifications/tonnis-classification-hip-dysplasia-pao.md":kf,"./content/classifications/tonnis-classification-pediatric-hip-dislocation.md":xf,"./content/classifications/tonnis-grade-hip-osteoarthritis.md":If,"./content/classifications/torg-pavlov-ratio-cervical-canal-stenosis.md":Af,"./content/classifications/tscherne-classification-closed-soft-tissue-injury.md":Sf,"./content/classifications/tsukayama-zimmerli-classification-pji.md":Cf,"./content/classifications/tt-tg-distance-thresholds.md":Tf,"./content/classifications/tubiana-classification-dupuytren-disease.md":Pf,"./content/classifications/vancouver-ucs-classification-periprosthetic-femur-fracture.md":Rf,"./content/classifications/verdan-flexor-tendon-zones.md":Mf,"./content/classifications/walch-classification-glenohumeral-oa.md":jf,"./content/classifications/waldenstrom-staging-perthes-disease.md":Of,"./content/classifications/warwick-agreement-fai-syndrome.md":Ff,"./content/classifications/watson-classification-slac-snac-wrist.md":Df,"./content/classifications/weber-danis-classification-ankle-fracture.md":Lf,"./content/classifications/weinstein-boriani-biagini-wbb-staging-spine-tumors.md":zf,"./content/classifications/wifi-classification-diabetic-foot.md":qf,"./content/classifications/winquist-hansen-classification.md":Ef,"./content/classifications/young-burgess-classification-pelvic-ring.md":Bf,"./content/diagnoses/ankle-hindfoot-midfoot-trauma.md":Hf,"./content/diagnoses/bone-soft-tissue-tumors.md":Nf,"./content/diagnoses/cervical-spine-degenerative.md":_f,"./content/diagnoses/distal-radius-fractures.md":Jf,"./content/diagnoses/elbow-forearm-fractures.md":Kf,"./content/diagnoses/femoral-shaft-distal-femur-fractures.md":Gf,"./content/diagnoses/forefoot-disorders.md":Vf,"./content/diagnoses/hand-wrist-conditions.md":Wf,"./content/diagnoses/hindfoot-ankle-disorders.md":Uf,"./content/diagnoses/hip-osteoarthritis-tha.md":Xf,"./content/diagnoses/injections-orthobiologics.md":Qf,"./content/diagnoses/knee-ligament-injuries.md":Zf,"./content/diagnoses/knee-osteoarthritis-tka.md":Yf,"./content/diagnoses/lumbar-degenerative-spine.md":$f,"./content/diagnoses/meniscus-cartilage-lesions.md":ey,"./content/diagnoses/msk-infection-metabolic-bone.md":iy,"./content/diagnoses/open-fractures-polytrauma-principles.md":ty,"./content/diagnoses/osteonecrosis-hip-preservation.md":ny,"./content/diagnoses/patellofemoral-extensor-mechanism.md":ay,"./content/diagnoses/pediatric-conditions.md":ry,"./content/diagnoses/pediatric-hip-disorders.md":oy,"./content/diagnoses/pediatric-trauma.md":sy,"./content/diagnoses/pelvic-acetabular-fractures.md":ly,"./content/diagnoses/perioperative-care-principles.md":cy,"./content/diagnoses/periprosthetic-fractures-revision-arthroplasty.md":dy,"./content/diagnoses/periprosthetic-joint-infection.md":uy,"./content/diagnoses/proximal-femur-fractures.md":py,"./content/diagnoses/rotator-cuff-biceps-pathology.md":hy,"./content/diagnoses/scaphoid-carpal-instability.md":my,"./content/diagnoses/shoulder-elbow-arthritis-arthroplasty.md":gy,"./content/diagnoses/shoulder-girdle-humerus-fractures.md":fy,"./content/diagnoses/shoulder-instability.md":yy,"./content/diagnoses/spinal-deformity-infection-tumor.md":vy,"./content/diagnoses/spine-trauma.md":by,"./content/diagnoses/tendinopathies-muscle-ankle-instability.md":wy,"./content/diagnoses/tibia-fractures.md":ky,"./content/notes/how-to-add-content.md":xy,"./content/techniques/_template-technique.md":Iy,"./content/techniques/ac-joint-reconstruction.md":Ay,"./content/techniques/acdf-anterior-cervical-discectomy-fusion.md":Sy,"./content/techniques/acetabular-orif-approach-selection.md":Cy,"./content/techniques/achilles-surgery-insertional-midportion-zadek-osteotomy.md":Ty,"./content/techniques/achilles-tendinopathy-debridement-fhl-augmentation.md":Py,"./content/techniques/achilles-tendon-rupture-repair.md":Ry,"./content/techniques/acl-reconstruction-lateral-extra-articular-tenodesis.md":My,"./content/techniques/acute-tha-fix-and-replace-acetabular-fracture.md":jy,"./content/techniques/adult-spinal-deformity-correction-osteotomy-ladder.md":Oy,"./content/techniques/anatomic-total-shoulder-arthroplasty.md":Fy,"./content/techniques/ankle-fracture-syndesmosis-orif.md":Dy,"./content/techniques/antegrade-im-nailing-femoral-shaft.md":Ly,"./content/techniques/anterior-odontoid-screw-fixation.md":zy,"./content/techniques/arthroscopic-bankart-repair-remplissage.md":qy,"./content/techniques/arthroscopic-reduction-fixation-tibial-spine-avulsion.md":Ey,"./content/techniques/arthroscopic-rotator-cuff-repair.md":By,"./content/techniques/atypical-femoral-fracture-im-nailing.md":Hy,"./content/techniques/barbotage-calcific-tendinopathy.md":Ny,"./content/techniques/biceps-tenodesis.md":_y,"./content/techniques/blount-disease-guided-growth-osteotomy.md":Jy,"./content/techniques/bone-marrow-aspirate-concentrate-harvest-injection.md":Ky,"./content/techniques/bone-transport-distraction-osteogenesis.md":Gy,"./content/techniques/bony-bankart-fixation.md":Vy,"./content/techniques/both-bone-forearm-fracture-fixation.md":Wy,"./content/techniques/calcaneus-fracture-orif.md":Uy,"./content/techniques/carpal-tunnel-release-open-endoscopic-walant.md":Xy,"./content/techniques/cartilage-restoration-ladder-knee.md":Qy,"./content/techniques/cavovarus-foot-reconstruction.md":Zy,"./content/techniques/cementation-technique-bcis-prevention.md":Yy,"./content/techniques/cephalomedullary-nailing-intertrochanteric.md":$y,"./content/techniques/cephalomedullary-nailing-subtrochanteric.md":ev,"./content/techniques/cervical-disc-arthroplasty.md":iv,"./content/techniques/cervical-epidural-steroid-injection.md":tv,"./content/techniques/charcot-foot-reconstruction-superconstruct.md":nv,"./content/techniques/cheilectomy-moberg-osteotomy-hallux-rigidus.md":av,"./content/techniques/chronic-osteomyelitis-debridement-dead-space-management.md":rv,"./content/techniques/clavicle-orif-plating.md":ov,"./content/techniques/closed-reduction-casting-distal-radius.md":sv,"./content/techniques/constraint-ladder-revision-tka.md":lv,"./content/techniques/core-decompression-biologic-augmentation-osteonecrosis.md":cv,"./content/techniques/corrective-osteotomy-malunion.md":dv,"./content/techniques/corticosteroid-injection-intra-articular-soft-tissue.md":uv,"./content/techniques/coxa-vara-valgus-osteotomy.md":pv,"./content/techniques/crpp-pediatric-supracondylar-humerus-fracture.md":hv,"./content/techniques/cubital-tunnel-decompression-transposition.md":mv,"./content/techniques/dair-debridement-antibiotics-implant-retention.md":gv,"./content/techniques/damage-control-external-fixation-femur.md":fv,"./content/techniques/damage-control-orthopaedics-polytrauma-staging.md":yv,"./content/techniques/ddh-closed-reduction-spica-casting.md":vv,"./content/techniques/ddh-open-reduction-osteotomy.md":bv,"./content/techniques/debridement-instrumented-fusion-spondylodiscitis.md":wv,"./content/techniques/diabetic-foot-ulcer-debridement-limb-salvage.md":kv,"./content/techniques/diagnostic-joint-aspiration.md":xv,"./content/techniques/diamond-concept-nonunion-fixation.md":Iv,"./content/techniques/discoid-meniscus-saucerization-repair.md":Av,"./content/techniques/distal-biceps-tendon-repair.md":Sv,"./content/techniques/distal-femoral-replacement.md":Cv,"./content/techniques/distal-humerus-fracture-fixation-orif-tea.md":Tv,"./content/techniques/druj-stabilization-fixation.md":Pv,"./content/techniques/ecrb-flexor-pronator-debridement-epicondylitis.md":Rv,"./content/techniques/elbow-debridement-outerbridge-kashiwagi.md":Mv,"./content/techniques/emergency-decompression-cauda-equina-syndrome.md":jv,"./content/techniques/en-bloc-resection-sacrectomy-primary-spine-tumor.md":Ov,"./content/techniques/eras-pathway-arthroplasty-trauma.md":Fv,"./content/techniques/esin-both-bone-forearm-fracture-pediatric.md":Dv,"./content/techniques/essex-lopresti-operative-management.md":Lv,"./content/techniques/exchange-nailing-femoral-shaft-nonunion.md":zv,"./content/techniques/extended-curettage-adjuvant-benign-bone-tumors.md":qv,"./content/techniques/femoral-derotational-osteotomy-anteversion.md":Ev,"./content/techniques/first-mtp-arthrodesis-hallux-rigidus.md":Bv,"./content/techniques/flexible-intramedullary-nailing-pediatric-femur-fracture.md":Hv,"./content/techniques/flexor-tendon-repair-early-active-motion.md":Nv,"./content/techniques/four-compartment-fasciotomy-leg.md":_v,"./content/techniques/fracture-related-infection-dair-staged-exchange.md":Jv,"./content/techniques/frozen-shoulder-mua-arthroscopic-capsular-release.md":Kv,"./content/techniques/gauthier-osteotomy-freiberg-disease.md":Gv,"./content/techniques/genicular-nerve-block-radiofrequency-ablation.md":Vv,"./content/techniques/gluteus-medius-minimus-repair-gtps.md":Wv,"./content/techniques/guided-growth-epiphysiodesis-limb-length-discrepancy.md":Uv,"./content/techniques/hagl-repair.md":Xv,"./content/techniques/hallux-valgus-osteotomy-chevron-scarf-akin-mis.md":Qv,"./content/techniques/hand-infection-surgical-drainage.md":Zv,"./content/techniques/hangman-fracture-fixation.md":Yv,"./content/techniques/high-tibial-osteotomy.md":$v,"./content/techniques/hip-arthroplasty-femoral-neck-fracture.md":eb,"./content/techniques/hip-arthroscopy-fai-labral-pathology.md":ib,"./content/techniques/humeral-shaft-intramedullary-nailing.md":tb,"./content/techniques/humeral-shaft-orif-plating.md":nb,"./content/techniques/inferior-capsular-shift-plication-mdi.md":ab,"./content/techniques/interposition-arthroplasty-elbow.md":rb,"./content/techniques/intramedullary-nailing-metastatic-bone-disease.md":ob,"./content/techniques/isthmic-spondylolisthesis-fusion-pars-repair.md":sb,"./content/techniques/juvenile-ocd-knee-drilling-fixation-cartilage-restoration.md":lb,"./content/techniques/kienbock-disease-joint-leveling-revascularization.md":cb,"./content/techniques/laminectomy-instrumented-fusion-cervical-myelopathy.md":db,"./content/techniques/laminoplasty-cervical-myelopathy-opll.md":ub,"./content/techniques/lapidus-procedure-1st-tmt-arthrodesis-hallux-valgus.md":pb,"./content/techniques/latarjet-procedure.md":hb,"./content/techniques/lateral-condyle-fracture-fixation-pediatric.md":mb,"./content/techniques/limb-salvage-resection-endoprosthetic-reconstruction-bone-sarcoma.md":gb,"./content/techniques/lisfranc-injury-fixation.md":fb,"./content/techniques/locked-distal-femoral-plating-liss.md":yb,"./content/techniques/lower-trapezius-tendon-transfer.md":vb,"./content/techniques/lumbar-decompression-fusion-degenerative-spondylolisthesis.md":bb,"./content/techniques/lumbar-decompression-spinal-stenosis.md":wb,"./content/techniques/lumbar-microdiscectomy-endoscopic-discectomy.md":kb,"./content/techniques/manipulation-under-anesthesia-stiff-tka.md":xb,"./content/techniques/masquelet-induced-membrane-technique.md":Ib,"./content/techniques/mcl-posteromedial-corner-repair-reconstruction.md":Ab,"./content/techniques/medial-epicondyle-fracture-fixation-pediatric.md":Sb,"./content/techniques/meniscal-root-repair-transtibial-pullout.md":Cb,"./content/techniques/meniscus-repair-peripheral-tears.md":Tb,"./content/techniques/metacarpal-phalangeal-fracture-fixation.md":Pb,"./content/techniques/metaizeau-technique-radial-neck-fracture-reduction.md":Rb,"./content/techniques/modified-brostrom-gould-ankle-ligament-reconstruction.md":Mb,"./content/techniques/monteggia-galeazzi-fixation.md":jb,"./content/techniques/morton-neuroma-neurectomy.md":Ob,"./content/techniques/mpfl-reconstruction.md":Fb,"./content/techniques/multiligament-knee-reconstruction-staged-management.md":Db,"./content/techniques/nail-plate-combined-construct-distal-femur.md":Lb,"./content/techniques/native-septic-arthritis-washout.md":zb,"./content/techniques/navicular-cuboid-fracture-fixation.md":qb,"./content/techniques/necrotizing-fasciitis-radical-debridement.md":Eb,"./content/techniques/ocd-fixation-drilling-adult-knee.md":Bb,"./content/techniques/olecranon-fracture-fixation.md":Hb,"./content/techniques/olt-treatment-ladder-bone-marrow-stimulation-restorative.md":Nb,"./content/techniques/one-stage-exchange-arthroplasty-pji.md":_b,"./content/techniques/open-fracture-debridement-fix-and-flap.md":Jb,"./content/techniques/partial-sesamoidectomy-sesamoid-pathology.md":Kb,"./content/techniques/patellar-tendon-repair.md":Gb,"./content/techniques/patellofemoral-arthroplasty.md":Vb,"./content/techniques/pcfd-flatfoot-reconstruction-ladder.md":Wb,"./content/techniques/pcl-reconstruction.md":Ub,"./content/techniques/pectoralis-major-repair.md":Xb,"./content/techniques/pelvic-ring-definitive-fixation-percutaneous-screws.md":Qb,"./content/techniques/percutaneous-epiphyseal-screw-fixation-transitional-ankle-fracture.md":Zb,"./content/techniques/percutaneous-kwire-fixation-distal-radius.md":Yb,"./content/techniques/percutaneous-screw-fixation-femoral-neck.md":$b,"./content/techniques/percutaneous-screw-fixation-scaphoid-fracture.md":ew,"./content/techniques/percutaneous-vertebral-augmentation-vertebroplasty-kyphoplasty.md":iw,"./content/techniques/periacetabular-osteotomy-pao.md":tw,"./content/techniques/perilunate-dislocation-reduction-repair.md":nw,"./content/techniques/periprosthetic-femur-fracture-orif-vancouver-a-b1-c.md":aw,"./content/techniques/periprosthetic-femur-fracture-revision-arthroplasty-vancouver-b2-b3.md":rw,"./content/techniques/periprosthetic-tka-fracture-fixation-revision.md":ow,"./content/techniques/peroneal-tendon-repair-reconstruction.md":sw,"./content/techniques/perthes-containment-surgery.md":lw,"./content/techniques/platelet-rich-plasma-injection.md":cw,"./content/techniques/plc-lcl-repair-reconstruction.md":dw,"./content/techniques/ponseti-method-clubfoot-casting-tenotomy-bracing.md":uw,"./content/techniques/posterior-c1-c2-fusion-goel-harms.md":pw,"./content/techniques/posterior-cervical-foraminotomy.md":hw,"./content/techniques/posterior-labral-repair-shoulder.md":mw,"./content/techniques/posterior-malleolus-fixation-mason-molloy.md":gw,"./content/techniques/posterior-spinal-fusion-pedicle-screw-ais.md":fw,"./content/techniques/preperitoneal-pelvic-packing-hemorrhage-control.md":yw,"./content/techniques/progressive-tendon-loading-patellar-tendinopathy.md":vw,"./content/techniques/prolotherapy-injection.md":bw,"./content/techniques/proximal-hamstring-avulsion-repair.md":ww,"./content/techniques/proximal-humerus-intramedullary-nailing.md":kw,"./content/techniques/proximal-humerus-orif-locking-plate.md":xw,"./content/techniques/quadriceps-tendon-repair.md":Iw,"./content/techniques/radial-head-fracture-orif-and-arthroplasty.md":Aw,"./content/techniques/radiofrequency-ablation-osteoid-osteoma.md":Sw,"./content/techniques/ramp-lesion-repair.md":Cw,"./content/techniques/retrograde-im-nailing-distal-femur.md":Tw,"./content/techniques/reverse-total-shoulder-arthroplasty.md":Pw,"./content/techniques/revision-tha-recurrent-instability.md":Rw,"./content/techniques/sc-joint-reduction.md":Mw,"./content/techniques/scaphoid-nonunion-bone-grafting.md":jw,"./content/techniques/scapholunate-ligament-repair-reconstruction.md":Ow,"./content/techniques/scapular-glenoid-orif.md":Fw,"./content/techniques/scfe-in-situ-pinning.md":Dw,"./content/techniques/scfe-modified-dunn-procedure.md":Lw,"./content/techniques/separation-surgery-sbrt-metastatic-spinal-cord-compression.md":zw,"./content/techniques/shoulder-arthroplasty-proximal-humerus-fracture.md":qw,"./content/techniques/slap-repair-arthroscopic.md":Ew,"./content/techniques/snac-slac-wrist-salvage-ladder.md":Bw,"./content/techniques/staged-orif-pilon-fracture.md":Hw,"./content/techniques/sternocleidomastoid-release-torticollis.md":Nw,"./content/techniques/subaxial-cervical-fracture-dislocation-fixation.md":_w,"./content/techniques/superior-capsular-reconstruction.md":Jw,"./content/techniques/suprapatellar-im-nailing-tibial-shaft.md":Kw,"./content/techniques/surgical-antibiotic-prophylaxis-protocol.md":Gw,"./content/techniques/surgical-hip-dislocation-femoral-head-orif.md":Vw,"./content/techniques/synthetic-cartilage-implant-cartiva-hallux-rigidus.md":Ww,"./content/techniques/talar-neck-fracture-orif.md":Uw,"./content/techniques/tarsal-coalition-resection-interposition.md":Xw,"./content/techniques/terrible-triad-sequential-fixation.md":Qw,"./content/techniques/tfcc-repair-arthroscopic-open.md":Zw,"./content/techniques/tha-subtrochanteric-shortening-osteotomy-dysplasia.md":Yw,"./content/techniques/thoracolumbar-posterior-segmental-fixation-burst-chance.md":$w,"./content/techniques/tibial-plateau-orif-staged-fixation.md":ek,"./content/techniques/tibial-tubercle-osteotomy.md":ik,"./content/techniques/total-ankle-replacement-vs-arthrodesis-ankle-oa.md":tk,"./content/techniques/total-elbow-arthroplasty.md":nk,"./content/techniques/total-hip-arthroplasty-primary-osteoarthritis.md":ak,"./content/techniques/total-knee-arthroplasty.md":rk,"./content/techniques/tourniquet-use-extremity-surgery.md":ok,"./content/techniques/tranexamic-acid-administration-protocol.md":sk,"./content/techniques/trapeziectomy-thumb-cmc-arthritis.md":lk,"./content/techniques/trochleoplasty.md":ck,"./content/techniques/two-portal-posterior-hindfoot-endoscopy.md":dk,"./content/techniques/two-stage-exchange-arthroplasty-pji.md":uk,"./content/techniques/ulnar-shortening-osteotomy.md":pk,"./content/techniques/unicompartmental-knee-arthroplasty.md":hk,"./content/techniques/vascularized-bone-grafting-rotational-osteotomy-osteonecrosis.md":mk,"./content/techniques/vertebral-body-tethering-ais.md":gk,"./content/techniques/volar-locking-plate-distal-radius.md":fk,"./content/techniques/vte-prophylaxis-tha.md":yk,"./content/techniques/weil-osteotomy-dmmo-plantar-plate-repair.md":vk,"./content/techniques/wide-resection-radiation-soft-tissue-sarcoma.md":bk,"./content/techniques/wound-closure-dair-prevention-protocol.md":wk});function xk(e){const i={title:"",tags:[],region:"",specialty:""};let t=e;const n=e.replace(/^﻿/,"");if(n.startsWith("---")){const a=n.indexOf(`
 ---`,3);if(a!==-1){const r=n.slice(3,a).trim();t=n.slice(a+4).replace(/^\r?\n/,"");for(const o of r.split(`
-`)){const s=o.indexOf(":");if(s===-1)continue;const l=o.slice(0,s).trim().toLowerCase(),c=o.slice(s+1).trim();l==="title"?i.title=c:l==="tags"&&(i.tags=c.split(",").map(f=>f.trim()).filter(Boolean))}}}return{meta:i,body:t}}function _r(e){return e.replace(/^_/,"").replace(/[-_]/g," ").replace(/\b\w/g,i=>i.toUpperCase())}const Ut={classifications:"Classifications",techniques:"Techniques",checklists:"Checklists",notes:"Notes",diagnoses:"Diagnoses"};function kk(){const e=[];for(const[i,t]of Object.entries(bk)){const n=i.match(/^\.\/content\/([^/]+)\/([^/]+)\.md$/);if(!n)continue;const[,a,r]=n,{meta:o,body:s}=wk(t);e.push({id:`${a}/${r}`,category:a,categoryLabel:Ut[a]||_r(a),slug:r,title:o.title||_r(r),tags:o.tags,body:s})}return e.sort((i,t)=>i.title.localeCompare(t.title)),e}const xk=kk();function Ik(e=[]){return e.map(i=>({...i,categoryLabel:Ut[i.category]||_r(i.category),slug:i.id,tags:i.tags||[],local:!0}))}function ba(e=[]){const i=[...xk,...Ik(e)];return i.sort((t,n)=>t.title.localeCompare(n.title)),i}function Bo(e=[]){const i=ba(e);return Object.keys(Ut).map(t=>({key:t,label:Ut[t],count:i.filter(n=>n.category===t).length}))}const Ak=Object.keys(Ut);function Jr(e,i=[]){return ba(i).find(t=>t.id===e)}function Sk(e,i=[]){return ba(i).filter(t=>t.category===e)}function Ck(e){return JSON.stringify(e,null,2)}function Tk(e){return`${e}-backup-${new Date().toISOString().slice(0,10)}.json`}async function Pk(e){var i;try{if((i=navigator.clipboard)!=null&&i.writeText)return await navigator.clipboard.writeText(e),!0}catch{}try{const t=document.createElement("textarea");t.value=e,t.style.position="fixed",t.style.opacity="0",document.body.appendChild(t),t.select();const n=document.execCommand("copy");return document.body.removeChild(t),n}catch{return!1}}function Rk(e,i){const t=URL.createObjectURL(new Blob([e],{type:"application/json"})),n=document.createElement("a");n.href=t,n.download=i,n.click(),URL.revokeObjectURL(t)}function Mk(e,i){let t;try{t=JSON.parse(e)}catch{throw new Error("That isn't valid JSON.")}if(!i(t))throw new Error("That doesn't look like a backup of this app.");return t}function jk({data:e,onRestore:i,validate:t,prefix:n}){const a=V.useRef(),[r,o]=V.useState(null),[s,l]=V.useState(!1),[c,f]=V.useState(""),[g,h]=V.useState(""),[y,w]=V.useState(""),k=u=>{try{i(Mk(u,t)),f(""),h(""),w("Backup restored.")}catch(d){w(""),h(d.message)}},D=u=>{var p;const d=(p=u.target.files)==null?void 0:p[0];d&&d.text().then(k),u.target.value=""};return m.jsxs("div",{className:"backuppanel",children:[m.jsxs("div",{className:"backuprow",children:[m.jsx("button",{className:"linkbtn",onClick:()=>{o(Ck(e)),l(!1)},children:"Export backup"}),m.jsx("button",{className:"linkbtn",onClick:()=>a.current.click(),children:"Import from file"}),m.jsx("input",{ref:a,type:"file",accept:"application/json",hidden:!0,onChange:D})]}),r&&m.jsxs("div",{className:"card",children:[m.jsxs("div",{className:"backuprow",children:[m.jsx("button",{className:"bigbtn",onClick:async()=>l(await Pk(r)),children:s?"✓ Copied":"Copy to clipboard"}),m.jsx("button",{className:"linkbtn",onClick:()=>Rk(r,Tk(n)),children:"Download file"}),m.jsx("button",{className:"linkbtn",onClick:()=>o(null),children:"Close"})]}),m.jsx("textarea",{className:"input backuptext",readOnly:!0,value:r,onFocus:u=>u.target.select()}),m.jsx("p",{className:"hint small",children:"Paste this somewhere safe. Uninstalling the app deletes everything it holds, so take a copy before you replace or reinstall it."})]}),m.jsxs("div",{className:"field",children:[m.jsx("textarea",{className:"input backuptext",placeholder:"…or paste a backup here to restore it",value:c,onChange:u=>{f(u.target.value),h(""),w("")}}),g&&m.jsx("p",{className:"warn",children:g}),y&&m.jsx("p",{className:"okmsg",children:y}),m.jsx("button",{className:"linkbtn",disabled:!c.trim(),onClick:()=>k(c),children:"Restore from pasted text"})]})]})}function Ok({store:e,setStore:i,onOpenCategory:t,onOpenArticle:n,onSearch:a,onNew:r}){const o=e.localArticles,s=e.favorites.map(c=>Jr(c,o)).filter(Boolean),l=e.recents.map(c=>Jr(c,o)).filter(Boolean);return m.jsxs("div",{className:"page",children:[m.jsxs("h1",{className:"apptitle",children:["Ortho ",m.jsx("span",{children:"Reference"})]}),m.jsxs("button",{className:"input searchbox",onClick:a,children:[m.jsx("span",{className:"searchbox-icon",children:"🔍"}),m.jsx("span",{className:"searchbox-placeholder",children:"Search classifications, techniques…"})]}),m.jsx("button",{className:"bigbtn newbtn",onClick:r,children:"+ New article"}),m.jsx("h2",{children:"Categories"}),Bo(o).map(c=>m.jsxs("div",{className:"card catcard",onClick:()=>t(c.key),children:[m.jsxs("div",{className:"catcard-main",children:[m.jsx("div",{className:"catcard-title",children:c.label}),m.jsxs("div",{className:"catcard-sub",children:[c.count," article",c.count===1?"":"s"]})]}),m.jsx("span",{className:"catcard-arrow",children:"›"})]},c.key)),s.length>0&&m.jsxs(m.Fragment,{children:[m.jsx("h2",{children:"Favorites"}),s.map(c=>m.jsxs("div",{className:"card articlerow",onClick:()=>n(c.id),children:[m.jsxs("div",{className:"articlerow-title",children:[m.jsx("span",{className:"star-inline",children:"★"})," ",c.title]}),m.jsx("div",{className:"articlerow-tags",children:c.categoryLabel})]},c.id))]}),l.length>0&&m.jsxs(m.Fragment,{children:[m.jsx("h2",{children:"Recently viewed"}),l.map(c=>m.jsxs("div",{className:"card articlerow",onClick:()=>n(c.id),children:[m.jsx("div",{className:"articlerow-title",children:c.title}),m.jsx("div",{className:"articlerow-tags",children:c.categoryLabel})]},c.id))]}),m.jsx(jk,{data:e,onRestore:c=>i(f=>Up(f,c)),validate:c=>!!(c&&(c.localArticles||c.favorites||c.recents)),prefix:"ortho"}),m.jsx("p",{className:"hint small footernote",children:'"+ New article" writes are stored on this device (back them up with Export). For the permanent shared library, edit the Markdown files in apps/ortho/src/content/ on GitHub — changes deploy automatically.'})]})}function Fk({tags:e}){return!e||e.length===0?null:m.jsx("div",{className:"chips",children:e.map(i=>m.jsx("span",{className:"chip tagchip",children:i},i))})}function Dk({active:e,onToggle:i}){return m.jsx("button",{className:"iconbtn starbtn"+(e?" on":""),onClick:i,"aria-label":e?"Remove from favorites":"Add to favorites","aria-pressed":e,children:e?"★":"☆"})}function Xt({title:e,subtitle:i,onBack:t,right:n}){return m.jsxs("div",{className:"topbar",children:[m.jsx("button",{className:"iconbtn",onClick:t,"aria-label":"Back",children:"←"}),m.jsxs("div",{children:[m.jsx("div",{className:"tb-title",children:e}),i&&m.jsx("div",{className:"tb-sub",children:i})]}),n]})}function Lk({article:e,onOpen:i}){return m.jsxs("div",{className:"card articlerow",onClick:()=>i(e.id),children:[m.jsx("div",{className:"articlerow-title",children:e.title}),e.tags.length>0&&m.jsx("div",{className:"articlerow-tags",children:e.tags.join(" · ")})]})}function zk({categoryKey:e,local:i,onOpenArticle:t,onNew:n,onHome:a}){const r=Bo(i).find(s=>s.key===e),o=Sk(e,i);return m.jsxs("div",{className:"page",children:[m.jsx(Xt,{title:r?r.label:e,subtitle:`${o.length} article${o.length===1?"":"s"}`,onBack:a,right:m.jsx("button",{className:"linkbtn",onClick:n,children:"+ New"})}),o.length===0&&m.jsx("p",{className:"hint",children:"No articles in this category yet."}),o.map(s=>m.jsx(Lk,{article:s,onOpen:t},s.id))]})}const Xa=/`([^`]+)`|\*\*([^*]+)\*\*|\*([^*]+)\*|\[([^\]]+)\]\(([^)]+)\)/g;function vi(e,i="i"){const t=[];let n=0,a,r=0;for(Xa.lastIndex=0;a=Xa.exec(e);){a.index>n&&t.push(e.slice(n,a.index));const o=`${i}-${r++}`;a[1]!==void 0?t.push(m.jsx("code",{children:a[1]},o)):a[2]!==void 0?t.push(m.jsx("strong",{children:a[2]},o)):a[3]!==void 0?t.push(m.jsx("em",{children:a[3]},o)):a[4]!==void 0&&t.push(m.jsx("a",{href:a[5],target:"_blank",rel:"noreferrer",children:a[4]},o)),n=Xa.lastIndex}return n<e.length&&t.push(e.slice(n)),t}function qk(e){return/^\s*\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)*\|?\s*$/.test(e)}function Qs(e){let i=e.trim();return i.startsWith("|")&&(i=i.slice(1)),i.endsWith("|")&&(i=i.slice(0,-1)),i.split("|").map(t=>t.trim())}function Ek(e){const i=e.replace(/\r\n/g,`
+`)){const s=o.indexOf(":");if(s===-1)continue;const l=o.slice(0,s).trim().toLowerCase(),c=o.slice(s+1).trim();l==="title"?i.title=c:l==="region"?i.region=c:l==="specialty"?i.specialty=c:l==="tags"&&(i.tags=c.split(",").map(f=>f.trim()).filter(Boolean))}}}return{meta:i,body:t}}function _r(e){return e.replace(/^_/,"").replace(/[-_]/g," ").replace(/\b\w/g,i=>i.toUpperCase())}const Ut={classifications:"Classifications",techniques:"Techniques",checklists:"Checklists",notes:"Notes",diagnoses:"Diagnoses"};function Ik(){const e=[];for(const[i,t]of Object.entries(kk)){const n=i.match(/^\.\/content\/([^/]+)\/([^/]+)\.md$/);if(!n)continue;const[,a,r]=n,{meta:o,body:s}=xk(t);e.push({id:`${a}/${r}`,category:a,categoryLabel:Ut[a]||_r(a),slug:r,title:o.title||_r(r),tags:o.tags,region:o.region,specialty:o.specialty,body:s})}return e.sort((i,t)=>i.title.localeCompare(t.title)),e}const Ak=Ik();function Sk(e=[]){return e.map(i=>({...i,categoryLabel:Ut[i.category]||_r(i.category),slug:i.id,tags:i.tags||[],region:i.region||"",specialty:i.specialty||"",local:!0}))}function ba(e=[]){const i=[...Ak,...Sk(e)];return i.sort((t,n)=>t.title.localeCompare(n.title)),i}function Bo(e=[]){const i=ba(e);return Object.keys(Ut).map(t=>({key:t,label:Ut[t],count:i.filter(n=>n.category===t).length}))}const Ck=Object.keys(Ut);function Jr(e,i=[]){return ba(i).find(t=>t.id===e)}function Tk(e,i=[]){return ba(i).filter(t=>t.category===e)}function Pk(e){return JSON.stringify(e,null,2)}function Rk(e){return`${e}-backup-${new Date().toISOString().slice(0,10)}.json`}async function Mk(e){var i;try{if((i=navigator.clipboard)!=null&&i.writeText)return await navigator.clipboard.writeText(e),!0}catch{}try{const t=document.createElement("textarea");t.value=e,t.style.position="fixed",t.style.opacity="0",document.body.appendChild(t),t.select();const n=document.execCommand("copy");return document.body.removeChild(t),n}catch{return!1}}function jk(e,i){const t=URL.createObjectURL(new Blob([e],{type:"application/json"})),n=document.createElement("a");n.href=t,n.download=i,n.click(),URL.revokeObjectURL(t)}function Ok(e,i){let t;try{t=JSON.parse(e)}catch{throw new Error("That isn't valid JSON.")}if(!i(t))throw new Error("That doesn't look like a backup of this app.");return t}function Fk({data:e,onRestore:i,validate:t,prefix:n}){const a=E.useRef(),[r,o]=E.useState(null),[s,l]=E.useState(!1),[c,f]=E.useState(""),[g,h]=E.useState(""),[y,v]=E.useState(""),k=u=>{try{i(Ok(u,t)),f(""),h(""),v("Backup restored.")}catch(d){v(""),h(d.message)}},D=u=>{var p;const d=(p=u.target.files)==null?void 0:p[0];d&&d.text().then(k),u.target.value=""};return m.jsxs("div",{className:"backuppanel",children:[m.jsxs("div",{className:"backuprow",children:[m.jsx("button",{className:"linkbtn",onClick:()=>{o(Pk(e)),l(!1)},children:"Export backup"}),m.jsx("button",{className:"linkbtn",onClick:()=>a.current.click(),children:"Import from file"}),m.jsx("input",{ref:a,type:"file",accept:"application/json",hidden:!0,onChange:D})]}),r&&m.jsxs("div",{className:"card",children:[m.jsxs("div",{className:"backuprow",children:[m.jsx("button",{className:"bigbtn",onClick:async()=>l(await Mk(r)),children:s?"✓ Copied":"Copy to clipboard"}),m.jsx("button",{className:"linkbtn",onClick:()=>jk(r,Rk(n)),children:"Download file"}),m.jsx("button",{className:"linkbtn",onClick:()=>o(null),children:"Close"})]}),m.jsx("textarea",{className:"input backuptext",readOnly:!0,value:r,onFocus:u=>u.target.select()}),m.jsx("p",{className:"hint small",children:"Paste this somewhere safe. Uninstalling the app deletes everything it holds, so take a copy before you replace or reinstall it."})]}),m.jsxs("div",{className:"field",children:[m.jsx("textarea",{className:"input backuptext",placeholder:"…or paste a backup here to restore it",value:c,onChange:u=>{f(u.target.value),h(""),v("")}}),g&&m.jsx("p",{className:"warn",children:g}),y&&m.jsx("p",{className:"okmsg",children:y}),m.jsx("button",{className:"linkbtn",disabled:!c.trim(),onClick:()=>k(c),children:"Restore from pasted text"})]})]})}function Dk({store:e,setStore:i,onOpenCategory:t,onOpenArticle:n,onSearch:a,onNew:r}){const o=e.localArticles,s=e.favorites.map(c=>Jr(c,o)).filter(Boolean),l=e.recents.map(c=>Jr(c,o)).filter(Boolean);return m.jsxs("div",{className:"page",children:[m.jsxs("h1",{className:"apptitle",children:["Ortho ",m.jsx("span",{children:"Reference"})]}),m.jsxs("button",{className:"input searchbox",onClick:a,children:[m.jsx("span",{className:"searchbox-icon",children:"🔍"}),m.jsx("span",{className:"searchbox-placeholder",children:"Search classifications, techniques…"})]}),m.jsx("button",{className:"bigbtn newbtn",onClick:r,children:"+ New article"}),m.jsx("h2",{children:"Categories"}),Bo(o).map(c=>m.jsxs("div",{className:"card catcard",onClick:()=>t(c.key),children:[m.jsxs("div",{className:"catcard-main",children:[m.jsx("div",{className:"catcard-title",children:c.label}),m.jsxs("div",{className:"catcard-sub",children:[c.count," article",c.count===1?"":"s"]})]}),m.jsx("span",{className:"catcard-arrow",children:"›"})]},c.key)),s.length>0&&m.jsxs(m.Fragment,{children:[m.jsx("h2",{children:"Favorites"}),s.map(c=>m.jsxs("div",{className:"card articlerow",onClick:()=>n(c.id),children:[m.jsxs("div",{className:"articlerow-title",children:[m.jsx("span",{className:"star-inline",children:"★"})," ",c.title]}),m.jsx("div",{className:"articlerow-tags",children:c.categoryLabel})]},c.id))]}),l.length>0&&m.jsxs(m.Fragment,{children:[m.jsx("h2",{children:"Recently viewed"}),l.map(c=>m.jsxs("div",{className:"card articlerow",onClick:()=>n(c.id),children:[m.jsx("div",{className:"articlerow-title",children:c.title}),m.jsx("div",{className:"articlerow-tags",children:c.categoryLabel})]},c.id))]}),m.jsx(Fk,{data:e,onRestore:c=>i(f=>Qp(f,c)),validate:c=>!!(c&&(c.localArticles||c.favorites||c.recents)),prefix:"ortho"}),m.jsx("p",{className:"hint small footernote",children:'"+ New article" writes are stored on this device (back them up with Export). For the permanent shared library, edit the Markdown files in apps/ortho/src/content/ on GitHub — changes deploy automatically.'})]})}function Lk({tags:e}){return!e||e.length===0?null:m.jsx("div",{className:"chips",children:e.map(i=>m.jsx("span",{className:"chip tagchip",children:i},i))})}function zk({active:e,onToggle:i}){return m.jsx("button",{className:"iconbtn starbtn"+(e?" on":""),onClick:i,"aria-label":e?"Remove from favorites":"Add to favorites","aria-pressed":e,children:e?"★":"☆"})}function Xt({title:e,subtitle:i,onBack:t,right:n}){return m.jsxs("div",{className:"topbar",children:[m.jsx("button",{className:"iconbtn",onClick:t,"aria-label":"Back",children:"←"}),m.jsxs("div",{children:[m.jsx("div",{className:"tb-title",children:e}),i&&m.jsx("div",{className:"tb-sub",children:i})]}),n]})}function qk({article:e,onOpen:i}){return m.jsxs("div",{className:"card articlerow",onClick:()=>i(e.id),children:[m.jsx("div",{className:"articlerow-title",children:e.title}),e.tags.length>0&&m.jsx("div",{className:"articlerow-tags",children:e.tags.join(" · ")})]})}const Ek=["Shoulder & Elbow","Hand & Wrist","Spine","Pelvis & Hip","Knee & Leg","Foot & Ankle","Multi-region"],Bk=["Trauma","Arthroplasty","Sports","Spine","Hand & Wrist","Foot & Ankle","Pediatrics","Oncology & Metabolic","Principles & Procedures"];function Qs(e,i,t){const n=new Map;for(const o of e){const s=(o[i]||"").trim();s&&n.set(s,(n.get(s)||0)+1)}const a=t.filter(o=>n.has(o)),r=[...n.keys()].filter(o=>!t.includes(o)).sort();return[...a,...r].map(o=>({value:o,count:n.get(o)}))}function Zs({label:e,values:i,active:t,onPick:n}){return i.length<2?null:m.jsxs("div",{className:"filterrow",children:[m.jsx("span",{className:"filterrow-label",children:e}),m.jsxs("div",{className:"filterrow-chips",children:[m.jsx("button",{className:"chip"+(t===""?" active":""),onClick:()=>n(""),children:"All"}),i.map(({value:a,count:r})=>m.jsxs("button",{className:"chip"+(t===a?" active":""),onClick:()=>n(t===a?"":a),children:[a," ",m.jsx("span",{className:"chip-count",children:r})]},a))]})]})}function Hk({categoryKey:e,local:i,onOpenArticle:t,onNew:n,onHome:a}){const r=Bo(i).find(v=>v.key===e),o=Tk(e,i),[s,l]=E.useState(""),[c,f]=E.useState(""),g=E.useMemo(()=>Qs(o,"region",Ek),[o]),h=E.useMemo(()=>Qs(o,"specialty",Bk),[o]),y=o.filter(v=>(!s||v.region===s)&&(!c||v.specialty===c));return m.jsxs("div",{className:"page",children:[m.jsx(Xt,{title:r?r.label:e,subtitle:`${y.length}${y.length!==o.length?` of ${o.length}`:""} article${o.length===1?"":"s"}`,onBack:a,right:m.jsx("button",{className:"linkbtn",onClick:n,children:"+ New"})}),m.jsx(Zs,{label:"Location",values:g,active:s,onPick:l}),m.jsx(Zs,{label:"Pathology",values:h,active:c,onPick:f}),o.length===0&&m.jsx("p",{className:"hint",children:"No articles in this category yet."}),o.length>0&&y.length===0&&m.jsx("p",{className:"hint",children:"No articles match the selected filters."}),y.map(v=>m.jsx(qk,{article:v,onOpen:t},v.id))]})}const Xa=/`([^`]+)`|\*\*([^*]+)\*\*|\*([^*]+)\*|\[([^\]]+)\]\(([^)]+)\)/g;function vi(e,i="i"){const t=[];let n=0,a,r=0;for(Xa.lastIndex=0;a=Xa.exec(e);){a.index>n&&t.push(e.slice(n,a.index));const o=`${i}-${r++}`;a[1]!==void 0?t.push(m.jsx("code",{children:a[1]},o)):a[2]!==void 0?t.push(m.jsx("strong",{children:a[2]},o)):a[3]!==void 0?t.push(m.jsx("em",{children:a[3]},o)):a[4]!==void 0&&t.push(m.jsx("a",{href:a[5],target:"_blank",rel:"noreferrer",children:a[4]},o)),n=Xa.lastIndex}return n<e.length&&t.push(e.slice(n)),t}function Nk(e){return/^\s*\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)*\|?\s*$/.test(e)}function Ys(e){let i=e.trim();return i.startsWith("|")&&(i=i.slice(1)),i.endsWith("|")&&(i=i.slice(0,-1)),i.split("|").map(t=>t.trim())}function _k(e){const i=e.replace(/\r\n/g,`
 `).split(`
 `),t=[];let n=0;for(;n<i.length;){const a=i[n];if(a.trim()===""){n++;continue}if(a.trimStart().startsWith("```")){const s=a.trim().slice(3).trim();n++;const l=[];for(;n<i.length&&!i[n].trimStart().startsWith("```");)l.push(i[n]),n++;n++,t.push({type:"code",lang:s,content:l.join(`
-`)});continue}const r=a.match(/^(#{1,4})\s+(.*)$/);if(r){t.push({type:"heading",level:r[1].length,text:r[2].trim()}),n++;continue}if(/^(-{3,}|\*{3,}|_{3,})\s*$/.test(a.trim())){t.push({type:"hr"}),n++;continue}if(a.startsWith(">")){const s=[];for(;n<i.length&&i[n].startsWith(">");)s.push(i[n].replace(/^>\s?/,"")),n++;t.push({type:"blockquote",text:s.join(" ")});continue}if(a.trim().startsWith("|")&&i[n+1]&&qk(i[n+1])){const s=Qs(a);n+=2;const l=[];for(;n<i.length&&i[n].trim().startsWith("|");)l.push(Qs(i[n])),n++;t.push({type:"table",header:s,rows:l});continue}if(/^\s*[-*+]\s+/.test(a)){const s=[];for(;n<i.length&&/^\s*[-*+]\s+/.test(i[n]);)s.push(i[n].replace(/^\s*[-*+]\s+/,"")),n++;t.push({type:"ul",items:s});continue}if(/^\s*\d+[.)]\s+/.test(a)){const s=[];for(;n<i.length&&/^\s*\d+[.)]\s+/.test(i[n]);)s.push(i[n].replace(/^\s*\d+[.)]\s+/,"")),n++;t.push({type:"ol",items:s});continue}const o=[];for(;n<i.length&&i[n].trim()!=="";)o.push(i[n]),n++;t.push({type:"p",text:o.join(" ")})}return t}function ud({text:e}){const i=Ek(e||"");return m.jsx("div",{className:"md-content",children:i.map((t,n)=>{const a=`b${n}`;switch(t.type){case"heading":{const r=`h${t.level}`;return m.jsx(r,{children:vi(t.text,a)},a)}case"hr":return m.jsx("hr",{},a);case"blockquote":return m.jsx("blockquote",{children:vi(t.text,a)},a);case"code":return m.jsx("pre",{className:"md-code",children:m.jsx("code",{children:t.content})},a);case"ul":return m.jsx("ul",{children:t.items.map((r,o)=>m.jsx("li",{children:vi(r,`${a}-${o}`)},o))},a);case"ol":return m.jsx("ol",{children:t.items.map((r,o)=>m.jsx("li",{children:vi(r,`${a}-${o}`)},o))},a);case"table":return m.jsx("div",{className:"tablewrap",children:m.jsxs("table",{className:"md-table",children:[m.jsx("thead",{children:m.jsx("tr",{children:t.header.map((r,o)=>m.jsx("th",{children:vi(r,`${a}-h${o}`)},o))})}),m.jsx("tbody",{children:t.rows.map((r,o)=>m.jsx("tr",{children:r.map((s,l)=>m.jsx("td",{children:vi(s,`${a}-${o}-${l}`)},l))},o))})]})},a);case"p":default:return m.jsx("p",{children:vi(t.text,a)},a)}})})}function Bk({articleId:e,store:i,onToggleFavorite:t,onView:n,onEdit:a,onBack:r}){const o=Jr(e,i.localArticles),s=V.useRef(null);if(V.useEffect(()=>{o&&s.current!==o.id&&(s.current=o.id,n(o.id))},[o,n]),!o)return m.jsxs("div",{className:"page",children:[m.jsx(Xt,{title:"Not found",onBack:r}),m.jsx("p",{className:"hint",children:"This article no longer exists."})]});const l=i.favorites.includes(o.id);return m.jsxs("div",{className:"page",children:[m.jsx(Xt,{title:o.title,subtitle:o.categoryLabel,onBack:r,right:m.jsxs(m.Fragment,{children:[o.local&&m.jsx("button",{className:"linkbtn",onClick:a,children:"Edit"}),m.jsx(Dk,{active:l,onToggle:()=>t(o.id)})]})}),m.jsx(Fk,{tags:o.tags}),m.jsx("div",{className:"card articlebody",children:m.jsx(ud,{text:o.body})})]})}function Hk(e){return e.replace(/```/g," ").replace(/[#>*`|_]/g," ").replace(/\s+/g," ").trim()}function Nk(e,i,t){if(i===-1)return{before:"",match:"",after:e.slice(0,100)};const a=Math.max(0,i-40),r=Math.min(e.length,i+t+40);let o=e.slice(a,i);const s=e.slice(i,i+t);let l=e.slice(i+t,r);return a>0&&(o="…"+o),r<e.length&&(l=l+"…"),{before:o,match:s,after:l}}function _k(e,i){const t=i.trim().toLowerCase();if(!t)return[];const n=t.split(/\s+/).filter(Boolean),a=[];for(const r of e){const o=r.title.toLowerCase(),s=r.tags.join(" ").toLowerCase(),l=Hk(r.body),c=l.toLowerCase();let f=0,g=-1,h=0;for(const y of n){o.includes(y)&&(f+=10),s.includes(y)&&(f+=5);const w=c.indexOf(y);w!==-1&&(f+=1,g===-1&&(g=w,h=y.length))}f<=0||a.push({article:r,score:f,snippet:Nk(l,g,h)})}return a.sort((r,o)=>o.score-r.score),a}function Jk({local:e,onOpenArticle:i,onHome:t}){const[n,a]=V.useState(""),r=_k(ba(e),n);return m.jsxs("div",{className:"page",children:[m.jsx(Xt,{title:"Search",onBack:t}),m.jsx("input",{className:"input",autoFocus:!0,placeholder:"Search classifications, techniques…",value:n,onChange:o=>a(o.target.value)}),n.trim()!==""&&r.length===0&&m.jsxs("p",{className:"hint",children:['No matches for "',n,'".']}),r.map(({article:o,snippet:s})=>m.jsxs("div",{className:"card searchresult",onClick:()=>i(o.id),children:[m.jsx("div",{className:"articlerow-title",children:o.title}),m.jsx("div",{className:"articlerow-tags",children:o.categoryLabel}),(s.before||s.match||s.after)&&m.jsxs("div",{className:"snippet",children:[s.before,s.match&&m.jsx("mark",{children:s.match}),s.after]})]},o.id)),n.trim()===""&&m.jsx("p",{className:"hint small",children:"Start typing to search titles, tags, and article text."})]})}function Kk({article:e,defaultCategory:i,onSave:t,onDelete:n,onCancel:a}){const[r,o]=V.useState((e==null?void 0:e.title)||""),[s,l]=V.useState((e==null?void 0:e.category)||i||Ak[0]),[c,f]=V.useState(((e==null?void 0:e.tags)||[]).join(", ")),[g,h]=V.useState((e==null?void 0:e.body)||""),[y,w]=V.useState(!1),k=Bo([]),D=()=>t({id:(e==null?void 0:e.id)||`local/${Gp()}`,category:s,title:r.trim(),tags:c.split(",").map(u=>u.trim()).filter(Boolean),body:g});return m.jsxs("div",{className:"page",children:[m.jsx(Xt,{title:e?"Edit article":"New article",subtitle:"Stored on this device",onBack:a,right:m.jsx("button",{className:"linkbtn",onClick:()=>w(u=>!u),children:y?"Edit":"Preview"})}),y?m.jsxs(m.Fragment,{children:[m.jsx("h1",{className:"apptitle",children:r||"Untitled"}),m.jsx("div",{className:"card articlebody",children:m.jsx(ud,{text:g})})]}):m.jsxs(m.Fragment,{children:[m.jsx("input",{className:"input",placeholder:"Title",value:r,onChange:u=>o(u.target.value)}),m.jsx("div",{className:"chips",children:k.map(u=>m.jsx("button",{className:"chip choice"+(s===u.key?" sel":""),onClick:()=>l(u.key),children:u.label},u.key))}),m.jsx("input",{className:"input",placeholder:"Tags (comma separated)",value:c,onChange:u=>f(u.target.value)}),m.jsx("textarea",{className:"input editorbody",rows:16,placeholder:`Markdown body…
+`)});continue}const r=a.match(/^(#{1,4})\s+(.*)$/);if(r){t.push({type:"heading",level:r[1].length,text:r[2].trim()}),n++;continue}if(/^(-{3,}|\*{3,}|_{3,})\s*$/.test(a.trim())){t.push({type:"hr"}),n++;continue}if(a.startsWith(">")){const s=[];for(;n<i.length&&i[n].startsWith(">");)s.push(i[n].replace(/^>\s?/,"")),n++;t.push({type:"blockquote",text:s.join(" ")});continue}if(a.trim().startsWith("|")&&i[n+1]&&Nk(i[n+1])){const s=Ys(a);n+=2;const l=[];for(;n<i.length&&i[n].trim().startsWith("|");)l.push(Ys(i[n])),n++;t.push({type:"table",header:s,rows:l});continue}if(/^\s*[-*+]\s+/.test(a)){const s=[];for(;n<i.length&&/^\s*[-*+]\s+/.test(i[n]);)s.push(i[n].replace(/^\s*[-*+]\s+/,"")),n++;t.push({type:"ul",items:s});continue}if(/^\s*\d+[.)]\s+/.test(a)){const s=[];for(;n<i.length&&/^\s*\d+[.)]\s+/.test(i[n]);)s.push(i[n].replace(/^\s*\d+[.)]\s+/,"")),n++;t.push({type:"ol",items:s});continue}const o=[];for(;n<i.length&&i[n].trim()!=="";)o.push(i[n]),n++;t.push({type:"p",text:o.join(" ")})}return t}function hd({text:e}){const i=_k(e||"");return m.jsx("div",{className:"md-content",children:i.map((t,n)=>{const a=`b${n}`;switch(t.type){case"heading":{const r=`h${t.level}`;return m.jsx(r,{children:vi(t.text,a)},a)}case"hr":return m.jsx("hr",{},a);case"blockquote":return m.jsx("blockquote",{children:vi(t.text,a)},a);case"code":return m.jsx("pre",{className:"md-code",children:m.jsx("code",{children:t.content})},a);case"ul":return m.jsx("ul",{children:t.items.map((r,o)=>m.jsx("li",{children:vi(r,`${a}-${o}`)},o))},a);case"ol":return m.jsx("ol",{children:t.items.map((r,o)=>m.jsx("li",{children:vi(r,`${a}-${o}`)},o))},a);case"table":return m.jsx("div",{className:"tablewrap",children:m.jsxs("table",{className:"md-table",children:[m.jsx("thead",{children:m.jsx("tr",{children:t.header.map((r,o)=>m.jsx("th",{children:vi(r,`${a}-h${o}`)},o))})}),m.jsx("tbody",{children:t.rows.map((r,o)=>m.jsx("tr",{children:r.map((s,l)=>m.jsx("td",{children:vi(s,`${a}-${o}-${l}`)},l))},o))})]})},a);case"p":default:return m.jsx("p",{children:vi(t.text,a)},a)}})})}function Jk({articleId:e,store:i,onToggleFavorite:t,onView:n,onEdit:a,onBack:r}){const o=Jr(e,i.localArticles),s=E.useRef(null);if(E.useEffect(()=>{o&&s.current!==o.id&&(s.current=o.id,n(o.id))},[o,n]),!o)return m.jsxs("div",{className:"page",children:[m.jsx(Xt,{title:"Not found",onBack:r}),m.jsx("p",{className:"hint",children:"This article no longer exists."})]});const l=i.favorites.includes(o.id);return m.jsxs("div",{className:"page",children:[m.jsx(Xt,{title:o.title,subtitle:o.categoryLabel,onBack:r,right:m.jsxs(m.Fragment,{children:[o.local&&m.jsx("button",{className:"linkbtn",onClick:a,children:"Edit"}),m.jsx(zk,{active:l,onToggle:()=>t(o.id)})]})}),m.jsx(Lk,{tags:o.tags}),m.jsx("div",{className:"card articlebody",children:m.jsx(hd,{text:o.body})})]})}function Kk(e){return e.replace(/```/g," ").replace(/[#>*`|_]/g," ").replace(/\s+/g," ").trim()}function Gk(e,i,t){if(i===-1)return{before:"",match:"",after:e.slice(0,100)};const a=Math.max(0,i-40),r=Math.min(e.length,i+t+40);let o=e.slice(a,i);const s=e.slice(i,i+t);let l=e.slice(i+t,r);return a>0&&(o="…"+o),r<e.length&&(l=l+"…"),{before:o,match:s,after:l}}function Vk(e,i){const t=i.trim().toLowerCase();if(!t)return[];const n=t.split(/\s+/).filter(Boolean),a=[];for(const r of e){const o=r.title.toLowerCase(),s=r.tags.join(" ").toLowerCase(),l=Kk(r.body),c=l.toLowerCase();let f=0,g=-1,h=0;for(const y of n){o.includes(y)&&(f+=10),s.includes(y)&&(f+=5);const v=c.indexOf(y);v!==-1&&(f+=1,g===-1&&(g=v,h=y.length))}f<=0||a.push({article:r,score:f,snippet:Gk(l,g,h)})}return a.sort((r,o)=>o.score-r.score),a}function Wk({local:e,onOpenArticle:i,onHome:t}){const[n,a]=E.useState(""),r=Vk(ba(e),n);return m.jsxs("div",{className:"page",children:[m.jsx(Xt,{title:"Search",onBack:t}),m.jsx("input",{className:"input",autoFocus:!0,placeholder:"Search classifications, techniques…",value:n,onChange:o=>a(o.target.value)}),n.trim()!==""&&r.length===0&&m.jsxs("p",{className:"hint",children:['No matches for "',n,'".']}),r.map(({article:o,snippet:s})=>m.jsxs("div",{className:"card searchresult",onClick:()=>i(o.id),children:[m.jsx("div",{className:"articlerow-title",children:o.title}),m.jsx("div",{className:"articlerow-tags",children:o.categoryLabel}),(s.before||s.match||s.after)&&m.jsxs("div",{className:"snippet",children:[s.before,s.match&&m.jsx("mark",{children:s.match}),s.after]})]},o.id)),n.trim()===""&&m.jsx("p",{className:"hint small",children:"Start typing to search titles, tags, and article text."})]})}function Uk({article:e,defaultCategory:i,onSave:t,onDelete:n,onCancel:a}){const[r,o]=E.useState((e==null?void 0:e.title)||""),[s,l]=E.useState((e==null?void 0:e.category)||i||Ck[0]),[c,f]=E.useState(((e==null?void 0:e.tags)||[]).join(", ")),[g,h]=E.useState((e==null?void 0:e.body)||""),[y,v]=E.useState(!1),k=Bo([]),D=()=>t({id:(e==null?void 0:e.id)||`local/${Wp()}`,category:s,title:r.trim(),tags:c.split(",").map(u=>u.trim()).filter(Boolean),body:g});return m.jsxs("div",{className:"page",children:[m.jsx(Xt,{title:e?"Edit article":"New article",subtitle:"Stored on this device",onBack:a,right:m.jsx("button",{className:"linkbtn",onClick:()=>v(u=>!u),children:y?"Edit":"Preview"})}),y?m.jsxs(m.Fragment,{children:[m.jsx("h1",{className:"apptitle",children:r||"Untitled"}),m.jsx("div",{className:"card articlebody",children:m.jsx(hd,{text:g})})]}):m.jsxs(m.Fragment,{children:[m.jsx("input",{className:"input",placeholder:"Title",value:r,onChange:u=>o(u.target.value)}),m.jsx("div",{className:"chips",children:k.map(u=>m.jsx("button",{className:"chip choice"+(s===u.key?" sel":""),onClick:()=>l(u.key),children:u.label},u.key))}),m.jsx("input",{className:"input",placeholder:"Tags (comma separated)",value:c,onChange:u=>f(u.target.value)}),m.jsx("textarea",{className:"input editorbody",rows:16,placeholder:`Markdown body…
 
 # Heading
 **bold**, *italic*, \`code\`
 - lists
-| tables | work |`,value:g,onChange:u=>h(u.target.value)})]}),m.jsxs("div",{className:"btnrow",children:[e&&n&&m.jsx("button",{className:"linkbtn danger",onClick:()=>{confirm("Delete this article?")&&n(e.id)},children:"Delete"}),m.jsx("button",{className:"bigbtn",disabled:!r.trim()||!g.trim(),onClick:D,children:"Save"})]})]})}function Gk(){const[e,i]=V.useState(Np),[t,n]=V.useState({screen:"home"}),a=e.localArticles;V.useEffect(()=>{_p(e)},[e]);const r=()=>n({screen:"home"}),o=h=>n({screen:"category",key:h}),s=(h,y)=>n({screen:"article",id:h,back:y||{screen:"home"}}),l=()=>n({screen:"search"}),c=(h,y)=>n({screen:"edit",id:h,defaultCategory:y,back:t}),f=h=>i(y=>Jp(y,h)),g=h=>i(y=>Kp(y,h));if(t.screen==="category")return m.jsx(zk,{categoryKey:t.key,local:a,onOpenArticle:h=>s(h,{screen:"category",key:t.key}),onNew:()=>c(null,t.key),onHome:r});if(t.screen==="article")return m.jsx(Bk,{articleId:t.id,store:e,onToggleFavorite:f,onView:g,onEdit:()=>c(t.id),onBack:()=>n(t.back||{screen:"home"})});if(t.screen==="search")return m.jsx(Jk,{local:a,onOpenArticle:h=>s(h,{screen:"search"}),onHome:r});if(t.screen==="edit"){const h=t.id?a.find(y=>y.id===t.id):null;return m.jsx(Kk,{article:h,defaultCategory:t.defaultCategory,onSave:y=>{i(w=>Vp(w,y)),n({screen:"article",id:y.id,back:{screen:"category",key:y.category}})},onDelete:y=>{i(w=>Wp(w,y)),r()},onCancel:()=>n(t.back||{screen:"home"})})}return m.jsx(Ok,{store:e,setStore:i,onOpenCategory:o,onOpenArticle:s,onSearch:l,onNew:()=>c(null)})}"serviceWorker"in navigator&&window.addEventListener("load",()=>{navigator.serviceWorker.register("/life-architecture/ortho/sw.js").catch(e=>console.error("SW registration failed:",e))});cd(document.getElementById("root")).render(m.jsx(Rd.StrictMode,{children:m.jsx(Gk,{})}));
+| tables | work |`,value:g,onChange:u=>h(u.target.value)})]}),m.jsxs("div",{className:"btnrow",children:[e&&n&&m.jsx("button",{className:"linkbtn danger",onClick:()=>{confirm("Delete this article?")&&n(e.id)},children:"Delete"}),m.jsx("button",{className:"bigbtn",disabled:!r.trim()||!g.trim(),onClick:D,children:"Save"})]})]})}function Xk(){const[e,i]=E.useState(Jp),[t,n]=E.useState({screen:"home"}),a=e.localArticles;E.useEffect(()=>{Kp(e)},[e]);const r=()=>n({screen:"home"}),o=h=>n({screen:"category",key:h}),s=(h,y)=>n({screen:"article",id:h,back:y||{screen:"home"}}),l=()=>n({screen:"search"}),c=(h,y)=>n({screen:"edit",id:h,defaultCategory:y,back:t}),f=h=>i(y=>Gp(y,h)),g=h=>i(y=>Vp(y,h));if(t.screen==="category")return m.jsx(Hk,{categoryKey:t.key,local:a,onOpenArticle:h=>s(h,{screen:"category",key:t.key}),onNew:()=>c(null,t.key),onHome:r});if(t.screen==="article")return m.jsx(Jk,{articleId:t.id,store:e,onToggleFavorite:f,onView:g,onEdit:()=>c(t.id),onBack:()=>n(t.back||{screen:"home"})});if(t.screen==="search")return m.jsx(Wk,{local:a,onOpenArticle:h=>s(h,{screen:"search"}),onHome:r});if(t.screen==="edit"){const h=t.id?a.find(y=>y.id===t.id):null;return m.jsx(Uk,{article:h,defaultCategory:t.defaultCategory,onSave:y=>{i(v=>Up(v,y)),n({screen:"article",id:y.id,back:{screen:"category",key:y.category}})},onDelete:y=>{i(v=>Xp(v,y)),r()},onCancel:()=>n(t.back||{screen:"home"})})}return m.jsx(Dk,{store:e,setStore:i,onOpenCategory:o,onOpenArticle:s,onSearch:l,onNew:()=>c(null)})}"serviceWorker"in navigator&&window.addEventListener("load",()=>{navigator.serviceWorker.register("/life-architecture/ortho/sw.js").catch(e=>console.error("SW registration failed:",e))});ud(document.getElementById("root")).render(m.jsx(jd.StrictMode,{children:m.jsx(Xk,{})}));
