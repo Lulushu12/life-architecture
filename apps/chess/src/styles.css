@@ -1288,3 +1288,15 @@ textarea.input {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
+
+/* ---- pro games database ---- */
+.dbmeta {
+  margin: 6px 0 2px;
+  text-align: center;
+}
+.dbstory {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0;
+}

@@ -11,6 +11,7 @@ import Openings from "./Openings.jsx";
 import PositionEditor from "./PositionEditor.jsx";
 import EngineMatch from "./EngineMatch.jsx";
 import { PuzzleHome, TierTrainer } from "./PuzzleSets.jsx";
+import GamesDB from "./GamesDB.jsx";
 import Lessons from "./Lessons.jsx";
 import Settings from "./Settings.jsx";
 
@@ -40,6 +41,8 @@ export default function App() {
       return <Archive {...props} />;
     case "openings":
       return <Openings {...props} />;
+    case "games":
+      return <GamesDB {...props} />;
     case "editor":
       return <PositionEditor {...props} />;
     case "enginematch":

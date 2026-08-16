@@ -1,6 +1,28 @@
 # Content scripts
 
-Dev tooling, not shipped in the app. Each one needs the Lichess puzzle dump:
+Dev tooling, not shipped in the app.
+
+## Games database
+
+The pro-games database (`public/games/`) is built from pgnmentor.com's event
+archive — download the source PGNs first:
+
+```sh
+# grab the event list, then every events/<Name><Year>.pgn into pgn/events/,
+# and the player collections referenced by build-famous-games.mjs into
+# pgn/players/ (see the SPECS table in that script)
+node scripts/build-games-db.mjs --src pgn/events      # → public/games/{index.json,ev/*.json}
+node scripts/build-famous-games.mjs --src pgn         # → public/games/famous.json
+```
+
+| Script | What it does |
+|---|---|
+| `build-games-db.mjs` | Parses every event PGN, replays each game through chess.js (invalid games are dropped and counted), and writes one lazy-loadable JSON per event plus the catalog `index.json`. |
+| `build-famous-games.mjs` | Extracts the curated famous-games shelf. Every entry must match exactly one game in the source archives or the build fails — no silently-wrong classics. |
+
+## Puzzles & openings
+
+Each of these needs the Lichess puzzle dump:
 
 ```sh
 curl -O https://database.lichess.org/lichess_db_puzzle.csv.zst   # ~290MB, CC0
