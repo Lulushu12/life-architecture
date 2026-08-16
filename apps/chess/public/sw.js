@@ -12,6 +12,8 @@ const PRECACHE_ASSETS = [
   '/life-architecture/chess/manifest.json',
   '/life-architecture/chess/icon-192.png',
   '/life-architecture/chess/icon-512.png',
+  '/life-architecture/chess/games/index.json',
+  '/life-architecture/chess/games/famous.json',
   '/life-architecture/chess/engine/stockfish-nnue-16-single.js',
   '/life-architecture/chess/engine/stockfish-nnue-16-single.wasm',
   '/life-architecture/chess/engine/nn-5af11540bbfe.nnue',
