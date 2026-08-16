@@ -253,6 +253,11 @@ h3 {
   margin: 16px 0 6px;
   color: var(--accent2);
 }
+.md-content h4 {
+  font-size: 13.5px;
+  margin: 14px 0 4px;
+  color: var(--muted);
+}
 .md-content p {
   margin: 0 0 12px;
 }

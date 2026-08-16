@@ -51,6 +51,15 @@ function titleCase(slug) {
 }
 
 const CATEGORY_LABELS = {
+  trauma: "Trauma & Fractures",
+  arthroplasty: "Arthroplasty & Degenerative",
+  sports: "Sports & Arthroscopy",
+  spine: "Spine",
+  "hand-wrist": "Hand & Wrist",
+  "foot-ankle": "Foot & Ankle",
+  peds: "Pediatrics",
+  "onco-metabolic": "Tumors, Infection & Metabolic",
+  principles: "Principles & Procedures",
   classifications: "Classifications",
   techniques: "Techniques",
   checklists: "Checklists",
