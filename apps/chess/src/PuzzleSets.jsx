@@ -83,6 +83,9 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
   // ply = index into the solution line; even entries are the opponent's.
   const [ply, setPly] = useState(1);
   const [state, setState] = useState("try"); // try | wrong | solved | revealed
+  // Progressive help for the current step: 1 shows which piece must move,
+  // 2 shows the full move. Resets after each correct move.
+  const [hint, setHint] = useState(0);
   const [puzzleId, setPuzzleId] = useState(null);
   // Skipped puzzles stay unsolved but shouldn't be handed straight back; the
   // set is per-visit, so they return next time the tier is opened.
@@ -114,6 +117,7 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
       setPuzzleId(puzzle.i);
       setPly(1);
       setState("try");
+      setHint(0);
     }
   }, [puzzle, puzzleId]);
 
@@ -208,6 +212,7 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
       setState("wrong");
       return;
     }
+    setHint(0); // help was for this step only; the next one starts unaided
     const nextPly = ply + 2; // our move, then the opponent's reply
     if (ply + 1 >= moves.length) {
       setPly(ply + 1);
@@ -258,7 +263,12 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
         orientation={solverColor}
         dests={dests}
         onMove={tryMove}
-        arrow={state === "revealed" ? [expected.slice(0, 2), expected.slice(2, 4)] : null}
+        arrow={
+          state === "revealed" || (hint >= 2 && state !== "solved")
+            ? [expected.slice(0, 2), expected.slice(2, 4)]
+            : null
+        }
+        highlightSquares={hint === 1 && state !== "solved" && state !== "revealed" ? [expected.slice(0, 2)] : null}
         theme={store.settings.theme}
         pieceSet={store.settings.pieces}
         animMs={store.settings.animMs}
@@ -278,6 +288,15 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
         <button className="linkbtn" onClick={() => setShowThemes((s) => !s)}>
           ⚑ {theme ? themes.find((t) => t.key === theme)?.label || "Theme" : "Theme"}
         </button>
+        {state !== "solved" && state !== "revealed" && (
+          <button
+            className="linkbtn"
+            disabled={hint >= 2}
+            onClick={() => setHint((h) => Math.min(h + 1, 2))}
+          >
+            {hint === 0 ? "💡 Hint" : "Move"}
+          </button>
+        )}
         {state !== "solved" && (
           <button className="linkbtn" onClick={() => setState("revealed")}>
             Reveal
@@ -287,6 +306,7 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
           <button
             className="linkbtn"
             onClick={() => {
+              setHint(0);
               const nextPly = ply + 2;
               if (nextPly >= moves.length) {
                 setPly(moves.length);
@@ -301,9 +321,23 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
           </button>
         )}
         {state === "solved" && (
-          <button className="bigbtn" onClick={() => advance(false)}>
-            Next puzzle
-          </button>
+          <>
+            <button
+              className="linkbtn"
+              onClick={() => {
+                // Hand the analysis board the decision point (right after the
+                // opponent's setup move) so other ideas can be explored.
+                const c = new Chess(puzzle.f);
+                if (moves.length) applyUci(c, moves[0]);
+                nav("analysis", { fen: c.fen(), back: { screen: "puzzles", set: tierKey } });
+              }}
+            >
+              🔬 Analysis
+            </button>
+            <button className="bigbtn" onClick={() => advance(false)}>
+              Next puzzle
+            </button>
+          </>
         )}
         <button className="linkbtn" onClick={() => advance(true)}>
           Skip

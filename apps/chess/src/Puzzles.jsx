@@ -10,6 +10,8 @@ export default function BlunderTrainer({ store, setStore, nav }) {
   const unsolved = store.puzzles.filter((p) => !p.solved);
   const [idx, setIdx] = useState(0);
   const [state, setState] = useState("try"); // try | wrong | solved | revealed
+  // Progressive help: 1 shows which piece must move, 2 shows the full move.
+  const [hint, setHint] = useState(0);
   const puzzle = unsolved[Math.min(idx, Math.max(0, unsolved.length - 1))];
 
   const chess = useMemo(() => (puzzle ? new Chess(puzzle.fen) : null), [puzzle]);
@@ -61,6 +63,7 @@ export default function BlunderTrainer({ store, setStore, nav }) {
 
   const next = () => {
     setState("try");
+    setHint(0);
     setIdx(0); // unsolved list shrinks as puzzles get solved
   };
 
@@ -80,9 +83,12 @@ export default function BlunderTrainer({ store, setStore, nav }) {
         dests={dests}
         onMove={tryMove}
         arrow={
-          state === "solved" || state === "revealed"
+          state === "solved" || state === "revealed" || hint >= 2
             ? [puzzle.bestUci.slice(0, 2), puzzle.bestUci.slice(2, 4)]
             : null
+        }
+        highlightSquares={
+          hint === 1 && state !== "solved" && state !== "revealed" ? [puzzle.bestUci.slice(0, 2)] : null
         }
         theme={store.settings.theme}
         pieceSet={store.settings.pieces}
@@ -101,8 +107,25 @@ export default function BlunderTrainer({ store, setStore, nav }) {
       )}
       <div className="btnrow toolrow">
         {state !== "solved" && state !== "revealed" && (
-          <button className="linkbtn" onClick={() => setState("revealed")}>
-            Reveal
+          <>
+            <button
+              className="linkbtn"
+              disabled={hint >= 2}
+              onClick={() => setHint((h) => Math.min(h + 1, 2))}
+            >
+              {hint === 0 ? "💡 Hint" : "Move"}
+            </button>
+            <button className="linkbtn" onClick={() => setState("revealed")}>
+              Reveal
+            </button>
+          </>
+        )}
+        {(state === "solved" || state === "revealed") && (
+          <button
+            className="linkbtn"
+            onClick={() => nav("analysis", { fen: puzzle.fen, back: { screen: "puzzles", set: "blunders" } })}
+          >
+            🔬 Analysis
           </button>
         )}
         {(state === "solved" || state === "revealed") && unsolved.length > 0 && (
@@ -112,9 +135,11 @@ export default function BlunderTrainer({ store, setStore, nav }) {
         )}
         <button
           className="linkbtn danger"
-          onClick={() =>
-            setStore((s) => ({ ...s, puzzles: s.puzzles.filter((p) => p.id !== puzzle.id) })) || setState("try")
-          }
+          onClick={() => {
+            setStore((s) => ({ ...s, puzzles: s.puzzles.filter((p) => p.id !== puzzle.id) }));
+            setState("try");
+            setHint(0);
+          }}
         >
           Discard
         </button>

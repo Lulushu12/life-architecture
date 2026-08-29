@@ -249,7 +249,14 @@ export default function Analysis({ store, nav, view }) {
       <TopBar
         title="Analysis board"
         sub={opening ? opening.name : evalInfo ? `depth ${evalInfo.depth}` : "free board"}
-        onBack={() => nav("home")}
+        onBack={() => {
+          // Screens that hand over a position (e.g. a finished puzzle) also
+          // say where "back" should land; a free board goes home.
+          if (view?.back) {
+            const { screen, ...params } = view.back;
+            nav(screen, params);
+          } else nav("home");
+        }}
         right={
           <button className="linkbtn" onClick={() => setOrientation((o) => (o === "w" ? "b" : "w"))}>
             ⇅ Flip
