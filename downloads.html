@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#131109">
+<title>Life Architecture — App Downloads</title>
+<meta name="description" content="Install the eight Life Architecture apps as Android APKs, or open them in a browser.">
+<link rel="icon" href="icon-192.png">
+<style>
+  /* Palette taken from the apps' own stylesheet — warm charcoals and the gold
+     the chess app already uses — so this page belongs to the same family as
+     the things it hands you. Light theme first; dark redefined token-only. */
+  :root {
+    --ground: #f2f1ec; --surface: #fbfaf7; --line: #dcd8cd; --line-soft: #e7e4db;
+    --text: #191713; --muted: #6c6659; --accent: #8a6316; --accent-face: #d9a441;
+    --accent-ink: #17140f;
+    --ui: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Roboto Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #131109; --surface: #1d1a14; --line: #302b22; --line-soft: #262219;
+      --text: #ece7dc; --muted: #948d7d; --accent: #e0ae4e; --accent-face: #d9a441;
+      --accent-ink: #17140f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #131109; --surface: #1d1a14; --line: #302b22; --line-soft: #262219;
+    --text: #ece7dc; --muted: #948d7d; --accent: #e0ae4e; --accent-face: #d9a441;
+    --accent-ink: #17140f;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--ground); color: var(--text); font-family: var(--ui);
+    font-size: 16px; line-height: 1.5; margin: 0; padding: 28px 18px 64px;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
+
+  header { display: flex; flex-direction: column; gap: 10px; }
+  h1 { font-size: 27px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 650; margin: 0; text-wrap: balance; }
+  .standfirst { color: var(--muted); font-size: 14.5px; margin: 0; max-width: 46ch; }
+  .buildline {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    display: flex; flex-wrap: wrap; gap: 6px 14px;
+    padding-top: 10px; border-top: 1px solid var(--line);
+  }
+  .buildline b { color: var(--text); font-weight: 500; }
+
+  h2 {
+    font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.11em;
+    font-weight: 650; color: var(--muted); margin: 0 0 14px;
+  }
+  .list { display: flex; flex-direction: column; }
+  .app {
+    display: flex; flex-direction: column; gap: 9px;
+    padding: 18px 0; border-top: 1px solid var(--line-soft);
+  }
+  .app:first-child { border-top: 0; padding-top: 0; }
+  .head { display: flex; align-items: baseline; gap: 12px; }
+  .name { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; flex: 1; min-width: 0; }
+  .size {
+    font-family: var(--mono); font-size: 13px; font-variant-numeric: tabular-nums;
+    color: var(--muted); white-space: nowrap;
+  }
+  .desc { color: var(--muted); font-size: 14px; margin: 0; }
+  .desc .flag { color: var(--accent); }
+
+  .actions { display: flex; flex-direction: column; gap: 9px; margin-top: 3px; }
+  .get {
+    width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 46px; padding: 0 18px;
+    background: var(--accent-face); color: var(--accent-ink);
+    font: inherit; font-size: 15px; font-weight: 600;
+    text-decoration: none; border-radius: 4px;
+    transition: filter 120ms ease, transform 120ms ease;
+  }
+  .get:hover { filter: brightness(1.06); }
+  .get:active { transform: translateY(1px); }
+  .get:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+  .arrow { font-family: var(--mono); font-size: 15px; }
+
+  .sublinks { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+  .sublinks .sep { color: var(--line); }
+  .alt {
+    color: var(--muted); font-size: 13px; text-decoration: none;
+    border-bottom: 1px solid var(--line); white-space: nowrap; padding-bottom: 1px;
+  }
+  .alt.web { color: var(--text); border-bottom-color: var(--accent); }
+  .alt:hover { color: var(--text); }
+  .alt:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+
+  details { margin-top: 2px; }
+  details[hidden] { display: none; }
+  summary {
+    font-family: var(--mono); font-size: 11.5px; color: var(--muted);
+    cursor: pointer; letter-spacing: 0.03em; list-style: none; display: inline-block;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "+ "; }
+  details[open] summary::before { content: "\2212 "; }
+  summary:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+  .digest {
+    font-family: var(--mono); font-size: 11.5px; color: var(--muted);
+    word-break: break-all; margin: 7px 0 0; line-height: 1.6;
+  }
+
+  .note {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 5px;
+    padding: 17px 18px; display: flex; flex-direction: column; gap: 11px;
+  }
+  .note h3 { font-size: 15px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  .note p { margin: 0; font-size: 14.5px; color: var(--muted); }
+  .note p strong { color: var(--text); font-weight: 600; }
+  .note code {
+    font-family: var(--mono); font-size: 13px; color: var(--text);
+    background: var(--ground); padding: 1px 5px; border-radius: 3px;
+  }
+  ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 7px; }
+  ol li { font-size: 14.5px; color: var(--muted); }
+  ol li strong { color: var(--text); font-weight: 600; }
+  .warn { border-color: var(--accent); }
+  .warn h3 { color: var(--accent); }
+
+  footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 16px; }
+  footer p { margin: 0 0 9px; }
+  footer p:last-child { margin-bottom: 0; }
+  footer a { color: var(--accent); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>App downloads</h1>
+    <p class="standfirst">
+      Eight apps that run entirely on the device. No account, no network, nothing to sign in to.
+      Install one as an Android app, or just open it in a browser.
+    </p>
+    <div class="buildline" id="buildline">
+      <span id="buildstate">Checking the latest build&hellip;</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Packages</h2>
+    <div class="list" id="list"></div>
+  </section>
+
+  <section class="note">
+    <h3>Installing for the first time</h3>
+    <ol>
+      <li>Tap a download above. Your browser will warn you about the file type &mdash; that warning is for any APK, not this one.</li>
+      <li>Open the downloaded file. Android will ask whether this browser may <strong>install unknown apps</strong>. Allow it once.</li>
+      <li>Install. No permissions are requested &mdash; none of these apps ask for storage, camera, contacts or location.</li>
+    </ol>
+  </section>
+
+  <section class="note warn">
+    <h3>Updating: export your data first</h3>
+    <p>
+      These are self-signed builds, and the signing key is regenerated on each build machine. Android
+      refuses to install an update signed by a different key, so a new version will fail with
+      <code>App not installed</code> until you <strong>uninstall the old one</strong> &mdash; and
+      uninstalling erases that app's data.
+    </p>
+    <p>
+      So before updating: open the app, use its <strong>Export / backup</strong> panel, copy the text
+      somewhere safe. Install the new version, then paste it back into <strong>Restore</strong>.
+      Games, history, settings and lesson progress all come back.
+    </p>
+    <p>
+      To make updates install cleanly over the top instead, add a fixed signing key to the repository as
+      the <code>ANDROID_KEYSTORE_BASE64</code> secret. Every build then shares one signature and Android
+      treats them as the same app.
+    </p>
+  </section>
+
+  <footer>
+    <p>
+      Sizes and checksums are read from the GitHub releases when this page loads, so they always describe
+      the build you are about to download rather than whatever was current when the page was written.
+    </p>
+    <p>
+      Every app is also linked to its web version above. Those need no install &mdash; open one once and it
+      caches itself, so it keeps working offline, and <strong>Add to Home screen</strong> gives it an icon
+      that opens without browser chrome.
+    </p>
+    <p>
+      Worth knowing: the installed app and the web version keep <strong>separate</strong> data. They are
+      different storage, so games, settings and progress do not carry across. Moving between them means
+      exporting from one and restoring into the other.
+    </p>
+  </footer>
+</div>
+
+<script>
+// The eight apps, in the order they should be listed. `web` is the path under
+// the site root — life-architecture is deployed AT the root, not in a
+// subdirectory, so its path is empty.
+var APPS = [
+  { id: 'breathe',           name: 'Breathe',           web: 'breathe/',  size: '3.7 MB',
+    desc: 'Wim Hof breathing rounds and a meditation timer.' },
+  { id: 'calories',          name: 'Calories',          web: 'calories/', size: '3.6 MB',
+    desc: 'Calorie and training log, with weights and food history.' },
+  { id: 'chess',             name: 'Chess',             web: 'chess/',    size: '37.3 MB',
+    desc: 'Bots, lessons, 7,200 puzzles, the opening explorer, position editor and engine matches.',
+    flag: 'Ten times the size of the others — it carries Stockfish 16 and its 39 MB neural net, so it plays at full strength with no connection.' },
+  { id: 'focus',             name: 'Focus',             web: 'focus/',    size: '3.6 MB',
+    desc: 'Pomodoro and task timers, break reminders, focus statistics.' },
+  { id: 'games',             name: 'Games',             web: 'games/',    size: '3.6 MB',
+    desc: 'Chess clock, Sudoku and Cryptogram.' },
+  { id: 'life-architecture', name: 'Life Architecture', web: '',          size: '3.9 MB',
+    desc: 'Life planning and goal tracking.' },
+  { id: 'ortho',             name: 'Ortho Reference',   web: 'ortho/',    size: '3.6 MB',
+    desc: 'Orthopedic reference — your own notes, classifications and checklists.' },
+  { id: 'whist',             name: 'Whist & Rentz',     web: 'whist/',    size: '3.6 MB',
+    desc: 'Scorekeeper for Romanian Whist and Rentz.' }
+];
+
+var REPO = 'Lulushu12/life-architecture';
+var DL = 'https://github.com/' + REPO + '/releases/download/';
+var TAG = 'https://github.com/' + REPO + '/releases/tag/';
+
+function el(tag, cls, text) {
+  var n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text != null) n.textContent = text;
+  return n;
+}
+
+// Build every row from static data first, so the links are present and
+// clickable whether or not the GitHub API answers.
+var list = document.getElementById('list');
+APPS.forEach(function (app) {
+  var row = el('div', 'app');
+
+  var head = el('div', 'head');
+  head.appendChild(el('span', 'name', app.name));
+  var size = el('span', 'size', app.size);
+  size.id = 'size-' + app.id;
+  head.appendChild(size);
+  row.appendChild(head);
+
+  var desc = el('p', 'desc', app.desc);
+  if (app.flag) {
+    desc.appendChild(document.createTextNode(' '));
+    desc.appendChild(el('span', 'flag', app.flag));
+  }
+  row.appendChild(desc);
+
+  var actions = el('div', 'actions');
+  // No target and no download attribute: GitHub serves the asset as an
+  // attachment, so a plain same-tab link starts the download and leaves this
+  // page where it is. That is also the form Android browsers handle best.
+  var get = el('a', 'get');
+  get.href = DL + app.id + '-latest/' + app.id + '.apk';
+  get.appendChild(el('span', 'arrow', '↓'));
+  get.appendChild(document.createTextNode(' ' + app.id + '.apk'));
+  actions.appendChild(get);
+
+  var sub = el('div', 'sublinks');
+  var web = el('a', 'alt web', 'Open the web version');
+  web.href = './' + app.web;
+  sub.appendChild(web);
+  sub.appendChild(el('span', 'sep', '/'));
+  var rel = el('a', 'alt', 'Release page');
+  rel.href = TAG + app.id + '-latest';
+  rel.target = '_blank';
+  rel.rel = 'noopener';
+  sub.appendChild(rel);
+  actions.appendChild(sub);
+  row.appendChild(actions);
+
+  // Checksums only appear once they have been read from the release itself —
+  // a hard-coded digest would go stale on the next build and quietly lie.
+  var det = el('details');
+  det.id = 'digest-' + app.id;
+  det.hidden = true;
+  det.appendChild(el('summary', null, 'sha256'));
+  det.appendChild(el('p', 'digest'));
+  row.appendChild(det);
+
+  list.appendChild(row);
+});
+
+// Progressive enhancement: fill in real sizes, checksums and the build date.
+// Failure is silent — the static links above already work.
+(function () {
+  var state = document.getElementById('buildstate');
+  fetch('https://api.github.com/repos/' + REPO + '/releases?per_page=100', {
+    headers: { Accept: 'application/vnd.github+json' }
+  })
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error(r.status)); })
+    .then(function (releases) {
+      var newest = null, commit = null, found = 0;
+
+      releases.forEach(function (rel) {
+        var m = /^(.+)-latest$/.exec(rel.tag_name || '');
+        if (!m) return;
+        var app = APPS.filter(function (a) { return a.id === m[1]; })[0];
+        if (!app) return;
+        var asset = (rel.assets || []).filter(function (a) {
+          return a.name === app.id + '.apk';
+        })[0];
+        if (!asset) return;
+        found++;
+
+        var sizeEl = document.getElementById('size-' + app.id);
+        if (sizeEl) sizeEl.textContent = (asset.size / 1048576).toFixed(2) + ' MB';
+
+        var digest = (asset.digest || '').replace(/^sha256:/, '');
+        if (digest) {
+          var det = document.getElementById('digest-' + app.id);
+          det.querySelector('.digest').textContent = digest;
+          det.hidden = false;
+        }
+
+        var when = new Date(rel.published_at);
+        if (!newest || when > newest) { newest = when; commit = rel.target_commitish; }
+      });
+
+      if (!found) throw new Error('no matching releases');
+
+      var line = document.getElementById('buildline');
+      line.textContent = '';
+      var built = el('span');
+      built.appendChild(document.createTextNode('built '));
+      built.appendChild(el('b', null, newest.toLocaleString(undefined, {
+        day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+      })));
+      line.appendChild(built);
+      if (commit) {
+        var c = el('span');
+        c.appendChild(document.createTextNode('commit '));
+        c.appendChild(el('b', null, String(commit).slice(0, 7)));
+        line.appendChild(c);
+      }
+      var n = el('span');
+      n.appendChild(el('b', null, String(found)));
+      n.appendChild(document.createTextNode(' packages'));
+      line.appendChild(n);
+    })
+    .catch(function () {
+      state.textContent = 'Offline — sizes shown are approximate. The download links still work.';
+    });
+})();
+</script>
+</body>
+</html>
