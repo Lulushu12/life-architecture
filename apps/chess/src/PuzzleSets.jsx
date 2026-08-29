@@ -127,6 +127,19 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
     return c;
   }, [puzzle, moves, ply]);
 
+  // The solver's color, fixed for the whole puzzle from the position right
+  // after the opponent's setup move (ply 1) — unlike `chess.turn()` above,
+  // this must NOT be read at the live ply: the final correct move only
+  // advances ply by 1 (no opponent reply left to append), so at that instant
+  // chess.turn() flips to the opponent's color and would flip the board out
+  // from under the player on the very move that solves the puzzle.
+  const solverColor = useMemo(() => {
+    if (!puzzle) return "w";
+    const c = new Chess(puzzle.f);
+    if (moves.length) applyUci(c, moves[0]);
+    return c.turn();
+  }, [puzzle, moves]);
+
   const dests = useMemo(() => {
     if (!chess || state === "solved" || state === "revealed") return null;
     const map = new Map();
@@ -170,7 +183,6 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
     );
   }
 
-  const solverColor = chess.turn();
   const expected = moves[ply];
 
   const markSolved = () => {
@@ -249,6 +261,7 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
         arrow={state === "revealed" ? [expected.slice(0, 2), expected.slice(2, 4)] : null}
         theme={store.settings.theme}
         pieceSet={store.settings.pieces}
+        animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
         needsPromotion={(from, to) => {
           const piece = chess.get(from);

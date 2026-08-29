@@ -46,6 +46,74 @@ function fenToMap(fen) {
   return map;
 }
 
+// Distance between two squares in board units, for matching moved pieces.
+function sqDist(a, b) {
+  return Math.hypot(FILES.indexOf(a[0]) - FILES.indexOf(b[0]), parseInt(a[1], 10) - parseInt(b[1], 10));
+}
+
+// Reconcile the tracked piece list against a new FEN map so each physical
+// piece keeps a stable identity (and thus animates) across moves. Matching
+// is heuristic but covers every legal transition: quiet moves and captures
+// (nearest same-code piece), castling (two same-code matches), en passant
+// (the captured pawn fades on its own square), and promotion (same-color
+// fallback lets the pawn glide into its new piece). Unmatched appearing
+// pieces are minted fresh; unmatched disappearing ones fade out where they
+// stood and are dropped on the next reconcile.
+function diffPieces(prev, map, keyCounter) {
+  const next = [];
+  const remaining = { ...map };
+  const displaced = [];
+  for (const p of prev) {
+    if (p.dead) continue;
+    if (remaining[p.sq] === p.code) {
+      next.push({ ...p, moving: false });
+      delete remaining[p.sq];
+    } else displaced.push(p);
+  }
+  for (const sq of Object.keys(remaining)) {
+    let best = null;
+    let bestD = Infinity;
+    for (const p of displaced) {
+      if (p.code !== remaining[sq]) continue;
+      const d = sqDist(p.sq, sq);
+      if (d < bestD) {
+        bestD = d;
+        best = p;
+      }
+    }
+    if (best) {
+      next.push({ ...best, sq, moving: true });
+      displaced.splice(displaced.indexOf(best), 1);
+      delete remaining[sq];
+    }
+  }
+  for (const sq of Object.keys(remaining)) {
+    const code = remaining[sq];
+    const i = displaced.findIndex((p) => {
+      if (p.code[0] !== code[0]) return false;
+      const promoRank = code[0] === "w" ? "8" : "1";
+      return (
+        (p.code[1] === "P" && code[1] !== "P" && code[1] !== "K" && sq[1] === promoRank) ||
+        (code[1] === "P" && p.code[1] !== "P" && p.code[1] !== "K" && p.sq[1] === promoRank)
+      );
+    });
+    if (i >= 0) {
+      const p = displaced.splice(i, 1)[0];
+      next.push({ ...p, sq, code, moving: true });
+      delete remaining[sq];
+    }
+  }
+  for (const sq of Object.keys(remaining)) {
+    next.push({ key: "p" + keyCounter.current++, code: remaining[sq], sq, moving: false, dead: false });
+  }
+  for (const p of displaced) next.push({ ...p, dead: true });
+  // Canonical order: React must never reorder the keyed piece nodes — moving
+  // a DOM node (insertBefore) kills its in-flight CSS transition, which
+  // would make exactly the gliding piece snap into place instead.
+  next.sort((a, b) => parseInt(a.key.slice(1), 10) - parseInt(b.key.slice(1), 10));
+  return next;
+}
+
 const cx = (c) => c.col * 12.5 + 6.25;
 const cy = (c) => c.row * 12.5 + 6.25;
 
@@ -118,6 +186,7 @@ export default function Board({
   pieceSet = "cburnett",
   arrowColors,
   needsPromotion,
+  animMs = 200,
 }) {
   const colorsArrow = { ...DEFAULT_ARROW_COLORS, ...(arrowColors || {}) };
   const [selected, setSelected] = useState(null);
@@ -129,6 +198,25 @@ export default function Board({
   const touch = useRef(null);
   const suppressClick = useRef(false);
   const pieces = useMemo(() => fenToMap(fen), [fen]);
+  // Stable-identity piece list, reconciled whenever the FEN changes (ref
+  // mutation during render is the derived-state pattern: idempotent per fen).
+  const keyCounter = useRef(0);
+  const animRef = useRef(null);
+  if (animRef.current === null) {
+    animRef.current = {
+      fen,
+      list: Object.entries(pieces).map(([sq, code]) => ({
+        key: "p" + keyCounter.current++,
+        code,
+        sq,
+        moving: false,
+        dead: false,
+      })),
+    };
+  } else if (animRef.current.fen !== fen) {
+    animRef.current = { fen, list: diffPieces(animRef.current.list, pieces, keyCounter) };
+  }
+  const animPieces = animRef.current.list;
   const colors = BOARD_THEMES[theme] || BOARD_THEMES.brown;
   const svgs = PIECE_SETS[pieceSet] || PIECE_SETS.cburnett;
   const ranks = orientation === "w" ? [7, 6, 5, 4, 3, 2, 1, 0] : [0, 1, 2, 3, 4, 5, 6, 7];
@@ -256,7 +344,7 @@ export default function Board({
       <div
         ref={boardRef}
         className={"board" + (drawFrom ? " drawing" : "")}
-        style={{ "--light": colors.light, "--dark": colors.dark }}
+        style={{ "--light": colors.light, "--dark": colors.dark, "--anim-ms": animMs + "ms" }}
         onContextMenu={(e) => e.preventDefault()}
       >
         {ranks.map((r, row) =>
@@ -297,9 +385,6 @@ export default function Board({
               >
                 {col === 0 && <span className="coord rank">{r + 1}</span>}
                 {row === 7 && <span className="coord file">{FILES[f]}</span>}
-                {pieces[sq] && (
-                  <div className="piece" dangerouslySetInnerHTML={{ __html: svgs[pieces[sq]] }} />
-                )}
                 {targets.includes(sq) && <div className={pieces[sq] ? "hintring" : "hintdot"} />}
                 {(circled || (drawFrom === sq && dragTo === sq)) && (
                   <div className="usercircle" style={{ borderColor: colorsArrow.plan }} />
@@ -311,6 +396,19 @@ export default function Board({
             );
           })
         )}
+        <div className="piecelayer">
+          {animPieces.map((p) => {
+            const { col, row } = idx(p.sq);
+            return (
+              <div
+                key={p.key}
+                className={"apiece" + (p.dead ? " dead" : "") + (p.moving ? " moving" : "")}
+                style={{ transform: `translate(${col * 100}%, ${row * 100}%)` }}
+                dangerouslySetInnerHTML={{ __html: svgs[p.code] }}
+              />
+            );
+          })}
+        </div>
         <svg className="arrowlayer" viewBox="0 0 100 100">
           {(threats || []).map((t, i) => (
             <Arrow key={"t" + i} from={idx(t[0])} to={idx(t[1])} color={colorsArrow.threat} width={2.2} />

@@ -18,7 +18,7 @@ const rawModules = import.meta.glob("./content/**/*.md", {
 });
 
 function parseFrontMatter(raw) {
-  const meta = { title: "", tags: [] };
+  const meta = { title: "", tags: [], region: "", specialty: "" };
   let body = raw;
   const trimmed = raw.replace(/^﻿/, "");
   if (trimmed.startsWith("---")) {
@@ -32,6 +32,8 @@ function parseFrontMatter(raw) {
         const key = line.slice(0, i).trim().toLowerCase();
         const value = line.slice(i + 1).trim();
         if (key === "title") meta.title = value;
+        else if (key === "region") meta.region = value;
+        else if (key === "specialty") meta.specialty = value;
         else if (key === "tags")
           meta.tags = value
             .split(",")
@@ -55,6 +57,7 @@ const CATEGORY_LABELS = {
   techniques: "Techniques",
   checklists: "Checklists",
   notes: "Notes",
+  diagnoses: "Diagnoses",
 };
 
 function buildArticles() {
@@ -72,6 +75,8 @@ function buildArticles() {
       slug,
       title: meta.title || titleCase(slug),
       tags: meta.tags,
+      region: meta.region,
+      specialty: meta.specialty,
       body,
     });
   }
@@ -89,6 +94,8 @@ export function normalizeLocal(localArticles = []) {
     categoryLabel: CATEGORY_LABELS[a.category] || titleCase(a.category),
     slug: a.id,
     tags: a.tags || [],
+    region: a.region || "",
+    specialty: a.specialty || "",
     local: true,
   }));
 }

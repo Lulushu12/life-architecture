@@ -116,6 +116,19 @@ export default function Settings({ store, setStore, nav }) {
       <SettingRow label="Eval bar in casual games">
         <Toggle checked={store.settings.evalBar} onChange={(v) => set({ evalBar: v })} />
       </SettingRow>
+      <SettingRow label="Piece animation speed">
+        <div className="sliderwrap">
+          <input
+            type="range"
+            min={0}
+            max={600}
+            step={20}
+            value={store.settings.animMs}
+            onChange={(e) => set({ animMs: +e.target.value })}
+          />
+          <span className="slidervalue">{store.settings.animMs === 0 ? "Off" : store.settings.animMs + " ms"}</span>
+        </div>
+      </SettingRow>
 
       <h2>Game review</h2>
       <SettingRow label="Time per position">

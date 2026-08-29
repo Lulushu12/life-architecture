@@ -2,7 +2,7 @@
 // Renders into React elements (never dangerouslySetInnerHTML), so HTML in
 // the source is inert — React text nodes escape it automatically.
 //
-// Supported: # / ## / ### headings, **bold**, *italic*, `code`, fenced code
+// Supported: # / ## / ### / #### headings, **bold**, *italic*, `code`, fenced code
 // blocks, unordered/ordered lists, pipe tables, blockquotes, horizontal
 // rules, links, plain paragraphs.
 
@@ -74,7 +74,7 @@ function parseBlocks(text) {
     }
 
     // heading
-    const h = line.match(/^(#{1,3})\s+(.*)$/);
+    const h = line.match(/^(#{1,4})\s+(.*)$/);
     if (h) {
       blocks.push({ type: "heading", level: h[1].length, text: h[2].trim() });
       i++;

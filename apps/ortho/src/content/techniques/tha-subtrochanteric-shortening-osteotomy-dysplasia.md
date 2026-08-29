@@ -1,0 +1,93 @@
+---
+title: Total Hip Arthroplasty with Subtrochanteric Shortening Osteotomy — Complex Dysplasia
+tags: Arthroplasty, Pelvis & Hip, adult hip dysplasia, total hip arthroplasty, subtrochanteric shortening derotational osteotomy, Crowe classification, Hartofilakidis classification, high hip dislocation, structural autograft
+specialty: Arthroplasty
+region: Pelvis & Hip
+updated: 2026-08-16
+---
+
+## Indications & Contraindications
+
+**Indications**
+- Total hip arthroplasty (THA) for dysplasia is indicated once secondary osteoarthritis is established (Tönnis ≥2) or in older patients not suited to hip-preservation surgery, becoming progressively more technically demanding with increasing Crowe/Hartofilakidis severity.
+- A subtrochanteric shortening derotational osteotomy (SDO) is indicated when the limb-lengthening required to restore the hip center to the true acetabulum would exceed the safe threshold of approximately 3–4 cm — essentially mandatory in Crowe III–IV or Hartofilakidis type B–C (partial or complete high dislocation).
+- SDO is also useful when correction of excessive femoral anteversion is needed independent of the lengthening requirement, since the osteotomy allows the distal fragment to be derotated relative to the proximal metaphyseal segment.
+- Severe proximal femoral deformity (narrow diametaphyseal canal, excessive anteversion) that would otherwise prevent safe stem seating without an osteotomy.
+
+**Contraindications**
+- Active local or systemic infection.
+- Insufficient bone stock or extremely poor bone quality where neither stable acetabular nor femoral fixation, nor stable osteotomy fixation, can reasonably be achieved.
+- Relative: patients for whom a high hip center reconstruction without osteotomy is an acceptable compromise (e.g., very low-demand, elderly patients where minimizing surgical time/complexity outweighs the biomechanical downsides of a high hip center) — this avoids the added morbidity of an osteotomy but is a compromise, not a preferred solution, since a high hip center alters joint biomechanics, increases polyethylene wear/loosening risk over time, and is generally reserved for patients unlikely to need long-term durability.
+- Relative: inability to comply with protected weight-bearing during osteotomy healing (severe cognitive impairment, unreliable follow-up) — an unhealed osteotomy is a significant complication, and patient reliability should factor into technique selection.
+
+## Preoperative Planning
+
+- **Full-length AP pelvis and femur radiographs** (and contralateral limb for comparison) to classify Crowe/Hartofilakidis grade, measure leg-length discrepancy, and assess femoral bow/deformity along the entire shaft that will affect stem trajectory after osteotomy.
+- **CT with 3D reconstruction** of the pelvis and proximal femur, increasingly standard in Crowe III–IV/Hartofilakidis B–C cases, to precisely measure acetabular bone stock and version, femoral canal diameter and version, and to template the osteotomy level and the amount of bone to be resected.
+- **Preoperative templating of limb-length correction**: calculate the total lengthening needed to bring the hip center to the true acetabulum, and calculate the amount of femoral shortening required at the osteotomy to keep net lengthening within the safe threshold (~3–4 cm) — this determines the resection length at the osteotomy site.
+- **Implant planning**: 
+ - *Acetabular side* — small cup sizes (often significantly smaller than standard primary inventory), have structural autograft (femoral head autograft if available from reaming, or allograft) available for superolateral coverage in Crowe II–III hips with residual dysplastic undercoverage.
+ - *Femoral side* — modular or small-stature/narrow stems are frequently required for the deformed, narrow diametaphyseal canal typical of dysplastic femurs; confirm availability of a full range of small femoral component sizes and, if using a modular stem system, the specific sleeve/stem combinations anticipated from templating.
+ - *Osteotomy fixation* — plan fixation strategy (extended stem bridging the osteotomy with cortical strut allograft and cerclage wires/cables, or a stepped/derotational cut geometry with the femoral stem itself providing rotational control) based on stem system and surgeon preference; have cerclage cable/wire sets and cortical strut allograft available regardless of primary plan in case of intraoperative fracture or need for adjunctive fixation.
+- **Neuromonitoring**: intraoperative neuromonitoring (somatosensory or motor evoked potentials, or a simple Stagnara-type wake-up test analog) is used at some centers for Crowe III–IV cases given the elevated sciatic/femoral nerve injury risk with acute correction — discuss availability and threshold for use in advance.
+- **Blood management**: plan for increased blood loss relative to routine primary THA given the additional osteotomy, extensive soft-tissue release, and often longer operative time; consider tranexamic acid protocol and type and screen/crossmatch accordingly.
+- **Multidisciplinary discussion** for Hartofilakidis type C (high, complete dislocation) — the most technically demanding subgroup — including realistic discussion with the patient about the elevated nerve-injury and complication risk profile relative to standard primary THA.
+
+## Anesthesia & Positioning
+
+- **Anesthesia**: general anesthesia, often combined with a regional block/catheter for postoperative analgesia; case duration is typically longer than a standard primary THA, which should factor into anesthetic planning and positioning padding.
+- **Position**: lateral decubitus position is most commonly used (posterior or anterolateral approach), providing access to both the acetabulum and the femoral shaft for the subtrochanteric osteotomy through a single extensile incision; a hip positioner/peg board or beanbag secures the pelvis, with careful attention to stable, symmetric pelvic fixation given the altered bony landmarks in a dysplastic/dislocated hip that can make intraoperative orientation more difficult.
+- **Approach**: a standard posterior or anterolateral THA approach is typically extended distally along the femoral shaft as needed to expose the subtrochanteric region for the osteotomy — plan and mark this extensile incision preoperatively rather than improvising intraoperatively once the need for extension becomes apparent.
+- **Draping**: the operative leg is draped free from above the iliac crest to below the knee to allow full intraoperative limb manipulation for trial reduction, limb-length assessment, and derotation of the osteotomized segment.
+- **Fluoroscopy**: available intraoperatively in many centers to assist with confirming cup position at the true acetabulum (particularly helpful in a distorted, shallow, or retroverted socket where anatomic landmarks are altered) and to confirm osteotomy fixation and stem position.
+- **Neuromonitoring leads**: placed and baseline-tested before positioning/prepping if intraoperative neuromonitoring is planned, so a baseline signal is established before any limb manipulation occurs.
+- **Tourniquet**: not used — this is an extensile procedure involving both the acetabulum and a significant length of femoral shaft, not amenable to tourniquet control.
+- **Surface landmarks marked**: greater trochanter, anticipated distal extent of the incision over the femoral shaft (based on preoperative templating of the osteotomy level), and the anterior superior iliac spine as a pelvic orientation reference, marked before draping.
+
+## Step-by-Step Technique
+
+1. **Perform the standard THA approach** (posterior or anterolateral, per surgeon preference), extending the incision distally along the femoral shaft to the level templated for the subtrochanteric osteotomy.
+2. **Expose and prepare the acetabulum first**: identify the true acetabulum (often small, shallow, and retroverted/anteverted relative to normal, obscured by pseudocapsule and a false acetabulum in higher Crowe/Hartofilakidis grades) — use bony landmarks (transverse acetabular ligament, cotyloid fossa, ischium/pubis/ilium junction) rather than the deceptive false acetabulum to orient reaming.
+3. **Ream progressively and conservatively**, medializing to the true acetabular floor to gain coverage and stability, since the native socket is often too small and shallow to fully contain even a small standard cup without some medialization.
+4. **Place the acetabular component** at the true anatomic hip center using a small cup, adding superolateral structural autograft (from the reamed femoral head, if available and viable, or structural allograft) for coverage where more than approximately 20–30% of the cup would otherwise be uncovered — secure the graft with screws and confirm host bone contact over the majority of the cup before proceeding.
+5. **Trial-assess required limb lengthening**: with a trial or the definitive cup in place, distract the limb to assess how much lengthening would be needed to reduce the hip at the true acetabulum, and confirm this exceeds the safe threshold (~3–4 cm) before committing to osteotomy — this trial step is what converts the preoperative plan into an intraoperative decision.
+6. **Expose the subtrochanteric femur** at the previously templated level (commonly just distal to the lesser trochanter), protecting the surrounding soft tissue envelope and vastus lateralis origin.
+7. **Prepare the femoral canal proximally first** (broach/ream the proximal metaphyseal segment) before completing the osteotomy, when the stem/technique allows — this preserves proximal bone stock orientation landmarks that can be lost once the segment is mobile.
+8. **Perform the subtrochanteric osteotomy**: a transverse cut is technically simpler, more predictable for calculating the length of bone resected, and allows easier derotation with satisfactory apposition between the metaphyseal and diaphyseal segments; oblique, step-cut, or chevron-shaped osteotomies are alternatives that can offer greater rotational and axial stability at the cost of added technical complexity, and are chosen by some surgeons particularly when derotation control without an extensively rotationally-stable stem design is a priority.
+9. **Resect the pre-templated segment of bone** (the length calculated preoperatively to keep net limb lengthening within the safe threshold) from the diaphyseal side of the osteotomy.
+10. **Insert and seat the femoral stem** across the osteotomy site, using a stem design (straight, fluted, modular, or a long stem bridging the osteotomy with adequate diaphyseal fixation beyond the osteotomy site) appropriate to the deformity and osteotomy geometry — the stem itself often provides much of the rotational stability across a transverse osteotomy once well-seated in the diaphysis.
+11. **Derotate the distal fragment** relative to the fixed proximal (stem-controlled) segment to correct excessive femoral anteversion, confirming final version intraoperatively (visually referencing the femoral condyles, or with instrumentation/fluoroscopy) before final fixation.
+12. **Confirm apposition and fix the osteotomy**: achieve bone-to-bone contact between the proximal and distal fragments where feasible, and augment fixation with cerclage cables/wires and/or a cortical strut allograft bridging the osteotomy site, particularly when apposition is imperfect or the stem alone does not provide adequate rotational control.
+13. **Trial reduce the hip** and reassess limb length, offset, stability through range of motion, and soft-tissue tension — confirm the net lengthening achieved is within the safe threshold and that the construct is stable before final component impaction.
+14. **Impact final components**, re-trial as needed, and perform a final reduction, checking stability (particularly posterior stability in flexion-internal rotation for a posterior approach) and confirming no impingement.
+15. **Assess distal neurovascular status** intraoperatively (or via neuromonitoring signal check) after final reduction and lengthening, before closure, given the elevated nerve-injury risk of this reconstruction.
+16. **Close in layers** over a drain per surgeon preference, with meticulous soft-tissue and capsular repair given the often-attenuated, lax soft-tissue envelope characteristic of chronically dislocated/subluxated hips, which independently elevates postoperative dislocation risk.
+
+## Technical Tips & Pearls
+
+- Identify the true acetabulum using bony landmarks (transverse acetabular ligament, cotyloid fossa, tri-radiate junction) rather than trusting the false acetabulum's apparent socket shape — in high dislocation, the false acetabulum can be more anatomically obvious and is a common source of malposition if used as the primary reference.
+- Prepare the femoral canal proximally before completing the osteotomy whenever the sequence allows — once the segment is free, proximal landmarks for broach orientation and version referencing are harder to judge.
+- Favor a transverse osteotomy cut for predictability of resection length and ease of derotation in most cases; reserve step-cut/oblique geometries for situations where additional inherent rotational stability at the osteotomy site is specifically needed (e.g., a stem design that does not achieve strong diaphyseal press-fit distal to the cut).
+- Perform the limb-lengthening trial assessment with trial components in place before finalizing the resection length — templated length is a starting estimate, but intraoperative trial distraction is the final check that confirms the actual amount of correction achievable and needed.
+- Use structural autograft from the reamed femoral head when available rather than defaulting to allograft — autograft is more readily available, avoids allograft-specific costs/logistics, and this is one of the few settings in adult reconstruction where a large volume of usable autograft is naturally at hand from the reaming process itself.
+- Augment osteotomy fixation with cerclage cables placed just proximal and distal to the osteotomy line before final stem impaction in cases with a fluted or tapered stem — this reduces the risk of a proximal fragment split during stem seating, a particular risk in the often osteopenic, distorted proximal femur of a chronically dislocated hip.
+- Reassess sciatic and femoral nerve status (direct palpation of tension, or neuromonitoring signal) after trial reduction and before final component impaction — this is the last convenient opportunity to reduce lengthening or adjust the construct if nerve tension is a concern, before the reconstruction is finalized.
+- Plan and mark the extensile distal incision preoperatively based on templated osteotomy level, rather than deciding intraoperatively once acetabular work reveals the lengthening requirement — this avoids an awkwardly placed or insufficiently extensile incision discovered mid-case.
+- In Hartofilakidis type C hips, have a lower threshold to accept imperfect (but adequate) fixation and a slightly conservative lengthening target rather than pushing for maximal correction — the incremental gain in limb-length equalization is rarely worth a meaningfully elevated nerve-injury risk in this highest-risk subgroup.
+
+## Pitfalls & Complications
+
+- Acute limb lengthening beyond the ~3–4 cm safe threshold risks sciatic nerve palsy — mitigated specifically by performing the subtrochanteric shortening osteotomy in Crowe III–IV, and by intraoperative trial assessment/neuromonitoring rather than relying solely on preoperative templates.
+- Nonunion can occur at the shortening osteotomy site — adequate bone-to-bone apposition, appropriate fixation augmentation (cerclage/strut allograft), and strict adherence to postoperative protected weight-bearing until radiographic union all mitigate this risk.
+- Component malposition due to distorted native anatomy is a recognized risk, particularly acetabular component version/inclination in a shallow, retroverted, or anteverted true acetabulum where normal landmarks are altered — orient off confirmed bony landmarks (and intraoperative fluoroscopy where available) rather than by eye alone.
+- Higher dislocation risk results from soft-tissue laxity and abductor deficiency inherent to chronically subluxated/dislocated hips — meticulous soft-tissue/capsular repair and, in some cases, a larger femoral head or dual-mobility construct are used to mitigate this independent of correct component positioning.
+- Abductor deficiency and altered hip biomechanics from chronic subluxation affect postoperative limp risk even with a technically sound reconstruction — set expectations preoperatively that gait may remain imperfect despite a well-executed procedure.
+- Intraoperative femoral fracture during broaching or stem insertion is a recognized risk in the often narrow, deformed, osteopenic dysplastic femur — have cerclage wires/cables readily available and a low threshold to use prophylactic cabling before impaction in higher-risk femurs.
+- Hartofilakidis type C (high, complete dislocation) is the most technically demanding subgroup, with subtrochanteric shortening osteotomy essentially mandatory and the highest nerve-injury risk — counsel patients accordingly and consider the multidisciplinary/neuromonitoring measures above for this group specifically.
+- Vascular injury (particularly to branches near the true acetabulum obscured by dense pseudocapsular scar tissue in high dislocation) is a rare but serious risk during acetabular exposure — careful, layered dissection with clear identification of the capsule before aggressive retraction reduces this risk.
+
+## Postoperative Protocol
+
+The monograph does not detail a separate phased rehabilitation protocol specific to this procedure. General THA precautions apply, with particular attention to osteotomy-site healing and postoperative sciatic/femoral nerve function monitoring given the elevated risk of nerve injury with concurrent correction of severe deformity. In practice, most surgeons apply protected (touch-down to partial) weight-bearing until radiographic union of the osteotomy is confirmed (commonly 6–12 weeks, sometimes longer than a routine primary THA given the added osteotomy), followed by progressive weight-bearing and standard THA precautions and strengthening thereafter; serial radiographs are obtained to specifically track osteotomy healing rather than relying on standard THA follow-up imaging intervals alone.
+
+*Full context: "Femoral Head Osteonecrosis & Hip Preservation" in the Diagnoses section.*

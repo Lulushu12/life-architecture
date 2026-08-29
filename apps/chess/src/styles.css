@@ -359,6 +359,39 @@ textarea.input {
   height: 100%;
   display: block;
 }
+/* Animated piece layer: one absolutely-positioned node per physical piece,
+   moved via transform so position changes glide. --anim-ms comes from the
+   board (0 = instant). */
+.piecelayer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.apiece {
+  position: absolute;
+  width: 12.5%;
+  height: 12.5%;
+  transition:
+    transform var(--anim-ms, 200ms) cubic-bezier(0.25, 0.85, 0.3, 1),
+    opacity var(--anim-ms, 200ms) ease;
+  will-change: transform;
+}
+.apiece svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: transform var(--anim-ms, 200ms) ease;
+}
+.apiece.moving {
+  z-index: 2;
+}
+.apiece.dead {
+  opacity: 0;
+}
+.apiece.dead svg {
+  transform: scale(0.4);
+}
 .hintdot {
   position: absolute;
   left: 50%;
@@ -1236,3 +1269,34 @@ textarea.input {
   color: var(--muted);
 }
 .levelsplit b { font-weight: 700; }
+
+/* Animation-speed slider (Settings) */
+.sliderwrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sliderwrap input[type="range"] {
+  width: 140px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.slidervalue {
+  font-size: 13px;
+  color: var(--muted);
+  min-width: 48px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- pro games database ---- */
+.dbmeta {
+  margin: 6px 0 2px;
+  text-align: center;
+}
+.dbstory {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0;
+}
