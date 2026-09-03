@@ -25,7 +25,22 @@ export default function App() {
     saveStore(store);
   }, [store]);
 
-  const nav = (screen, params = {}) => setView({ screen, ...params });
+  // Every in-app navigation is mirrored into the browser history, so the
+  // phone's back button/gesture (which Capacitor forwards as WebView goBack)
+  // and the browser's back button pop screens instead of closing the app.
+  // Only at the home screen — no history left — does back leave the app.
+  useEffect(() => {
+    window.history.replaceState({ view: { screen: "home" } }, "");
+    const onPop = (e) => setView(e.state?.view || { screen: "home" });
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  const nav = (screen, params = {}) => {
+    const v = { screen, ...params };
+    setView(v);
+    window.history.pushState({ view: v }, "");
+  };
   const props = { store, setStore, nav, view };
 
   switch (view.screen) {

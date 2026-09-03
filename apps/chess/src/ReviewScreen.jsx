@@ -242,7 +242,15 @@ function Review({ store, setStore, nav, game }) {
   }, [dispFen, review]);
 
   const stashLine = (b) =>
-    b && b.sans.length > 0 && setStash((st) => [{ baseIdx: b.baseIdx, sans: b.sans }, ...st].slice(0, 8));
+    b &&
+    b.sans.length > 0 &&
+    setStash((st) => [{ baseIdx: b.baseIdx, sans: b.sans, info: b.info }, ...st].slice(0, 8));
+
+  // The engine's pick for the position a branch move is played FROM, captured
+  // at play time from the live lines — it's what grades that move and powers
+  // "best was X" inside variations.
+  const ideaNow = () =>
+    lines.length > 0 ? { bestUci: lines[0].uci, bestSan: lines[0].sans[0] || null, cpBefore: lines[0].cp } : null;
 
   const playMove = (from, to, promotion) => {
     const test = new Chess(dispFen);
@@ -250,7 +258,7 @@ function Review({ store, setStore, nav, game }) {
     if (!mv) return;
     setShowBest(false);
     if (!branch) {
-      setBranch({ baseIdx: viewIdx, sans: [mv.san] });
+      setBranch({ baseIdx: viewIdx, sans: [mv.san], info: [ideaNow()] });
       setBranchPly(null);
       return;
     }
@@ -262,7 +270,11 @@ function Review({ store, setStore, nav, game }) {
     }
     // a different idea mid-line: stash the abandoned continuation as a chip
     if (branch.sans.length > base) stashLine(branch);
-    setBranch({ baseIdx: branch.baseIdx, sans: [...branch.sans.slice(0, base), mv.san] });
+    setBranch({
+      baseIdx: branch.baseIdx,
+      sans: [...branch.sans.slice(0, base), mv.san],
+      info: [...(branch.info || []).slice(0, base), ideaNow()],
+    });
     setBranchPly(null);
   };
 
@@ -277,7 +289,8 @@ function Review({ store, setStore, nav, game }) {
     if (!b) return;
     setStash((st) => {
       const next = st.filter((_, j) => j !== i);
-      if (branch && branch.sans.length > 0) next.unshift({ baseIdx: branch.baseIdx, sans: branch.sans });
+      if (branch && branch.sans.length > 0)
+        next.unshift({ baseIdx: branch.baseIdx, sans: branch.sans, info: branch.info });
       return next.slice(0, 8);
     });
     setBranch(b);
@@ -313,6 +326,26 @@ function Review({ store, setStore, nav, game }) {
   // an overlay on the CURRENT board, never by rewinding the position.
   const playedUci = lastMovePair ? lastMovePair[0] + lastMovePair[1] : null;
   const altUci = moveAt?.bestUci && playedUci && moveAt.bestUci.slice(0, 4) !== playedUci ? moveAt.bestUci : null;
+
+  // Same verdict for the last variation move: graded against the engine pick
+  // captured when it was played, with the live eval of the resulting position.
+  const brInfo = branch && branchUpto > 0 ? (branch.info || [])[branchUpto - 1] : null;
+  const brPlayed = branch && branchState.last ? branchState.last[0] + branchState.last[1] : null;
+  const brIsBest = brInfo?.bestUci && brPlayed && brInfo.bestUci.slice(0, 4) === brPlayed;
+  const brAlt = brInfo?.bestUci && !brIsBest ? brInfo : null;
+  let brCls = null;
+  if (brInfo) {
+    if (brIsBest) brCls = "best";
+    else if (lines.length > 0 && brInfo.cpBefore != null) {
+      const mover = dispFen.split(" ")[1] === "w" ? "b" : "w"; // who just moved
+      const sign = mover === "w" ? 1 : -1;
+      const drop = Math.max(0, winPct(brInfo.cpBefore * sign) - winPct(lines[0].cp * sign));
+      brCls = classifyDrop(drop);
+    }
+  }
+  // What the "show" toggle overlays on the current board, wherever we are.
+  const overlayUci = showBest ? (branch ? brAlt?.bestUci || null : altUci) : null;
+
   const orientation = game.mode === "bot" && game.playerColor === "b" ? "b" : "w";
 
   const retryFrom = (personaId) => {
@@ -399,8 +432,8 @@ function Review({ store, setStore, nav, game }) {
         fen={dispFen}
         orientation={orientation}
         lastMove={branch ? branchState.last : lastMovePair}
-        guideArrows={!branch && showBest && altUci ? [[altUci.slice(0, 2), altUci.slice(2, 4)]] : []}
-        highlightSquares={!branch && showBest && altUci ? [altUci.slice(0, 2)] : []}
+        guideArrows={overlayUci ? [[overlayUci.slice(0, 2), overlayUci.slice(2, 4)]] : []}
+        highlightSquares={overlayUci ? [overlayUci.slice(0, 2)] : []}
         threats={threats}
         dests={dests}
         onMove={playMove}
@@ -438,6 +471,27 @@ function Review({ store, setStore, nav, game }) {
               {b.sans.length > 3 ? "…" : ""}
             </button>
           ))}
+        </div>
+      )}
+
+      {branch && brInfo && (brCls || brAlt) && (
+        <div
+          className="moveverdict"
+          style={{ borderColor: brCls ? CLASSIFICATIONS[brCls].color : "var(--border)" }}
+        >
+          <b style={brCls ? { color: CLASSIFICATIONS[brCls].color } : undefined}>
+            {branch.sans[branchUpto - 1]}
+            {brCls ? ` — ${CLASSIFICATIONS[brCls].label}` : ""}
+          </b>
+          {brAlt && brAlt.bestSan && (
+            <span>
+              {" "}
+              · best was <b>{brAlt.bestSan}</b>{" "}
+              <button className="linkbtn" onClick={() => setShowBest((s) => !s)}>
+                {showBest ? "hide" : "show"}
+              </button>
+            </span>
+          )}
         </div>
       )}
 
@@ -512,6 +566,15 @@ function Review({ store, setStore, nav, game }) {
       />
     </div>
   );
+}
+
+// Same thresholds the analysis board uses to grade a played move.
+function classifyDrop(drop) {
+  if (drop < 2) return "excellent";
+  if (drop < 5) return "good";
+  if (drop < 10) return "inaccuracy";
+  if (drop < 20) return "mistake";
+  return "blunder";
 }
 
 function botName(game) {
