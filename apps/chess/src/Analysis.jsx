@@ -277,6 +277,7 @@ export default function Analysis({ store, nav, view }) {
           }
           threats={showMissed ? [] : threats}
           theme={store.settings.theme}
+          custom={store.settings.boardCustom}
           pieceSet={store.settings.pieces}
           animMs={store.settings.animMs}
           arrowColors={store.settings.arrowColors}

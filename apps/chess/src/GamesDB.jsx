@@ -460,6 +460,7 @@ function Viewer({ store, setStore, nav, back, game, context, story }) {
         lastMove={pairs[viewIdx]}
         dests={null}
         theme={store.settings.theme}
+        custom={store.settings.boardCustom}
         pieceSet={store.settings.pieces}
         animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}

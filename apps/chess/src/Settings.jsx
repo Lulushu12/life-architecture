@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { TopBar, Toggle, SettingRow } from "./ui.jsx";
-import { BOARD_THEMES, PIECE_SETS, PIECE_SET_NAMES, DEFAULT_ARROW_COLORS } from "./Board.jsx";
+import { BOARD_THEMES, TEXTURES, PIECE_SETS, PIECE_SET_NAMES, DEFAULT_ARROW_COLORS } from "./Board.jsx";
 import { loadStore, saveStore } from "./storage.js";
 import { backupText, backupFilename, canDownload, copyToClipboard, downloadJson, parseBackup } from "./backup.js";
 
@@ -12,6 +12,13 @@ const ARROW_LABELS = {
 
 const RELEASE_URL = "https://github.com/Lulushu12/life-architecture/releases/tag/chess-latest";
 
+const COORD_FONTS = [
+  [null, "Default"],
+  ["Georgia, 'Times New Roman', serif", "Serif"],
+  ["ui-monospace, 'Roboto Mono', Menlo, monospace", "Mono"],
+  ["'sans-serif-condensed', 'Arial Narrow', sans-serif", "Narrow"],
+];
+
 export default function Settings({ store, setStore, nav }) {
   const fileRef = useRef();
   const [backup, setBackup] = useState(null); // exported text, shown for copying
@@ -19,6 +26,10 @@ export default function Settings({ store, setStore, nav }) {
   const [paste, setPaste] = useState("");
   const [pasteErr, setPasteErr] = useState("");
   const set = (patch) => setStore((s) => ({ ...s, settings: { ...s.settings, ...patch } }));
+  const themeDef = BOARD_THEMES[store.settings.theme] || BOARD_THEMES.brown;
+  const bc = store.settings.boardCustom || {};
+  const setBc = (patch) => set({ boardCustom: { ...bc, ...patch } });
+  const previewPieces = PIECE_SETS[store.settings.pieces] || PIECE_SETS.cburnett;
   const setAi = (patch) =>
     setStore((s) => ({ ...s, settings: { ...s.settings, ai: { ...s.settings.ai, ...patch } } }));
 
@@ -85,6 +96,88 @@ export default function Settings({ store, setStore, nav }) {
           />
         ))}
       </div>
+
+      <h2>Board colors & coordinates</h2>
+      <div
+        className="boardpreview"
+        style={{
+          "--light": bc.light || themeDef.light,
+          "--dark": bc.dark || themeDef.dark,
+          "--tex": (themeDef.tex && TEXTURES[themeDef.tex]) || "none",
+          "--coord-color": bc.coordColor || "currentColor",
+          "--coord-font": bc.coordFont || "inherit",
+        }}
+      >
+        <div className="psq light">
+          <div className="pc" dangerouslySetInnerHTML={{ __html: previewPieces.wN }} />
+        </div>
+        <div className="psq dark">
+          <div className="pc" dangerouslySetInnerHTML={{ __html: previewPieces.bN }} />
+          <span className="coord pv">e4</span>
+        </div>
+        <div className="psq light">
+          <span className="coord pv">d5</span>
+        </div>
+        <div className="psq dark">
+          <div className="pc" dangerouslySetInnerHTML={{ __html: previewPieces.wP }} />
+        </div>
+      </div>
+      <SettingRow label="Light squares">
+        <div className="chips">
+          <input
+            className="colorpick"
+            type="color"
+            value={bc.light || themeDef.light}
+            onChange={(e) => setBc({ light: e.target.value })}
+          />
+          <button className="linkbtn" disabled={!bc.light} onClick={() => setBc({ light: null })}>
+            Default
+          </button>
+        </div>
+      </SettingRow>
+      <SettingRow label="Dark squares">
+        <div className="chips">
+          <input
+            className="colorpick"
+            type="color"
+            value={bc.dark || themeDef.dark}
+            onChange={(e) => setBc({ dark: e.target.value })}
+          />
+          <button className="linkbtn" disabled={!bc.dark} onClick={() => setBc({ dark: null })}>
+            Default
+          </button>
+        </div>
+      </SettingRow>
+      <SettingRow label="Coordinate color">
+        <div className="chips">
+          <input
+            className="colorpick"
+            type="color"
+            value={bc.coordColor || "#ece9e4"}
+            onChange={(e) => setBc({ coordColor: e.target.value })}
+          />
+          <button className="linkbtn" disabled={!bc.coordColor} onClick={() => setBc({ coordColor: null })}>
+            Default
+          </button>
+        </div>
+      </SettingRow>
+      <SettingRow label="Coordinate font">
+        <div className="chips">
+          {COORD_FONTS.map(([val, label]) => (
+            <button
+              key={label}
+              className={"chip" + ((bc.coordFont || null) === val ? " sel" : "")}
+              onClick={() => setBc({ coordFont: val })}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </SettingRow>
+      <p className="hint small">
+        "Default" follows the board theme picked above — a theme's texture keeps working under your own
+        square colors, so you can recolor a wood or marble board freely.
+      </p>
 
       <h2>Arrow colors</h2>
       {Object.keys(ARROW_LABELS).map((key) => (

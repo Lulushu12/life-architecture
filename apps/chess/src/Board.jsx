@@ -13,13 +13,111 @@ for (const [path, svg] of Object.entries(pieceModules)) {
   if (!m) continue;
   (PIECE_SETS[m[1]] = PIECE_SETS[m[1]] || {})[m[2]] = svg;
 }
-export const PIECE_SET_NAMES = { cburnett: "Cburnett", merida: "Merida", kosal: "Kosal" };
+export const PIECE_SET_NAMES = {
+  cburnett: "Cburnett",
+  merida: "Merida",
+  kosal: "Kosal",
+  // generated designer sets — see scripts/gen-piece-sets.mjs
+  "staunton-classic": "Staunton Classic",
+  "staunton-walnut": "Staunton Walnut",
+  "staunton-obsidian": "Staunton Obsidian",
+  "staunton-midnight": "Staunton Midnight",
+  "outline-ink": "Outline Ink",
+  "outline-copper": "Outline Copper",
+  "outline-frost": "Outline Frost",
+  "outline-forest": "Outline Forest",
+  "pebble-classic": "Pebble Classic",
+  "pebble-rose": "Pebble Rose",
+  "pebble-mint": "Pebble Mint",
+  "pebble-honey": "Pebble Honey",
+  "slim-marble": "Slim Marble",
+  "slim-slate": "Slim Slate",
+  "slim-crimson": "Slim Crimson",
+  "slim-lime": "Slim Lime",
+  "blade-obsidian": "Blade Obsidian",
+  "blade-midnight": "Blade Midnight",
+  "blade-crimson": "Blade Crimson",
+  "blade-storm": "Blade Storm",
+  "prism-classic": "Prism Classic",
+  "prism-forest": "Prism Forest",
+  "prism-frost": "Prism Frost",
+  "prism-plum": "Prism Plum",
+  "letter-classic": "Letter Classic",
+  "letter-walnut": "Letter Walnut",
+  "letter-slate": "Letter Slate",
+  "orbit-classic": "Orbit Classic",
+  "orbit-teal": "Orbit Teal",
+  "orbit-rose": "Orbit Rose",
+};
 
+// Square textures: tileable SVG patterns in translucent black/white, so they
+// read over ANY square color — which is what lets the user recolor a textured
+// board and keep its material.
+const tex = (w, h, body) =>
+  `url("data:image/svg+xml,${encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'>${body}</svg>`
+  )}")`;
+export const TEXTURES = {
+  wood: tex(
+    90,
+    90,
+    `<g fill='none' stroke-linecap='round'><g stroke='#000' stroke-opacity='.05' stroke-width='1.4'><path d='M-5 10 q23 -6 45 0 t50 0'/><path d='M-5 30 q18 7 45 0 t50 0'/><path d='M-5 52 q25 -7 45 0 t50 0'/><path d='M-5 72 q20 6 45 0 t50 0'/></g><g stroke='#fff' stroke-opacity='.05' stroke-width='1.2'><path d='M-5 20 q22 5 45 0 t50 0'/><path d='M-5 62 q21 -5 45 0 t50 0'/><path d='M-5 84 q24 5 45 0 t50 0'/></g></g>`
+  ),
+  marble: tex(
+    120,
+    120,
+    `<g fill='none' stroke-width='1'><path d='M-10 30 C20 10 40 55 70 35 S120 60 135 40' stroke='#000' stroke-opacity='.045'/><path d='M-10 80 C25 60 45 105 80 85 S125 100 135 90' stroke='#fff' stroke-opacity='.06'/><path d='M-10 55 C30 40 50 80 90 60 S125 75 135 65' stroke='#000' stroke-opacity='.03'/></g>`
+  ),
+  linen: tex(
+    8,
+    8,
+    `<path d='M0 0 H8 M0 4 H8' stroke='#000' stroke-opacity='.035'/><path d='M0 2 H8 M0 6 H8' stroke='#fff' stroke-opacity='.05'/><path d='M2 0 V8 M6 0 V8' stroke='#000' stroke-opacity='.025'/>`
+  ),
+  speckle: tex(
+    40,
+    40,
+    `<g fill='#000' fill-opacity='.05'><circle cx='6' cy='9' r='1'/><circle cx='24' cy='4' r='.8'/><circle cx='33' cy='18' r='1.1'/><circle cx='14' cy='24' r='.9'/><circle cx='28' cy='33' r='1'/><circle cx='4' cy='34' r='.8'/></g><g fill='#fff' fill-opacity='.07'><circle cx='17' cy='7' r='.9'/><circle cx='36' cy='28' r='.8'/><circle cx='9' cy='17' r='.8'/><circle cx='21' cy='37' r='.9'/><circle cx='31' cy='9' r='.7'/></g>`
+  ),
+};
+
+// Each theme = a texture (or plain) plus its default square colors; the
+// "Default" buttons in settings resolve back to these. Names line up with the
+// piece-set treatments so a coherent look is one matching pick away.
 export const BOARD_THEMES = {
   brown: { light: "#f0d9b5", dark: "#b58863", name: "Brown (lichess)" },
   blue: { light: "#dee3e6", dark: "#8ca2ad", name: "Blue" },
   green: { light: "#ffffdd", dark: "#86a666", name: "Green" },
   ice: { light: "#e8edf9", dark: "#7286a3", name: "Ice" },
+  walnut: { light: "#e9d4b0", dark: "#8a5a38", tex: "wood", name: "Walnut" },
+  obsidian: { light: "#bfb7a6", dark: "#4a443a", tex: "speckle", name: "Obsidian" },
+  midnight: { light: "#cfdcf0", dark: "#4a638f", name: "Midnight" },
+  ink: { light: "#efece4", dark: "#5b574e", tex: "linen", name: "Ink" },
+  copper: { light: "#f0dcc2", dark: "#a06a3a", tex: "wood", name: "Copper" },
+  frost: { light: "#e4f0f7", dark: "#7ba7bf", tex: "marble", name: "Frost" },
+  forest: { light: "#e3e9d2", dark: "#6f8f58", tex: "linen", name: "Forest" },
+  rose: { light: "#f7e6ee", dark: "#b06f92", name: "Rose" },
+  mint: { light: "#e2f2e6", dark: "#74a488", name: "Mint" },
+  honey: { light: "#f7e8c0", dark: "#c08f3a", tex: "wood", name: "Honey" },
+  marble: { light: "#eceae4", dark: "#8f959d", tex: "marble", name: "Marble" },
+  slate: { light: "#e4e7ec", dark: "#7d8698", name: "Slate" },
+  crimson: { light: "#f1dede", dark: "#96565b", tex: "linen", name: "Crimson" },
+  lime: { light: "#eef7dc", dark: "#8fae5b", tex: "speckle", name: "Lime" },
+  storm: { light: "#d8dde4", dark: "#5a6675", tex: "marble", name: "Storm" },
+  plum: { light: "#ece0f2", dark: "#8a6fa8", name: "Plum" },
+  teal: { light: "#dcefec", dark: "#4f8f88", name: "Teal" },
+  sand: { light: "#f2e4c6", dark: "#c9a86a", tex: "speckle", name: "Sand" },
+  coal: { light: "#b9bec6", dark: "#3a3f47", tex: "marble", name: "Coal" },
+  olive: { light: "#ece9d4", dark: "#90905e", tex: "linen", name: "Olive" },
+  sky: { light: "#e8f2fb", dark: "#85aacd", tex: "marble", name: "Sky" },
+  moss: { light: "#e0e8d8", dark: "#78886a", tex: "speckle", name: "Moss" },
+  brick: { light: "#f0ddd0", dark: "#9d5b40", tex: "linen", name: "Brick" },
+  ocean: { light: "#d8e8f0", dark: "#4a7a9a", tex: "wood", name: "Ocean" },
+  pearl: { light: "#f5f3ef", dark: "#b8b2a8", tex: "marble", name: "Pearl" },
+  night: { light: "#8f9aa8", dark: "#2a3340", name: "Night" },
+  lavender: { light: "#eae6f7", dark: "#9a94c8", tex: "linen", name: "Lavender" },
+  cocoa: { light: "#e2cdb8", dark: "#6b4630", tex: "wood", name: "Cocoa" },
+  paper: { light: "#f7f2e8", dark: "#cbc0a8", tex: "linen", name: "Paper" },
+  ebony: { light: "#c9c2b2", dark: "#33291f", tex: "speckle", name: "Ebony" },
 };
 
 const FILES = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -183,6 +281,9 @@ export default function Board({
   guideArrows,
   highlightSquares,
   theme = "brown",
+  // per-user overrides: {light, dark, coordColor, coordFont} — null/absent
+  // fields fall back to the theme (colors) or the app look (coordinates)
+  custom,
   pieceSet = "cburnett",
   arrowColors,
   needsPromotion,
@@ -344,7 +445,14 @@ export default function Board({
       <div
         ref={boardRef}
         className={"board" + (drawFrom ? " drawing" : "")}
-        style={{ "--light": colors.light, "--dark": colors.dark, "--anim-ms": animMs + "ms" }}
+        style={{
+          "--light": custom?.light || colors.light,
+          "--dark": custom?.dark || colors.dark,
+          "--tex": (colors.tex && TEXTURES[colors.tex]) || "none",
+          "--coord-color": custom?.coordColor || "currentColor",
+          "--coord-font": custom?.coordFont || "inherit",
+          "--anim-ms": animMs + "ms",
+        }}
         onContextMenu={(e) => e.preventDefault()}
       >
         {ranks.map((r, row) =>

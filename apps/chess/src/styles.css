@@ -341,10 +341,12 @@ textarea.input {
   position: relative;
 }
 .sq.light {
-  background: var(--light);
+  background-color: var(--light);
+  background-image: var(--tex, none);
 }
 .sq.dark {
-  background: var(--dark);
+  background-color: var(--dark);
+  background-image: var(--tex, none);
 }
 .sq.last {
   box-shadow: inset 0 0 0 100px rgba(155, 199, 0, 0.35);
@@ -424,6 +426,8 @@ textarea.input {
   opacity: 0.55;
   z-index: 1;
   pointer-events: none;
+  color: var(--coord-color, currentColor);
+  font-family: var(--coord-font, inherit);
 }
 .coord.rank {
   top: 1px;
@@ -588,6 +592,42 @@ textarea.input {
 }
 .bestline b {
   color: var(--text);
+}
+
+/* ---- settings board preview ---- */
+.boardpreview {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 264px;
+  margin: 10px 0 12px;
+}
+.boardpreview .psq {
+  position: relative;
+  aspect-ratio: 1;
+}
+.boardpreview .psq.light {
+  background-color: var(--light);
+  background-image: var(--tex, none);
+}
+.boardpreview .psq.dark {
+  background-color: var(--dark);
+  background-image: var(--tex, none);
+}
+.boardpreview .pc {
+  position: absolute;
+  inset: 4%;
+}
+.boardpreview .pc svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.boardpreview .coord.pv {
+  top: 2px;
+  left: 3px;
+  font-size: 11px;
 }
 
 /* ---- multipv engine lines (tappable) ---- */
@@ -774,9 +814,11 @@ textarea.input {
 /* ---- settings ---- */
 .themerow {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 .themeswatch {
+  flex: 0 0 56px;
   width: 56px;
   height: 56px;
   border-radius: 10px;
@@ -863,6 +905,7 @@ textarea.input {
   pointer-events: none;
 }
 .pieceswatch {
+  flex: 0 0 56px;
   width: 56px;
   height: 56px;
   border-radius: 10px;

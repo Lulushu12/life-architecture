@@ -270,6 +270,7 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
         }
         highlightSquares={hint === 1 && state !== "solved" && state !== "revealed" ? [expected.slice(0, 2)] : null}
         theme={store.settings.theme}
+        custom={store.settings.boardCustom}
         pieceSet={store.settings.pieces}
         animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}

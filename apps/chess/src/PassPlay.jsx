@@ -205,6 +205,7 @@ function Game({ store, setStore, nav }) {
         dests={dests}
         onMove={onMove}
         theme={store.settings.theme}
+        custom={store.settings.boardCustom}
         pieceSet={store.settings.pieces}
         animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}

@@ -445,6 +445,7 @@ function Review({ store, setStore, nav, game }) {
         dests={dests}
         onMove={playMove}
         theme={store.settings.theme}
+        custom={store.settings.boardCustom}
         pieceSet={store.settings.pieces}
         animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}

@@ -524,6 +524,7 @@ function BotGame({ store, setStore, nav }) {
           onMove={onMove}
           arrow={viewPly == null ? hintArrow : null}
           theme={store.settings.theme}
+          custom={store.settings.boardCustom}
           pieceSet={store.settings.pieces}
           animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}

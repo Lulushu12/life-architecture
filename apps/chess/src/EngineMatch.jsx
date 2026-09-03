@@ -335,6 +335,7 @@ export default function EngineMatch({ store, setStore, nav, view }) {
           lastMove={lastMove}
           checkSquare={checkSquare}
           theme={store.settings.theme}
+          custom={store.settings.boardCustom}
           pieceSet={store.settings.pieces}
           animMs={store.settings.animMs}
         />

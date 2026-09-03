@@ -366,6 +366,7 @@ function LessonRunner({ lesson, store, setStore, nav }) {
         guideArrows={step.arrows || []}
         highlightSquares={step.circles || []}
         theme={store.settings.theme}
+        custom={store.settings.boardCustom}
         pieceSet={store.settings.pieces}
         animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}

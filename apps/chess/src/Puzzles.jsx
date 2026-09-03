@@ -91,6 +91,7 @@ export default function BlunderTrainer({ store, setStore, nav }) {
           hint === 1 && state !== "solved" && state !== "revealed" ? [puzzle.bestUci.slice(0, 2)] : null
         }
         theme={store.settings.theme}
+        custom={store.settings.boardCustom}
         pieceSet={store.settings.pieces}
         animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
