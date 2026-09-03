@@ -127,6 +127,16 @@ function parseInfo(raw) {
 
 // ---- shared score helpers ----
 
+// Null-move FEN: hand the turn to the opponent so the engine reveals what
+// they are threatening. Illegal (and skipped) when the side to move is in
+// check, since then the "threat" is just taking the king.
+export function nullMoveFen(fen) {
+  const p = fen.split(" ");
+  p[1] = p[1] === "w" ? "b" : "w";
+  p[3] = "-";
+  return p.join(" ");
+}
+
 // Score (side-to-move perspective) → centipawns from WHITE's perspective.
 export function cpWhite(info, fenTurn) {
   const raw = info.mate != null ? (info.mate > 0 ? 10000 - info.mate : -10000 - info.mate) : info.cp;

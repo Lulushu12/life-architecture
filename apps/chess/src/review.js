@@ -57,10 +57,17 @@ export async function reviewGame(
       evals.push(terminalCp(chess));
       bests.push(null);
     } else {
-      const r = await engine.analyze(positions[i].fen, { movetime });
+      // Two lines, so a "brilliant" can require the move to be clearly better
+      // than the alternative rather than merely first in a noisy search.
+      const r = await engine.analyze(positions[i].fen, { movetime, multipv: 2 });
       const info = r.lines[0];
+      const second = r.lines[1];
       evals.push(info ? cpWhite(info, positions[i].turn) : 0);
-      bests.push(info ? { uci: info.move, pv: info.pv } : null);
+      bests.push(
+        info
+          ? { uci: info.move, pv: info.pv, margin: second ? lineScore(info) - lineScore(second) : Infinity }
+          : null
+      );
     }
     onProgress((i + 1) / positions.length);
   }
@@ -91,7 +98,14 @@ export async function reviewGame(
 
     let cls;
     if (inBook && i < 20) cls = "book";
-    else if (isBest && isSacrifice(mv, positions[i].fen) && after > 42 && before < 92) cls = "brilliant";
+    else if (
+      isBest &&
+      (bests[i]?.margin ?? 0) >= 50 && // clearly better than the alternative, not search noise
+      isSacrifice(mv, positions[i].fen) &&
+      after > 42 &&
+      before < 92
+    )
+      cls = "brilliant";
     else if (isBest) cls = "best";
     else if (drop < 2) cls = "excellent";
     else if (drop < 5) cls = "good";
@@ -115,7 +129,31 @@ export async function reviewGame(
     b: playerAccuracy(accDrops.b),
   };
   const counts = { w: countClasses(moves, "w"), b: countClasses(moves, "b") };
-  return { evals, moves, accuracy, opening, counts };
+  // Best line per position (SAN, truncated), so the review browser can show
+  // the engine's idea at any move without re-searching.
+  const pvs = positions.map((p, i) => (bests[i] ? pvToSans(p.fen, bests[i].pv.slice(0, 6)) : null));
+  return { evals, moves, accuracy, opening, counts, pvs };
+}
+
+// UCI-perspective score of a parsed info line, mates folded to big numbers.
+function lineScore(info) {
+  if (info.mate != null) return info.mate > 0 ? 10000 - info.mate : -10000 - info.mate;
+  return info.cp;
+}
+
+function pvToSans(fen, pv) {
+  const out = [];
+  try {
+    const c = new Chess(fen);
+    for (const uci of pv) {
+      const mv = c.move({ from: uci.slice(0, 2), to: uci.slice(2, 4), promotion: uci[4] });
+      if (!mv) break;
+      out.push(mv.san);
+    }
+  } catch {
+    /* truncated pv is fine */
+  }
+  return out;
 }
 
 function terminalCp(chess) {
@@ -136,16 +174,34 @@ function countClasses(moves, color) {
   return out;
 }
 
-// Approximate sacrifice check: the move offers material the opponent can
-// take profitably next move (or gives up more than it captures).
+// Genuine sacrifice check: the move must offer at least an exchange's worth
+// of material (rules out pawn nudges and even trades), and the opponent must
+// be able to actually WIN material by taking — settled by a swap-off on the
+// destination square, not by "some capture exists" (which crowned routine
+// captures of defended pieces as sacrifices).
 function isSacrifice(mv, fenBefore) {
   const gave = PIECE_VALUE[mv.piece] || 0;
   const got = mv.captured ? PIECE_VALUE[mv.captured] : 0;
-  if (got >= gave || gave < 3) return false;
-  // is the moved piece capturable on its destination square?
+  if (gave - got < 2) return false;
   const chess = new Chess(fenBefore);
   chess.move({ from: mv.from, to: mv.to, promotion: mv.promotion });
-  return chess.moves({ verbose: true }).some((m) => m.to === mv.to && m.captured);
+  return swapOff(chess, mv.to, 0) > 0;
+}
+
+// Static exchange on `sq`, side to move first, via legal moves (so pins are
+// respected). Returns the best material the side to move can net there —
+// each side may decline, so the result is never negative. Captures on one
+// square are naturally bounded, but cap the depth defensively.
+function swapOff(chess, sq, depth) {
+  if (depth > 10) return 0;
+  const caps = chess.moves({ verbose: true }).filter((m) => m.to === sq && m.captured);
+  if (caps.length === 0) return 0;
+  // capture with the cheapest attacker first, the standard swap-off order
+  const m = caps.reduce((a, b) => (PIECE_VALUE[a.piece] <= PIECE_VALUE[b.piece] ? a : b));
+  chess.move(m);
+  const gain = PIECE_VALUE[m.captured] - swapOff(chess, sq, depth + 1);
+  chess.undo();
+  return Math.max(0, gain);
 }
 
 export function uciToSan(fen, uci) {

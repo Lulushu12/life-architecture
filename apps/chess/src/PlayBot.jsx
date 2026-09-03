@@ -127,6 +127,10 @@ function BotGame({ store, setStore, nav }) {
   const engine = getEngine();
   const [viewPly, setViewPly] = useState(null); // null = live
   const [hintArrow, setHintArrow] = useState(null);
+  // Last engine read of the live position: {fen, cp, bestUci}. The eval bar
+  // and the hint both come from this one search, so a hinted move can never
+  // be contradicted by the bar that judged it.
+  const [evalInfo, setEvalInfo] = useState(null);
   const [engineReady, setEngineReady] = useState(false);
   const botBusy = useRef(false);
   const cooldowns = useRef({});
@@ -310,14 +314,18 @@ function BotGame({ store, setStore, nav }) {
       return;
     }
 
-    // quick eval for the new position (eval bar / chat / graph)
+    // Eval for the new position (eval bar / chat / graph / hint). One search
+    // serves all of them; 150ms used to feed the bar while the hint ran its
+    // own deeper look, and the two shallow searches contradicting each other
+    // made good hints look penalized.
     if (g.cps.length === len && len > 0) {
       let cancelled = false;
       engine
-        .analyze(liveFen, { movetime: 150 })
+        .analyze(liveFen, { movetime: 400 })
         .then((r) => {
           if (cancelled || !r.lines[0]) return;
           const cp = cpWhite(r.lines[0], chess.turn());
+          setEvalInfo({ fen: liveFen, cp, bestUci: r.lines[0].move });
           pushCp(cp, len);
           maybeChat(cp);
         })
@@ -448,9 +456,17 @@ function BotGame({ store, setStore, nav }) {
   }
 
   const hint = () => {
-    engine.analyze(liveFen, { movetime: 350 }).then((r) => {
-      if (r.bestmove) setHintArrow([r.bestmove.slice(0, 2), r.bestmove.slice(2, 4)]);
-    });
+    // Reuse the move the eval bar's own search already picked for this
+    // position; search fresh only when that read is missing (e.g. move 1).
+    if (evalInfo && evalInfo.fen === liveFen && evalInfo.bestUci) {
+      setHintArrow([evalInfo.bestUci.slice(0, 2), evalInfo.bestUci.slice(2, 4)]);
+    } else {
+      engine.analyze(liveFen, { movetime: 400 }).then((r) => {
+        if (!r.lines[0]) return;
+        setEvalInfo({ fen: liveFen, cp: cpWhite(r.lines[0], liveFen.split(" ")[1]), bestUci: r.lines[0].move });
+        setHintArrow([r.lines[0].move.slice(0, 2), r.lines[0].move.slice(2, 4)]);
+      });
+    }
     setStore((s) =>
       s.current && s.current.id === g.id ? { ...s, current: { ...s.current, hints: s.current.hints + 1 } } : s
     );

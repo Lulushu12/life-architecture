@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Chess } from "chess.js";
 import Board from "./Board.jsx";
 import { TopBar, MoveList, useArrowKeys } from "./ui.jsx";
-import { getEngine, winPct } from "./engine.js";
+import { getEngine, winPct, cpWhite, nullMoveFen } from "./engine.js";
 import { reviewGame, extractPuzzles, CLASSIFICATIONS } from "./review.js";
 import { PERSONAS, getPersona } from "./personas.js";
 import { newId } from "./storage.js";
@@ -73,6 +73,9 @@ function Review({ store, setStore, nav, game }) {
   const [running, setRunning] = useState(false);
   const [viewIdx, setViewIdx] = useState(0); // 0..n positions
   const [showBest, setShowBest] = useState(false);
+  const [showThreats, setShowThreats] = useState(true);
+  const [threats, setThreats] = useState([]);
+  const threatSeq = useRef(0);
   const startedRef = useRef(false);
   const review = game.review;
 
@@ -159,6 +162,36 @@ function Review({ store, setStore, nav, game }) {
     return review.moves.map((m) => CLASSIFICATIONS[m.class]);
   }, [review]);
 
+  // What is the opponent threatening in the viewed position? Same null-move
+  // probe as the analysis board; the shared engine is idle while browsing a
+  // finished review, so this costs nothing extra during the review pass.
+  const viewedFen = positions[viewIdx];
+  useEffect(() => {
+    const seq = ++threatSeq.current;
+    setThreats([]);
+    if (!review || !showThreats) return;
+    const c = new Chess(viewedFen);
+    if (c.isGameOver() || c.inCheck()) return;
+    let cancelled = false;
+    const nfen = nullMoveFen(viewedFen);
+    engine
+      .analyze(nfen, { movetime: 350, multipv: 2 })
+      .then((r) => {
+        if (cancelled || seq !== threatSeq.current) return;
+        const best = cpWhite(r.lines[0] || {}, nfen.split(" ")[1]);
+        setThreats(
+          r.lines
+            .filter((l) => Math.abs(cpWhite(l, nfen.split(" ")[1]) - best) < 120) // only genuinely dangerous ideas
+            .slice(0, 2)
+            .map((l) => [l.move.slice(0, 2), l.move.slice(2, 4)])
+        );
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [viewedFen, review, showThreats, engine]);
+
   const moveAt = viewIdx > 0 && review ? review.moves[viewIdx - 1] : null;
   const badMove = moveAt && ["inaccuracy", "mistake", "blunder"].includes(moveAt.class);
   const orientation = game.mode === "bot" && game.playerColor === "b" ? "b" : "w";
@@ -243,6 +276,7 @@ function Review({ store, setStore, nav, game }) {
         arrow={
           showBest && badMove && moveAt.bestUci ? [moveAt.bestUci.slice(0, 2), moveAt.bestUci.slice(2, 4)] : null
         }
+        threats={showBest ? [] : threats}
         dests={null}
         theme={store.settings.theme}
         pieceSet={store.settings.pieces}
@@ -270,6 +304,19 @@ function Review({ store, setStore, nav, game }) {
         </div>
       )}
 
+      {review.pvs?.[viewIdx]?.length > 0 && (
+        <div className="bestline">
+          <b>
+            {Math.abs(review.evals[viewIdx]) >= 9000
+              ? review.evals[viewIdx] > 0
+                ? "M"
+                : "-M"
+              : (review.evals[viewIdx] / 100).toFixed(2)}
+          </b>{" "}
+          · best: {review.pvs[viewIdx].join(" ")}
+        </div>
+      )}
+
       <div className="btnrow toolrow">
         <button className="linkbtn" onClick={() => setViewIdx((i) => Math.max(0, i - 1))} disabled={viewIdx === 0}>
           ‹ Prev
@@ -280,6 +327,12 @@ function Review({ store, setStore, nav, game }) {
           disabled={viewIdx >= game.sans.length}
         >
           Next ›
+        </button>
+        <button
+          className={"linkbtn" + (showThreats ? " on" : "")}
+          onClick={() => setShowThreats((s) => !s)}
+        >
+          ⚠ Threats {showThreats ? "on" : "off"}
         </button>
       </div>
 

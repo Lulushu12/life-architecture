@@ -2,19 +2,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Chess } from "chess.js";
 import Board, { EvalBar } from "./Board.jsx";
 import { TopBar, MoveList, useArrowKeys } from "./ui.jsx";
-import { getEngine, cpWhite, winPct } from "./engine.js";
+import { getEngine, cpWhite, winPct, nullMoveFen } from "./engine.js";
 import { CLASSIFICATIONS } from "./review.js";
 import { findOpening } from "./openings.js";
-
-// Null-move FEN: hand the turn to the opponent so the engine reveals what
-// they are threatening. Illegal (and skipped) when the side to move is in
-// check, since then the "threat" is just taking the king.
-function nullMoveFen(fen) {
-  const p = fen.split(" ");
-  p[1] = p[1] === "w" ? "b" : "w";
-  p[3] = "-";
-  return p.join(" ");
-}
 
 function classifyDrop(drop, isBest) {
   if (isBest) return "best";
