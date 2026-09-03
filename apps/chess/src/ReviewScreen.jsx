@@ -74,6 +74,7 @@ function Review({ store, setStore, nav, game }) {
   const [viewIdx, setViewIdx] = useState(0); // 0..n positions
   const [showBest, setShowBest] = useState(false);
   const [showThreats, setShowThreats] = useState(true);
+  const [flipped, setFlipped] = useState(false);
   const [threats, setThreats] = useState([]);
   // Variation play, chess.com style: moves made on the board (either side)
   // open a branch off the reviewed game instead of starting a bot game.
@@ -346,7 +347,8 @@ function Review({ store, setStore, nav, game }) {
   // What the "show" toggle overlays on the current board, wherever we are.
   const overlayUci = showBest ? (branch ? brAlt?.bestUci || null : altUci) : null;
 
-  const orientation = game.mode === "bot" && game.playerColor === "b" ? "b" : "w";
+  const baseOrientation = game.mode === "bot" && game.playerColor === "b" ? "b" : "w";
+  const orientation = flipped ? (baseOrientation === "w" ? "b" : "w") : baseOrientation;
 
   const retryFrom = (personaId) => {
     const fen = positions[viewIdx - 1];
@@ -404,6 +406,11 @@ function Review({ store, setStore, nav, game }) {
         title="Game review"
         sub={(review.opening ? review.opening.name + " · " : "") + (game.result || "")}
         onBack={() => nav(game.mode === "import" ? "home" : "archive")}
+        right={
+          <button className="linkbtn" onClick={() => setFlipped((f) => !f)}>
+            ⇅ Flip
+          </button>
+        }
       />
 
       <div className="accrow">
