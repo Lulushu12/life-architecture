@@ -194,6 +194,10 @@ function Review({ store, setStore, nav, game }) {
 
   const moveAt = viewIdx > 0 && review ? review.moves[viewIdx - 1] : null;
   const badMove = moveAt && ["inaccuracy", "mistake", "blunder"].includes(moveAt.class);
+  // The engine's alternative to the played move, when they differ — shown as
+  // an overlay on the CURRENT board, never by rewinding the position.
+  const playedUci = lastMovePair ? lastMovePair[0] + lastMovePair[1] : null;
+  const altUci = moveAt?.bestUci && playedUci && moveAt.bestUci.slice(0, 4) !== playedUci ? moveAt.bestUci : null;
   const orientation = game.mode === "bot" && game.playerColor === "b" ? "b" : "w";
 
   const retryFrom = (personaId) => {
@@ -270,13 +274,12 @@ function Review({ store, setStore, nav, game }) {
       <EvalGraph evals={review.evals} viewIdx={viewIdx} onScrub={setViewIdx} />
 
       <Board
-        fen={showBest && badMove ? positions[viewIdx - 1] : positions[viewIdx]}
+        fen={positions[viewIdx]}
         orientation={orientation}
-        lastMove={showBest ? null : lastMovePair}
-        arrow={
-          showBest && badMove && moveAt.bestUci ? [moveAt.bestUci.slice(0, 2), moveAt.bestUci.slice(2, 4)] : null
-        }
-        threats={showBest ? [] : threats}
+        lastMove={lastMovePair}
+        guideArrows={showBest && altUci ? [[altUci.slice(0, 2), altUci.slice(2, 4)]] : []}
+        highlightSquares={showBest && altUci ? [altUci.slice(0, 2)] : []}
+        threats={threats}
         dests={null}
         theme={store.settings.theme}
         pieceSet={store.settings.pieces}
@@ -289,16 +292,18 @@ function Review({ store, setStore, nav, game }) {
           <b style={{ color: CLASSIFICATIONS[moveAt.class].color }}>
             {moveAt.san} — {CLASSIFICATIONS[moveAt.class].label}
           </b>
-          {badMove && moveAt.bestSan && (
+          {altUci && moveAt.bestSan && (
             <span>
               {" "}
               · best was <b>{moveAt.bestSan}</b>{" "}
               <button className="linkbtn" onClick={() => setShowBest((s) => !s)}>
                 {showBest ? "hide" : "show"}
               </button>
-              <button className="linkbtn" onClick={() => retryFrom(pickRetryPersona(game))}>
-                ⟳ Retry from here
-              </button>
+              {badMove && (
+                <button className="linkbtn" onClick={() => retryFrom(pickRetryPersona(game))}>
+                  ⟳ Retry from here
+                </button>
+              )}
             </span>
           )}
         </div>
