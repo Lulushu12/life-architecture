@@ -583,6 +583,46 @@ textarea.input {
   color: var(--text);
 }
 
+/* ---- multipv engine lines (tappable) ---- */
+.enginelines {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 8px 2px;
+}
+.engineline {
+  display: block;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  padding: 3px 4px;
+  border-radius: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.engineline:active {
+  background: var(--surface);
+}
+.engineline b {
+  color: var(--text);
+  display: inline-block;
+  min-width: 46px;
+}
+
+/* moves of the active review variation; dimmed past the viewed point */
+.vmove {
+  opacity: 0.45;
+}
+.vmove.on {
+  opacity: 1;
+  font-weight: 600;
+}
+
 /* ---- move list ---- */
 .movelist {
   display: flex;

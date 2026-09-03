@@ -150,6 +150,12 @@ export function winPct(cp) {
   return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * clamped)) - 1);
 }
 
+// White-perspective cp → display string ("+0.34", "-1.20", "M"/"-M").
+export function fmtCp(cp) {
+  if (Math.abs(cp) >= 9000) return cp > 0 ? "M" : "-M";
+  return (cp > 0 ? "+" : "") + (cp / 100).toFixed(2);
+}
+
 let sharedEngine = null;
 export function getEngine() {
   if (!sharedEngine) sharedEngine = new Engine();

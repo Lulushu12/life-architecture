@@ -141,7 +141,7 @@ function lineScore(info) {
   return info.cp;
 }
 
-function pvToSans(fen, pv) {
+export function pvToSans(fen, pv) {
   const out = [];
   try {
     const c = new Chess(fen);

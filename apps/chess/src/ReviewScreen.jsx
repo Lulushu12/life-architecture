@@ -2,8 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Chess } from "chess.js";
 import Board from "./Board.jsx";
 import { TopBar, MoveList, useArrowKeys } from "./ui.jsx";
-import { getEngine, winPct, cpWhite, nullMoveFen } from "./engine.js";
-import { reviewGame, extractPuzzles, CLASSIFICATIONS } from "./review.js";
+import { getEngine, winPct, cpWhite, nullMoveFen, fmtCp } from "./engine.js";
+import { reviewGame, extractPuzzles, CLASSIFICATIONS, pvToSans } from "./review.js";
 import { PERSONAS, getPersona } from "./personas.js";
 import { newId } from "./storage.js";
 
@@ -75,20 +75,18 @@ function Review({ store, setStore, nav, game }) {
   const [showBest, setShowBest] = useState(false);
   const [showThreats, setShowThreats] = useState(true);
   const [threats, setThreats] = useState([]);
+  // Variation play, chess.com style: moves made on the board (either side)
+  // open a branch off the reviewed game instead of starting a bot game.
+  // branch = the active line; branchPly views inside it (null = its end);
+  // stash = abandoned lines, restorable as chips — so branches can branch.
+  const [branch, setBranch] = useState(null); // {baseIdx, sans[]}
+  const [branchPly, setBranchPly] = useState(null);
+  const [stash, setStash] = useState([]);
+  const [lines, setLines] = useState([]); // live top engine lines for the shown position
   const threatSeq = useRef(0);
+  const lineSeq = useRef(0);
   const startedRef = useRef(false);
   const review = game.review;
-
-  useArrowKeys(
-    () => {
-      setViewIdx((i) => Math.max(0, i - 1));
-      setShowBest(false);
-    },
-    () => {
-      setViewIdx((i) => Math.min(game.sans.length, i + 1));
-      setShowBest(false);
-    }
-  );
 
   useEffect(() => {
     if (review || startedRef.current) return;
@@ -157,15 +155,27 @@ function Review({ store, setStore, nav, game }) {
     return mv ? [mv.from, mv.to] : null;
   }, [viewIdx, game.startFen, game.sans]);
 
+  // How much of the active variation is shown, its position, and its last move.
+  const branchUpto = branch ? (branchPly == null ? branch.sans.length : branchPly + 1) : 0;
+  const branchState = useMemo(() => {
+    if (!branch) return null;
+    const c = new Chess(positions[branch.baseIdx]);
+    let mv = null;
+    for (let i = 0; i < branchUpto; i++) mv = c.move(branch.sans[i]);
+    return { fen: c.fen(), last: mv ? [mv.from, mv.to] : null };
+  }, [branch, branchUpto, positions]);
+  const dispFen = branch ? branchState.fen : positions[viewIdx];
+
   const annotations = useMemo(() => {
     if (!review) return null;
     return review.moves.map((m) => CLASSIFICATIONS[m.class]);
   }, [review]);
 
-  // What is the opponent threatening in the viewed position? Same null-move
-  // probe as the analysis board; the shared engine is idle while browsing a
-  // finished review, so this costs nothing extra during the review pass.
-  const viewedFen = positions[viewIdx];
+  // What is the opponent threatening in the shown position (game or
+  // variation)? Same null-move probe as the analysis board; the shared engine
+  // is idle while browsing a finished review, so this costs nothing extra
+  // during the review pass.
+  const viewedFen = dispFen;
   useEffect(() => {
     const seq = ++threatSeq.current;
     setThreats([]);
@@ -191,6 +201,111 @@ function Review({ store, setStore, nav, game }) {
       cancelled = true;
     };
   }, [viewedFen, review, showThreats, engine]);
+
+  // Top engine lines for the shown position, tappable to step into.
+  useEffect(() => {
+    const seq = ++lineSeq.current;
+    setLines([]);
+    if (!review) return;
+    if (new Chess(dispFen).isGameOver()) return;
+    let cancelled = false;
+    engine
+      .analyze(dispFen, { movetime: 700, multipv: 5 })
+      .then((r) => {
+        if (cancelled || seq !== lineSeq.current) return;
+        setLines(
+          r.lines.map((l) => ({
+            cp: cpWhite(l, dispFen.split(" ")[1]),
+            uci: l.move,
+            sans: pvToSans(dispFen, l.pv.slice(0, 8)),
+          }))
+        );
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [dispFen, review, engine]);
+
+  // Both sides are playable: reviewing means asking "what if" for either
+  // color, so any legal move on the shown position opens or extends a branch.
+  const dests = useMemo(() => {
+    if (!review) return null;
+    const c = new Chess(dispFen);
+    if (c.isGameOver()) return null;
+    const map = new Map();
+    for (const m of c.moves({ verbose: true })) {
+      if (!map.has(m.from)) map.set(m.from, []);
+      map.get(m.from).push(m.to);
+    }
+    return map;
+  }, [dispFen, review]);
+
+  const stashLine = (b) =>
+    b && b.sans.length > 0 && setStash((st) => [{ baseIdx: b.baseIdx, sans: b.sans }, ...st].slice(0, 8));
+
+  const playMove = (from, to, promotion) => {
+    const test = new Chess(dispFen);
+    const mv = test.move({ from, to, promotion: promotion || "q" });
+    if (!mv) return;
+    setShowBest(false);
+    if (!branch) {
+      setBranch({ baseIdx: viewIdx, sans: [mv.san] });
+      setBranchPly(null);
+      return;
+    }
+    const base = branchUpto;
+    if (branch.sans[base] === mv.san) {
+      // same move the line already continues with — just walk forward
+      setBranchPly(base >= branch.sans.length - 1 ? null : base);
+      return;
+    }
+    // a different idea mid-line: stash the abandoned continuation as a chip
+    if (branch.sans.length > base) stashLine(branch);
+    setBranch({ baseIdx: branch.baseIdx, sans: [...branch.sans.slice(0, base), mv.san] });
+    setBranchPly(null);
+  };
+
+  const leaveBranch = () => {
+    stashLine(branch); // keep the idea recoverable
+    setBranch(null);
+    setBranchPly(null);
+  };
+
+  const restoreVariation = (i) => {
+    const b = stash[i];
+    if (!b) return;
+    setStash((st) => {
+      const next = st.filter((_, j) => j !== i);
+      if (branch && branch.sans.length > 0) next.unshift({ baseIdx: branch.baseIdx, sans: branch.sans });
+      return next.slice(0, 8);
+    });
+    setBranch(b);
+    setBranchPly(null);
+    setViewIdx(b.baseIdx);
+  };
+
+  const stepBack = () => {
+    setShowBest(false);
+    if (branch) {
+      const cur = branchPly == null ? branch.sans.length - 1 : branchPly;
+      if (cur <= 0) leaveBranch();
+      else setBranchPly(cur - 1);
+      return;
+    }
+    setViewIdx((i) => Math.max(0, i - 1));
+  };
+
+  const stepFwd = () => {
+    setShowBest(false);
+    if (branch) {
+      if (branchPly != null) setBranchPly(branchPly >= branch.sans.length - 1 ? null : branchPly + 1);
+      return;
+    }
+    setViewIdx((i) => Math.min(game.sans.length, i + 1));
+  };
+
+  useArrowKeys(stepBack, stepFwd);
 
   const moveAt = viewIdx > 0 && review ? review.moves[viewIdx - 1] : null;
   const badMove = moveAt && ["inaccuracy", "mistake", "blunder"].includes(moveAt.class);
@@ -271,23 +386,62 @@ function Review({ store, setStore, nav, game }) {
         </div>
       </div>
 
-      <EvalGraph evals={review.evals} viewIdx={viewIdx} onScrub={setViewIdx} />
+      <EvalGraph
+        evals={review.evals}
+        viewIdx={viewIdx}
+        onScrub={(i) => {
+          if (branch) leaveBranch();
+          setViewIdx(i);
+        }}
+      />
 
       <Board
-        fen={positions[viewIdx]}
+        fen={dispFen}
         orientation={orientation}
-        lastMove={lastMovePair}
-        guideArrows={showBest && altUci ? [[altUci.slice(0, 2), altUci.slice(2, 4)]] : []}
-        highlightSquares={showBest && altUci ? [altUci.slice(0, 2)] : []}
+        lastMove={branch ? branchState.last : lastMovePair}
+        guideArrows={!branch && showBest && altUci ? [[altUci.slice(0, 2), altUci.slice(2, 4)]] : []}
+        highlightSquares={!branch && showBest && altUci ? [altUci.slice(0, 2)] : []}
         threats={threats}
-        dests={null}
+        dests={dests}
+        onMove={playMove}
         theme={store.settings.theme}
         pieceSet={store.settings.pieces}
         animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
+        needsPromotion={(from, to) => {
+          const piece = new Chess(dispFen).get(from);
+          return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
+        }}
       />
 
-      {moveAt && (
+      {branch && (
+        <div className="previewbar">
+          <span>
+            ⑂ from move {Math.floor(branch.baseIdx / 2) + 1}:{" "}
+            {branch.sans.map((s, i) => (
+              <span key={i} className={"vmove" + (i < branchUpto ? " on" : "")}>
+                {s}{" "}
+              </span>
+            ))}
+          </span>
+          <button className="linkbtn" onClick={leaveBranch}>
+            Back to game
+          </button>
+        </div>
+      )}
+
+      {stash.length > 0 && (
+        <div className="branchrow">
+          {stash.map((b, i) => (
+            <button key={i} className="branchchip" onClick={() => restoreVariation(i)}>
+              ⑂ move {Math.floor(b.baseIdx / 2) + 1}: {b.sans.slice(0, 3).join(" ")}
+              {b.sans.length > 3 ? "…" : ""}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {!branch && moveAt && (
         <div className="moveverdict" style={{ borderColor: CLASSIFICATIONS[moveAt.class].color }}>
           <b style={{ color: CLASSIFICATIONS[moveAt.class].color }}>
             {moveAt.san} — {CLASSIFICATIONS[moveAt.class].label}
@@ -309,27 +463,32 @@ function Review({ store, setStore, nav, game }) {
         </div>
       )}
 
-      {review.pvs?.[viewIdx]?.length > 0 && (
-        <div className="bestline">
-          <b>
-            {Math.abs(review.evals[viewIdx]) >= 9000
-              ? review.evals[viewIdx] > 0
-                ? "M"
-                : "-M"
-              : (review.evals[viewIdx] / 100).toFixed(2)}
-          </b>{" "}
-          · best: {review.pvs[viewIdx].join(" ")}
+      {lines.length > 0 ? (
+        <div className="enginelines">
+          {lines.map((l, i) => (
+            <button
+              key={i}
+              className="engineline"
+              onClick={() => playMove(l.uci.slice(0, 2), l.uci.slice(2, 4), l.uci[4])}
+            >
+              <b>{fmtCp(l.cp)}</b> {l.sans.join(" ")}
+            </button>
+          ))}
         </div>
-      )}
+      ) : !branch && review.pvs?.[viewIdx]?.length > 0 ? (
+        <div className="bestline">
+          <b>{fmtCp(review.evals[viewIdx])}</b> · best: {review.pvs[viewIdx].join(" ")}
+        </div>
+      ) : null}
 
       <div className="btnrow toolrow">
-        <button className="linkbtn" onClick={() => setViewIdx((i) => Math.max(0, i - 1))} disabled={viewIdx === 0}>
+        <button className="linkbtn" onClick={stepBack} disabled={!branch && viewIdx === 0}>
           ‹ Prev
         </button>
         <button
           className="linkbtn"
-          onClick={() => setViewIdx((i) => Math.min(game.sans.length, i + 1))}
-          disabled={viewIdx >= game.sans.length}
+          onClick={stepFwd}
+          disabled={branch ? branchPly == null : viewIdx >= game.sans.length}
         >
           Next ›
         </button>
@@ -346,6 +505,7 @@ function Review({ store, setStore, nav, game }) {
         annotations={annotations}
         activePly={viewIdx - 1}
         onTap={(p) => {
+          if (branch) leaveBranch();
           setViewIdx(p + 1);
           setShowBest(false);
         }}

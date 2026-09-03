@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Chess } from "chess.js";
 import Board, { EvalBar } from "./Board.jsx";
 import { TopBar, MoveList, useArrowKeys } from "./ui.jsx";
-import { getEngine, cpWhite, winPct, nullMoveFen } from "./engine.js";
+import { getEngine, cpWhite, winPct, nullMoveFen, fmtCp } from "./engine.js";
 import { CLASSIFICATIONS } from "./review.js";
 import { findOpening } from "./openings.js";
 
@@ -80,13 +80,18 @@ export default function Analysis({ store, nav, view }) {
       return;
     }
     engine
-      .analyze(fen, { movetime: 600 })
+      .analyze(fen, { movetime: 600, multipv: 5 })
       .then((r) => {
         if (cancelled || seq !== evalSeq.current || !r.lines[0]) return;
         const info = r.lines[0];
         const cp = cpWhite(info, chess.turn());
         const pvSans = pvToSans(fen, info.pv.slice(0, 6));
-        setEvalInfo({ cp, bestUci: info.move, bestSan: pvSans[0], pvSans, depth: info.depth });
+        const alts = r.lines.map((l) => ({
+          cp: cpWhite(l, chess.turn()),
+          uci: l.move,
+          sans: pvToSans(fen, l.pv.slice(0, 8)),
+        }));
+        setEvalInfo({ cp, bestUci: info.move, bestSan: pvSans[0], pvSans, depth: info.depth, alts });
 
         // Grade the move that produced this position, if we have the
         // "before" evaluation for it.
@@ -300,9 +305,17 @@ export default function Analysis({ store, nav, view }) {
         </div>
       )}
 
-      {evalInfo && (
-        <div className="bestline">
-          <b>{(evalInfo.cp / 100).toFixed(2)}</b> · best: {evalInfo.pvSans.join(" ")}
+      {evalInfo?.alts?.length > 0 && (
+        <div className="enginelines">
+          {evalInfo.alts.map((l, i) => (
+            <button
+              key={i}
+              className="engineline"
+              onClick={() => onMove(l.uci.slice(0, 2), l.uci.slice(2, 4), l.uci[4])}
+            >
+              <b>{fmtCp(l.cp)}</b> {l.sans.join(" ")}
+            </button>
+          ))}
         </div>
       )}
 
