@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Capacitor } from "@capacitor/core";
+import { App as CapacitorApp } from "@capacitor/app";
 import { loadStore, saveStore } from "./storage.js";
 import Home from "./Home.jsx";
 import PlayBot from "./PlayBot.jsx";
@@ -25,15 +27,29 @@ export default function App() {
     saveStore(store);
   }, [store]);
 
-  // Every in-app navigation is mirrored into the browser history, so the
-  // phone's back button/gesture (which Capacitor forwards as WebView goBack)
-  // and the browser's back button pop screens instead of closing the app.
-  // Only at the home screen — no history left — does back leave the app.
+  // Every in-app navigation is mirrored into the browser history, so going
+  // back pops screens instead of closing the app. Only at the home screen —
+  // no history left — does back leave the app.
   useEffect(() => {
     window.history.replaceState({ view: { screen: "home" } }, "");
     const onPop = (e) => setView(e.state?.view || { screen: "home" });
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  // The browser back button fires popstate on its own, but Android's hardware
+  // back does NOT reach the WebView by default — Capacitor closes the activity
+  // unless something listens for its backButton event. So in the APK: pop our
+  // history while there is any, exit only from the home screen.
+  useEffect(() => {
+    if (!Capacitor.isNativePlatform()) return;
+    const sub = CapacitorApp.addListener("backButton", ({ canGoBack }) => {
+      if (canGoBack) window.history.back();
+      else CapacitorApp.exitApp();
+    });
+    return () => {
+      Promise.resolve(sub).then((h) => h.remove());
+    };
   }, []);
 
   const nav = (screen, params = {}) => {
