@@ -8441,7 +8441,7 @@ Netratată, cifoza Scheuermann severă progresează moderat și la adult, cu dur
 title: Spondilolistezis
 probe: co
 number: 7
-tags: spondilolistezis, listezis istmic, listezis degenerativ, clasificarea Wiltse, gradele Meyerding, slip angle, unghi de alunecare, mers Phalen-Dickson, retractura hamstring, reparare de pars, fuziune lombara, decompresie
+tags: spondilolistezis, listezis istmic, listezis degenerativ, clasificarea Wiltse, gradele Meyerding, slip angle, unghi de alunecare, mers Phalen-Dickson, retractură hamstring, reparare de pars, fuziune lombară, decompresie
 region: Spine
 specialty: Spine
 related: techniques/isthmic-spondylolisthesis-fusion-pars-repair, techniques/lumbar-decompression-fusion-degenerative-spondylolisthesis, classifications/meyerding-classification-lumbar-spondylolisthesis, diagnoses/lumbar-degenerative-spine, techniques/lumbar-decompression-spinal-stenosis
@@ -8451,177 +8451,177 @@ related: techniques/isthmic-spondylolisthesis-fusion-pars-repair, techniques/lum
 
 ### Definiție și epidemiologie
 
-Spondilolistezisul este alunecarea anterioara (rar posterioara/retrolistezis) a unei vertebre fata de vertebra subiacenta. Cele doua forme majore la adult: istmic (defect al istmului/parsului interarticular, clasic L5-S1, debut la copil/adolescent) si degenerativ (incompetenta fatetelor si a discului, fara defect de pars, clasic L4-L5, femei peste 60 de ani). Spondiloliza (defectul de pars fara alunecare) are prevalenta 4-6% in populatia generala (?), mai frecventa la gimnaste, halterofili si fotbal american (hiperextensie repetitiva). Listezisul degenerativ afecteaza 5-10% dintre adultii peste 60 de ani (?), predominanta feminina 3:1 (?).
+Spondilolistezisul este alunecarea anterioară (rar posterioară/retrolistezis) a unei vertebre față de vertebra subiacentă. Cele două forme majore la adult: istmic (defect al istmului/parsului interarticular, clasic L5-S1, debut la copil/adolescent) și degenerativ (incompetența fațetelor și a discului, fără defect de pars, clasic L4-L5, femei peste 60 de ani). Spondiloliza (defectul de pars fără alunecare) are prevalența 4-6% în populația generală (?), mai frecventă la gimnaste, halterofili și fotbal american (hiperextensie repetitivă). Listezisul degenerativ afectează 5-10% dintre adulții peste 60 de ani (?), predominanța feminină 3:1 (?).
 
-### Anatomie și biomecanica relevanta
+### Anatomie și biomecanică relevantă
 
-Vertebra este formata din corp vertebral, pediculi, lame, fatete articulare si istmul interarticular (pars interarticularis), portiunea dintre fateta superioara si cea inferioara, cu cea mai mare concentrare de stres in hiperextensie si rotatie repetitiva. Complexul cu trei stalpi (corp anterior, doua fatete posterior) confera stabilitate; defectul de pars elimina "veriga" osoasa posterioara, lasand doar discul si ligamentele sa reziste la forfecare. In listezisul degenerativ, degenerarea discala redistribuie sarcina pe fatete, care se sagitalizeaza progresiv si devin incompetente la forfecare, permitand alunecarea fara defect osos. Radacina L5 este cea mai frecvent afectata in listezisul L5-S1, comprimata extraforaminal de fragmentul de pars hipertrofic (fibrocartilaj Gill) sau de discul degenerat.
+Vertebra este formată din corp vertebral, pediculi, lame, fațete articulare și istmul interarticular (pars interarticularis), porțiunea dintre fațeta superioară și cea inferioară, cu cea mai mare concentrare de stres în hiperextensie și rotație repetitivă. Complexul cu trei stâlpi (corp anterior, două fațete posterior) conferă stabilitate; defectul de pars elimină "veriga" osoasă posterioară, lăsând doar discul și ligamentele să reziste la forfecare. În listezisul degenerativ, degenerarea discală redistribuie sarcina pe fațete, care se sagitalizează progresiv și devin incompetente la forfecare, permițând alunecarea fără defect osos. Rădăcina L5 este cea mai frecvent afectată în listezisul L5-S1, comprimată extraforaminal de fragmentul de pars hipertrofic (fibrocartilaj Gill) sau de discul degenerat.
 
 ### Etiopatogenie
 
-Istmic: microfracturi de stres repetitive la istm, favorizate de hiperextensie repetitiva (gimnastica, aruncari, fotbal american), pe fond de predispozitie anatomica (spina bifida occulta frecvent asociata, orientare sagitala a fatetelor L5-S1). Progreseaza la spondiloliza si, la unii, la listezis propriu-zis, mai frecvent la copii/adolescenti in crestere rapida. Degenerativ: degenerare discala si facetara legata de varsta; factori de risc: sex feminin, obezitate, orientare sagitala congenitala a fatetelor L4-L5, laminectomie decompresiva anterioara la acelasi nivel (instabilitate iatrogena).
+Istmic: microfracturi de stres repetitive la istm, favorizate de hiperextensie repetitivă (gimnastică, aruncări, fotbal american), pe fond de predispoziție anatomică (spina bifida occultă frecvent asociată, orientare sagitală a fațetelor L5-S1). Progresează la spondiloliza și, la unii, la listezis propriu-zis, mai frecvent la copii/adolescenți în creștere rapidă. Degenerativ: degenerare discală și facetară legată de vârstă; factori de risc: sex feminin, obezitate, orientare sagitală congenitală a fațetelor L4-L5, laminectomie decompresivă anterioară la același nivel (instabilitate iatrogenă).
 
-### Anatomie patologica
+### Anatomie patologică
 
-Istmic: defect osos la istm (uni- sau bilateral), cu tesut fibrocartilaginos de reparare (masa Gill) care poate comprima radacina L5 extraforaminal; discul L5-S1 ramane conservat la copil, degenereaza secundar la adult. Degenerativ: hipertrofie facetara, chisturi sinoviale, stenoza de canal central si foraminala secundara (bombare discala, hipertrofie de ligament flavum, subluxatie facetara), fara defect de pars.
+Istmic: defect osos la istm (uni- sau bilateral), cu țesut fibrocartilaginos de reparare (masa Gill) care poate comprima rădăcina L5 extraforaminal; discul L5-S1 rămâne conservat la copil, degenerează secundar la adult. Degenerativ: hipertrofie facetară, chisturi sinoviale, stenoză de canal central și foraminală secundară (bombare discală, hipertrofie de ligament flavum, subluxație facetară), fără defect de pars.
 
 ### Clasificare
 
-**Clasificarea Wiltse-Newman-Macnab** (etiologica): tip I displazic (displazie congenitala a sacrului superior/arcului L5, risc mare la copil), tip II istmic (subtipuri: IIA liza de stres, IIB elongare fara liza, IIC fractura acuta), tip III degenerativ (incompetenta facetara/discala fara defect de pars), tip IV traumatic (fractura acuta a altor elemente), tip V patologic (boala osoasa locala/sistemica), tip VI iatrogen (dupa laminectomie extinsa).
+**Clasificarea Wiltse-Newman-Macnab** (etiologică): tip I displazic (displazie congenitală a sacrului superior/arcului L5, risc mare la copil), tip II istmic (subtipuri: IIA liza de stres, IIB elongare fără liza, IIC fractură acută), tip III degenerativ (incompetența facetară/discală fără defect de pars), tip IV traumatic (fractură acută a altor elemente), tip V patologic (boală osoasă locală/sistemică), tip VI iatrogen (după laminectomie extinsă).
 
-**Gradele Meyerding**: masoara alunecarea ca procent din diametrul AP al platoului vertebral caudal, pe radiografia de profil in ortostatism.
+**Gradele Meyerding**: măsoară alunecarea ca procent din diametrul AP al platoului vertebral caudal, pe radiografia de profil în ortostatism.
 
-| Grad Meyerding | Alunecare | Implicatie |
+| Grad Meyerding | Alunecare | Implicație |
 |---|---|---|
-| I | 0-25% | De regula tratament conservator |
-| II | 25-50% | Decompresie ± fuziune, dupa stabilitate |
-| III | 50-75% | Fuziune instrumentata, de regula |
-| IV | 75-100% | Grad inalt, fuziune ± reducere partiala |
-| V (spondiloptoza) | peste 100%, translatie completa | Reconstructie complexa, risc neurologic mare |
+| I | 0-25% | De regulă tratament conservator |
+| II | 25-50% | Decompresie ± fuziune, după stabilitate |
+| III | 50-75% | Fuziune instrumentată, de regulă |
+| IV | 75-100% | Grad înalt, fuziune ± reducere parțială |
+| V (spondiloptoza) | peste 100%, translație completă | Reconstrucție complexă, risc neurologic mare |
 
-**Slip angle (unghiul de alunecare, Boxall)**: unghiul dintre linia perpendiculara pe marginea posterioara a S1 si linia paralela cu platoul inferior al L5 (sau intre platourile adiacente), masoara componenta de kifozare/angulatie sagitala a listezisului, independent de translatie. Un slip angle peste 45-50 de grade (?) este considerat factor de risc pentru progresie si pentru instabilitate, mai relevant decat procentul de alunecare singur in unele serii pediatrice/adolescente.
+**Slip angle (unghiul de alunecare, Boxall)**: unghiul dintre linia perpendiculară pe marginea posterioară a S1 și linia paralelă cu platoul inferior al L5 (sau între platourile adiacente), măsoară componenta de kifozare/angulație sagitală a listezisului, independent de translație. Un slip angle peste 45-50 de grade (?) este considerat factor de risc pentru progresie și pentru instabilitate, mai relevant decât procentul de alunecare singur în unele serii pediatrice/adolescente.
 
 ### Clinic
 
-Motiv de prezentare: lombalgie mecanica cronica, ischialgie/radiculopatie L5 (istmic) sau claudicatie neurogena bilaterala in stenoza asociata listezisului degenerativ. Inspectie: la copii/adolescenti cu listezis istmic de grad inalt, mersul Phalen-Dickson: genunchi si solduri flectate, pas mic, bazin anteflectat, prin retractura hamstringilor compensatorie; poate coexista "treapta" palpabila lombara joasa. Palpare: sensibilitate paralombara, treapta interspinoasa la grad inalt. Mobilitate: flexie-extensie limitata prin durere. Testul de retractura a hamstringilor: unghi popliteu redus (normal 0-10 grade), semn important in listezisul istmic de grad inalt. Lasegue pozitiv in radiculopatie asociata. Examen neuro-vascular distal: forta, sensibilitate, reflexe (achilian S1, rotulian L4), semne de coada de cal (retentie, anestezie in sa) la grad inalt. Mers: caut Phalen-Dickson si claudicatie neurogena.
+Motiv de prezentare: lombalgie mecanică cronică, ischialgie/radiculopatie L5 (istmic) sau claudicație neurogenă bilaterală în stenoza asociată listezisului degenerativ. Inspecție: la copii/adolescenți cu listezis istmic de grad înalt, mersul Phalen-Dickson: genunchi și șolduri flectate, pas mic, bazin anteflectat, prin retractura hamstringilor compensatorie; poate coexista "treaptă" palpabilă lombară joasă. Palpare: sensibilitate paralombară, treaptă interspinoasă la grad înalt. Mobilitate: flexie-extensie limitată prin durere. Testul de retractură a hamstringilor: unghi popliteu redus (normal 0-10 grade), semn important în listezisul istmic de grad înalt. Lasegue pozitiv în radiculopatie asociată. Examen neuro-vascular distal: forța, sensibilitate, reflexe (achilian S1, rotulian L4), semne de coadă de cal (retenție, anestezie în șa) la grad înalt. Mers: caut Phalen-Dickson și claudicație neurogenă.
 
-### Imagistica si explorari
+### Imagistică și explorări
 
-Radiografie lombara fata si profil in ortostatism, cu masurarea Meyerding si slip angle. Radiografie in flexie-extensie pentru instabilitate dinamica (translatie peste 3-4 mm sau angulatie peste 10-15 grade) (?). Radiografii oblice pentru defectul de pars ("semnul cainelui cu zgarda decapitat"). CT pentru caracterizarea defectului (acut vs cronic) si planificare a anatomiei pediculare. IRM obligatorie preoperator pentru disc, stenoza si compresie radiculara. Scintigrafie/SPECT utila pentru a distinge spondiloliza acuta (captare crescuta) de cea cronica consolidata. Preoperator: balans sagital global (PI, LL, SVA) la grad inalt.
+Radiografie lombară față și profil în ortostatism, cu măsurarea Meyerding și slip angle. Radiografie în flexie-extensie pentru instabilitate dinamică (translație peste 3-4 mm sau angulație peste 10-15 grade) (?). Radiografii oblice pentru defectul de pars ("semnul câinelui cu zgardă decapitat"). CT pentru caracterizarea defectului (acut vs cronic) și planificare a anatomiei pediculare. IRM obligatorie preoperator pentru disc, stenoză și compresie radiculară. Scintigrafie/SPECT utilă pentru a distinge spondiloliza acută (captare crescută) de cea cronică consolidată. Preoperator: balans sagital global (PI, LL, SVA) la grad înalt.
 
-### Diagnostic diferential
+### Diagnostic diferențial
 
-Hernie de disc lombara: durere radiculara fara treapta interspinoasa, fara defect de pars la imagistica. Stenoza de canal degenerativa fara listezis: claudicatie neurogena, fara alunecare vertebrala. Fractura de stres a pediculului/lamei fara defect de pars: durere localizata, alt aspect la CT. Tumora vertebrala/sacrala: durere nocturna, semne de alarma, leziune focala. Sacroiliita: durere in regiunea sacroiliaca, teste de provocare sacroiliaca pozitive, fara treapta interspinoasa. Sindromul de coada de cal (de exclus urgent la orice listezis de grad inalt cu simptome sfincteriene).
+Hernie de disc lombară: durere radiculară fără treaptă interspinoasă, fără defect de pars la imagistică. Stenoză de canal degenerativă fără listezis: claudicație neurogenă, fără alunecare vertebrală. Fractură de stres a pediculului/lamei fără defect de pars: durere localizată, alt aspect la CT. Tumoră vertebrală/sacrală: durere nocturnă, semne de alarmă, leziune focală. Sacroiliită: durere în regiunea sacroiliacă, teste de provocare sacroiliacă pozitive, fără treaptă interspinoasă. Sindromul de coadă de cal (de exclus urgent la orice listezis de grad înalt cu simptome sfincteriene).
 
 ### Tratament
 
-**Conservator**: prima linie pentru listezis istmic grad I-II asimptomatic/minim simptomatic: restrictie de activitate, kinetoterapie de tonifiere abdominala si stretching de hamstring, AINS. Spondiloliza acuta (captare pozitiva la scintigrafie): orteza lombara antilordozanta 3-6 luni (?), evitare sport. Listezis degenerativ grad I-II simptomatic fara instabilitate: kinetoterapie, AINS, infiltratii epidurale/facetare pentru controlul radiculopatiei/claudicatiei.
+**Conservator**: prima linie pentru listezis istmic grad I-II asimptomatic/minim simptomatic: restricție de activitate, kinetoterapie de tonifiere abdominală și stretching de hamstring, AINS. Spondiloliza acută (captare pozitivă la scintigrafie): orteză lombară antilordozantă 3-6 luni (?), evitare sport. Listezis degenerativ grad I-II simptomatic fără instabilitate: kinetoterapie, AINS, infiltrații epidurale/facetare pentru controlul radiculopatiei/claudicației.
 
-**Chirurgical, indicatii**: listezis istmic cu radiculopatie refractara, grad inalt (Meyerding III-V)/progresiv, sau slip angle mare cu risc de progresie la copil. Listezis degenerativ cu claudicatie/radiculopatie refractara si stenoza documentata concordanta cu simptomele. Decizia decompresie-simpla-versus-fuziune: decompresie singura la pacientul stabil (fara instabilitate dinamica, Meyerding I-II, fara durere mecanica dominanta); fuziune se adauga la instabilitate dinamica sau laminectomie extinsa destabilizanta; evidenta e mixta (SLIP a favorizat fuziunea, NORDSTEN-DS la 5 ani a favorizat decompresia singura la cazuri stabile).
+**Chirurgical, indicații**: listezis istmic cu radiculopatie refractară, grad înalt (Meyerding III-V)/progresiv, sau slip angle mare cu risc de progresie la copil. Listezis degenerativ cu claudicație/radiculopatie refractară și stenoză documentată concordantă cu simptomele. Decizia decompresie-simplă-versus-fuziune: decompresie singură la pacientul stabil (fără instabilitate dinamică, Meyerding I-II, fără durere mecanică dominantă); fuziune se adaugă la instabilitate dinamică sau laminectomie extinsă destabilizantă; evidența e mixtă (SLIP a favorizat fuziunea, NORDSTEN-DS la 5 ani a favorizat decompresia singură la cazuri stabile).
 
-**Tehnica, principii**: reparare de pars (osteosinteza tip Buck, surub prin istm, sau tehnica Scott, tija-carlig-surub) la pacient tanar cu defect unic/bilateral fara listezis semnificativ (Meyerding I) si disc conservat. Fuziune (posterolaterala sau interbody PLIF/TLIF) cu instrumentare pediculara pentru istmic grad II-V sau degenerativ instabil; decompresia radacinii L5 e esentiala in istmic (rezectia fragmentului Gill). La grad inalt (III-V), reducere partiala versus fuziune in situ, cu monitorizare neurofiziologica pentru radacina L5.
+**Tehnica, principii**: reparare de pars (osteosinteză tip Buck, șurub prin istm, sau tehnica Scott, tijă-cârlig-șurub) la pacient tânăr cu defect unic/bilateral fără listezis semnificativ (Meyerding I) și disc conservat. Fuziune (posterolaterală sau interbody PLIF/TLIF) cu instrumentare pediculară pentru istmic grad II-V sau degenerativ instabil; decompresia rădăcinii L5 e esențială în istmic (rezecția fragmentului Gill). La grad înalt (III-V), reducere parțială versus fuziune in situ, cu monitorizare neurofiziologică pentru rădăcina L5.
 
-**Rezultate si evidence**: repararea de pars are rate de consolidare bune (peste 80-90% in seriile favorabile) (?) la tineri fara listezis. Fuziunea in listezisul istmic are rate mari de fuziune solida si ameliorare durabila. In degenerativ, ambele strategii ofera ameliorare semnificativa a claudicatiei, dar selectia pacientului stabil pentru decompresie singura reduce morbiditatea fara a compromite rezultatul in majoritatea seriilor recente.
+**Rezultate și evidence**: repararea de pars are rate de consolidare bune (peste 80-90% în seriile favorabile) (?) la tineri fără listezis. Fuziunea în listezisul istmic are rate mari de fuziune solidă și ameliorare durabilă. În degenerativ, ambele strategii oferă ameliorare semnificativă a claudicației, dar selecția pacientului stabil pentru decompresie singură reduce morbiditatea fără a compromite rezultatul în majoritatea seriilor recente.
 
-### Complicatii
+### Complicații
 
-Ale bolii: progresia alunecarii (mai frecventa la adolescent in crestere si slip angle mare), radiculopatie/claudicatie cronica, rar coada de cal la grad inalt. Ale tratamentului conservator: persistenta simptomelor, progresie nedetectata fara urmarire periodica. Ale tratamentului chirurgical: leziune a radacinii L5 (risc mai mare la reducerea agresiva), pseudartroza, migrare de implant, discita/infectie, dezechilibru sagital dupa fuziune extinsa, degenerare de segment adiacent.
+Ale bolii: progresia alunecării (mai frecventă la adolescent în creștere și slip angle mare), radiculopatie/claudicație cronică, rar coadă de cal la grad înalt. Ale tratamentului conservator: persistența simptomelor, progresie nedetectată fără urmărire periodică. Ale tratamentului chirurgical: leziune a rădăcinii L5 (risc mai mare la reducerea agresivă), pseudartroză, migrare de implant, discită/infecție, dezechilibru sagital după fuziune extinsă, degenerare de segment adiacent.
 
-### Evolutie si prognostic
+### Evoluție și prognostic
 
-Spondiloliza/listezisul istmic grad I la copil/adolescent este in general stabil si raspunde bine la tratament conservator; riscul de progresie e mai mare la slip angle mare si in crestere rapida. Listezisul degenerativ progreseaza lent, rareori peste Meyerding II-III, prin stabilizare relativa osteofitica. Fuziunea solida ofera prognostic functional bun; pseudartroza sau degenerarea adiacenta pot necesita reinterventie.
+Spondiloliza/listezisul istmic grad I la copil/adolescent este în general stabil și răspunde bine la tratament conservator; riscul de progresie e mai mare la slip angle mare și în creștere rapidă. Listezisul degenerativ progresează lent, rareori peste Meyerding II-III, prin stabilizare relativă osteofitică. Fuziunea solidă oferă prognostic funcțional bun; pseudartroza sau degenerarea adiacentă pot necesita reintervenție.
 
 ## Script de prezentare
 
 ### 1. Prezentarea cazului (30 s)
 
-Pacientul/a in varsta de [varsta] ani, [profesie], din [mediu], se prezinta pentru lombalgie [cu/fara] iradiere in membrul inferior [drept/stang], cu debut [acut/insidios] in urma cu [durata], asociata [cu/fara] tulburari de mers.
+Pacientul/a în vârstă de [vârsta] ani, [profesie], din [mediu], se prezintă pentru lombalgie [cu/fără] iradiere în membrul inferior [drept/stâng], cu debut [acut/insidios] în urmă cu [durata], asociată [cu/fără] tulburări de mers.
 
 ### 2. Anamneză (2 min)
 
-Motivele internarii: durerea lombara (caracter mecanic, accentuata la hiperextensie sau la ortostatism prelungit), iradierea sciatica (topografie L5), claudicatia neurogena (distanta de mers, ameliorare la flexie/asezare), eventuale tulburari sfincteriene (de exclus urgent sindrom de coada de cal). Istoric: momentul debutului (adolescenta si sport cu hiperextensie repetitiva sugereaza istmic; peste 60 de ani sugereaza degenerativ), evolutia simptomelor (progresiva, intermitenta), tratamente urmate (AINS, infiltratii, corset, kinetoterapie, rezultat). Antecedente relevante: practicarea unui sport cu incarcare in hiperextensie (gimnastica, fotbal american, aruncari), interventii lombare anterioare (laminectomie, care poate destabiliza secundar), osteoporoza, boli asociate. Factori de risc: sex feminin si obezitate pentru forma degenerativa, varsta de crestere rapida si activitate sportiva pentru forma istmica.
+Motivele internării: durerea lombară (caracter mecanic, accentuată la hiperextensie sau la ortostatism prelungit), iradierea sciatică (topografie L5), claudicația neurogenă (distanța de mers, ameliorare la flexie/așezare), eventuale tulburări sfincteriene (de exclus urgent sindrom de coadă de cal). Istoric: momentul debutului (adolescența și sport cu hiperextensie repetitivă sugerează istmic; peste 60 de ani sugerează degenerativ), evoluția simptomelor (progresivă, intermitentă), tratamente urmate (AINS, infiltrații, corset, kinetoterapie, rezultat). Antecedente relevante: practicarea unui sport cu încărcare în hiperextensie (gimnastică, fotbal american, aruncări), intervenții lombare anterioare (laminectomie, care poate destabiliza secundar), osteoporoză, boli asociate. Factori de risc: sex feminin și obezitate pentru forma degenerativă, vârsta de creștere rapidă și activitate sportivă pentru forma istmică.
 
 ### 3. Examen clinic (3 min)
 
-General: talie, greutate, IMC, postura globala. Local, inspectie: caut mersul Phalen-Dickson (genunchi si solduri flectate, pas mic, bazin anteflectat) la copilul/adolescentul cu listezis de grad inalt, evaluez lordoza lombara si eventuala "treapta" vizibila la nivelul lombosacrat. Palpare: sensibilitate paralombara, caut semnul treptei interspinoase (palpare a apofizelor spinoase succesive, cu decalaj palpabil la nivelul alunecarii). Mobilitate: flexie-extensie lombara (normal aproximativ 40-60 grade flexie, 20-30 grade extensie) (?), limitata si dureroasa in listezisul instabil. Masuratori: testez retractura hamstringilor prin unghiul popliteu (extensia genunchiului cu soldul flectat la 90 grade, in decubit dorsal), frecvent redus semnificativ in listezisul istmic de grad inalt. Testul Lasegue (ridicarea membrului inferior extins, pozitiv sub 60-70 grade cu reproducerea durerii radiculare) pentru tensiune sciatica. Examen neuro-vascular distal: forta musculara segmentara (extensor haluce pentru L5, flexori plantari pentru S1), sensibilitate dermatomala, reflexe (rotulian L4, achilian S1), reflex cutanat plantar, tonus sfincterian si sensibilitate perineala la suspiciune de coada de cal. Examinarea articulatiilor supra- si subiacente: coloana toracica si articulatiile sacroiliace/coxofemurale, pentru a exclude alte cauze de durere referita. Mers: observ mersul Phalen-Dickson si testez capacitatea de mers pentru claudicatie neurogena (distanta parcursa, ameliorare la flexie anterioara).
+General: talie, greutate, IMC, postură globală. Local, inspecție: caut mersul Phalen-Dickson (genunchi și șolduri flectate, pas mic, bazin anteflectat) la copilul/adolescentul cu listezis de grad înalt, evaluez lordoza lombară și eventuala "treaptă" vizibilă la nivelul lombosacrat. Palpare: sensibilitate paralombară, caut semnul treptei interspinoase (palpare a apofizelor spinoase succesive, cu decalaj palpabil la nivelul alunecării). Mobilitate: flexie-extensie lombară (normal aproximativ 40-60 grade flexie, 20-30 grade extensie) (?), limitată și dureroasă în listezisul instabil. Măsurători: testez retractura hamstringilor prin unghiul popliteu (extensia genunchiului cu șoldul flectat la 90 grade, în decubit dorsal), frecvent redus semnificativ în listezisul istmic de grad înalt. Testul Lasegue (ridicarea membrului inferior extins, pozitiv sub 60-70 grade cu reproducerea durerii radiculare) pentru tensiune sciatică. Examen neuro-vascular distal: forța musculară segmentară (extensor haluce pentru L5, flexori plantari pentru S1), sensibilitate dermatomală, reflexe (rotulian L4, achilian S1), reflex cutanat plantar, tonus sfincterian și sensibilitate perineală la suspiciune de coadă de cal. Examinarea articulațiilor supra- și subiacente: coloana toracică și articulațiile sacroiliace/coxofemurale, pentru a exclude alte cauze de durere referită. Mers: observ mersul Phalen-Dickson și testez capacitatea de mers pentru claudicație neurogenă (distanța parcursă, ameliorare la flexie anterioară).
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: spondilolistezis [istmic/degenerativ] L[nivel], grad Meyerding [I-V], slip angle [X] grade, pe baza examenului clinic (treapta interspinoasa, retractura de hamstring, mers Phalen-Dickson daca prezent) si a radiografiei de profil in ortostatism cu masurarea alunecarii si a angulatiei sagitale.
+Diagnostic pozitiv: spondilolistezis [istmic/degenerativ] L[nivel], grad Meyerding [I-V], slip angle [X] grade, pe baza examenului clinic (treaptă interspinoasă, retractură de hamstring, mers Phalen-Dickson dacă prezent) și a radiografiei de profil în ortostatism cu măsurarea alunecării și a angulației sagitale.
 
 ### 5. Diagnostic diferențial (1 min)
 
-Hernie de disc lombara: durere radiculara fara treapta interspinoasa si fara defect de pars la imagistica. Stenoza de canal degenerativa fara listezis: claudicatie neurogena, fara alunecare vertebrala vizibila. Fractura de stres izolata a elementelor posterioare: durere localizata, fara alunecare. Tumora vertebrala/sacrala: durere nocturna, semne de alarma. Sacroiliita: durere sacroiliaca, teste de provocare specifice pozitive. Sindromul de coada de cal: tulburari sfincteriene si anestezie in sa, urgenta chirurgicala.
+Hernie de disc lombară: durere radiculară fără treaptă interspinoasă și fără defect de pars la imagistică. Stenoză de canal degenerativă fără listezis: claudicație neurogenă, fără alunecare vertebrală vizibilă. Fractură de stres izolată a elementelor posterioare: durere localizată, fără alunecare. Tumoră vertebrală/sacrală: durere nocturnă, semne de alarmă. Sacroiliită: durere sacroiliacă, teste de provocare specifice pozitive. Sindromul de coadă de cal: tulburări sfincteriene și anestezie în șa, urgență chirurgicală.
 
 ### 6. Investigații (1 min)
 
-Radiografie lombara fata si profil in ortostatism cu masurarea gradului Meyerding si a slip angle-ului; radiografii oblice pentru defectul de pars; radiografie in flexie-extensie pentru instabilitate dinamica (peste 3-4 mm translatie sau 10-15 grade angulatie) (?). CT pentru caracterizarea defectului de pars si planificarea anatomiei pediculare. IRM lombara pentru disc, stenoza de canal/foraminala si compresie radiculara, obligatorie preoperator. Scintigrafie/SPECT pentru a distinge spondiloliza acuta de cea cronica consolidata. Preoperator: evaluare a balansului sagital (PI, LL, SVA) la listezisul de grad inalt, probe biologice standard, tipaj sanguin.
+Radiografie lombară față și profil în ortostatism cu măsurarea gradului Meyerding și a slip angle-ului; radiografii oblice pentru defectul de pars; radiografie în flexie-extensie pentru instabilitate dinamică (peste 3-4 mm translație sau 10-15 grade angulație) (?). CT pentru caracterizarea defectului de pars și planificarea anatomiei pediculare. IRM lombară pentru disc, stenoză de canal/foraminală și compresie radiculară, obligatorie preoperator. Scintigrafie/SPECT pentru a distinge spondiloliza acută de cea cronică consolidată. Preoperator: evaluare a balansului sagital (PI, LL, SVA) la listezisul de grad înalt, probe biologice standard, tipaj sanguin.
 
 ### 7. Tratament (3 min)
 
-Obiective: ameliorarea durerii si a radiculopatiei/claudicatiei, stabilizarea segmentului instabil, prevenirea progresiei si a complicatiilor neurologice. Optiuni: tratament conservator (restrictie de activitate, kinetoterapie, AINS, infiltratii) pentru listezis stabil grad I-II fara deficit; reparare de pars pentru defect izolat fara listezis semnificativ la pacient tanar; decompresie ± fuziune pentru radiculopatie/claudicatie refractara sau instabilitate. Pentru acest pacient aleg [optiunea], motivat de [gradul Meyerding, slip angle, stabilitatea dinamica, varsta, simptomatologia]. Tehnica in pasi: (1) instalare in decubit ventral pe cadru care permite reducerea posturala partiala, cu fluoroscopie laterala disponibila; (2) abord posterior median cu expunere subperiostala a laminei si a fatetelor la nivelul afectat; (3) decompresie: laminectomie/foraminotomie cu identificarea si liberarea radacinii comprimate (rezectia fragmentului fibrocartilaginos Gill in istmic); (4) montare de suruburi pediculare la nivelul afectat si la nivelul adiacent stabil; (5) discectomie si plasare de cusca intersomatica (TLIF/PLIF) daca fuziune interbody indicata, cu restaurare a inaltimii discale; (6) reducere partiala controlata a alunecarii daca indicata, cu monitorizare neurofiziologica pentru radacina L5; (7) fixare definitiva si control fluoroscopic al pozitiei implantelor si al corectiei; (8) grefare osoasa posterolaterala, inchidere pe planuri cu dren. Postoperator: mobilizare precoce, orteza lombara opcional 6-12 saptamani, radiografie de control la 6 saptamani, 3, 6 si 12 luni, reluare progresiva a activitatii, evitare sport de contact 3-6 luni.
+Obiective: ameliorarea durerii și a radiculopatiei/claudicației, stabilizarea segmentului instabil, prevenirea progresiei și a complicațiilor neurologice. Opțiuni: tratament conservator (restricție de activitate, kinetoterapie, AINS, infiltrații) pentru listezis stabil grad I-II fără deficit; reparare de pars pentru defect izolat fără listezis semnificativ la pacient tânăr; decompresie ± fuziune pentru radiculopatie/claudicație refractară sau instabilitate. Pentru acest pacient aleg [opțiunea], motivat de [gradul Meyerding, slip angle, stabilitatea dinamică, vârsta, simptomatologia]. Tehnica în pași: (1) instalare în decubit ventral pe cadru care permite reducerea posturală parțială, cu fluoroscopie laterală disponibilă; (2) abord posterior median cu expunere subperiostală a laminei și a fațetelor la nivelul afectat; (3) decompresie: laminectomie/foraminotomie cu identificarea și liberarea rădăcinii comprimate (rezecția fragmentului fibrocartilaginos Gill în istmic); (4) montare de șuruburi pediculare la nivelul afectat și la nivelul adiacent stabil; (5) discectomie și plasare de cușcă intersomatică (TLIF/PLIF) dacă fuziune interbody indicată, cu restaurare a înălțimii discale; (6) reducere parțială controlată a alunecării dacă indicată, cu monitorizare neurofiziologică pentru rădăcina L5; (7) fixare definitivă și control fluoroscopic al poziției implantelor și al corecției; (8) grefare osoasă posterolaterală, închidere pe planuri cu dren. Postoperator: mobilizare precoce, orteză lombară opțional 6-12 săptămâni, radiografie de control la 6 săptămâni, 3, 6 și 12 luni, reluare progresivă a activității, evitare sport de contact 3-6 luni.
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Netratat, listezisul istmic grad I la adolescent este in general stabil; riscul de progresie creste la slip angle mare si in crestere rapida. Listezisul degenerativ progreseaza lent, rareori peste grad II-III. Complicatii ale bolii: radiculopatie/claudicatie cronica, rar sindrom de coada de cal la grad inalt. Complicatii ale tratamentului: leziune de radacina L5 la reducere agresiva, pseudartroza, migrare de implant, discita, degenerare de segment adiacent. Prognostic functional bun dupa tratament corect indicat, cu urmarire radiologica periodica pentru progresie sau pseudartroza.
+Netratat, listezisul istmic grad I la adolescent este în general stabil; riscul de progresie crește la slip angle mare și în creștere rapidă. Listezisul degenerativ progresează lent, rareori peste grad II-III. Complicații ale bolii: radiculopatie/claudicație cronică, rar sindrom de coadă de cal la grad înalt. Complicații ale tratamentului: leziune de rădăcină L5 la reducere agresivă, pseudartroză, migrare de implant, discită, degenerare de segment adiacent. Prognostic funcțional bun după tratament corect indicat, cu urmărire radiologică periodică pentru progresie sau pseudartroză.
 
 ### Fraze-cheie
 
-- Diferentiez intotdeauna listezisul istmic (defect de pars, tanar) de cel degenerativ (fatete/disc, varstnic, fara defect de pars).
-- Masor gradul Meyerding ca procent din diametrul AP al platoului vertebral caudal, pe radiografia de profil in ortostatism.
-- Slip angle-ul, nu doar procentul de alunecare, este predictor de instabilitate si de progresie in listezisul istmic de grad inalt.
-- Mersul Phalen-Dickson si retractura de hamstring sunt semne caracteristice ale listezisului istmic de grad inalt la copil/adolescent.
-- Radiografia in flexie-extensie este obligatorie pentru a documenta instabilitatea dinamica inainte de a decide decompresie simpla versus fuziune.
-- Reparare de pars este optiunea care pastreaza mobilitatea segmentara la pacientul tanar cu defect izolat si fara listezis semnificativ.
-- La listezisul degenerativ stabil, decompresia singura poate fi suficienta; instabilitatea dinamica sau durerea mecanica predominanta imi indica adaugarea fuziunii.
-- Exclud intotdeauna urgent sindromul de coada de cal la orice listezis de grad inalt cu simptome sfincteriene.
+- Diferențiez întotdeauna listezisul istmic (defect de pars, tânăr) de cel degenerativ (fațete/disc, vârstnic, fără defect de pars).
+- Măsor gradul Meyerding ca procent din diametrul AP al platoului vertebral caudal, pe radiografia de profil în ortostatism.
+- Slip angle-ul, nu doar procentul de alunecare, este predictor de instabilitate și de progresie în listezisul istmic de grad înalt.
+- Mersul Phalen-Dickson și retractura de hamstring sunt semne caracteristice ale listezisului istmic de grad înalt la copil/adolescent.
+- Radiografia în flexie-extensie este obligatorie pentru a documenta instabilitatea dinamică înainte de a decide decompresie simplă versus fuziune.
+- Reparare de pars este opțiunea care păstrează mobilitatea segmentară la pacientul tânăr cu defect izolat și fără listezis semnificativ.
+- La listezisul degenerativ stabil, decompresia singură poate fi suficientă; instabilitatea dinamică sau durerea mecanică predominantă îmi indică adăugarea fuziunii.
+- Exclud întotdeauna urgent sindromul de coadă de cal la orice listezis de grad înalt cu simptome sfincteriene.
 
 ## Întrebările comisiei
 
 ### Î1. Care sunt tipurile din clasificarea Wiltse-Newman-Macnab?
 
-**R:** Tip I displazic, tip II istmic (defect de pars: liza de stres, elongare fara liza, fractura acuta), tip III degenerativ (fara defect de pars), tip IV traumatic (alte elemente), tip V patologic (boala osoasa locala/sistemica), tip VI iatrogen (postchirurgical).
+**R:** Tip I displazic, tip II istmic (defect de pars: liza de stres, elongare fără liza, fractură acută), tip III degenerativ (fără defect de pars), tip IV traumatic (alte elemente), tip V patologic (boală osoasă locală/sistemică), tip VI iatrogen (postchirurgical).
 
-### Î2. Cum se masoara gradul Meyerding si care sunt limitele fiecarui grad?
+### Î2. Cum se măsoară gradul Meyerding și care sunt limitele fiecărui grad?
 
-**R:** Se masoara procentul de alunecare fata de diametrul AP al platoului vertebral caudal, pe profil in ortostatism. Gradul I e 0-25%, II 25-50%, III 50-75%, IV 75-100%, V (spondiloptoza) peste 100%, translatie completa.
+**R:** Se măsoară procentul de alunecare față de diametrul AP al platoului vertebral caudal, pe profil în ortostatism. Gradul I e 0-25%, II 25-50%, III 50-75%, IV 75-100%, V (spondiloptoza) peste 100%, translație completă.
 
-### Î3. Ce este slip angle-ul si de ce este important?
+### Î3. Ce este slip angle-ul și de ce este important?
 
-**R:** Este unghiul dintre linia perpendiculara pe marginea posterioara a S1 si linia paralela cu platoul inferior al vertebrei alunecate, masurand componenta de angulatie sagitala (kifozare) a listezisului. Un slip angle mare (peste 45-50 grade) (?) este un factor de risc pentru progresie si instabilitate, uneori mai relevant decat procentul de alunecare in listezisul istmic la adolescent.
+**R:** Este unghiul dintre linia perpendiculară pe marginea posterioară a S1 și linia paralelă cu platoul inferior al vertebrei alunecate, măsurând componenta de angulație sagitală (kifozare) a listezisului. Un slip angle mare (peste 45-50 grade) (?) este un factor de risc pentru progresie și instabilitate, uneori mai relevant decât procentul de alunecare în listezisul istmic la adolescent.
 
-### Î4. Ce faceti daca pacientul cu listezis de grad inalt prezinta tulburari sfincteriene?
+### Î4. Ce faceți dacă pacientul cu listezis de grad înalt prezintă tulburări sfincteriene?
 
-**R:** Consider aceasta o urgenta pentru coada de cal, solicit IRM lombar imediat, evaluez sensibilitatea perineala si tonusul sfincterian, si indic decompresie de urgenta daca se confirma compresia severa.
+**R:** Consider aceasta o urgență pentru coadă de cal, solicit IRM lombar imediat, evaluez sensibilitatea perineală și tonusul sfincterian, și indic decompresie de urgență dacă se confirmă compresia severă.
 
-### Î5. Cum diferentiati clinic listezisul istmic de cel degenerativ?
+### Î5. Cum diferențiați clinic listezisul istmic de cel degenerativ?
 
-**R:** Istmic apare la copil/adolescent, L5-S1, cu mers Phalen-Dickson si retractura de hamstring in grad inalt; degenerativ apare la varstnic peste 60 de ani, L4-L5, fara defect de pars, cu claudicatie neurogena predominanta.
+**R:** Istmic apare la copil/adolescent, L5-S1, cu mers Phalen-Dickson și retractura de hamstring în grad înalt; degenerativ apare la vârstnic peste 60 de ani, L4-L5, fără defect de pars, cu claudicație neurogenă predominantă.
 
-### Î6. Ce faceti daca radiografiile in flexie-extensie arata instabilitate dinamica la un listezis degenerativ Meyerding I?
+### Î6. Ce faceți dacă radiografiile în flexie-extensie arată instabilitate dinamică la un listezis degenerativ Meyerding I?
 
-**R:** Instabilitatea dinamica (translatie peste 3-4 mm sau angulatie peste 10-15 grade) (?) imi schimba decizia catre decompresie plus fuziune instrumentata, caci decompresia singura pe un segment instabil risca sa agraveze alunecarea.
+**R:** Instabilitatea dinamică (translație peste 3-4 mm sau angulație peste 10-15 grade) (?) îmi schimbă decizia către decompresie plus fuziune instrumentată, căci decompresia singură pe un segment instabil riscă să agraveze alunecarea.
 
-### Î7. Care sunt indicatiile pentru repararea directa de pars in loc de fuziune?
+### Î7. Care sunt indicațiile pentru repararea directă de pars în loc de fuziune?
 
-**R:** Pacient tanar, defect de pars unic/bilateral, fara listezis semnificativ (Meyerding I), disc conservat la IRM; tehnicile sunt osteosinteza tip Buck (surub prin istm) sau tehnica Scott (tija-carlig-surub).
+**R:** Pacient tânăr, defect de pars unic/bilateral, fără listezis semnificativ (Meyerding I), disc conservat la IRM; tehnicile sunt osteosinteză tip Buck (șurub prin istm) sau tehnica Scott (tijă-cârlig-șurub).
 
-### Î8. Ce faceti daca la reducerea unui listezis de grad inalt observati modificari la monitorizarea neurofiziologica intraoperatorie?
+### Î8. Ce faceți dacă la reducerea unui listezis de grad înalt observați modificări la monitorizarea neurofiziologică intraoperatorie?
 
-**R:** Opresc imediat manevra de reducere, verific pozitia instrumentarului si tensiunea pe radacina L5, reduc gradul de corectie, si daca modificarile persista, favorizez fuziunea in situ fata de reducerea completa pentru a proteja radacina.
+**R:** Opresc imediat manevra de reducere, verific poziția instrumentarului și tensiunea pe rădăcina L5, reduc gradul de corecție, și dacă modificările persistă, favorizez fuziunea in situ față de reducerea completă pentru a proteja rădăcina.
 
-### Î9. Care este evidenta pentru decompresie singura versus decompresie plus fuziune in listezisul degenerativ?
+### Î9. Care este evidența pentru decompresie singură versus decompresie plus fuziune în listezisul degenerativ?
 
-**R:** Evidenta e mixta: SLIP a aratat rezultate superioare pentru fuziune adaugata, iar NORDSTEN-DS la 5 ani a aratat rezultate comparabile pentru decompresia singura la pacientii stabili. Decizia se individualizeaza pe baza stabilitatii, nu doar a gradului Meyerding.
+**R:** Evidența e mixtă: SLIP a arătat rezultate superioare pentru fuziune adăugată, iar NORDSTEN-DS la 5 ani a arătat rezultate comparabile pentru decompresia singură la pacienții stabili. Decizia se individualizează pe baza stabilității, nu doar a gradului Meyerding.
 
-### Î10. Ce faceti daca la un adolescent cu spondiloliza acuta scintigrafia arata captare crescuta?
+### Î10. Ce faceți dacă la un adolescent cu spondiloliza acută scintigrafia arată captare crescută?
 
-**R:** Captarea crescuta indica o leziune activa, potential vindecabila; indic orteza lombara antilordozanta 3-6 luni (?), restrictie sportiva, si urmarire pentru consolidare, rezervand chirurgia pentru cazurile care nu consolideaza.
+**R:** Captarea crescută indică o leziune activă, potențial vindecabilă; indic orteză lombară antilordozantă 3-6 luni (?), restricție sportivă, și urmărire pentru consolidare, rezervând chirurgia pentru cazurile care nu consolidează.
 
-### Î11. Care este mecanismul mersului Phalen-Dickson si ce il cauzeaza?
+### Î11. Care este mecanismul mersului Phalen-Dickson și ce îl cauzează?
 
-**R:** Retractura hamstringilor, secundara rotatiei posterioare compensatorii a bazinului pentru a stabiliza coloana instabila, limiteaza flexia activa a soldului; pacientul compenseaza prin flectarea genunchilor si soldurilor si pasi mici, rezultand mersul Phalen-Dickson.
+**R:** Retractura hamstringilor, secundară rotației posterioare compensatorii a bazinului pentru a stabiliza coloana instabilă, limitează flexia activă a șoldului; pacientul compensează prin flectarea genunchilor și șoldurilor și pași mici, rezultând mersul Phalen-Dickson.
 
-### Î12. Ce structuri sunt in pericol la decompresia unui listezis istmic L5-S1?
+### Î12. Ce structuri sunt în pericol la decompresia unui listezis istmic L5-S1?
 
-**R:** Radacina L5, comprimata extraforaminal de fragmentul fibrocartilaginos Gill sau de discul degenerat, necesita identificare si liberare atenta; sacul dural si radacina S1 la recesul lateral, si vasele epidurale la zona de decompresie.
+**R:** Rădăcina L5, comprimată extraforaminal de fragmentul fibrocartilaginos Gill sau de discul degenerat, necesită identificare și liberare atentă; sacul dural și rădăcina S1 la recesul lateral, și vasele epidurale la zona de decompresie.
 
-### Î13. Ce faceti daca pacientul are un listezis degenerativ L4-L5 grad II cu stenoza asociata, dar fara instabilitate dinamica?
+### Î13. Ce faceți dacă pacientul are un listezis degenerativ L4-L5 grad II cu stenoza asociată, dar fără instabilitate dinamică?
 
-**R:** Favorizez decompresia singura (laminectomie/foraminotomie), fara fuziune, deoarece absenta instabilitatii dinamice si gradul moderat de alunecare sugereaza risc mic de progresie postdecompresie; urmaresc clinic si radiologic pentru instabilitate secundara.
+**R:** Favorizez decompresia singură (laminectomie/foraminotomie), fără fuziune, deoarece absența instabilității dinamice și gradul moderat de alunecare sugerează risc mic de progresie postdecompresie; urmăresc clinic și radiologic pentru instabilitate secundară.
 
 ### Î14. Care sunt factorii de risc pentru progresia unui listezis istmic la copil/adolescent?
 
-**R:** Varsta mica la diagnostic, crestere rapida (pubertate), slip angle mare, grad Meyerding avansat, sex feminin in unele serii (?); necesita urmarire radiologica mai frecventa.
+**R:** Vârsta mică la diagnostic, creștere rapidă (pubertate), slip angle mare, grad Meyerding avansat, sex feminin în unele serii (?); necesită urmărire radiologică mai frecventă.
 
-### Î15. Ce faceti daca descoperiti intraoperator o pseudartroza la reinterventie pentru un listezis fuzionat anterior?
+### Î15. Ce faceți dacă descoperiți intraoperator o pseudartroză la reintervenție pentru un listezis fuzionat anterior?
 
-**R:** Evaluez cauza (fixare inadecvata, biologie osoasa deficitara, instabilitate persistenta), revizuiesc constructul cu extensia fixarii pediculare, adaug grefare osoasa suplimentara, si daca e necesar, fuziune interbody pentru a creste suprafata si stabilitatea de fuziune.
+**R:** Evaluez cauza (fixare inadecvată, biologie osoasă deficitară, instabilitate persistentă), revizuiesc constructul cu extensia fixării pediculare, adaug grefare osoasă suplimentară, și dacă e necesar, fuziune interbody pentru a crește suprafața și stabilitatea de fuziune.
 `,Tu=`---
 title: Coxartroza
 probe: co
 number: 8
-tags: coxartroza, artroplastie de sold, THA, Kellgren-Lawrence, Tonnis, Trendelenburg, Thomas, FABER, displazie de sold, conflict femuro-acetabular, necroza avasculara, proteza totala de sold, cimentat, necimentat
+tags: coxartroză, artroplastie de șold, THA, Kellgren-Lawrence, Tönnis, Trendelenburg, Thomas, FABER, displazie de șold, conflict femuro-acetabular, necroză avasculară, proteză totală de șold, cimentat, necimentat
 region: Pelvis & Hip
 specialty: Arthroplasty
 related: diagnoses/hip-osteoarthritis-tha, techniques/total-hip-arthroplasty-primary-osteoarthritis, classifications/kellgren-lawrence-hip, classifications/tonnis-grade-hip-osteoarthritis, diagnoses/osteonecrosis-hip-preservation
@@ -8631,172 +8631,172 @@ related: diagnoses/hip-osteoarthritis-tha, techniques/total-hip-arthroplasty-pri
 
 ### Definiție și epidemiologie
 
-Coxartroza este artroza degenerativa a articulatiei coxofemurale, cu distructia progresiva a cartilajului, remodelare osoasa subcondrala si osteofite. Clasificare etiologica: primara (idiopatica, legata de varsta si incarcare mecanica cumulativa) si secundara (displazie de dezvoltare a soldului, conflict femuro-acetabular, necroza avasculara, post-traumatica, post-infectioasa, boli inflamatorii). Prevalenta radiografica ajunge la 10-25% dupa 65 de ani (?), prevalenta simptomatica mai mica. Displazia ramane una dintre cele mai frecvente cauze de coxartroza secundara la tanar si sex feminin; conflictul femuro-acetabular (FAI) este recunoscut tot mai mult ca factor cauzal la adultul tanar activ.
+Coxartroza este artroza degenerativă a articulației coxofemurale, cu distrucția progresivă a cartilajului, remodelare osoasă subcondrală și osteofite. Clasificare etiologică: primară (idiopatică, legată de vârstă și încărcare mecanică cumulativă) și secundară (displazie de dezvoltare a șoldului, conflict femuro-acetabular, necroză avasculară, post-traumatică, post-infecțioasă, boli inflamatorii). Prevalența radiografică ajunge la 10-25% după 65 de ani (?), prevalența simptomatică mai mică. Displazia rămâne una dintre cele mai frecvente cauze de coxartroză secundară la tânăr și sex feminin; conflictul femuro-acetabular (FAI) este recunoscut tot mai mult ca factor cauzal la adultul tânăr activ.
 
-### Anatomie și biomecanica relevanta
+### Anatomie și biomecanică relevantă
 
-Articulatia coxofemurala este o enartroza intre capul femural si acetabul, stabilizata de labrum, capsula si ligamentele iliofemural, pubofemural si ischiofemural, plus abductori (gluteus medius si minimus, esentiali pentru stabilitatea in mers). Forta de reactie articulara in sprijin unipodal poate atinge de 3-5 ori greutatea corporala (?), explicand impactul incarcarii asupra progresiei artrozei (mecanismul Pauwels de balanta). Congruenta depinde de acoperirea acetabulara adecvata (unghi CE Wiberg normal peste 25 grade) (?) si sfericitatea capului femural; displazia si FAI tip cam/pincer modifica local distributia sarcinilor si accelereaza degenerarea cartilajului.
+Articulația coxofemurală este o enartroză între capul femural și acetabul, stabilizată de labrum, capsulă și ligamentele iliofemural, pubofemural și ischiofemural, plus abductori (gluteus medius și minimus, esențiali pentru stabilitatea în mers). Forța de reacție articulară în sprijin unipodal poate atinge de 3-5 ori greutatea corporală (?), explicând impactul încărcării asupra progresiei artrozei (mecanismul Pauwels de balanță). Congruența depinde de acoperirea acetabulară adecvată (unghi CE Wiberg normal peste 25 grade) (?) și sfericitatea capului femural; displazia și FAI tip cam/pincer modifică local distribuția sarcinilor și accelerează degenerarea cartilajului.
 
 ### Etiopatogenie
 
-Primara: incarcare mecanica cumulativa, imbatranire a cartilajului, factori genetici, obezitate. Secundara: displazie (acoperire acetabulara insuficienta, suprasolicitare focala superolaterala), FAI (conflict repetitiv colul femural-marginea acetabulara in flexie-rotatie interna, cu leziune labrala si condrala), necroza avasculara (colaps subcondral cu artroza secundara), post-traumatica (fractura de acetabul/cap femural, luxatie cu leziune condrala), inflamatorii (poliartrita reumatoida, spondilartrite), post-infectioasa (artrita septica in copilarie).
+Primară: încărcare mecanică cumulativă, îmbătrânire a cartilajului, factori genetici, obezitate. Secundară: displazie (acoperire acetabulară insuficientă, suprasolicitare focală superolaterală), FAI (conflict repetitiv colul femural-marginea acetabulară în flexie-rotație internă, cu leziune labrală și condrală), necroză avasculară (colaps subcondral cu artroză secundară), post-traumatică (fractură de acetabul/cap femural, luxație cu leziune condrală), inflamatorii (poliartrită reumatoidă, spondilartrite), post-infecțioasă (artrită septică în copilărie).
 
-### Anatomie patologica
+### Anatomie patologică
 
-Eroziune progresiva a cartilajului, initial focala (zona de incarcare maxima, superolaterala in displazie), cu expunere osoasa, scleroza subcondrala, chisturi si osteofite marginale (acetabulare si cap-col femural). Sinoviala reactiva hipertrofica. In stadii avansate: deformare a capului femural, pierdere completa a spatiului articular, uneori protruzie acetabulara.
+Eroziune progresivă a cartilajului, inițial focală (zona de încărcare maximă, superolaterală în displazie), cu expunere osoasă, scleroză subcondrală, chisturi și osteofite marginale (acetabulare și cap-col femural). Sinoviala reactivă hipertrofică. În stadii avansate: deformare a capului femural, pierdere completă a spațiului articular, uneori protruzie acetabulară.
 
 ### Clasificare
 
-**Kellgren-Lawrence** (radiografica, 0-4, aplicata clasic la genunchi dar folosita larg si la sold): 0, fara semne de artroza; 1, ingustare dubioasa a spatiului articular, posibila lipire osteofitica; 2, osteofite certe, posibila ingustare; 3, osteofite multiple, ingustare certa, scleroza, posibila deformare de contur osos; 4, osteofite mari, ingustare marcata, scleroza severa, deformare certa de contur osos.
+**Kellgren-Lawrence** (radiografică, 0-4, aplicată clasic la genunchi dar folosită larg și la șold): 0, fără semne de artroză; 1, îngustare dubioasă a spațiului articular, posibilă lipire osteofitică; 2, osteofite certe, posibilă îngustare; 3, osteofite multiple, îngustare certă, scleroză, posibilă deformare de contur osos; 4, osteofite mari, îngustare marcată, scleroză severă, deformare certă de contur osos.
 
-**Tönnis** (specifica pentru sold, 0-3): grad 0, fara semne de artroza; grad 1, scleroza crescuta, ingustare usoara, osteofitoza usoara; grad 2, chisturi mici, ingustare moderata, pierdere moderata a sfericitatii capului femural; grad 3, chisturi mari, spatiu articular sever ingustat/obliterat, deformare severa a capului femural, semne de necroza avasculara.
+**Tönnis** (specifică pentru șold, 0-3): grad 0, fără semne de artroză; grad 1, scleroză crescută, îngustare ușoară, osteofitoză ușoară; grad 2, chisturi mici, îngustare moderată, pierdere moderată a sfericității capului femural; grad 3, chisturi mari, spațiu articular sever îngustat/obliterat, deformare severă a capului femural, semne de necroză avasculară.
 
-**Stadializarea clasica romaneasca** (Antonescu, dupa criterii clinico-radiologice combinate): stadiul I, discret, durere la efort, radiografie cu pensare incipienta; stadiul II, durere la mers prelungit, limitare moderata a mobilitatii, pensare articulara certa cu osteofitoza; stadiul III, durere permanenta inclusiv nocturna, limitare severa a mobilitatii, atitudine vicioasa (flexum-adductie-rotatie externa), distrugere articulara avansata cu deformare capului femural.
+**Stadializarea clasică românească** (Antonescu, după criterii clinico-radiologice combinate): stadiul I, discret, durere la efort, radiografie cu pensare incipientă; stadiul II, durere la mers prelungit, limitare moderată a mobilității, pensare articulară certă cu osteofitoză; stadiul III, durere permanentă inclusiv nocturnă, limitare severă a mobilității, atitudine vicioasă (flexum-adducție-rotație externă), distrugere articulară avansată cu deformare capului femural.
 
-**Clasic vs actual:** stadializarea romaneasca clinico-functionala (I-III) ramane utila pentru comunicarea cu pacientul si pentru indicatia terapeutica generala, dar comisiile si literatura internationala se raporteaza la Kellgren-Lawrence si Tönnis pentru gradarea radiologica standardizata si pentru comparabilitatea intre studii.
+**Clasic vs actual:** stadializarea românească clinico-funcțională (I-III) rămâne utilă pentru comunicarea cu pacientul și pentru indicația terapeutică generală, dar comisiile și literatura internațională se raportează la Kellgren-Lawrence și Tönnis pentru gradarea radiologică standardizată și pentru comparabilitatea între studii.
 
 | Sistem | Criterii | Grad de severitate maxim |
 |---|---|---|
-| Kellgren-Lawrence | Osteofite, ingustare spatiu, scleroza, deformare contur | 4 |
-| Tönnis | Scleroza, chisturi, ingustare, sfericitate cap femural | 3 |
-| Stadializare romaneasca | Durere, limitare mobilitate, aspect radiologic | III |
+| Kellgren-Lawrence | Osteofite, îngustare spațiu, scleroză, deformare contur | 4 |
+| Tönnis | Scleroză, chisturi, îngustare, sfericitate cap femural | 3 |
+| Stadializare românească | Durere, limitare mobilitate, aspect radiologic | III |
 
 ### Clinic
 
-Motiv de prezentare: durere inghinala mecanica (accentuata la incarcare, ameliorata la repaus), iradiere in fata coapsei/genunchi, limitare progresiva a mobilitatii, claudicatie. Inspectie: mers antalgic, atitudine vicioasa in stadii avansate (flexum, adductie, rotatie externa), atrofie musculara. Testul Trendelenburg: sprijin unipodal pe membrul afectat; pozitiv daca bazinul contralateral cade, indicand insuficienta abductorilor. Testul Thomas: flectez soldul contralateral la maxim pentru a aplatiza lordoza lombara, observ flexumul rezidual al soldului examinat. Testul FABER (Patrick): flexie-abductie-rotatie externa cu genunchiul flectat, calcaneul pe genunchiul opus; durere inghinala reproduce patologie intraarticulara. Mobilitate: flexie 0-120 grade, abductie 0-45 grade, rotatie interna/externa 0-45 grade (?); rotatia interna este de regula prima afectata. Lungimea membrelor: directa (SIAS-maleola mediala) si indirecta (bloc sub calcaneu). Examen neuro-vascular distal, mers, examinarea genunchiului/coloanei lombare.
+Motiv de prezentare: durere inghinală mecanică (accentuată la încărcare, ameliorată la repaus), iradiere în fața coapsei/genunchi, limitare progresivă a mobilității, claudicație. Inspecție: mers antalgic, atitudine vicioasă în stadii avansate (flexum, adducție, rotație externă), atrofie musculară. Testul Trendelenburg: sprijin unipodal pe membrul afectat; pozitiv dacă bazinul contralateral cade, indicând insuficiența abductorilor. Testul Thomas: flectez șoldul contralateral la maxim pentru a aplatiza lordoza lombară, observ flexumul rezidual al șoldului examinat. Testul FABER (Patrick): flexie-abducție-rotație externă cu genunchiul flectat, calcaneul pe genunchiul opus; durere inghinală reproduce patologie intraarticulară. Mobilitate: flexie 0-120 grade, abducție 0-45 grade, rotație internă/externă 0-45 grade (?); rotația internă este de regulă prima afectată. Lungimea membrelor: directă (SIAS-maleola medială) și indirectă (bloc sub calcaneu). Examen neuro-vascular distal, mers, examinarea genunchiului/coloanei lombare.
 
-### Imagistica si explorari
+### Imagistică și explorări
 
-Radiografie de pelvis fata in ortostatism (ambele solduri comparativ) si profil (fals profil Lequesne), cu evaluare Kellgren-Lawrence/Tönnis, unghi CE Wiberg (normal peste 25 grade) (?), unghi acetabular Tönnis/Sharp pentru displazie, semne de FAI (unghi alfa peste 50-55 grade) (?). CT pentru planificare in deformari severe/revizie si anteversie femurala/acetabulara. IRM pentru diagnostic precoce cand radiografia e normala dar suspiciunea clinica e mare. Preoperator: probe biologice standard, tipaj sanguin, EKG, evaluare cardiologica, scanograma pentru lungimea membrelor.
+Radiografie de pelvis față în ortostatism (ambele șolduri comparativ) și profil (fals profil Lequesne), cu evaluare Kellgren-Lawrence/Tönnis, unghi CE Wiberg (normal peste 25 grade) (?), unghi acetabular Tönnis/Sharp pentru displazie, semne de FAI (unghi alfa peste 50-55 grade) (?). CT pentru planificare în deformări severe/revizie și anteversie femurală/acetabulară. IRM pentru diagnostic precoce când radiografia e normală dar suspiciunea clinică e mare. Preoperator: probe biologice standard, tipaj sanguin, EKG, evaluare cardiologică, scanogramă pentru lungimea membrelor.
 
-### Diagnostic diferential
+### Diagnostic diferențial
 
-Trohanterita (durere laterala, sensibilitate la trohanter, fara limitare intraarticulara). Patologie lombara (durere referita, semne radiculare, mobilitate de sold conservata). Necroza avasculara fara artroza secundara (colaps subcondral fara osteofitoza extensiva). FAI fara artroza (durere la flexie-rotatie interna, cartilaj conservat la IRM). Fractura de stres de col femural (context de suprasolicitare, linie de fractura la IRM). Patologie sacroiliaca/hernie inghinala (durere inghinala fara semne la testele specifice).
+Trohanterita (durere laterală, sensibilitate la trohanter, fără limitare intraarticulară). Patologie lombară (durere referită, semne radiculare, mobilitate de șold conservată). Necroză avasculară fără artroză secundară (colaps subcondral fără osteofitoză extensivă). FAI fără artroză (durere la flexie-rotație internă, cartilaj conservat la IRM). Fractură de stres de col femural (context de suprasolicitare, linie de fractură la IRM). Patologie sacroiliacă/hernie inghinală (durere inghinală fără semne la testele specifice).
 
 ### Tratament
 
-**Conservator**: modificare a activitatii, reducere ponderala, kinetoterapie de tonifiere a abductorilor si mobilizare, AINS, analgezice, dispozitive de mers (baston) daca util, infiltratii intraarticulare cu corticoid pentru controlul temporar al durerii in cazuri selectate. Indicat la Kellgren-Lawrence/Tönnis 0-2 sau la simptome usoare-moderate.
+**Conservator**: modificare a activității, reducere ponderală, kinetoterapie de tonifiere a abductorilor și mobilizare, AINS, analgezice, dispozitive de mers (baston) dacă util, infiltrații intraarticulare cu corticoid pentru controlul temporar al durerii în cazuri selectate. Indicat la Kellgren-Lawrence/Tönnis 0-2 sau la simptome ușoare-moderate.
 
-**Chirurgical, indicatii**: artroplastie totala de sold (THA) indicata la distructie articulara radiologic confirmata (Tönnis 2-3, de regula KL peste 3) concordanta cu durere si limitare functionala semnificativa, refractare la tratament conservator adecvat. La pacientul tanar cu Tönnis 0-1 si deformare structurala (displazie, FAI) simptomatica, se prefera chirurgie de conservare a articulatiei (osteotomie periacetabulara, artroscopie de sold pentru FAI/labru) inaintea artroplastiei, deoarece cartilajul este inca relativ conservat.
+**Chirurgical, indicații**: artroplastie totală de șold (THA) indicată la distrucție articulară radiologic confirmată (Tönnis 2-3, de regulă KL peste 3) concordantă cu durere și limitare funcțională semnificativă, refractare la tratament conservator adecvat. La pacientul tânăr cu Tönnis 0-1 și deformare structurală (displazie, FAI) simptomatică, se preferă chirurgie de conservare a articulației (osteotomie periacetabulară, artroscopie de șold pentru FAI/labru) înaintea artroplastiei, deoarece cartilajul este încă relativ conservat.
 
-**Opțiuni tehnice THA**: abord posterolateral (expunere buna, risc mai mare de luxatie posterioara clasic, redus cu reparare capsulara), abord anterolateral (Watson-Jones/Hardinge, risc mai mic de luxatie, posibil impact asupra abductorilor), abord anterior direct (Smith-Petersen/DAA, intervertebral, potential recuperare mai rapida, curba de invatare mai lunga si risc de fractura de trohanter mare/leziune de nerv cutanat femural lateral). Fixare cimentata (indicata la os osteoporotic, varstnic, componenta femurala mai ales) versus necimentata (os de calitate buna, pacient tanar, fixare biologica pe termen lung, standard in majoritatea centrelor pentru cotil si tija la pacientul activ). Cuplu de frecare: ceramica-pe-polietilena crosslinked (standard actual, rata mica de uzura), ceramica-pe-ceramica (uzura minima, risc de scuartuit/squeaking, fractura de componenta rara), metal-pe-polietilena (traditional, uzura mai mare), metal-pe-metal (evitat actual, risc de ioni metalici/reactie adversa la particule metalice). Dimensiunea capului femural: 32-36 mm frecvent la adultul activ pentru stabilitate crescuta (risc de luxatie redus), cu balans fata de uzura volumetrica.
+**Opțiuni tehnice THA**: abord posterolateral (expunere bună, risc mai mare de luxație posterioară clasic, redus cu reparare capsulară), abord anterolateral (Watson-Jones/Hardinge, risc mai mic de luxație, posibil impact asupra abductorilor), abord anterior direct (Smith-Petersen/DAA, intervertebral, potențial recuperare mai rapidă, curbă de învățare mai lungă și risc de fractură de trohanter mare/leziune de nerv cutanat femural lateral). Fixare cimentată (indicată la os osteoporotic, vârstnic, componenta femurală mai ales) versus necimentată (os de calitate bună, pacient tânăr, fixare biologică pe termen lung, standard în majoritatea centrelor pentru cotil și tijă la pacientul activ). Cuplu de frecare: ceramică-pe-polietilenă crosslinked (standard actual, rată mică de uzură), ceramică-pe-ceramică (uzură minimă, risc de scuărțuit/squeaking, fractură de componentă rară), metal-pe-polietilenă (tradițional, uzură mai mare), metal-pe-metal (evitat actual, risc de ioni metalici/reacție adversă la particule metalice). Dimensiunea capului femural: 32-36 mm frecvent la adultul activ pentru stabilitate crescută (risc de luxație redus), cu balans față de uzură volumetrică.
 
-**Rezultate si evidence**: THA este considerata una din interventiile ortopedice cu cel mai bun raport cost-eficienta si satisfactie a pacientului, cu supravietuire a implantului de peste 90-95% la 15-20 ani in registrele mari (?). Abordul anterior direct arata recuperare precoce potential mai rapida in unele studii, fara diferenta clara la 1-2 ani fata de posterolateral in privinta functiei finale.
+**Rezultate și evidence**: THA este considerată una din intervențiile ortopedice cu cel mai bun raport cost-eficiență și satisfacție a pacientului, cu supraviețuire a implantului de peste 90-95% la 15-20 ani în registrele mari (?). Abordul anterior direct arată recuperare precoce potențial mai rapidă în unele studii, fără diferență clară la 1-2 ani față de posterolateral în privința funcției finale.
 
-### Complicatii
+### Complicații
 
-Ale bolii: durere cronica, limitare functionala progresiva, deformare fixa, atrofie musculara. Ale tratamentului conservator: progresie fara ameliorare, efecte adverse la AINS. Ale tratamentului chirurgical: luxatie de proteza (mai frecventa la posterolateral fara reparare capsulara), infectie periprotetica, tromboembolism, fractura periprotetica, discrepanta de lungime, leziune de nerv sciatic (posterolateral) sau femural cutanat lateral (anterior), uzura/osteoliza, decimentare aseptica.
+Ale bolii: durere cronică, limitare funcțională progresivă, deformare fixă, atrofie musculară. Ale tratamentului conservator: progresie fără ameliorare, efecte adverse la AINS. Ale tratamentului chirurgical: luxație de proteză (mai frecventă la posterolateral fără reparare capsulară), infecție periprotetică, tromboembolism, fractură periprotetică, discrepanță de lungime, leziune de nerv sciatic (posterolateral) sau femural cutanat lateral (anterior), uzură/osteoliză, decimentare aseptică.
 
-### Evolutie si prognostic
+### Evoluție și prognostic
 
-Netratata, evolueaza progresiv catre deformare fixa si limitare functionala severa, cu impact semnificativ asupra calitatii vietii. THA bine indicata si tehnic corecta ofera ameliorare marcata a durerii si functiei la majoritatea pacientilor, cu rezultate durabile; revizia poate fi necesara pentru uzura, decimentare sau infectie la distanta de ani.
+Netratată, evoluează progresiv către deformare fixă și limitare funcțională severă, cu impact semnificativ asupra calității vieții. THA bine indicată și tehnic corectă oferă ameliorare marcată a durerii și funcției la majoritatea pacienților, cu rezultate durabile; revizia poate fi necesară pentru uzură, decimentare sau infecție la distanță de ani.
 
 ## Script de prezentare
 
 ### 1. Prezentarea cazului (30 s)
 
-Pacientul/a in varsta de [varsta] ani, [profesie], din [mediu], se prezinta pentru durere inghinala [dreapta/stanga], cu debut [insidios/acut] in urma cu [durata], progresiva, asociata cu limitare a mobilitatii si a mersului.
+Pacientul/a în vârstă de [vârsta] ani, [profesie], din [mediu], se prezintă pentru durere inghinală [dreapta/stânga], cu debut [insidios/acut] în urmă cu [durata], progresivă, asociată cu limitare a mobilității și a mersului.
 
 ### 2. Anamneză (2 min)
 
-Motivele internarii: durerea (localizare inghinala, caracter mecanic, iradiere in fata coapsei/genunchi, intensitate, orar), limitarea mobilitatii (dificultate la incaltare/incaltat sosete, la ridicarea de pe scaun), claudicatia (distanta parcursa). Istoric: debutul si evolutia (insidios progresiv sugereaza primara, la varsta tanara sugereaza secundara), tratamente urmate (AINS, kinetoterapie, infiltratii, rezultat si durata beneficiului). Antecedente relevante: displazie de sold in copilarie sau tratament pentru luxatie congenitala, traumatisme de sold/bazin, necroza avasculara cunoscuta si factori asociati (corticoterapie, consum de alcool, boala de decompresie), boli inflamatorii articulare, interventii anterioare la nivelul soldului. Factori de risc: obezitate, activitate fizica intensa/sport de impact, istoric familial de coxartroza, sex feminin pentru displazie.
+Motivele internării: durerea (localizare inghinală, caracter mecanic, iradiere în fața coapsei/genunchi, intensitate, orar), limitarea mobilității (dificultate la încălțare/încălțat șosete, la ridicarea de pe scaun), claudicația (distanța parcursă). Istoric: debutul și evoluția (insidios progresiv sugerează primară, la vârstă tânără sugerează secundară), tratamente urmate (AINS, kinetoterapie, infiltrații, rezultat și durata beneficiului). Antecedente relevante: displazie de șold în copilărie sau tratament pentru luxație congenitală, traumatisme de șold/bazin, necroză avasculară cunoscută și factori asociați (corticoterapie, consum de alcool, boala de decompresie), boli inflamatorii articulare, intervenții anterioare la nivelul șoldului. Factori de risc: obezitate, activitate fizică intensă/sport de impact, istoric familial de coxartroză, sex feminin pentru displazie.
 
 ### 3. Examen clinic (3 min)
 
-General: talie, greutate, IMC, aspect general al mersului la intrarea in cabinet. Local, inspectie: mers antalgic, atitudine vicioasa (flexum, adductie, rotatie externa) in stadii avansate, atrofie a musculaturii coapsei si gluteale. Palpare: sensibilitate la palparea regiunii inghinale si a trohanterului mare (pentru diferentiere de trohanterita). Mobilitate: masor flexia (normal 0-120 grade), abductia (0-45 grade), rotatia interna si externa (0-45 grade fiecare) (?), notez limitarea, cu rotatia interna afectata precoce si caracteristic. Masuratori: lungimea membrelor, direct (spina iliaca anterosuperioara la maleola mediala) si indirect (bloc sub calcaneu la nivelarea bazinului) pentru a distinge discrepanta reala de cea functionala. Testul Trendelenburg: pacientul in sprijin unipodal pe membrul afectat, pozitiv daca bazinul contralateral cade, indicand insuficienta abductorilor. Testul Thomas: flectez soldul contralateral pentru a aplatiza lordoza lombara si observ flexumul rezidual al soldului examinat. Testul FABER: flexie-abductie-rotatie externa cu genunchiul flectat, durere inghinala orienteaza catre patologie intraarticulara de sold. Examen neuro-vascular distal la nivelul membrului inferior. Examinarea articulatiilor supra- si subiacente: coloana lombara si genunchiul, pentru durere referita sau compensare. Mers: observ mersul legant/Trendelenburg dinamic si claudicatia.
+General: talie, greutate, IMC, aspect general al mersului la intrarea în cabinet. Local, inspecție: mers antalgic, atitudine vicioasă (flexum, adducție, rotație externă) în stadii avansate, atrofie a musculaturii coapsei și gluteale. Palpare: sensibilitate la palparea regiunii inghinale și a trohanterului mare (pentru diferențiere de trohanterită). Mobilitate: măsor flexia (normal 0-120 grade), abducția (0-45 grade), rotația internă și externă (0-45 grade fiecare) (?), notez limitarea, cu rotația internă afectată precoce și caracteristic. Măsurători: lungimea membrelor, direct (spina iliacă anterosuperioară la maleola medială) și indirect (bloc sub calcaneu la nivelarea bazinului) pentru a distinge discrepanța reală de cea funcțională. Testul Trendelenburg: pacientul în sprijin unipodal pe membrul afectat, pozitiv dacă bazinul contralateral cade, indicând insuficiența abductorilor. Testul Thomas: flectez șoldul contralateral pentru a aplatiza lordoza lombară și observ flexumul rezidual al șoldului examinat. Testul FABER: flexie-abducție-rotație externă cu genunchiul flectat, durere inghinală orientează către patologie intraarticulară de șold. Examen neuro-vascular distal la nivelul membrului inferior. Examinarea articulațiilor supra- și subiacente: coloana lombară și genunchiul, pentru durere referită sau compensare. Mers: observ mersul legant/Trendelenburg dinamic și claudicația.
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: coxartroza [primara/secundara, cauza] [dreapta/stanga], stadiul [Tönnis/KL, numar], pe baza examenului clinic (durere inghinala mecanica, limitare a rotatiei interne, Trendelenburg [pozitiv/negativ]) si a radiografiei de pelvis (pensare articulara, osteofitoza, [deformare de cap femural daca prezenta]).
+Diagnostic pozitiv: coxartroza [primară/secundară, cauză] [dreapta/stânga], stadiul [Tönnis/KL, număr], pe baza examenului clinic (durere inghinală mecanică, limitare a rotației interne, Trendelenburg [pozitiv/negativ]) și a radiografiei de pelvis (pensare articulară, osteofitoză, [deformare de cap femural dacă prezentă]).
 
 ### 5. Diagnostic diferențial (1 min)
 
-Trohanterita: durere laterala, sensibilitate la trohanter, fara limitare intraarticulara. Patologie lombara: durere referita, semne radiculare, mobilitate de sold conservata. Necroza avasculara fara artroza secundara: colaps subcondral la IRM fara osteofitoza extensiva. Conflict femuro-acetabular fara artroza: durere la flexie-rotatie interna, cartilaj conservat. Fractura de stres de col femural: context de suprasolicitare, linie de fractura la IRM. Hernie inghinala/pubalgie: durere inghinala fara semne la testele de sold.
+Trohanterita: durere laterală, sensibilitate la trohanter, fără limitare intraarticulară. Patologie lombară: durere referită, semne radiculare, mobilitate de șold conservată. Necroză avasculară fără artroză secundară: colaps subcondral la IRM fără osteofitoză extensivă. Conflict femuro-acetabular fără artroză: durere la flexie-rotație internă, cartilaj conservat. Fractură de stres de col femural: context de suprasolicitare, linie de fractură la IRM. Hernie inghinală/pubalgie: durere inghinală fără semne la testele de șold.
 
 ### 6. Investigații (1 min)
 
-Radiografie de pelvis fata in ortostatism (ambele solduri comparativ) si profil (fals profil Lequesne), cu evaluare Kellgren-Lawrence/Tönnis, unghi CE Wiberg (normal peste 25 grade) (?), semne de FAI (unghi alfa peste 50-55 grade) (?). CT pentru planificare preoperatorie in deformari severe/revizie. IRM la suspiciune de necroza avasculara sau cand radiografia este normala. Preoperator: scanograma pentru lungimea membrelor, probe biologice, tipaj sanguin, EKG, evaluare cardiologica/anestezica.
+Radiografie de pelvis față în ortostatism (ambele șolduri comparativ) și profil (fals profil Lequesne), cu evaluare Kellgren-Lawrence/Tönnis, unghi CE Wiberg (normal peste 25 grade) (?), semne de FAI (unghi alfa peste 50-55 grade) (?). CT pentru planificare preoperatorie în deformări severe/revizie. IRM la suspiciune de necroză avasculară sau când radiografia este normală. Preoperator: scanogramă pentru lungimea membrelor, probe biologice, tipaj sanguin, EKG, evaluare cardiologică/anestezică.
 
 ### 7. Tratament (3 min)
 
-Obiective: ameliorarea durerii, restaurarea mobilitatii si functiei, corectarea discrepantei de lungime, revenirea la activitatile zilnice. Optiuni: tratament conservator (kinetoterapie, reducere ponderala, AINS, infiltratii) pentru stadii incipiente; chirurgie de conservare (osteotomie periacetabulara, artroscopie pentru FAI) la pacientul tanar cu Tönnis 0-1 si deformare structurala; artroplastie totala de sold pentru distructie articulara avansata simptomatica refractara. Pentru acest pacient aleg [optiunea], motivat de [stadiul radiologic, varsta, nivelul de activitate, simptomatologia]. Tehnica THA in pasi: (1) instalare in decubit lateral sau dorsal dupa abordul ales, cu reperare a landmark-urilor osoase; (2) abord [posterolateral/anterolateral/anterior direct] cu protectia structurilor neuro-vasculare specifice abordului; (3) luxatie a soldului si rezectie a colului femural la nivelul planificat; (4) prepararea acetabulului prin frezare progresiva si implantarea cupei in pozitie de 40-45 grade inclinare si 15-20 grade anteversie (?); (5) prepararea canalului femural si implantarea tijei (cimentata sau necimentata dupa planificare); (6) proba cu implante de test pentru stabilitate, lungime a membrului si tensiune a tesuturilor moi, verificare de mobilitate fara conflict; (7) implantare definitiva a componentelor si a capului femural de dimensiunea aleasa; (8) reducere a soldului, verificare a stabilitatii si a amplitudinii de miscare, inchidere pe planuri cu reparare capsulara daca abord posterolateral. Postoperator: mobilizare in prima zi cu incarcare completa (dupa protocol ERAS), tromboprofilaxie 2-5 saptamani (?), precautii de luxatie dupa abordul folosit, kinetoterapie progresiva, control radiografic la 6 saptamani si 1 an.
+Obiective: ameliorarea durerii, restaurarea mobilității și funcției, corectarea discrepanței de lungime, revenirea la activitățile zilnice. Opțiuni: tratament conservator (kinetoterapie, reducere ponderală, AINS, infiltrații) pentru stadii incipiente; chirurgie de conservare (osteotomie periacetabulară, artroscopie pentru FAI) la pacientul tânăr cu Tönnis 0-1 și deformare structurală; artroplastie totală de șold pentru distrucție articulară avansată simptomatică refractară. Pentru acest pacient aleg [opțiunea], motivat de [stadiul radiologic, vârsta, nivelul de activitate, simptomatologia]. Tehnica THA în pași: (1) instalare în decubit lateral sau dorsal după abordul ales, cu reperare a landmark-urilor osoase; (2) abord [posterolateral/anterolateral/anterior direct] cu protecția structurilor neuro-vasculare specifice abordului; (3) luxație a șoldului și rezecție a colului femural la nivelul planificat; (4) prepararea acetabulului prin frezare progresivă și implantarea cupei în poziție de 40-45 grade înclinare și 15-20 grade anteversie (?); (5) prepararea canalului femural și implantarea tijei (cimentată sau necimentată după planificare); (6) probă cu implante de test pentru stabilitate, lungime a membrului și tensiune a țesuturilor moi, verificare de mobilitate fără conflict; (7) implantare definitivă a componentelor și a capului femural de dimensiunea aleasă; (8) reducere a șoldului, verificare a stabilității și a amplitudinii de mișcare, închidere pe planuri cu reparare capsulară dacă abord posterolateral. Postoperator: mobilizare în prima zi cu încărcare completă (după protocol ERAS), tromboprofilaxie 2-5 săptămâni (?), precauții de luxație după abordul folosit, kinetoterapie progresivă, control radiografic la 6 săptămâni și 1 an.
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Netratata, coxartroza evolueaza progresiv catre deformare fixa si limitare functionala severa. Complicatii ale bolii: durere cronica, atrofie musculara, compensari lombare/de genunchi. Complicatii ale tratamentului chirurgical: luxatie de proteza, infectie periprotetica, tromboembolism, fractura periprotetica, discrepanta de lungime, leziune nervoasa, uzura/osteoliza si decimentare pe termen lung. Prognostic functional excelent dupa THA bine indicata, cu supravietuire a implantului peste 90-95% la 15-20 ani (?); urmarire periodica pe termen lung necesara.
+Netratată, coxartroza evoluează progresiv către deformare fixă și limitare funcțională severă. Complicații ale bolii: durere cronică, atrofie musculară, compensări lombare/de genunchi. Complicații ale tratamentului chirurgical: luxație de proteză, infecție periprotetică, tromboembolism, fractură periprotetică, discrepanță de lungime, leziune nervoasă, uzură/osteoliză și decimentare pe termen lung. Prognostic funcțional excelent după THA bine indicată, cu supraviețuire a implantului peste 90-95% la 15-20 ani (?); urmărire periodică pe termen lung necesară.
 
 ### Fraze-cheie
 
-- Diferentiez coxartroza primara de cea secundara prin identificarea unei cauze structurale (displazie, FAI, necroza avasculara, post-traumatica).
-- Aplic gradarea Tönnis, specifica pentru sold, alaturi de Kellgren-Lawrence pentru severitatea radiologica.
-- Testul Trendelenburg pozitiv imi indica insuficienta abductorilor, frecvent asociata coxartrozei avansate sau displaziei.
-- Rotatia interna este primul si cel mai afectat plan de miscare in coxartroza.
-- La pacientul tanar cu Tönnis 0-1 si deformare structurala, preferul chirurgia de conservare articulara inaintea artroplastiei.
-- Indicatia de THA este distructie articulara radiologic confirmata concordanta cu durere si limitare functionala refractara la tratament conservator.
-- Aleg cuplul de frecare si fixarea implantului in functie de calitatea osoasa si de nivelul de activitate al pacientului.
-- Masor lungimea membrelor direct si indirect pentru a distinge discrepanta reala de cea functionala.
+- Diferențiez coxartroza primară de cea secundară prin identificarea unei cauze structurale (displazie, FAI, necroză avasculară, post-traumatică).
+- Aplic gradarea Tönnis, specifică pentru șold, alături de Kellgren-Lawrence pentru severitatea radiologică.
+- Testul Trendelenburg pozitiv îmi indică insuficiența abductorilor, frecvent asociată coxartrozei avansate sau displaziei.
+- Rotația internă este primul și cel mai afectat plan de mișcare în coxartroza.
+- La pacientul tânăr cu Tönnis 0-1 și deformare structurală, preferul chirurgia de conservare articulară înaintea artroplastiei.
+- Indicația de THA este distrucție articulară radiologic confirmată concordantă cu durere și limitare funcțională refractară la tratament conservator.
+- Aleg cuplul de frecare și fixarea implantului în funcție de calitatea osoasă și de nivelul de activitate al pacientului.
+- Măsor lungimea membrelor direct și indirect pentru a distinge discrepanța reală de cea funcțională.
 
 ## Întrebările comisiei
 
-### Î1. Care sunt criteriile clasificarii Tönnis pentru coxartroza?
+### Î1. Care sunt criteriile clasificării Tönnis pentru coxartroza?
 
-**R:** Grad 0, fara semne de artroza; grad 1, scleroza crescuta si osteofitoza usoara; grad 2, chisturi mici si pierdere moderata a sfericitatii capului femural; grad 3, chisturi mari, spatiu articular sever ingustat/obliterat, deformare severa cu semne de necroza avasculara.
+**R:** Grad 0, fără semne de artroză; grad 1, scleroză crescută și osteofitoză ușoară; grad 2, chisturi mici și pierdere moderată a sfericității capului femural; grad 3, chisturi mari, spațiu articular sever îngustat/obliterat, deformare severă cu semne de necroză avasculară.
 
-### Î2. Cum efectuati si interpretati testul Trendelenburg?
+### Î2. Cum efectuați și interpretați testul Trendelenburg?
 
-**R:** Pun pacientul in sprijin unipodal pe membrul examinat si observ bazinul contralateral; testul este pozitiv daca bazinul contralateral cade (nu se ridica), indicand insuficienta abductorilor de sold (gluteus medius si minimus), frecvent intalnita in coxartroza avansata sau in displazia de sold.
+**R:** Pun pacientul în sprijin unipodal pe membrul examinat și observ bazinul contralateral; testul este pozitiv dacă bazinul contralateral cade (nu se ridică), indicând insuficiența abductorilor de șold (gluteus medius și minimus), frecvent întâlnită în coxartroza avansată sau în displazia de șold.
 
-### Î3. Care sunt indicatiile pentru artroplastia totala de sold?
+### Î3. Care sunt indicațiile pentru artroplastia totală de șold?
 
-**R:** Distructie articulara radiologic confirmata (Tönnis 2-3, de regula KL peste 3) concordanta cu durere semnificativa si limitare functionala, refractara la tratament conservator (kinetoterapie, AINS, modificare a activitatii). Indicatia nu se pune pe imagistica singura, ci pe corelarea cu simptomatologia.
+**R:** Distrucție articulară radiologic confirmată (Tönnis 2-3, de regulă KL peste 3) concordantă cu durere semnificativă și limitare funcțională, refractară la tratament conservator (kinetoterapie, AINS, modificare a activității). Indicația nu se pune pe imagistica singură, ci pe corelarea cu simptomatologia.
 
-### Î4. Ce faceti daca gasiti un pacient tanar cu displazie de sold si Tönnis 0-1 simptomatic?
+### Î4. Ce faceți dacă găsiți un pacient tânăr cu displazie de șold și Tönnis 0-1 simptomatic?
 
-**R:** Nu indic artroplastie, ci evaluez chirurgia de conservare: osteotomie periacetabulara pentru a corecta acoperirea insuficienta, caci cartilajul e inca relativ conservat si scopul e de a preveni progresia, nu de a trata artroza deja instalata.
+**R:** Nu indic artroplastie, ci evaluez chirurgia de conservare: osteotomie periacetabulară pentru a corecta acoperirea insuficientă, căci cartilajul e încă relativ conservat și scopul e de a preveni progresia, nu de a trata artroza deja instalată.
 
-### Î5. Cum diferentiati clinic coxartroza de trohanterita?
+### Î5. Cum diferențiați clinic coxartroza de trohanterită?
 
-**R:** Coxartroza produce durere inghinala mecanica cu limitare intraarticulara, mai ales a rotatiei interne; trohanterita produce durere laterala, cu sensibilitate directa la trohanterul mare si fara limitare intraarticulara.
+**R:** Coxartroza produce durere inghinală mecanică cu limitare intraarticulară, mai ales a rotației interne; trohanterita produce durere laterală, cu sensibilitate directă la trohanterul mare și fără limitare intraarticulară.
 
-### Î6. Ce faceti daca in timpul preparariii acetabulului constatati o pierdere osoasa acetabulara semnificativa?
+### Î6. Ce faceți dacă în timpul preparăriii acetabulului constatați o pierdere osoasă acetabulară semnificativă?
 
-**R:** Evaluez amploarea defectului (Paprosky sau similar), aleg o cupa mai mare cu grefare osoasa sau augmente metalice daca defectul e mare, si adaptez fixarea (surub suplimentar) pentru stabilitate initiala.
+**R:** Evaluez amploarea defectului (Paprosky sau similar), aleg o cupă mai mare cu grefare osoasă sau augmente metalice dacă defectul e mare, și adaptez fixarea (șurub suplimentar) pentru stabilitate inițială.
 
-### Î7. Care este forta de reactie articulara la nivelul soldului si de ce este relevanta clinic?
+### Î7. Care este forța de reacție articulară la nivelul șoldului și de ce este relevantă clinic?
 
-**R:** De 3-5 ori greutatea corporala in sprijin unipodal (?), explicand impactul incarcarii asupra progresiei artrozei si importanta reducerii ponderale si tonifierii abductorilor.
+**R:** De 3-5 ori greutatea corporală în sprijin unipodal (?), explicând impactul încărcării asupra progresiei artrozei și importanța reducerii ponderale și tonifierii abductorilor.
 
-### Î8. Ce faceti daca pacientul are o discrepanta de lungime a membrelor preoperator?
+### Î8. Ce faceți dacă pacientul are o discrepanță de lungime a membrelor preoperator?
 
-**R:** Masor discrepanta directa si indirecta pentru a distinge componenta reala de cea functionala (contractura, obliquitate pelvina), planific pozitia implantelor pentru a corecta partial discrepanta reala fara a suprasolicita tesuturile moi, si discut cu pacientul preoperator ca o corectie completa nu este intotdeauna posibila sau de dorit.
+**R:** Măsor discrepanța directă și indirectă pentru a distinge componenta reală de cea funcțională (contractură, obliquitate pelvină), planific poziția implantelor pentru a corecta parțial discrepanța reală fără a suprasolicita țesuturile moi, și discut cu pacientul preoperator că o corecție completă nu este întotdeauna posibilă sau de dorit.
 
-### Î9. Care sunt avantajele si dezavantajele abordului anterior direct fata de posterolateral?
+### Î9. Care sunt avantajele și dezavantajele abordului anterior direct față de posterolateral?
 
-**R:** Anteriorul direct e intervertebral, cu recuperare precoce potential mai rapida si risc mai mic de luxatie, dar curba de invatare mai lunga si risc de fractura de trohanter mare/leziune de nerv cutanat femural lateral. Posterolateralul ofera expunere excelenta dar risc mai mare de luxatie fara reparare capsulara.
+**R:** Anteriorul direct e intervertebral, cu recuperare precoce potențial mai rapidă și risc mai mic de luxație, dar curbă de învățare mai lungă și risc de fractură de trohanter mare/leziune de nerv cutanat femural lateral. Posterolateralul oferă expunere excelentă dar risc mai mare de luxație fără reparare capsulară.
 
-### Î10. Ce faceti daca un pacient cu proteza de sold se prezinta cu luxatie recurenta?
+### Î10. Ce faceți dacă un pacient cu proteză de șold se prezintă cu luxație recurentă?
 
-**R:** Evaluez pozitionarea componentelor (inclinare/anteversie a cupei, anteversie a tijei), tensiunea tesuturilor moi si integritatea abductorilor, si daca pozitia implantelor este incorecta sau instabilitatea persista, indic revizie cu repozitionarea componentelor, eventual cu cap femural mai mare sau constrained liner.
+**R:** Evaluez poziționarea componentelor (înclinare/anteversie a cupei, anteversie a tijei), tensiunea țesuturilor moi și integritatea abductorilor, și dacă poziția implantelor este incorectă sau instabilitatea persistă, indic revizie cu repoziționarea componentelor, eventual cu cap femural mai mare sau constrained liner.
 
-### Î11. Cum se calculeaza unghiul centru-margine Wiberg si ce inseamna o valoare scazuta?
+### Î11. Cum se calculează unghiul centru-margine Wiberg și ce înseamnă o valoare scăzută?
 
-**R:** Se masoara pe radiografia de pelvis fata, intre o linie verticala prin centrul capului femural si o linie de la centrul capului la marginea laterala a acetabulului. Normal peste 25 grade (?); sub aceasta valoare indica acoperire insuficienta, sugerand displazie ca factor cauzal.
+**R:** Se măsoară pe radiografia de pelvis față, între o linie verticală prin centrul capului femural și o linie de la centrul capului la marginea laterală a acetabulului. Normal peste 25 grade (?); sub această valoare indică acoperire insuficientă, sugerând displazie ca factor cauzal.
 
 ### Î12. Ce cuplu de frecare alegeti pentru un pacient tanar activ si de ce?
 
-**R:** Ceramica-pe-polietilena crosslinked, din cauza ratei mici de uzura si a profilului de siguranta bun; ceramica-pe-ceramica este o alternativa cu uzura minima dar risc de scuartuit; metal-pe-metal este evitat actual din cauza riscului de ioni metalici si reactie adversa la particule.
+**R:** Ceramică-pe-polietilenă crosslinked, din cauza ratei mici de uzură și a profilului de siguranță bun; ceramică-pe-ceramică este o alternativă cu uzură minimă dar risc de scuărțuit; metal-pe-metal este evitat actual din cauza riscului de ioni metalici și reacție adversă la particule.
 
 ### Î13. Ce faceti daca radiografia arata semne de necroza avasculara la un pacient cu coxartroza secundara?
 
-**R:** Evaluez stadiul necrozei (Ficat-Arlet/ARCO) pentru a stabili daca exista inca colaps subcondral limitat versus artroza secundara deja instalata; daca artroza secundara este avansata (Tönnis 2-3), indic direct artroplastie totala de sold, deoarece chirurgia de conservare (core decompresie) nu mai este indicata dupa colaps articular.
+**R:** Evaluez stadiul necrozei (Ficat-Arlet/ARCO) pentru a stabili dacă există încă colaps subcondral limitat versus artroză secundară deja instalată; dacă artroza secundară este avansată (Tönnis 2-3), indic direct artroplastie totală de șold, deoarece chirurgia de conservare (core decompresie) nu mai este indicată după colaps articular.
 
 ### Î14. Care este mecanismul prin care displazia de sold duce la coxartroza secundara?
 
-**R:** Acoperirea insuficienta concentreaza sarcina pe o zona mica, superolaterala, ducand la suprasolicitare focala cronica, degenerare precoce a cartilajului si labrumului, si artroza secundara, tipic la tanar sau sex feminin.
+**R:** Acoperirea insuficientă concentrează sarcina pe o zonă mică, superolaterală, ducând la suprasolicitare focală cronică, degenerare precoce a cartilajului și labrumului, și artroză secundară, tipic la tânăr sau sex feminin.
 
 ### Î15. Ce faceti daca in cursul artroplastiei descoperiti o anteversie femurala excesiva?
 
-**R:** Ajustez anteversia componentei acetabulare pentru a compensa partial (combined anteversion, tinta totala aproximativ 25-40 grade) (?), si daca discrepanta este mare, consider o tija cu anteversie ajustabila sau o osteotomie de derotatie femurala in cazuri severe, pentru a evita instabilitatea sau conflictul osos.
+**R:** Ajustez anteversia componentei acetabulare pentru a compensa parțial (combined anteversion, ținta totală aproximativ 25-40 grade) (?), și dacă discrepanța este mare, consider o tijă cu anteversie ajustabilă sau o osteotomie de derotație femurală în cazuri severe, pentru a evita instabilitatea sau conflictul osos.
 `,Ru=`---
 title: Boala Dupuytren
 probe: co
@@ -12190,11 +12190,11 @@ Fractura supracondiliană de humerus la copil (relația triunghiulară păstrat�
 
 ### Complicații
 
-Rigiditate articulară (cea mai frecventă sechelă, mai ales cu imobilizare prelungită), osificări heterotopice (HO, mai frecvente în luxațiile complexe, energie mare, imobilizare prelungită, intervenții multiple; profilaxie cu indometacin sau radioterapie cu doză mică în cazuri selectate la risc înalt), instabilitate recurentă/cronică (persistența PLRI netratate sau reparate insuficient), neuropatie ulnară (tranzitorie frecventă, permanentă rară), leziune de artera brahială (rară, dar de căutat activ mai ales în luxațiile cu deplasare mare), sindrom de compartiment de antebraț (rar).
+Rigiditate articulară (cea mai frecventă, mai ales cu imobilizare prelungită), osificări heterotopice (luxații complexe, energie mare; profilaxie cu indometacin sau radioterapie la risc înalt), instabilitate recurentă/cronică (PLRI netratată), neuropatie ulnară (tranzitorie frecventă, permanentă rară), leziune de artera brahială (rară), sindrom de compartiment de antebraț (rar).
 
 ### Evoluție și prognostic
 
-Luxația simplă tratată corect (reducere, testare de stabilitate, mobilizare precoce) are prognostic bun, cu recuperare funcțională aproape completă la majoritatea pacienților, dar redoare reziduală ușoară (deficit de extensie 5 la 15 grade) este frecventă, considerată acceptabilă funcțional. Terrible triad și luxațiile complexe au prognostic mai rezervat, cu rate mai mari de rigiditate, instabilitate reziduală și necesitatea de reintervenții. Luxația cronică unreduced (peste 3 săptămâni netratată) are prognostic sever compromis, cu reducere chirurgicală dificilă și rezultate funcționale limitate.
+Luxația simplă tratată corect are prognostic bun, cu recuperare aproape completă, dar redoare reziduală ușoară (deficit de extensie 5-15 grade) este frecventă, acceptabilă funcțional. Terrible triad și luxațiile complexe au prognostic mai rezervat, cu rate mai mari de rigiditate și reintervenții. Luxația cronică unreduced (peste 3 săptămâni) are prognostic sever compromis.
 
 ## Script de prezentare
 
@@ -12204,11 +12204,11 @@ Pacientul/a în vârstă de [vârstă] ani, [profesie], din [mediu], se prezint�
 
 ### 2. Anamneză (2 min)
 
-Motivul internării: durere intensă, deformare vizibilă a cotului, impotență funcțională completă. Istoric: mecanismul exact al traumatismului (cădere pe mână întinsă cu combinația de valgus, supinație și încărcare axială orientează spre mecanismul clasic de instabilitate posterolaterală), momentul producerii, dacă a existat reducere spontană sau efectuată în teren, tratamente urmate până la prezentare. Antecedente relevante: episoade anterioare de instabilitate/subluxație de cot (instabilitate cronică), activitate sportivă de contact sau cu risc de cădere, mâna dominantă. Factori de risc: sportul de contact, vârsta tânără activă, la vârstnic osteoporoza care poate favoriza fracturi asociate.
+Motivul internării: durere intensă, deformare vizibilă, impotență funcțională completă. Istoric: mecanismul exact (cădere pe mână întinsă cu valgus, supinație și încărcare axială orientează spre mecanismul clasic), momentul producerii, reducere spontană sau efectuată în teren, tratamente urmate. Antecedente relevante: episoade anterioare de instabilitate de cot, activitate sportivă de contact, mâna dominantă. Factori de risc: sportul de contact, vârsta tânără activă, la vârstnic osteoporoza care favorizează fracturi asociate.
 
 ### 3. Examen clinic (3 min)
 
-General: verificare pentru politraumatism dacă mecanismul de energie mare o justifică. Local, inspecție: deformare evidentă a cotului cu proeminență posterioară a olecranului, tumefacție marcată, poziția antebrațului (frecvent semiflectat, susținut de pacient). Palpare: relația triunghiulară a reperelor osoase (epicondil medial, epicondil lateral, vârful olecranului), triunghiul Hueter, care este întreruptă/modificată în luxație (spre diferență de fractura supracondiliană la copil, unde se păstrează), sensibilitate pe capul radial și pe apofiza coronoidă (la palparea prin flexie-extensie pasivă blândă, dacă tolerată). Mobilitate: goniometrie normală de referință (flexie 0 la 140-150 grade, extensie 0 grade, pronație-supinație 0 la 80-90 grade fiecare), blocaj complet cu resort elastic în luxația acută nereduse. Examen neuro-vascular distal, obligatoriu ÎNAINTE și DUPĂ reducere: puls radial și ulnar, refill capilar, sensibilitate și motricitate pe teritoriile nervului median, ulnar și radial (extensie pumn/degete, flexie pumn/degete, sensibilitate în teritoriile respective), cu atenție specială la nervul ulnar (cel mai frecvent afectat tranzitor). Testul de stabilitate DUPĂ reducere: arc de mișcare complet (stabilitate pe tot arcul, fără subluxație/resort la un anumit grad de flexie), stres în valgus și varus la 30 de grade flexie (relaxează capsula anterioară, testează specific ligamentele colaterale). Examinarea articulațiilor supra- și subiacente: umăr, pumn, pentru leziuni asociate (cot flotant, dacă asociază fractură de humeral diafizar).
+General: verificare pentru politraumatism dacă mecanismul o justifică. Local, inspecție: deformare evidentă cu proeminență posterioară a olecranului, tumefacție marcată, antebraț semiflectat susținut de pacient. Palpare: relația triunghiulară a reperelor osoase (triunghiul Hueter), întreruptă în luxație (spre diferență de fractura supracondiliană la copil), sensibilitate pe capul radial și coronoidă. Mobilitate: goniometrie normală (flexie 0-140/150, extensie 0, pronosupinație 0-80/90 grade), blocaj complet cu resort elastic în luxația nereduse. Examen neuro-vascular distal, obligatoriu ÎNAINTE și DUPĂ reducere: puls radial/ulnar, refill capilar, sensibilitate și motricitate pe teritoriile median, ulnar și radial, cu atenție la ulnar (cel mai frecvent afectat tranzitor). Testul de stabilitate DUPĂ reducere: arc de mișcare complet, stres în valgus și varus la 30 grade flexie. Examinarea articulațiilor supra- și subiacente: umăr, pumn (cot flotant, dacă asociază fractură humerală diafizară).
 
 ### 4. Diagnostic pozitiv (30 s)
 
@@ -12222,13 +12222,13 @@ Fractura supracondiliană de humerus la copil: relația triunghiulară a reperel
 
 ### 6. Investigații (1 min)
 
-Radiografie de cot față și profil strict, ÎNAINTE de reducere, pentru a documenta direcția luxației și a căuta fracturi asociate (cap radial, coronoidă, olecran). Radiografie de control obligatorie DUPĂ reducere, pe 2 incidențe, pentru a confirma congruența articulară completă și a exclude incarcerarea unui fragment osos (mai ales epicondil medial la adolescent). CT dacă există fractură asociată vizibilă/suspectată, mai ales pentru dimensiunea și configurația exactă a fragmentului coronoidian, esențial pentru planificarea fixării. Preoperator (dacă se decide chirurgical): hemogramă, coagulogramă, evaluare anestezică, verificare status neuro-vascular documentat clar în foaia de observație.
+Radiografie de cot față și profil strict, ÎNAINTE de reducere, pentru direcția luxației și fracturi asociate. Radiografie de control obligatorie DUPĂ reducere, pe 2 incidențe, pentru congruență și pentru a exclude incarcerare de fragment (mai ales epicondil medial la adolescent). CT la fractură asociată suspectată, mai ales pentru fragmentul coronoidian. Preoperator: hemogramă, coagulogramă, evaluare anestezică, status neuro-vascular documentat clar.
 
 ### 7. Tratament (3 min)
 
 Obiective: reducere anatomică urgentă, restabilirea stabilității complete pe tot arcul de mișcare, mobilizare precoce pentru a preveni rigiditatea, fără a compromite stabilitatea. Opțiuni: reducere închisă cu testare de stabilitate, urmată de imobilizare scurtă și mobilizare precoce la luxația simplă stabilă; reparare chirurgicală secvențială (cap radial, coronoidă, LCL, eventual LCM) la luxația complexă/terrible triad sau la instabilitate reziduală. Pentru acest pacient aleg [reducere închisă cu mobilizare precoce dacă e stabilă / reparare chirurgicală secvențială dacă e terrible triad sau instabilă], pentru că [testul de stabilitate postreducere arată/nu arată instabilitate reziduală, respectiv fracturile asociate compromit stabilitatea intrinsecă].
 
-Tehnica în pași (pentru terrible triad): 1) reducere închisă inițială sub sedare/anestezie prin tracțiune longitudinală și flexie progresivă cu presiune pe olecran; 2) abord lateral (Kocher sau Kaplan) pentru expunerea capului radial și a LCL; 3) fixarea/reconstrucția capului radial (osteosinteză cu șuruburi mici dacă fragmentele permit, protezare dacă cominuție severă); 4) fixarea apofizei coronoide prin același abord sau abord separat, cu șuruburi/ancore transosoase în funcție de dimensiune; 5) reparare a LCL/LUCL prin sutură transosoasă sau ancore la punctul izometric pe epicondilul lateral; 6) testare intraoperatorie a stabilității pe tot arcul de mișcare; 7) dacă persistă instabilitate în valgus, reparare a ligamentului colateral medial printr-un abord medial separat; 8) dacă instabilitatea reziduală rămâne semnificativă, aplicare de fixator extern articulat (hinged) temporar.
+Tehnica în pași (terrible triad): 1) reducere închisă inițială sub sedare prin tracțiune și flexie progresivă cu presiune pe olecran; 2) abord lateral (Kocher/Kaplan) pentru capul radial și LCL; 3) fixarea/reconstrucția capului radial (osteosinteză dacă fragmentele permit, protezare la cominuție severă); 4) fixarea coronoidei cu șuruburi/ancore transosoase; 5) reparare a LCL/LUCL prin sutură transosoasă sau ancore la epicondilul lateral; 6) testare intraoperatorie a stabilității pe tot arcul; 7) dacă persistă instabilitate în valgus, reparare a colateralului medial printr-un abord separat; 8) la instabilitate reziduală semnificativă, fixator extern articulat temporar.
 
 Protocol postoperator: imobilizare scurtă în atelă posterioară 5 la 7 zile (poziție protejată în funcție de structura reparată), mobilizare activă precoce protejată (evitarea extensiei complete în primele 2-3 săptămâni dacă LCL reparat, evitarea supinației forțate dacă capul radial reconstruit), kinetoterapie progresivă, radiografie de control la 2 și 6 săptămâni pentru a confirma menținerea reducerii și congruenței, reluarea activității sportive de contact la 3 la 6 luni.
 
