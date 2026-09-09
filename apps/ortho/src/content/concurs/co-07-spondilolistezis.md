@@ -78,7 +78,7 @@ Spondiloliza/listezisul istmic grad I la copil/adolescent este in general stabil
 
 Pacientul/a in varsta de [varsta] ani, [profesie], din [mediu], se prezinta pentru lombalgie [cu/fara] iradiere in membrul inferior [drept/stang], cu debut [acut/insidios] in urma cu [durata], asociata [cu/fara] tulburari de mers.
 
-### 2. Anamneza (2 min)
+### 2. Anamneză (2 min)
 
 Motivele internarii: durerea lombara (caracter mecanic, accentuata la hiperextensie sau la ortostatism prelungit), iradierea sciatica (topografie L5), claudicatia neurogena (distanta de mers, ameliorare la flexie/asezare), eventuale tulburari sfincteriene (de exclus urgent sindrom de coada de cal). Istoric: momentul debutului (adolescenta si sport cu hiperextensie repetitiva sugereaza istmic; peste 60 de ani sugereaza degenerativ), evolutia simptomelor (progresiva, intermitenta), tratamente urmate (AINS, infiltratii, corset, kinetoterapie, rezultat). Antecedente relevante: practicarea unui sport cu incarcare in hiperextensie (gimnastica, fotbal american, aruncari), interventii lombare anterioare (laminectomie, care poate destabiliza secundar), osteoporoza, boli asociate. Factori de risc: sex feminin si obezitate pentru forma degenerativa, varsta de crestere rapida si activitate sportiva pentru forma istmica.
 
@@ -90,11 +90,11 @@ General: talie, greutate, IMC, postura globala. Local, inspectie: caut mersul Ph
 
 Diagnostic pozitiv: spondilolistezis [istmic/degenerativ] L[nivel], grad Meyerding [I-V], slip angle [X] grade, pe baza examenului clinic (treapta interspinoasa, retractura de hamstring, mers Phalen-Dickson daca prezent) si a radiografiei de profil in ortostatism cu masurarea alunecarii si a angulatiei sagitale.
 
-### 5. Diagnostic diferential (1 min)
+### 5. Diagnostic diferențial (1 min)
 
 Hernie de disc lombara: durere radiculara fara treapta interspinoasa si fara defect de pars la imagistica. Stenoza de canal degenerativa fara listezis: claudicatie neurogena, fara alunecare vertebrala vizibila. Fractura de stres izolata a elementelor posterioare: durere localizata, fara alunecare. Tumora vertebrala/sacrala: durere nocturna, semne de alarma. Sacroiliita: durere sacroiliaca, teste de provocare specifice pozitive. Sindromul de coada de cal: tulburari sfincteriene si anestezie in sa, urgenta chirurgicala.
 
-### 6. Investigatii (1 min)
+### 6. Investigații (1 min)
 
 Radiografie lombara fata si profil in ortostatism cu masurarea gradului Meyerding si a slip angle-ului; radiografii oblice pentru defectul de pars; radiografie in flexie-extensie pentru instabilitate dinamica (peste 3-4 mm translatie sau 10-15 grade angulatie) (?). CT pentru caracterizarea defectului de pars si planificarea anatomiei pediculare. IRM lombara pentru disc, stenoza de canal/foraminala si compresie radiculara, obligatorie preoperator. Scintigrafie/SPECT pentru a distinge spondiloliza acuta de cea cronica consolidata. Preoperator: evaluare a balansului sagital (PI, LL, SVA) la listezisul de grad inalt, probe biologice standard, tipaj sanguin.
 
@@ -102,7 +102,7 @@ Radiografie lombara fata si profil in ortostatism cu masurarea gradului Meyerdin
 
 Obiective: ameliorarea durerii si a radiculopatiei/claudicatiei, stabilizarea segmentului instabil, prevenirea progresiei si a complicatiilor neurologice. Optiuni: tratament conservator (restrictie de activitate, kinetoterapie, AINS, infiltratii) pentru listezis stabil grad I-II fara deficit; reparare de pars pentru defect izolat fara listezis semnificativ la pacient tanar; decompresie ± fuziune pentru radiculopatie/claudicatie refractara sau instabilitate. Pentru acest pacient aleg [optiunea], motivat de [gradul Meyerding, slip angle, stabilitatea dinamica, varsta, simptomatologia]. Tehnica in pasi: (1) instalare in decubit ventral pe cadru care permite reducerea posturala partiala, cu fluoroscopie laterala disponibila; (2) abord posterior median cu expunere subperiostala a laminei si a fatetelor la nivelul afectat; (3) decompresie: laminectomie/foraminotomie cu identificarea si liberarea radacinii comprimate (rezectia fragmentului fibrocartilaginos Gill in istmic); (4) montare de suruburi pediculare la nivelul afectat si la nivelul adiacent stabil; (5) discectomie si plasare de cusca intersomatica (TLIF/PLIF) daca fuziune interbody indicata, cu restaurare a inaltimii discale; (6) reducere partiala controlata a alunecarii daca indicata, cu monitorizare neurofiziologica pentru radacina L5; (7) fixare definitiva si control fluoroscopic al pozitiei implantelor si al corectiei; (8) grefare osoasa posterolaterala, inchidere pe planuri cu dren. Postoperator: mobilizare precoce, orteza lombara opcional 6-12 saptamani, radiografie de control la 6 saptamani, 3, 6 si 12 luni, reluare progresiva a activitatii, evitare sport de contact 3-6 luni.
 
-### 8. Evolutie, complicatii, prognostic (1 min)
+### 8. Evoluție, complicații, prognostic (1 min)
 
 Netratat, listezisul istmic grad I la adolescent este in general stabil; riscul de progresie creste la slip angle mare si in crestere rapida. Listezisul degenerativ progreseaza lent, rareori peste grad II-III. Complicatii ale bolii: radiculopatie/claudicatie cronica, rar sindrom de coada de cal la grad inalt. Complicatii ale tratamentului: leziune de radacina L5 la reducere agresiva, pseudartroza, migrare de implant, discita, degenerare de segment adiacent. Prognostic functional bun dupa tratament corect indicat, cu urmarire radiologica periodica pentru progresie sau pseudartroza.
 

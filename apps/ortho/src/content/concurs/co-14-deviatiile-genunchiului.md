@@ -89,8 +89,7 @@ Progresia deviației și artroza unicompartimentală precoce, recidivă a deform
 
 Variantele fiziologice se corectează spontan până la 7-8 ani în marea majoritate a cazurilor. Boala Blount netratată progresează spre deviație severă, ireversibilă, cu artroză precoce a compartimentului medial. Deviațiile de adult, tratate prin osteotomie la momentul potrivit, oferă ameliorare durabilă și pot întârzia necesitatea unei artroplastii.
 
-## Script de prezentare (10-12 minute)
-
+## Script de prezentare
 ### 1. Prezentarea cazului (30 s)
 
 Pacientul/a în vârstă de [vârstă] ani, [profesie/copil de vârstă școlară], se prezintă pentru deviație progresivă a genunchilor [varum/valgum/recurvatum/flexum], [uni/bilaterală], observată de [X] luni/ani, [cu/fără] durere asociată.

@@ -86,7 +86,7 @@ SCC netratat poate progresa catre deficit motor permanent si atrofie tenariana, 
 
 Pacientul/a in varsta de [varsta] ani, [profesie], din [mediu], se prezinta pentru parestezii [nocturne/permanente] la nivelul [teritoriului nervos afectat, mana/planta], cu debut in urma cu [durata], asociate [cu/fara] slabiciune musculara.
 
-### 2. Anamneza (2 min)
+### 2. Anamneză (2 min)
 
 Motivele internarii: paresteziile (localizare precisa in teritoriul nervos, orar, factori de ameliorare/agravare), slabiciunea (priza fina, tinerea obiectelor), durerea asociata. Istoric: momentul debutului, evolutia (progresiva sau stationara), tratamente urmate (orteza, infiltratii, rezultat si durata beneficiului). Antecedente relevante: diabet zaharat, hipotiroidism, poliartrita reumatoida, sarcina, insuficienta renala cu dializa, fractura anterioara la nivelul zonei afectate, deformare de retropicior (pentru canal tarsian). Factori de risc: activitati repetitive/vibratii, sarcina, sport specific (baseball/ciclism pentru Guyon), obezitate.
 
@@ -98,11 +98,11 @@ General: aspect general, postura mainii/piciorului in repaus. Local, inspectie: 
 
 Diagnostic pozitiv: sindrom de [canal carpian/canal Guyon/canal tarsian] [drept/stang], severitate [usoara/moderata/severa], pe baza examenului clinic (semnul Tinel pozitiv, [Phalen/Durkan/dorsiflexie-eversie] pozitiv, [deficit motor/senzitiv daca prezent]) si a EMG/conducerii nervoase confirmatorii.
 
-### 5. Diagnostic diferential (1 min)
+### 5. Diagnostic diferențial (1 min)
 
 Radiculopatie cervicala C6-C7 (pentru SCC): distributie dermatomala mai larga, semne de tensiune cervicala. Compresie de nerv ulnar la cot (pentru Guyon): afectare a fetei dorsale a mainii, Tinel pozitiv la cot. Polineuropatie generalizata: afectare bilaterala simetrica in "manusa-soseta". Radiculopatie lombara S1 (pentru canal tarsian): distributie dermatomala mai larga, tensiune sciatica. Fasciita plantara (pentru canal tarsian): durere la calcaneu plantar matinal, fara parestezii specifice.
 
-### 6. Investigatii (1 min)
+### 6. Investigații (1 min)
 
 EMG/conducere nervoasa, standardul de referinta pentru confirmare si stadializare: pentru SCC, latenta motorie distala peste 4,5 ms (?), latenta senzitiva peste 3,5 ms (?), viteza de conducere sub 50 m/s (?). Ecografie de nerv pentru aria sectiunii transverse (peste 9-10 mm² pentru median) (?) si identificare a maselor ocupante de spatiu. IRM pentru caracterizarea maselor de tesut moale si a etiologiei in canal Guyon/tarsian. Radiografie pentru deformari osoase asociate. Preoperator: probe biologice standard, evaluare a cauzelor sistemice (glicemie, TSH).
 
@@ -110,7 +110,7 @@ EMG/conducere nervoasa, standardul de referinta pentru confirmare si stadializar
 
 Obiective: ameliorarea paresteziilor si durerii, prevenirea/recuperarea deficitului motor, evitarea denervarii permanente. Optiuni: tratament conservator (orteza, infiltratie, tratament al cauzei sistemice) pentru forme usoare-moderate fara deficit; decompresie chirurgicala pentru simptome refractare, deficit motor/denervare la EMG, sau masa ocupanta de spatiu. Pentru acest pacient aleg [optiunea], motivat de [severitatea EMG, deficitul obiectiv, prezenta masei ocupante de spatiu, raspunsul la tratament conservator]. Tehnica in pasi (eliberare deschisa de canal carpian, exemplu): (1) instalare in decubit dorsal cu bratul pe masa, anestezie locala/regionala si garou daca necesar; (2) incizie longitudinala palmara la nivelul canalului carpian, evitand ramura cutanata palmara a medianului; (3) disectie prin tesutul subcutanat pana la ligamentul transvers al carpului; (4) sectionarea completa a ligamentului sub vizualizare directa, de la marginea distala la cea proximala; (5) inspectarea nervului median pentru semne de compresie/aderenta, neuroliza daca necesar; (6) verificarea decompresiei complete pe toata lungimea canalului; (7) hemostaza, inchidere cutanata pe planuri; (8) pansament compresiv, atela daca necesar. Postoperator: mobilizare precoce a degetelor, atela nocturna 1-2 saptamani daca folosita, control la 2 saptamani, kinetoterapie daca deficit motor prezent, revenire progresiva la activitate 4-6 saptamani.
 
-### 8. Evolutie, complicatii, prognostic (1 min)
+### 8. Evoluție, complicații, prognostic (1 min)
 
 Netratat, sindromul poate progresa catre deficit motor permanent si atrofie musculara ireversibila, desi multe cazuri usoare raman stabile cu tratament conservator. Complicatii ale bolii: deficit senzitiv permanent, atrofie ireversibila. Complicatii ale tratamentului chirurgical: leziune a ramurii cutanate palmare sau a arterei ulnare, decompresie incompleta, recidiva/fibroza, sindrom de durere regionala complexa. Prognostic functional excelent pentru SCC decompresat la timp (peste 90% ameliorare) (?); prognostic mai variabil pentru canal tarsian, cu urmarire necesara pentru recuperarea deficitului preoperator.
 

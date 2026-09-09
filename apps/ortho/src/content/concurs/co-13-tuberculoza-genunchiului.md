@@ -76,8 +76,7 @@ Distrucție articulară cu anchiloză fibroasă/osoasă sau articulație instabi
 
 Diagnosticată și tratată precoce, în stadiul sinovial, boala poate evolua spre conservarea unui genunchi funcțional, mobil. Diagnosticată tardiv, evoluează spre distrucție și anchiloză sau instabilitate severă, cu indicație de chirurgie reconstructivă. Prognosticul funcțional pe termen lung este bun după TKA efectuată în condiții de boală controlată.
 
-## Script de prezentare (10-12 minute)
-
+## Script de prezentare
 ### 1. Prezentarea cazului (30 s)
 
 Pacientul/a în vârstă de [vârstă] ani, [profesie], din [mediu rural/urban], se prezintă pentru tumefacție și durere la nivelul genunchiului [drept/stâng] cu evoluție de [X] săptămâni/luni, șchiopătare și limitarea mobilității articulare.

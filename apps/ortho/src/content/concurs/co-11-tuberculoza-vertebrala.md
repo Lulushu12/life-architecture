@@ -82,8 +82,7 @@ Paraplegia Pott (precoce Tuli A, tardivă Tuli B), cifoză severă progresivă c
 
 Sub tratament corect, vindecarea cu fuziune osoasă spontană este regula, cu recuperare neurologică bună în majoritatea cazurilor de grup A. Prognosticul este mai rezervat în grupul Tuli B și în leziunile cervicale înalte. Deformarea cifotică reziduală poate rămâne definitivă, dar de regulă stabilă dacă fuziunea s-a produs corect.
 
-## Script de prezentare (10-12 minute)
-
+## Script de prezentare
 ### 1. Prezentarea cazului (30 s)
 
 Pacientul/a în vârstă de [vârstă] ani, [profesie], din [mediu rural/urban], se prezintă pentru durere dorsolombară cu evoluție de [X] săptămâni/luni, [cu/fără] deformare progresivă a spatelui, [cu/fără] deficit motor la nivelul membrelor inferioare.

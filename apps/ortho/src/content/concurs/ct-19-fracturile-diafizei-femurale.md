@@ -102,7 +102,7 @@ Obiective: restabilirea lungimii, axului și rotației, fixare stabilă cu mobil
 
 Tehnica în pași (exemplu tijă anterogradă, punct piriform): 1) masă de tracțiune, decubit dorsal sau lateral, fluoroscopie; 2) reducere închisă prin tracțiune, corectarea angulării și rotației; 3) incizie proximală, identificarea punctului de intrare la fosa piriformă, verificare fluoroscopică; 4) firul ghid prin punctul de intrare, poziționare centrală în canal; 5) alezaj progresiv, monitorizare hemodinamică la pacientul instabil; 6) introducerea tijei, verificare a lungimii, axului și rotației clinic și fluoroscopic; 7) blocare proximală și distală (statică la Winquist III-IV, dinamică posibilă la I-II); 8) verificare finală fluoroscopică, hemostază, închidere.
 
-Protocol postoperator: mobilizare precoce, sprijin conform stabilității fracturii și tipului de blocare (WBAT la majoritatea fracturilor simple blocate static, sprijin protejat la fracturi cominutive severe), profilaxie tromboembolică 2 la 6 săptămâni, kinetoterapie pentru recuperarea mobilității genunchiului și forței musculare, urmărire radiografică la 6 săptămâni, 3 luni, 6 luni pentru consolidare.
+Protocol postoperator: mobilizare precoce, sprijin conform stabilității (WBAT la fracturi simple blocate static, protejat la cominutive severe), profilaxie tromboembolică 2 la 6 săptămâni, kinetoterapie pentru genunchi și forța musculară, urmărire radiografică la 6 săptămâni, 3 luni, 6 luni.
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 

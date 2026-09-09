@@ -80,7 +80,7 @@ Posturala: prognostic excelent, se remite cu exercitii si maturare. Scheuermann:
 
 Pacientul/a in varsta de [varsta] ani, [profesie], din [mediu], se prezinta pentru deformare a spatelui in regiunea toracica, observata de [cine a observat, cat timp in urma], asociata cu [durere/fatigabilitate/fara simptome], fara/cu deficit neurologic la nivelul membrelor inferioare.
 
-### 2. Anamneza (2 min)
+### 2. Anamneză (2 min)
 
 Motivele internarii: deformarea vizibila, durerea (localizare, caracter mecanic sau inflamator, iradiere), fatigabilitatea la ortostatism prelungit, eventuale tulburari de mers sau de sensibilitate. Istoric: momentul aparitiei deformarii (la pubertate sugereaza Scheuermann sau posturala, congenitala), evolutia in timp (progresiva sau stationara), tratamente urmate (corset, fizioterapie, cat timp, complianta). Antecedente relevante: traumatism vertebral in antecedente (fractura tratata sau netratata), osteoporoza cunoscuta si tratamentul acesteia, boli asociate (spondilita, neoplazie, malformatii congenitale asociate - renale, cardiace), istoric familial de deformari de coloana. Factori de risc: activitate sportiva de performanta cu incarcare axiala repetitiva, sex (masculin clasic in Scheuermann), varsta osoasa/maturitate scheletala, status hormonal si densitate osoasa la varstnic.
 
@@ -92,11 +92,11 @@ General: talie, greutate, IMC, semne de sindrom Marfan sau alta boala de tesut c
 
 Diagnostic pozitiv: cifoza [tip: Scheuermann/posturala/congenitala/post-traumatica/senila] toracica [sau toraco-lombara], unghi Cobb de [X] grade, [rigida/flexibila la hiperextensie], pe baza aspectului clinic caracteristic, a testului de hiperextensie si a criteriilor Sorensen pe radiografia de profil (minimum trei vertebre adiacente cu cuneiformizare peste 5 grade fiecare).
 
-### 5. Diagnostic diferential (1 min)
+### 5. Diagnostic diferențial (1 min)
 
 Cifoza posturala: se corecteaza complet la hiperextensie, fara modificari radiologice structurale. Spondilita anchilozanta: rigiditate matinala prelungita, sacroiliita la imagistica, HLA-B27 pozitiv. Tumora vertebrala: durere nocturna, semne de alarma, leziune focala la imagistica. Spondilodiscita: febra, sindrom inflamator biologic, aspect infectios la IRM. Boala Paget: aspect radiologic caracteristic de os "in mozaic", fosfataza alcalina crescuta. Fractura vertebrala acuta netraumatica pe osteoporoza: debut recent, tasare acuta la imagistica.
 
-### 6. Investigatii (1 min)
+### 6. Investigații (1 min)
 
 Radiografie de coloana toraco-lombara fata si profil in ortostatism, cu masurarea Cobb T4-T12; radiografie in hiperextensie pentru flexibilitate. Radiografie full-spine (EOS) pentru balans sagital global: SVA (normal sub 5 cm), PI, LL (tinta LL=PI+-9), PT (normal sub 20-22 grade). IRM de coloana la semne neurologice sau la deformarea congenitala pentru a exclude anomalii intraspinale asociate. CT pentru planificare de osteotomie sau evaluare a anatomiei pediculare in cazurile severe. DXA la suspiciunea de cifoza senila/osteoporotica. Preoperator: evaluare cardio-pulmonara, probe biologice standard, tipaj sanguin, evaluare neurofiziologica bazala.
 
@@ -104,7 +104,7 @@ Radiografie de coloana toraco-lombara fata si profil in ortostatism, cu masurare
 
 Obiective: stoparea progresiei, ameliorarea durerii, corectia deformarii semnificative si restaurarea balansului sagital, prevenirea complicatiilor neurologice. Optiuni: observatie si exercitii pentru forme usoare/flexibile; corsetare (Milwaukee/Boston modificat) pentru Scheuermann sub 70-75 grade la copil imatur scheletal; chirurgie pentru curbe peste 70-75 grade, progresive, dureroase refractare, sau cu deficit neurologic, respectiv pentru cifoza congenitala cu risc mare de progresie sau deficit. Pentru acest pacient aleg [optiunea], motivat de [unghiul Cobb, rigiditatea, simptomatologia, varsta osoasa, deficitul neurologic]. Tehnica in pasi: (1) instalare in decubit ventral pe suport care permite reducerea partiala prin pozitionare, montaj de fixare a capului si monitorizare neurofiziologica; (2) abord posterior median cu expunere subperiostala de la vertebra proximala la cea distala neutra; (3) montare de suruburi pediculare multisegmentare, verificate fluoroscopic; (4) osteotomii Ponte la nivelul apexului pentru corectie graduala (5-10 grade per nivel) sau osteotomie de tip PSO in deformarile rigide severe; (5) reducere progresiva si contorsionare a tijelor cu control continuu al potentialelor evocate; (6) fixare definitiva, control fluoroscopic al corectiei si al balansului sagital; (7) grefare osoasa posterolaterala pentru fuziune; (8) inchidere pe planuri cu dren. Postoperator: mobilizare precoce in ortostatism cu sau fara orteza toraco-lombo-sacrata dupa caz, radiografie de control la 6 saptamani, 3, 6 si 12 luni, reluare progresiva a activitatii, evitare sport de contact 6-12 luni.
 
-### 8. Evolutie, complicatii, prognostic (1 min)
+### 8. Evoluție, complicații, prognostic (1 min)
 
 Netratata, cifoza Scheuermann severa progreseaza moderat si la adult, cu durere cronica dar rareori deficit neurologic; cifoza congenitala tip Winter I progreseaza constant cu cel mai mare risc de paraplegie dintre deformarile spinale pediatrice. Complicatii ale bolii: durere cronica, dezechilibru sagital, rar restrictie respiratorie. Complicatii ale tratamentului: la corset, intoleranta si complianta scazuta; la chirurgie, cifoza jonctionala proximala/distala, pseudartroza, leziune neurologica, infectie, complicatii de instrumentare. Prognostic functional bun dupa corectie chirurgicala bine indicata; urmarire pe termen lung necesara pentru jonctiune si maturarea fuziunii.
 

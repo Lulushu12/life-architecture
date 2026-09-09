@@ -78,8 +78,7 @@ Distrucție articulară completă cu anchiloză (fibroasă sau osoasă) sau "șo
 
 Diagnosticată și tratată precoce, în stadiul sinovial sau de artrită incipientă, boala poate evolua spre conservarea unei articulații funcționale. Diagnosticată tardiv, evoluează spre distrucție și anchiloză, cu indicație de chirurgie reconstructivă. Prognosticul funcțional pe termen lung este bun după artroplastie efectuată în condiții de boală controlată.
 
-## Script de prezentare (10-12 minute)
-
+## Script de prezentare
 ### 1. Prezentarea cazului (30 s)
 
 Pacientul/a în vârstă de [vârstă] ani, [profesie], din [mediu rural/urban], se prezintă pentru durere la nivelul șoldului [drept/stâng] cu evoluție de [X] săptămâni/luni, șchiopătare progresivă și limitarea mobilității articulare.

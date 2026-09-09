@@ -79,7 +79,7 @@ Boala are evolutie cronica, progresiva, cu rate variabile individuale; unii stag
 
 Pacientul/a in varsta de [varsta] ani, [profesie], din [mediu], se prezinta pentru contractura progresiva in flexie a degetului/degetelor [anular/mic, stang/drept], cu debut in urma cu [durata], asociata cu dificultate la [aplatizarea palmei/prinderea obiectelor].
 
-### 2. Anamneza (2 min)
+### 2. Anamneză (2 min)
 
 Motivele internarii: contractura progresiva, dificultatea functionala (introducere a mainii in buzunar, spalare a fetei, prindere de obiecte), eventuala durere (rara, de regula in faza nodulara). Istoric: momentul debutului (varsta la debut sub 50 de ani este marker de diateza), viteza de progresie, tratamente urmate (injectii, fasciotomie, chirurgie, rezultat si recidiva). Antecedente relevante: diabet zaharat, epilepsie tratata cu fenobarbital, consum de alcool, fumat, istoric familial de boala Dupuytren, boala bilaterala, semne de boala ectopica (Ledderhose plantar, Peyronie penian). Factori de risc: sex masculin, origine nord-europeana, ocupatie cu munca manuala (asociere controversata).
 
@@ -91,11 +91,11 @@ General: aspect general al mainilor, ambidextrie/dominanta. Local, inspectie: no
 
 Diagnostic pozitiv: boala Dupuytren, deget/degete [anular/mic] [drept/stang], stadiul Tubiana [numar], cu contractura totala de [X] grade (MCF [X], IFP [X]), pe baza examenului clinic (cordon palpabil caracteristic, table-top test pozitiv) si a distributiei tipice a cordonului.
 
-### 5. Diagnostic diferential (1 min)
+### 5. Diagnostic diferențial (1 min)
 
 Chist sinovial/ganglion palmar: mobil, transiluminare pozitiva, fara cordon fix. Deget "trigger" (tenosinovita stenozanta): blocare la extensie, fara cordon fascial. Contractura Volkmann: context de ischemie in antecedente, contractura globala a flexorilor. Cicatrice post-traumatica retractila: istoric de traumatism/interventie la locul cordonului. Tumora de tesut moale: crestere rapida, consistenta atipica, necesita imagistica.
 
-### 6. Investigatii (1 min)
+### 6. Investigații (1 min)
 
 Diagnosticul este clinic; nu sunt necesare investigatii de rutina. Radiografie de mana utila doar la contractura veche/fixa pentru a evalua artroza secundara IFP inaintea unei interventii de salvare. Ecografie ocazional utila preinterventional pentru a caracteriza raportul cordonului cu fasciculul neurovascular in cazuri complexe. Preoperator/preprocedural: evaluare a diabetului si a altor comorbiditati daca sunt suspicionate, evaluare a functiei mainii si a activitatilor limitate.
 
@@ -103,7 +103,7 @@ Diagnosticul este clinic; nu sunt necesare investigatii de rutina. Radiografie d
 
 Obiective: corectarea contracturii, ameliorarea functiei prizei, minimizarea riscului de recidiva si de complicatii neurovasculare. Optiuni: observatie pentru stadiul N/N-I fara progresie; colagenaza sau fasciotomie cu ac pentru cord MCF izolat stadiu I-II la pacient care prioritizeaza recuperarea rapida; fasciectomie limitata pentru afectare IFP sau stadiu III-IV la pacient care prioritizeaza durabilitatea; dermofasciectomie pentru recidiva sau diateza severa. Pentru acest pacient aleg [optiunea], motivat de [stadiul Tubiana, articulatia implicata, diateza, prioritatile pacientului]. Tehnica in pasi (fasciectomie limitata): (1) instalare in decubit dorsal cu bratul pe masa de mana, anestezie regionala/loco-regionala si garou pneumatic la brat; (2) incizie tip Bruner sau in zigzag peste traiectul cordonului; (3) disectie atenta a lambourilor cutanate, identificarea cordonului si a fasciculului neurovascular, cu atentie speciala la cordonul spiral care poate deplasa pachetul central si superficial la IFP; (4) excizia cordonului patologic de la origine la insertie, pastrand fascia sanatoasa adiacenta; (5) verificarea corectiei contracturii MCF si IFP prin extensie pasiva; (6) hemostaza atenta, eventual Z-plastii pentru a distribui tensiunea cutanata la inchidere; (7) inchidere pe planuri, cu sau fara dren, sau lasarea unor portiuni deschise (deschidere in "V-Y" sau tehnica open-palm/McCash daca tensiune cutanata excesiva); (8) pansament, atela in extensie. Postoperator: atela nocturna de extensie 4-6 saptamani, kinetoterapie precoce pentru mobilizare activa, control la 2 saptamani pentru evaluarea vindecarii cutanate, urmarire periodica pentru recidiva.
 
-### 8. Evolutie, complicatii, prognostic (1 min)
+### 8. Evoluție, complicații, prognostic (1 min)
 
 Netratata, boala progreseaza cronic, cu viteza variabila; unii pacienti stagneaza ani, altii progreseaza rapid. Complicatii ale bolii: contractura ireversibila la interval, compromitere functionala. Complicatii ale tratamentului: recidiva (frecventa la colagenaza/fasciotomie cu ac, mai mica la fasciectomie), leziune neurovasculara (risc mai mare cu cordonul spiral neidentificat), sindrom de durere regionala complexa, corectie incompleta a IFP vechi. Prognostic functional bun pe termen scurt cu toate modalitatile; durabilitatea difera, iar diateza pozitiva predice recidiva mai frecventa si mai precoce.
 

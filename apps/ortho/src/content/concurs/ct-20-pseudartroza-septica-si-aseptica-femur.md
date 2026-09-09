@@ -16,15 +16,15 @@ Pseudartroza (nonunion) femurală este lipsa consolidării unei fracturi de femu
 
 ### Anatomie și biomecanică relevantă
 
-Consolidarea osoasă necesită stabilitate mecanică relativă la focar (permite formarea calusului prin osificare endocondrală) și aport biologic suficient (vascularizație, celule osteoprogenitoare, factori de creștere). Instabilitatea mecanică excesivă (gap la focar, fixare insuficient de rigidă, mobilitate reziduală) determină nonunion hipertrofic, prin stimulare biologică excesivă dar fără punte osoasă din cauza mișcării continue. Deficitul biologic (devascularizare, defect osos segmentar, infecție care distruge țesutul de reparație) determină nonunion atrofic, cu capete osoase devitalizate, fără reacție de calus vizibilă. Zona subtrohanteriană și distală femurală au biomecanică particulară (forțe mari de încovoiere) care predispune la nonunion specific acestor niveluri.
+Consolidarea necesită stabilitate mecanică relativă la focar (permite osificarea endocondrală) și aport biologic suficient (vascularizație, celule osteoprogenitoare, factori de creștere). Instabilitatea excesivă (gap, fixare insuficient rigidă) determină nonunion hipertrofic, prin stimulare biologică excesivă dar fără punte osoasă din cauza mișcării continue. Deficitul biologic (devascularizare, defect segmentar, infecție) determină nonunion atrofic, cu capete devitalizate, fără calus vizibil. Zona subtrohanteriană și distală au biomecanică particulară (forțe mari de încovoiere) care predispune la nonunion specific.
 
 ### Etiopatogenie
 
-**Factori mecanici:** instabilitate la focar (implant subdimensionat, blocare insuficientă, fractură cominutivă Winquist III-IV blocată dinamic în loc de static), gap la focar (reducere imperfectă, distragere excesivă), fractură cu contact cortical redus. **Factori biologici:** infecție (cea mai importantă cauză modificabilă), fumat (vasoconstricție, întârzie consolidarea semnificativ), AINS cronice (inhibă prostaglandinele necesare osificării endocondrale), diabet necontrolat (microangiopatie, glicozilarea colagenului), malnutriție, deficit de vitamina D, corticoterapie cronică, defect osos segmentar (traumatic sau iatrogen prin debridare extinsă la fractură deschisă).
+**Factori mecanici:** instabilitate la focar (implant subdimensionat, blocare insuficientă, cominuție Winquist III-IV blocată dinamic în loc de static), gap la focar, contact cortical redus. **Factori biologici:** infecție (cea mai importantă cauză modificabilă), fumat (vasoconstricție, întârzie consolidarea), AINS cronice, diabet necontrolat, malnutriție, deficit de vitamina D, corticoterapie cronică, defect osos segmentar (traumatic sau iatrogen).
 
 ### Anatomie patologică
 
-Nonunion hipertrofic: capete osoase hipertrofiate, cu țesut de reparație abundent dar dezorganizat (adesea numit "elephant foot" sau "horse hoof" în funcție de gradul de hipertrofie), bine vascularizat, semnalând capacitate biologică bună dar instabilitate mecanică. Nonunion atrofic: capete osoase efilate, devitalizate, cu spațiu interfragmentar umplut cu țesut fibros avascular, semnalând deficit biologic sever. Pseudartroza septică: prezența biofilmului bacterian pe implant/os necrotic, sechestre osoase, traiecte fistuloase, țesut de granulație inflamator cronic.
+Nonunion hipertrofic: capete hipertrofiate, cu țesut de reparație abundent dar dezorganizat ("elephant foot"/"horse hoof"), bine vascularizat, semnalând capacitate biologică bună dar instabilitate mecanică. Nonunion atrofic: capete efilate, devitalizate, spațiu interfragmentar cu țesut fibros avascular, deficit biologic sever. Pseudartroza septică: biofilm bacterian pe implant/os necrotic, sechestre osoase, traiecte fistuloase, granulație inflamatorie cronică.
 
 ### Clasificare
 

@@ -83,8 +83,7 @@ Ale bolii netratate: deformare axială progresivă, instabilitate, deficit func�
 
 Gonartroza este o boală progresivă, cu evoluție variabilă individual. Tratamentul conservator poate controla simptomele ani de zile în formele ușoare-moderate. HTO și UKA oferă rezultate bune pe termen mediu la pacienți bine selectați, cu posibilitatea conversiei la TKA dacă artroza progresează. TKA are supraviețuire a implantului raportată de aproximativ 90-95% la 15-20 de ani (?) și rate înalte de satisfacție (aproximativ 80-90%), restul pacienților raportând ameliorare funcțională fără satisfacție completă.
 
-## Script de prezentare (10-12 minute)
-
+## Script de prezentare
 ### 1. Prezentarea cazului (30 s)
 
 Pacientul/a în vârstă de [vârstă] ani, [profesie], din [mediu rural/urban], se prezintă pentru durere la nivelul genunchiului [drept/stâng] cu evoluție de [X] ani, agravată progresiv, cu limitarea mersului și a activităților zilnice.

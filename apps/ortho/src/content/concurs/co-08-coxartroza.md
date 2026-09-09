@@ -78,7 +78,7 @@ Netratata, evolueaza progresiv catre deformare fixa si limitare functionala seve
 
 Pacientul/a in varsta de [varsta] ani, [profesie], din [mediu], se prezinta pentru durere inghinala [dreapta/stanga], cu debut [insidios/acut] in urma cu [durata], progresiva, asociata cu limitare a mobilitatii si a mersului.
 
-### 2. Anamneza (2 min)
+### 2. Anamneză (2 min)
 
 Motivele internarii: durerea (localizare inghinala, caracter mecanic, iradiere in fata coapsei/genunchi, intensitate, orar), limitarea mobilitatii (dificultate la incaltare/incaltat sosete, la ridicarea de pe scaun), claudicatia (distanta parcursa). Istoric: debutul si evolutia (insidios progresiv sugereaza primara, la varsta tanara sugereaza secundara), tratamente urmate (AINS, kinetoterapie, infiltratii, rezultat si durata beneficiului). Antecedente relevante: displazie de sold in copilarie sau tratament pentru luxatie congenitala, traumatisme de sold/bazin, necroza avasculara cunoscuta si factori asociati (corticoterapie, consum de alcool, boala de decompresie), boli inflamatorii articulare, interventii anterioare la nivelul soldului. Factori de risc: obezitate, activitate fizica intensa/sport de impact, istoric familial de coxartroza, sex feminin pentru displazie.
 
@@ -90,11 +90,11 @@ General: talie, greutate, IMC, aspect general al mersului la intrarea in cabinet
 
 Diagnostic pozitiv: coxartroza [primara/secundara, cauza] [dreapta/stanga], stadiul [Tönnis/KL, numar], pe baza examenului clinic (durere inghinala mecanica, limitare a rotatiei interne, Trendelenburg [pozitiv/negativ]) si a radiografiei de pelvis (pensare articulara, osteofitoza, [deformare de cap femural daca prezenta]).
 
-### 5. Diagnostic diferential (1 min)
+### 5. Diagnostic diferențial (1 min)
 
 Trohanterita: durere laterala, sensibilitate la trohanter, fara limitare intraarticulara. Patologie lombara: durere referita, semne radiculare, mobilitate de sold conservata. Necroza avasculara fara artroza secundara: colaps subcondral la IRM fara osteofitoza extensiva. Conflict femuro-acetabular fara artroza: durere la flexie-rotatie interna, cartilaj conservat. Fractura de stres de col femural: context de suprasolicitare, linie de fractura la IRM. Hernie inghinala/pubalgie: durere inghinala fara semne la testele de sold.
 
-### 6. Investigatii (1 min)
+### 6. Investigații (1 min)
 
 Radiografie de pelvis fata in ortostatism (ambele solduri comparativ) si profil (fals profil Lequesne), cu evaluare Kellgren-Lawrence/Tönnis, unghi CE Wiberg (normal peste 25 grade) (?), semne de FAI (unghi alfa peste 50-55 grade) (?). CT pentru planificare preoperatorie in deformari severe/revizie. IRM la suspiciune de necroza avasculara sau cand radiografia este normala. Preoperator: scanograma pentru lungimea membrelor, probe biologice, tipaj sanguin, EKG, evaluare cardiologica/anestezica.
 
@@ -102,7 +102,7 @@ Radiografie de pelvis fata in ortostatism (ambele solduri comparativ) si profil 
 
 Obiective: ameliorarea durerii, restaurarea mobilitatii si functiei, corectarea discrepantei de lungime, revenirea la activitatile zilnice. Optiuni: tratament conservator (kinetoterapie, reducere ponderala, AINS, infiltratii) pentru stadii incipiente; chirurgie de conservare (osteotomie periacetabulara, artroscopie pentru FAI) la pacientul tanar cu Tönnis 0-1 si deformare structurala; artroplastie totala de sold pentru distructie articulara avansata simptomatica refractara. Pentru acest pacient aleg [optiunea], motivat de [stadiul radiologic, varsta, nivelul de activitate, simptomatologia]. Tehnica THA in pasi: (1) instalare in decubit lateral sau dorsal dupa abordul ales, cu reperare a landmark-urilor osoase; (2) abord [posterolateral/anterolateral/anterior direct] cu protectia structurilor neuro-vasculare specifice abordului; (3) luxatie a soldului si rezectie a colului femural la nivelul planificat; (4) prepararea acetabulului prin frezare progresiva si implantarea cupei in pozitie de 40-45 grade inclinare si 15-20 grade anteversie (?); (5) prepararea canalului femural si implantarea tijei (cimentata sau necimentata dupa planificare); (6) proba cu implante de test pentru stabilitate, lungime a membrului si tensiune a tesuturilor moi, verificare de mobilitate fara conflict; (7) implantare definitiva a componentelor si a capului femural de dimensiunea aleasa; (8) reducere a soldului, verificare a stabilitatii si a amplitudinii de miscare, inchidere pe planuri cu reparare capsulara daca abord posterolateral. Postoperator: mobilizare in prima zi cu incarcare completa (dupa protocol ERAS), tromboprofilaxie 2-5 saptamani (?), precautii de luxatie dupa abordul folosit, kinetoterapie progresiva, control radiografic la 6 saptamani si 1 an.
 
-### 8. Evolutie, complicatii, prognostic (1 min)
+### 8. Evoluție, complicații, prognostic (1 min)
 
 Netratata, coxartroza evolueaza progresiv catre deformare fixa si limitare functionala severa. Complicatii ale bolii: durere cronica, atrofie musculara, compensari lombare/de genunchi. Complicatii ale tratamentului chirurgical: luxatie de proteza, infectie periprotetica, tromboembolism, fractura periprotetica, discrepanta de lungime, leziune nervoasa, uzura/osteoliza si decimentare pe termen lung. Prognostic functional excelent dupa THA bine indicata, cu supravietuire a implantului peste 90-95% la 15-20 ani (?); urmarire periodica pe termen lung necesara.
 
