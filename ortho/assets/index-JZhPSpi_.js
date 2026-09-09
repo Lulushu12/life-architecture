@@ -8621,7 +8621,7 @@ Netratat, listezisul istmic grad I la adolescent este in general stabil; riscul 
 title: Coxartroza
 probe: co
 number: 8
-tags: coxartroza, gonartroza, artroplastie de sold, Kellgren-Lawrence, Tonnis, Trendelenburg, Thomas, FABER, displazie de sold, conflict femuro-acetabular, necroza avasculara, proteza totala de sold, cimentat, necimentat
+tags: coxartroza, artroplastie de sold, THA, Kellgren-Lawrence, Tonnis, Trendelenburg, Thomas, FABER, displazie de sold, conflict femuro-acetabular, necroza avasculara, proteza totala de sold, cimentat, necimentat
 region: Pelvis & Hip
 specialty: Arthroplasty
 related: diagnoses/hip-osteoarthritis-tha, techniques/total-hip-arthroplasty-primary-osteoarthritis, classifications/kellgren-lawrence-hip, classifications/tonnis-grade-hip-osteoarthritis, diagnoses/osteonecrosis-hip-preservation
@@ -9121,15 +9121,15 @@ Netratat, sindromul poate progresa catre deficit motor permanent si atrofie musc
 
 ### Î4. Ce faceti daca un pacient cu sindrom de canal carpian prezinta atrofie tenariana la prezentare?
 
-**R:** Aceasta indica o compresie severa, de durata, cu denervare partiala deja instalata; indic decompresie chirurgicala fara a mai incerca tratament conservator prelungit, deoarece atrofia semnaleaza risc de deficit permanent, si informez pacientul ca recuperarea motorie poate fi partiala si mai lenta.
+**R:** Indica o compresie severa, de durata, cu denervare partiala deja instalata; indic decompresie chirurgicala fara a mai incerca tratament conservator prelungit, si informez pacientul ca recuperarea motorie poate fi partiala si mai lenta.
 
 ### Î5. Cum diferentiati o compresie de canal Guyon de o compresie de nerv ulnar la cot?
 
-**R:** In compresia la canalul Guyon, fata dorsala a mainii este cruta, deoarece ramura dorsala senzitiva se desprinde din nervul ulnar proximal de pumn; in compresia la cot (tunel cubital), fata dorsala a mainii este si ea afectata senzitiv, alaturi de semnul Tinel pozitiv la nivelul cotului.
+**R:** In compresia la canalul Guyon, fata dorsala a mainii e cruta, caci ramura dorsala senzitiva se desprinde din nervul ulnar proximal de pumn; la cot (tunel cubital), fata dorsala e si ea afectata, cu Tinel pozitiv la cot.
 
 ### Î6. Ce faceti daca palpati o masa la nivelul canalului Guyon la un pacient cu simptome de compresie ulnara?
 
-**R:** Solicit ecografie sau IRM pentru caracterizarea masei (cel mai frecvent chist ganglionar), si planific decompresie chirurgicala cu excizia masei ocupante de spatiu, deoarece tratamentul conservator singur nu rezolva o cauza structurala compresiva.
+**R:** Solicit ecografie/IRM pentru caracterizarea masei (cel mai frecvent chist ganglionar), si planific decompresie cu excizia masei, deoarece tratamentul conservator singur nu rezolva o cauza structurala compresiva.
 
 ### Î7. Care sunt structurile continute in canalul tarsian, in ordine anteroposterioara?
 
@@ -9137,7 +9137,7 @@ Netratat, sindromul poate progresa catre deficit motor permanent si atrofie musc
 
 ### Î8. Ce faceti daca un pacient cu sindrom de canal tarsian are si o deformare de retropicior in valg sever?
 
-**R:** Recunosc valgul de retropicior ca factor cauzal frecvent, prin intinderea cronica a structurilor posteromediale; planific decompresia nervului tibial posterior si, daca deformarea este severa si contribuie semnificativ, discut o osteotomie de corectie asociata pentru a preveni recidiva simptomelor.
+**R:** Recunosc valgul de retropicior ca factor cauzal frecvent, prin intinderea structurilor posteromediale; planific decompresia nervului tibial posterior si, daca deformarea e severa, discut o osteotomie asociata pentru a preveni recidiva.
 
 ### Î9. Care este diferenta intre eliberarea deschisa si endoscopica de canal carpian in privinta rezultatelor?
 
@@ -9145,11 +9145,11 @@ Netratat, sindromul poate progresa catre deficit motor permanent si atrofie musc
 
 ### Î10. Ce faceti daca testul Phalen si testul Durkan sunt discordante la un pacient cu suspiciune de canal carpian?
 
-**R:** Nu ma bazez pe un singur test clinic; solicit EMG/conducere nervoasa pentru confirmare obiectiva, deoarece niciun test clinic izolat nu are sensibilitate si specificitate perfecte, iar decizia terapeutica se bazeaza pe corelarea clinicii cu electrofiziologia.
+**R:** Nu ma bazez pe un singur test clinic; solicit EMG pentru confirmare obiectiva, caci niciun test izolat nu are sensibilitate/specificitate perfecte, si decizia terapeutica se bazeaza pe corelarea clinicii cu electrofiziologia.
 
 ### Î11. Care este semnul Froment si ce indica?
 
-**R:** Pacientul tine o foaie de hartie intre police si index in timp ce examinatorul trage de hartie; semnul este pozitiv daca pacientul flecteaza articulatia interfalangiana a policelui (activand flexor pollicis longus, inervat de median) pentru a compensa slabiciunea adductorului policelui, inervat de ulnar, indicand o leziune de nerv ulnar.
+**R:** Pacientul tine o hartie intre police si index in timp ce examinatorul trage; pozitiv daca pacientul flecteaza IF a policelui (flexor pollicis longus, median) pentru a compensa slabiciunea adductorului policelui (ulnar), indicand o leziune de nerv ulnar.
 
 ### Î12. Ce faceti daca EMG arata denervare severa la un pacient cu sindrom de canal carpian de lunga durata?
 
@@ -9157,7 +9157,7 @@ Netratat, sindromul poate progresa catre deficit motor permanent si atrofie musc
 
 ### Î13. Cum se explica de ce fractura carligului osului hamat poate produce sindrom de canal Guyon?
 
-**R:** Carligul osului hamat formeaza peretele lateral al canalului Guyon; o fractura la acest nivel, frecventa la sportivii care folosesc bat/racheta, poate produce edem, calus vicios sau fragmente osoase care ingusteaza canalul si comprima nervul ulnar sau ramurile sale.
+**R:** Carligul hamatului formeaza peretele lateral al canalului Guyon; o fractura la acest nivel, frecventa la sportivii cu bat/racheta, poate produce edem, calus vicios sau fragmente osoase care ingusteaza canalul si comprima nervul ulnar.
 
 ### Î14. Care sunt masurile conservatoare de prima linie pentru sindromul de canal carpian usor-moderat?
 
@@ -9165,7 +9165,7 @@ Netratat, sindromul poate progresa catre deficit motor permanent si atrofie musc
 
 ### Î15. Ce faceti daca un pacient cu simptome de canal tarsian nu raspunde la decompresie chirurgicala?
 
-**R:** Reevaluez diagnosticul (exclud radiculopatie lombara S1, polineuropatie generalizata, fasciita plantara), repet EMG postoperator pentru a documenta ameliorarea electrofiziologica, si caut o cauza compresiva reziduala neidentificata initial (bandă fibroasa aberanta, decompresie incompleta a uneia dintre cele trei ramuri distale).
+**R:** Reevaluez diagnosticul (exclud radiculopatie lombara S1, polineuropatie generalizata, fasciita plantara), repet EMG postoperator, si caut o cauza reziduala neidentificata initial (bandă fibroasa aberanta, decompresie incompleta a uneia dintre cele trei ramuri distale).
 `,Mu=`---
 title: Tuberculoza vertebrală
 probe: co
@@ -12129,37 +12129,37 @@ related: diagnoses/spine-trauma, classifications/ao-spine-thoracolumbar-injury-c
 
 ### Definiție și epidemiologie
 
-Fracturile coloanei vertebrale sunt leziuni traumatice ale corpurilor vertebrale, arcurilor posterioare și/sau complexului ligamentar, cu sau fără leziune neurologică asociată. Incidența traumatismelor vertebro-medulare este de aproximativ 15 la 40 la un milion de locuitori pe an, cauza principală fiind accidentele rutiere, cădere de la înălțime și, la vârstnic, cădere simplă pe fond osteoporotic. Regiunea toraco-lombară (T11-L2) este cea mai frecvent afectată datorită tranziției biomecanice de la coloana toracică rigidă (susținută de cutia toracică) la coloana lombară mobilă. Leziunile cervicale sunt cele mai frecvent asociate cu leziune neurologică severă datorită canalului spinal mai îngust relativ la diametrul medular.
+Fracturile coloanei vertebrale sunt leziuni traumatice ale corpurilor vertebrale, arcurilor posterioare și/sau complexului ligamentar, cu sau fără leziune neurologică asociată. Incidența traumatismelor vertebro-medulare este 15 la 40 la un milion de locuitori pe an, cauza principală fiind accidentele rutiere, căderea de la înălțime și, la vârstnic, cădere simplă pe fond osteoporotic. Regiunea toraco-lombară (T11-L2) este cea mai frecvent afectată, prin tranziția de la coloana toracică rigidă la coloana lombară mobilă. Leziunile cervicale se asociază cel mai frecvent cu leziune neurologică severă, prin canalul spinal mai îngust relativ la diametrul medular.
 
 ### Anatomie și biomecanică relevantă
 
-Coloana toraco-lombară funcționează pe principiul celor trei coloane Denis: coloana anterioară (jumătatea anterioară a corpului vertebral și discul), coloana medie (jumătatea posterioară a corpului vertebral și peretele posterior, adiacent canalului spinal), coloana posterioară (arcul vertebral, pediculi, lame, apofize articulare și complexul ligamentar posterior, PLC: ligament supraspinos, interspinos, capsule articulare, ligament flavum). Complexul ligamentar posterior este cel mai important predictor de instabilitate, pentru că integritatea lui determină dacă coloana poate rezista la forțe de flexie/distracție fără colaps progresiv. La nivel cervical subaxial (C3-C7), stabilitatea depinde de complexul disco-ligamentar (discintervertebral, ligamentele longitudinale, capsulele articulare fațetare, ligamentul interspinos) și de alinierea fațetelor. C1-C2 (joncțiunea cranio-cervicală) are anatomie unică: ligamentul transvers al atlasului (regula Spence, integritatea sa se apreciază prin deplasarea laterală combinată a maselor laterale C1 față de C2), ligamentul apical și alar al odontoidei, articulațiile atlanto-axiale.
+Coloana toraco-lombară funcționează pe principiul celor trei coloane Denis: anterioară (jumătatea anterioară a corpului și discul), medie (jumătatea posterioară a corpului și peretele posterior, adiacent canalului), posterioară (arcul, pediculii, fațetele și complexul ligamentar posterior, PLC: ligament supraspinos, interspinos, capsule articulare, ligament flavum). PLC este cel mai important predictor de instabilitate, pentru că integritatea lui determină dacă coloana rezistă la forțe de flexie/distracție fără colaps progresiv. Cervical subaxial (C3-C7), stabilitatea depinde de complexul disco-ligamentar și de alinierea fațetelor. C1-C2 are anatomie unică: ligamentul transvers al atlasului (regula Spence), ligamentele apical și alar ale odontoidei, articulațiile atlanto-axiale.
 
 ### Etiopatogenie
 
-Mecanisme de flexie-compresie (cea mai frecventă, produce fracturi de compresiune și burst), flexie-distracție (fracturi Chance/seat belt, cu deschiderea coloanei posterioare sub tensiune), extensie (mai rar, la spondiloză cervicală anchilozantă preexistentă, risc mare de instabilitate chiar la traumatism minor), rotație-forfecare (cele mai instabile, energie mare, leziune completă a tuturor celor trei coloane), compresie axială pură (Jefferson la C1, burst la toraco-lombar). La vârstnic, fracturi de compresiune osteoporotice apar la traumatism minim sau spontan, prin insuficiență osoasă, nu prin energie mare.
+Flexie-compresie (cea mai frecventă, compresiune și burst), flexie-distracție (fracturi Chance/seat belt), extensie (rar, pe spondiloză cervicală anchilozantă, instabilitate la traumatism minor), rotație-forfecare (cele mai instabile, leziune completă a tuturor celor trei coloane), compresie axială pură (Jefferson la C1, burst toraco-lombar). La vârstnic, fracturile de compresiune osteoporotice apar la traumatism minim sau spontan, prin insuficiență osoasă.
 
 ### Anatomie patologică
 
-Fractură de compresiune (wedge): afectează doar coloana anterioară, peretele posterior intact, fără compromitere de canal. Fractură burst: afectează coloana anterioară și medie, cu retropulsia fragmentului din peretele posterior în canalul spinal, potențial compresie neurologică. Fractură Chance (seat belt): distracție prin toate cele trei coloane, tipic printr-un singur nivel osos (traiect orizontal prin corp și arc posterior) sau prin discul și ligamentele posterioare, mecanism de flexie-distracție în jurul unui punct de sprijin anterior (centura de siguranță). Fractură-luxație: leziune completă a tuturor celor trei coloane cu deplasare, cea mai instabilă, risc neurologic maxim.
+Fractură de compresiune (wedge): doar coloana anterioară, peretele posterior intact, fără compromitere de canal. Fractură burst: coloana anterioară și medie, cu retropulsia fragmentului din peretele posterior în canal, potențial compresie neurologică. Fractură Chance (seat belt): distracție prin toate cele trei coloane, printr-un singur nivel osos sau prin disc și ligamente posterioare, în jurul unui punct de sprijin anterior. Fractură-luxație: leziune completă a celor trei coloane cu deplasare, cea mai instabilă, risc neurologic maxim.
 
 ### Clasificare
 
 **Denis, cele trei coloane:** anterioară (corp vertebral anterior, disc anterior), medie (corp vertebral posterior, disc posterior, peretele posterior), posterioară (arc, pediculi, fațete, complex ligamentar posterior). Baza pentru toate clasificările moderne toraco-lombare.
 
-**AO Spine toraco-lombar (morfologic):** tip A (compresie, fără leziune de coloană posterioară): A0 (fractură minoră, procese transverse/spinoase), A1 (compresie simplă, o singură platformă), A2 (split/pincer, două platforme), A3 (burst incomplet, un perete posterior implicat), A4 (burst complet, ambele platforme și peretele posterior); tip B (leziune de tensiune-bandă, coloană posterioară sau anterioară): B1 (osoasă transversă, tip Chance), B2 (ligamentară posterioară, disco-ligamentară), B3 (hiperextensie); tip C (leziune de deplasare/dislocare, toate cele trei coloane, instabilitate maximă).
+**AO Spine toraco-lombar (morfologic):** tip A (compresie): A0 (minoră), A1 (o platformă), A2 (split/pincer, două platforme), A3 (burst incomplet), A4 (burst complet, ambele platforme și peretele posterior); tip B (tensiune-bandă): B1 (osoasă, tip Chance), B2 (ligamentară posterioară), B3 (hiperextensie); tip C (deplasare/dislocare, instabilitate maximă).
 
-**TLICS (Thoracolumbar Injury Classification and Severity Score):** scor sumativ pe 3 categorii: morfologia leziunii (compresie 1 punct, burst 2 puncte, distracție 3 puncte, translație/rotație 4 puncte), integritatea complexului ligamentar posterior (intact 0, indeterminat 2, rupt 3 puncte), statusul neurologic (intact 0, radiculopatie 2, leziune medulară/con completă 2, leziune medulară/con incompletă 3, cauda equina 3 puncte). Scor sub 4: tratament nonoperator; scor de 4: zonă gri, decizie individualizată; scor peste 4: tratament chirurgical.
+**TLICS:** scor pe 3 categorii: morfologie (compresie 1, burst 2, distracție 3, translație/rotație 4), PLC (intact 0, indeterminat 2, rupt 3), status neurologic (intact 0, radiculopatie 2, leziune medulară completă 2, incompletă 3, cauda equina 3). Sub 4: nonoperator; 4: zonă gri; peste 4: chirurgical.
 
-**AO Spine subaxial cervical (C3-C7):** similar structurii toraco-lombare: tip A (compresie: A0 la A4 dupa gradul de afectare a corpului), tip B (tensiune-bandă: B1 osoasă, B2 disco-ligamentară, B3 hiperextensie), tip C (deplasare/dislocare); plus modificatori faceta (F1 la F4 pentru leziuni fațetare izolate) și N pentru status neurologic.
+**AO Spine subaxial cervical (C3-C7):** structură similară: tip A (compresie A0-A4), tip B (B1 osoasă, B2 disco-ligamentară, B3 hiperextensie), tip C (deplasare); plus modificatori faceta (F1-F4) și N pentru status neurologic.
 
-**SLIC (Subaxial Injury Classification, cervical):** scor sumativ, 3 categorii: morfologie (fără anomalie 0, compresie 1, distracție 3, rotație/translație 4), complex disco-ligamentar (intact 0, indeterminat 1, rupt 2), status neurologic (intact 0, radiculopatie 1, leziune medulară completă 2, leziune medulară incompletă 3, compresie medulară persistentă cu deficit +1). Scor sub 4: nonoperator; scor de 4: zonă gri; peste 4: operator.
+**SLIC:** morfologie (fără anomalie 0, compresie 1, distracție 3, rotație/translație 4), complex disco-ligamentar (intact 0, indeterminat 1, rupt 2), neurologic (intact 0, radiculopatie 1, medulară completă 2, incompletă 3, compresie persistentă +1). Sub 4 nonoperator, peste 4 operator.
 
-**Odontoid, Anderson-D'Alonzo:** tip I (avulsie a vârfului, prin ligamentul alar, stabilă), tip II (la baza odontoidei, joncțiunea cu corpul C2, cea mai frecventă, risc mare de pseudartroză mai ales peste 5mm deplasare sau la vârstnic), tip III (traiect care se extinde în corpul C2, mai bun prognostic de consolidare datorită suprafeței osoase spongioase mai mari).
+**Odontoid, Anderson-D'Alonzo:** tip I (avulsie a vârfului, stabilă), tip II (baza odontoidei, cea mai frecventă, risc mare de pseudartroză peste 5mm sau la vârstnic), tip III (traiect în corpul C2, prognostic mai bun prin suprafața spongioasă mai mare).
 
-**Hangman, Levine-Edwards (fractura arcului C2, bilaterală, prin pediculi):** tip I (minim deplasată, sub 3mm, mecanism compresie-extensie, stabilă), tip II (deplasare/angulare semnificativă cu ruptura discului C2-C3, mecanism compresie-extensie apoi flexie, instabilă), tip IIA (angulare severă fără translație, mecanism flexie-distracție, foarte instabilă la tracțiune, contraindicată tracțiunea în tratament), tip III (fractură asociată cu luxație facetară bilaterală C2-C3, cea mai severă, risc neurologic mare).
+**Hangman, Levine-Edwards:** tip I (sub 3mm, stabilă), tip II (angulare cu ruptura discului C2-C3, instabilă), tip IIA (angulare severă fără translație, foarte instabilă la tracțiune, contraindicată tracțiunea), tip III (cu luxație facetară bilaterală, cea mai severă).
 
-**Jefferson (fractura C1, arc atlas):** fractură cominutivă a inelului C1, tipic în 2 sau 4 puncte (arcuri anterior și posterior bilateral), mecanism de compresie axială. Regula Spence: deplasarea laterală combinată a maselor laterale C1 față de marginile C2 peste 6,9mm (rotunjit clasic la 7mm) indică ruptura ligamentului transvers al atlasului și instabilitate C1-C2 care necesită tratament chirurgical, spre diferență de sub acest prag, tratabilă cu orteză.
+**Jefferson:** fractură cominutivă a inelului C1, în 2 sau 4 puncte, compresie axială. Regula Spence: deplasare laterală combinată a maselor laterale C1 peste 6,9mm indică ruptura ligamentului transvers și instabilitate C1-C2 chirurgicală, sub acest prag tratabilă cu orteză.
 
 | Clasificare | Regiune | Criteriu principal | Prag chirurgical |
 |---|---|---|---|
@@ -12169,19 +12169,19 @@ Fractură de compresiune (wedge): afectează doar coloana anterioară, peretele 
 | Anderson-D'Alonzo | Odontoid | Localizarea traiectului | Tip II cu risc, discutabil |
 | Levine-Edwards | Hangman (C2) | Deplasare/angulare | Tip II, IIA, III |
 
-**Clasic vs actual:** manualele românești folosesc predominant clasificarea Denis (3 coloane) și descrierea morfologică clasică (compresie, burst, Chance, luxație); practica actuală (AO Spine, TLICS/SLIC) oferă scoruri cu prag numeric explicit pentru decizia operator/nonoperator, reducând variabilitatea inter-observator și fiind cerute la comisiile internaționale, dar principiul celor 3 coloane Denis rămâne fundamentul conceptual pe care se construiesc toate.
+**Clasic vs actual:** manualele românești folosesc predominant Denis (3 coloane) și descrierea morfologică clasică; practica actuală (AO Spine, TLICS/SLIC) oferă scoruri cu prag numeric explicit pentru decizia operator/nonoperator, reducând variabilitatea inter-observator, dar principiul celor 3 coloane rămâne fundamentul conceptual.
 
 ### Clinic
 
-Durere locală la nivelul segmentului afectat, exacerbată la mobilizare, contractură musculară paravertebrală, echimoză/tumefacție la traumatism direct, deformare (cifoza post-traumatică vizibilă/palpabilă la fracturi cu colaps semnificativ). Examen neurologic complet, obligatoriu, cu documentarea: forța musculară pe grupele musculare cheie (miotoame, scor 0 la 5, conform ASIA), sensibilitatea (dermatoame, tact ușor și ac, scor 0-1-2), reflexele osteo-tendinoase, tonusul sfincterian (contracția voluntară a sfincterului anal), sensibilitatea perianală (sacral sparing, cel mai important semn de leziune incompletă). Reflexul bulbocavernos (contracția sfincterului anal la compresia glandului/clitorisului sau la tracțiunea sondei urinare) marchează terminarea șocului medular când reapare; absența lui în primele ore/zile poate reprezenta șoc medular, nu neapărat leziune completă definitivă.
+Durere locală exacerbată la mobilizare, contractură paravertebrală, echimoză/tumefacție, deformare (cifoza posttraumatică la colaps semnificativ). Examen neurologic complet, obligatoriu: forța musculară pe miotoame (scor 0-5, ASIA), sensibilitatea pe dermatoame (tact ușor și ac, scor 0-1-2), reflexele osteo-tendinoase, tonusul sfincterian, sensibilitatea perianală (sacral sparing, cel mai important semn de leziune incompletă). Reflexul bulbocavernos marchează terminarea șocului medular la reapariție; absența lui în primele ore/zile poate fi șoc medular, nu neapărat leziune completă definitivă.
 
 ### Imagistică și explorări
 
-Radiografie standard (față, profil) ca screening inițial, dar CT este standardul actual pentru caracterizarea completă a leziunii osoase (traiect, cominuție, retropulsie în canal, măsurarea compromiterii canalare în procente). RMN este obligatorie pentru evaluarea complexului ligamentar posterior (PLC), a discului intervertebral, a hematomului epidural și a stării medulare (edem, contuzie, secțiune), fiind decisivă în cazurile-zonă gri TLICS/SLIC unde statusul PLC schimbă decizia terapeutică. La leziunile de joncțiune cranio-cervicală, CT cu reconstrucții fine este esențial pentru odontoid, Jefferson, hangman; regula Spence se măsoară pe radiografie/CT cu incidență transorală/coronală.
+Radiografie standard ca screening inițial, dar CT este standardul actual pentru caracterizarea completă (traiect, cominuție, retropulsie, procentul de compromitere a canalului). RMN este obligatorie pentru PLC, disc, hematom epidural și starea medulară, decisivă în zona gri TLICS/SLIC. La joncțiunea cranio-cervicală, CT cu reconstrucții fine este esențial pentru odontoid, Jefferson, hangman; regula Spence se măsoară pe incidență transorală/coronală.
 
 ### Diagnostic diferențial
 
-Contuzie musculo-ligamentară simplă (fără linie de fractură/instabilitate la CT), spondiloza degenerativă preexistentă (fără context traumatic acut clar, aspect cronic la imagistică), metastaza vertebrală patologică (context oncologic, aspect litic/blastic fără traumatism major, colaps la traumatism minim dar cu semne imagistice de leziune preexistentă: pedicul erodat, semnul "winking owl"), spondilodiscita infecțioasă (context febril, markeri inflamatori crescuți, evoluție subacută), fractură osteoporotică de fragilitate fără istoric traumatic clar (context de osteoporoză, traumatism minim sau absent).
+Contuzie musculo-ligamentară simplă (fără linie de fractură la CT), spondiloza degenerativă preexistentă (aspect cronic), metastaza vertebrală (context oncologic, colaps la traumatism minim cu semne de leziune preexistentă, "winking owl"), spondilodiscita infecțioasă (context febril, markeri inflamatori crescuți), fractura osteoporotică de fragilitate (traumatism minim sau absent).
 
 ### Tratament
 
@@ -12322,7 +12322,7 @@ related: diagnoses/pelvic-acetabular-fractures, classifications/tile-ao-classifi
 
 ### Definiție și epidemiologie
 
-Fracturile de bazin sunt leziuni ale inelului pelvin (sacru, oase iliace, pubis, ischion) și/sau ale acetabulului, produse tipic prin traumatism de energie mare la adultul tânăr, sau prin traumatism minor pe fond osteoporotic la vârstnic. Fracturile de inel pelvin instabile sunt o urgență vitală prin riscul de hemoragie masivă (mortalitate 10 la 20% (?) în formele instabile hemodinamic), a treia cauză de deces prin hemoragie în politraumatism, după leziunile toracice și cerebrale. Fracturile acetabulare afectează predominant adultul tânăr prin energie mare (bord al vehiculului, pattern posterior) și, tot mai frecvent, vârstnicul prin cădere simplă (pattern anterior, pe fond osteoporotic).
+Fracturile de bazin sunt leziuni ale inelului pelvin (sacru, oase iliace, pubis, ischion) și/sau ale acetabulului, produse tipic prin energie mare la adultul tânăr, sau traumatism minor pe fond osteoporotic la vârstnic. Fracturile instabile de inel pelvin sunt o urgență vitală prin riscul de hemoragie masivă (mortalitate 10 la 20% (?)), a treia cauză de deces prin hemoragie în politraumatism. Fracturile acetabulare afectează predominant adultul tânăr prin energie mare (bord, pattern posterior) și, tot mai frecvent, vârstnicul prin cădere simplă (pattern anterior, pe fond osteoporotic).
 
 ### Anatomie și biomecanică relevantă
 
@@ -12369,7 +12369,7 @@ Inel pelvin: durere la compresia inelului (o singură dată, cu grijă, pentru a
 
 ### Imagistică și explorări
 
-Radiografie de bazin AP în urgență, urmată de CT cu reconstrucții 3D, standard pentru caracterizarea completă a inelului și a acetabulului. Incidențele oblice Judet (obturatoare: coloană anterioară și perete posterior; iliacă: coloană posterioară și perete anterior) rămân utile pentru caracterizarea morfologică clasică. Se măsoară: deschiderea simfizei, deplasarea verticală/posterioară a hemipelvisului, roof arc angle, gradul de cominuție, marginal impaction al peretelui posterior. Screening asociat: uretrografie retrogradă (sânge la meat, prostată înaltă), cistografie, examen ginecologic/rectal, angio-CT la suspiciune de leziune vasculară majoră.
+Radiografie de bazin AP în urgență, urmată de CT cu reconstrucții 3D, standard pentru caracterizarea completă. Incidențele oblice Judet (obturatoare: coloană anterioară și perete posterior; iliacă: coloană posterioară și perete anterior) rămân utile morfologic. Se măsoară: deschiderea simfizei, deplasarea hemipelvisului, roof arc angle, cominuția, marginal impaction al peretelui posterior. Screening asociat: uretrografie retrogradă, cistografie, examen ginecologic/rectal, angio-CT la suspiciune vasculară.
 
 ### Diagnostic diferențial
 
@@ -12413,7 +12413,7 @@ General: prioritar evaluarea ABC și hemodinamică, pentru că fractura instabil
 
 Diagnostic pozitiv: fractură de [inel pelvin/acetabul], tip Tile [A/B/C] respectiv Young-Burgess [APC/LC/VS] pentru inel, sau Judet-Letournel [tip] pentru acetabul, pe baza mecanismului traumatic, a instabilității/durerii clinice, și a CT-ului 3D care arată [deschiderea simfizei / deplasarea verticală / traiectul acetabular].
 
-Diagnostice secundare de reținut: leziunea uretrală/vezicală/rectală asociată, fractura deschisă de bazin, leziunea neurologică a plexului lombosacrat/nervului sciatic.
+Diagnostice secundare: leziunea uretrală/rectală asociată, fractura deschisă, leziunea neurologică a plexului lombosacrat/sciaticului.
 
 ### 5. Diagnostic diferențial (1 min)
 
@@ -13040,15 +13040,15 @@ Fractura de diafiză femurală este soluția de continuitate osoasă la nivelul 
 
 ### Anatomie și biomecanică relevantă
 
-Diafiza femurală este cel mai gros și mai rezistent os lung, cu canal medular îngust proximal (istmul), mai larg metafizar. Musculatura puternică din jur (cvadriceps, ischiogambieri, adductori) determină deplasare tipică: fragmentul proximal în flexie-abducție-rotație externă (prin iliopsoas și fesieri, mai accentuat în fracturile subtrohanteriene sau proximale), fragmentul distal tras în ax de musculatura posterioară cu tendință de încălecare (overriding) și scurtare. Vascularizația provine din artera femurală profundă prin ramuri perforante multiple; fractura diafizară poate sângera substanțial în coapsă din cauza masei musculare mari și a canalului medular vascularizat.
+Diafiza femurală e cel mai gros și rezistent os lung, cu canal medular îngust proximal (istmul), mai larg metafizar. Musculatura puternică (cvadriceps, ischiogambieri, adductori) determină deplasare tipică: fragmentul proximal în flexie-abducție-rotație externă, fragmentul distal tras în ax cu tendință de încălecare și scurtare. Vascularizația provine din artera femurală profundă prin ramuri perforante multiple; fractura poate sângera substanțial în coapsă din cauza masei musculare și a canalului medular vascularizat.
 
 ### Etiopatogenie
 
-Traumatism de energie înaltă (accident rutier cu impact direct pe coapsă sau mecanism de decelerare, cădere de la înălțime) la adultul tânăr. La vârstnic, energie joasă pe os fragil sau atipic (fracturi subtrohanteriene/diafizare proximale pe tratament cronic cu bifosfonați, cu traiect transvers caracteristic). La copil, mecanismul variază cu vârsta: sub 1 an traumatism obstetric sau, dacă fără traumatism clar relatat, suspiciune de abuz; copil mic, cădere; adolescent, traumatism de energie mai mare similar adultului.
+Energie înaltă (accident rutier, cădere de la înălțime) la adultul tânăr. La vârstnic, energie joasă pe os fragil sau atipic (bifosfonați cronici, traiect transvers caracteristic). La copil: sub 1 an traumatism obstetric sau, fără mecanism plausibil, suspiciune de abuz; copil mic, cădere; adolescent, energie similară adultului.
 
 ### Anatomie patologică
 
-Traiectul poate fi transvers, oblic, spiral sau cominutiv, cu grad variabil de deplasare și încălecare. Hemoragia asociată este semnificativă: o fractură de femur izolată poate determina o pierdere sangvină de 1 la 1,5 litri (?) în coapsă, prin lezarea vaselor perforante și sângerarea din canalul medular, contribuind la instabilitatea hemodinamică mai ales în context de politraumatism.
+Traiectul poate fi transvers, oblic, spiral sau cominutiv, cu grad variabil de deplasare. Hemoragia e semnificativă: o fractură izolată poate determina o pierdere de 1 la 1,5 litri (?) în coapsă, prin vasele perforante și canalul medular, contribuind la instabilitatea hemodinamică mai ales în politraumatism.
 
 ### Clasificare
 
@@ -13072,17 +13072,17 @@ Fractura patologică pe metastază/mielom (context oncologic, traumatism minor, 
 
 ### Tratament
 
-**Inițial, prehospital și la prezentare:** imobilizare provizorie prin atelă de tracțiune (Thomas splint/atelă Hare) sau tracțiune scheletică transtibială/transfemurală temporară, care reduce durerea, sângerarea și riscul de leziune secundară de părți moi prin fragmentele osoase mobile, până la fixarea definitivă.
+**Inițial:** imobilizare provizorie prin atelă de tracțiune (Thomas splint/Hare) sau tracțiune scheletică temporară, care reduce durerea, sângerarea și riscul de leziune secundară de părți moi, până la fixarea definitivă.
 
-**Damage control orthopaedics (DCO) versus early total care (ETC):** decizia depinde de statusul fiziologic al pacientului politraumatizat. ETC (fixare definitivă în primele 24 ore) este preferată la pacientul stabil hemodinamic, fără leziuni toracice/cerebrale severe concomitente. DCO (fixator extern temporar, conversie la tijă la 1 la 3 săptămâni) este indicat la pacientul instabil sau "la limită" (borderline), cu criterii precum lactat seric peste 2,5 mmol/l (?), deficit de baze sub minus 6 mEq/l (?), instabilitate hemodinamică persistentă, leziune pulmonară severă (risc de "second hit" prin reamierea intramedulară care poate agrava embolizarea grasă/inflamația sistemică).
+**Damage control orthopaedics (DCO) versus early total care (ETC):** decizia depinde de statusul fiziologic al politraumatizatului. ETC (fixare în primele 24 ore) e preferată la pacientul stabil, fără leziuni toracice/cerebrale severe. DCO (fixator extern temporar, conversie la tijă la 1 la 3 săptămâni) e indicat la pacientul instabil/"borderline", cu criterii precum lactat peste 2,5 mmol/l (?), deficit de baze sub minus 6 mEq/l (?), instabilitate hemodinamică persistentă, leziune pulmonară severă (risc de "second hit" prin reamiere).
 
-**Fixare definitivă, tijă centromedulară zăvorâtă anterogradă:** standard de aur pentru marea majoritate a fracturilor diafizare la adult. Punct de intrare piriform (la nivelul fosei piriforme, ax mai colinear cu canalul femural, risc teoretic mai mare de lezare a vascularizației retinaculare a capului femural) versus punct de intrare trohanteric (la vârful marelui trohanter, mai lateral, tehnic mai accesibil mai ales la pacient obez sau în decubit dorsal, necesită tijă cu design specific pentru acest punct de intrare pentru a evita varusul iatrogen). Alezaj (reamed) este standard, cu creșterea stabilității mecanice și a ratei de consolidare, dar cu risc teoretic de agravare a sindromului de embolie grasă/leziune pulmonară acută la politraumatizatul instabil (motiv suplimentar pentru DCO în acest subgrup).
+**Tijă centromedulară zăvorâtă anterogradă:** standard de aur la adult. Punct de intrare piriform (mai colinear cu canalul, risc teoretic mai mare pentru vascularizația retinaculară a capului) versus trohanteric (mai lateral, mai accesibil la obez, necesită tijă cu design specific pentru a evita varusul iatrogen). Alezajul e standard, crește stabilitatea și consolidarea, dar cu risc teoretic de agravare a emboliei grase la politraumatizatul instabil.
 
-**Tijă retrogradă (prin fosa intercondiliană a genunchiului):** indicații specifice: fractură de col femural ipsilaterală asociată (permite fixare simultană a colului fără a compromite punctul de intrare anterograd), fracturi bilaterale de femur (permite poziționare simultană fără a repoziționa pacientul), pacient obez (abord mai facil), sarcină (evită poziționarea/radiație pelvină), pacient cu artroplastie de genunchi ipsilaterală în antecedente sau plăgi/leziuni ale coapsei proximale care contraindică abordul anterograd, politraumatizat cu leziuni asociate care fac poziționarea pentru abord anterograd dificilă.
+**Tijă retrogradă (prin fosa intercondiliană):** indicații specifice: fractură de col ipsilaterală, fracturi bilaterale, obezitate, sarcină, artroplastie de genunchi ipsilaterală sau leziuni ale coapsei proximale care contraindică abordul anterograd.
 
-**Placa:** indicată în fracturi periarticulare (metafizo-diafizare distale/proximale unde canalul nu permite blocare adecvată cu tijă), deformări/canal îngust care nu permit alezaj, la copil peste vârsta de indicație pentru ESIN, sau ca alternativă la tija retrogradă în anumite fracturi distale.
+**Placa:** indicată în fracturi periarticulare unde canalul nu permite blocare cu tijă, deformări/canal îngust, la copil peste vârsta de indicație ESIN, sau alternativă la tija retrogradă în anumite fracturi distale.
 
-**La copil, în funcție de vârstă:** sub 6 luni (?), Pavlik sau spica gipsată direct; 6 luni la 5 ani, spica gipsată (cu sau fără reducere prealabilă); 5 la 11 ani, tije elastice intramedulare (ESIN, titanium elastic nails) introduse retrograd de la metafiza distală, două tije divergente pentru stabilitate rotațională, cu avantaj de recuperare rapidă și evitare a lezării cartilajului de creștere; peste 11 ani/aproape de maturitate scheletică, tijă centromedulară zăvorâtă ca la adult (cu atenție la punctul de intrare pentru a evita lezarea cartilajului de creștere trohanterian dacă încă deschis) sau placă.
+**La copil, în funcție de vârstă:** sub 6 luni (?), Pavlik sau spica direct; 6 luni la 5 ani, spica gipsată; 5 la 11 ani, tije elastice intramedulare (ESIN) retrograde de la metafiza distală, două tije divergente pentru stabilitate rotațională; peste 11 ani, tijă centromedulară zăvorâtă ca la adult sau placă, atenție la cartilajul de creștere trohanterian dacă e încă deschis.
 
 ### Complicații
 
@@ -13100,11 +13100,11 @@ Pacientul/a în vârstă de [vârstă] ani, [profesie], din [mediu], se prezint�
 
 ### 2. Anamneză (2 min)
 
-Motivul internării: durerea severă și deformarea vizibilă a coapsei, cu impotență funcțională totală. Istoric: mecanismul exact al traumatismului (viteza, direcția impactului, dacă a fost pieton/ocupant/motociclist), timpul scurs de la accident, tratamentul prehospital (imobilizare, tracțiune), simptome asociate (dispnee, alterarea stării de conștiență, orientare, pentru screening de embolie grasă sau alte leziuni). Antecedente relevante pentru acest subiect: osteoporoză sau tratament cronic cu bifosfonați (la mecanism de energie joasă, suspiciune de fractură atipică), boli cronice cardiopulmonare (relevante pentru toleranța la embolie grasă și pentru decizia DCO versus ETC), tratament anticoagulant. Factori de risc: vârsta, activitatea (conducător auto, motociclist), condiții de drum/vizibilitate.
+Motivul internării: durerea severă și deformarea vizibilă a coapsei, cu impotență funcțională totală. Istoric: mecanismul exact (viteza, direcția impactului, pieton/ocupant/motociclist), timpul scurs, tratamentul prehospital, simptome asociate (dispnee, alterarea conștienței, pentru screening de embolie grasă). Antecedente relevante: osteoporoză/bifosfonați cronici (la energie joasă, suspiciune de fractură atipică), comorbidități cardiopulmonare (relevante pentru DCO versus ETC), tratament anticoagulant. Factori de risc: vârsta, activitatea, condiții de drum.
 
 ### 3. Examen clinic (3 min)
 
-General: evaluare primară ATLS (căi respiratorii, respirație, circulație), status hemodinamic (posibilă hipotensiune prin pierdere sangvină de 1 la 1,5 litri în coapsă), status neurologic (Glasgow, pentru a diferenția afectare cerebrală de embolie grasă), status respirator (frecvență, saturație, pentru screening precoce de embolie grasă). Local, inspecție: deformare evidentă a coapsei (angulare, rotație), tumefacție și echimoză marcate, plagă dacă fractura e deschisă (clasificare Gustilo-Anderson dacă e cazul). Palpare: durere difuză la nivelul diafizei, crepitații (nu se testează activ prin mobilizare forțată). Mobilitate: nu se testează activ mobilitatea la nivelul focarului; se evaluează articulațiile adiacente (șold, genunchi) pentru leziuni asociate. Măsurători: scurtimea membrului comparativ. Examen neuro-vascular distal: pulsuri periferice (pedios, tibial posterior), timp de reumplere capilară, sensibilitate și motricitate distală, obligatoriu bilateral comparativ, pentru a exclude leziune vasculară asociată (artera femurală). Examinarea articulațiilor supra- și subiacente: șold (căutare activă a durerii inghinale separate, semn de fractură de col femural ipsilaterală asociată, frecvent mascată de durerea diafizară), genunchi (leziuni ligamentare/meniscale asociate, "dashboard injury"). Mers: absent.
+General: evaluare primară ATLS, status hemodinamic (posibilă hipotensiune prin pierdere de 1 la 1,5 litri în coapsă), status neurologic (Glasgow), status respirator (screening precoce de embolie grasă). Local, inspecție: deformare a coapsei, tumefacție și echimoză marcate, plagă dacă fractura e deschisă (Gustilo-Anderson dacă e cazul). Palpare: durere difuză, crepitații (nu se testează activ). Mobilitate: nu se testează activ la focar; se evaluează articulațiile adiacente. Măsurători: scurtimea comparativă. Examen neuro-vascular distal: pulsuri periferice, timp de reumplere capilară, sensibilitate și motricitate, bilateral comparativ, pentru a exclude leziune vasculară. Examinarea articulațiilor supra- și subiacente: șold (durere inghinală separată, semn de fractură de col ipsilaterală, frecvent mascată), genunchi ("dashboard injury"). Mers: absent.
 
 ### 4. Diagnostic pozitiv (30 s)
 
@@ -13118,13 +13118,13 @@ Fractura patologică pe metastază/mielom: context oncologic, traumatism minor, 
 
 ### 6. Investigații (1 min)
 
-Radiografie de femur față și profil, incluzând obligatoriu șoldul și genunchiul ipsilateral. CT dedicat de col femural, secțiuni fine, pentru screening-ul fracturii ipsilaterale de col femural (2 la 9%, frecvent ocultă). Radiografie de bazin. La politraumatizat: lactat seric și deficit de baze pentru stratificarea DCO versus ETC, hemogramă (pierdere sangvină semnificativă), coagulogramă, grup sanguin, evaluare CT toraco-abdominală dacă mecanismul o justifică. Preoperator: funcție renală, ECG, evaluare anestezică.
+Radiografie de femur față și profil, incluzând șoldul și genunchiul ipsilateral. CT dedicat de col femural, secțiuni fine, pentru screening-ul fracturii ipsilaterale (2 la 9%, frecvent ocultă). Radiografie de bazin. La politraumatizat: lactat și deficit de baze pentru DCO versus ETC, hemogramă, coagulogramă, grup sanguin, CT toraco-abdominal dacă mecanismul o justifică. Preoperator: funcție renală, ECG, evaluare anestezică.
 
 ### 7. Tratament (3 min)
 
-Obiective: restabilirea lungimii, axului și rotației femurului, fixare stabilă care permite mobilizare precoce, minimizarea riscului de "second hit" la politraumatizat. Opțiuni: tracțiune/atelă provizorie inițială la toți pacienții; fixare definitivă cu tijă centromedulară zăvorâtă anterogradă (standard la adult stabil hemodinamic) sau retrogradă (col femural ipsilateral, bilateral, obezitate, sarcină, artroplastie de genunchi ipsilaterală); placă la fracturi periarticulare sau canal neadecvat pentru tijă; la politraumatizat instabil, fixator extern temporar (DCO) cu conversie ulterioară. Pentru acest pacient aleg [opțiunea concretă], pentru că [statusul hemodinamic, leziunile asociate, tipul de fractură].
+Obiective: restabilirea lungimii, axului și rotației, fixare stabilă cu mobilizare precoce, minimizarea riscului de "second hit". Opțiuni: tracțiune/atelă inițială la toți; tijă zăvorâtă anterogradă (standard la adult stabil) sau retrogradă (col ipsilateral, bilateral, obezitate, sarcină, artroplastie de genunchi ipsilaterală); placă la fracturi periarticulare; la politraumatizat instabil, fixator extern (DCO) cu conversie ulterioară. Pentru acest pacient aleg [opțiunea concretă], pentru că [statusul hemodinamic, leziunile asociate, tipul de fractură].
 
-Tehnica în pași (exemplu tijă anterogradă, punct de intrare piriform): 1) poziționare pe masă de tracțiune în decubit dorsal sau lateral, fluoroscopie disponibilă; 2) reducere închisă prin tracțiune, corectarea angulării și rotației; 3) incizie proximală, identificarea punctului de intrare la nivelul fosei piriforme, verificare fluoroscopică pe ambele imagini; 4) introducerea firului ghid prin punctul de intrare, verificare a poziționării centrale în canal; 5) alezaj progresiv până la diametrul planificat, cu monitorizare hemodinamică la pacientul instabil; 6) introducerea tijei de dimensiune corespunzătoare, verificare a reducerii lungimii, axului și rotației prin comparație clinică și fluoroscopică; 7) blocare proximală și distală (statică la Winquist III-IV sau fractură instabilă, dinamică posibilă la fracturi simple stabile Winquist I-II); 8) verificare finală fluoroscopică pe ambele imagini a poziției tijei și a șuruburilor de blocare, hemostază, închidere.
+Tehnica în pași (exemplu tijă anterogradă, punct piriform): 1) masă de tracțiune, decubit dorsal sau lateral, fluoroscopie; 2) reducere închisă prin tracțiune, corectarea angulării și rotației; 3) incizie proximală, identificarea punctului de intrare la fosa piriformă, verificare fluoroscopică; 4) firul ghid prin punctul de intrare, poziționare centrală în canal; 5) alezaj progresiv, monitorizare hemodinamică la pacientul instabil; 6) introducerea tijei, verificare a lungimii, axului și rotației clinic și fluoroscopic; 7) blocare proximală și distală (statică la Winquist III-IV, dinamică posibilă la I-II); 8) verificare finală fluoroscopică, hemostază, închidere.
 
 Protocol postoperator: mobilizare precoce, sprijin conform stabilității fracturii și tipului de blocare (WBAT la majoritatea fracturilor simple blocate static, sprijin protejat la fracturi cominutive severe), profilaxie tromboembolică 2 la 6 săptămâni, kinetoterapie pentru recuperarea mobilității genunchiului și forței musculare, urmărire radiografică la 6 săptămâni, 3 luni, 6 luni pentru consolidare.
 
@@ -14109,7 +14109,7 @@ Rupturile pot fi parțiale (fascicul unic) sau complete. Leziunile de LCA se aso
 
 ### Clinic
 
-LCA: senzație de "pocnet" (pop) la accidentare, hemartroză precoce (în primele ore), instabilitate subiectivă la pivotare. Teste: Lachman (cel mai sensibil, translație anterioară tibială la 20 la 30 grade flexie, evaluarea end-point-ului: ferm versus moale), sertar anterior (mai puțin sensibil, la 90 grade flexie), pivot shift (rotație internă cu valgus din extensie spre flexie, reducere bruscă vizibilă/palpabilă a subluxației la aproximativ 30 grade), KT-1000/KT-2000 (măsurare instrumentată a translației anterioare, diferență peste 3 mm față de contralateral semnificativă). LCP: sertar posterior (translație posterioară la 90 grade flexie, cel mai sensibil), sagging sign/sag sign (tibia proximal căzută posterior vizibil la 90 grade flexie comparativ cu contralateral), testul de activare a cvadricepsului (quadriceps active test, reducerea vizibilă a sagului la contracția activă a cvadricepsului cu genunchiul la 90 grade), dial test la 30 și 90 grade (rotație externă tibială comparativă; diferență peste 10-15 grade doar la 30 grade sugerează PLC izolat, diferență la ambele unghiuri sugerează leziune combinată LCP+PLC). LCM: stress valgus la 0 și 30 grade (deschidere la 30 grade izolată sugerează LCM izolat, deschidere și la 0 grade sugerează leziune capsulară/LCA asociată), sensibilitate pe traiectul ligamentului. Pellegrini-Stieda (calcificare la inserția femurală a LCM, sechelă a unei leziuni cronice/vindecate). LCL/PLC: stress varus la 0 și 30 grade, dial test, examinarea funcției nervului peronier (dorsiflexie, sensibilitate pe fața dorsală a piciorului).
+LCA: senzație de "pocnet" la accidentare, hemartroză precoce, instabilitate subiectivă la pivotare. Teste: Lachman (cel mai sensibil, translație anterioară la 20 la 30 grade flexie, end-point ferm versus moale), sertar anterior (mai puțin sensibil, la 90 grade), pivot shift (rotație internă cu valgus din extensie spre flexie, reducere bruscă a subluxației la aproximativ 30 grade), KT-1000/KT-2000 (diferență peste 3 mm față de contralateral semnificativă). LCP: sertar posterior (cel mai sensibil, la 90 grade), sag sign (tibia proximal căzută posterior la 90 grade comparativ cu contralateral), quadriceps active test (reducerea sagului la contracția activă a cvadricepsului la 90 grade), dial test la 30 și 90 grade (diferență doar la 30 grade sugerează PLC izolat, la ambele unghiuri sugerează LCP+PLC combinat). LCM: stress valgus la 0 și 30 grade (deschidere doar la 30 sugerează LCM izolat, și la 0 sugerează leziune capsulară asociată). Pellegrini-Stieda (calcificare la inserția femurală a LCM, sechelă cronică). LCL/PLC: stress varus la 0 și 30 grade, dial test, funcția nervului peronier (dorsiflexie, sensibilitate dorsală a piciorului).
 
 ### Imagistică și explorări
 
@@ -14121,7 +14121,7 @@ Leziune de menisc izolată: teste de menisc pozitive, teste ligamentare negative
 
 ### Tratament
 
-**LCA, non-operator (coper) versus reconstrucție:** non-operator posibil la "coper" (pacient cu stabilitate funcțională suficientă, activitate sedentară sau fără pivotare, absența instabilității subiective la activități zilnice), cu program de întărire a ischiogambierilor și antrenament neuromuscular. Reconstrucția e indicată la pacient activ/sportiv cu instabilitate simptomatică, leziune combinată cu alt ligament sau menisc reparabil, sau instabilitate obiectivă semnificativă (pivot shift 2+/3+). Timing: reconstrucția precoce (în primele 3 săptămâni) crește riscul de artrofibroză dacă genunchiul nu și-a recuperat mobilitatea; se preferă reconstrucția după recuperarea mobilității complete și rezoluția tumefacției acute, de regulă la 2 la 4 săptămâni. Grafturi: autograft (tendon patelar BTB, ischiogambieri, cvadriceps), allograft, cu alegere individualizată după vârstă, nivel de activitate și cerințe funcționale.
+**LCA, non-operator (coper) versus reconstrucție:** non-operator posibil la "coper" (stabilitate funcțională suficientă, activitate sedentară sau fără pivotare, fără instabilitate subiectivă zilnică), cu întărirea ischiogambierilor și antrenament neuromuscular. Reconstrucția e indicată la pacient activ/sportiv cu instabilitate simptomatică, leziune combinată, sau instabilitate obiectivă semnificativă (pivot shift 2+/3+). Timing: reconstrucția precoce crește riscul de artrofibroză dacă mobilitatea nu e recuperată; se preferă după rezoluția tumefacției acute, de regulă la 2 la 4 săptămâni. Grafturi: autograft (BTB, ischiogambieri, cvadriceps) sau allograft, individualizat după vârstă și activitate.
 
 **LCP, izolat grad I-II:** tratament non-operator, orteză și kinetoterapie, cu rezultate funcționale bune, dat fiind rolul relativ secundar al LCP izolat în stabilitatea de zi cu zi. Grad III izolat sau combinat cu alt ligament: reconstrucție, mai ales dacă simptomatic sau combinat.
 
@@ -14129,7 +14129,7 @@ Leziune de menisc izolată: teste de menisc pozitive, teste ligamentare negative
 
 **LCL/PLC:** conservator pentru entorse izolate grad I-II; reconstrucția chirurgicală se indică pentru grad III sau leziune combinată, ideal în primele 3 săptămâni de la accidentare, pentru că PLC cronică netratată are potențial de vindecare/reparare mult mai slab după acest interval și predispune la eșecul reconstrucției concomitente de LCA/LCP dacă nu e adresată. Se verifică funcția nervului peronier, care poate fi întins sau lezat concomitent.
 
-**Multiligamentar (Schenck KD I-V):** evaluare vasculară obligatorie (ABI, angio-CT) înaintea oricărei manevre suplimentare. Fixare externă temporară dacă instabilitate mare sau leziune vasculară necesită reparare prioritară. Strategia de reconstrucție: staged (etapizată, PLC/LCL mai întâi dacă combinat cu LCP, apoi LCA/LCP) sau single-stage (toate ligamentele într-o singură sesiune), în funcție de starea țesuturilor moi, timpul scurs de la leziune și preferința chirurgului; literatura actuală tinde spre reconstrucție single-stage când starea locală permite, pentru a evita artrofibroza dintre etape.
+**Multiligamentar (Schenck KD I-V):** evaluare vasculară obligatorie (ABI, angio-CT) înaintea oricărei manevre suplimentare. Fixare externă temporară dacă instabilitate mare sau leziune vasculară necesită reparare prioritară. Strategia: staged (PLC/LCL mai întâi dacă combinat cu LCP, apoi LCA/LCP) sau single-stage (toate într-o sesiune), în funcție de țesuturile moi și timpul scurs; literatura actuală tinde spre single-stage când starea locală permite, pentru a evita artrofibroza dintre etape.
 
 **Eponime românești clasice:** semnul Trillat (test de subluxație rotuliană laterală, folosit istoric și pentru evaluarea instabilității rotuliene asociate), triada nefastă O'Donoghue (LCA, menisc medial, LCM, concept clasic, nuanțat de literatura actuală care arată asociere mai frecventă cu meniscul lateral în leziunea acută de LCA).
 
@@ -14153,7 +14153,7 @@ Motivul internării: senzația de instabilitate/cedare, durerea, tumefacția. Is
 
 ### 3. Examen clinic (3 min)
 
-General: mers, aspect al membrului. Local, inspecție: tumefacție, echimoze (localizarea echimozei orientează spre ligamentul lezat), deformare (luxație). Palpare: sensibilitate pe traiectul ligamentelor colaterale, efuziune. Mobilitate: goniometrie cu valori normale, deficit de extensie/flexie. Teste specifice, executate sistematic: Lachman și pivot shift pentru LCA, sertar posterior și sag sign pentru LCP, quadriceps active test dacă suspiciune de LCP, stress valgus la 0 și 30 grade pentru LCM, stress varus la 0 și 30 grade pentru LCL/PLC, dial test la 30 și 90 grade pentru diferențierea PLC izolat de LCP+PLC combinat. Examen neuro-vascular distal obligatoriu, cu evaluare specifică a nervului peronier (dorsiflexie, sensibilitate dorsală) dacă suspiciune de PLC; index brahial-tibial dacă multiligamentar/luxație. Examinarea articulațiilor supra- și subiacente. Mers: instabil, evitarea sprijinului complet.
+General: mers, aspect al membrului. Local, inspecție: tumefacție, echimoze (localizarea orientează spre ligamentul lezat), deformare (luxație). Palpare: sensibilitate pe traiectul colateralelor, efuziune. Mobilitate: goniometrie cu valori normale, deficit de extensie/flexie. Teste specifice, sistematic: Lachman și pivot shift pentru LCA, sertar posterior și sag sign pentru LCP, quadriceps active test dacă suspiciune LCP, stress valgus 0/30 grade pentru LCM, stress varus 0/30 grade pentru LCL/PLC, dial test 30/90 grade pentru diferențierea PLC izolat de LCP+PLC combinat. Examen neuro-vascular distal obligatoriu, cu evaluare specifică a nervului peronier dacă suspiciune PLC; ABI dacă multiligamentar. Examinarea articulațiilor supra- și subiacente. Mers: instabil, evitarea sprijinului complet.
 
 ### 4. Diagnostic pozitiv (30 s)
 
@@ -14173,7 +14173,7 @@ Radiografie standard pentru fractură asociată (Segond, avulsie de eminență) 
 
 Obiective: restabilirea stabilității funcționale, prevenirea leziunilor secundare de menisc/cartilaj, revenirea la activitatea dorită. Opțiuni: tratament conservator pentru LCP izolat grad I-II și majoritatea LCM, reconstrucție chirurgicală pentru LCA la pacient activ, PLC grad III, sau leziuni combinate. Pentru acest pacient aleg [reconstrucție de LCA cu autograft, de exemplu], pentru că prezintă instabilitate obiectivă semnificativă (pivot shift 2+) și dorește să revină la activitate sportivă cu pivotare.
 
-Tehnica în pași: 1) artroscopie diagnostică, evaluarea completă a compartimentelor și a leziunilor asociate (menisc, cartilaj); 2) recoltarea graftului (tendon patelar sau ischiogambieri) prin incizie limitată; 3) prepararea tunelului tibial și femural la pozițiile anatomice ale inserțiilor native, sub control artroscopic; 4) pasajul graftului prin tuneluri; 5) fixarea femurală (buton cortical sau șurub de interferență); 6) tensionarea graftului cu genunchiul aproape de extensie completă și fixarea tibială; 7) testarea stabilității finale (Lachman, pivot shift) și a arcului de mișcare complet fără blocaj; 8) tratarea leziunilor asociate (sutură/meniscectomie), evacuarea lichidului, închiderea portalelor.
+Tehnica în pași: 1) artroscopie diagnostică, evaluarea compartimentelor și a leziunilor asociate; 2) recoltarea graftului (patelar sau ischiogambieri) prin incizie limitată; 3) prepararea tunelului tibial și femural la pozițiile anatomice native, sub control artroscopic; 4) pasajul graftului; 5) fixarea femurală (buton cortical sau șurub de interferență); 6) tensionarea graftului cu genunchiul aproape de extensie completă și fixarea tibială; 7) testarea stabilității finale (Lachman, pivot shift) și a arcului de mișcare fără blocaj; 8) tratarea leziunilor asociate, evacuarea lichidului, închiderea portalelor.
 
 Protocol postoperator: mers cu sprijin progresiv conform toleranței, orteză limitată inițial dacă leziune combinată, kinetoterapie precoce pentru recuperarea extensiei complete (prevenirea artrofibrozei), întărire progresivă a cvadricepsului și ischiogambierilor, revenire la alergare la 3 la 4 luni, la sport cu pivotare la 9 la 12 luni, condiționat de testare funcțională.
 
@@ -14195,19 +14195,19 @@ Fără tratament, evoluția e spre instabilitate cronică, episoade repetate de 
 ## Întrebările comisiei
 
 ### Î1. Care este diferența dintre testul Lachman și sertarul anterior?
-**R:** Lachman se face la 20 la 30 grade flexie, cu evaluarea translației anterioare tibiale și mai important a caracterului end-point-ului (ferm versus moale); e mai sensibil pentru LCA. Sertarul anterior se face la 90 grade flexie, poziție în care ischiogambierii pot masca laxitatea, motiv pentru care e mai puțin sensibil decât Lachman.
+**R:** Lachman se face la 20 la 30 grade flexie, cu evaluarea translației și mai important a end-point-ului (ferm versus moale); e mai sensibil pentru LCA. Sertarul anterior se face la 90 grade, poziție în care ischiogambierii pot masca laxitatea, deci e mai puțin sensibil.
 
 ### Î2. Ce este fractura Segond și ce semnificație are?
-**R:** O avulsie osoasă capsulară a marginii laterale a platoului tibial, produsă prin tracțiunea benzii iliotibiale/capsulei laterale la mecanismul de pivotare-varus intern. Este aproape patognomonică pentru leziune de LCA asociată și trebuie să declanșeze RMN pentru confirmare și evaluarea completă a leziunilor.
+**R:** O avulsie osoasă capsulară a marginii laterale a platoului tibial, produsă prin tracțiunea capsulei laterale la mecanismul de pivotare-varus intern. Este aproape patognomonică pentru leziune de LCA asociată și trebuie să declanșeze RMN pentru confirmare.
 
 ### Î3. Ce faceți dacă pacientul cu leziune izolată de LCA este sedentar și fără instabilitate subiectivă?
 **R:** Evaluez dacă e "coper" funcțional prin testare a stabilității dinamice și prin activitatea dorită; dacă nu are instabilitate la activitățile zilnice și nu practică sport cu pivotare, propun tratament conservator cu program de întărire neuromusculară, rezervând reconstrucția pentru apariția instabilității simptomatice ulterioare.
 
 ### Î4. Care sunt criteriile clasificării Schenck pentru leziunile multiligamentare?
-**R:** KD I, un încrucișat plus un colateral; KD II, ambele încrucișate, colaterale intacte; KD III M, ambele încrucișate plus LCM; KD III L, ambele încrucișate plus PLC; KD IV, toate patru ligamentele; KD V, luxație cu fractură asociată. Fiecare poate avea subtip C pentru leziune vasculară sau N pentru leziune nervoasă.
+**R:** KD I, un încrucișat plus un colateral; KD II, ambele încrucișate, colaterale intacte; KD III M, ambele încrucișate plus LCM; KD III L, ambele încrucișate plus PLC; KD IV, toate patru ligamentele; KD V, luxație cu fractură asociată. Fiecare poate avea subtip C (vascular) sau N (nervos).
 
 ### Î5. Ce faceți dacă la un pacient cu luxație de genunchi redusă spontan pulsurile distale sunt palpabile?
-**R:** Nu exclud leziunea vasculară doar pe baza pulsurilor palpabile, pentru că o leziune intimă poate evolua tardiv spre tromboză; calculez indexul brahial-tibial și, dacă e sub 0.9 sau există orice altă suspiciune clinică, indic angio-CT și consult vascular urgent.
+**R:** Nu exclud leziunea vasculară doar pe pulsuri palpabile, pentru că o leziune intimă poate evolua tardiv spre tromboză; calculez ABI și, dacă e sub 0.9 sau există altă suspiciune clinică, indic angio-CT și consult vascular urgent.
 
 ### Î6. Care sunt gradele de leziune ale LCM și cum influențează tratamentul?
 **R:** Grad I, deschidere sub 5 mm la stress valgus 30 grade; grad II, 5 la 10 mm; grad III, peste 10 mm. Gradele I-II și majoritatea grad III cu end-point ferm la 0 grade se tratează conservator; grad III cu instabilitate la 0 grade (leziune capsulară asociată) sau avulsie osoasă deplasată necesită tratament chirurgical.
@@ -14234,10 +14234,10 @@ Fără tratament, evoluția e spre instabilitate cronică, episoade repetate de 
 **R:** Semnul Trillat, un test de subluxație rotuliană laterală folosit istoric pentru evaluarea instabilității patelofemorale asociate, și triada nefastă O'Donoghue, care descrie asocierea clasică LCA, menisc medial, LCM, nuanțată de literatura actuală care arată o asociere mai frecventă cu meniscul lateral în leziunea acută de LCA.
 
 ### Î14. Ce faceți dacă pacientul cu leziune combinată LCA plus PLC prezintă parestezii pe fața dorsală a piciorului?
-**R:** Suspectez leziune sau întindere a nervului peronier comun, frecventă în leziunile complexului postero-lateral din cauza traiectului său adiacent tendonului bicepsului femural; documentez examenul neurologic detaliat preoperator, informez pacientul despre prognosticul variabil al recuperării nervoase, și evit orice manevră de tracțiune excesivă intraoperator în acea zonă.
+**R:** Suspectez leziune sau întindere a nervului peronier comun, frecventă în leziunile PLC din cauza traiectului adiacent tendonului bicepsului femural; documentez examenul neurologic detaliat preoperator, informez pacientul despre prognosticul variabil al recuperării, și evit orice tracțiune excesivă intraoperator în acea zonă.
 
 ### Î15. Cum decideți între reconstrucție staged și single-stage în leziunea multiligamentară?
-**R:** Single-stage, cu reconstrucția tuturor ligamentelor lezate într-o singură sesiune, e preferată când starea țesuturilor moi și timpul scurs de la leziune permit, pentru a evita artrofibroza dintre etape. Staged, cu PLC/colateralele reconstruite mai întâi și încrucișatele ulterior, se rezervă pentru țesuturi moi compromise, leziuni de la mult timp, sau context de politraumă unde starea generală nu permite o intervenție lungă unică.
+**R:** Single-stage, cu toate ligamentele reconstruite într-o sesiune, e preferat când țesuturile moi și timpul scurs permit, pentru a evita artrofibroza dintre etape. Staged, cu PLC/colateralele mai întâi și încrucișatele ulterior, se rezervă pentru țesuturi compromise sau context de politraumă unde starea generală nu permite o intervenție lungă unică.
 `,sd=`---
 title: Leziunile aparatului extensor al genunchiului
 probe: ct
