@@ -12,19 +12,19 @@ related: diagnoses/scaphoid-carpal-instability, techniques/perilunate-dislocatio
 
 ### Definiție și epidemiologie
 
-Luxația semilunarului și luxațiile perilunare ale carpului sunt leziuni de instabilitate carpiană majoră, produse printr-un continuum lezional progresiv (arc lezional Mayfield) în care carpul se rupe de la periferie spre centru în jurul semilunarului, care rămâne (parțial) atașat la radius prin ligamentele volare. Sunt leziuni rare (sub 10% din traumatismele carpiene) dar frecvent subdiagnosticate în urgență (până la 25% ratate la prima prezentare), tipic la bărbați adulți jugi (20 la 40 ani), mecanism de energie mare (cădere de la înălțime, accident rutier, sport de contact).
+Luxația semilunarului și luxațiile perilunare ale carpului sunt leziuni de instabilitate carpiană majoră, produse printr-un continuum lezional progresiv (arc lezional Mayfield) în care carpul se rupe de la periferie spre centru în jurul semilunarului, care rămâne parțial atașat la radius prin ligamentele volare. Sunt leziuni rare (sub 10% din traumatismele carpiene) dar frecvent subdiagnosticate (până la 25% ratate la prima prezentare), tipic la bărbați adulți jugi (20-40 ani), mecanism de energie mare.
 
 ### Anatomie și biomecanică relevantă
 
-Semilunarul este stabilizat de ligamentul scapholunat (SL, dorsal mai gros și mai important mecanic decât volar) proximal-radial, ligamentul lunotriquetral (LT) proximal-ulnar, și complexul ligamentar volar (ligamentul radioscafocapitat, radiolunat lung, radiolunat scurt) care ancorează semilunarul la radius. Vascularizația semilunarului provine dintr-o rețea duală (arcade dorsale și volare, artere interoase anterioară/posterioară), motiv pentru care luxația pură a semilunarului cu ruptura completă a ambelor pediculi poate produce necroza avasculară (boala Kienböck posttraumatică). Arcul lezional se produce fie prin "lesser arc" (doar ligamentar, în jurul semilunarului: SL, capitat, LT), fie prin "greater arc" (traversând osul: cel mai frecvent trans-scafoid perilunar, dar poate implica și stiloida radială, capul capitatului). Unghiul scapholunat normal este 30 la 60 de grade; peste 60-70 grade indică instabilitate dorsală intercalată segmentară (DISI).
+Semilunarul este stabilizat de ligamentul scapholunat (SL, dorsal mai gros și mai important mecanic) proximal-radial, ligamentul lunotriquetral (LT) proximal-ulnar, și complexul ligamentar volar (radioscafocapitat, radiolunat lung/scurt) care ancorează semilunarul la radius. Vascularizația provine dintr-o rețea duală (arcade dorsale și volare), motiv pentru care luxația pură cu ruptura ambelor pediculi poate produce necroza avasculară (Kienböck posttraumatică). Arcul lezional se produce fie prin "lesser arc" (doar ligamentar: SL, capitat, LT), fie prin "greater arc" (traversând osul: cel mai frecvent trans-scafoid, dar poate implica stiloida radială/capul capitatului). Unghiul scapholunat normal este 30-60 grade; peste 60-70 grade indică DISI.
 
 ### Etiopatogenie
 
-Mecanism de hiperextensie a pumnului cu deviere ulnară și supinație intercarpiană sub încărcare axială mare (cădere pe mână în extensie de la energie înaltă), similar mecanismului FOOSH dar cu forță suficientă pentru a rupe progresiv ligamentele carpiene periferice de la radial spre ulnar. Frecvent asociat cu politraumatism (accidente rutiere, cădere de la înălțime), motiv pentru care se caută activ, nefiind evidentă clinic la un pacient cu leziuni multiple mai dramatice.
+Mecanism de hiperextensie a pumnului cu deviere ulnară și supinație intercarpiană sub încărcare axială mare, similar FOOSH dar cu forță suficientă pentru a rupe progresiv ligamentele carpiene de la radial spre ulnar. Frecvent asociat cu politraumatism, motiv pentru care se caută activ, nefiind evidentă clinic la un pacient cu leziuni mai dramatice.
 
 ### Anatomie patologică
 
-Progresia Mayfield descrie ruptura secvențială: stadiul I, ruptura ligamentului scapholunat (diastază SL); stadiul II, ruptura capsulei periarticulare până la ligamentul capitolunat (subluxație/luxație a capitatului dorsal față de semilunar); stadiul III, ruptura ligamentului lunotriquetral (întreg carpul, cu excepția semilunarului, se luxează dorsal); stadiul IV, ruptura completă a ligamentelor volare radiolunate, semilunarul se rotește/luxează volar în canalul carpian, comprimând nervul median. În varianta "greater arc" (trans-scafo-perilunară), traiectul trece prin osul scafoid în loc de ligamentul SL.
+Progresia Mayfield: stadiul I, ruptura SL (diastază); stadiul II, ruptura capsulei până la ligamentul capitolunat (subluxație a capitatului); stadiul III, ruptura LT (întreg carpul, cu excepția semilunarului, se luxează dorsal); stadiul IV, ruptura ligamentelor volare radiolunate, semilunarul se rotește/luxează volar, comprimând medianul. În varianta greater arc, traiectul trece prin scafoid în loc de ligamentul SL.
 
 ### Clasificare
 
@@ -43,11 +43,11 @@ Progresia Mayfield descrie ruptura secvențială: stadiul I, ruptura ligamentulu
 
 ### Clinic
 
-Tumefacție marcată difuză a pumnului, durere intensă, deformare variabilă (poate fi minimă dacă reducerea spontană parțială a avut loc), limitarea marcată a mobilității pumnului. Semnul cel mai important de căutat activ: parestezii/hipoestezie în teritoriul medianului (police, index, medius, jumătate radială a inelarului) prin compresia nervului median de către semilunarul luxat volar în canalul carpian, prezent la până la 25% din cazuri, semn de urgență pentru reducere. Palpare: sensibilitate difuză carpiană, eventual proeminență palpabilă volar (semilunarul luxat) sau dorsal (capul capitatului proeminent). Frecvent leziunea este mascată de alte traumatisme (politraumatism), motiv pentru care orice pumn tumefiat dureros posttraumatic la energie înaltă trebuie radiografiat complet.
+Tumefacție marcată difuză a pumnului, durere intensă, deformare variabilă, limitarea marcată a mobilității. Semnul de căutat activ: parestezii/hipoestezie în teritoriul medianului, prin compresia de către semilunarul luxat volar, prezent la până la 25% din cazuri, semn de urgență pentru reducere. Palpare: sensibilitate difuză carpiană, eventual proeminență palpabilă volar sau dorsal. Frecvent leziunea este mascată de politraumatism, motiv pentru care orice pumn tumefiat dureros la energie înaltă trebuie radiografiat complet.
 
 ### Imagistică și explorări
 
-Radiografie standard pumn față și profil strict: pe incidența față, liniile Gilula (trei arcuri concentrice de-a lungul marginilor proximale și distale ale rândului proximal carpian) trebuie să fie continue și armonioase; o întrerupere sau o suprapunere anormală (semilunarul suprapus pe capitat, "piece of pie sign"/aspect triunghiular al semilunarului în loc de patrulater normal) indică luxație. Pe incidența profil, semilunarul normal are aspect de "cupă" care primește capitatul; în luxație, semilunarul se rotește și capătă aspectul de "ceașcă răsturnată" (spilled teacup sign), iar capitatul nu mai este centrat în cupa semilunarului. Se măsoară unghiul scapholunat pe profil (normal 30 la 60 grade; DISI peste 70 grade). CT pentru caracterizarea fracturilor asociate (scafoid, stiloidă radială) și planificare chirurgicală. RMN utilă pentru evaluarea integrității ligamentare la leziuni parțiale/cronice sau la suspiciune de leziune SL izolată fără luxație completă.
+Radiografie standard pumn față și profil strict: pe față, liniile Gilula (trei arcuri concentrice de-a lungul marginilor rândului carpian proximal) trebuie continue; o întrerupere sau suprapunere anormală ("piece of pie sign", semilunar triunghiular) indică luxație. Pe profil, semilunarul normal are aspect de cupă care primește capitatul; în luxație capătă aspectul de "ceașcă răsturnată" (spilled teacup sign). Se măsoară unghiul scapholunat (normal 30-60 grade; DISI peste 70). CT pentru fracturile asociate și planificare chirurgicală. RMN utilă la leziuni parțiale/cronice sau suspiciune de leziune SL izolată.
 
 ### Diagnostic diferențial
 
@@ -55,23 +55,23 @@ Fractura izolată de scafoid fără instabilitate perilunară (fără diastază 
 
 ### Tratament
 
-**Conservator:** nu are rol definitiv; reducerea închisă urgentă este primul pas obligatoriu pentru orice luxație perilunară/de semilunar, dar reprezintă doar o măsură temporizatoare, deoarece leziunile ligamentare nu se stabilizează spontan și instabilitatea recidivează fără fixare chirurgicală.
+**Conservator:** fără rol definitiv; reducerea închisă urgentă este primul pas obligatoriu, dar rămâne o măsură temporizatoare, deoarece leziunile ligamentare nu se stabilizează spontan și instabilitatea recidivează fără fixare chirurgicală.
 
-**Chirurgical, indicații:** toate luxațiile perilunare/de semilunar necesită tratament chirurgical definitiv, deoarece reducerea închisă izolată, chiar reușită, nu restabilește stabilitatea ligamentară pe termen lung. Urgența este dublă: reducerea (închisă, cât mai rapid, mai ales dacă există compresie mediană) și apoi stabilizarea chirurgicală (poate fi programată în primele zile, dar ideal sub 7 la 10 zile pentru rezultate optime ale reparării ligamentare).
+**Chirurgical, indicații:** toate luxațiile perilunare/de semilunar necesită tratament chirurgical definitiv, deoarece reducerea închisă izolată nu restabilește stabilitatea pe termen lung. Urgența este dublă: reducerea (cât mai rapid, mai ales cu compresie mediană) și stabilizarea chirurgicală (ideal sub 7-10 zile).
 
-**Tehnică:** abord combinat dorsal (pentru vizualizarea și repararea ligamentului SL, reducerea capitatului, fixare cu K-wire scapholunat și capitolunat) și volar (pentru repararea ligamentelor volare radiolunate, decompresia nervului median dacă există sindrom de tunel carpian acut, verificarea reducerii semilunarului). Fixarea scafoidului asociat (varianta trans-scafoidă) se face cu șurub canulat. K-wire-urile SL și LT se mențin 8 la 12 săptămâni.
+**Tehnică:** abord combinat dorsal (vizualizarea și repararea SL, reducerea capitatului, K-wire scapholunat și capitolunat) și volar (repararea ligamentelor volare radiolunate, decompresia medianului, verificarea reducerii). Scafoidul asociat se fixează cu șurub canulat. K-wire-urile SL și LT se mențin 8-12 săptămâni.
 
-**Cazuri cronice (peste 3 săptămâni, ireductibile sau instabilitate cronică nereparabilă):** proximal row carpectomy (excizia scafoid-semilunar-piramidal, indicată dacă capul capitatului și cavitatea sigmoidă a radiusului sunt intacte, la pacienți cu cerere funcțională moderată) sau four-corner fusion (artrodeză capitat-semilunar-piramidal-hamat cu scafoidectomie, indicată la pacienți mai jugi/activi, păstrează mai multă forță de priză dar sacrifică o parte din mobilitate).
+**Cazuri cronice (peste 3 săptămâni, ireductibile):** proximal row carpectomy (dacă capul capitatului și cavitatea sigmoidă sunt intacte, cerere funcțională moderată) sau four-corner fusion (păstrează mai multă forță de priză dar sacrifică mobilitate, preferată la pacienți jugi/activi).
 
-**Rezultate și evidence:** tratamentul chirurgical precoce (sub 3 săptămâni) al leziunii acute oferă cele mai bune rezultate funcționale și cea mai mică rată de instabilitate reziduală; leziunile diagnosticate tardiv (peste 6-8 săptămâni) au rezultate semnificativ mai slabe ale reparării ligamentare directe, motiv pentru care se recurge frecvent la reconstrucție ligamentară sau proceduri de salvare.
+**Rezultate și evidence:** tratamentul precoce (sub 3 săptămâni) oferă cele mai bune rezultate funcționale și cea mai mică instabilitate reziduală; leziunile tardive (peste 6-8 săptămâni) au rezultate mai slabe la reparare directă, recurgându-se frecvent la reconstrucție sau proceduri de salvare.
 
 ### Complicații
 
-Instabilitate carpiană reziduală (SLAC wrist, scapholunate advanced collapse, prin persistența diastazei SL netratate sau reparate insuficient), rigiditate a pumnului, necroza avasculară a semilunarului (boala Kienböck posttraumatică), sindrom de tunel carpian persistent/recidivant, artroză mediocarpiană și radiocarpiană secundară, leziune de nerv median nerecunoscută/netratată la timp cu deficit senzitiv permanent.
+Instabilitate carpiană reziduală (SLAC wrist, prin persistența diastazei SL), rigiditate a pumnului, necroza avasculară a semilunarului, sindrom de tunel carpian persistent, artroză mediocarpiană/radiocarpiană secundară, leziune de median netratată cu deficit senzitiv permanent.
 
 ### Evoluție și prognostic
 
-Diagnosticată și tratată precoce (sub 1 la 3 săptămâni), luxația perilunară/de semilunar are prognostic funcțional relativ bun, cu recuperare a mobilității de 60 la 80% din normal și forță de priză redusă moderat. Diagnosticul tardiv (frecvent ratat la prima prezentare, mai ales în politraumatism) evoluează invariabil spre instabilitate cronică și artroză progresivă (SLAC wrist), necesitând proceduri de salvare cu rezultate funcționale inferioare reparării acute. Urmărirea pe termen lung este necesară pentru toate cazurile, dat fiind riscul de degenerare progresivă chiar și după tratament corect.
+Diagnosticată și tratată precoce (sub 1-3 săptămâni), luxația are prognostic relativ bun, cu recuperare a mobilității 60-80% din normal și forță de priză redusă moderat. Diagnosticul tardiv evoluează invariabil spre instabilitate cronică și artroză progresivă (SLAC wrist), necesitând proceduri de salvare cu rezultate inferioare reparării acute. Urmărirea pe termen lung este necesară pentru toate cazurile, dat fiind riscul de degenerare progresivă chiar și după tratament corect.
 
 ## Script de prezentare
 

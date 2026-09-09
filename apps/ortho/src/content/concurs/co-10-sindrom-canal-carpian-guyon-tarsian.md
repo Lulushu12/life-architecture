@@ -2,7 +2,7 @@
 title: Sindromul de canal carpian, canal Guyon, canal tarsian
 probe: co
 number: 10
-tags: sindrom de canal carpian, canal Guyon, canal tarsian, nerv median, nerv ulnar, nerv tibial posterior, semnul Tinel, testul Phalen, testul Durkan, EMG, decompresie deschisa, decompresie endoscopica
+tags: sindrom de canal carpian, canal Guyon, canal tarsian, nerv median, nerv ulnar, nerv tibial posterior, semnul Tinel, testul Phalen, testul Durkan, EMG, decompresie deschisă, decompresie endoscopică
 region: Hand & Wrist
 specialty: Hand & Wrist
 related: techniques/carpal-tunnel-release-open-endoscopic-walant, techniques/cubital-tunnel-decompression-transposition, diagnoses/hand-wrist-conditions, diagnoses/hindfoot-ankle-disorders
@@ -12,177 +12,177 @@ related: techniques/carpal-tunnel-release-open-endoscopic-walant, techniques/cub
 
 ### Definiție și epidemiologie
 
-Cele trei sindroame de compresie nervoasa canalara ale membrelor: sindromul de canal carpian (SCC, compresia nervului median la pumn, cel mai frecvent sindrom de compresie periferica, prevalenta 3-5%, predominanta feminina 3:1) (?), sindromul de canal Guyon (nervul ulnar la pumn, mult mai rar decat SCC), si sindromul de canal tarsian (nervul tibial posterior la glezna/picior, cel mai rar, subdiagnosticat frecvent). Factori de risc comuni: activitati repetitive/vibratii, sarcina, obezitate, diabet, hipotiroidism, poliartrita reumatoida, dializa.
+Cele trei sindroame de compresie nervoasă canalară ale membrelor: sindromul de canal carpian (SCC, compresia nervului median la pumn, cel mai frecvent sindrom de compresie periferică, prevalență 3-5%, predominanță feminină 3:1) (?), sindromul de canal Guyon (nervul ulnar la pumn, mult mai rar decât SCC), și sindromul de canal tarsian (nervul tibial posterior la gleznă/picior, cel mai rar, subdiagnosticat frecvent). Factori de risc comuni: activități repetitive/vibrații, sarcină, obezitate, diabet, hipotiroidism, poliartrită reumatoidă, dializă.
 
-### Anatomie și biomecanica relevanta
+### Anatomie și biomecanică relevantă
 
-**Canalul carpian**: delimitat de oasele carpiene si superficial de ligamentul transvers al carpului (retinaculul flexorilor), continand nervul median si noua tendoane flexoare (FDS x4, FDP x4, FPL). Nervul median e cea mai superficiala si anterioara structura in canal, deci cel mai expus la compresie.
+**Canalul carpian**: delimitat de oasele carpiene și superficial de ligamentul transvers al carpului (retinaculul flexorilor), conținând nervul median și nouă tendoane flexoare (FDS x4, FDP x4, FPL). Nervul median e cea mai superficială și anterioară structură în canal, deci cel mai expus la compresie.
 
-**Canalul Guyon**: delimitat de pisiform (medial), carligul hamatului (lateral), ligamentul carpian volar/piso-hamat (planseu) si ligamentul volar al carpului (plafon), continand nervul si artera ulnara. Trei zone: zona 1 (proximal de bifurcatie, leziune mixta), zona 2 (ramura motorie profunda, leziune predominant motorie a intrinsecilor), zona 3 (ramura senzitiva superficiala, leziune predominant senzitiva).
+**Canalul Guyon**: delimitat de pisiform (medial), cârligul hamatului (lateral), ligamentul carpian volar/piso-hamat (planșeu) și ligamentul volar al carpului (plafon), conținând nervul și artera ulnară. Trei zone: zona 1 (proximal de bifurcație, leziune mixtă), zona 2 (ramura motorie profundă, leziune predominant motorie a intrinsecilor), zona 3 (ramura senzitivă superficială, leziune predominant senzitivă).
 
-**Canalul tarsian**: posteromedial de maleola tibiala, delimitat de retinaculul flexorilor, continand anteroposterior tendonul tibial posterior, flexor digitorum longus, artera/vena tibiala posterioara, nervul tibial posterior, si flexor hallucis longus (mnemonic "Tom, Dick and Very Nervous Harry"). Nervul se bifurca in canal sau distal in plantar medial si lateral, plus ramura calcaneana medie.
+**Canalul tarsian**: posteromedial de maleola tibială, delimitat de retinaculul flexorilor, conținând anteroposterior tendonul tibial posterior, flexor digitorum longus, artera/vena tibială posterioară, nervul tibial posterior, și flexor hallucis longus (mnemonic "Tom, Dick and Very Nervous Harry"). Nervul se bifurcă în canal sau distal în plantar medial și lateral, plus ramura calcaneană medie.
 
 ### Etiopatogenie
 
-SCC: idiopatic/degenerativ (tenosinovita nespecifica, cea mai frecventa cauza), sarcina, diabet, hipotiroidism, poliartrita reumatoida, fractura de radius distal cu deformare secundara, activitati repetitive, dializa (amiloidoza). Canal Guyon: chist ganglionar (cea mai frecventa cauza focala), fractura de hamat (sportivi cu bat/racheta), presiune repetitiva (ciclism, "handlebar palsy"), anomalii musculare accesorii. Canal tarsian: idiopatic, tenosinovita, chist ganglionar, varice, deformare de retropicior in valg, fractura de calcaneu/talus, schwannom, boli sistemice.
+SCC: idiopatic/degenerativ (tenosinovită nespecifică, cea mai frecventă cauză), sarcină, diabet, hipotiroidism, poliartrită reumatoidă, fractură de radius distal cu deformare secundară, activități repetitive, dializă (amiloidoză). Canal Guyon: chist ganglionar (cea mai frecventă cauză focală), fractură de hamat (sportivi cu bâtă/rachetă), presiune repetitivă (ciclism, "handlebar palsy"), anomalii musculare accesorii. Canal tarsian: idiopatic, tenosinovită, chist ganglionar, varice, deformare de retropicior în valg, fractură de calcaneu/talus, schwannom, boli sistemice.
 
-### Anatomie patologica
+### Anatomie patologică
 
-SCC: ingrosare fibrozanta a tesutului conjunctiv sinovial peritendinos, cu compresie mecanica cronica a nervului median, ischemie intrafasciculara, demielinizare segmentara la stadii avansate, atrofie a musculaturii tenariene in cazuri severe/vechi. Canal Guyon si canal tarsian: mecanism similar de compresie mecanica cronica, cu variabilitate legata de cauza focala (masa ocupanta de spatiu, deformare osoasa, tenosinovita).
+SCC: îngroșare fibrozantă a țesutului conjunctiv sinovial peritendinos, cu compresie mecanică cronică a nervului median, ischemie intrafasciculară, demielinizare segmentară la stadii avansate, atrofie a musculaturii tenariene în cazuri severe/vechi. Canal Guyon și canal tarsian: mecanism similar de compresie mecanică cronică, cu variabilitate legată de cauză focală (masă ocupantă de spațiu, deformare osoasă, tenosinovită).
 
 ### Clasificare
 
-Nu exista o clasificare stadiala universala unica pentru aceste sindroame; severitatea se stadializeaza in principal prin criterii electrofiziologice (EMG/conducere nervoasa) si clinice.
+Nu există o clasificare stadială universală unică pentru aceste sindroame; severitatea se stadializează în principal prin criterii electrofiziologice (EMG/conducere nervoasă) și clinice.
 
-**Severitatea clinica a SCC** (utilizata frecvent, criterii combinate): usoara (parestezii intermitente, fara deficit obiectiv), moderata (parestezii frecvente/nocturne, scadere a sensibilitatii, fara atrofie), severa (deficit motor obiectiv, atrofie tenariana, scadere permanenta a sensibilitatii).
+**Severitatea clinică a SCC** (utilizată frecvent, criterii combinate): ușoară (parestezii intermitente, fără deficit obiectiv), moderată (parestezii frecvente/nocturne, scădere a sensibilității, fără atrofie), severă (deficit motor obiectiv, atrofie tenariană, scădere permanentă a sensibilității).
 
-**Clasificarea electrofiziologica a severitatii** (aplicabila conceptual la toate cele trei sindroame): usoara (latente distale prelungite izolat, viteze de conducere senzitive incetinite), moderata (latente prelungite plus incetinire a conducerii motorii), severa (unde de denervare la EMG cu ac, absenta raspunsurilor senzitive, semne de denervare/reinnervare la muschii intrinseci).
+**Clasificarea electrofiziologică a severității** (aplicabilă conceptual la toate cele trei sindroame): ușoară (latențe distale prelungite izolat, viteze de conducere senzitive încetinite), moderată (latențe prelungite plus încetinire a conducerii motorii), severă (unde de denervare la EMG cu ac, absența răspunsurilor senzitive, semne de denervare/reinnervare la mușchii intrinseci).
 
-**Zonele Guyon** (deja descrise la anatomie): zona 1 mixt, zona 2 motor pur, zona 3 senzitiv pur, cu relevanta directa pentru localizarea leziunii pe baza tabloului clinic.
+**Zonele Guyon** (deja descrise la anatomie): zona 1 mixt, zona 2 motor pur, zona 3 senzitiv pur, cu relevanță directă pentru localizarea leziunii pe baza tabloului clinic.
 
 ### Clinic
 
-**SCC**: parestezii nocturne in teritoriul median (police, index, medius, jumatate radiala a inelarului), amelioarate la scuturarea mainii (flick sign), slabiciune de priza fina. Semnul Tinel: percutie peste canal, pozitiv daca reproduce parestezii median. Testul Phalen: flexie pasiva a pumnurilor 90 grade, 60 secunde. Testul Durkan: presiune directa cu policele peste canal 30 secunde, sensibilitate/specificitate buna. Testez atrofia tenariana si forta de abductie a policelui.
+**SCC**: parestezii nocturne în teritoriul median (police, index, medius, jumătate radială a inelarului), amelioarate la scuturarea mâinii (flick sign), slăbiciune de priză fină. Semnul Tinel: percuție peste canal, pozitiv dacă reproduce parestezii median. Testul Phalen: flexie pasivă a pumnurilor 90 grade, 60 secunde. Testul Durkan: presiune directă cu policele peste canal 30 secunde, sensibilitate/specificitate bună. Testez atrofia tenariană și forța de abducție a policelui.
 
-**Canal Guyon**: parestezii in teritoriul ulnar distal (inelar, deget mic, fara afectare dorsala, ceea ce il diferentiaza de o leziune la cot), slabiciune a intrinsecilor, semnul Froment (compensare prin flexor pollicis longus la insuficienta adductorului policelui). Tinel pozitiv peste canal. Palpare pentru masa (chist).
+**Canal Guyon**: parestezii în teritoriul ulnar distal (inelar, deget mic, fără afectare dorsală, ceea ce îl diferențiază de o leziune la cot), slăbiciune a intrinsecilor, semnul Froment (compensare prin flexor pollicis longus la insuficiența adductorului policelui). Tinel pozitiv peste canal. Palpare pentru masa (chist).
 
-**Canal tarsian**: durere si parestezii plantare, accentuate la mers/ortostatism, in teritoriul plantar medial/lateral. Tinel pozitiv posteromedial de maleola. Testul de dorsiflexie-eversie (mentinuta, reproduce simptomele prin intinderea nervului). Examinez deformarea de retropicior in valg si masa palpabila.
+**Canal tarsian**: durere și parestezii plantare, accentuate la mers/ortostatism, în teritoriul plantar medial/lateral. Tinel pozitiv posteromedial de maleola. Testul de dorsiflexie-eversie (menținută, reproduce simptomele prin întinderea nervului). Examinez deformarea de retropicior în valg și masa palpabilă.
 
-**Comun**: examen neuro-vascular distal complet, examinarea articulatiilor supra/subiacente (cot pentru SCC/Guyon, genunchi/lombar pentru canal tarsian), mers (relevant pentru canal tarsian).
+**Comun**: examen neuro-vascular distal complet, examinarea articulațiilor supra/subiacente (cot pentru SCC/Guyon, genunchi/lombar pentru canal tarsian), mers (relevant pentru canal tarsian).
 
-### Imagistica si explorari
+### Imagistică și explorări
 
-**EMG/conducere nervoasa**: standardul de referinta pentru confirmarea si stadializarea obiectiva a tuturor celor trei sindroame. Criterii pentru SCC: latenta motorie distala peste 4,5 ms (?), latenta senzitiva peste 3,5 ms (?), viteza de conducere sub 50 m/s (?), cu unde de denervare la EMG cu ac in cazuri severe. Ecografie de nerv utila pentru aria sectiunii transverse (peste 9-10 mm² pentru median) (?) si identificarea maselor ocupante de spatiu. IRM pentru caracterizarea maselor de tesut moale, fractura de hamat oculta, varice/tumora de nerv. Radiografie pentru deformari osoase asociate.
+**EMG/conducere nervoasă**: standardul de referință pentru confirmarea și stadializarea obiectivă a tuturor celor trei sindroame. Criterii pentru SCC: latența motorie distală peste 4,5 ms (?), latența senzitivă peste 3,5 ms (?), viteza de conducere sub 50 m/s (?), cu unde de denervare la EMG cu ac în cazuri severe. Ecografie de nerv utilă pentru aria secțiunii transverse (peste 9-10 mm² pentru median) (?) și identificarea maselor ocupante de spațiu. IRM pentru caracterizarea maselor de țesut moale, fractură de hamat ocultă, varice/tumoră de nerv. Radiografie pentru deformări osoase asociate.
 
-### Diagnostic diferential
+### Diagnostic diferențial
 
-Radiculopatie cervicala C6-C7 (pentru SCC): distributie dermatomala mai larga, EMG cu afectare proximala. Tunel cubital (pentru Guyon): afectare a fetei dorsale a mainii, Tinel pozitiv la cot. Polineuropatie generalizata: bilaterala simetrica, "manusa-soseta". Radiculopatie lombara S1 (canal tarsian): distributie mai larga, tensiune sciatica. Fasciita plantara: durere la calcaneu matinal, fara parestezii specifice.
+Radiculopatie cervicală C6-C7 (pentru SCC): distribuție dermatomală mai largă, EMG cu afectare proximală. Tunel cubital (pentru Guyon): afectare a feței dorsale a mâinii, Tinel pozitiv la cot. Polineuropatie generalizată: bilaterală simetrică, "mănușă-șosetă". Radiculopatie lombară S1 (canal tarsian): distribuție mai largă, tensiune sciatică. Fasciită plantară: durere la calcaneu matinal, fără parestezii specifice.
 
 ### Tratament
 
-**Conservator**: orteza de imobilizare in pozitie neutra (nocturna pentru SCC, cea mai eficace masura conservatoare), modificare a activitatii, AINS, infiltratie cu corticoid in canal (beneficiu temporar, util diagnostic si terapeutic pe termen scurt), tratament al cauzei sistemice asociate (diabet, hipotiroidism). Indicat pentru forme usoare-moderate fara deficit motor obiectiv sau denervare la EMG.
+**Conservator**: orteza de imobilizare în poziție neutră (nocturnă pentru SCC, cea mai eficace măsură conservatoare), modificare a activității, AINS, infiltrație cu corticoid în canal (beneficiu temporar, util diagnostic și terapeutic pe termen scurt), tratament al cauzei sistemice asociate (diabet, hipotiroidism). Indicat pentru forme ușoare-moderate fără deficit motor obiectiv sau denervare la EMG.
 
-**Chirurgical, indicatii**: simptome persistente/progresive refractare la tratament conservator adecvat (de regula 6-12 saptamani) (?), deficit motor obiectiv sau semne de denervare la EMG (indicatie mai ferma, nu se asteapta progresia), masa ocupanta de spatiu confirmata imagistic, atrofie musculara instalata.
+**Chirurgical, indicații**: simptome persistente/progresive refractare la tratament conservator adecvat (de regulă 6-12 săptămâni) (?), deficit motor obiectiv sau semne de denervare la EMG (indicație mai fermă, nu se așteaptă progresia), masa ocupantă de spațiu confirmată imagistic, atrofie musculară instalată.
 
-**Tehnica pentru SCC**: eliberare deschisa (incizie longitudinala palmara, sectionare completa a ligamentului transvers al carpului sub vizualizare directa, standardul clasic cu vizibilitate excelenta) versus eliberare endoscopica (incizie mica la nivelul pumnului, portal unic sau dublu, sectionare a ligamentului sub camera, recuperare potential mai rapida, curba de invatare mai lunga, risc teoretic mai mare de leziune nervoasa/vasculara daca reperele nu sunt respectate). Ambele tehnici au echivalenta la 1 an in trialuri comparative mari, cu diferente mici pe termen scurt in favoarea endoscopicului pentru durere/revenire la activitate.
+**Tehnica pentru SCC**: eliberare deschisă (incizie longitudinală palmară, secționare completă a ligamentului transvers al carpului sub vizualizare directă, standardul clasic cu vizibilitate excelentă) versus eliberare endoscopică (incizie mică la nivelul pumnului, portal unic sau dublu, secționare a ligamentului sub cameră, recuperare potențial mai rapidă, curbă de învățare mai lungă, risc teoretic mai mare de leziune nervoasă/vasculară dacă reperele nu sunt respectate). Ambele tehnici au echivalență la 1 an în trialuri comparative mari, cu diferențe mici pe termen scurt în favoarea endoscopicului pentru durere/revenire la activitate.
 
-**Tehnica pentru canal Guyon**: eliberare deschisa cu incizie peste canal, identificare si protectie a arterei ulnare si a ramurilor motorii/senzitive, excizie a masei ocupante de spatiu (chist) daca prezenta, decompresie completa de la antebrat proximal la palma distal.
+**Tehnica pentru canal Guyon**: eliberare deschisă cu incizie peste canal, identificare și protecție a arterei ulnare și a ramurilor motorii/senzitive, excizie a masei ocupante de spațiu (chist) dacă prezentă, decompresie completă de la antebraț proximal la palmă distal.
 
-**Tehnica pentru canal tarsian**: eliberare deschisa cu incizie curbilinie posteromedial de maleola tibiala, identificare si eliberare a nervului tibial posterior si a celor trei ramuri (plantar medial, plantar lateral, calcaneana), excizie a masei ocupante de spatiu daca prezenta, corectie a deformarii de retropicior in valg severa daca este factor cauzal identificat (osteotomie asociata in cazuri selectate).
+**Tehnica pentru canal tarsian**: eliberare deschisă cu incizie curbilinie posteromedial de maleola tibială, identificare și eliberare a nervului tibial posterior și a celor trei ramuri (plantar medial, plantar lateral, calcaneană), excizie a masei ocupante de spațiu dacă prezentă, corecție a deformării de retropicior în valg severă dacă este factor cauzal identificat (osteotomie asociată în cazuri selectate).
 
-**Rezultate si evidence**: decompresia chirurgicala pentru SCC are rate de succes ridicate (peste 90% ameliorare simptomatica) (?) la pacientii bine selectati, cu ameliorare mai rapida si potential superioara fata de tratamentul conservator pe termen mediu-lung in trialuri recente. Rezultatele pentru canal tarsian sunt mai variabile, cu rate de succes mai mici decat SCC, in parte din cauza dificultatii diagnostice si a etiologiei multifactoriale frecvente.
+**Rezultate și evidence**: decompresia chirurgicală pentru SCC are rate de succes ridicate (peste 90% ameliorare simptomatică) (?) la pacienții bine selectați, cu ameliorare mai rapidă și potențial superioară față de tratamentul conservator pe termen mediu-lung în trialuri recente. Rezultatele pentru canal tarsian sunt mai variabile, cu rate de succes mai mici decât SCC, în parte din cauza dificultății diagnostice și a etiologiei multifactoriale frecvente.
 
-### Complicatii
+### Complicații
 
-Ale bolii: deficit senzitiv permanent, atrofie ireversibila, deficit al prizei (SCC/Guyon) sau al mersului (canal tarsian). Ale tratamentului conservator: progresie nedetectata catre denervare permanenta. Ale tratamentului chirurgical: leziune a ramurii cutanate palmare (SCC), leziune a arterei ulnare/ramurilor nervoase (Guyon), leziune a ramurilor tibiale (canal tarsian), decompresie incompleta (mai ales endoscopic), recidiva/fibroza, sindrom de durere regionala complexa (rar), infectie.
+Ale bolii: deficit senzitiv permanent, atrofie ireversibilă, deficit al prizei (SCC/Guyon) sau al mersului (canal tarsian). Ale tratamentului conservator: progresie nedetectată către denervare permanentă. Ale tratamentului chirurgical: leziune a ramurii cutanate palmare (SCC), leziune a arterei ulnare/ramurilor nervoase (Guyon), leziune a ramurilor tibiale (canal tarsian), decompresie incompletă (mai ales endoscopic), recidivă/fibroză, sindrom de durere regională complexă (rar), infecție.
 
-### Evolutie si prognostic
+### Evoluție și prognostic
 
-SCC netratat poate progresa catre deficit motor permanent si atrofie tenariana, insa multe cazuri usoare raman stabile ani cu tratament conservator. Guyon si canal tarsian netratate progreseaza similar daca cauza compresiva persista. Decompresia la timp, inainte de denervare, ofera prognosticul cel mai bun; cazurile cu atrofie si denervare severa preoperator recupereaza partial si mai lent, cu deficite reziduale permanente.
+SCC netratat poate progresa către deficit motor permanent și atrofie tenariană, însă multe cazuri ușoare rămân stabile ani cu tratament conservator. Guyon și canal tarsian netratate progresează similar dacă cauza compresivă persistă. Decompresia la timp, înainte de denervare, oferă prognosticul cel mai bun; cazurile cu atrofie și denervare severă preoperator recuperează parțial și mai lent, cu deficite reziduale permanente.
 
 ## Script de prezentare
 
 ### 1. Prezentarea cazului (30 s)
 
-Pacientul/a in varsta de [varsta] ani, [profesie], din [mediu], se prezinta pentru parestezii [nocturne/permanente] la nivelul [teritoriului nervos afectat, mana/planta], cu debut in urma cu [durata], asociate [cu/fara] slabiciune musculara.
+Pacientul/a în vârstă de [vârsta] ani, [profesie], din [mediu], se prezintă pentru parestezii [nocturne/permanente] la nivelul [teritoriului nervos afectat, mână/plantă], cu debut în urmă cu [durată], asociate [cu/fără] slăbiciune musculară.
 
 ### 2. Anamneză (2 min)
 
-Motivele internarii: paresteziile (localizare precisa in teritoriul nervos, orar, factori de ameliorare/agravare), slabiciunea (priza fina, tinerea obiectelor), durerea asociata. Istoric: momentul debutului, evolutia (progresiva sau stationara), tratamente urmate (orteza, infiltratii, rezultat si durata beneficiului). Antecedente relevante: diabet zaharat, hipotiroidism, poliartrita reumatoida, sarcina, insuficienta renala cu dializa, fractura anterioara la nivelul zonei afectate, deformare de retropicior (pentru canal tarsian). Factori de risc: activitati repetitive/vibratii, sarcina, sport specific (baseball/ciclism pentru Guyon), obezitate.
+Motivele internării: paresteziile (localizare precisă în teritoriul nervos, orar, factori de ameliorare/agravare), slăbiciunea (priză fină, ținerea obiectelor), durerea asociată. Istoric: momentul debutului, evoluția (progresivă sau staționară), tratamente urmate (orteza, infiltrații, rezultat și durata beneficiului). Antecedente relevante: diabet zaharat, hipotiroidism, poliartrită reumatoidă, sarcină, insuficiență renală cu dializă, fractură anterioară la nivelul zonei afectate, deformare de retropicior (pentru canal tarsian). Factori de risc: activități repetitive/vibrații, sarcină, sport specific (baseball/ciclism pentru Guyon), obezitate.
 
 ### 3. Examen clinic (3 min)
 
-General: aspect general, postura mainii/piciorului in repaus. Local, inspectie: atrofie musculara vizibila (eminenta tenara pentru SCC, musculatura intrinseca a mainii pentru Guyon), deformare de retropicior pentru canal tarsian. Palpare: caut masa ocupanta de spatiu (chist) de-a lungul traiectului canalului examinat, sensibilitate directa. Mobilitate: flexie-extensie a pumnului/gleznei, notez limitari asociate unei cauze structurale. Testele specifice: pentru SCC, semnul Tinel (percutie peste canal, pozitiv daca reproduce parestezii median), testul Phalen (flexie pasiva a pumnurilor 90 grade, 60 secunde), testul Durkan (compresie directa cu policele 30 secunde); pentru Guyon, Tinel peste canal si semnul Froment pentru insuficienta adductorului policelui; pentru canal tarsian, Tinel posteromedial de maleola si testul de dorsiflexie-eversie a gleznei mentinuta. Masuratori: testez forta de abductie a policelui (median), forta de abductie a degetelor (ulnar), sensibilitate cu monofilament in teritoriul nervos specific. Examen neuro-vascular distal complet la nivelul membrului examinat. Examinarea articulatiilor supra- si subiacente: cot pentru SCC/Guyon (diferentiere de compresie proximala), genunchi/coloana lombara pentru canal tarsian. Mers: relevant mai ales pentru canal tarsian, observ mersul si aparitia simptomelor la ortostatism prelungit.
+General: aspect general, postura mâinii/piciorului în repaus. Local, inspecție: atrofie musculară vizibilă (eminența tenară pentru SCC, musculatura intrinsecă a mâinii pentru Guyon), deformare de retropicior pentru canal tarsian. Palpare: caut masa ocupantă de spațiu (chist) de-a lungul traiectului canalului examinat, sensibilitate directă. Mobilitate: flexie-extensie a pumnului/gleznei, notez limitări asociate unei cauze structurale. Testele specifice: pentru SCC, semnul Tinel (percuție peste canal, pozitiv dacă reproduce parestezii median), testul Phalen (flexie pasivă a pumnurilor 90 grade, 60 secunde), testul Durkan (compresie directă cu policele 30 secunde); pentru Guyon, Tinel peste canal și semnul Froment pentru insuficiența adductorului policelui; pentru canal tarsian, Tinel posteromedial de maleola și testul de dorsiflexie-eversie a gleznei menținută. Măsurători: testez forța de abducție a policelui (median), forța de abducție a degetelor (ulnar), sensibilitate cu monofilament în teritoriul nervos specific. Examen neuro-vascular distal complet la nivelul membrului examinat. Examinarea articulațiilor supra- și subiacente: cot pentru SCC/Guyon (diferențiere de compresie proximală), genunchi/coloana lombară pentru canal tarsian. Mers: relevant mai ales pentru canal tarsian, observ mersul și apariția simptomelor la ortostatism prelungit.
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: sindrom de [canal carpian/canal Guyon/canal tarsian] [drept/stang], severitate [usoara/moderata/severa], pe baza examenului clinic (semnul Tinel pozitiv, [Phalen/Durkan/dorsiflexie-eversie] pozitiv, [deficit motor/senzitiv daca prezent]) si a EMG/conducerii nervoase confirmatorii.
+Diagnostic pozitiv: sindrom de [canal carpian/canal Guyon/canal tarsian] [drept/stâng], severitate [ușoară/moderată/severă], pe baza examenului clinic (semnul Tinel pozitiv, [Phalen/Durkan/dorsiflexie-eversie] pozitiv, [deficit motor/senzitiv dacă prezent]) și a EMG/conducerii nervoase confirmatorii.
 
 ### 5. Diagnostic diferențial (1 min)
 
-Radiculopatie cervicala C6-C7 (pentru SCC): distributie dermatomala mai larga, semne de tensiune cervicala. Compresie de nerv ulnar la cot (pentru Guyon): afectare a fetei dorsale a mainii, Tinel pozitiv la cot. Polineuropatie generalizata: afectare bilaterala simetrica in "manusa-soseta". Radiculopatie lombara S1 (pentru canal tarsian): distributie dermatomala mai larga, tensiune sciatica. Fasciita plantara (pentru canal tarsian): durere la calcaneu plantar matinal, fara parestezii specifice.
+Radiculopatie cervicală C6-C7 (pentru SCC): distribuție dermatomală mai largă, semne de tensiune cervicală. Compresie de nerv ulnar la cot (pentru Guyon): afectare a feței dorsale a mâinii, Tinel pozitiv la cot. Polineuropatie generalizată: afectare bilaterală simetrică în "mănușă-șosetă". Radiculopatie lombară S1 (pentru canal tarsian): distribuție dermatomală mai largă, tensiune sciatică. Fasciită plantară (pentru canal tarsian): durere la calcaneu plantar matinal, fără parestezii specifice.
 
 ### 6. Investigații (1 min)
 
-EMG/conducere nervoasa, standardul de referinta pentru confirmare si stadializare: pentru SCC, latenta motorie distala peste 4,5 ms (?), latenta senzitiva peste 3,5 ms (?), viteza de conducere sub 50 m/s (?). Ecografie de nerv pentru aria sectiunii transverse (peste 9-10 mm² pentru median) (?) si identificare a maselor ocupante de spatiu. IRM pentru caracterizarea maselor de tesut moale si a etiologiei in canal Guyon/tarsian. Radiografie pentru deformari osoase asociate. Preoperator: probe biologice standard, evaluare a cauzelor sistemice (glicemie, TSH).
+EMG/conducere nervoasă, standardul de referință pentru confirmare și stadializare: pentru SCC, latența motorie distală peste 4,5 ms (?), latența senzitivă peste 3,5 ms (?), viteza de conducere sub 50 m/s (?). Ecografie de nerv pentru aria secțiunii transverse (peste 9-10 mm² pentru median) (?) și identificare a maselor ocupante de spațiu. IRM pentru caracterizarea maselor de țesut moale și a etiologiei în canal Guyon/tarsian. Radiografie pentru deformări osoase asociate. Preoperator: probe biologice standard, evaluare a cauzelor sistemice (glicemie, TSH).
 
 ### 7. Tratament (3 min)
 
-Obiective: ameliorarea paresteziilor si durerii, prevenirea/recuperarea deficitului motor, evitarea denervarii permanente. Optiuni: tratament conservator (orteza, infiltratie, tratament al cauzei sistemice) pentru forme usoare-moderate fara deficit; decompresie chirurgicala pentru simptome refractare, deficit motor/denervare la EMG, sau masa ocupanta de spatiu. Pentru acest pacient aleg [optiunea], motivat de [severitatea EMG, deficitul obiectiv, prezenta masei ocupante de spatiu, raspunsul la tratament conservator]. Tehnica in pasi (eliberare deschisa de canal carpian, exemplu): (1) instalare in decubit dorsal cu bratul pe masa, anestezie locala/regionala si garou daca necesar; (2) incizie longitudinala palmara la nivelul canalului carpian, evitand ramura cutanata palmara a medianului; (3) disectie prin tesutul subcutanat pana la ligamentul transvers al carpului; (4) sectionarea completa a ligamentului sub vizualizare directa, de la marginea distala la cea proximala; (5) inspectarea nervului median pentru semne de compresie/aderenta, neuroliza daca necesar; (6) verificarea decompresiei complete pe toata lungimea canalului; (7) hemostaza, inchidere cutanata pe planuri; (8) pansament compresiv, atela daca necesar. Postoperator: mobilizare precoce a degetelor, atela nocturna 1-2 saptamani daca folosita, control la 2 saptamani, kinetoterapie daca deficit motor prezent, revenire progresiva la activitate 4-6 saptamani.
+Obiective: ameliorarea paresteziilor și durerii, prevenirea/recuperarea deficitului motor, evitarea denervării permanente. Opțiuni: tratament conservator (orteza, infiltrație, tratament al cauzei sistemice) pentru forme ușoare-moderate fără deficit; decompresie chirurgicală pentru simptome refractare, deficit motor/denervare la EMG, sau masa ocupantă de spațiu. Pentru acest pacient aleg [opțiunea], motivat de [severitatea EMG, deficitul obiectiv, prezența masei ocupante de spațiu, răspunsul la tratament conservator]. Tehnica în pași (eliberare deschisă de canal carpian, exemplu): (1) instalare în decubit dorsal cu brațul pe masă, anestezie locală/regională și garou dacă necesar; (2) incizie longitudinală palmară la nivelul canalului carpian, evitând ramura cutanată palmară a medianului; (3) disecție prin țesutul subcutanat până la ligamentul transvers al carpului; (4) secționarea completă a ligamentului sub vizualizare directă, de la marginea distală la cea proximală; (5) inspectarea nervului median pentru semne de compresie/aderență, neuroliză dacă necesar; (6) verificarea decompresiei complete pe toată lungimea canalului; (7) hemostază, închidere cutanată pe planuri; (8) pansament compresiv, atelă dacă necesar. Postoperator: mobilizare precoce a degetelor, atelă nocturnă 1-2 săptămâni dacă folosită, control la 2 săptămâni, kinetoterapie dacă deficit motor prezent, revenire progresivă la activitate 4-6 săptămâni.
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Netratat, sindromul poate progresa catre deficit motor permanent si atrofie musculara ireversibila, desi multe cazuri usoare raman stabile cu tratament conservator. Complicatii ale bolii: deficit senzitiv permanent, atrofie ireversibila. Complicatii ale tratamentului chirurgical: leziune a ramurii cutanate palmare sau a arterei ulnare, decompresie incompleta, recidiva/fibroza, sindrom de durere regionala complexa. Prognostic functional excelent pentru SCC decompresat la timp (peste 90% ameliorare) (?); prognostic mai variabil pentru canal tarsian, cu urmarire necesara pentru recuperarea deficitului preoperator.
+Netratat, sindromul poate progresa către deficit motor permanent și atrofie musculară ireversibilă, deși multe cazuri ușoare rămân stabile cu tratament conservator. Complicații ale bolii: deficit senzitiv permanent, atrofie ireversibilă. Complicații ale tratamentului chirurgical: leziune a ramurii cutanate palmare sau a arterei ulnare, decompresie incompletă, recidivă/fibroză, sindrom de durere regională complexă. Prognostic funcțional excelent pentru SCC decompresat la timp (peste 90% ameliorare) (?); prognostic mai variabil pentru canal tarsian, cu urmărire necesară pentru recuperarea deficitului preoperator.
 
 ### Fraze-cheie
 
-- Diferentiez cele trei sindroame prin teritoriul nervos afectat: median pentru canal carpian, ulnar pentru canal Guyon, tibial posterior pentru canal tarsian.
-- Aplic testele specifice: Tinel, Phalen si Durkan pentru canal carpian, Tinel si Froment pentru canal Guyon, Tinel si dorsiflexie-eversie pentru canal tarsian.
-- Zonele Guyon (1 mixt, 2 motor, 3 senzitiv) ma ajuta sa localizez nivelul leziunii pe baza tabloului clinic.
-- EMG este standardul de referinta pentru confirmarea si stadializarea obiectiva a tuturor celor trei sindroame.
-- Deficitul motor obiectiv sau semnele de denervare la EMG imi schimba indicatia catre decompresie chirurgicala fara a mai astepta progresia.
-- Ambele tehnici, deschisa si endoscopica, au rezultate echivalente la un an pentru sindromul de canal carpian.
-- Exclud intotdeauna o compresie mai proximala (cot pentru ulnar, coloana pentru medular/lombar) inainte de a atribui simptomele exclusiv canalului distal.
-- Canalul tarsian contine, de anterior spre posterior, tendonul tibial posterior, flexor digitorum longus, pachetul vascular, nervul tibial posterior si flexor hallucis longus.
+- Diferențiez cele trei sindroame prin teritoriul nervos afectat: median pentru canal carpian, ulnar pentru canal Guyon, tibial posterior pentru canal tarsian.
+- Aplic testele specifice: Tinel, Phalen și Durkan pentru canal carpian, Tinel și Froment pentru canal Guyon, Tinel și dorsiflexie-eversie pentru canal tarsian.
+- Zonele Guyon (1 mixt, 2 motor, 3 senzitiv) mă ajută să localizez nivelul leziunii pe baza tabloului clinic.
+- EMG este standardul de referință pentru confirmarea și stadializarea obiectivă a tuturor celor trei sindroame.
+- Deficitul motor obiectiv sau semnele de denervare la EMG îmi schimbă indicația către decompresie chirurgicală fără a mai aștepta progresia.
+- Ambele tehnici, deschisă și endoscopică, au rezultate echivalente la un an pentru sindromul de canal carpian.
+- Exclud întotdeauna o compresie mai proximală (cot pentru ulnar, coloana pentru medular/lombar) înainte de a atribui simptomele exclusiv canalului distal.
+- Canalul tarsian conține, de anterior spre posterior, tendonul tibial posterior, flexor digitorum longus, pachetul vascular, nervul tibial posterior și flexor hallucis longus.
 
 ## Întrebările comisiei
 
-### Î1. Care sunt structurile continute in canalul carpian si de ce nervul median este cel mai expus la compresie?
+### Î1. Care sunt structurile conținute în canalul carpian și de ce nervul median este cel mai expus la compresie?
 
-**R:** Canalul contine nervul median si noua tendoane flexoare (FDS x4, FDP x4, FPL). Nervul median e structura cea mai superficiala si anterioara in canal, motiv pentru care e cel mai expus la compresie prin cresterea presiunii intracanalare.
+**R:** Canalul conține nervul median și nouă tendoane flexoare (FDS x4, FDP x4, FPL). Nervul median e structura cea mai superficială și anterioară în canal, motiv pentru care e cel mai expus la compresie prin creșterea presiunii intracanalare.
 
-### Î2. Care sunt cele trei zone ale canalului Guyon si semnificatia lor clinica?
+### Î2. Care sunt cele trei zone ale canalului Guyon și semnificația lor clinică?
 
-**R:** Zona 1, proximal de bifurcatie, produce leziune mixta motorie si senzitiva; zona 2, ramura motorie profunda, leziune predominant motorie; zona 3, ramura senzitiva superficiala, leziune predominant senzitiva. Localizarea deficitului orienteaza catre zona afectata.
+**R:** Zona 1, proximal de bifurcație, produce leziune mixtă motorie și senzitivă; zona 2, ramura motorie profundă, leziune predominant motorie; zona 3, ramura senzitivă superficială, leziune predominant senzitivă. Localizarea deficitului orientează către zona afectată.
 
 ### Î3. Care sunt criteriile electrofiziologice pentru sindromul de canal carpian?
 
-**R:** Latenta motorie distala peste 4,5 ms (?), latenta senzitiva peste 3,5 ms (?), viteza de conducere sub 50 m/s (?), cu unde de denervare la EMG cu ac in cazurile severe.
+**R:** Latența motorie distală peste 4,5 ms (?), latența senzitivă peste 3,5 ms (?), viteza de conducere sub 50 m/s (?), cu unde de denervare la EMG cu ac în cazurile severe.
 
-### Î4. Ce faceti daca un pacient cu sindrom de canal carpian prezinta atrofie tenariana la prezentare?
+### Î4. Ce faceți dacă un pacient cu sindrom de canal carpian prezintă atrofie tenariană la prezentare?
 
-**R:** Indica o compresie severa, de durata, cu denervare partiala deja instalata; indic decompresie chirurgicala fara a mai incerca tratament conservator prelungit, si informez pacientul ca recuperarea motorie poate fi partiala si mai lenta.
+**R:** Indică o compresie severă, de durată, cu denervare parțială deja instalată; indic decompresie chirurgicală fără a mai încerca tratament conservator prelungit, și informez pacientul că recuperarea motorie poate fi parțială și mai lentă.
 
-### Î5. Cum diferentiati o compresie de canal Guyon de o compresie de nerv ulnar la cot?
+### Î5. Cum diferențiați o compresie de canal Guyon de o compresie de nerv ulnar la cot?
 
-**R:** In compresia la canalul Guyon, fata dorsala a mainii e cruta, caci ramura dorsala senzitiva se desprinde din nervul ulnar proximal de pumn; la cot (tunel cubital), fata dorsala e si ea afectata, cu Tinel pozitiv la cot.
+**R:** În compresia la canalul Guyon, fața dorsală a mâinii e cruța, căci ramura dorsală senzitivă se desprinde din nervul ulnar proximal de pumn; la cot (tunel cubital), fața dorsală e și ea afectată, cu Tinel pozitiv la cot.
 
-### Î6. Ce faceti daca palpati o masa la nivelul canalului Guyon la un pacient cu simptome de compresie ulnara?
+### Î6. Ce faceți dacă palpați o masă la nivelul canalului Guyon la un pacient cu simptome de compresie ulnară?
 
-**R:** Solicit ecografie/IRM pentru caracterizarea masei (cel mai frecvent chist ganglionar), si planific decompresie cu excizia masei, deoarece tratamentul conservator singur nu rezolva o cauza structurala compresiva.
+**R:** Solicit ecografie/IRM pentru caracterizarea masei (cel mai frecvent chist ganglionar), și planific decompresie cu excizia masei, deoarece tratamentul conservator singur nu rezolvă o cauză structurală compresivă.
 
-### Î7. Care sunt structurile continute in canalul tarsian, in ordine anteroposterioara?
+### Î7. Care sunt structurile conținute în canalul tarsian, în ordine anteroposterioară?
 
-**R:** Tendonul tibial posterior, tendonul flexor digitorum longus, artera si vena tibiala posterioara, nervul tibial posterior, si tendonul flexor hallucis longus, mnemonic "Tom, Dick and Very Nervous Harry".
+**R:** Tendonul tibial posterior, tendonul flexor digitorum longus, artera și vena tibială posterioară, nervul tibial posterior, și tendonul flexor hallucis longus, mnemonic "Tom, Dick and Very Nervous Harry".
 
-### Î8. Ce faceti daca un pacient cu sindrom de canal tarsian are si o deformare de retropicior in valg sever?
+### Î8. Ce faceți dacă un pacient cu sindrom de canal tarsian are și o deformare de retropicior în valg sever?
 
-**R:** Recunosc valgul de retropicior ca factor cauzal frecvent, prin intinderea structurilor posteromediale; planific decompresia nervului tibial posterior si, daca deformarea e severa, discut o osteotomie asociata pentru a preveni recidiva.
+**R:** Recunosc valgul de retropicior ca factor cauzal frecvent, prin întinderea structurilor posteromediale; planific decompresia nervului tibial posterior și, dacă deformarea e severă, discut o osteotomie asociată pentru a preveni recidiva.
 
-### Î9. Care este diferenta intre eliberarea deschisa si endoscopica de canal carpian in privinta rezultatelor?
+### Î9. Care este diferența între eliberarea deschisă și endoscopică de canal carpian în privința rezultatelor?
 
-**R:** Ambele tehnici au rezultate echivalente la un an in trialuri comparative mari; endoscopicul poate oferi ameliorare mai rapida a durerii si revenire mai precoce la activitate pe termen scurt, cu o curba de invatare mai lunga si risc teoretic mai mare de leziune nervoasa/vasculara daca reperele anatomice nu sunt respectate corect.
+**R:** Ambele tehnici au rezultate echivalente la un an în trialuri comparative mari; endoscopicul poate oferi ameliorare mai rapidă a durerii și revenire mai precoce la activitate pe termen scurt, cu o curbă de învățare mai lungă și risc teoretic mai mare de leziune nervoasă/vasculară dacă reperele anatomice nu sunt respectate corect.
 
-### Î10. Ce faceti daca testul Phalen si testul Durkan sunt discordante la un pacient cu suspiciune de canal carpian?
+### Î10. Ce faceți dacă testul Phalen și testul Durkan sunt discordante la un pacient cu suspiciune de canal carpian?
 
-**R:** Nu ma bazez pe un singur test clinic; solicit EMG pentru confirmare obiectiva, caci niciun test izolat nu are sensibilitate/specificitate perfecte, si decizia terapeutica se bazeaza pe corelarea clinicii cu electrofiziologia.
+**R:** Nu mă bazez pe un singur test clinic; solicit EMG pentru confirmare obiectivă, căci niciun test izolat nu are sensibilitate/specificitate perfecte, și decizia terapeutică se bazează pe corelarea clinicii cu electrofiziologia.
 
-### Î11. Care este semnul Froment si ce indica?
+### Î11. Care este semnul Froment și ce indică?
 
-**R:** Pacientul tine o hartie intre police si index in timp ce examinatorul trage; pozitiv daca pacientul flecteaza IF a policelui (flexor pollicis longus, median) pentru a compensa slabiciunea adductorului policelui (ulnar), indicand o leziune de nerv ulnar.
+**R:** Pacientul ține o hârtie între police și index în timp ce examinatorul trage; pozitiv dacă pacientul flectează IF a policelui (flexor pollicis longus, median) pentru a compensa slăbiciunea adductorului policelui (ulnar), indicând o leziune de nerv ulnar.
 
-### Î12. Ce faceti daca EMG arata denervare severa la un pacient cu sindrom de canal carpian de lunga durata?
+### Î12. Ce faceți dacă EMG arată denervare severă la un pacient cu sindrom de canal carpian de lungă durată?
 
-**R:** Indic decompresie chirurgicala prompta pentru a preveni progresia denervarii, dar informez pacientul ca recuperarea senzitiva/motorie completa nu este garantata la acest stadiu, iar unele deficite pot ramane permanente, mai ales cea legata de atrofia musculara deja instalata.
+**R:** Indic decompresie chirurgicală promptă pentru a preveni progresia denervării, dar informez pacientul că recuperarea senzitivă/motorie completă nu este garantată la acest stadiu, iar unele deficite pot rămâne permanente, mai ales cea legată de atrofia musculară deja instalată.
 
-### Î13. Cum se explica de ce fractura carligului osului hamat poate produce sindrom de canal Guyon?
+### Î13. Cum se explică de ce fractura cârligului osului hamat poate produce sindrom de canal Guyon?
 
-**R:** Carligul hamatului formeaza peretele lateral al canalului Guyon; o fractura la acest nivel, frecventa la sportivii cu bat/racheta, poate produce edem, calus vicios sau fragmente osoase care ingusteaza canalul si comprima nervul ulnar.
+**R:** Cârligul hamatului formează peretele lateral al canalului Guyon; o fractură la acest nivel, frecventă la sportivii cu bâtă/rachetă, poate produce edem, calus vicios sau fragmente osoase care îngustează canalul și comprimă nervul ulnar.
 
-### Î14. Care sunt masurile conservatoare de prima linie pentru sindromul de canal carpian usor-moderat?
+### Î14. Care sunt măsurile conservatoare de prima linie pentru sindromul de canal carpian ușor-moderat?
 
-**R:** Orteza de imobilizare nocturna in pozitie neutra a pumnului, cea mai eficace masura conservatoare, modificare a activitatii, AINS, si infiltratie cu corticoid in canal pentru beneficiu temporar si diagnostic-terapeutic, alaturi de tratamentul cauzei sistemice asociate daca exista.
+**R:** Orteza de imobilizare nocturnă în poziție neutră a pumnului, cea mai eficace măsură conservatoare, modificare a activității, AINS, și infiltrație cu corticoid în canal pentru beneficiu temporar și diagnostic-terapeutic, alături de tratamentul cauzei sistemice asociate dacă există.
 
-### Î15. Ce faceti daca un pacient cu simptome de canal tarsian nu raspunde la decompresie chirurgicala?
+### Î15. Ce faceți dacă un pacient cu simptome de canal tarsian nu răspunde la decompresie chirurgicală?
 
-**R:** Reevaluez diagnosticul (exclud radiculopatie lombara S1, polineuropatie generalizata, fasciita plantara), repet EMG postoperator, si caut o cauza reziduala neidentificata initial (bandă fibroasa aberanta, decompresie incompleta a uneia dintre cele trei ramuri distale).
+**R:** Reevaluez diagnosticul (exclud radiculopatie lombară S1, polineuropatie generalizată, fasciită plantară), repet EMG postoperator, și caut o cauză reziduală neidentificată inițial (bandă fibroasă aberantă, decompresie incompletă a uneia dintre cele trei ramuri distale).

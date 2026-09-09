@@ -12,15 +12,15 @@ related: diagnoses/elbow-forearm-fractures, techniques/interposition-arthroplast
 
 ### Definiție și epidemiologie
 
-Luxația de cot este a doua cea mai frecventă luxație articulară majoră la adult (după umăr), cu incidență de aproximativ 6 la 8 la 100.000 de persoane pe an. Luxația posterioară și posterolaterală reprezintă 90% din cazuri. Este cea mai frecventă luxație la copil sub 10 ani (unde predomină subluxația de cap radial, "nursemaid elbow", o entitate distinctă). Vârf de incidență la adultul tânăr activ (sport de contact, cădere pe mână întinsă) și la vârstnic (cădere simplă cu energie mai mică).
+Luxația de cot este a doua cea mai frecventă luxație articulară majoră la adult (după umăr), cu incidență de 6-8 la 100.000 persoane pe an. Luxația posterioară și posterolaterală reprezintă 90% din cazuri. Este cea mai frecventă luxație la copil sub 10 ani (unde predomină subluxația de cap radial, "nursemaid elbow", entitate distinctă). Vârf de incidență la adultul tânăr activ (sport de contact) și la vârstnic (cădere simplă cu energie mai mică).
 
 ### Anatomie și biomecanică relevantă
 
-Cotul are stabilitate osoasă (articulația humero-ulnară, congruența trohleei cu incizura semilunară) și stabilitate ligamentară: ligamentul colateral medial (bandeleta anterioară, principal stabilizator la stres în valgus, de la 30 la 120 grade flexie) și ligamentul colateral lateral (LCL, complex, cu ligamentul colateral ulnar lateral, LUCL, principalul stabilizator la stres în varus și la instabilitate rotatorie posterolaterală). Capul radial este un stabilizator secundar important, mai ales când ligamentele sunt lezate ("a treia coloană" a stabilității cotului, alături de cele două coloane osoase medial-lateral). Concept de "ring of stability" (Cohen/Hastings): cotul este stabil dacă cel puțin unul din inelul de structuri (osoase și ligamentare, medial și lateral) rămâne intact; leziunile progresează de la lateral spre medial în luxația posterolaterală tipică.
+Cotul are stabilitate osoasă (congruența trohleei cu incizura semilunară) și ligamentară: ligamentul colateral medial (bandeleta anterioară, principal stabilizator la valgus) și ligamentul colateral lateral (LCL, cu LUCL, principal stabilizator la varus și la instabilitate rotatorie posterolaterală). Capul radial este stabilizator secundar important când ligamentele sunt lezate ("a treia coloană"). Concept "ring of stability" (Cohen/Hastings): cotul este stabil dacă cel puțin una din structurile inelului (osoase și ligamentare) rămâne intactă; leziunile progresează de la lateral spre medial în luxația posterolaterală tipică.
 
 ### Etiopatogenie
 
-Mecanismul clasic (O'Driscoll): cădere pe mâna întinsă cu cotul în extensie/hiperextensie, sub combinația de forțe valgus, supinație a antebrațului și încărcare axială, produce o rotație externă a antebrațului față de humerus, care rupe progresiv structurile de la lateral spre medial (mecanism de instabilitate rotatorie posterolaterală, PLRI). Mecanism de energie mai mare (accident rutier, sport de contact, cădere de la înălțime) pentru variantele complexe (terrible triad, cu fractură de cap radial și/sau apofiza coronoidă asociate).
+Mecanismul clasic (O'Driscoll): cădere pe mâna întinsă cu cotul în extensie, sub combinația de valgus, supinație și încărcare axială, produce o rotație externă a antebrațului față de humerus, care rupe progresiv structurile de la lateral spre medial (PLRI). Energie mai mare pentru variantele complexe (terrible triad, cu fractură de cap radial și/sau coronoidă).
 
 ### Anatomie patologică
 
@@ -30,7 +30,7 @@ Luxație simplă: fără fractură osoasă asociată, dar cu leziune ligamentar�
 
 **Direcție:** posterioară (cea mai frecventă, ulna și radiusul deplasate posterior față de humerus), posterolaterală (90% din cazuri, subtip al posterioarei), anterioară (rară, energie mare), divergentă/laterală/medială (foarte rare).
 
-**O'Driscoll, stadializarea instabilității posterolaterale (PLRI), progresivă de la lateral spre medial:** stadiul 1, subluxație rotatorie posterolaterală tranzitorie (ruptura LUCL, se reduce spontan); stadiul 2, luxație posterolaterală incompletă (ruptura ligamentară anterioară și posterioară, cot "perched" pe coronoidă); stadiul 3A, luxație posterioară completă cu ruptura completă a complexului ligamentar lateral și posterior medial, dar cu bandeleta anterioară a ligamentului colateral medial intactă (cot stabil după reducere la testarea în valgus/varus dacă bandeleta anterioară e intactă); stadiul 3B, ruptura completă inclusiv a bandeletei anterioare mediale (instabilitate reziduală în valgus după reducere); stadiul 3C, dezinserția completă a tuturor originilor musculo-ligamentare de pe humerusul distal (instabilitate globală severă, "flail elbow").
+**O'Driscoll, stadializarea PLRI, progresivă de la lateral spre medial:** stadiul 1, subluxație rotatorie tranzitorie (ruptura LUCL, se reduce spontan); stadiul 2, luxație incompletă (ruptura capsulară anterioară/posterioară, cot "perched" pe coronoidă); stadiul 3A, luxație completă cu ruptura complexului lateral și posterior medial, dar bandeleta anterioară a LCM intactă (stabil postreducere); stadiul 3B, ruptura completă inclusiv a bandeletei anterioare (instabilitate reziduală în valgus); stadiul 3C, dezinserție musculo-ligamentară completă de pe humerusul distal ("flail elbow").
 
 **Simplă versus complexă:** simplă, fără fractură; complexă, cu fractură asociată (cap radial, coronoidă, olecran); terrible triad ca subtip specific al complexei.
 
