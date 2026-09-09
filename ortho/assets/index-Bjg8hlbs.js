@@ -8982,7 +8982,7 @@ Netratata, boala progreseaza cronic, cu viteza variabila; unii pacienti stagneaz
 title: Sindromul de canal carpian, canal Guyon, canal tarsian
 probe: co
 number: 10
-tags: sindrom de canal carpian, canal Guyon, canal tarsian, nerv median, nerv ulnar, nerv tibial posterior, semnul Tinel, testul Phalen, testul Durkan, EMG, decompresie deschisa, decompresie endoscopica
+tags: sindrom de canal carpian, canal Guyon, canal tarsian, nerv median, nerv ulnar, nerv tibial posterior, semnul Tinel, testul Phalen, testul Durkan, EMG, decompresie deschisă, decompresie endoscopică
 region: Hand & Wrist
 specialty: Hand & Wrist
 related: techniques/carpal-tunnel-release-open-endoscopic-walant, techniques/cubital-tunnel-decompression-transposition, diagnoses/hand-wrist-conditions, diagnoses/hindfoot-ankle-disorders
@@ -8992,180 +8992,180 @@ related: techniques/carpal-tunnel-release-open-endoscopic-walant, techniques/cub
 
 ### Definiție și epidemiologie
 
-Cele trei sindroame de compresie nervoasa canalara ale membrelor: sindromul de canal carpian (SCC, compresia nervului median la pumn, cel mai frecvent sindrom de compresie periferica, prevalenta 3-5%, predominanta feminina 3:1) (?), sindromul de canal Guyon (nervul ulnar la pumn, mult mai rar decat SCC), si sindromul de canal tarsian (nervul tibial posterior la glezna/picior, cel mai rar, subdiagnosticat frecvent). Factori de risc comuni: activitati repetitive/vibratii, sarcina, obezitate, diabet, hipotiroidism, poliartrita reumatoida, dializa.
+Cele trei sindroame de compresie nervoasă canalară ale membrelor: sindromul de canal carpian (SCC, compresia nervului median la pumn, cel mai frecvent sindrom de compresie periferică, prevalență 3-5%, predominanță feminină 3:1) (?), sindromul de canal Guyon (nervul ulnar la pumn, mult mai rar decât SCC), și sindromul de canal tarsian (nervul tibial posterior la gleznă/picior, cel mai rar, subdiagnosticat frecvent). Factori de risc comuni: activități repetitive/vibrații, sarcină, obezitate, diabet, hipotiroidism, poliartrită reumatoidă, dializă.
 
-### Anatomie și biomecanica relevanta
+### Anatomie și biomecanică relevantă
 
-**Canalul carpian**: delimitat de oasele carpiene si superficial de ligamentul transvers al carpului (retinaculul flexorilor), continand nervul median si noua tendoane flexoare (FDS x4, FDP x4, FPL). Nervul median e cea mai superficiala si anterioara structura in canal, deci cel mai expus la compresie.
+**Canalul carpian**: delimitat de oasele carpiene și superficial de ligamentul transvers al carpului (retinaculul flexorilor), conținând nervul median și nouă tendoane flexoare (FDS x4, FDP x4, FPL). Nervul median e cea mai superficială și anterioară structură în canal, deci cel mai expus la compresie.
 
-**Canalul Guyon**: delimitat de pisiform (medial), carligul hamatului (lateral), ligamentul carpian volar/piso-hamat (planseu) si ligamentul volar al carpului (plafon), continand nervul si artera ulnara. Trei zone: zona 1 (proximal de bifurcatie, leziune mixta), zona 2 (ramura motorie profunda, leziune predominant motorie a intrinsecilor), zona 3 (ramura senzitiva superficiala, leziune predominant senzitiva).
+**Canalul Guyon**: delimitat de pisiform (medial), cârligul hamatului (lateral), ligamentul carpian volar/piso-hamat (planșeu) și ligamentul volar al carpului (plafon), conținând nervul și artera ulnară. Trei zone: zona 1 (proximal de bifurcație, leziune mixtă), zona 2 (ramura motorie profundă, leziune predominant motorie a intrinsecilor), zona 3 (ramura senzitivă superficială, leziune predominant senzitivă).
 
-**Canalul tarsian**: posteromedial de maleola tibiala, delimitat de retinaculul flexorilor, continand anteroposterior tendonul tibial posterior, flexor digitorum longus, artera/vena tibiala posterioara, nervul tibial posterior, si flexor hallucis longus (mnemonic "Tom, Dick and Very Nervous Harry"). Nervul se bifurca in canal sau distal in plantar medial si lateral, plus ramura calcaneana medie.
+**Canalul tarsian**: posteromedial de maleola tibială, delimitat de retinaculul flexorilor, conținând anteroposterior tendonul tibial posterior, flexor digitorum longus, artera/vena tibială posterioară, nervul tibial posterior, și flexor hallucis longus (mnemonic "Tom, Dick and Very Nervous Harry"). Nervul se bifurcă în canal sau distal în plantar medial și lateral, plus ramura calcaneană medie.
 
 ### Etiopatogenie
 
-SCC: idiopatic/degenerativ (tenosinovita nespecifica, cea mai frecventa cauza), sarcina, diabet, hipotiroidism, poliartrita reumatoida, fractura de radius distal cu deformare secundara, activitati repetitive, dializa (amiloidoza). Canal Guyon: chist ganglionar (cea mai frecventa cauza focala), fractura de hamat (sportivi cu bat/racheta), presiune repetitiva (ciclism, "handlebar palsy"), anomalii musculare accesorii. Canal tarsian: idiopatic, tenosinovita, chist ganglionar, varice, deformare de retropicior in valg, fractura de calcaneu/talus, schwannom, boli sistemice.
+SCC: idiopatic/degenerativ (tenosinovită nespecifică, cea mai frecventă cauză), sarcină, diabet, hipotiroidism, poliartrită reumatoidă, fractură de radius distal cu deformare secundară, activități repetitive, dializă (amiloidoză). Canal Guyon: chist ganglionar (cea mai frecventă cauză focală), fractură de hamat (sportivi cu bâtă/rachetă), presiune repetitivă (ciclism, "handlebar palsy"), anomalii musculare accesorii. Canal tarsian: idiopatic, tenosinovită, chist ganglionar, varice, deformare de retropicior în valg, fractură de calcaneu/talus, schwannom, boli sistemice.
 
-### Anatomie patologica
+### Anatomie patologică
 
-SCC: ingrosare fibrozanta a tesutului conjunctiv sinovial peritendinos, cu compresie mecanica cronica a nervului median, ischemie intrafasciculara, demielinizare segmentara la stadii avansate, atrofie a musculaturii tenariene in cazuri severe/vechi. Canal Guyon si canal tarsian: mecanism similar de compresie mecanica cronica, cu variabilitate legata de cauza focala (masa ocupanta de spatiu, deformare osoasa, tenosinovita).
+SCC: îngroșare fibrozantă a țesutului conjunctiv sinovial peritendinos, cu compresie mecanică cronică a nervului median, ischemie intrafasciculară, demielinizare segmentară la stadii avansate, atrofie a musculaturii tenariene în cazuri severe/vechi. Canal Guyon și canal tarsian: mecanism similar de compresie mecanică cronică, cu variabilitate legată de cauză focală (masă ocupantă de spațiu, deformare osoasă, tenosinovită).
 
 ### Clasificare
 
-Nu exista o clasificare stadiala universala unica pentru aceste sindroame; severitatea se stadializeaza in principal prin criterii electrofiziologice (EMG/conducere nervoasa) si clinice.
+Nu există o clasificare stadială universală unică pentru aceste sindroame; severitatea se stadializează în principal prin criterii electrofiziologice (EMG/conducere nervoasă) și clinice.
 
-**Severitatea clinica a SCC** (utilizata frecvent, criterii combinate): usoara (parestezii intermitente, fara deficit obiectiv), moderata (parestezii frecvente/nocturne, scadere a sensibilitatii, fara atrofie), severa (deficit motor obiectiv, atrofie tenariana, scadere permanenta a sensibilitatii).
+**Severitatea clinică a SCC** (utilizată frecvent, criterii combinate): ușoară (parestezii intermitente, fără deficit obiectiv), moderată (parestezii frecvente/nocturne, scădere a sensibilității, fără atrofie), severă (deficit motor obiectiv, atrofie tenariană, scădere permanentă a sensibilității).
 
-**Clasificarea electrofiziologica a severitatii** (aplicabila conceptual la toate cele trei sindroame): usoara (latente distale prelungite izolat, viteze de conducere senzitive incetinite), moderata (latente prelungite plus incetinire a conducerii motorii), severa (unde de denervare la EMG cu ac, absenta raspunsurilor senzitive, semne de denervare/reinnervare la muschii intrinseci).
+**Clasificarea electrofiziologică a severității** (aplicabilă conceptual la toate cele trei sindroame): ușoară (latențe distale prelungite izolat, viteze de conducere senzitive încetinite), moderată (latențe prelungite plus încetinire a conducerii motorii), severă (unde de denervare la EMG cu ac, absența răspunsurilor senzitive, semne de denervare/reinnervare la mușchii intrinseci).
 
-**Zonele Guyon** (deja descrise la anatomie): zona 1 mixt, zona 2 motor pur, zona 3 senzitiv pur, cu relevanta directa pentru localizarea leziunii pe baza tabloului clinic.
+**Zonele Guyon** (deja descrise la anatomie): zona 1 mixt, zona 2 motor pur, zona 3 senzitiv pur, cu relevanță directă pentru localizarea leziunii pe baza tabloului clinic.
 
 ### Clinic
 
-**SCC**: parestezii nocturne in teritoriul median (police, index, medius, jumatate radiala a inelarului), amelioarate la scuturarea mainii (flick sign), slabiciune de priza fina. Semnul Tinel: percutie peste canal, pozitiv daca reproduce parestezii median. Testul Phalen: flexie pasiva a pumnurilor 90 grade, 60 secunde. Testul Durkan: presiune directa cu policele peste canal 30 secunde, sensibilitate/specificitate buna. Testez atrofia tenariana si forta de abductie a policelui.
+**SCC**: parestezii nocturne în teritoriul median (police, index, medius, jumătate radială a inelarului), amelioarate la scuturarea mâinii (flick sign), slăbiciune de priză fină. Semnul Tinel: percuție peste canal, pozitiv dacă reproduce parestezii median. Testul Phalen: flexie pasivă a pumnurilor 90 grade, 60 secunde. Testul Durkan: presiune directă cu policele peste canal 30 secunde, sensibilitate/specificitate bună. Testez atrofia tenariană și forța de abducție a policelui.
 
-**Canal Guyon**: parestezii in teritoriul ulnar distal (inelar, deget mic, fara afectare dorsala, ceea ce il diferentiaza de o leziune la cot), slabiciune a intrinsecilor, semnul Froment (compensare prin flexor pollicis longus la insuficienta adductorului policelui). Tinel pozitiv peste canal. Palpare pentru masa (chist).
+**Canal Guyon**: parestezii în teritoriul ulnar distal (inelar, deget mic, fără afectare dorsală, ceea ce îl diferențiază de o leziune la cot), slăbiciune a intrinsecilor, semnul Froment (compensare prin flexor pollicis longus la insuficiența adductorului policelui). Tinel pozitiv peste canal. Palpare pentru masa (chist).
 
-**Canal tarsian**: durere si parestezii plantare, accentuate la mers/ortostatism, in teritoriul plantar medial/lateral. Tinel pozitiv posteromedial de maleola. Testul de dorsiflexie-eversie (mentinuta, reproduce simptomele prin intinderea nervului). Examinez deformarea de retropicior in valg si masa palpabila.
+**Canal tarsian**: durere și parestezii plantare, accentuate la mers/ortostatism, în teritoriul plantar medial/lateral. Tinel pozitiv posteromedial de maleola. Testul de dorsiflexie-eversie (menținută, reproduce simptomele prin întinderea nervului). Examinez deformarea de retropicior în valg și masa palpabilă.
 
-**Comun**: examen neuro-vascular distal complet, examinarea articulatiilor supra/subiacente (cot pentru SCC/Guyon, genunchi/lombar pentru canal tarsian), mers (relevant pentru canal tarsian).
+**Comun**: examen neuro-vascular distal complet, examinarea articulațiilor supra/subiacente (cot pentru SCC/Guyon, genunchi/lombar pentru canal tarsian), mers (relevant pentru canal tarsian).
 
-### Imagistica si explorari
+### Imagistică și explorări
 
-**EMG/conducere nervoasa**: standardul de referinta pentru confirmarea si stadializarea obiectiva a tuturor celor trei sindroame. Criterii pentru SCC: latenta motorie distala peste 4,5 ms (?), latenta senzitiva peste 3,5 ms (?), viteza de conducere sub 50 m/s (?), cu unde de denervare la EMG cu ac in cazuri severe. Ecografie de nerv utila pentru aria sectiunii transverse (peste 9-10 mm² pentru median) (?) si identificarea maselor ocupante de spatiu. IRM pentru caracterizarea maselor de tesut moale, fractura de hamat oculta, varice/tumora de nerv. Radiografie pentru deformari osoase asociate.
+**EMG/conducere nervoasă**: standardul de referință pentru confirmarea și stadializarea obiectivă a tuturor celor trei sindroame. Criterii pentru SCC: latența motorie distală peste 4,5 ms (?), latența senzitivă peste 3,5 ms (?), viteza de conducere sub 50 m/s (?), cu unde de denervare la EMG cu ac în cazuri severe. Ecografie de nerv utilă pentru aria secțiunii transverse (peste 9-10 mm² pentru median) (?) și identificarea maselor ocupante de spațiu. IRM pentru caracterizarea maselor de țesut moale, fractură de hamat ocultă, varice/tumoră de nerv. Radiografie pentru deformări osoase asociate.
 
-### Diagnostic diferential
+### Diagnostic diferențial
 
-Radiculopatie cervicala C6-C7 (pentru SCC): distributie dermatomala mai larga, EMG cu afectare proximala. Tunel cubital (pentru Guyon): afectare a fetei dorsale a mainii, Tinel pozitiv la cot. Polineuropatie generalizata: bilaterala simetrica, "manusa-soseta". Radiculopatie lombara S1 (canal tarsian): distributie mai larga, tensiune sciatica. Fasciita plantara: durere la calcaneu matinal, fara parestezii specifice.
+Radiculopatie cervicală C6-C7 (pentru SCC): distribuție dermatomală mai largă, EMG cu afectare proximală. Tunel cubital (pentru Guyon): afectare a feței dorsale a mâinii, Tinel pozitiv la cot. Polineuropatie generalizată: bilaterală simetrică, "mănușă-șosetă". Radiculopatie lombară S1 (canal tarsian): distribuție mai largă, tensiune sciatică. Fasciită plantară: durere la calcaneu matinal, fără parestezii specifice.
 
 ### Tratament
 
-**Conservator**: orteza de imobilizare in pozitie neutra (nocturna pentru SCC, cea mai eficace masura conservatoare), modificare a activitatii, AINS, infiltratie cu corticoid in canal (beneficiu temporar, util diagnostic si terapeutic pe termen scurt), tratament al cauzei sistemice asociate (diabet, hipotiroidism). Indicat pentru forme usoare-moderate fara deficit motor obiectiv sau denervare la EMG.
+**Conservator**: orteza de imobilizare în poziție neutră (nocturnă pentru SCC, cea mai eficace măsură conservatoare), modificare a activității, AINS, infiltrație cu corticoid în canal (beneficiu temporar, util diagnostic și terapeutic pe termen scurt), tratament al cauzei sistemice asociate (diabet, hipotiroidism). Indicat pentru forme ușoare-moderate fără deficit motor obiectiv sau denervare la EMG.
 
-**Chirurgical, indicatii**: simptome persistente/progresive refractare la tratament conservator adecvat (de regula 6-12 saptamani) (?), deficit motor obiectiv sau semne de denervare la EMG (indicatie mai ferma, nu se asteapta progresia), masa ocupanta de spatiu confirmata imagistic, atrofie musculara instalata.
+**Chirurgical, indicații**: simptome persistente/progresive refractare la tratament conservator adecvat (de regulă 6-12 săptămâni) (?), deficit motor obiectiv sau semne de denervare la EMG (indicație mai fermă, nu se așteaptă progresia), masa ocupantă de spațiu confirmată imagistic, atrofie musculară instalată.
 
-**Tehnica pentru SCC**: eliberare deschisa (incizie longitudinala palmara, sectionare completa a ligamentului transvers al carpului sub vizualizare directa, standardul clasic cu vizibilitate excelenta) versus eliberare endoscopica (incizie mica la nivelul pumnului, portal unic sau dublu, sectionare a ligamentului sub camera, recuperare potential mai rapida, curba de invatare mai lunga, risc teoretic mai mare de leziune nervoasa/vasculara daca reperele nu sunt respectate). Ambele tehnici au echivalenta la 1 an in trialuri comparative mari, cu diferente mici pe termen scurt in favoarea endoscopicului pentru durere/revenire la activitate.
+**Tehnica pentru SCC**: eliberare deschisă (incizie longitudinală palmară, secționare completă a ligamentului transvers al carpului sub vizualizare directă, standardul clasic cu vizibilitate excelentă) versus eliberare endoscopică (incizie mică la nivelul pumnului, portal unic sau dublu, secționare a ligamentului sub cameră, recuperare potențial mai rapidă, curbă de învățare mai lungă, risc teoretic mai mare de leziune nervoasă/vasculară dacă reperele nu sunt respectate). Ambele tehnici au echivalență la 1 an în trialuri comparative mari, cu diferențe mici pe termen scurt în favoarea endoscopicului pentru durere/revenire la activitate.
 
-**Tehnica pentru canal Guyon**: eliberare deschisa cu incizie peste canal, identificare si protectie a arterei ulnare si a ramurilor motorii/senzitive, excizie a masei ocupante de spatiu (chist) daca prezenta, decompresie completa de la antebrat proximal la palma distal.
+**Tehnica pentru canal Guyon**: eliberare deschisă cu incizie peste canal, identificare și protecție a arterei ulnare și a ramurilor motorii/senzitive, excizie a masei ocupante de spațiu (chist) dacă prezentă, decompresie completă de la antebraț proximal la palmă distal.
 
-**Tehnica pentru canal tarsian**: eliberare deschisa cu incizie curbilinie posteromedial de maleola tibiala, identificare si eliberare a nervului tibial posterior si a celor trei ramuri (plantar medial, plantar lateral, calcaneana), excizie a masei ocupante de spatiu daca prezenta, corectie a deformarii de retropicior in valg severa daca este factor cauzal identificat (osteotomie asociata in cazuri selectate).
+**Tehnica pentru canal tarsian**: eliberare deschisă cu incizie curbilinie posteromedial de maleola tibială, identificare și eliberare a nervului tibial posterior și a celor trei ramuri (plantar medial, plantar lateral, calcaneană), excizie a masei ocupante de spațiu dacă prezentă, corecție a deformării de retropicior în valg severă dacă este factor cauzal identificat (osteotomie asociată în cazuri selectate).
 
-**Rezultate si evidence**: decompresia chirurgicala pentru SCC are rate de succes ridicate (peste 90% ameliorare simptomatica) (?) la pacientii bine selectati, cu ameliorare mai rapida si potential superioara fata de tratamentul conservator pe termen mediu-lung in trialuri recente. Rezultatele pentru canal tarsian sunt mai variabile, cu rate de succes mai mici decat SCC, in parte din cauza dificultatii diagnostice si a etiologiei multifactoriale frecvente.
+**Rezultate și evidence**: decompresia chirurgicală pentru SCC are rate de succes ridicate (peste 90% ameliorare simptomatică) (?) la pacienții bine selectați, cu ameliorare mai rapidă și potențial superioară față de tratamentul conservator pe termen mediu-lung în trialuri recente. Rezultatele pentru canal tarsian sunt mai variabile, cu rate de succes mai mici decât SCC, în parte din cauza dificultății diagnostice și a etiologiei multifactoriale frecvente.
 
-### Complicatii
+### Complicații
 
-Ale bolii: deficit senzitiv permanent, atrofie ireversibila, deficit al prizei (SCC/Guyon) sau al mersului (canal tarsian). Ale tratamentului conservator: progresie nedetectata catre denervare permanenta. Ale tratamentului chirurgical: leziune a ramurii cutanate palmare (SCC), leziune a arterei ulnare/ramurilor nervoase (Guyon), leziune a ramurilor tibiale (canal tarsian), decompresie incompleta (mai ales endoscopic), recidiva/fibroza, sindrom de durere regionala complexa (rar), infectie.
+Ale bolii: deficit senzitiv permanent, atrofie ireversibilă, deficit al prizei (SCC/Guyon) sau al mersului (canal tarsian). Ale tratamentului conservator: progresie nedetectată către denervare permanentă. Ale tratamentului chirurgical: leziune a ramurii cutanate palmare (SCC), leziune a arterei ulnare/ramurilor nervoase (Guyon), leziune a ramurilor tibiale (canal tarsian), decompresie incompletă (mai ales endoscopic), recidivă/fibroză, sindrom de durere regională complexă (rar), infecție.
 
-### Evolutie si prognostic
+### Evoluție și prognostic
 
-SCC netratat poate progresa catre deficit motor permanent si atrofie tenariana, insa multe cazuri usoare raman stabile ani cu tratament conservator. Guyon si canal tarsian netratate progreseaza similar daca cauza compresiva persista. Decompresia la timp, inainte de denervare, ofera prognosticul cel mai bun; cazurile cu atrofie si denervare severa preoperator recupereaza partial si mai lent, cu deficite reziduale permanente.
+SCC netratat poate progresa către deficit motor permanent și atrofie tenariană, însă multe cazuri ușoare rămân stabile ani cu tratament conservator. Guyon și canal tarsian netratate progresează similar dacă cauza compresivă persistă. Decompresia la timp, înainte de denervare, oferă prognosticul cel mai bun; cazurile cu atrofie și denervare severă preoperator recuperează parțial și mai lent, cu deficite reziduale permanente.
 
 ## Script de prezentare
 
 ### 1. Prezentarea cazului (30 s)
 
-Pacientul/a in varsta de [varsta] ani, [profesie], din [mediu], se prezinta pentru parestezii [nocturne/permanente] la nivelul [teritoriului nervos afectat, mana/planta], cu debut in urma cu [durata], asociate [cu/fara] slabiciune musculara.
+Pacientul/a în vârstă de [vârsta] ani, [profesie], din [mediu], se prezintă pentru parestezii [nocturne/permanente] la nivelul [teritoriului nervos afectat, mână/plantă], cu debut în urmă cu [durată], asociate [cu/fără] slăbiciune musculară.
 
 ### 2. Anamneză (2 min)
 
-Motivele internarii: paresteziile (localizare precisa in teritoriul nervos, orar, factori de ameliorare/agravare), slabiciunea (priza fina, tinerea obiectelor), durerea asociata. Istoric: momentul debutului, evolutia (progresiva sau stationara), tratamente urmate (orteza, infiltratii, rezultat si durata beneficiului). Antecedente relevante: diabet zaharat, hipotiroidism, poliartrita reumatoida, sarcina, insuficienta renala cu dializa, fractura anterioara la nivelul zonei afectate, deformare de retropicior (pentru canal tarsian). Factori de risc: activitati repetitive/vibratii, sarcina, sport specific (baseball/ciclism pentru Guyon), obezitate.
+Motivele internării: paresteziile (localizare precisă în teritoriul nervos, orar, factori de ameliorare/agravare), slăbiciunea (priză fină, ținerea obiectelor), durerea asociată. Istoric: momentul debutului, evoluția (progresivă sau staționară), tratamente urmate (orteza, infiltrații, rezultat și durata beneficiului). Antecedente relevante: diabet zaharat, hipotiroidism, poliartrită reumatoidă, sarcină, insuficiență renală cu dializă, fractură anterioară la nivelul zonei afectate, deformare de retropicior (pentru canal tarsian). Factori de risc: activități repetitive/vibrații, sarcină, sport specific (baseball/ciclism pentru Guyon), obezitate.
 
 ### 3. Examen clinic (3 min)
 
-General: aspect general, postura mainii/piciorului in repaus. Local, inspectie: atrofie musculara vizibila (eminenta tenara pentru SCC, musculatura intrinseca a mainii pentru Guyon), deformare de retropicior pentru canal tarsian. Palpare: caut masa ocupanta de spatiu (chist) de-a lungul traiectului canalului examinat, sensibilitate directa. Mobilitate: flexie-extensie a pumnului/gleznei, notez limitari asociate unei cauze structurale. Testele specifice: pentru SCC, semnul Tinel (percutie peste canal, pozitiv daca reproduce parestezii median), testul Phalen (flexie pasiva a pumnurilor 90 grade, 60 secunde), testul Durkan (compresie directa cu policele 30 secunde); pentru Guyon, Tinel peste canal si semnul Froment pentru insuficienta adductorului policelui; pentru canal tarsian, Tinel posteromedial de maleola si testul de dorsiflexie-eversie a gleznei mentinuta. Masuratori: testez forta de abductie a policelui (median), forta de abductie a degetelor (ulnar), sensibilitate cu monofilament in teritoriul nervos specific. Examen neuro-vascular distal complet la nivelul membrului examinat. Examinarea articulatiilor supra- si subiacente: cot pentru SCC/Guyon (diferentiere de compresie proximala), genunchi/coloana lombara pentru canal tarsian. Mers: relevant mai ales pentru canal tarsian, observ mersul si aparitia simptomelor la ortostatism prelungit.
+General: aspect general, postura mâinii/piciorului în repaus. Local, inspecție: atrofie musculară vizibilă (eminența tenară pentru SCC, musculatura intrinsecă a mâinii pentru Guyon), deformare de retropicior pentru canal tarsian. Palpare: caut masa ocupantă de spațiu (chist) de-a lungul traiectului canalului examinat, sensibilitate directă. Mobilitate: flexie-extensie a pumnului/gleznei, notez limitări asociate unei cauze structurale. Testele specifice: pentru SCC, semnul Tinel (percuție peste canal, pozitiv dacă reproduce parestezii median), testul Phalen (flexie pasivă a pumnurilor 90 grade, 60 secunde), testul Durkan (compresie directă cu policele 30 secunde); pentru Guyon, Tinel peste canal și semnul Froment pentru insuficiența adductorului policelui; pentru canal tarsian, Tinel posteromedial de maleola și testul de dorsiflexie-eversie a gleznei menținută. Măsurători: testez forța de abducție a policelui (median), forța de abducție a degetelor (ulnar), sensibilitate cu monofilament în teritoriul nervos specific. Examen neuro-vascular distal complet la nivelul membrului examinat. Examinarea articulațiilor supra- și subiacente: cot pentru SCC/Guyon (diferențiere de compresie proximală), genunchi/coloana lombară pentru canal tarsian. Mers: relevant mai ales pentru canal tarsian, observ mersul și apariția simptomelor la ortostatism prelungit.
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: sindrom de [canal carpian/canal Guyon/canal tarsian] [drept/stang], severitate [usoara/moderata/severa], pe baza examenului clinic (semnul Tinel pozitiv, [Phalen/Durkan/dorsiflexie-eversie] pozitiv, [deficit motor/senzitiv daca prezent]) si a EMG/conducerii nervoase confirmatorii.
+Diagnostic pozitiv: sindrom de [canal carpian/canal Guyon/canal tarsian] [drept/stâng], severitate [ușoară/moderată/severă], pe baza examenului clinic (semnul Tinel pozitiv, [Phalen/Durkan/dorsiflexie-eversie] pozitiv, [deficit motor/senzitiv dacă prezent]) și a EMG/conducerii nervoase confirmatorii.
 
 ### 5. Diagnostic diferențial (1 min)
 
-Radiculopatie cervicala C6-C7 (pentru SCC): distributie dermatomala mai larga, semne de tensiune cervicala. Compresie de nerv ulnar la cot (pentru Guyon): afectare a fetei dorsale a mainii, Tinel pozitiv la cot. Polineuropatie generalizata: afectare bilaterala simetrica in "manusa-soseta". Radiculopatie lombara S1 (pentru canal tarsian): distributie dermatomala mai larga, tensiune sciatica. Fasciita plantara (pentru canal tarsian): durere la calcaneu plantar matinal, fara parestezii specifice.
+Radiculopatie cervicală C6-C7 (pentru SCC): distribuție dermatomală mai largă, semne de tensiune cervicală. Compresie de nerv ulnar la cot (pentru Guyon): afectare a feței dorsale a mâinii, Tinel pozitiv la cot. Polineuropatie generalizată: afectare bilaterală simetrică în "mănușă-șosetă". Radiculopatie lombară S1 (pentru canal tarsian): distribuție dermatomală mai largă, tensiune sciatică. Fasciită plantară (pentru canal tarsian): durere la calcaneu plantar matinal, fără parestezii specifice.
 
 ### 6. Investigații (1 min)
 
-EMG/conducere nervoasa, standardul de referinta pentru confirmare si stadializare: pentru SCC, latenta motorie distala peste 4,5 ms (?), latenta senzitiva peste 3,5 ms (?), viteza de conducere sub 50 m/s (?). Ecografie de nerv pentru aria sectiunii transverse (peste 9-10 mm² pentru median) (?) si identificare a maselor ocupante de spatiu. IRM pentru caracterizarea maselor de tesut moale si a etiologiei in canal Guyon/tarsian. Radiografie pentru deformari osoase asociate. Preoperator: probe biologice standard, evaluare a cauzelor sistemice (glicemie, TSH).
+EMG/conducere nervoasă, standardul de referință pentru confirmare și stadializare: pentru SCC, latența motorie distală peste 4,5 ms (?), latența senzitivă peste 3,5 ms (?), viteza de conducere sub 50 m/s (?). Ecografie de nerv pentru aria secțiunii transverse (peste 9-10 mm² pentru median) (?) și identificare a maselor ocupante de spațiu. IRM pentru caracterizarea maselor de țesut moale și a etiologiei în canal Guyon/tarsian. Radiografie pentru deformări osoase asociate. Preoperator: probe biologice standard, evaluare a cauzelor sistemice (glicemie, TSH).
 
 ### 7. Tratament (3 min)
 
-Obiective: ameliorarea paresteziilor si durerii, prevenirea/recuperarea deficitului motor, evitarea denervarii permanente. Optiuni: tratament conservator (orteza, infiltratie, tratament al cauzei sistemice) pentru forme usoare-moderate fara deficit; decompresie chirurgicala pentru simptome refractare, deficit motor/denervare la EMG, sau masa ocupanta de spatiu. Pentru acest pacient aleg [optiunea], motivat de [severitatea EMG, deficitul obiectiv, prezenta masei ocupante de spatiu, raspunsul la tratament conservator]. Tehnica in pasi (eliberare deschisa de canal carpian, exemplu): (1) instalare in decubit dorsal cu bratul pe masa, anestezie locala/regionala si garou daca necesar; (2) incizie longitudinala palmara la nivelul canalului carpian, evitand ramura cutanata palmara a medianului; (3) disectie prin tesutul subcutanat pana la ligamentul transvers al carpului; (4) sectionarea completa a ligamentului sub vizualizare directa, de la marginea distala la cea proximala; (5) inspectarea nervului median pentru semne de compresie/aderenta, neuroliza daca necesar; (6) verificarea decompresiei complete pe toata lungimea canalului; (7) hemostaza, inchidere cutanata pe planuri; (8) pansament compresiv, atela daca necesar. Postoperator: mobilizare precoce a degetelor, atela nocturna 1-2 saptamani daca folosita, control la 2 saptamani, kinetoterapie daca deficit motor prezent, revenire progresiva la activitate 4-6 saptamani.
+Obiective: ameliorarea paresteziilor și durerii, prevenirea/recuperarea deficitului motor, evitarea denervării permanente. Opțiuni: tratament conservator (orteza, infiltrație, tratament al cauzei sistemice) pentru forme ușoare-moderate fără deficit; decompresie chirurgicală pentru simptome refractare, deficit motor/denervare la EMG, sau masa ocupantă de spațiu. Pentru acest pacient aleg [opțiunea], motivat de [severitatea EMG, deficitul obiectiv, prezența masei ocupante de spațiu, răspunsul la tratament conservator]. Tehnica în pași (eliberare deschisă de canal carpian, exemplu): (1) instalare în decubit dorsal cu brațul pe masă, anestezie locală/regională și garou dacă necesar; (2) incizie longitudinală palmară la nivelul canalului carpian, evitând ramura cutanată palmară a medianului; (3) disecție prin țesutul subcutanat până la ligamentul transvers al carpului; (4) secționarea completă a ligamentului sub vizualizare directă, de la marginea distală la cea proximală; (5) inspectarea nervului median pentru semne de compresie/aderență, neuroliză dacă necesar; (6) verificarea decompresiei complete pe toată lungimea canalului; (7) hemostază, închidere cutanată pe planuri; (8) pansament compresiv, atelă dacă necesar. Postoperator: mobilizare precoce a degetelor, atelă nocturnă 1-2 săptămâni dacă folosită, control la 2 săptămâni, kinetoterapie dacă deficit motor prezent, revenire progresivă la activitate 4-6 săptămâni.
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Netratat, sindromul poate progresa catre deficit motor permanent si atrofie musculara ireversibila, desi multe cazuri usoare raman stabile cu tratament conservator. Complicatii ale bolii: deficit senzitiv permanent, atrofie ireversibila. Complicatii ale tratamentului chirurgical: leziune a ramurii cutanate palmare sau a arterei ulnare, decompresie incompleta, recidiva/fibroza, sindrom de durere regionala complexa. Prognostic functional excelent pentru SCC decompresat la timp (peste 90% ameliorare) (?); prognostic mai variabil pentru canal tarsian, cu urmarire necesara pentru recuperarea deficitului preoperator.
+Netratat, sindromul poate progresa către deficit motor permanent și atrofie musculară ireversibilă, deși multe cazuri ușoare rămân stabile cu tratament conservator. Complicații ale bolii: deficit senzitiv permanent, atrofie ireversibilă. Complicații ale tratamentului chirurgical: leziune a ramurii cutanate palmare sau a arterei ulnare, decompresie incompletă, recidivă/fibroză, sindrom de durere regională complexă. Prognostic funcțional excelent pentru SCC decompresat la timp (peste 90% ameliorare) (?); prognostic mai variabil pentru canal tarsian, cu urmărire necesară pentru recuperarea deficitului preoperator.
 
 ### Fraze-cheie
 
-- Diferentiez cele trei sindroame prin teritoriul nervos afectat: median pentru canal carpian, ulnar pentru canal Guyon, tibial posterior pentru canal tarsian.
-- Aplic testele specifice: Tinel, Phalen si Durkan pentru canal carpian, Tinel si Froment pentru canal Guyon, Tinel si dorsiflexie-eversie pentru canal tarsian.
-- Zonele Guyon (1 mixt, 2 motor, 3 senzitiv) ma ajuta sa localizez nivelul leziunii pe baza tabloului clinic.
-- EMG este standardul de referinta pentru confirmarea si stadializarea obiectiva a tuturor celor trei sindroame.
-- Deficitul motor obiectiv sau semnele de denervare la EMG imi schimba indicatia catre decompresie chirurgicala fara a mai astepta progresia.
-- Ambele tehnici, deschisa si endoscopica, au rezultate echivalente la un an pentru sindromul de canal carpian.
-- Exclud intotdeauna o compresie mai proximala (cot pentru ulnar, coloana pentru medular/lombar) inainte de a atribui simptomele exclusiv canalului distal.
-- Canalul tarsian contine, de anterior spre posterior, tendonul tibial posterior, flexor digitorum longus, pachetul vascular, nervul tibial posterior si flexor hallucis longus.
+- Diferențiez cele trei sindroame prin teritoriul nervos afectat: median pentru canal carpian, ulnar pentru canal Guyon, tibial posterior pentru canal tarsian.
+- Aplic testele specifice: Tinel, Phalen și Durkan pentru canal carpian, Tinel și Froment pentru canal Guyon, Tinel și dorsiflexie-eversie pentru canal tarsian.
+- Zonele Guyon (1 mixt, 2 motor, 3 senzitiv) mă ajută să localizez nivelul leziunii pe baza tabloului clinic.
+- EMG este standardul de referință pentru confirmarea și stadializarea obiectivă a tuturor celor trei sindroame.
+- Deficitul motor obiectiv sau semnele de denervare la EMG îmi schimbă indicația către decompresie chirurgicală fără a mai aștepta progresia.
+- Ambele tehnici, deschisă și endoscopică, au rezultate echivalente la un an pentru sindromul de canal carpian.
+- Exclud întotdeauna o compresie mai proximală (cot pentru ulnar, coloana pentru medular/lombar) înainte de a atribui simptomele exclusiv canalului distal.
+- Canalul tarsian conține, de anterior spre posterior, tendonul tibial posterior, flexor digitorum longus, pachetul vascular, nervul tibial posterior și flexor hallucis longus.
 
 ## Întrebările comisiei
 
-### Î1. Care sunt structurile continute in canalul carpian si de ce nervul median este cel mai expus la compresie?
+### Î1. Care sunt structurile conținute în canalul carpian și de ce nervul median este cel mai expus la compresie?
 
-**R:** Canalul contine nervul median si noua tendoane flexoare (FDS x4, FDP x4, FPL). Nervul median e structura cea mai superficiala si anterioara in canal, motiv pentru care e cel mai expus la compresie prin cresterea presiunii intracanalare.
+**R:** Canalul conține nervul median și nouă tendoane flexoare (FDS x4, FDP x4, FPL). Nervul median e structura cea mai superficială și anterioară în canal, motiv pentru care e cel mai expus la compresie prin creșterea presiunii intracanalare.
 
-### Î2. Care sunt cele trei zone ale canalului Guyon si semnificatia lor clinica?
+### Î2. Care sunt cele trei zone ale canalului Guyon și semnificația lor clinică?
 
-**R:** Zona 1, proximal de bifurcatie, produce leziune mixta motorie si senzitiva; zona 2, ramura motorie profunda, leziune predominant motorie; zona 3, ramura senzitiva superficiala, leziune predominant senzitiva. Localizarea deficitului orienteaza catre zona afectata.
+**R:** Zona 1, proximal de bifurcație, produce leziune mixtă motorie și senzitivă; zona 2, ramura motorie profundă, leziune predominant motorie; zona 3, ramura senzitivă superficială, leziune predominant senzitivă. Localizarea deficitului orientează către zona afectată.
 
 ### Î3. Care sunt criteriile electrofiziologice pentru sindromul de canal carpian?
 
-**R:** Latenta motorie distala peste 4,5 ms (?), latenta senzitiva peste 3,5 ms (?), viteza de conducere sub 50 m/s (?), cu unde de denervare la EMG cu ac in cazurile severe.
+**R:** Latența motorie distală peste 4,5 ms (?), latența senzitivă peste 3,5 ms (?), viteza de conducere sub 50 m/s (?), cu unde de denervare la EMG cu ac în cazurile severe.
 
-### Î4. Ce faceti daca un pacient cu sindrom de canal carpian prezinta atrofie tenariana la prezentare?
+### Î4. Ce faceți dacă un pacient cu sindrom de canal carpian prezintă atrofie tenariană la prezentare?
 
-**R:** Indica o compresie severa, de durata, cu denervare partiala deja instalata; indic decompresie chirurgicala fara a mai incerca tratament conservator prelungit, si informez pacientul ca recuperarea motorie poate fi partiala si mai lenta.
+**R:** Indică o compresie severă, de durată, cu denervare parțială deja instalată; indic decompresie chirurgicală fără a mai încerca tratament conservator prelungit, și informez pacientul că recuperarea motorie poate fi parțială și mai lentă.
 
-### Î5. Cum diferentiati o compresie de canal Guyon de o compresie de nerv ulnar la cot?
+### Î5. Cum diferențiați o compresie de canal Guyon de o compresie de nerv ulnar la cot?
 
-**R:** In compresia la canalul Guyon, fata dorsala a mainii e cruta, caci ramura dorsala senzitiva se desprinde din nervul ulnar proximal de pumn; la cot (tunel cubital), fata dorsala e si ea afectata, cu Tinel pozitiv la cot.
+**R:** În compresia la canalul Guyon, fața dorsală a mâinii e cruța, căci ramura dorsală senzitivă se desprinde din nervul ulnar proximal de pumn; la cot (tunel cubital), fața dorsală e și ea afectată, cu Tinel pozitiv la cot.
 
-### Î6. Ce faceti daca palpati o masa la nivelul canalului Guyon la un pacient cu simptome de compresie ulnara?
+### Î6. Ce faceți dacă palpați o masă la nivelul canalului Guyon la un pacient cu simptome de compresie ulnară?
 
-**R:** Solicit ecografie/IRM pentru caracterizarea masei (cel mai frecvent chist ganglionar), si planific decompresie cu excizia masei, deoarece tratamentul conservator singur nu rezolva o cauza structurala compresiva.
+**R:** Solicit ecografie/IRM pentru caracterizarea masei (cel mai frecvent chist ganglionar), și planific decompresie cu excizia masei, deoarece tratamentul conservator singur nu rezolvă o cauză structurală compresivă.
 
-### Î7. Care sunt structurile continute in canalul tarsian, in ordine anteroposterioara?
+### Î7. Care sunt structurile conținute în canalul tarsian, în ordine anteroposterioară?
 
-**R:** Tendonul tibial posterior, tendonul flexor digitorum longus, artera si vena tibiala posterioara, nervul tibial posterior, si tendonul flexor hallucis longus, mnemonic "Tom, Dick and Very Nervous Harry".
+**R:** Tendonul tibial posterior, tendonul flexor digitorum longus, artera și vena tibială posterioară, nervul tibial posterior, și tendonul flexor hallucis longus, mnemonic "Tom, Dick and Very Nervous Harry".
 
-### Î8. Ce faceti daca un pacient cu sindrom de canal tarsian are si o deformare de retropicior in valg sever?
+### Î8. Ce faceți dacă un pacient cu sindrom de canal tarsian are și o deformare de retropicior în valg sever?
 
-**R:** Recunosc valgul de retropicior ca factor cauzal frecvent, prin intinderea structurilor posteromediale; planific decompresia nervului tibial posterior si, daca deformarea e severa, discut o osteotomie asociata pentru a preveni recidiva.
+**R:** Recunosc valgul de retropicior ca factor cauzal frecvent, prin întinderea structurilor posteromediale; planific decompresia nervului tibial posterior și, dacă deformarea e severă, discut o osteotomie asociată pentru a preveni recidiva.
 
-### Î9. Care este diferenta intre eliberarea deschisa si endoscopica de canal carpian in privinta rezultatelor?
+### Î9. Care este diferența între eliberarea deschisă și endoscopică de canal carpian în privința rezultatelor?
 
-**R:** Ambele tehnici au rezultate echivalente la un an in trialuri comparative mari; endoscopicul poate oferi ameliorare mai rapida a durerii si revenire mai precoce la activitate pe termen scurt, cu o curba de invatare mai lunga si risc teoretic mai mare de leziune nervoasa/vasculara daca reperele anatomice nu sunt respectate corect.
+**R:** Ambele tehnici au rezultate echivalente la un an în trialuri comparative mari; endoscopicul poate oferi ameliorare mai rapidă a durerii și revenire mai precoce la activitate pe termen scurt, cu o curbă de învățare mai lungă și risc teoretic mai mare de leziune nervoasă/vasculară dacă reperele anatomice nu sunt respectate corect.
 
-### Î10. Ce faceti daca testul Phalen si testul Durkan sunt discordante la un pacient cu suspiciune de canal carpian?
+### Î10. Ce faceți dacă testul Phalen și testul Durkan sunt discordante la un pacient cu suspiciune de canal carpian?
 
-**R:** Nu ma bazez pe un singur test clinic; solicit EMG pentru confirmare obiectiva, caci niciun test izolat nu are sensibilitate/specificitate perfecte, si decizia terapeutica se bazeaza pe corelarea clinicii cu electrofiziologia.
+**R:** Nu mă bazez pe un singur test clinic; solicit EMG pentru confirmare obiectivă, căci niciun test izolat nu are sensibilitate/specificitate perfecte, și decizia terapeutică se bazează pe corelarea clinicii cu electrofiziologia.
 
-### Î11. Care este semnul Froment si ce indica?
+### Î11. Care este semnul Froment și ce indică?
 
-**R:** Pacientul tine o hartie intre police si index in timp ce examinatorul trage; pozitiv daca pacientul flecteaza IF a policelui (flexor pollicis longus, median) pentru a compensa slabiciunea adductorului policelui (ulnar), indicand o leziune de nerv ulnar.
+**R:** Pacientul ține o hârtie între police și index în timp ce examinatorul trage; pozitiv dacă pacientul flectează IF a policelui (flexor pollicis longus, median) pentru a compensa slăbiciunea adductorului policelui (ulnar), indicând o leziune de nerv ulnar.
 
-### Î12. Ce faceti daca EMG arata denervare severa la un pacient cu sindrom de canal carpian de lunga durata?
+### Î12. Ce faceți dacă EMG arată denervare severă la un pacient cu sindrom de canal carpian de lungă durată?
 
-**R:** Indic decompresie chirurgicala prompta pentru a preveni progresia denervarii, dar informez pacientul ca recuperarea senzitiva/motorie completa nu este garantata la acest stadiu, iar unele deficite pot ramane permanente, mai ales cea legata de atrofia musculara deja instalata.
+**R:** Indic decompresie chirurgicală promptă pentru a preveni progresia denervării, dar informez pacientul că recuperarea senzitivă/motorie completă nu este garantată la acest stadiu, iar unele deficite pot rămâne permanente, mai ales cea legată de atrofia musculară deja instalată.
 
-### Î13. Cum se explica de ce fractura carligului osului hamat poate produce sindrom de canal Guyon?
+### Î13. Cum se explică de ce fractura cârligului osului hamat poate produce sindrom de canal Guyon?
 
-**R:** Carligul hamatului formeaza peretele lateral al canalului Guyon; o fractura la acest nivel, frecventa la sportivii cu bat/racheta, poate produce edem, calus vicios sau fragmente osoase care ingusteaza canalul si comprima nervul ulnar.
+**R:** Cârligul hamatului formează peretele lateral al canalului Guyon; o fractură la acest nivel, frecventă la sportivii cu bâtă/rachetă, poate produce edem, calus vicios sau fragmente osoase care îngustează canalul și comprimă nervul ulnar.
 
-### Î14. Care sunt masurile conservatoare de prima linie pentru sindromul de canal carpian usor-moderat?
+### Î14. Care sunt măsurile conservatoare de prima linie pentru sindromul de canal carpian ușor-moderat?
 
-**R:** Orteza de imobilizare nocturna in pozitie neutra a pumnului, cea mai eficace masura conservatoare, modificare a activitatii, AINS, si infiltratie cu corticoid in canal pentru beneficiu temporar si diagnostic-terapeutic, alaturi de tratamentul cauzei sistemice asociate daca exista.
+**R:** Orteza de imobilizare nocturnă în poziție neutră a pumnului, cea mai eficace măsură conservatoare, modificare a activității, AINS, și infiltrație cu corticoid în canal pentru beneficiu temporar și diagnostic-terapeutic, alături de tratamentul cauzei sistemice asociate dacă există.
 
-### Î15. Ce faceti daca un pacient cu simptome de canal tarsian nu raspunde la decompresie chirurgicala?
+### Î15. Ce faceți dacă un pacient cu simptome de canal tarsian nu răspunde la decompresie chirurgicală?
 
-**R:** Reevaluez diagnosticul (exclud radiculopatie lombara S1, polineuropatie generalizata, fasciita plantara), repet EMG postoperator, si caut o cauza reziduala neidentificata initial (bandă fibroasa aberanta, decompresie incompleta a uneia dintre cele trei ramuri distale).
+**R:** Reevaluez diagnosticul (exclud radiculopatie lombară S1, polineuropatie generalizată, fasciită plantară), repet EMG postoperator, și caut o cauză reziduală neidentificată inițial (bandă fibroasă aberantă, decompresie incompletă a uneia dintre cele trei ramuri distale).
 `,Mu=`---
 title: Tuberculoza vertebrală
 probe: co
@@ -11795,7 +11795,7 @@ Mecanism direct (impact axial pe pumnul închis, boxer's fracture pe colul MC V)
 
 ### Anatomie patologică
 
-Fracturi extraarticulare (col, diafiză metacarpiană/falangiană) versus intraarticulare (Bennett, Rolando, fracturi-luxație IFP). Deplasarea tipică la fracturile de col metacarpian este angulare cu apex dorsal (prin tracțiunea interosoșilor și flexorilor). La fracturile diafizare cu traiect spiral/oblic, principalul risc este malrotația. La Bennett, fragmentul volar-ulnar mic rămâne fixat de ligamentul Beak (trapezo-metacarpian volar), în timp ce restul metacarpianului I este tras proximal și în supinație de abductorul lung al policelui. La scafoid, traiectul poate fi la nivelul tuberculului distal, taliei (waist, 65 la 80% din cazuri) sau polului proximal (10 la 20%).
+Fracturi extraarticulare (col, diafiză) versus intraarticulare (Bennett, Rolando, fracturi-luxație IFP). Deplasarea tipică la colul metacarpian este angulare cu apex dorsal (tracțiunea interosoșilor și flexorilor). La fracturile diafizare oblice/spirale, principalul risc este malrotația. La Bennett, fragmentul volar-ulnar mic rămâne fixat de ligamentul beak, restul metacarpianului I fiind tras proximal și în supinație de abductorul lung al policelui. La scafoid, traiectul poate fi la tubercul distal, talie (65-80%) sau pol proximal (10-20%).
 
 ### Clasificare
 
@@ -11812,7 +11812,7 @@ Fracturi extraarticulare (col, diafiză metacarpiană/falangiană) versus intraa
 - Mallet finger: os (avulsie osoasă a bazei dorsale a falangei distale) versus tendinos (ruptura tendonului extensor terminal fără fragment osos); subclasificare Doyle (tip I la IV, incluzând variantele cu subluxație palmară).
 - Seymour: fractură Salter-Harris I/II a bazei falangei distale la copil, cu interpoziția matricei unghiale în focar, echivalentul unei fracturi deschise, adesea confundată cu simplă avulsie unghială.
 
-**Scafoid, Herbert (funcțional, chirurgical):** tip A (stabil, acut: A1 tubercul, A2 talie incompletă), tip B (instabil, acut: B1 oblic distal, B2 talie completă deplasată, B3 pol proximal, B4 fractură-luxație trans-scafo-perilunară), tip C (întârziat de consolidare), tip D (nonunion, D1 fibros stabil, D2 pseudartroză cu deformare/necroză). **Mayo** (după localizare): proximal pole, waist, distal pole/tubercul. **Russe** (după orientarea traiectului): orizontal-oblic (stabil, forțe de compresiune), transversal, vertical-oblic (instabil, forțe de forfecare).
+**Scafoid, Herbert:** tip A (stabil, acut: A1 tubercul, A2 talie incompletă), tip B (instabil, acut: B1 oblic distal, B2 talie completă deplasată, B3 pol proximal, B4 fractură-luxație trans-scafo-perilunară), tip C (întârziere de consolidare), tip D (nonunion, D1 fibros stabil, D2 pseudartroză). **Mayo** (localizare): pol proximal, talie, pol distal. **Russe** (orientarea traiectului): orizontal-oblic (stabil), transversal, vertical-oblic (instabil, forfecare).
 
 | Clasificare | Criteriu | Relevanță |
 |---|---|---|
@@ -11824,33 +11824,33 @@ Fracturi extraarticulare (col, diafiză metacarpiană/falangiană) versus intraa
 
 ### Clinic
 
-Durere, tumefacție, echimoză locală, deformare vizibilă (depresiune pe dosul mâinii la boxer's fracture prin căderea capului metacarpian în palmă, "pumn scurtat"). Scafoid: durere și tumefacție în tabachera anatomică (snuffbox), sensibilitate la palparea tuberculului scafoidian volar, durere la compresiune axială a policelui (scaphoid compression test), durere la deviere radială/cubitală forțată. Falange: verificarea obligatorie a rotației cu degetele în flexie completă (nu extensie), palparea alinierii plăcuțelor unghiale, testul "tenodesis" (flexia pasivă a pumnului determină extensia degetelor, extensia pumnului determină flexia degetelor; asimetria de cascadă digitală semnalează malrotație sau leziune tendinoasă asociată). Mallet: deformare în flexie a IFD, incapacitate de extensie activă a IFD cu extensie pasivă completă conservată.
+Durere, tumefacție, echimoză, deformare vizibilă (depresiune pe dosul mâinii la boxer's fracture, "pumn scurtat"). Scafoid: durere/tumefacție în tabachera anatomică, sensibilitate pe tuberculul volar, durere la compresiune axială a policelui, la deviere radială/cubitală forțată. Falange: verificarea obligatorie a rotației cu degetele în flexie completă (nu extensie), testul tenodesis (asimetria de cascadă digitală semnalează malrotație/leziune tendinoasă). Mallet: deformare în flexie a IFD, incapacitate de extensie activă cu extensie pasivă conservată.
 
 ### Imagistică și explorări
 
-Radiografie standard: mână/deget pe 3 incidențe (față, profil, oblic); pentru scafoid, incidențe dedicate scafoid (pumn în deviere ulnară, incidență Stecher). Sensibilitatea radiografiei inițiale pentru fractura de scafoid este de doar 70 la 80%; când clinic suspect și radiografie negativă, se imobilizează provizoriu și se repetă radiografia la 10 la 14 zile, sau se face CT/RMN precoce. CT este util pentru evaluarea deplasării, cominuției (Rolando) și congruenței articulare la fracturile-luxație. RMN este cea mai sensibilă investigație pentru fracturile oculte de scafoid (sensibilitate peste 95%) și pentru evaluarea vascularizației/necrozei avasculare.
+Radiografie standard pe 3 incidențe; pentru scafoid, incidențe dedicate (deviere ulnară, Stecher). Sensibilitatea radiografiei inițiale pentru scafoid este de doar 70-80%; la suspiciune clinică cu radiografie negativă, se imobilizează provizoriu și se repetă la 10-14 zile, sau CT/RMN precoce. CT evaluează deplasarea/cominuția la fracturi-luxație. RMN este cea mai sensibilă pentru fracturile oculte de scafoid (peste 95%) și pentru vascularizație/necroză avasculară.
 
 ### Diagnostic diferențial
 
-Entorsă de police/ligament colateral ulnar al MCF I (leziune Stener, fără fractură osoasă la radiografie), luxație pură CMC fără fractură, tendinopatie De Quervain (fără traumatism acut, test Finkelstein pozitiv), chist sinovial dorsal al carpului (fără istoric traumatic acut), boală Kienböck (necroza semilunarului, durere carpiană cronică fără traumatism recent), fractură de os pisiform sau hamat izolată.
+Entorsă de ligament colateral ulnar MCF I (leziune Stener, fără fractură la radiografie), luxație pură CMC fără fractură, De Quervain (fără traumatism acut, Finkelstein pozitiv), chist sinovial dorsal (fără istoric traumatic), boală Kienböck (durere carpiană cronică fără traumatism recent), fractură izolată de pisiform/hamat.
 
 ### Tratament
 
-**Conservator:** fracturi metacarpiene stabile fără angulare/rotație semnificativă: imobilizare 3 la 4 săptămâni, atelă/orteză cu MCF în flexie 70 la 90 grade. Angulare acceptabilă: MC V 40 la 50 grade, MC IV 30 grade, MC II-III 10 la 15 grade (mobilitate CMC redusă la aceste raze, tolerează mai puțin). Falange: acceptare mult mai mică (10 la 20 grade angulare maxim la falanga proximală, zero rotație tolerată), datorită efectului de pârghie lung asupra vârfului degetului. Scafoid: fracturi stabile nedeplasate (Herbert A) se imobilizează în aparat gipsat/orteză police-antebraț 6 la 10 săptămâni (talie) sau 10 la 12 săptămâni (pol proximal), cu consolidare confirmată imagistic (CT) înainte de reluarea activității.
+**Conservator:** metacarpiene stabile fără angulare/rotație semnificativă: imobilizare 3-4 săptămâni, MCF în flexie 70-90 grade. Angulare acceptabilă: MC V 40-50 grade, MC IV 30 grade, MC II-III 10-15 grade (mobilitate CMC redusă, tolerează mai puțin). Falange: acceptare mult mai mică (10-20 grade la falanga proximală, zero rotație), prin efectul de pârghie lung. Scafoid: fracturi stabile (Herbert A) se imobilizează 6-10 săptămâni (talie) sau 10-12 săptămâni (pol proximal), cu consolidare confirmată la CT.
 
-**Chirurgical, indicații:** angulare/rotație peste limitele acceptabile, fracturi articulare deplasate (Bennett, Rolando, fracturi-luxație IFP peste 30-40% suprafață articulară), fracturi instabile/cominutive, scafoid Herbert B (mai ales la pacient jung activ/sportiv, unde fixarea percutanată reduce timpul de imobilizare comparativ cu gipsul, fără diferență semnificativă în rata de nonunion la fracturi stabile, conform studiilor comparative), scafoid pol proximal (risc AVN mare, fixare recomandată), Seymour (reducere și explorare a focarului cu extracție a matricei unghiale interpuse, considerată fractură deschisă, antibioterapie).
+**Chirurgical, indicații:** angulare/rotație peste limitele acceptabile, fracturi articulare deplasate (Bennett, Rolando, fracturi-luxație IFP peste 30-40% suprafață), fracturi instabile/cominutive, scafoid Herbert B (mai ales la sportiv, unde fixarea reduce timpul de imobilizare, fără diferență semnificativă în rata de nonunion la fracturi stabile), scafoid pol proximal (risc AVN mare), Seymour (reducere și extracția matricei unghiale interpuse, ca fractură deschisă, cu antibioterapie).
 
-**Opțiuni de fixare:** K-wire percutan (metacarpiene stabile după reducere, tehnică simplă, cost redus, dar necesită imobilizare externă asociată), șuruburi de compresiune interfragmentare/lag screws (fracturi oblice lungi, Bennett cu fragment mare), plăci (fracturi diafizare instabile, Rolando cominutiv, permit mobilizare precoce dar risc mai mare de iritație tendinoasă/rigiditate), fixator extern dinamic (fracturi-luxație IFP complexe, cadru Suzuki tip pins and rubber bands, distracție ligamentotaxis cu mobilizare precoce a articulației), șurub canulat pentru scafoid (Herbert, Acutrak, abord volar percutan pentru talie/distal, dorsal pentru pol proximal).
+**Opțiuni de fixare:** K-wire percutan (metacarpiene stabile, tehnică simplă, necesită imobilizare externă asociată), lag screws (fracturi oblice lungi, Bennett cu fragment mare), plăci (fracturi diafizare instabile, Rolando cominutiv, mobilizare precoce dar risc de rigiditate), fixator dinamic Suzuki (fracturi-luxație IFP complexe, ligamentotaxis cu mobilizare precoce), șurub canulat pentru scafoid (abord volar percutan talie/distal, dorsal pol proximal).
 
-**Rezultate și evidence:** studiul DRAFFT (Dorsal or Volar Fixed-angle plating for scaphoid... nu, DRAFFT se referă la fracturi de radius distal) nu se aplică aici; pentru scafoid, studiile comparative K-wire/gips versus șurub percutan arată recuperare funcțională mai rapidă cu fixare chirurgicală la fracturi stabile, fără diferență semnificativă în rata finală de consolidare, motiv pentru care decizia se individualizează după profilul pacientului (sportiv, manual, cerere funcțională precoce).
+**Rezultate și evidence:** pentru scafoid, studiile comparative K-wire/gips versus șurub percutan arată recuperare funcțională mai rapidă cu fixare chirurgicală la fracturi stabile, fără diferență semnificativă în rata finală de consolidare, decizia individualizându-se după profilul pacientului.
 
 ### Complicații
 
-Metacarpiene/falange: malunion (angulare, rotație reziduală cu încrucișarea degetelor la pumn închis), rigiditate articulară (mai ales IFP, prin edem și imobilizare prelungită), pseudartroză (rară, mai frecventă la fracturi deschise/cominutive), infecție la fixare percutanată/deschisă, leziune tendinoasă/nervoasă iatrogenă la introducerea K-wire-urilor. Scafoid: nonunion (5 la 10% la tratament corect al fracturilor stabile, mult mai mare la pol proximal netratat sau diagnostic tardiv), necroză avasculară (mai frecventă pol proximal), SNAC wrist (scaphoid nonunion advanced collapse: artroză secvențială radioscafoidiană, apoi capitolunată, degenerare progresivă a carpului netratat).
+Metacarpiene/falange: malunion (angulare/rotație reziduală, încrucișarea degetelor), rigiditate articulară (mai ales IFP), pseudartroză (rară), infecție la fixare, leziune tendinoasă/nervoasă iatrogenă la K-wire. Scafoid: nonunion (5-10% la tratament corect, mult mai mare la pol proximal netratat), necroză avasculară, SNAC wrist (artroză secvențială radioscafoidiană, apoi capitolunată).
 
 ### Evoluție și prognostic
 
-Fracturile metacarpiene/falangiene tratate corect (conservator sau chirurgical cu indicație corectă) consolidează în 4 la 6 săptămâni cu recuperare funcțională bună la majoritatea pacienților; rigiditatea IFP reziduală este cea mai frecventă sechelă funcțională, mai frecventă la fracturile articulare/fracturile-luxație. Scafoidul tratat precoce și corect are rată de consolidare peste 90 la 95%; diagnosticul tardiv sau tratamentul inadecvat evoluează spre nonunion și SNAC wrist, o artropatie degenerativă progresivă ireversibilă care necesită proceduri de salvare (proximal row carpectomy, four-corner fusion) la stadii avansate.
+Fracturile metacarpiene/falangiene tratate corect consolidează în 4-6 săptămâni cu recuperare bună; rigiditatea IFP reziduală este cea mai frecventă sechelă, mai frecventă la fracturile articulare. Scafoidul tratat precoce are rată de consolidare peste 90-95%; diagnosticul tardiv evoluează spre nonunion și SNAC wrist, artropatie ireversibilă care necesită proceduri de salvare (proximal row carpectomy, four-corner fusion) la stadii avansate.
 
 ## Script de prezentare
 
@@ -11860,11 +11860,11 @@ Pacientul/a în vârstă de [vârstă] ani, [profesie, ex. manual/sportiv], din 
 
 ### 2. Anamneză (2 min)
 
-Motivul internării: durere, tumefacție, impotență funcțională a mâinii/degetului afectat. Istoric: mecanismul exact al traumatismului (cădere pe mână în extensie orientează spre scafoid; lovire cu pumnul închis orientează spre boxer's fracture; prindere/hiperextensie a unui deget orientează spre falange sau mallet), momentul producerii, dacă a existat deformare imediată redusă spontan (suspiciune de luxație asociată), tratamente urmate până la prezentare (imobilizare provizorie, automedicație). Antecedente relevante: mâna dominantă, profesia (cerințe funcționale fine versus forță), activitate sportivă (sporturi de contact/mingi predispun la fracturi-luxație IFP și mallet finger), fracturi/leziuni anterioare la nivelul mâinii, comorbidități care influențează vindecarea osoasă (diabet, fumat, osteoporoză). Factori de risc: activitate sportivă de contact, ocupații manuale cu risc de impact/prindere.
+Motivul internării: durere, tumefacție, impotență funcțională. Istoric: mecanismul exact (cădere pe mână în extensie orientează spre scafoid; lovire cu pumnul închis spre boxer's fracture; prindere/hiperextensie a unui deget spre falange sau mallet), momentul producerii, deformare inițială redusă spontan (suspiciune de luxație), tratamente urmate până la prezentare. Antecedente relevante: mâna dominantă, profesia, activitate sportivă de contact, leziuni anterioare la mână, comorbidități care influențează vindecarea (diabet, fumat, osteoporoză). Factori de risc: sportul de contact, ocupații manuale cu risc de impact.
 
 ### 3. Examen clinic (3 min)
 
-General: stare generală, examinarea ambelor membre superioare comparativ. Local, inspecție: deformare vizibilă (depresiune dorsală la boxer's fracture prin căderea capului metacarpian, deformare în flexie a IFD la mallet finger, "V sign" pe radiografie pentru fracturi-luxație IFP), tumefacție, echimoză, poziția de repaus a degetelor (cascadă digitală normală sau întreruptă, semn de leziune tendinoasă sau malrotație). Palpare: sensibilitate punctuală pe focarul de fractură, sensibilitate în tabachera anatomică și pe tuberculul scafoidian volar (pentru suspiciunea de scafoid), test de compresiune axială a policelui. Mobilitate: goniometrie MCF, IFP, IFD cu valorile normale (MCF flexie 0 la 90 grade, IFP 0 la 100 la 110 grade, IFD 0 la 70 la 90 grade), limitarea specifică prin durere/blocaj. Măsurători: verificarea rotației cu degetele în flexie completă (comparație cu alinierea plăcuțelor unghiale, nu în extensie), testul tenodesis pentru cascada digitală. Teste specifice: scaphoid compression test, testul Finkelstein pentru diagnostic diferențial cu De Quervain, testul de stabilitate colaterală MCF I (stress în valgus pentru leziune Stener). Examen neuro-vascular distal: sensibilitate digitală, refill capilar, pulsuri radial/ulnar. Examinarea articulațiilor supra- și subiacente: pumn, cot, pentru leziuni asociate. Nu se evaluează mersul, dar se notează dominanța mâinii și impactul funcțional imediat.
+General: stare generală, examinare comparativă bilaterală. Local, inspecție: deformare vizibilă (depresiune dorsală la boxer's fracture, flexie a IFD la mallet, "V sign" la fracturi-luxație IFP), tumefacție, echimoză, cascadă digitală (normală sau întreruptă, semn de leziune tendinoasă/malrotație). Palpare: sensibilitate punctuală pe focar, în tabachera anatomică și pe tuberculul scafoidian volar, test de compresiune axială a policelui. Mobilitate: goniometrie MCF/IFP/IFD (MCF 0-90, IFP 0-100/110, IFD 0-70/90 grade), limitarea prin durere/blocaj. Măsurători: verificarea rotației cu degetele în flexie completă, testul tenodesis. Teste specifice: scaphoid compression test, Finkelstein (De Quervain), stabilitatea colaterală MCF I (leziune Stener). Examen neuro-vascular distal: sensibilitate digitală, refill capilar, pulsuri. Examinarea articulațiilor supra- și subiacente: pumn, cot. Nu se evaluează mersul, dar se notează dominanța și impactul funcțional.
 
 ### 4. Diagnostic pozitiv (30 s)
 
@@ -11878,38 +11878,37 @@ Entorsă de ligament colateral ulnar MCF I: fără linie de fractură la radiogr
 
 ### 6. Investigații (1 min)
 
-Radiografie standard pe 3 incidențe a mâinii/degetului afectat; pentru scafoid, incidențe dedicate (deviere ulnară, Stecher). Măsor pe radiografie: angularea la focarul de fractură metacarpian/falangian, congruența articulară la Bennett/Rolando/fracturi-luxație IFP (semnul V), deplasarea la scafoid. Dacă radiografia este negativă dar suspiciunea clinică de scafoid persistă (sensibilitate în tabachera anatomică), imobilizez provizoriu și indic CT sau RMN, sau repet radiografia la 10-14 zile. CT pentru cominuție/congruență articulară la fracturi complexe (Rolando, pilon articular falangian). Preoperator: hemogramă, coagulogramă, evaluare anestezică (frecvent anestezie loco-regională, bloc de plex brahial sau bloc digital).
+Radiografie standard pe 3 incidențe; pentru scafoid, incidențe dedicate. Măsor: angularea la focar, congruența articulară la Bennett/Rolando/fracturi-luxație IFP (semnul V), deplasarea la scafoid. Dacă radiografia este negativă dar suspiciunea clinică de scafoid persistă, imobilizez provizoriu și indic CT/RMN, sau repet radiografia la 10-14 zile. CT pentru cominuție/congruență la fracturi complexe. Preoperator: hemogramă, coagulogramă, evaluare anestezică (frecvent bloc de plex brahial sau bloc digital).
 
 ### 7. Tratament (3 min)
 
-Obiective: restabilirea alinierii axiale, rotaționale și a congruenței articulare, cu mobilizare cât mai precoce pentru a preveni rigiditatea. Opțiuni: imobilizare (fracturi stabile în limitele acceptabile), fixare cu K-wire percutan, șuruburi de compresiune, placă, fixator extern dinamic tip Suzuki pentru fracturi-luxație IFP complexe, șurub canulat percutan pentru scafoid. Pentru acest pacient aleg [opțiunea concretă, ex. reducere închisă și fixare cu 2 K-wire-uri pentru boxer's fracture cu angulare peste 50 grade, sau șurub canulat percutan volar pentru scafoid talie deplasat], pentru că [argument: angulare peste limita acceptabilă / instabilitate / cerință funcțională de recuperare rapidă].
+Obiective: restabilirea alinierii axiale, rotaționale și a congruenței articulare, cu mobilizare precoce pentru a preveni rigiditatea. Opțiuni: imobilizare, K-wire percutan, șuruburi de compresiune, placă, fixator Suzuki pentru fracturi-luxație IFP, șurub canulat pentru scafoid. Pentru acest pacient aleg [opțiunea concretă], pentru că [angulare peste limita acceptabilă / instabilitate / cerință funcțională de recuperare rapidă].
 
-Tehnica în pași: 1) anestezie loco-regională, exsanghinare, garou pneumatic la braț; 2) reducere închisă a focarului sub control fluoroscopic, corectând angularea și rotația; 3) verificarea rotației clinic (cascadă digitală, alinierea unghiilor în flexie) înainte de fixare; 4) introducerea K-wire-urilor/șurubului percutan sub fluoroscopie, verificând poziția intraarticulară pe minim 2 incidențe; 5) la scafoid, șurub canulat centrat pe axul lung al osului, capul îngropat subcondral, lungime verificată să nu perforeze cartilajul opus; 6) verificarea stabilității și a mobilității digitale intraoperator; 7) pansament, atelă de protecție; 8) control radiografic final pe 2 incidențe.
+Tehnica în pași: 1) anestezie loco-regională, garou pneumatic; 2) reducere închisă sub fluoroscopie, corectând angularea și rotația; 3) verificarea rotației clinic înainte de fixare; 4) introducerea K-wire-urilor/șurubului percutan, verificând poziția pe minim 2 incidențe; 5) la scafoid, șurub centrat pe axul lung, cap îngropat subcondral, lungime verificată; 6) verificarea stabilității intraoperator; 7) pansament, atelă de protecție; 8) control radiografic final.
 
-Protocol postoperator: imobilizare protejată 2 la 4 săptămâni (metacarpiene/falange) sau orteză scurtă 6 la 8 săptămâni (scafoid fixat, mai scurtă decât gipsul conservator), mobilizare activă precoce a articulațiilor libere din prima zi pentru a preveni rigiditatea, kinetoterapie progresivă, control radiografic la 2, 6 și 12 săptămâni, reluarea sportului de contact la consolidare radiologică completă (8 la 12 săptămâni pentru scafoid).
+Protocol postoperator: imobilizare protejată 2-4 săptămâni (metacarpiene/falange) sau orteză scurtă 6-8 săptămâni (scafoid), mobilizare activă precoce a articulațiilor libere, kinetoterapie progresivă, control radiografic la 2, 6, 12 săptămâni, reluarea sportului de contact la consolidare completă (8-12 săptămâni pentru scafoid).
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Fără tratament corect, evoluția este spre malunion (angulare/rotație reziduală, încrucișarea degetelor), rigiditate articulară, sau nonunion (mai ales scafoid, cu evoluție spre SNAC wrist). Complicații ale bolii: rigiditate IFP, malrotație, nonunion, necroză avasculară (pol proximal scafoid). Complicații ale tratamentului: infecție pe traiect K-wire, leziune tendinoasă/nervoasă iatrogenă, rigiditate postimobilizare prelungită. Prognosticul funcțional este bun cu tratament corect și mobilizare precoce; scafoidul diagnosticat și tratat precoce are rată de consolidare peste 90 la 95%. Urmărire: control clinic și radiografic până la consolidare completă, apoi reluare progresivă a activității.
+Fără tratament corect, evoluția este spre malunion, rigiditate articulară, sau nonunion (mai ales scafoid, spre SNAC wrist). Complicații ale bolii: rigiditate IFP, malrotație, nonunion, necroză avasculară. Complicații ale tratamentului: infecție pe traiect K-wire, leziune iatrogenă, rigiditate postimobilizare prelungită. Prognosticul funcțional este bun cu tratament corect și mobilizare precoce; scafoidul tratat precoce are rată de consolidare peste 90-95%. Urmărire: control clinic și radiografic până la consolidare completă.
 
 ### Fraze-cheie
 
 - Rotația unei falange se verifică clinic cu degetele în flexie completă, prin alinierea plăcuțelor unghiale, nu prin radiografie.
-- Angularea acceptabilă la boxer's fracture (col MC V) este de 40 la 50 grade, mult mai mare decât la falange, datorită mobilității compensatorii a articulației CMC.
-- Scafoidul are aport vascular retrograd, motiv pentru care fracturile polului proximal au risc mult mai mare de necroză avasculară decât cele de talie.
-- Sensibilitatea radiografiei inițiale pentru fractura de scafoid este de doar 70 la 80%, deci o suspiciune clinică persistentă cu radiografie negativă impune imobilizare provizorie și reevaluare.
-- Fractura Bennett este o fractură-luxație intraarticulară a bazei metacarpianului I, cu fragmentul volar-ulnar reținut de ligamentul beak.
-- Fractura Seymour la copil este echivalentul unei fracturi deschise, cu matricea unghială interpusă în focar, și necesită explorare și antibioterapie.
-- SNAC wrist este consecința nonunion-ului netratat al scafoidului, cu degenerare secvențială a carpului.
-- Mobilizarea precoce a articulațiilor neafectate, chiar sub imobilizare, este esențială pentru a preveni rigiditatea IFP.
+- Angularea acceptabilă la boxer's fracture este de 40-50 grade, mult mai mare decât la falange, prin mobilitatea compensatorie a CMC.
+- Scafoidul are aport vascular retrograd, de aceea fracturile polului proximal au risc mult mai mare de necroză avasculară.
+- Sensibilitatea radiografiei inițiale pentru scafoid este de doar 70-80%, deci o suspiciune clinică persistentă impune imobilizare provizorie și reevaluare.
+- Fractura Bennett este o fractură-luxație intraarticulară cu fragmentul volar-ulnar reținut de ligamentul beak.
+- Fractura Seymour la copil este echivalentul unei fracturi deschise, cu matricea unghială interpusă, și necesită explorare și antibioterapie.
+- SNAC wrist este consecința nonunion-ului netratat al scafoidului.
 
 ## Întrebările comisiei
 
 ### Î1. Care sunt criteriile fracturii Bennett și cum se explică deplasarea?
-**R:** Bennett este o fractură-luxație intraarticulară oblică a bazei metacarpianului I: fragmentul volar-ulnar, mic, rămâne fixat de trapez prin ligamentul beak (trapezo-metacarpian volar), în timp ce restul metacarpianului este tras proximal, dorsal și în supinație de abductorul lung al policelui, nefixat. Reducerea trebuie să restabilească congruența articulară, de obicei prin fixare percutanată cu K-wire sau șurub, pentru că reducerea închisă fără fixare nu se menține.
+**R:** Bennett este o fractură-luxație intraarticulară oblică a bazei metacarpianului I: fragmentul volar-ulnar rămâne fixat de trapez prin ligamentul beak, restul metacarpianului fiind tras proximal, dorsal și în supinație de abductorul lung al policelui. Reducerea trebuie să restabilească congruența, de obicei prin fixare percutanată cu K-wire sau șurub, pentru că reducerea închisă fără fixare nu se menține.
 
 ### Î2. Ce faceți dacă la un boxer's fracture angularea este de 60 de grade?
-**R:** Peste limita acceptabilă de 40 la 50 de grade pentru metacarpianul V, indic reducere, de regulă manevra Jahss (flexie MCF 90 grade, presiune pe falanga proximală în ax pentru a împinge capul metacarpian dorsal), urmată de fixare cu K-wire percutan dacă reducerea nu este stabilă spontan, pentru a preveni deficitul funcțional de forță a pumnului și proeminența palmară a capului metacarpian.
+**R:** Peste limita acceptabilă de 40-50 de grade, indic reducere (manevra Jahss: flexie MCF 90 grade, presiune pe falanga proximală în ax), urmată de K-wire percutan dacă reducerea nu este stabilă spontan, pentru a preveni deficitul de forță și proeminența palmară a capului metacarpian.
 
 ### Î3. Care sunt tipurile Herbert de fractură de scafoid și cum ghidează tratamentul?
 **R:** Herbert clasifică fracturile în tip A (stabile, acute: A1 tubercul, A2 talie incompletă), tip B (instabile, acute: B1 oblic distal, B2 talie completă deplasată, B3 pol proximal, B4 fractură-luxație trans-scafo-perilunară), tip C (întârziere de consolidare) și tip D (nonunion, D1 fibros stabil, D2 pseudartroză cu deformare). Tipurile A se pot trata conservator prin imobilizare, tipurile B, mai ales B2 și B3, beneficiază de fixare chirurgicală cu șurub canulat datorită instabilității și riscului crescut de nonunion.
@@ -11948,7 +11947,7 @@ Fără tratament corect, evoluția este spre malunion (angulare/rotație rezidua
 **R:** Testez stabilitatea în valgus a MCF I în extensie completă și în flexie 30 de grade; o instabilitate marcată (peste 30-35 grade sau fără punct final ferm) sugerează ruptură completă, posibil cu interpoziția aponevrozei adductorului peste ligamentul rupt (leziune Stener), care nu se vindecă spontan și necesită reparare chirurgicală, spre diferență de o entorsă parțială cu punct final ferm, tratabilă conservator.
 
 ### Î15. Ce faceți dacă la controlul postoperator la 6 săptămâni un scafoid fixat cu șurub nu prezintă semne clare de consolidare pe radiografie?
-**R:** La 6 săptămâni consolidarea radiografică poate fi încă incompletă, mai ales la polul proximal; continuu imobilizarea/protecția și repet evaluarea la 10-12 săptămâni, eventual cu CT pentru a evalua puntea osoasă trabeculară, care este mai sensibilă decât radiografia standard pentru consolidare la scafoid. Dacă la 3-4 luni nu există consolidare, evaluez pentru nonunion și consider grefare osoasă.
+**R:** La 6 săptămâni consolidarea poate fi încă incompletă, mai ales la polul proximal; continuu protecția și repet evaluarea la 10-12 săptămâni, eventual cu CT, mai sensibil decât radiografia pentru consolidarea la scafoid. Dacă la 3-4 luni nu există consolidare, evaluez pentru nonunion și consider grefare osoasă.
 `,Uu=`---
 title: Luxațiile semilunarului
 probe: ct
@@ -11963,19 +11962,19 @@ related: diagnoses/scaphoid-carpal-instability, techniques/perilunate-dislocatio
 
 ### Definiție și epidemiologie
 
-Luxația semilunarului și luxațiile perilunare ale carpului sunt leziuni de instabilitate carpiană majoră, produse printr-un continuum lezional progresiv (arc lezional Mayfield) în care carpul se rupe de la periferie spre centru în jurul semilunarului, care rămâne (parțial) atașat la radius prin ligamentele volare. Sunt leziuni rare (sub 10% din traumatismele carpiene) dar frecvent subdiagnosticate în urgență (până la 25% ratate la prima prezentare), tipic la bărbați adulți jugi (20 la 40 ani), mecanism de energie mare (cădere de la înălțime, accident rutier, sport de contact).
+Luxația semilunarului și luxațiile perilunare ale carpului sunt leziuni de instabilitate carpiană majoră, produse printr-un continuum lezional progresiv (arc lezional Mayfield) în care carpul se rupe de la periferie spre centru în jurul semilunarului, care rămâne parțial atașat la radius prin ligamentele volare. Sunt leziuni rare (sub 10% din traumatismele carpiene) dar frecvent subdiagnosticate (până la 25% ratate la prima prezentare), tipic la bărbați adulți jugi (20-40 ani), mecanism de energie mare.
 
 ### Anatomie și biomecanică relevantă
 
-Semilunarul este stabilizat de ligamentul scapholunat (SL, dorsal mai gros și mai important mecanic decât volar) proximal-radial, ligamentul lunotriquetral (LT) proximal-ulnar, și complexul ligamentar volar (ligamentul radioscafocapitat, radiolunat lung, radiolunat scurt) care ancorează semilunarul la radius. Vascularizația semilunarului provine dintr-o rețea duală (arcade dorsale și volare, artere interoase anterioară/posterioară), motiv pentru care luxația pură a semilunarului cu ruptura completă a ambelor pediculi poate produce necroza avasculară (boala Kienböck posttraumatică). Arcul lezional se produce fie prin "lesser arc" (doar ligamentar, în jurul semilunarului: SL, capitat, LT), fie prin "greater arc" (traversând osul: cel mai frecvent trans-scafoid perilunar, dar poate implica și stiloida radială, capul capitatului). Unghiul scapholunat normal este 30 la 60 de grade; peste 60-70 grade indică instabilitate dorsală intercalată segmentară (DISI).
+Semilunarul este stabilizat de ligamentul scapholunat (SL, dorsal mai gros și mai important mecanic) proximal-radial, ligamentul lunotriquetral (LT) proximal-ulnar, și complexul ligamentar volar (radioscafocapitat, radiolunat lung/scurt) care ancorează semilunarul la radius. Vascularizația provine dintr-o rețea duală (arcade dorsale și volare), motiv pentru care luxația pură cu ruptura ambelor pediculi poate produce necroza avasculară (Kienböck posttraumatică). Arcul lezional se produce fie prin "lesser arc" (doar ligamentar: SL, capitat, LT), fie prin "greater arc" (traversând osul: cel mai frecvent trans-scafoid, dar poate implica stiloida radială/capul capitatului). Unghiul scapholunat normal este 30-60 grade; peste 60-70 grade indică DISI.
 
 ### Etiopatogenie
 
-Mecanism de hiperextensie a pumnului cu deviere ulnară și supinație intercarpiană sub încărcare axială mare (cădere pe mână în extensie de la energie înaltă), similar mecanismului FOOSH dar cu forță suficientă pentru a rupe progresiv ligamentele carpiene periferice de la radial spre ulnar. Frecvent asociat cu politraumatism (accidente rutiere, cădere de la înălțime), motiv pentru care se caută activ, nefiind evidentă clinic la un pacient cu leziuni multiple mai dramatice.
+Mecanism de hiperextensie a pumnului cu deviere ulnară și supinație intercarpiană sub încărcare axială mare, similar FOOSH dar cu forță suficientă pentru a rupe progresiv ligamentele carpiene de la radial spre ulnar. Frecvent asociat cu politraumatism, motiv pentru care se caută activ, nefiind evidentă clinic la un pacient cu leziuni mai dramatice.
 
 ### Anatomie patologică
 
-Progresia Mayfield descrie ruptura secvențială: stadiul I, ruptura ligamentului scapholunat (diastază SL); stadiul II, ruptura capsulei periarticulare până la ligamentul capitolunat (subluxație/luxație a capitatului dorsal față de semilunar); stadiul III, ruptura ligamentului lunotriquetral (întreg carpul, cu excepția semilunarului, se luxează dorsal); stadiul IV, ruptura completă a ligamentelor volare radiolunate, semilunarul se rotește/luxează volar în canalul carpian, comprimând nervul median. În varianta "greater arc" (trans-scafo-perilunară), traiectul trece prin osul scafoid în loc de ligamentul SL.
+Progresia Mayfield: stadiul I, ruptura SL (diastază); stadiul II, ruptura capsulei până la ligamentul capitolunat (subluxație a capitatului); stadiul III, ruptura LT (întreg carpul, cu excepția semilunarului, se luxează dorsal); stadiul IV, ruptura ligamentelor volare radiolunate, semilunarul se rotește/luxează volar, comprimând medianul. În varianta greater arc, traiectul trece prin scafoid în loc de ligamentul SL.
 
 ### Clasificare
 
@@ -11994,11 +11993,11 @@ Progresia Mayfield descrie ruptura secvențială: stadiul I, ruptura ligamentulu
 
 ### Clinic
 
-Tumefacție marcată difuză a pumnului, durere intensă, deformare variabilă (poate fi minimă dacă reducerea spontană parțială a avut loc), limitarea marcată a mobilității pumnului. Semnul cel mai important de căutat activ: parestezii/hipoestezie în teritoriul medianului (police, index, medius, jumătate radială a inelarului) prin compresia nervului median de către semilunarul luxat volar în canalul carpian, prezent la până la 25% din cazuri, semn de urgență pentru reducere. Palpare: sensibilitate difuză carpiană, eventual proeminență palpabilă volar (semilunarul luxat) sau dorsal (capul capitatului proeminent). Frecvent leziunea este mascată de alte traumatisme (politraumatism), motiv pentru care orice pumn tumefiat dureros posttraumatic la energie înaltă trebuie radiografiat complet.
+Tumefacție marcată difuză a pumnului, durere intensă, deformare variabilă, limitarea marcată a mobilității. Semnul de căutat activ: parestezii/hipoestezie în teritoriul medianului, prin compresia de către semilunarul luxat volar, prezent la până la 25% din cazuri, semn de urgență pentru reducere. Palpare: sensibilitate difuză carpiană, eventual proeminență palpabilă volar sau dorsal. Frecvent leziunea este mascată de politraumatism, motiv pentru care orice pumn tumefiat dureros la energie înaltă trebuie radiografiat complet.
 
 ### Imagistică și explorări
 
-Radiografie standard pumn față și profil strict: pe incidența față, liniile Gilula (trei arcuri concentrice de-a lungul marginilor proximale și distale ale rândului proximal carpian) trebuie să fie continue și armonioase; o întrerupere sau o suprapunere anormală (semilunarul suprapus pe capitat, "piece of pie sign"/aspect triunghiular al semilunarului în loc de patrulater normal) indică luxație. Pe incidența profil, semilunarul normal are aspect de "cupă" care primește capitatul; în luxație, semilunarul se rotește și capătă aspectul de "ceașcă răsturnată" (spilled teacup sign), iar capitatul nu mai este centrat în cupa semilunarului. Se măsoară unghiul scapholunat pe profil (normal 30 la 60 grade; DISI peste 70 grade). CT pentru caracterizarea fracturilor asociate (scafoid, stiloidă radială) și planificare chirurgicală. RMN utilă pentru evaluarea integrității ligamentare la leziuni parțiale/cronice sau la suspiciune de leziune SL izolată fără luxație completă.
+Radiografie standard pumn față și profil strict: pe față, liniile Gilula (trei arcuri concentrice de-a lungul marginilor rândului carpian proximal) trebuie continue; o întrerupere sau suprapunere anormală ("piece of pie sign", semilunar triunghiular) indică luxație. Pe profil, semilunarul normal are aspect de cupă care primește capitatul; în luxație capătă aspectul de "ceașcă răsturnată" (spilled teacup sign). Se măsoară unghiul scapholunat (normal 30-60 grade; DISI peste 70). CT pentru fracturile asociate și planificare chirurgicală. RMN utilă la leziuni parțiale/cronice sau suspiciune de leziune SL izolată.
 
 ### Diagnostic diferențial
 
@@ -12006,23 +12005,23 @@ Fractura izolată de scafoid fără instabilitate perilunară (fără diastază 
 
 ### Tratament
 
-**Conservator:** nu are rol definitiv; reducerea închisă urgentă este primul pas obligatoriu pentru orice luxație perilunară/de semilunar, dar reprezintă doar o măsură temporizatoare, deoarece leziunile ligamentare nu se stabilizează spontan și instabilitatea recidivează fără fixare chirurgicală.
+**Conservator:** fără rol definitiv; reducerea închisă urgentă este primul pas obligatoriu, dar rămâne o măsură temporizatoare, deoarece leziunile ligamentare nu se stabilizează spontan și instabilitatea recidivează fără fixare chirurgicală.
 
-**Chirurgical, indicații:** toate luxațiile perilunare/de semilunar necesită tratament chirurgical definitiv, deoarece reducerea închisă izolată, chiar reușită, nu restabilește stabilitatea ligamentară pe termen lung. Urgența este dublă: reducerea (închisă, cât mai rapid, mai ales dacă există compresie mediană) și apoi stabilizarea chirurgicală (poate fi programată în primele zile, dar ideal sub 7 la 10 zile pentru rezultate optime ale reparării ligamentare).
+**Chirurgical, indicații:** toate luxațiile perilunare/de semilunar necesită tratament chirurgical definitiv, deoarece reducerea închisă izolată nu restabilește stabilitatea pe termen lung. Urgența este dublă: reducerea (cât mai rapid, mai ales cu compresie mediană) și stabilizarea chirurgicală (ideal sub 7-10 zile).
 
-**Tehnică:** abord combinat dorsal (pentru vizualizarea și repararea ligamentului SL, reducerea capitatului, fixare cu K-wire scapholunat și capitolunat) și volar (pentru repararea ligamentelor volare radiolunate, decompresia nervului median dacă există sindrom de tunel carpian acut, verificarea reducerii semilunarului). Fixarea scafoidului asociat (varianta trans-scafoidă) se face cu șurub canulat. K-wire-urile SL și LT se mențin 8 la 12 săptămâni.
+**Tehnică:** abord combinat dorsal (vizualizarea și repararea SL, reducerea capitatului, K-wire scapholunat și capitolunat) și volar (repararea ligamentelor volare radiolunate, decompresia medianului, verificarea reducerii). Scafoidul asociat se fixează cu șurub canulat. K-wire-urile SL și LT se mențin 8-12 săptămâni.
 
-**Cazuri cronice (peste 3 săptămâni, ireductibile sau instabilitate cronică nereparabilă):** proximal row carpectomy (excizia scafoid-semilunar-piramidal, indicată dacă capul capitatului și cavitatea sigmoidă a radiusului sunt intacte, la pacienți cu cerere funcțională moderată) sau four-corner fusion (artrodeză capitat-semilunar-piramidal-hamat cu scafoidectomie, indicată la pacienți mai jugi/activi, păstrează mai multă forță de priză dar sacrifică o parte din mobilitate).
+**Cazuri cronice (peste 3 săptămâni, ireductibile):** proximal row carpectomy (dacă capul capitatului și cavitatea sigmoidă sunt intacte, cerere funcțională moderată) sau four-corner fusion (păstrează mai multă forță de priză dar sacrifică mobilitate, preferată la pacienți jugi/activi).
 
-**Rezultate și evidence:** tratamentul chirurgical precoce (sub 3 săptămâni) al leziunii acute oferă cele mai bune rezultate funcționale și cea mai mică rată de instabilitate reziduală; leziunile diagnosticate tardiv (peste 6-8 săptămâni) au rezultate semnificativ mai slabe ale reparării ligamentare directe, motiv pentru care se recurge frecvent la reconstrucție ligamentară sau proceduri de salvare.
+**Rezultate și evidence:** tratamentul precoce (sub 3 săptămâni) oferă cele mai bune rezultate funcționale și cea mai mică instabilitate reziduală; leziunile tardive (peste 6-8 săptămâni) au rezultate mai slabe la reparare directă, recurgându-se frecvent la reconstrucție sau proceduri de salvare.
 
 ### Complicații
 
-Instabilitate carpiană reziduală (SLAC wrist, scapholunate advanced collapse, prin persistența diastazei SL netratate sau reparate insuficient), rigiditate a pumnului, necroza avasculară a semilunarului (boala Kienböck posttraumatică), sindrom de tunel carpian persistent/recidivant, artroză mediocarpiană și radiocarpiană secundară, leziune de nerv median nerecunoscută/netratată la timp cu deficit senzitiv permanent.
+Instabilitate carpiană reziduală (SLAC wrist, prin persistența diastazei SL), rigiditate a pumnului, necroza avasculară a semilunarului, sindrom de tunel carpian persistent, artroză mediocarpiană/radiocarpiană secundară, leziune de median netratată cu deficit senzitiv permanent.
 
 ### Evoluție și prognostic
 
-Diagnosticată și tratată precoce (sub 1 la 3 săptămâni), luxația perilunară/de semilunar are prognostic funcțional relativ bun, cu recuperare a mobilității de 60 la 80% din normal și forță de priză redusă moderat. Diagnosticul tardiv (frecvent ratat la prima prezentare, mai ales în politraumatism) evoluează invariabil spre instabilitate cronică și artroză progresivă (SLAC wrist), necesitând proceduri de salvare cu rezultate funcționale inferioare reparării acute. Urmărirea pe termen lung este necesară pentru toate cazurile, dat fiind riscul de degenerare progresivă chiar și după tratament corect.
+Diagnosticată și tratată precoce (sub 1-3 săptămâni), luxația are prognostic relativ bun, cu recuperare a mobilității 60-80% din normal și forță de priză redusă moderat. Diagnosticul tardiv evoluează invariabil spre instabilitate cronică și artroză progresivă (SLAC wrist), necesitând proceduri de salvare cu rezultate inferioare reparării acute. Urmărirea pe termen lung este necesară pentru toate cazurile, dat fiind riscul de degenerare progresivă chiar și după tratament corect.
 
 ## Script de prezentare
 
@@ -12135,15 +12134,15 @@ related: diagnoses/elbow-forearm-fractures, techniques/interposition-arthroplast
 
 ### Definiție și epidemiologie
 
-Luxația de cot este a doua cea mai frecventă luxație articulară majoră la adult (după umăr), cu incidență de aproximativ 6 la 8 la 100.000 de persoane pe an. Luxația posterioară și posterolaterală reprezintă 90% din cazuri. Este cea mai frecventă luxație la copil sub 10 ani (unde predomină subluxația de cap radial, "nursemaid elbow", o entitate distinctă). Vârf de incidență la adultul tânăr activ (sport de contact, cădere pe mână întinsă) și la vârstnic (cădere simplă cu energie mai mică).
+Luxația de cot este a doua cea mai frecventă luxație articulară majoră la adult (după umăr), cu incidență de 6-8 la 100.000 persoane pe an. Luxația posterioară și posterolaterală reprezintă 90% din cazuri. Este cea mai frecventă luxație la copil sub 10 ani (unde predomină subluxația de cap radial, "nursemaid elbow", entitate distinctă). Vârf de incidență la adultul tânăr activ (sport de contact) și la vârstnic (cădere simplă cu energie mai mică).
 
 ### Anatomie și biomecanică relevantă
 
-Cotul are stabilitate osoasă (articulația humero-ulnară, congruența trohleei cu incizura semilunară) și stabilitate ligamentară: ligamentul colateral medial (bandeleta anterioară, principal stabilizator la stres în valgus, de la 30 la 120 grade flexie) și ligamentul colateral lateral (LCL, complex, cu ligamentul colateral ulnar lateral, LUCL, principalul stabilizator la stres în varus și la instabilitate rotatorie posterolaterală). Capul radial este un stabilizator secundar important, mai ales când ligamentele sunt lezate ("a treia coloană" a stabilității cotului, alături de cele două coloane osoase medial-lateral). Concept de "ring of stability" (Cohen/Hastings): cotul este stabil dacă cel puțin unul din inelul de structuri (osoase și ligamentare, medial și lateral) rămâne intact; leziunile progresează de la lateral spre medial în luxația posterolaterală tipică.
+Cotul are stabilitate osoasă (congruența trohleei cu incizura semilunară) și ligamentară: ligamentul colateral medial (bandeleta anterioară, principal stabilizator la valgus) și ligamentul colateral lateral (LCL, cu LUCL, principal stabilizator la varus și la instabilitate rotatorie posterolaterală). Capul radial este stabilizator secundar important când ligamentele sunt lezate ("a treia coloană"). Concept "ring of stability" (Cohen/Hastings): cotul este stabil dacă cel puțin una din structurile inelului (osoase și ligamentare) rămâne intactă; leziunile progresează de la lateral spre medial în luxația posterolaterală tipică.
 
 ### Etiopatogenie
 
-Mecanismul clasic (O'Driscoll): cădere pe mâna întinsă cu cotul în extensie/hiperextensie, sub combinația de forțe valgus, supinație a antebrațului și încărcare axială, produce o rotație externă a antebrațului față de humerus, care rupe progresiv structurile de la lateral spre medial (mecanism de instabilitate rotatorie posterolaterală, PLRI). Mecanism de energie mai mare (accident rutier, sport de contact, cădere de la înălțime) pentru variantele complexe (terrible triad, cu fractură de cap radial și/sau apofiza coronoidă asociate).
+Mecanismul clasic (O'Driscoll): cădere pe mâna întinsă cu cotul în extensie, sub combinația de valgus, supinație și încărcare axială, produce o rotație externă a antebrațului față de humerus, care rupe progresiv structurile de la lateral spre medial (PLRI). Energie mai mare pentru variantele complexe (terrible triad, cu fractură de cap radial și/sau coronoidă).
 
 ### Anatomie patologică
 
@@ -12153,7 +12152,7 @@ Luxație simplă: fără fractură osoasă asociată, dar cu leziune ligamentar�
 
 **Direcție:** posterioară (cea mai frecventă, ulna și radiusul deplasate posterior față de humerus), posterolaterală (90% din cazuri, subtip al posterioarei), anterioară (rară, energie mare), divergentă/laterală/medială (foarte rare).
 
-**O'Driscoll, stadializarea instabilității posterolaterale (PLRI), progresivă de la lateral spre medial:** stadiul 1, subluxație rotatorie posterolaterală tranzitorie (ruptura LUCL, se reduce spontan); stadiul 2, luxație posterolaterală incompletă (ruptura ligamentară anterioară și posterioară, cot "perched" pe coronoidă); stadiul 3A, luxație posterioară completă cu ruptura completă a complexului ligamentar lateral și posterior medial, dar cu bandeleta anterioară a ligamentului colateral medial intactă (cot stabil după reducere la testarea în valgus/varus dacă bandeleta anterioară e intactă); stadiul 3B, ruptura completă inclusiv a bandeletei anterioare mediale (instabilitate reziduală în valgus după reducere); stadiul 3C, dezinserția completă a tuturor originilor musculo-ligamentare de pe humerusul distal (instabilitate globală severă, "flail elbow").
+**O'Driscoll, stadializarea PLRI, progresivă de la lateral spre medial:** stadiul 1, subluxație rotatorie tranzitorie (ruptura LUCL, se reduce spontan); stadiul 2, luxație incompletă (ruptura capsulară anterioară/posterioară, cot "perched" pe coronoidă); stadiul 3A, luxație completă cu ruptura complexului lateral și posterior medial, dar bandeleta anterioară a LCM intactă (stabil postreducere); stadiul 3B, ruptura completă inclusiv a bandeletei anterioare (instabilitate reziduală în valgus); stadiul 3C, dezinserție musculo-ligamentară completă de pe humerusul distal ("flail elbow").
 
 **Simplă versus complexă:** simplă, fără fractură; complexă, cu fractură asociată (cap radial, coronoidă, olecran); terrible triad ca subtip specific al complexei.
 
