@@ -163,18 +163,18 @@ Netratată, coxartroza evoluează progresiv către deformare fixă și limitare 
 
 **R:** Se măsoară pe radiografia de pelvis față, între o linie verticală prin centrul capului femural și o linie de la centrul capului la marginea laterală a acetabulului. Normal peste 25 grade (?); sub această valoare indică acoperire insuficientă, sugerând displazie ca factor cauzal.
 
-### Î12. Ce cuplu de frecare alegeti pentru un pacient tanar activ si de ce?
+### Î12. Ce cuplu de frecare alegeți pentru un pacient tânăr activ și de ce?
 
 **R:** Ceramică-pe-polietilenă crosslinked, din cauza ratei mici de uzură și a profilului de siguranță bun; ceramică-pe-ceramică este o alternativă cu uzură minimă dar risc de scuărțuit; metal-pe-metal este evitat actual din cauza riscului de ioni metalici și reacție adversă la particule.
 
-### Î13. Ce faceti daca radiografia arata semne de necroza avasculara la un pacient cu coxartroza secundara?
+### Î13. Ce faceți dacă radiografia arată semne de necroză avasculară la un pacient cu coxartroză secundară?
 
 **R:** Evaluez stadiul necrozei (Ficat-Arlet/ARCO) pentru a stabili dacă există încă colaps subcondral limitat versus artroză secundară deja instalată; dacă artroza secundară este avansată (Tönnis 2-3), indic direct artroplastie totală de șold, deoarece chirurgia de conservare (core decompresie) nu mai este indicată după colaps articular.
 
-### Î14. Care este mecanismul prin care displazia de sold duce la coxartroza secundara?
+### Î14. Care este mecanismul prin care displazia de șold duce la coxartroză secundară?
 
 **R:** Acoperirea insuficientă concentrează sarcina pe o zonă mică, superolaterală, ducând la suprasolicitare focală cronică, degenerare precoce a cartilajului și labrumului, și artroză secundară, tipic la tânăr sau sex feminin.
 
-### Î15. Ce faceti daca in cursul artroplastiei descoperiti o anteversie femurala excesiva?
+### Î15. Ce faceți dacă în cursul artroplastiei descoperiți o anteversie femurală excesivă?
 
 **R:** Ajustez anteversia componentei acetabulare pentru a compensa parțial (combined anteversion, ținta totală aproximativ 25-40 grade) (?), și dacă discrepanța este mare, consider o tijă cu anteversie ajustabilă sau o osteotomie de derotație femurală în cazuri severe, pentru a evita instabilitatea sau conflictul osos.
