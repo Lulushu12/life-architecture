@@ -12,7 +12,7 @@ related: classifications/weber-danis-classification-ankle-fracture, classificati
 
 ### Definiție și epidemiologie
 
-Fractura de gleznă este soluția de continuitate la nivelul mortezei tibio-fibulo-astragaliene, implicând una, două sau trei maleole (bimaleolară, trimaleolară) și, uneori, sindesmoza tibio-fibulară distală. Este una din cele mai frecvente fracturi tratate chirurgical, incidență de aproximativ 100 la 200 la 100.000 de persoane/an, distribuție bimodală: tineri (traumatism de energie mare, sport, accidente), vârstnici (fragilitate osoasă, cădere de la același nivel).
+Fractura de gleznă este soluția de continuitate la nivelul mortezei tibio-fibulo-astragaliene, implicând una, două sau trei maleole (bimaleolară, trimaleolară) și, uneori, sindesmoza tibio-fibulară distală. Este una din cele mai frecvente fracturi tratate chirurgical, incidență de aproximativ 100 până la 200 la 100.000 de persoane/an, distribuție bimodală: tineri (energie mare, sport, accidente), vârstnici (fragilitate osoasă, cădere de la același nivel).
 
 ### Anatomie și biomecanică relevantă
 
@@ -77,7 +77,7 @@ Entorsă de gleznă (fără fractură radiologic, ligamentar pur), fractura de p
 
 ### Complicații
 
-Infecție de plagă (mai frecventă la diabetic, fumător, edem sever preoperator), malunion (fibulă scurtată/rotată, cea mai frecventă cauză de rezultat funcțional slab), reducere greșită a sindesmozei (malreducere, frecvent subestimată, cauză majoră de artroză precoce), pseudartroza maleolei mediale, artroză post-traumatică (mai frecventă cu incongruență articulară reziduală), sindrom de compartiment (rar), leziune de nerv peronier superficial la fixarea fibulei.
+Infecție de plagă (mai frecventă la diabetic, fumător, edem sever preoperator), malunion (fibulă scurtată/rotată, cea mai frecventă cauză de rezultat slab), malreducere de sindesmoză (frecvent subestimată, cauză majoră de artroză precoce), pseudartroza maleolei mediale, artroză post-traumatică, sindrom de compartiment (rar), leziune de nerv peronier superficial.
 
 ### Evoluție și prognostic
 
