@@ -85,7 +85,7 @@ Pacientul/a în vârstă de [vârstă] ani, [profesie/elev], din [mediu], se pre
 
 ### 2. Anamneză (2 min)
 
-Motivul internării: la copil, asimetria observată (de cine, de când, dacă este progresivă) și eventuala durere (rară în AIS, semnal de alarmă dacă prezentă). La adult, durerea lombară (caracterul mecanic sau radicular), dezechilibrul postural, oboseala la ortostatism prelungit. Istoric: debutul, evoluția (viteza de progresie, corelată cu perioadele de creștere rapidă la copil), tratamente urmate (corset anterior, fizioterapie). Antecedente relevante pentru acest subiect: istoric familial de scolioză, vârsta menarhei (marker de maturitate schelet la fete), boli neurologice/musculare de bază, malformații renale/cardiace cunoscute (asociere cu scolioza congenitală). Factori de risc pentru progresie: sex feminin, curbă toracică, magnitudinea curbei la diagnostic, imaturitate schelet (Risser scăzut), velocitate de creștere rămasă mare.
+Motivul internării: la copil, asimetria observată (de cine, de când, progresivă sau nu) și eventuala durere (rară în AIS, semnal de alarmă dacă prezentă). La adult, durerea lombară (mecanică sau radiculară), dezechilibrul postural, oboseala la ortostatism prelungit. Istoric: debutul, evoluția (viteza de progresie, corelată cu creșterea rapidă la copil), tratamente urmate. Antecedente relevante: istoric familial de scolioză, vârsta menarhei (maturitate schelet la fete), boli neurologice/musculare de bază, malformații renale/cardiace (scolioza congenitală). Factori de risc pentru progresie: sex feminin, curbă toracică, magnitudinea curbei la diagnostic, Risser scăzut, creștere rămasă mare.
 
 ### 3. Examen clinic (3 min)
 
