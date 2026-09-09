@@ -148,10 +148,7 @@ Fără tratament, curbele mari la copil imatur schelet progresează rapid în pe
 ### Î6. Ce este studiul BrAIST și ce a demonstrat?
 **R:** Este un trial randomizat de referință care a comparat corsetul cu observația la adolescenți cu AIS și curbă 20 la 40 grade, demonstrând o reducere semnificativă a ratei de progresie peste 50 grade (prag chirurgical) în grupul cu corset, cu un efect dependent de doza de purtare, peste 12 la 13 ore/zi asociind cele mai bune rezultate.
 
-### Î7. Care este diferența dintre scolioza congenitală și cea idiopatică în privința strategiei chirurgicale?
-**R:** Scolioza congenitală, cauzată de malformații vertebrale structurale (hemivertebre, bare unilaterale), progresează frecvent chiar la copil mic și beneficiază de tratament precoce, adesea rezecție de hemivertebră cu fuziune scurtă, pentru a evita o fuziune extinsă tardivă; scolioza idiopatică nu are anomalie vertebrală structurală și decizia chirurgicală se bazează pe magnitudinea curbei și riscul de progresie legat de maturitate.
-
-### Î8. Ce faceți dacă în timpul corecției chirurgicale monitorizarea neurofiziologică arată scădere semnificativă a potențialelor evocate?
+### Î7. Ce faceți dacă în timpul corecției chirurgicale monitorizarea neurofiziologică arată scădere semnificativă a potențialelor evocate?
 **R:** Opresc imediat manevra de corecție, verific și corectez eventuali factori sistemici (tensiune arterială, temperatură, anemie), reduc gradul de corecție/relaxez tensiunea pe tije, și dacă potențialele nu se recuperează, efectuez wake-up test intraoperator pentru a evalua funcția motorie a pacientului treaz, ajustând strategia chirurgicală în consecință.
 
 ### Î9. Care sunt parametrii spinopelvici relevanți în scolioza degenerativă a adultului?
@@ -163,10 +160,7 @@ Fără tratament, curbele mari la copil imatur schelet progresează rapid în pe
 ### Î11. Care este rolul osteotomiilor de tip pedicle subtraction în scolioza adultului?
 **R:** Se folosesc pentru a corecta dezechilibrul sagital sever fix (rigiditate care nu permite corecție doar prin instrumentare posterioară standard), prin rezecția unei porțiuni în formă de V din pedicul, corp vertebral posterior și elemente posterioare la un singur nivel, obținând o corecție angulară de aproximativ 30 la 35 grade (?) la acel nivel, cu risc chirurgical și de sângerare semnificativ mai mare decât fuziunea standard.
 
-### Î12. Ce este vertebral body tethering și ce indicație are?
-**R:** Este o tehnică chirurgicală non-fuzională, în care un cablu/tijă flexibilă este fixată anterolateral pe corpurile vertebrale printr-un abord toracoscopic/mini-invaziv, folosind principiul Hueter-Volkmann (compresia inhibă creșterea) pentru a modula creșterea asimetrică și a corecta progresiv curba, indicată la adolescenți imaturi schelet cu curbe flexibile moderate, cu avantajul teoretic al conservării mobilității segmentare față de fuziune.
-
-### Î13. Ce faceți dacă un pacient cu scolioză neuromusculară (paralizie cerebrală) prezintă o curbă severă cu bazin oblic?
+### Î12. Ce faceți dacă un pacient cu scolioză neuromusculară (paralizie cerebrală) prezintă o curbă severă cu bazin oblic?
 **R:** Evaluez impactul funcțional (poziționare în scaunul cu rotile, îngrijire, escare de decubit prin dezechilibru pelvin), și dacă indicația chirurgicală este confirmată, planific fuziune extinsă până la pelvis (fixare iliacă/S2AI) pentru a corecta obliquitatea pelvină, cu atenție crescută la riscul perioperator dat de comorbiditățile neurologice și nutriționale asociate acestor pacienți.
 
 ### Î14. Care este semnificația unei asimetrii a reflexelor cutanate abdominale la un copil cu scolioză?

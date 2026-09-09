@@ -48,11 +48,11 @@ Motiv de prezentare: durere inghinala mecanica (accentuata la incarcare, amelior
 
 ### Imagistica si explorari
 
-Radiografie de pelvis fata in ortostatism (standardizata, ambele solduri comparativ) si profil (fals profil Lequesne pentru acoperire anterioara), cu evaluarea Kellgren-Lawrence/Tönnis, unghiul centru-margine (CE Wiberg, normal peste 25 grade) (?), unghiul acetabular Tönnis/Sharp pentru displazie, semne de FAI (unghiul alfa peste 50-55 grade pentru cam) (?). CT pentru planificare preoperatorie complexa (deformari severe, revizie, anatomie osoasa atipica) si masurare a anteversiei femurale/acetabulare. IRM pentru diagnostic precoce (edem osos, necroza avasculara incipienta, leziuni labrale) cand radiografia este normala dar suspiciunea clinica este mare. Pentru evaluarea preoperatorie: probe biologice standard, tipaj sanguin, EKG, evaluare cardiologica/anestezica dupa caz, evaluare a lungimii membrelor pe radiografie panoramica (scanograma).
+Radiografie de pelvis fata in ortostatism (ambele solduri comparativ) si profil (fals profil Lequesne), cu evaluare Kellgren-Lawrence/Tönnis, unghi CE Wiberg (normal peste 25 grade) (?), unghi acetabular Tönnis/Sharp pentru displazie, semne de FAI (unghi alfa peste 50-55 grade) (?). CT pentru planificare in deformari severe/revizie si anteversie femurala/acetabulara. IRM pentru diagnostic precoce cand radiografia e normala dar suspiciunea clinica e mare. Preoperator: probe biologice standard, tipaj sanguin, EKG, evaluare cardiologica, scanograma pentru lungimea membrelor.
 
 ### Diagnostic diferential
 
-Trohanterita/sindrom de durere trohanteriana mare (durere laterala, sensibilitate la palparea trohanterului, fara limitare de mobilitate intraarticulara). Patologie de coloana lombara (durere referita, semne radiculare, fara limitare a mobilitatii de sold). Necroza avasculara de cap femural fara artroza secundara inca instalata (colaps subcondral la IRM/radiografie fara osteofitoza extensiva). Sindrom de conflict femuro-acetabular fara artroza (durere la flexie-rotatie interna, cartilaj conservat la IRM). Fractura de stres de col femural (durere acuta, context de suprasolicitare, linie de fractura la IRM). Patologie sacroiliaca sau hernie inghinala/pubalgie (durere inghinala fara semne intraarticulare la testele specifice).
+Trohanterita (durere laterala, sensibilitate la trohanter, fara limitare intraarticulara). Patologie lombara (durere referita, semne radiculare, mobilitate de sold conservata). Necroza avasculara fara artroza secundara (colaps subcondral fara osteofitoza extensiva). FAI fara artroza (durere la flexie-rotatie interna, cartilaj conservat la IRM). Fractura de stres de col femural (context de suprasolicitare, linie de fractura la IRM). Patologie sacroiliaca/hernie inghinala (durere inghinala fara semne la testele specifice).
 
 ### Tratament
 
@@ -66,11 +66,11 @@ Trohanterita/sindrom de durere trohanteriana mare (durere laterala, sensibilitat
 
 ### Complicatii
 
-Ale bolii: durere cronica, limitare functionala progresiva, deformare fixa, atrofie musculara, compensari la nivelul coloanei lombare/genunchiului. Ale tratamentului conservator: progresie a artrozei fara ameliorare, risc de efecte adverse la AINS pe termen lung. Ale tratamentului chirurgical: luxatie de proteza (mai frecventa la abordul posterolateral fara reparare capsulara), infectie periprotetica, tromboembolism venos, fractura periprotetica intraoperatorie/postoperatorie, discrepanta de lungime a membrelor, leziune de nerv sciatic (posterolateral) sau femural/cutanat femural lateral (anterior), uzura si osteoliza pe termen lung, decimentare aseptica.
+Ale bolii: durere cronica, limitare functionala progresiva, deformare fixa, atrofie musculara. Ale tratamentului conservator: progresie fara ameliorare, efecte adverse la AINS. Ale tratamentului chirurgical: luxatie de proteza (mai frecventa la posterolateral fara reparare capsulara), infectie periprotetica, tromboembolism, fractura periprotetica, discrepanta de lungime, leziune de nerv sciatic (posterolateral) sau femural cutanat lateral (anterior), uzura/osteoliza, decimentare aseptica.
 
 ### Evolutie si prognostic
 
-Coxartroza netratata evolueaza progresiv, cu deteriorare functionala si deformare fixa in stadiile avansate, impact semnificativ asupra calitatii vietii. THA bine indicata si tehnic corecta ofera ameliorare marcata a durerii si a functiei la marea majoritate a pacientilor, cu rezultate durabile pe termen lung; revizia poate fi necesara pentru uzura, decimentare sau infectie la distanta de ani.
+Netratata, evolueaza progresiv catre deformare fixa si limitare functionala severa, cu impact semnificativ asupra calitatii vietii. THA bine indicata si tehnic corecta ofera ameliorare marcata a durerii si functiei la majoritatea pacientilor, cu rezultate durabile; revizia poate fi necesara pentru uzura, decimentare sau infectie la distanta de ani.
 
 ## Script de prezentare
 
@@ -121,7 +121,7 @@ Netratata, coxartroza evolueaza progresiv catre deformare fixa si limitare funct
 
 ### Î1. Care sunt criteriile clasificarii Tönnis pentru coxartroza?
 
-**R:** Grad 0, fara semne de artroza; grad 1, scleroza crescuta, ingustare usoara si osteofitoza usoara; grad 2, chisturi mici, ingustare moderata si pierdere moderata a sfericitatii capului femural; grad 3, chisturi mari, spatiu articular sever ingustat sau obliterat, deformare severa a capului femural, cu semne de necroza avasculara.
+**R:** Grad 0, fara semne de artroza; grad 1, scleroza crescuta si osteofitoza usoara; grad 2, chisturi mici si pierdere moderata a sfericitatii capului femural; grad 3, chisturi mari, spatiu articular sever ingustat/obliterat, deformare severa cu semne de necroza avasculara.
 
 ### Î2. Cum efectuati si interpretati testul Trendelenburg?
 
@@ -129,23 +129,23 @@ Netratata, coxartroza evolueaza progresiv catre deformare fixa si limitare funct
 
 ### Î3. Care sunt indicatiile pentru artroplastia totala de sold?
 
-**R:** Distructie articulara radiologic confirmata (Tönnis 2-3, de regula KL peste 3) concordanta cu durere semnificativa si limitare functionala, refractara la un tratament conservator adecvat (kinetoterapie, AINS, modificare a activitatii). Indicatia nu se pune pe baza imagistica singura, ci pe corelarea cu simptomatologia.
+**R:** Distructie articulara radiologic confirmata (Tönnis 2-3, de regula KL peste 3) concordanta cu durere semnificativa si limitare functionala, refractara la tratament conservator (kinetoterapie, AINS, modificare a activitatii). Indicatia nu se pune pe imagistica singura, ci pe corelarea cu simptomatologia.
 
 ### Î4. Ce faceti daca gasiti un pacient tanar cu displazie de sold si Tönnis 0-1 simptomatic?
 
-**R:** Nu indic artroplastie, ci evaluez pentru chirurgie de conservare articulara: osteotomie periacetabulara pentru a corecta acoperirea insuficienta, deoarece cartilajul este inca relativ conservat si scopul este de a preveni progresia catre artroza, nu de a trata artroza deja instalata.
+**R:** Nu indic artroplastie, ci evaluez chirurgia de conservare: osteotomie periacetabulara pentru a corecta acoperirea insuficienta, caci cartilajul e inca relativ conservat si scopul e de a preveni progresia, nu de a trata artroza deja instalata.
 
 ### Î5. Cum diferentiati clinic coxartroza de trohanterita?
 
-**R:** Coxartroza produce durere inghinala mecanica cu limitare a mobilitatii intraarticulare, mai ales a rotatiei interne; trohanterita produce durere laterala, cu sensibilitate directa la palparea trohanterului mare si fara limitare a mobilitatii intraarticulare de sold.
+**R:** Coxartroza produce durere inghinala mecanica cu limitare intraarticulara, mai ales a rotatiei interne; trohanterita produce durere laterala, cu sensibilitate directa la trohanterul mare si fara limitare intraarticulara.
 
 ### Î6. Ce faceti daca in timpul preparariii acetabulului constatati o pierdere osoasa acetabulara semnificativa?
 
-**R:** Evaluez amploarea defectului (clasificare Paprosky sau similar), aleg o cupa de dimensiune mai mare cu acoperire suplimentara prin grefare osoasa sau augmenteste metalice daca defectul e mare, si adaptez fixarea (surub suplimentar) pentru stabilitate initiala adecvata.
+**R:** Evaluez amploarea defectului (Paprosky sau similar), aleg o cupa mai mare cu grefare osoasa sau augmente metalice daca defectul e mare, si adaptez fixarea (surub suplimentar) pentru stabilitate initiala.
 
 ### Î7. Care este forta de reactie articulara la nivelul soldului si de ce este relevanta clinic?
 
-**R:** Poate atinge de 3-5 ori greutatea corporala in sprijin unipodal (?), explicand impactul incarcarii mecanice asupra progresiei artrozei si importanta reducerii ponderale si a tonifierii abductorilor in managementul conservator.
+**R:** De 3-5 ori greutatea corporala in sprijin unipodal (?), explicand impactul incarcarii asupra progresiei artrozei si importanta reducerii ponderale si tonifierii abductorilor.
 
 ### Î8. Ce faceti daca pacientul are o discrepanta de lungime a membrelor preoperator?
 
@@ -153,7 +153,7 @@ Netratata, coxartroza evolueaza progresiv catre deformare fixa si limitare funct
 
 ### Î9. Care sunt avantajele si dezavantajele abordului anterior direct fata de posterolateral?
 
-**R:** Anteriorul direct este intervertebral, cu potential de recuperare precoce mai rapida si risc mai mic de luxatie, dar are o curba de invatare mai lunga si risc de fractura de trohanter mare sau leziune a nervului cutanat femural lateral. Posterolateralul ofera expunere excelenta dar risc mai mare de luxatie posterioara daca nu se repara capsula.
+**R:** Anteriorul direct e intervertebral, cu recuperare precoce potential mai rapida si risc mai mic de luxatie, dar curba de invatare mai lunga si risc de fractura de trohanter mare/leziune de nerv cutanat femural lateral. Posterolateralul ofera expunere excelenta dar risc mai mare de luxatie fara reparare capsulara.
 
 ### Î10. Ce faceti daca un pacient cu proteza de sold se prezinta cu luxatie recurenta?
 
@@ -161,7 +161,7 @@ Netratata, coxartroza evolueaza progresiv catre deformare fixa si limitare funct
 
 ### Î11. Cum se calculeaza unghiul centru-margine Wiberg si ce inseamna o valoare scazuta?
 
-**R:** Se masoara pe radiografia de pelvis fata, intre o linie verticala prin centrul capului femural si o linie de la centrul capului la marginea laterala a acetabulului. Valoare normala peste 25 de grade (?); sub aceasta valoare indica acoperire acetabulara insuficienta, sugerand displazie de sold ca factor cauzal al coxartrozei secundare.
+**R:** Se masoara pe radiografia de pelvis fata, intre o linie verticala prin centrul capului femural si o linie de la centrul capului la marginea laterala a acetabulului. Normal peste 25 grade (?); sub aceasta valoare indica acoperire insuficienta, sugerand displazie ca factor cauzal.
 
 ### Î12. Ce cuplu de frecare alegeti pentru un pacient tanar activ si de ce?
 
@@ -173,7 +173,7 @@ Netratata, coxartroza evolueaza progresiv catre deformare fixa si limitare funct
 
 ### Î14. Care este mecanismul prin care displazia de sold duce la coxartroza secundara?
 
-**R:** Acoperirea acetabulara insuficienta concentreaza sarcina pe o zona mica, superolaterala a cartilajului, ducand la suprasolicitare focala cronica, degenerare precoce a cartilajului si labrumului, si in final la artroza secundara, tipic la pacient tanar sau de sex feminin.
+**R:** Acoperirea insuficienta concentreaza sarcina pe o zona mica, superolaterala, ducand la suprasolicitare focala cronica, degenerare precoce a cartilajului si labrumului, si artroza secundara, tipic la tanar sau sex feminin.
 
 ### Î15. Ce faceti daca in cursul artroplastiei descoperiti o anteversie femurala excesiva?
 

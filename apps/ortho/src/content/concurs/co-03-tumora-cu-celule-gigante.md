@@ -50,7 +50,7 @@ Radiografie: leziune litică excentrică, epifizometafizară, care se extinde p�
 
 ### Diagnostic diferențial
 
-Chistul osos aneurismal (leziune expansivă cu nivele lichid-lichid la RMN, mai frecventă la copil/adolescent, metafizară nu epifizară). Encondromul cu celule gigante secundare (rar). Osteosarcomul telangiectatic (agresivitate radiologică mult mai mare, matrice osteoidă prezentă, context clinic mai agresiv). Metastaza osoasă cu celule gigante reactive (context oncologic cunoscut, la adult peste 40 ani). Bruna tumoră din hiperparatiroidism (context biochimic: calciu, PTH crescute, leziuni multiple).
+Chistul osos aneurismal (nivele lichid-lichid la RMN, mai frecvent la copil/adolescent, metafizar nu epifizar). Osteosarcomul telangiectatic (agresivitate radiologică mult mai mare, matrice osteoidă prezentă). Metastaza osoasă cu celule gigante reactive (context oncologic cunoscut, adult peste 40 ani). Bruna tumoră din hiperparatiroidism (calciu și PTH crescute, leziuni multiple).
 
 ### Tratament
 
@@ -58,7 +58,7 @@ Chistul osos aneurismal (leziune expansivă cu nivele lichid-lichid la RMN, mai 
 
 **Chirurgical, principii:** curetaj extins cu adjuvanți locali este tratamentul standard pentru majoritatea TCG (Campanacci I-II și multe grad III fără distrucție articulară completă), cu obiectivul de a conserva articulația. Tehnica: curetaj mecanic complet al cavității tumorale, urmat de fezare cu freza de mare viteză (high-speed burr) pe toți pereții cavității pentru a extinde marginea de rezecție microscopică dincolo de peretele vizibil macroscopic, apoi aplicarea unui adjuvant local: fenol (agent chimic citotoxic, aplicat 2 la 3 minute pe pereții cavității, neutralizat cu alcool), crioterapie cu azot lichid, sau peroxid de hidrogen; cavitatea reziduală se umple fie cu ciment PMMA (avantaj: efect termic adițional citotoxic, permite detectarea recidivei precoce la interfața os-ciment pe radiografii de control, stabilitate mecanică imediată), fie cu grefă osoasă (autolog/allograft, avantaj: restaurare biologică osoasă, dar fără efectul termic al cimentului). Rezecția largă cu reconstrucție (endoprotezăm, allograft, artrodeză) se indică pentru: Campanacci III cu distrucție articulară extensivă și cartilaj articular nerecuperabil, recidivă locală multiplă după curetaj repetat, localizări unde curetajul nu permite control local adecvat (fibulă proximală, unele localizări pelvine/sacrale).
 
-**Denosumab:** anticorp monoclonal anti-RANKL, indicat pentru TCG nerezecabilă chirurgical (localizare axială/sacrală/pelvină inaccesibilă), sau ca terapie neoadjuvantă pentru a reduce dimensiunea tumorii și a facilita o chirurgie mai puțin extensivă (conversie de la rezecție la curetaj) la leziuni voluminoase Campanacci III. Doza tipică 120 mg subcutanat la 4 săptămâni, cu doze de încărcare adiționale în primele săptămâni (?). Ridică controverse: poate induce osificare periferică marcată care face curetajul complet mai dificil ulterior și posibil crește riscul de recidivă locală dacă e urmat de chirurgie incompletă; nu se administrează de rutină preoperator dacă leziunea este rezecabilă/curetabilă direct.
+**Denosumab:** anticorp monoclonal anti-RANKL, indicat pentru TCG nerezecabilă (localizare axială/sacrală/pelvină inaccesibilă), sau ca neoadjuvant pentru a reduce volumul tumoral și a facilita o chirurgie mai puțin extensivă la leziuni voluminoase Campanacci III. Doza tipică 120 mg subcutanat la 4 săptămâni, cu doze de încărcare adiționale în primele săptămâni (?). Ridică controverse: poate induce osificare periferică marcată care face curetajul complet mai dificil ulterior și posibil crește riscul de recidivă dacă e urmat de chirurgie incompletă; nu se administrează de rutină preoperator dacă leziunea este direct rezecabilă/curetabilă.
 
 **Evidence:** ratele de recidivă locală după curetaj simplu fără adjuvanți sunt de 25 la 50%; cu adjuvanți (fenol/crioterapie plus ciment) scad la 10 la 25%. Rezecția largă are recidivă locală sub 5 la 10% dar cu morbiditate funcțională mai mare.
 
@@ -156,8 +156,8 @@ Fără tratament, evoluția este spre distrucție osoasă progresivă, fractură
 ### Î11. Ce este TCG malignă secundară și când apare?
 **R:** Este transformarea rară (sub 1 la 5%) a unei TCG clasice într-un sarcom de grad înalt, de regulă la nivelul unei leziuni recidivate anterior, asociată frecvent cu antecedente de radioterapie; acesta este un motiv important pentru care radioterapia se evită ca tratament de primă linie în TCG.
 
-### Î13. Ce faceți dacă pacienta este gravidă și diagnosticată cu TCG simptomatică a radiusului distal?
+### Î12. Ce faceți dacă pacienta este gravidă și diagnosticată cu TCG simptomatică a radiusului distal?
 **R:** Evaluez urgența clinică: dacă durerea și riscul de fractură patologică permit, temporizez chirurgia definitivă pentru perioada postpartum, tratând simptomatic; denosumab este contraindicat în sarcină din cauza riscului teratogen documentat pe modele animale, deci dacă tratamentul nu poate fi temporizat, curetajul chirurgical rămâne opțiunea preferată față de terapia biologică.
 
-### Î14. Ce faceți dacă biopsia inițială este neconcludentă pentru TCG dar imagistica este tipică?
+### Î13. Ce faceți dacă biopsia inițială este neconcludentă pentru TCG dar imagistica este tipică?
 **R:** Repet biopsia, de preferat incizională cu prelevare mai amplă de țesut, pe traiectul care va fi folosit pentru chirurgia definitivă, și corelez cu markeri imunohistochimici (H3.3 G34W este specific pentru celulele stromale ale TCG) pentru confirmare diagnostică înainte de tratamentul definitiv.

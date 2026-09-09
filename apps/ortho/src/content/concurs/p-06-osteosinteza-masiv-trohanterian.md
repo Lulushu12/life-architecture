@@ -13,9 +13,9 @@ experience: never
 
 ### Indicații și contraindicații
 
-Osteosinteza este indicată în toate fracturile de masiv trohanterian (regiunea pertrohanteriană, AO/OTA 31-A) la pacientul cu speranță de recuperare a mersului, indiferent de vârstă, exceptând cazurile în care riscul anestezico-chirurgical este inacceptabil sau pacientul era deja necompliant la mers (imobilizat la pat cronic, unde tratamentul conservator/paliativ poate fi discutat). Alegerea implantului depinde de stabilitatea fracturii:
+Osteosinteza este indicată în toate fracturile de masiv trohanterian (AO/OTA 31-A) la pacientul cu speranță de recuperare a mersului, indiferent de vârstă, exceptând cazurile cu risc anestezico-chirurgical inacceptabil sau pacientul deja necompliant la mers (imobilizat cronic, unde tratamentul paliativ poate fi discutat). Alegerea implantului depinde de stabilitatea fracturii:
 
-- **DHS (dynamic hip screw) cu placă laterală**: indicat clasic în fracturile **stabile** (AO 31-A1, cu perete lateral intact și fără cominuție posteromedială majoră).
+- **DHS (dynamic hip screw) cu placă laterală**: indicat clasic în fracturile **stabile** (AO 31-A1, perete lateral intact, fără cominuție posteromedială majoră).
 - **Tija cefalomedulară (Gamma nail, PFNA, TFN)**: indicată în fracturile **instabile** (AO 31-A2, A3), în fracturile cu traiect inversat (reverse oblique), în cele cu extensie subtrohanteriană și, în practica actuală, tot mai frecvent ca implant de primă intenție pentru toate tipurile A, inclusiv A1, datorită biomecanicii mai favorabile (braț de forță mai scurt) și mobilizării mai rapide.
 - Contraindicații relative: perete lateral incompetent pentru DHS (indicație absolută pentru tijă), infecție activă locală, deformități care blochează canalul medular pentru abordul cefalomedular.
 
@@ -56,7 +56,7 @@ Operez o fractură de masiv trohanterian AO 31-A. Indicația de osteosinteză es
 
 ### 2. Planificare preoperatorie (1 min)
 
-Cer radiografie de bazin AP și șold axial/lateral (Lauenstein) de ambele părți, pentru a clasifica fractura (Evans-Jensen sau AO 31-A) și pentru a compara unghiul col-diafyz cu partea sănătoasă. Măsoare pe radiografia contralaterală unghiul cervico-diafizar și lungimea colului pentru templating și aleg lungimea tijei (scurtă pentru fractură pur pertrohanteriană, lungă dacă există extensie subtrohanteriană sau cominuție severă/osteoporoză). Verific consimțământul, inclusiv riscul de transfuzie, tromboembolic și de reintervenție. Administrez antibioprofilaxie (cefalosporină de generația I, cu 30-60 de minute înainte de incizie), discut acid tranexamic (15 mg/kg IV sau 1 g în bolus, dacă nu există contraindicație), verific grupa sanguină și rezerva de sânge, și inițiez protocol de tromboprofilaxie (LMWH, prima doză conform protocolului local, de obicei postoperator).
+Cer radiografie de bazin AP și șold axial/lateral (Lauenstein) de ambele părți, pentru a clasifica fractura (Evans-Jensen sau AO 31-A) și a compara unghiul col-diafizar cu partea sănătoasă, orientând alegerea lungimii tijei (scurtă pentru fractură pur pertrohanteriană, lungă la extensie subtrohanteriană sau osteoporoză severă). Verific consimțământul, inclusiv riscul de transfuzie, tromboembolic și de reintervenție. Administrez antibioprofilaxie (cefalosporină generația I, 30-60 minute preincizie), discut acid tranexamic (15 mg/kg IV sau 1 g bolus, fără contraindicație), verific grupa sanguină, și inițiez tromboprofilaxie (LMWH, de obicei postoperator).
 
 ### 3. Anestezie, poziționare, instalare (1 min)
 
@@ -64,7 +64,7 @@ Anestezie: rahianestezie sau anestezie generală. Instalez pacientul în decubit
 
 ### 4. Abord (1 min)
 
-Fac o incizie laterală de 3-5 cm, la 5-10 cm proximal de vârful trohanterului mare, pe axul femurului, pentru introducerea percutană a tijei. Disociez fascia lata și fibrele mușchiului fesier mijloc în sensul fibrelor, cu atenție la fasciculul vasculo-nervos gluteal superior situat proximal. Palpez vârful trohanterului mare, reperul de intrare. Nu este necesară expunerea directă a fracturii, reducerea se face indirect, sub control fluoroscopic.
+Fac o incizie laterală de 3-5 cm, la 5-10 cm proximal de vârful trohanterului mare, pe axul femurului, pentru introducerea percutană a tijei. Disociez fascia lata și fibrele fesierului mijloc în sensul fibrelor, cu atenție la fasciculul gluteal superior situat proximal. Palpez vârful trohanterului mare, reperul de intrare. Reducerea se face indirect, sub control fluoroscopic, fără expunerea directă a fracturii.
 
 ### 5. Pași operatori (3 min)
 
@@ -77,11 +77,11 @@ Fac o incizie laterală de 3-5 cm, la 5-10 cm proximal de vârful trohanterului 
 7. Dacă implantul are al doilea șurub (antirotațional sau set screw), îl introduc conform sistemului; verific colapsul liber al șurubului cefalic în tijă (telescopare) prin mobilizare manuală ușoară.
 8. Blocez distal tija (static, cu 1-2 șuruburi de blocare, de obicei prin tehnică free-hand cu ghidaj fluoroscopic) și verific pe AP și axial poziția finală a implantului, reducerea și lungimea membrului comparativ cu partea contralaterală.
 
-Criteriul de reducere corectă la final: continuitatea corticalei mediale (calcar) pe AP, fără decalaj (poziție "positive medial cortical support" preferabil peste neutru sau negativ), unghi col-diafiză restaurat la 125-130 grade, TAD sub 25 mm, absența rotației (comparație clinică cu partea contralaterală, "profil" rotula-picior).
+Criteriul de reducere corectă: continuitatea corticalei mediale (calcar) pe AP, fără decalaj (suport cortical medial pozitiv, preferabil peste neutru), unghi col-diafiză restaurat la 125-130 grade, TAD sub 25 mm, absența rotației (comparație clinică cu partea contralaterală).
 
 ### 6. Închidere și postoperator (1 min)
 
-Nu las drenaj de regulă (opțional în cominuții mari). Sutura pe planuri: fascia lata, țesut subcutanat, piele. Nu se imobilizează, membrul se lasă liber. Mobilizare precoce, WBAT (mers cu încărcare completă permisă imediat, conform protocolului actual, dat fiind implantul stabil biomecanic), cu ajutorul kinetoterapeutului din prima zi postoperator, folosind cadru de mers sau cârje. Tromboprofilaxie cu LMWH continuată 4 săptămâni (fractură de fragilitate). Control radiografic la 6 săptămâni, 3 luni și 6 luni pentru a verifica consolidarea și absența migrării implantului.
+Nu las drenaj de regulă (opțional în cominuții mari). Sutura pe planuri: fascia lata, subcutanat, piele. Nu se imobilizează, membrul se lasă liber. Mobilizare precoce, WBAT (încărcare completă permisă imediat, dat fiind implantul stabil biomecanic), cu kinetoterapeutul din prima zi, folosind cadru de mers sau cârje. Tromboprofilaxie cu LMWH continuată 4 săptămâni (fractură de fragilitate). Control radiografic la 6 săptămâni, 3 luni și 6 luni pentru a verifica consolidarea și absența migrării implantului.
 
 ### 7. Capcane și complicații (1 min)
 
