@@ -11783,15 +11783,15 @@ related: diagnoses/hand-wrist-conditions, diagnoses/scaphoid-carpal-instability,
 
 ### Definiție și epidemiologie
 
-Fracturile oaselor mâinii (metacarpiene, falange, scafoid) reprezintă cea mai frecventă categorie de fracturi ale membrului superior, aproximativ 10 la 15% din totalul fracturilor prezentate în urgență. Metacarpianul V (col metacarpian, "boxer's fracture") este cel mai frecvent, urmat de falangele proximale. Scafoidul este cel mai frecvent fracturat os carpian (peste 60% din fracturile carpiene), cu vârf de incidență la adultul jung activ (20 la 30 de ani), mecanism tipic cădere pe mână în extensie.
+Fracturile oaselor mâinii (metacarpiene, falange, scafoid) reprezintă cea mai frecventă categorie de fracturi ale membrului superior, 10 la 15% din fracturile prezentate în urgență. Metacarpianul V (col, "boxer's fracture") este cel mai frecvent, urmat de falangele proximale. Scafoidul este cel mai frecvent fracturat os carpian (peste 60% din fracturile carpiene), vârf la adultul jung activ (20-30 ani), tipic prin cădere pe mână în extensie.
 
 ### Anatomie și biomecanică relevantă
 
-Metacarpienele au un arc de mobilitate în plan sagital progresiv crescut de la II la V (metacarpianul V permite cea mai mare mobilitate în articulația CMC, ceea ce explică tolerabilitatea angulară mai mare la acest nivel). Capul metacarpian are formă de camă, cu ligamentele colaterale întinse în flexie, motiv pentru care imobilizarea se face cu MCF în flexie 70 la 90 de grade (poziția Edinburgh/James) pentru a preveni retracția lor. Falangele au două articulații cheie: IFP (stabilizată de placa volară și ligamentele colaterale) și IFD. Rotația unei falange se verifică clinic prin alinierea plăcuțelor unghiale la flexia completă a degetelor, nu în extensie, unde un deficit de rotație de câteva grade la baza degetului se amplifică la vârf prin efect de pârghie. Scafoidul are aport vascular predominant retrograd, din artera radială (ramura carpiană dorsală), care intră distal și irigă polul proximal ultim; de aceea fracturile polului proximal au risc de necroză avasculară mult mai mare decât cele de la nivelul taliei (waist).
+Metacarpienele au mobilitate CMC crescândă de la II la V (MC V permite cea mai mare mobilitate, ceea ce explică tolerabilitatea angulară mai mare). Capul metacarpian are formă de camă, cu ligamentele colaterale întinse în flexie, motiv pentru care imobilizarea se face cu MCF în flexie 70-90 grade pentru a preveni retracția lor. Falangele au două articulații cheie: IFP (placă volară și ligamente colaterale) și IFD. Rotația se verifică clinic prin alinierea plăcuțelor unghiale la flexia completă, nu în extensie, unde un deficit de câteva grade la bază se amplifică la vârf prin efect de pârghie. Scafoidul are aport vascular retrograd, din ramura carpiană dorsală a arterei radiale, care intră distal și irigă ultimul polul proximal; fracturile polului proximal au risc de necroză avasculară mult mai mare decât cele de talie.
 
 ### Etiopatogenie
 
-Mecanism direct (impact axial pe pumnul închis, "boxer's fracture" pe colul metacarpianului V, tipic prin lovirea unei suprafețe dure), mecanism de torsiune/hiperextensie pentru fracturile de bază metacarpiană și articulare (Bennett, Rolando), traumatism prin cădere pe mână în extensie dorsală pentru scafoid (mecanismul FOOSH, fall on outstretched hand), leziuni prin agresiune sportivă/prindere pentru falange (fracturi luxație IFP, mallet finger prin flexie forțată a unei falange distale în extensie activă), și leziuni prin prindere/strivire la copii pentru fractura Seymour (echivalentul de fractură Salter-Harris I/II a falangei distale cu leziune a matricei unghiale).
+Mecanism direct (impact axial pe pumnul închis, boxer's fracture pe colul MC V), torsiune/hiperextensie pentru fracturile de bază metacarpiană și articulare (Bennett, Rolando), cădere pe mână în extensie dorsală pentru scafoid (FOOSH), agresiune sportivă/prindere pentru falange (fracturi-luxație IFP, mallet finger prin flexie forțată în extensie activă), și prindere/strivire la copii pentru Seymour (echivalentul Salter-Harris I/II al falangei distale cu leziune a matricei unghiale).
 
 ### Anatomie patologică
 
@@ -12432,14 +12432,13 @@ Fără tratament corect, evoluția este spre cifoză progresivă, instabilitate 
 
 ### Fraze-cheie
 
-- Complexul ligamentar posterior este cel mai important predictor de instabilitate mecanică la fracturile toraco-lombare și schimbă decizia terapeutică în zona gri TLICS.
-- Un scor TLICS sub 4 orientează spre tratament nonoperator, peste 4 spre tratament chirurgical, 4 fiind o zonă gri decisă individual.
-- Sacral sparing, prezența sensibilității perianale și a contracției voluntare a sfincterului anal, este cel mai important semn clinic de leziune medulară incompletă.
-- Decompresia chirurgicală în leziunea medulară cu deficit incomplet trebuie efectuată ideal sub 24 de ore, conform dovezilor din studiul STASCIS.
-- Regula Spence, deplasarea laterală combinată a maselor laterale C1 peste 6,9mm, indică ruptura ligamentului transvers și instabilitate C1-C2.
-- Tracțiunea este contraindicată la fractura hangman tip IIA, pentru riscul de agravare a distracției și a leziunii neurologice.
-- RMN este obligatorie pentru evaluarea complexului ligamentar posterior și a stării medulare, complementară CT-ului care caracterizează osul.
-- SCIWORA la copil este o leziune medulară fără anomalie radiografică vizibilă, diagnosticată prin RMN, datorită elasticității ligamentare crescute la această vârstă.
+- Complexul ligamentar posterior este cel mai important predictor de instabilitate mecanică și schimbă decizia terapeutică în zona gri TLICS.
+- Un scor TLICS sub 4 orientează spre nonoperator, peste 4 spre chirurgical, 4 fiind zonă gri decisă individual.
+- Sacral sparing este cel mai important semn clinic de leziune medulară incompletă.
+- Decompresia chirurgicală la deficit incomplet trebuie efectuată ideal sub 24 de ore, conform STASCIS.
+- Regula Spence, deplasarea combinată a maselor laterale C1 peste 6,9mm, indică ruptura ligamentului transvers și instabilitate C1-C2.
+- Tracțiunea este contraindicată la hangman tip IIA, pentru riscul de agravare a distracției și leziunii neurologice.
+- RMN este obligatorie pentru PLC și starea medulară, complementară CT-ului care caracterizează osul.
 
 ## Întrebările comisiei
 
@@ -12483,10 +12482,10 @@ Fără tratament corect, evoluția este spre cifoză progresivă, instabilitate 
 **R:** Fracturile Chance sunt clasic asociate cu leziuni intraabdominale (mezenter, intestin) prin același mecanism de centură de siguranță; solicit evaluare chirurgicală abdominală de urgență în paralel cu managementul vertebral, pentru că aceste leziuni pot fi oculte și pun viața în pericol mai acut decât fractura vertebrală.
 
 ### Î14. Care sunt argumentele pentru fixare short-segment versus long-segment în fracturile burst toraco-lombare?
-**R:** Fixarea short-segment (un nivel supra- și subiacent) este mai puțin invazivă și păstrează mai multă mobilitate segmentară, dar are risc mai mare de eșec/cifozare secundară la cominuție severă a coloanei anterioare fără suport. Fixarea long-segment (mai multe niveluri) oferă stabilitate biomecanică superioară în cominuții severe, cu prețul rigidizării unui segment mai lung; alegerea depinde de gradul de distrucție a coloanei anterioare și de calitatea osoasă.
+**R:** Short-segment (un nivel supra- și subiacent) este mai puțin invazivă, dar are risc mai mare de eșec la cominuție severă fără suport anterior. Long-segment oferă stabilitate superioară în cominuții severe, cu prețul rigidizării unui segment mai lung; alegerea depinde de gradul de distrucție anterioară și de calitatea osoasă.
 
 ### Î15. Ce faceți dacă un pacient cu leziune medulară cervicală înaltă (peste C5) prezintă dificultăți respiratorii la internare?
-**R:** Prioritizez imediat căile aeriene și suportul respirator (poate necesita intubare precoce, dat fiind riscul de paralizie diafragmatică sau a musculaturii intercostale la leziuni cervicale înalte), monitorizare în terapie intensivă, și abordez fixarea/decompresia chirurgicală cât mai rapid posibil odată ce pacientul este stabilizat respirator și hemodinamic, pentru a maximiza șansele de recuperare neurologică.
+**R:** Prioritizez imediat căile aeriene și suportul respirator (posibilă intubare precoce, prin riscul de paralizie diafragmatică/intercostală), monitorizare în terapie intensivă, și abordez fixarea/decompresia cât mai rapid odată ce pacientul este stabilizat, pentru a maximiza șansele de recuperare neurologică.
 `,$u=`---
 title: Fracturile bazinului
 probe: ct
