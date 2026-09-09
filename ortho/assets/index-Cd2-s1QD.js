@@ -8801,7 +8801,7 @@ Netratată, coxartroza evoluează progresiv către deformare fixă și limitare 
 title: Boala Dupuytren
 probe: co
 number: 9
-tags: boala Dupuytren, contractura palmara, clasificarea Tubiana, stadiile Luck, table-top test, cord spiral, colagenaza, fasciotomie cu ac, fasciectomie limitata, dermofasciectomie, diateza Dupuytren, recidiva
+tags: boala Dupuytren, contractură palmară, clasificarea Tubiana, stadiile Luck, table-top test, cord spiral, colagenază, fasciotomie cu ac, fasciectomie limitată, dermofasciectomie, diateza Dupuytren, recidivă
 region: Hand & Wrist
 specialty: Hand & Wrist
 related: classifications/tubiana-classification-dupuytren-disease, diagnoses/hand-wrist-conditions, techniques/carpal-tunnel-release-open-endoscopic-walant, techniques/trapeziectomy-thumb-cmc-arthritis
@@ -8811,173 +8811,173 @@ related: classifications/tubiana-classification-dupuytren-disease, diagnoses/han
 
 ### Definiție și epidemiologie
 
-Boala Dupuytren este o fibromatoza proliferativa benigna a fasciei palmare si digitale, cu formare de noduli si cordoane fibroase care produc, progresiv, contractura in flexie MCF si IFP. Prevalenta e mai mare la populatia nord-europeana (boala vikingilor), predominanta masculina ~6-10:1 (?), debut tipic dupa 50 de ani. Degetele cel mai frecvent afectate: anular si mic; police/index rar. Asocieri: diabet zaharat, epilepsie (fenobarbital), alcoolism, fumat, istoric familial (autosomal dominant cu penetranta variabila).
+Boala Dupuytren este o fibromatoză proliferativă benignă a fasciei palmare și digitale, cu formare de noduli și cordoane fibroase care produc, progresiv, contractura în flexie MCF și IFP. Prevalența e mai mare la populația nord-europeană (boala vikingilor), predominanța masculină ~6-10:1 (?), debut tipic după 50 de ani. Degetele cel mai frecvent afectate: anular și mic; police/index rar. Asocieri: diabet zaharat, epilepsie (fenobarbital), alcoolism, fumat, istoric familial (autosomal dominant cu penetranță variabilă).
 
-### Anatomie și biomecanica relevanta
+### Anatomie și biomecanică relevantă
 
-Fascia palmara normala are fascicule longitudinale (ligamentul pretendinos), transversale (ligamentul transvers superficial) si verticale (fibre Grapow), plus benzi spirale si ligamentele Cleland si Grayson la degete. In boala Dupuytren, aceste structuri se transforma patologic in cordoane contractile: cordonul pretendinos (contractura MCF), cordonul central si cordonul spiral (contractura IFP). Cordonul spiral e de importanta chirurgicala majora: se formeaza din banda spirala, ligamentul Grayson si banda laterala, si in contractura deplaseaza fasciculul neurovascular de pe pozitia laterala normala catre o pozitie centrala si superficiala la IFP, cu risc mare de lezare in disectie daca nu e anticipat.
+Fascia palmară normală are fascicule longitudinale (ligamentul pretendinos), transversale (ligamentul transvers superficial) și verticale (fibre Grapow), plus benzi spirale și ligamentele Cleland și Grayson la degete. În boala Dupuytren, aceste structuri se transformă patologic în cordoane contractile: cordonul pretendinos (contractura MCF), cordonul central și cordonul spiral (contractura IFP). Cordonul spiral e de importanță chirurgicală majoră: se formează din banda spirală, ligamentul Grayson și banda laterală, și în contractură deplasează fasciculul neurovascular de pe poziția laterală normală către o poziție centrală și superficială la IFP, cu risc mare de lezare în disecție dacă nu e anticipat.
 
 ### Etiopatogenie
 
-Etiologia exacta e necunoscuta; se descrie proliferare miofibroblastica declansata pe predispozitie genetica (autosomal dominant, penetranta variabila), cu factori asociati: diabet zaharat (forma clinica de regula mai blanda), alcool, fumat, epilepsie tratata cu fenobarbital, microtraumatisme (controversat). Diateza Dupuytren (markeri de agresivitate/recurenta): debut precoce (sub 50 ani), boala bilaterala, istoric familial pozitiv, boala ectopica (noduli Garrod dorsali IFP, boala Ledderhose plantara, boala Peyronie peniana).
+Etiologia exactă e necunoscută; se descrie proliferare miofibroblastică declanșată pe predispoziție genetică (autosomal dominant, penetranță variabilă), cu factori asociați: diabet zaharat (forma clinică de regulă mai blândă), alcool, fumat, epilepsie tratată cu fenobarbital, microtraumatisme (controversat). Diateza Dupuytren (markeri de agresivitate/recurență): debut precoce (sub 50 ani), boala bilaterală, istoric familial pozitiv, boala ectopică (noduli Garrod dorsali IFP, boala Ledderhose plantară, boala Peyronie peniană).
 
-### Anatomie patologica
+### Anatomie patologică
 
-Evolutia histologica clasica (Luck) trece prin trei faze: proliferativa (celularitate miofibroblastica intensa, noduli activi biologic), involutiva (aliniere a fibroblastelor de-a lungul liniilor de tensiune, formarea cordoanelor), si reziduala (tesut acelular, colagen dens, cordoane mature, contractura fixa). Explica de ce interventia in faza nodulara poate avea rezultate diferite fata de interventia pe cordon matur.
+Evoluția histologică clasică (Luck) trece prin trei faze: proliferativă (celularitate miofibroblastică intensă, noduli activi biologic), involutivă (aliniere a fibroblastelor de-a lungul liniilor de tensiune, formarea cordoanelor), și reziduală (țesut acelular, colagen dens, cordoane mature, contractura fixă). Explică de ce intervenția în faza nodulară poate avea rezultate diferite față de intervenția pe cordon matur.
 
 ### Clasificare
 
-**Clasificarea Tubiana**: gradeaza severitatea prin contractura totala in flexie (MCF+IFP+IFD, in grade) a degetului afectat.
+**Clasificarea Tubiana**: gradează severitatea prin contractura totală în flexie (MCF+IFP+IFD, în grade) a degetului afectat.
 
-| Stadiu | Contractura totala (MCF+IFP+IFD) | Implicatie terapeutica |
+| Stadiu | Contractura totală (MCF+IFP+IFD) | Implicație terapeutică |
 |---|---|---|
-| N | Nodul fara contractura | Observatie |
-| N/I | Nodul + sub 45 grade | Observatie vs interventie precoce daca progresiv |
-| I | 0-45 grade | Colagenaza sau fasciotomie cu ac, mai ales pentru cord MCF izolat |
-| II | 45-90 grade | Colagenaza, fasciotomie cu ac, sau fasciectomie limitata, dupa anatomia cordonului |
-| III | 90-135 grade | Fasciectomie limitata preferata, mai ales pentru afectare IFP |
-| IV | peste 135 grade | Fasciectomie ± dermofasciectomie; salvare (artrodeza IFP/amputatie) pentru contractura fixa cu compromitere neurovasculara |
+| N | Nodul fără contractură | Observație |
+| N/I | Nodul + sub 45 grade | Observație vs intervenție precoce dacă progresiv |
+| I | 0-45 grade | Colagenază sau fasciotomie cu ac, mai ales pentru cord MCF izolat |
+| II | 45-90 grade | Colagenază, fasciotomie cu ac, sau fasciectomie limitată, după anatomia cordonului |
+| III | 90-135 grade | Fasciectomie limitată preferată, mai ales pentru afectare IFP |
+| IV | peste 135 grade | Fasciectomie ± dermofasciectomie; salvare (artrodeza IFP/amputație) pentru contractura fixă cu compromitere neurovasculară |
 
-**Stadiile Luck** (histologice, evolutive): faza proliferativa, faza involutiva, faza reziduala, descrise mai sus la anatomia patologica; se coreleaza cu activitatea biologica a bolii, nu cu severitatea contracturii masurate clinic.
+**Stadiile Luck** (histologice, evolutive): faza proliferativă, faza involutivă, faza reziduală, descrise mai sus la anatomia patologică; se corelează cu activitatea biologică a bolii, nu cu severitatea contracturii măsurate clinic.
 
-**Clasic vs actual:** clasificarea Tubiana ramane standardul pentru decizia terapeutica romaneasca si internationala; stadializarea Luck este folosita mai ales in discutia despre biologia si prognosticul bolii, nu ca ghid terapeutic direct.
+**Clasic vs actual:** clasificarea Tubiana rămâne standardul pentru decizia terapeutică românească și internațională; stadializarea Luck este folosită mai ales în discuția despre biologia și prognosticul bolii, nu ca ghid terapeutic direct.
 
 ### Clinic
 
-Motiv de prezentare: nodul palmar nedureros, cordon palpabil, contractura progresiva in flexie (tipic anular si mic), dificultate la introducerea mainii in buzunar/spalarea fetei, rar durere. Inspectie: noduli/cordoane vizibile in palma si la baza degetelor, flexie fixa MCF si/sau IFP, piele aderenta in zonele avansate. Palpare: caracterizez cordonul (localizare, traiect), diferentiez cordonul pretendinos (MCF) de central/spiral (IFP). Testul table-top: pacientul incearca sa aseze palma plat pe o suprafata; pozitiv (nu poate aplatiza complet) e criteriul clinic clasic pentru interventie. Mobilitate: masor cu goniometrul contractura la MCF, IFP, IFD separat, calculez contractura totala Tubiana. Examen neuro-vascular distal: obligatoriu, mai ales la IFP sever, caci cordonul spiral poate deplasa pachetul catre suprafata. Caut diateza: bilateralitate, noduli Garrod, semne Ledderhose/Peyronie. Examinarea articulatiilor supra/subiacente: pumn si CMC.
+Motiv de prezentare: nodul palmar nedureros, cordon palpabil, contractura progresivă în flexie (tipic anular și mic), dificultate la introducerea mâinii în buzunar/spălarea feței, rar durere. Inspecție: noduli/cordoane vizibile în palmă și la baza degetelor, flexie fixă MCF și/sau IFP, piele aderentă în zonele avansate. Palpare: caracterizez cordonul (localizare, traiect), diferențiez cordonul pretendinos (MCF) de central/spiral (IFP). Testul table-top: pacientul încearcă să așeze palma plat pe o suprafață; pozitiv (nu poate aplatiza complet) e criteriul clinic clasic pentru intervenție. Mobilitate: măsor cu goniometrul contractura la MCF, IFP, IFD separat, calculez contractura totală Tubiana. Examen neuro-vascular distal: obligatoriu, mai ales la IFP sever, căci cordonul spiral poate deplasa pachetul către suprafață. Caut diateza: bilateralitate, noduli Garrod, semne Ledderhose/Peyronie. Examinarea articulațiilor supra/subiacente: pumn și CMC.
 
-### Imagistica si explorari
+### Imagistica și explorări
 
-Diagnosticul este clinic, imagistica nu este de regula necesara. Radiografie de mana utila doar pentru evaluarea articulatiilor in contractura veche/fixa (artroza secundara IFP) inaintea unei interventii de salvare (artrodeza). Ecografie ocazional utila pentru a caracteriza cordonul si raportul cu structurile neurovasculare inaintea unei fasciotomii cu ac in cazuri complexe. Nu exista markeri biologici specifici; se investigheaza diabetul si alte comorbiditati asociate daca sunt suspicionate clinic.
+Diagnosticul este clinic, imagistica nu este de regulă necesară. Radiografie de mână utilă doar pentru evaluarea articulațiilor în contractura veche/fixă (artroza secundară IFP) înaintea unei intervenții de salvare (artrodeza). Ecografie ocazional utilă pentru a caracteriza cordonul și raportul cu structurile neurovasculare înaintea unei fasciotomii cu ac în cazuri complexe. Nu există markeri biologici specifici; se investighează diabetul și alte comorbidități asociate dacă sunt suspicionate clinic.
 
-### Diagnostic diferential
+### Diagnostic diferențial
 
-Chist sinovial/ganglion palmar (mobil, transiluminare pozitiva, fara cordon fix). Tenosinovita stenozanta (deget "trigger", blocare la extensie, fara cordon fascial palpabil). Contractura Volkmann (context de ischemie/sindrom de compartiment in antecedente, contractura globala a flexorilor, nu cordoane discrete). Cicatrici post-traumatice retractile (istoric de traumatism/interventie la locul cordonului). Tumora de tesut moale (crestere rapida, consistenta atipica, imagistica necesara la suspiciune).
+Chist sinovial/ganglion palmar (mobil, transiluminare pozitivă, fără cordon fix). Tenosinovita stenozantă (deget "trigger", blocare la extensie, fără cordon fascial palpabil). Contractura Volkmann (context de ischemie/sindrom de compartiment în antecedente, contractura globală a flexorilor, nu cordoane discrete). Cicatrici post-traumatice retractile (istoric de traumatism/intervenție la locul cordonului). Tumora de țesut moale (creștere rapidă, consistență atipică, imagistica necesară la suspiciune).
 
 ### Tratament
 
-**Conservator**: observatie pentru stadiul N si N/I fara progresie, kinetoterapie de intindere (fara dovezi solide de a preveni progresia, dar utila pentru mentinerea mobilitatii), evitarea injectiilor cu corticoid intralezional pentru cordoane mature (utile doar in nodul precoce dureros, fara efect pe contractura).
+**Conservator**: observație pentru stadiul N și N/I fără progresie, kinetoterapie de întindere (fără dovezi solide de a preveni progresia, dar utilă pentru menținerea mobilității), evitarea injecțiilor cu corticoid intralezional pentru cordoane mature (utile doar în nodul precoce dureros, fără efect pe contractura).
 
-**Chirurgical/procedural, indicatii**: table-top test pozitiv (imposibilitatea de a aplatiza palma pe o suprafata plana) este declansatorul clasic clinic pentru interventie; in practica, contractura MCF peste 30 de grade sau orice contractura IFP progresiva justifica interventia, data fiind rata mai mica de corectie completa si mai mare de recidiva la asteptare. Alegerea intre cele trei modalitati principale depinde de stadiul Tubiana si de articulatia implicata: cord MCF izolat, stadiu I-II, favorizeaza colagenaza sau fasciotomia cu ac (recuperare rapida, minim invaziv); cord cu implicare IFP, mai ales stadiu III-IV, favorizeaza fasciectomia limitata (corectie mai completa si mai durabila la nivelul IFP); recidiva sau boala severa/diateza pozitiva favorizeaza dermofasciectomia (excizia cordonului plus a pielii suprajacente, cu grefare cutanata, pentru a reduce riscul de recidiva locala).
+**Chirurgical/procedural, indicații**: table-top test pozitiv (imposibilitatea de a aplatiza palma pe o suprafață plană) este declanșatorul clasic clinic pentru intervenție; în practică, contractura MCF peste 30 de grade sau orice contractura IFP progresivă justifică intervenția, dată fiind rata mai mică de corecție completă și mai mare de recidivă la așteptare. Alegerea între cele trei modalități principale depinde de stadiul Tubiana și de articulația implicată: cord MCF izolat, stadiu I-II, favorizează colagenaza sau fasciotomia cu ac (recuperare rapidă, minim invaziv); cord cu implicare IFP, mai ales stadiu III-IV, favorizează fasciectomia limitată (corecție mai completă și mai durabilă la nivelul IFP); recidiva sau boala severă/diateza pozitivă favorizează dermofasciectomia (excizia cordonului plus a pielii suprajacente, cu grefare cutanată, pentru a reduce riscul de recidivă locală).
 
-**Tehnici**: fasciotomia percutana cu ac (needle aponeurotomy) sectioneaza cordonul prin multiple puncturi percutane sub anestezie locala, fara incizie, recuperare rapida, dar rata de recidiva mai mare pe termen lung. Colagenaza Clostridium histolyticum (CCH) injectata direct in cordon, urmata la 24-72 ore de manipulare pentru rupere a cordonului, fara incizie chirurgicala; cel mai eficace pe cordoane MCF in stadii moderate. Fasciectomia limitata: excizia chirurgicala deschisa a cordonului patologic (nu a intregii fascii palmare), cu protectia fasciculelor neurovasculare (identificare atenta a cordonului spiral care deplaseaza pachetul neurovascular), incizii tip Bruner sau zigzag, eventual Z-plastii pentru inchidere; permite corectie mai completa la IFP si acces direct pentru neurolzia daca fasciculul este deplasat. Dermofasciectomia: excizia cordonului plus a pielii palmare suprajacente afectate, cu grefa de piele libera totala, indicata la recidiva sau diateza severa pentru a reduce substratul de recidiva locala.
+**Tehnici**: fasciotomia percutană cu ac (needle aponeurotomy) secționează cordonul prin multiple puncturi percutane sub anestezie locală, fără incizie, recuperare rapidă, dar rata de recidivă mai mare pe termen lung. Colagenaza Clostridium histolyticum (CCH) injectată direct în cordon, urmată la 24-72 ore de manipulare pentru rupere a cordonului, fără incizie chirurgicală; cel mai eficace pe cordoane MCF în stadii moderate. Fasciectomia limitată: excizia chirurgicală deschisă a cordonului patologic (nu a întregii fascii palmare), cu protecția fasciculelor neurovasculare (identificare atentă a cordonului spiral care deplasează pachetul neurovascular), incizii tip Bruner sau zigzag, eventual Z-plastii pentru închidere; permite corecție mai completă la IFP și acces direct pentru neurolzia dacă fasciculul este deplasat. Dermofasciectomia: excizia cordonului plus a pielii palmare suprajacente afectate, cu grefă de piele liberă totală, indicată la recidivă sau diateza severă pentru a reduce substratul de recidivă locală.
 
-**Rezultate si evidence**: toate cele trei modalitati (fasciectomie, fasciotomie cu ac, colagenaza) ofera ameliorare semnificativa initiala a contracturii; RCT-uri recente (DISC trial, studii comparative colagenaza versus fasciotomie cu ac) confirma un cadru comun de decizie: fasciectomia limitata pentru boala predominant IFP/recurenta si pacienti care prioritizeaza durabilitatea, colagenaza/fasciotomia cu ac pentru boala predominant MCF/multi-raza la pacienti care prioritizeaza recuperarea rapida fata de durabilitate.
+**Rezultate și evidence**: toate cele trei modalități (fasciectomie, fasciotomie cu ac, colagenază) oferă ameliorare semnificativă inițială a contracturii; RCT-uri recente (DISC trial, studii comparative colagenază versus fasciotomie cu ac) confirmă un cadru comun de decizie: fasciectomia limitată pentru boala predominant IFP/recurentă și pacienți care prioritizează durabilitatea, colagenaza/fasciotomia cu ac pentru boala predominant MCF/multi-rază la pacienți care prioritizează recuperarea rapidă față de durabilitate.
 
-### Complicatii
+### Complicații
 
-Ale bolii: contractura ireversibila la interval, compromitere functionala a prizei, rar compresie neurovasculara secundara. Ale colagenazei/fasciotomiei cu ac: ruptura de tendon (rar), leziune neurovasculara (rara), edem/echimoza tranzitorii, recidiva frecventa (peste 50% la 3-5 ani in multe serii) (?). Ale fasciectomiei: hematom, infectie, necroza cutanata la lambouri, leziune neurovasculara directa (risc mai mare la cordonul spiral neidentificat), sindrom de durere regionala complexa, rigiditate reziduala, corectie incompleta a IFP vechi (contractura capsulo-ligamentara secundara).
+Ale bolii: contractura ireversibilă la interval, compromitere funcțională a prizei, rar compresie neurovasculară secundară. Ale colagenazei/fasciotomiei cu ac: ruptura de tendon (rar), leziune neurovasculară (rară), edem/echimoză tranzitorii, recidivă frecventă (peste 50% la 3-5 ani în multe serii) (?). Ale fasciectomiei: hematom, infecție, necroză cutanată la lambouri, leziune neurovasculară directă (risc mai mare la cordonul spiral neidentificat), sindrom de durere regională complexă, rigiditate reziduală, corecție incompletă a IFP vechi (contractura capsulo-ligamentară secundară).
 
-### Evolutie si prognostic
+### Evoluție și prognostic
 
-Boala are evolutie cronica, progresiva, cu rate variabile individuale; unii stagneaza ani la stadiul nodular, altii progreseaza rapid. Toate modalitatile au recidiva semnificativa: fasciectomia cea mai durabila, colagenaza/fasciotomia cu ac cu recidiva mai frecventa dar recuperare mai rapida. Corectia incompleta a IFP vechi e posibila independent de tehnica. Diateza pozitiva predice recidiva mai frecventa si mai precoce.
+Boala are evoluție cronică, progresivă, cu rate variabile individuale; unii stagnează ani la stadiul nodular, alții progresează rapid. Toate modalitățile au recidivă semnificativă: fasciectomia cea mai durabilă, colagenaza/fasciotomia cu ac cu recidivă mai frecventă dar recuperare mai rapidă. Corecția incompletă a IFP vechi e posibilă independent de tehnică. Diateza pozitivă predice recidivă mai frecventă și mai precoce.
 
 ## Script de prezentare
 
 ### 1. Prezentarea cazului (30 s)
 
-Pacientul/a in varsta de [varsta] ani, [profesie], din [mediu], se prezinta pentru contractura progresiva in flexie a degetului/degetelor [anular/mic, stang/drept], cu debut in urma cu [durata], asociata cu dificultate la [aplatizarea palmei/prinderea obiectelor].
+Pacientul/a în vârstă de [vârstă] ani, [profesie], din [mediu], se prezintă pentru contractura progresivă în flexie a degetului/degetelor [anular/mic, stâng/drept], cu debut în urmă cu [durată], asociată cu dificultate la [aplatizarea palmei/prinderea obiectelor].
 
 ### 2. Anamneză (2 min)
 
-Motivele internarii: contractura progresiva, dificultatea functionala (introducere a mainii in buzunar, spalare a fetei, prindere de obiecte), eventuala durere (rara, de regula in faza nodulara). Istoric: momentul debutului (varsta la debut sub 50 de ani este marker de diateza), viteza de progresie, tratamente urmate (injectii, fasciotomie, chirurgie, rezultat si recidiva). Antecedente relevante: diabet zaharat, epilepsie tratata cu fenobarbital, consum de alcool, fumat, istoric familial de boala Dupuytren, boala bilaterala, semne de boala ectopica (Ledderhose plantar, Peyronie penian). Factori de risc: sex masculin, origine nord-europeana, ocupatie cu munca manuala (asociere controversata).
+Motivele internării: contractura progresivă, dificultatea funcțională (introducere a mâinii în buzunar, spălare a feței, prindere de obiecte), eventuală durere (rară, de regulă în faza nodulară). Istoric: momentul debutului (vârsta la debut sub 50 de ani este marker de diateza), viteza de progresie, tratamente urmate (injecții, fasciotomie, chirurgie, rezultat și recidivă). Antecedente relevante: diabet zaharat, epilepsie tratată cu fenobarbital, consum de alcool, fumat, istoric familial de boala Dupuytren, boala bilaterală, semne de boala ectopică (Ledderhose plantar, Peyronie penian). Factori de risc: sex masculin, origine nord-europeană, ocupație cu muncă manuală (asociere controversată).
 
 ### 3. Examen clinic (3 min)
 
-General: aspect general al mainilor, ambidextrie/dominanta. Local, inspectie: noduli si cordoane vizibile in palma si la baza degetelor, pozitia in flexie a degetului/degetelor afectate, aspect al pielii (aderenta la cordon, retractie). Palpare: caracterizez fiecare cordon (pretendinos pentru MCF, central/spiral pentru IFP), consistenta si mobilitate fata de planurile profunde. Testul table-top: cer pacientului sa aseze palma complet plat pe masa; pozitiv daca nu poate aplatiza complet, criteriul clinic clasic pentru indicatia de tratament. Mobilitate: masor cu goniometrul contractura la MCF, IFP si IFD separat pentru fiecare deget afectat, calculez contractura totala (grad Tubiana). Examen neuro-vascular distal: obligatoriu la fiecare deget afectat, testez sensibilitatea si perfuzia, avand in minte deplasarea posibila a pachetului neurovascular de catre cordonul spiral la nivelul IFP. Caut semne de diateza: bilateralitate, noduli Garrod dorsali la IFP, semne de Ledderhose/Peyronie. Examinarea articulatiilor supra- si subiacente: pumn, celelalte degete pentru afectare multipla. Mers: nerelevant pentru aceasta patologie, dar notez capacitatea functionala globala a mainii in activitatile zilnice.
+General: aspect general al mâinilor, ambidextrie/dominanță. Local, inspecție: noduli și cordoane vizibile în palmă și la baza degetelor, poziția în flexie a degetului/degetelor afectate, aspect al pielii (aderență la cordon, retracție). Palpare: caracterizez fiecare cordon (pretendinos pentru MCF, central/spiral pentru IFP), consistență și mobilitate față de planurile profunde. Testul table-top: cer pacientului să așeze palma complet plat pe masa; pozitiv dacă nu poate aplatiza complet, criteriul clinic clasic pentru indicația de tratament. Mobilitate: măsor cu goniometrul contractura la MCF, IFP și IFD separat pentru fiecare deget afectat, calculez contractura totală (grad Tubiana). Examen neuro-vascular distal: obligatoriu la fiecare deget afectat, testez sensibilitatea și perfuzia, având în minte deplasarea posibilă a pachetului neurovascular de către cordonul spiral la nivelul IFP. Caut semne de diateza: bilateralitate, noduli Garrod dorsali la IFP, semne de Ledderhose/Peyronie. Examinarea articulațiilor supra- și subiacente: pumn, celelalte degete pentru afectare multiplă. Mers: nerelevant pentru această patologie, dar notez capacitatea funcțională globală a mâinii în activitățile zilnice.
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: boala Dupuytren, deget/degete [anular/mic] [drept/stang], stadiul Tubiana [numar], cu contractura totala de [X] grade (MCF [X], IFP [X]), pe baza examenului clinic (cordon palpabil caracteristic, table-top test pozitiv) si a distributiei tipice a cordonului.
+Diagnostic pozitiv: boala Dupuytren, deget/degete [anular/mic] [drept/stâng], stadiul Tubiana [număr], cu contractura totală de [X] grade (MCF [X], IFP [X]), pe baza examenului clinic (cordon palpabil caracteristic, table-top test pozitiv) și a distribuției tipice a cordonului.
 
 ### 5. Diagnostic diferențial (1 min)
 
-Chist sinovial/ganglion palmar: mobil, transiluminare pozitiva, fara cordon fix. Deget "trigger" (tenosinovita stenozanta): blocare la extensie, fara cordon fascial. Contractura Volkmann: context de ischemie in antecedente, contractura globala a flexorilor. Cicatrice post-traumatica retractila: istoric de traumatism/interventie la locul cordonului. Tumora de tesut moale: crestere rapida, consistenta atipica, necesita imagistica.
+Chist sinovial/ganglion palmar: mobil, transiluminare pozitivă, fără cordon fix. Deget "trigger" (tenosinovita stenozantă): blocare la extensie, fără cordon fascial. Contractura Volkmann: context de ischemie în antecedente, contractura globală a flexorilor. Cicatrice post-traumatică retractilă: istoric de traumatism/intervenție la locul cordonului. Tumora de țesut moale: creștere rapidă, consistență atipică, necesită imagistica.
 
 ### 6. Investigații (1 min)
 
-Diagnosticul este clinic; nu sunt necesare investigatii de rutina. Radiografie de mana utila doar la contractura veche/fixa pentru a evalua artroza secundara IFP inaintea unei interventii de salvare. Ecografie ocazional utila preinterventional pentru a caracteriza raportul cordonului cu fasciculul neurovascular in cazuri complexe. Preoperator/preprocedural: evaluare a diabetului si a altor comorbiditati daca sunt suspicionate, evaluare a functiei mainii si a activitatilor limitate.
+Diagnosticul este clinic; nu sunt necesare investigații de rutină. Radiografie de mână utilă doar la contractura veche/fixă pentru a evalua artroza secundară IFP înaintea unei intervenții de salvare. Ecografie ocazional utilă preintervențional pentru a caracteriza raportul cordonului cu fasciculul neurovascular în cazuri complexe. Preoperator/preprocedural: evaluare a diabetului și a altor comorbidități dacă sunt suspicionate, evaluare a funcției mâinii și a activităților limitate.
 
 ### 7. Tratament (3 min)
 
-Obiective: corectarea contracturii, ameliorarea functiei prizei, minimizarea riscului de recidiva si de complicatii neurovasculare. Optiuni: observatie pentru stadiul N/N-I fara progresie; colagenaza sau fasciotomie cu ac pentru cord MCF izolat stadiu I-II la pacient care prioritizeaza recuperarea rapida; fasciectomie limitata pentru afectare IFP sau stadiu III-IV la pacient care prioritizeaza durabilitatea; dermofasciectomie pentru recidiva sau diateza severa. Pentru acest pacient aleg [optiunea], motivat de [stadiul Tubiana, articulatia implicata, diateza, prioritatile pacientului]. Tehnica in pasi (fasciectomie limitata): (1) instalare in decubit dorsal cu bratul pe masa de mana, anestezie regionala/loco-regionala si garou pneumatic la brat; (2) incizie tip Bruner sau in zigzag peste traiectul cordonului; (3) disectie atenta a lambourilor cutanate, identificarea cordonului si a fasciculului neurovascular, cu atentie speciala la cordonul spiral care poate deplasa pachetul central si superficial la IFP; (4) excizia cordonului patologic de la origine la insertie, pastrand fascia sanatoasa adiacenta; (5) verificarea corectiei contracturii MCF si IFP prin extensie pasiva; (6) hemostaza atenta, eventual Z-plastii pentru a distribui tensiunea cutanata la inchidere; (7) inchidere pe planuri, cu sau fara dren, sau lasarea unor portiuni deschise (deschidere in "V-Y" sau tehnica open-palm/McCash daca tensiune cutanata excesiva); (8) pansament, atela in extensie. Postoperator: atela nocturna de extensie 4-6 saptamani, kinetoterapie precoce pentru mobilizare activa, control la 2 saptamani pentru evaluarea vindecarii cutanate, urmarire periodica pentru recidiva.
+Obiective: corectarea contracturii, ameliorarea funcției prizei, minimizarea riscului de recidivă și de complicații neurovasculare. Opțiuni: observație pentru stadiul N/N-I fără progresie; colagenază sau fasciotomie cu ac pentru cord MCF izolat stadiu I-II la pacient care prioritizează recuperarea rapidă; fasciectomie limitată pentru afectare IFP sau stadiu III-IV la pacient care prioritizează durabilitatea; dermofasciectomie pentru recidivă sau diateza severă. Pentru acest pacient aleg [opțiunea], motivat de [stadiul Tubiana, articulația implicată, diateza, prioritățile pacientului]. Tehnica în pași (fasciectomie limitată): (1) instalare în decubit dorsal cu brațul pe masa de mână, anestezie regională/loco-regională și garou pneumatic la braț; (2) incizie tip Bruner sau în zigzag peste traiectul cordonului; (3) disecție atentă a lambourilor cutanate, identificarea cordonului și a fasciculului neurovascular, cu atenție specială la cordonul spiral care poate deplasa pachetul central și superficial la IFP; (4) excizia cordonului patologic de la origine la inserție, păstrând fascia sănătoasă adiacentă; (5) verificarea corecției contracturii MCF și IFP prin extensie pasivă; (6) hemostaza atentă, eventual Z-plastii pentru a distribui tensiunea cutanată la închidere; (7) închidere pe planuri, cu sau fără dren, sau lăsarea unor porțiuni deschise (deschidere în "V-Y" sau tehnica open-palm/McCash dacă tensiune cutanată excesivă); (8) pansament, atela în extensie. Postoperator: atela nocturnă de extensie 4-6 săptămâni, kinetoterapie precoce pentru mobilizare activă, control la 2 săptămâni pentru evaluarea vindecării cutanate, urmărire periodică pentru recidivă.
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Netratata, boala progreseaza cronic, cu viteza variabila; unii pacienti stagneaza ani, altii progreseaza rapid. Complicatii ale bolii: contractura ireversibila la interval, compromitere functionala. Complicatii ale tratamentului: recidiva (frecventa la colagenaza/fasciotomie cu ac, mai mica la fasciectomie), leziune neurovasculara (risc mai mare cu cordonul spiral neidentificat), sindrom de durere regionala complexa, corectie incompleta a IFP vechi. Prognostic functional bun pe termen scurt cu toate modalitatile; durabilitatea difera, iar diateza pozitiva predice recidiva mai frecventa si mai precoce.
+Netratată, boala progresează cronic, cu viteză variabilă; unii pacienți stagnează ani, alții progresează rapid. Complicații ale bolii: contractura ireversibilă la interval, compromitere funcțională. Complicații ale tratamentului: recidivă (frecventă la colagenază/fasciotomie cu ac, mai mică la fasciectomie), leziune neurovasculară (risc mai mare cu cordonul spiral neidentificat), sindrom de durere regională complexă, corecție incompletă a IFP vechi. Prognostic funcțional bun pe termen scurt cu toate modalitățile; durabilitatea diferă, iar diateza pozitivă predice recidivă mai frecventă și mai precoce.
 
 ### Fraze-cheie
 
-- Aplic clasificarea Tubiana pe baza contracturii totale MCF plus IFP plus IFD, in grade, pentru a ghida alegerea terapeutica.
-- Table-top test pozitiv este criteriul clinic clasic pentru indicatia de interventie.
-- Cordonul spiral deplaseaza fasciculul neurovascular digital de pe pozitia laterala normala catre o pozitie centrala si superficiala la IFP, cu risc mare de lezare in disectie.
-- Aleg colagenaza sau fasciotomia cu ac pentru cordon MCF izolat in stadii moderate, si fasciectomia limitata pentru afectare IFP sau boala severa.
-- Diateza Dupuytren, debut precoce, boala bilaterala, istoric familial si boala ectopica, predice recidiva mai frecventa si mai precoce.
-- Dermofasciectomia adauga excizia pielii suprajacente pentru a reduce recidiva locala la boala recidivata sau diateza severa.
-- Corectia incompleta a contracturii IFP vechi poate persista independent de tehnica, din cauza contracturii capsulo-ligamentare secundare.
-- Examinez intotdeauna neuro-vascular distal fiecare deget afectat, avand in minte pozitia modificata a pachetului la cordonul spiral.
+- Aplic clasificarea Tubiana pe baza contracturii totale MCF plus IFP plus IFD, în grade, pentru a ghida alegerea terapeutică.
+- Table-top test pozitiv este criteriul clinic clasic pentru indicația de intervenție.
+- Cordonul spiral deplasează fasciculul neurovascular digital de pe poziția laterală normală către o poziție centrală și superficială la IFP, cu risc mare de lezare în disecție.
+- Aleg colagenaza sau fasciotomia cu ac pentru cordon MCF izolat în stadii moderate, și fasciectomia limitată pentru afectare IFP sau boala severă.
+- Diateza Dupuytren, debut precoce, boala bilaterală, istoric familial și boala ectopică, predice recidivă mai frecventă și mai precoce.
+- Dermofasciectomia adaugă excizia pielii suprajacente pentru a reduce recidiva locală la boala recidivată sau diateza severă.
+- Corecția incompletă a contracturii IFP vechi poate persista independent de tehnică, din cauza contracturii capsulo-ligamentare secundare.
+- Examinez întotdeauna neuro-vascular distal fiecare deget afectat, având în minte poziția modificată a pachetului la cordonul spiral.
 
 ## Întrebările comisiei
 
-### Î1. Care sunt stadiile clasificarii Tubiana si criteriile lor?
+### Î1. Care sunt stadiile clasificării Tubiana și criteriile lor?
 
-**R:** Se bazeaza pe contractura totala in flexie (MCF+IFP+IFD, in grade): stadiul N, nodul fara contractura; N/I, nodul cu contractura sub 45 grade; stadiul I, 0-45 grade; stadiul II, 45-90 grade; stadiul III, 90-135 grade; stadiul IV, peste 135 grade. Severitatea creste odata cu stadiul, iar afectarea IFP conteaza in plus fata de gradul total.
+**R:** Se bazează pe contractura totală în flexie (MCF+IFP+IFD, în grade): stadiul N, nodul fără contractură; N/I, nodul cu contractura sub 45 grade; stadiul I, 0-45 grade; stadiul II, 45-90 grade; stadiul III, 90-135 grade; stadiul IV, peste 135 grade. Severitatea crește odată cu stadiul, iar afectarea IFP contează în plus față de gradul total.
 
-### Î2. Ce este cordonul spiral si de ce este important chirurgical?
+### Î2. Ce este cordonul spiral și de ce este important chirurgical?
 
-**R:** Se formeaza din banda spirala, ligamentul Grayson si banda laterala; in contractura, deplaseaza fasciculul neurovascular de pe pozitia laterala normala catre o pozitie centrala si superficiala la IFP. Disectia neatenta la acest nivel poate leza pachetul in fasciectomie.
+**R:** Se formează din banda spirală, ligamentul Grayson și banda laterală; în contractură, deplasează fasciculul neurovascular de pe poziția laterală normală către o poziție centrală și superficială la IFP. Disecția neatentă la acest nivel poate leza pachetul în fasciectomie.
 
-### Î3. Care este semnificatia testului table-top?
+### Î3. Care este semnificația testului table-top?
 
-**R:** Pacientul incearca sa aseze palma plat pe o suprafata; pozitiv (nu poate aplatiza complet) e criteriul clinic clasic care declanseaza indicatia de tratament interventional, indiferent de gradul exact Tubiana.
+**R:** Pacientul încearcă să așeze palma plat pe o suprafață; pozitiv (nu poate aplatiza complet) e criteriul clinic clasic care declanșează indicația de tratament intervențional, indiferent de gradul exact Tubiana.
 
-### Î4. Ce faceti daca un pacient cu cord MCF izolat, stadiu I, doreste recuperare rapida?
+### Î4. Ce faceți dacă un pacient cu cord MCF izolat, stadiu I, dorește recuperare rapidă?
 
-**R:** Ii propun colagenaza Clostridium histolyticum sau fasciotomie percutana cu ac, ambele minim invazive cu recuperare rapida, explicandu-i ca rata de recidiva pe termen lung este mai mare decat la fasciectomie, ceea ce el/ea trebuie sa accepte in schimbul recuperarii rapide.
+**R:** Îi propun colagenaza Clostridium histolyticum sau fasciotomie percutană cu ac, ambele minim invazive cu recuperare rapidă, explicându-i că rata de recidivă pe termen lung este mai mare decât la fasciectomie, ceea ce el/ea trebuie să accepte în schimbul recuperării rapide.
 
-### Î5. Ce este diateza Dupuytren si care sunt markerii ei?
+### Î5. Ce este diateza Dupuytren și care sunt markerii ei?
 
-**R:** Factori care predic boala agresiva si recidiva frecventa/precoce: debut sub 50 ani, boala bilaterala, istoric familial pozitiv, boala ectopica (noduli Garrod, Ledderhose, Peyronie).
+**R:** Factori care predic boala agresivă și recidivă frecventă/precoce: debut sub 50 ani, boala bilaterală, istoric familial pozitiv, boala ectopică (noduli Garrod, Ledderhose, Peyronie).
 
-### Î6. Ce faceti daca intraoperator descoperiti ca fasciculul neurovascular este deplasat central de un cordon spiral?
+### Î6. Ce faceți dacă intraoperator descoperiți că fasciculul neurovascular este deplasat central de un cordon spiral?
 
-**R:** Disectez cu atentie sub magnificatie, identific pachetul neurovascular inainte de a sectiona cordonul, il izolez si il protejez pe toata durata excizarii cordonului, si daca este necesar, efectuez o neuroliza pentru a-l libera complet de tesutul fibrotic adiacent.
+**R:** Disectez cu atenție sub magnificație, identific pachetul neurovascular înainte de a secționa cordonul, îl izolez și îl protejez pe toată durata excizării cordonului, și dacă este necesar, efectuez o neuroliză pentru a-l libera complet de țesutul fibrotic adiacent.
 
-### Î7. Care sunt indicatiile pentru dermofasciectomie in loc de fasciectomie limitata?
+### Î7. Care sunt indicațiile pentru dermofasciectomie în loc de fasciectomie limitată?
 
-**R:** Boala recidivata dupa o interventie anterioara, sau diateza severa (debut precoce, bilateralitate, istoric familial, boala ectopica), unde riscul de recidiva locala este crescut; excizia pielii suprajacente afectate impreuna cu cordonul, urmata de grefa cutanata, reduce substratul biologic de recidiva.
+**R:** Boala recidivată după o intervenție anterioară, sau diateza severă (debut precoce, bilateralitate, istoric familial, boala ectopică), unde riscul de recidivă locală este crescut; excizia pielii suprajacente afectate împreună cu cordonul, urmată de grefă cutanată, reduce substratul biologic de recidivă.
 
-### Î8. Ce faceti daca un pacient cu contractura IFP veche de 20 de ani nu se corecteaza complet dupa excizia cordonului?
+### Î8. Ce faceți dacă un pacient cu contractura IFP veche de 20 de ani nu se corectează complet după excizia cordonului?
 
-**R:** Explic pacientului preoperator ca aceasta este o posibilitate cunoscuta, cauzata de contractura secundara a capsulei articulare si a ligamentelor colaterale, independenta de cordonul fascial; intraoperator, pot adauga o capsulotomie/eliberare de ligamente colaterale limitata daca este necesar, cu prudenta pentru a nu instabiliza articulatia.
+**R:** Explic pacientului preoperator că aceasta este o posibilitate cunoscută, cauzată de contractura secundară a capsulei articulare și a ligamentelor colaterale, independentă de cordonul fascial; intraoperator, pot adăuga o capsulotomie/eliberare de ligamente colaterale limitată dacă este necesar, cu prudență pentru a nu instabiliza articulația.
 
-### Î9. Care sunt fazele histologice Luck si ce reprezinta ele?
+### Î9. Care sunt fazele histologice Luck și ce reprezintă ele?
 
-**R:** Faza proliferativa (celularitate miofibroblastica intensa, noduli activi biologic), faza involutiva (aliniere a fibroblastelor de-a lungul liniilor de tensiune, formare de cordoane), si faza reziduala (tesut acelular, colagen dens, cordoane mature, contractura fixa). Reflecta activitatea biologica a bolii, nu severitatea clinica masurata prin Tubiana.
+**R:** Faza proliferativă (celularitate miofibroblastică intensă, noduli activi biologic), faza involutivă (aliniere a fibroblastelor de-a lungul liniilor de tensiune, formare de cordoane), și faza reziduală (țesut acelular, colagen dens, cordoane mature, contractura fixă). Reflectă activitatea biologică a bolii, nu severitatea clinică măsurată prin Tubiana.
 
-### Î10. Ce faceti daca pacientul dezvolta sindrom de durere regionala complexa postoperator?
+### Î10. Ce faceți dacă pacientul dezvoltă sindrom de durere regională complexă postoperator?
 
-**R:** Recunosc precoce semnele (durere disproportionata, tulburari vasomotorii, edem, rigiditate), initiez kinetoterapie desensibilizanta si analgezie adecvata, si trimit catre o echipa de durere cronica daca simptomele persista.
+**R:** Recunosc precoce semnele (durere disproporționată, tulburări vasomotorii, edem, rigiditate), inițiez kinetoterapie desensibilizantă și analgezie adecvată, și trimit către o echipă de durere cronică dacă simptomele persistă.
 
-### Î11. Care sunt structurile fasciale normale ale palmei care se transforma patologic in boala Dupuytren?
+### Î11. Care sunt structurile fasciale normale ale palmei care se transformă patologic în boala Dupuytren?
 
-**R:** Ligamentul pretendinos (fascicule longitudinale, devine cordonul pretendinos care produce contractura MCF), ligamentul transvers superficial, fibrele verticale Grapow, si benzile spirale impreuna cu ligamentele Cleland si Grayson la nivelul degetelor, care formeaza cordonul spiral raspunzator de contractura IFP.
+**R:** Ligamentul pretendinos (fascicule longitudinale, devine cordonul pretendinos care produce contractura MCF), ligamentul transvers superficial, fibrele verticale Grapow, și benzile spirale împreună cu ligamentele Cleland și Grayson la nivelul degetelor, care formează cordonul spiral răspunzător de contractura IFP.
 
-### Î12. Ce faceti daca un pacient cu diabet zaharat prezinta boala Dupuytren cu progresie lenta?
+### Î12. Ce faceți dacă un pacient cu diabet zaharat prezintă boala Dupuytren cu progresie lentă?
 
-**R:** Recunosc asocierea frecventa dintre diabet si boala Dupuytren, de regula cu forma clinica mai blanda si progresie mai lenta; mentin aceleasi criterii de indicatie terapeutica (table-top test, contractura functional semnificativa), fara a modifica indicatia doar pe baza diagnosticului de diabet.
+**R:** Recunosc asocierea frecventă dintre diabet și boala Dupuytren, de regulă cu forma clinică mai blândă și progresie mai lentă; mențin aceleași criterii de indicație terapeutică (table-top test, contractura funcțional semnificativă), fără a modifica indicația doar pe baza diagnosticului de diabet.
 
-### Î13. Care este rata de recidiva pentru fiecare modalitate de tratament?
+### Î13. Care este rata de recidivă pentru fiecare modalitate de tratament?
 
-**R:** Fasciectomia limitata are rata de recidiva cea mai mica dintre cele trei modalitati; colagenaza si fasciotomia percutana cu ac au rate de recidiva semnificativ mai mari, multe serii raportand peste 50% recidiva a unei contracturi de cel putin 20 de grade la 3-5 ani (?), cu mentiunea ca pragurile de retratare functional relevante difera de recidiva pur radiologica/clinica.
+**R:** Fasciectomia limitată are rata de recidivă cea mai mică dintre cele trei modalități; colagenaza și fasciotomia percutană cu ac au rate de recidivă semnificativ mai mari, multe serii raportând peste 50% recidivă a unei contracturi de cel puțin 20 de grade la 3-5 ani (?), cu mențiunea că pragurile de retratare funcțional relevante diferă de recidivă pur radiologică/clinică.
 
-### Î14. Ce faceti daca la fasciotomia cu ac observati o ruptura de tendon flexor?
+### Î14. Ce faceți dacă la fasciotomia cu ac observați o ruptură de tendon flexor?
 
-**R:** Aceasta este o complicatie rara dar cunoscuta a fasciotomiei percutane; opresc procedura, evaluez integritatea tendinoasa, si daca ruptura este confirmata, trimit pacientul catre reparare chirurgicala a tendonului flexor conform principiilor standard de chirurgie tendinoasa.
+**R:** Aceasta este o complicație rară dar cunoscută a fasciotomiei percutane; opresc procedura, evaluez integritatea tendinoasă, și dacă ruptura este confirmată, trimit pacientul către reparare chirurgicală a tendonului flexor conform principiilor standard de chirurgie tendinoasă.
 
-### Î15. Cum diferentiati un cord Dupuytren de o tenosinovita stenozanta (deget trigger)?
+### Î15. Cum diferențiați un cord Dupuytren de o tenosinovită stenozantă (deget trigger)?
 
-**R:** Cordul Dupuytren e o structura fibroasa fixa in palma/baza degetului, cu contractura progresiva fara blocare episodica; degetul trigger prezinta blocare/declic la extensie activa, fara cordon palpabil, cu sensibilitate la polia A1.
+**R:** Cordul Dupuytren e o structură fibroasă fixă în palma/baza degetului, cu contractura progresivă fără blocare episodică; degetul trigger prezintă blocare/declic la extensie activă, fără cordon palpabil, cu sensibilitate la polia A1.
 `,ju=`---
 title: Sindromul de canal carpian, canal Guyon, canal tarsian
 probe: co
