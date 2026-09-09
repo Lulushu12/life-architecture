@@ -141,15 +141,15 @@ Netratat, sindromul poate progresa catre deficit motor permanent si atrofie musc
 
 ### Î4. Ce faceti daca un pacient cu sindrom de canal carpian prezinta atrofie tenariana la prezentare?
 
-**R:** Aceasta indica o compresie severa, de durata, cu denervare partiala deja instalata; indic decompresie chirurgicala fara a mai incerca tratament conservator prelungit, deoarece atrofia semnaleaza risc de deficit permanent, si informez pacientul ca recuperarea motorie poate fi partiala si mai lenta.
+**R:** Indica o compresie severa, de durata, cu denervare partiala deja instalata; indic decompresie chirurgicala fara a mai incerca tratament conservator prelungit, si informez pacientul ca recuperarea motorie poate fi partiala si mai lenta.
 
 ### Î5. Cum diferentiati o compresie de canal Guyon de o compresie de nerv ulnar la cot?
 
-**R:** In compresia la canalul Guyon, fata dorsala a mainii este cruta, deoarece ramura dorsala senzitiva se desprinde din nervul ulnar proximal de pumn; in compresia la cot (tunel cubital), fata dorsala a mainii este si ea afectata senzitiv, alaturi de semnul Tinel pozitiv la nivelul cotului.
+**R:** In compresia la canalul Guyon, fata dorsala a mainii e cruta, caci ramura dorsala senzitiva se desprinde din nervul ulnar proximal de pumn; la cot (tunel cubital), fata dorsala e si ea afectata, cu Tinel pozitiv la cot.
 
 ### Î6. Ce faceti daca palpati o masa la nivelul canalului Guyon la un pacient cu simptome de compresie ulnara?
 
-**R:** Solicit ecografie sau IRM pentru caracterizarea masei (cel mai frecvent chist ganglionar), si planific decompresie chirurgicala cu excizia masei ocupante de spatiu, deoarece tratamentul conservator singur nu rezolva o cauza structurala compresiva.
+**R:** Solicit ecografie/IRM pentru caracterizarea masei (cel mai frecvent chist ganglionar), si planific decompresie cu excizia masei, deoarece tratamentul conservator singur nu rezolva o cauza structurala compresiva.
 
 ### Î7. Care sunt structurile continute in canalul tarsian, in ordine anteroposterioara?
 
@@ -157,7 +157,7 @@ Netratat, sindromul poate progresa catre deficit motor permanent si atrofie musc
 
 ### Î8. Ce faceti daca un pacient cu sindrom de canal tarsian are si o deformare de retropicior in valg sever?
 
-**R:** Recunosc valgul de retropicior ca factor cauzal frecvent, prin intinderea cronica a structurilor posteromediale; planific decompresia nervului tibial posterior si, daca deformarea este severa si contribuie semnificativ, discut o osteotomie de corectie asociata pentru a preveni recidiva simptomelor.
+**R:** Recunosc valgul de retropicior ca factor cauzal frecvent, prin intinderea structurilor posteromediale; planific decompresia nervului tibial posterior si, daca deformarea e severa, discut o osteotomie asociata pentru a preveni recidiva.
 
 ### Î9. Care este diferenta intre eliberarea deschisa si endoscopica de canal carpian in privinta rezultatelor?
 
@@ -165,11 +165,11 @@ Netratat, sindromul poate progresa catre deficit motor permanent si atrofie musc
 
 ### Î10. Ce faceti daca testul Phalen si testul Durkan sunt discordante la un pacient cu suspiciune de canal carpian?
 
-**R:** Nu ma bazez pe un singur test clinic; solicit EMG/conducere nervoasa pentru confirmare obiectiva, deoarece niciun test clinic izolat nu are sensibilitate si specificitate perfecte, iar decizia terapeutica se bazeaza pe corelarea clinicii cu electrofiziologia.
+**R:** Nu ma bazez pe un singur test clinic; solicit EMG pentru confirmare obiectiva, caci niciun test izolat nu are sensibilitate/specificitate perfecte, si decizia terapeutica se bazeaza pe corelarea clinicii cu electrofiziologia.
 
 ### Î11. Care este semnul Froment si ce indica?
 
-**R:** Pacientul tine o foaie de hartie intre police si index in timp ce examinatorul trage de hartie; semnul este pozitiv daca pacientul flecteaza articulatia interfalangiana a policelui (activand flexor pollicis longus, inervat de median) pentru a compensa slabiciunea adductorului policelui, inervat de ulnar, indicand o leziune de nerv ulnar.
+**R:** Pacientul tine o hartie intre police si index in timp ce examinatorul trage; pozitiv daca pacientul flecteaza IF a policelui (flexor pollicis longus, median) pentru a compensa slabiciunea adductorului policelui (ulnar), indicand o leziune de nerv ulnar.
 
 ### Î12. Ce faceti daca EMG arata denervare severa la un pacient cu sindrom de canal carpian de lunga durata?
 
@@ -177,7 +177,7 @@ Netratat, sindromul poate progresa catre deficit motor permanent si atrofie musc
 
 ### Î13. Cum se explica de ce fractura carligului osului hamat poate produce sindrom de canal Guyon?
 
-**R:** Carligul osului hamat formeaza peretele lateral al canalului Guyon; o fractura la acest nivel, frecventa la sportivii care folosesc bat/racheta, poate produce edem, calus vicios sau fragmente osoase care ingusteaza canalul si comprima nervul ulnar sau ramurile sale.
+**R:** Carligul hamatului formeaza peretele lateral al canalului Guyon; o fractura la acest nivel, frecventa la sportivii cu bat/racheta, poate produce edem, calus vicios sau fragmente osoase care ingusteaza canalul si comprima nervul ulnar.
 
 ### Î14. Care sunt masurile conservatoare de prima linie pentru sindromul de canal carpian usor-moderat?
 
@@ -185,4 +185,4 @@ Netratat, sindromul poate progresa catre deficit motor permanent si atrofie musc
 
 ### Î15. Ce faceti daca un pacient cu simptome de canal tarsian nu raspunde la decompresie chirurgicala?
 
-**R:** Reevaluez diagnosticul (exclud radiculopatie lombara S1, polineuropatie generalizata, fasciita plantara), repet EMG postoperator pentru a documenta ameliorarea electrofiziologica, si caut o cauza compresiva reziduala neidentificata initial (bandă fibroasa aberanta, decompresie incompleta a uneia dintre cele trei ramuri distale).
+**R:** Reevaluez diagnosticul (exclud radiculopatie lombara S1, polineuropatie generalizata, fasciita plantara), repet EMG postoperator, si caut o cauza reziduala neidentificata initial (bandă fibroasa aberanta, decompresie incompleta a uneia dintre cele trei ramuri distale).

@@ -12,7 +12,7 @@ related: diagnoses/pelvic-acetabular-fractures, classifications/tile-ao-classifi
 
 ### Definiție și epidemiologie
 
-Fracturile de bazin sunt leziuni ale inelului pelvin (sacru, oase iliace, pubis, ischion) și/sau ale acetabulului, produse tipic prin traumatism de energie mare la adultul tânăr, sau prin traumatism minor pe fond osteoporotic la vârstnic. Fracturile de inel pelvin instabile sunt o urgență vitală prin riscul de hemoragie masivă (mortalitate 10 la 20% (?) în formele instabile hemodinamic), a treia cauză de deces prin hemoragie în politraumatism, după leziunile toracice și cerebrale. Fracturile acetabulare afectează predominant adultul tânăr prin energie mare (bord al vehiculului, pattern posterior) și, tot mai frecvent, vârstnicul prin cădere simplă (pattern anterior, pe fond osteoporotic).
+Fracturile de bazin sunt leziuni ale inelului pelvin (sacru, oase iliace, pubis, ischion) și/sau ale acetabulului, produse tipic prin energie mare la adultul tânăr, sau traumatism minor pe fond osteoporotic la vârstnic. Fracturile instabile de inel pelvin sunt o urgență vitală prin riscul de hemoragie masivă (mortalitate 10 la 20% (?)), a treia cauză de deces prin hemoragie în politraumatism. Fracturile acetabulare afectează predominant adultul tânăr prin energie mare (bord, pattern posterior) și, tot mai frecvent, vârstnicul prin cădere simplă (pattern anterior, pe fond osteoporotic).
 
 ### Anatomie și biomecanică relevantă
 
@@ -59,7 +59,7 @@ Inel pelvin: durere la compresia inelului (o singură dată, cu grijă, pentru a
 
 ### Imagistică și explorări
 
-Radiografie de bazin AP în urgență, urmată de CT cu reconstrucții 3D, standard pentru caracterizarea completă a inelului și a acetabulului. Incidențele oblice Judet (obturatoare: coloană anterioară și perete posterior; iliacă: coloană posterioară și perete anterior) rămân utile pentru caracterizarea morfologică clasică. Se măsoară: deschiderea simfizei, deplasarea verticală/posterioară a hemipelvisului, roof arc angle, gradul de cominuție, marginal impaction al peretelui posterior. Screening asociat: uretrografie retrogradă (sânge la meat, prostată înaltă), cistografie, examen ginecologic/rectal, angio-CT la suspiciune de leziune vasculară majoră.
+Radiografie de bazin AP în urgență, urmată de CT cu reconstrucții 3D, standard pentru caracterizarea completă. Incidențele oblice Judet (obturatoare: coloană anterioară și perete posterior; iliacă: coloană posterioară și perete anterior) rămân utile morfologic. Se măsoară: deschiderea simfizei, deplasarea hemipelvisului, roof arc angle, cominuția, marginal impaction al peretelui posterior. Screening asociat: uretrografie retrogradă, cistografie, examen ginecologic/rectal, angio-CT la suspiciune vasculară.
 
 ### Diagnostic diferențial
 
@@ -103,7 +103,7 @@ General: prioritar evaluarea ABC și hemodinamică, pentru că fractura instabil
 
 Diagnostic pozitiv: fractură de [inel pelvin/acetabul], tip Tile [A/B/C] respectiv Young-Burgess [APC/LC/VS] pentru inel, sau Judet-Letournel [tip] pentru acetabul, pe baza mecanismului traumatic, a instabilității/durerii clinice, și a CT-ului 3D care arată [deschiderea simfizei / deplasarea verticală / traiectul acetabular].
 
-Diagnostice secundare de reținut: leziunea uretrală/vezicală/rectală asociată, fractura deschisă de bazin, leziunea neurologică a plexului lombosacrat/nervului sciatic.
+Diagnostice secundare: leziunea uretrală/rectală asociată, fractura deschisă, leziunea neurologică a plexului lombosacrat/sciaticului.
 
 ### 5. Diagnostic diferențial (1 min)
 

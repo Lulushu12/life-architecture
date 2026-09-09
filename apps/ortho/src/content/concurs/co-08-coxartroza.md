@@ -2,7 +2,7 @@
 title: Coxartroza
 probe: co
 number: 8
-tags: coxartroza, gonartroza, artroplastie de sold, Kellgren-Lawrence, Tonnis, Trendelenburg, Thomas, FABER, displazie de sold, conflict femuro-acetabular, necroza avasculara, proteza totala de sold, cimentat, necimentat
+tags: coxartroza, artroplastie de sold, THA, Kellgren-Lawrence, Tonnis, Trendelenburg, Thomas, FABER, displazie de sold, conflict femuro-acetabular, necroza avasculara, proteza totala de sold, cimentat, necimentat
 region: Pelvis & Hip
 specialty: Arthroplasty
 related: diagnoses/hip-osteoarthritis-tha, techniques/total-hip-arthroplasty-primary-osteoarthritis, classifications/kellgren-lawrence-hip, classifications/tonnis-grade-hip-osteoarthritis, diagnoses/osteonecrosis-hip-preservation
