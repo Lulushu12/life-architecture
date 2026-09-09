@@ -16,15 +16,15 @@ Pseudartroza colului femural este lipsa consolidării osoase a unei fracturi de 
 
 ### Anatomie și biomecanică relevantă
 
-Vascularizația capului femural depinde predominant de artera circumflexă femurală medială, prin ramurile retinaculare ascendente postero-superioare care traversează capsula la baza colului. Deplasarea fracturii, întinderea sau ruptura acestor vase, plus hematomul intracapsular sub tensiune, compromit fluxul spre cap. Biomecanic, colul femural este supus forțelor de forfecare (mai mari la unghiuri Pauwels ridicate) și de încovoiere; o reducere imperfectă sau o fixare insuficientă permite micromișcare la focar, care întreține pseudartroza și, secundar, ischemia cronică. Zona portantă supero-laterală a capului este cea mai expusă colapsului mecanic în NAV, fiind zona de sprijin maxim în ortostatism.
+Vascularizația capului depinde predominant de artera circumflexă femurală medială, prin ramurile retinaculare ascendente postero-superioare care traversează capsula la baza colului. Deplasarea fracturii, întinderea sau ruptura acestor vase, plus hematomul intracapsular sub tensiune, compromit fluxul spre cap. Biomecanic, colul e supus forfecării (mai mari la unghiuri Pauwels ridicate) și încovoierii; o reducere imperfectă sau fixare insuficientă permite micromișcare la focar, care întreține pseudartroza și ischemia cronică. Zona portantă supero-laterală e cea mai expusă colapsului mecanic în NAV.
 
 ### Etiopatogenie
 
-Factori de risc pentru pseudartroză: deplasare inițială mare (Garden III-IV), întârziere până la reducere/fixare, reducere imperfectă (varus rezidual, translație), unghi Pauwels vertical (III, peste 50 grade, forfecare dominantă), cominuție posterioară (defect al corticalei postero-inferioare, instabilitate suplimentară), fixare insuficientă biomecanic (poziționare slabă a șuruburilor, implant nepotrivit pentru configurația fracturii), infecție subclinică. Factori de risc pentru NAV: aceiași factori de deplasare și întârziere, plus leziune directă vasculară la reducere, corticoterapie cronică, consum de alcool, siclemie/hemoglobinopatii, fumat.
+Factori de risc pentru pseudartroză: deplasare inițială mare (Garden III-IV), întârziere până la fixare, reducere imperfectă (varus rezidual, translație), unghi Pauwels vertical (peste 50 grade), cominuție posterioară, fixare insuficient biomecanic, infecție subclinică. Factori de risc pentru NAV: aceiași factori de deplasare/întârziere, plus leziune vasculară directă la reducere, corticoterapie cronică, alcool, siclemie/hemoglobinopatii, fumat.
 
 ### Anatomie patologică
 
-Pseudartroza: la focar, țesut fibros sau fibrocartilaginos interpus, absența pontajului trabecular, poate fi hipertrofică (capete osoase reactive, vascularizate, dar instabile mecanic) sau atrofică (resorbție osoasă, capete devascularizate, frecvent asociată cu infecție subclinică sau ischemie). NAV: necroza osteocitelor și a medularei hematopoietice, urmată de reparare vasculară insuficientă la periferie, cu zonă de demarcație (linia de fractură subcondrală, "crescent sign") și colaps segmentar progresiv al osului subcondral, urmat de incongruență articulară și artroză secundară.
+Pseudartroza: țesut fibros sau fibrocartilaginos interpus, absența pontajului trabecular, hipertrofică (capete reactive, vascularizate, instabile mecanic) sau atrofică (resorbție, capete devascularizate, adesea cu infecție subclinică). NAV: necroza osteocitelor și medularei, reparare vasculară insuficientă la periferie, zonă de demarcație ("crescent sign") și colaps segmentar progresiv, urmat de incongruență articulară și artroză secundară.
 
 ### Clasificare
 

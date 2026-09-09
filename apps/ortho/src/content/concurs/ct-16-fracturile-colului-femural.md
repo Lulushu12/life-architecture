@@ -57,11 +57,11 @@ Durere la nivelul șoldului, iradiată inghinal, impotență funcțională în f
 
 ### Imagistică și explorări
 
-Radiografie de bazin de față și șold în incidență axială (Lauenstein), pentru vizualizarea liniei de fractură, unghiul Pauwels, deplasarea Garden. Dacă radiografia standard e negativă dar suspiciunea clinică persistă (durere inghinală, incapacitate de sprijin), RMN (cea mai sensibilă pentru fractura ocultă) sau CT sunt indicate. Preoperator: evaluare cardiologică, hemogramă, coagulogramă, grup sanguin, funcție renală, ECG, radiografie toracică, pentru optimizare rapidă înainte de intervenție (fereastra sub 48 ore).
+Radiografie de bazin de față și șold axial (Lauenstein), pentru linia de fractură, Pauwels, Garden. Dacă negativă dar suspiciunea persistă, RMN (cea mai sensibilă pentru fractura ocultă) sau CT. Preoperator: evaluare cardiologică, hemogramă, coagulogramă, grup sanguin, funcție renală, ECG, radiografie toracică, pentru optimizare rapidă (fereastra sub 48 ore).
 
 ### Diagnostic diferențial
 
-Fractura de masiv trohanterian (durere mai laterală, traiect extracapsular pe radiografie). Contuzia/entorsa de șold (radiografie normală, mers posibil). Metastaza osoasă pe fractură patologică (context oncologic, aspect litic pe radiografie). Coxartroza decompensată (durere cronică, radiografie cu pensare articulară, fără traiect de fractură). Luxația de șold nativ (poziție caracteristică, cap femural în afara cotilului pe radiografie).
+Fractura de masiv trohanterian (durere mai laterală, traiect extracapsular). Contuzia/entorsa de șold (radiografie normală, mers posibil). Metastaza osoasă pe fractură patologică (context oncologic, aspect litic). Coxartroza decompensată (durere cronică, pensare articulară, fără traiect de fractură). Luxația de șold nativ (cap femural în afara cotilului).
 
 ### Tratament
 
@@ -75,11 +75,11 @@ Fractura de masiv trohanterian (durere mai laterală, traiect extracapsular pe r
 
 ### Complicații
 
-Necroza avasculară a capului femural: 10 la 30% (?) global, proporțională cu gradul de deplasare inițială și cu timpul până la reducere; poate apărea până la 2 ani posttraumatic. Pseudartroza (nonunion): mai frecventă în fracturile verticale (Pauwels III) și în reducerile imperfecte. Eșecul fixării (cut-out, migrarea șuruburilor, colaps în varus). Tromboembolism venos, infecție de plagă/protetică, luxație de proteză (mai frecventă la hemiartroplastie/THA după fractură decât după artroplastie electivă), delir postoperator la vârstnic.
+Necroza avasculară: 10 la 30% (?) global, proporțională cu deplasarea inițială și timpul până la reducere; poate apărea până la 2 ani posttraumatic. Pseudartroza: mai frecventă în fracturile verticale (Pauwels III) și reducerile imperfecte. Eșecul fixării (cut-out, migrarea șuruburilor, colaps în varus). Tromboembolism venos, infecție, luxație de proteză (mai frecventă după fractură decât după artroplastie electivă), delir postoperator la vârstnic.
 
 ### Evoluție și prognostic
 
-Mortalitatea la 1 an după fractura de col femural la vârstnic este de aproximativ 20 la 30%, cu vârf de risc în primele 3 luni; factori de prognostic negativ: vârsta avansată, comorbidități multiple, timp până la operație peste 48 ore, mobilizare tardivă. Fixarea în primele 48 ore reduce mortalitatea și complicațiile generale (decubit, pneumonie, escare) comparativ cu întârzierea, independent de tipul de fixare ales. Recuperarea funcțională completă la vârstnic e frecvent incompletă (sub 50% (?) recuperează nivelul de mers anterior).
+Mortalitatea la 1 an e de aproximativ 20 la 30%, vârf de risc în primele 3 luni; factori negativi: vârsta avansată, comorbidități multiple, operație peste 48 ore, mobilizare tardivă. Fixarea în primele 48 ore reduce mortalitatea și complicațiile de decubit, independent de implantul ales. Recuperarea funcțională completă e frecvent incompletă (sub 50% (?) recuperează nivelul anterior).
 
 ## Script de prezentare
 
@@ -103,23 +103,23 @@ Diagnostice secundare de reținut: osteoporoza subiacentă (indicație de tratam
 
 ### 5. Diagnostic diferențial (1 min)
 
-Fractura de masiv trohanterian: durere mai laterală, hematom subcutanat vizibil, traiect extracapsular pe radiografie. Contuzia de șold: radiografie fără traiect de fractură, mers posibil cu durere moderată. Metastaza osoasă cu fractură patologică: context oncologic cunoscut, aspect litic pe radiografie fără traumatism semnificativ. Coxartroza acută decompensată: durere cronică preexistentă, fără traumatism recent relevant, pensare articulară pe radiografie. Luxația de șold nativ: poziție caracteristică fixă, cap femural vizibil în afara cotilului.
+Fractura de masiv trohanterian: durere mai laterală, hematom subcutanat vizibil, traiect extracapsular. Contuzia de șold: radiografie negativă, mers posibil. Metastaza osoasă cu fractură patologică: context oncologic, aspect litic fără traumatism semnificativ. Coxartroza decompensată: durere cronică preexistentă, pensare articulară. Luxația de șold nativ: poziție fixă caracteristică, cap femural în afara cotilului.
 
 ### 6. Investigații (1 min)
 
-Radiografie de bazin de față și șold în incidență axială (Lauenstein), pentru diagnosticul de fractură, clasificarea Garden (grad de deplasare) și Pauwels (unghiul liniei de fractură, pentru anticiparea riscului de forfecare). Dacă radiografia e neconcludentă și suspiciunea clinică persistă, RMN (cea mai sensibilă) sau CT. Preoperator: hemogramă, coagulogramă, grup sanguin și Rh, funcție renală și hepatică, ionogramă, ECG, radiografie toracică, evaluare cardiologică/anestezică, mai ales la vârstnic cu comorbidități, pentru a permite operația în fereastra de 48 ore.
+Radiografie de bazin de față și șold axial (Lauenstein), pentru diagnostic, Garden și Pauwels. Dacă neconcludentă, RMN (cea mai sensibilă) sau CT. Preoperator: hemogramă, coagulogramă, grup sanguin, funcție renală, ECG, radiografie toracică, evaluare cardiologică/anestezică, pentru operație în fereastra de 48 ore.
 
 ### 7. Tratament (3 min)
 
-Obiective: reducere anatomică și fixare stabilă la tânăr pentru a conserva capul femural viu; la vârstnic, mobilizare rapidă și sprijin imediat cu risc minim de reintervenție, prioritizând artroplastia în fracturile deplasate. Opțiuni: la tânăr, reducere de urgență și fixare cu șuruburi canulate în triunghi inversat sau DHS/FNS cu șurub antirotațional pentru fracturi verticale; la vârstnic cu fractură deplasată, hemiartroplastie cimentată (dacă pacient dependent/comorbidități multiple) sau THA (dacă pacient independent la mers, fără deficit cognitiv, conform criteriilor NICE și rezultatelor studiului HEALTH); la vârstnic cu fractură nedeplasată, fixare cu șuruburi canulate. Pentru acest pacient aleg [opțiunea concretă], pentru că [vârsta, gradul de deplasare, statusul funcțional și cognitiv anterior, comorbidități].
+Obiective: reducere anatomică și fixare stabilă la tânăr pentru a conserva capul viu; la vârstnic, mobilizare rapidă și sprijin imediat, prioritizând artroplastia în fracturile deplasate. Opțiuni: la tânăr, fixare cu canulate în triunghi inversat sau DHS/FNS pentru fracturi verticale; la vârstnic deplasat, hemiartroplastie cimentată (dependent/comorbidități multiple) sau THA (independent la mers, cognitiv intact, conform NICE și HEALTH); la vârstnic nedeplasat, canulate. Pentru acest pacient aleg [opțiunea concretă], pentru că [vârsta, gradul de deplasare, statusul funcțional și cognitiv anterior].
 
-Tehnica în pași (exemplu hemiartroplastie cimentată): 1) poziționare în decubit lateral sau dorsal pe masă radiotransparentă, fluoroscopie disponibilă; 2) abord posterolateral (Moore) sau anterolateral, cu protejarea nervului sciatic la abordul posterior; 3) capsulotomie și extracția capului femural fracturat, măsurarea diametrului capului nativ; 4) osteotomie de col la nivelul planificat, protejând calcarul medial; 5) prepararea canalului femural, alezaj progresiv, proba de tijă și cap pentru testarea stabilității și lungimii membrului; 6) cimentarea tijei definitive în poziție neutră/anteversie 10 la 15 grade; 7) montarea capului protetic de dimensiune corespunzătoare capului nativ măsurat; 8) reducere, testare a stabilității (lipsa de luxație la mobilizare în rotații extreme), hemostază, închidere în straturi cu reinserția capsulei/rotatorilor scurți dacă abordul a fost posterior.
+Tehnica în pași (exemplu hemiartroplastie cimentată): 1) decubit lateral sau dorsal pe masă radiotransparentă, fluoroscopie; 2) abord posterolateral (Moore) sau anterolateral, cu protejarea sciaticului posterior; 3) capsulotomie și extracția capului fracturat, măsurarea diametrului nativ; 4) osteotomie de col protejând calcarul medial; 5) prepararea canalului, proba de tijă și cap pentru stabilitate și lungime; 6) cimentarea tijei în anteversie 10 la 15 grade; 7) montarea capului protetic de dimensiune corespunzătoare; 8) reducere, testare a stabilității, hemostază, închidere cu reinserția rotatorilor scurți dacă abordul a fost posterior.
 
-Protocol postoperator: mobilizare și sprijin complet imediat (WBAT) din prima zi postoperator, profilaxie tromboembolică (heparină cu greutate moleculară mică 4 la 6 săptămâni, mai lung la risc crescut), kinetoterapie precoce, evaluare geriatrică multidisciplinară, tratament al osteoporozei subiacente (calciu, vitamina D, bifosfonat sau denosumab), prevenția căderilor, urmărire radiografică la 6 săptămâni, 3 luni, 1 an.
+Protocol postoperator: sprijin complet imediat (WBAT) din prima zi, profilaxie tromboembolică 4 la 6 săptămâni, kinetoterapie precoce, evaluare geriatrică, tratament al osteoporozei (calciu, vitamina D, bifosfonat sau denosumab), prevenția căderilor, urmărire radiografică la 6 săptămâni, 3 luni, 1 an.
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Fără tratament, evoluția este spre imobilizare prelungită cu complicații de decubit (escare, pneumonie, tromboembolism) și mortalitate foarte crescută. Complicații ale fracturii: necroza avasculară (10 la 30%, mai frecventă în fracturile deplasate), pseudartroza. Complicații ale tratamentului: eșecul fixării (cut-out, colaps în varus), luxația protezei, infecția, tromboembolismul. Prognostic funcțional: recuperarea completă a mersului anterior este incompletă la mulți pacienți vârstnici; mortalitatea la 1 an este de aproximativ 20 la 30%, cu risc maxim în primele 3 luni. Urmărire: control clinic și radiografic la 6 săptămâni, 3 luni, 1 an, cu evaluare a osteoporozei și a riscului de cădere.
+Fără tratament, evoluția e spre imobilizare prelungită cu complicații de decubit majore. Complicații ale fracturii: necroza avasculară (10 la 30%, mai frecventă în deplasate), pseudartroza. Complicații ale tratamentului: eșecul fixării, luxația protezei, infecția, tromboembolismul. Prognostic funcțional: recuperarea completă a mersului anterior e frecvent incompletă; mortalitatea la 1 an e de 20 la 30%, cu risc maxim în primele 3 luni. Urmărire: control clinic și radiografic la 6 săptămâni, 3 luni, 1 an.
 
 ### Fraze-cheie
 
@@ -162,7 +162,7 @@ Fără tratament, evoluția este spre imobilizare prelungită cu complicații de
 **R:** Tip I transepifizară, tip II transcervicală (cea mai frecventă), tip III cervico-trohanterică, tip IV intertrohanterică. Tipul I, mai ales dacă asociază luxația capului din cotil, are cel mai mare risc de NAV, aproape de 100%, din cauza vascularizației precare a colului la copil.
 
 ### Î10. Ce faceți dacă pacientul are contraindicație anestezică majoră pentru intervenție chirurgicală?
-**R:** Discut cazul multidisciplinar (anestezie, medicină internă, geriatrie) pentru optimizare rapidă a comorbidităților, cu scopul de a opera cât mai apropiat de fereastra de 48 ore. Dacă riscul rămâne prohibitiv chiar și după optimizare, tratamentul conservator (mobilizare precoce cât permite durerea, analgezie) este ultima opțiune, cu risc de mortalitate și complicații de decubit mult mai mare.
+**R:** Discut cazul multidisciplinar (anestezie, medicină internă, geriatrie) pentru optimizare rapidă, cu scopul de a opera cât mai apropiat de fereastra de 48 ore. Dacă riscul rămâne prohibitiv, tratamentul conservator devine ultima opțiune, cu mortalitate și complicații de decubit mult mai mari.
 
 ### Î11. Ce este capsulotomia decompresivă și este indicată de rutină?
 **R:** Este evacuarea chirurgicală a hematomului intracapsular, bazată pe teoria că presiunea intracapsulară crescută tamponează fluxul retinacular și crește riscul de NAV. Nu este indicată de rutină, pentru că dovezile actuale nu arată un beneficiu consecvent, decizia rămânând la latitudinea chirurgului și la tipul de fixare planificat.
@@ -177,4 +177,4 @@ Fără tratament, evoluția este spre imobilizare prelungită cu complicații de
 **R:** Vârsta avansată, comorbiditățile multiple (cardiovasculare, pulmonare, diabet), statusul cognitiv afectat, timpul până la operație peste 48 ore, și lipsa mobilizării precoce postoperatorii. Mortalitatea la 1 an este de aproximativ 20 la 30%, cu riscul maxim concentrat în primele 3 luni.
 
 ### Î15. Ce faceți dacă în timpul hemiartroplastiei proteza pare instabilă la testarea intraoperatorie?
-**R:** Verific offsetul, lungimea membrului, dimensiunea capului protetic față de cotil, și tensiunea părților moi; dacă instabilitatea persistă, cresc dimensiunea capului protetic sau corectez offsetul/anteversia tijei, și reevaluez integritatea capsulei și a rotatorilor externi reparați la închidere.
+**R:** Verific offsetul, lungimea membrului, dimensiunea capului față de cotil și tensiunea părților moi; dacă instabilitatea persistă, cresc dimensiunea capului sau corectez offsetul/anteversia, și reevaluez repararea rotatorilor externi.

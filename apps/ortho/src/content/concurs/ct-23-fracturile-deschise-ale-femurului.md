@@ -68,7 +68,7 @@ Fractura închisă cu leziune severă de părți moi (Tscherne III, fără comun
 
 **Fixare:** tija centromedulară reamed e acceptabilă și sigură pentru tip I la IIIA, cu rate de infecție de 3 la 5%, similar fracturilor închise, cu debridare adecvată anterioară. Fixarea externă e preferată în damage control la politraumatizat instabil, sau în IIIB/IIIC unde starea părților moi/vasculară nu permite fixare internă definitivă imediată, cu conversie la tijă secundar, în primele 2 la 3 săptămâni.
 
-**Leziunea vasculară (IIIC):** repararea vasculară are prioritate; dacă timpul de ischemie e prelungit sau starea generală instabilă, se plasează un shunt vascular temporar pentru a restabili rapid perfuzia, se stabilizează osos (fixare externă rapidă), apoi se face reparația vasculară definitivă. Fasciotomia celor 4 compartimente ale gambei se face liberal, cu prag de suspiciune jos, mai ales după reperfuzie prelungită, pentru a preveni sindromul de compartiment ischemie-reperfuzie.
+**Leziunea vasculară (IIIC):** repararea vasculară are prioritate; dacă ischemia e prelungită sau starea generală instabilă, se plasează un shunt vascular temporar pentru perfuzie rapidă, se stabilizează osos (fixare externă), apoi se face reparația definitivă. Fasciotomia celor 4 compartimente ale gambei se face liberal, cu prag jos, mai ales după reperfuzie prelungită.
 
 **Acoperirea țesuturilor moi (fix and flap):** conceptul actual recomandă fixarea osoasă definitivă și acoperirea cu lambou (dacă necesară, în IIIB/IIIC) în aceeași sesiune sau cât mai apropiat, ideal în primele 72 de ore, pentru a reduce riscul de infecție comparativ cu întârzierea acoperirii; colaborarea cu chirurgia plastică e esențială pentru planificarea precoce a tipului de lambou.
 
