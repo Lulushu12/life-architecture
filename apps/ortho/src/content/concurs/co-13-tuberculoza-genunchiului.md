@@ -2,7 +2,7 @@
 title: Tuberculoza genunchiului
 probe: co
 number: 13
-tags: tumor albus, tuberculoza genunchiului, gonita TB, triada Phemister, Kerri, Martini, sinovectomie, artrodeza genunchi, artroplastie totala de genunchi, HRZE, biopsie sinoviala
+tags: tumor albus, tuberculoza genunchiului, gonita TB, triada Phemister, Kerri-Martini, sinovectomie, artrodeza genunchi, artroplastie totala de genunchi, HRZE, biopsie sinoviala
 region: Knee & Leg
 specialty: Oncology & Metabolic
 related: diagnoses/knee-osteoarthritis-tka, diagnoses/msk-infection-metabolic-bone, techniques/total-knee-arthroplasty, classifications/kellgren-lawrence-knee
@@ -34,7 +34,7 @@ Sinovita tuberculoasă produce hipertrofie villoasă, pannus de granulație cu n
 3. **Stadiul de artrită distructivă**: distrucție cartilaginoasă și osoasă subcondrală, instabilitate ligamentară, deformare în flexie.
 4. **Stadiul sechelar**: anchiloză fibroasă/osoasă sau articulație distrusă, instabilă.
 
-**Clasificarea Kerri** (?) și **clasificarea Martini** (?) descriu gradarea radiologică a distrucției osteoarticulare tuberculoase a genunchiului, de la forma pur sinovială/incipientă, fără pierdere de substanță osoasă, până la formele cu distrucție epifizară majoră și dezaxare secundară, fiind folosite pentru a ghida decizia între chirurgie conservatoare (sinovectomie, debridare) și chirurgie reconstructivă (artrodeza, artroplastia).
+**Clasificarea Kerri-Martini (1985), radiologică, 4 stadii:** stadiul I fără leziuni osoase, doar osteoporoză localizată și tumefacție de părți moi (forma sinovială; sinovectomie, funcție recuperabilă); stadiul II leziuni osoase (eroziuni marginale, geode) fără îngustarea spațiului articular (debridare, sinovectomie, articulație încă salvabilă); stadiul III distrucție osoasă cu îngustarea spațiului articular (artrită distructivă; conservarea articulației incertă, redoare reziduală probabilă); stadiul IV dezorganizare anatomică majoră a articulației (distrucție epifizară, subluxație, dezaxare; tratament reconstructiv: artrodeză sau artroplastie după stingerea bolii). Stadiul ghidează decizia între chirurgia conservatoare (sinovectomie, debridare) și cea reconstructivă.
 
 ### Clinic
 

@@ -33,14 +33,18 @@ Leziunea de bază este granulomul tuberculos cu necroză cazeoasă centrală, ce
 2. **Stadiul de stare** (distructiv): distrucția platourilor și a corpurilor vertebrale adiacente, prăbușirea spațiului discal, abces paravertebral, debut al tasării cuneiforme și al gibbusului.
 3. **Stadiul de reparație** (sechelar): scleroză marginală, fuziune osoasă spontană (blocul vertebral), consolidarea cifozei reziduale; poate coexista cu compresie medulară tardivă prin punte osoasă sau arahnoidită.
 
-**Clasificarea Kumar (radiologică, pe severitatea distrucției)** (?): tip I - predistructiv (edem, fără colaps); tip II - distructiv incipient, fără colaps vertebral; tip III - distructiv cu colaps vertebral și cifoză; tip IV - sechelar, cu deformare fixată. Utilă pentru a decide momentul intervenției (colapsul progresiv din tipul III este o indicație chirurgicală).
+**Clasificarea clinico-radiologică Kumar (1985), 5 stadii:** stadiul I predistructiv (rectitudine, contractură paravertebrală, hiperemie la scintigrafie, fără modificări structurale); stadiul II distructiv incipient (pensare de disc, eroziuni paradiscale, osteoporoză); stadiul III cifoză angulară ușoară (2 până la 3 vertebre afectate, cifoză sub 10 grade); stadiul IV cifoză moderată (peste 10 și sub 30 de grade, mai mult de 3 vertebre); stadiul V cifoză severă (peste 30 de grade). **Clasificarea GATA (Oguz, 2008), orientată chirurgical:** tip IA abces fără colaps și fără deficit (tratament medical, eventual drenaj), tip IB abces cu compresiune și deficit neurologic (decompresie anterioară), tip II colaps vertebral cu cifoză sau instabilitate, fără deficit sau cu deficit (debridare anterioară plus fuziune, instrumentație), tip III cifoză severă sechelară cu sau fără deficit tardiv (osteotomie de corecție, decompresie).
 
-**Clasificarea Tuli a paraplegiei Pott (esențială pentru conduita terapeutică):**
+**Clasificările paraplegiei Pott (esențiale pentru conduita terapeutică):**
 
-| Grup | Debut | Mecanism | Conduită |
+Seddon (după debut): paraplegie cu debut precoce (în faza activă, primii 2 ani) și paraplegie cu debut tardiv (la ani de la vindecarea aparentă). Hodgson (după activitatea bolii):
+
+| Grup Hodgson | Debut | Mecanism | Conduită |
 |---|---|---|---|
-| Grup A (precoce) | În plină activitate a bolii, primele 2 ani | Abces, țesut de granulație, sechestre, edem, subluxație instabilă | Răspunde frecvent la tratament conservator (antituberculos ± decompresie) |
-| Grup B (tardiv) | La ani-decenii de la vindecarea aparentă, pe coloană sechelară | Punte osoasă rigidă, arahnoidită, tracțiune vasculară pe măduva angulată | Necesită decompresie chirurgicală, prognostic mai rezervat |
+| Grup A: paraplegie a bolii active | În plină activitate a bolii, primele 2 ani | Presiune externă (abces, țesut de granulație, sechestre osoase sau discale, subluxație) sau leziune intrinsecă (edem, mielită, tromboză) | Răspunde frecvent la tratament antituberculos, decompresie dacă nu ameliorează în 3 până la 4 săptămâni sau se agravează |
+| Grup B: paraplegie a bolii vindecate | La ani sau decenii, pe coloană sechelară | Punte osoasă rigidă (gibbus intern), stenoză, fibroză durală, arahnoidită, tracțiune vasculară pe măduva angulată, reactivare | Necesită decompresie chirurgicală, prognostic mai rezervat |
+
+Tuli gradează severitatea deficitului: gradul I neglijabil (pacientul nu sesizează, clinicianul găsește Babinski sau clonus), gradul II ușor (merge cu sprijin, spasticitate), gradul III moderat (imobilizat la pat, paraplegie spastică în extensie, deficit senzitiv sub 50 la sută), gradul IV sever (gradul III plus spasme în flexie sau paraplegie flască, deficit senzitiv peste 50 la sută, tulburări sfincteriene).
 
 Această distincție ghidează direct decizia "tratament medical vs. chirurgie de urgență" în fața unui deficit neurologic.
 
@@ -76,11 +80,11 @@ Opțiuni: debridare radicală anterioară cu grefare osoasă (autogrefă costal�
 
 ### Complicații
 
-Paraplegia Pott (precoce Tuli A, tardivă Tuli B), cifoză severă progresivă cu insuficiență respiratorie restrictivă în formele toracice înalte, fistulizare cutanată, pseudartroză/instabilitate reziduală, recidivă prin tratament incomplet sau MDR-TB.
+Paraplegia Pott (a bolii active, Hodgson A, sau a bolii vindecate, Hodgson B; severitate Tuli I la IV), cifoză severă progresivă cu insuficiență respiratorie restrictivă în formele toracice înalte, fistulizare cutanată, pseudartroză/instabilitate reziduală, recidivă prin tratament incomplet sau MDR-TB.
 
 ### Evoluție și prognostic
 
-Sub tratament corect, vindecarea cu fuziune osoasă spontană este regula, cu recuperare neurologică bună în majoritatea cazurilor de grup A. Prognosticul este mai rezervat în grupul Tuli B și în leziunile cervicale înalte. Deformarea cifotică reziduală poate rămâne definitivă, dar de regulă stabilă dacă fuziunea s-a produs corect.
+Sub tratament corect, vindecarea cu fuziune osoasă spontană este regula, cu recuperare neurologică bună în majoritatea cazurilor de grup A. Prognosticul este mai rezervat în grupul Hodgson B, în gradele Tuli III și IV și în leziunile cervicale înalte. Deformarea cifotică reziduală poate rămâne definitivă, dar de regulă stabilă dacă fuziunea s-a produs corect.
 
 ## Script de prezentare
 ### 1. Prezentarea cazului (30 s)
@@ -97,7 +101,7 @@ General: stare de nutriție (posibilă casexie), subfebrilitate, adenopatii peri
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: tuberculoză vertebrală (morbul Pott) la nivelul [localizare, ex. T11-T12], stadiul [debut/stare/reparație], cu/fără paraplegie Pott grup [A/B] Tuli, pe baza argumentelor clinice (durere cronică, gibbus, sindrom subfebril, eventual deficit neurologic) și imagistice (distrucție vertebrală adiacentă, abces paravertebral cu perete gros la RMN, confirmat prin biopsie).
+Diagnostic pozitiv: tuberculoză vertebrală (morbul Pott) la nivelul [localizare, ex. T11-T12], stadiul [debut/stare/reparație], cu/fără paraplegie Pott grup [A/B] Hodgson, grad [I la IV] Tuli, pe baza argumentelor clinice (durere cronică, gibbus, sindrom subfebril, eventual deficit neurologic) și imagistice (distrucție vertebrală adiacentă, abces paravertebral cu perete gros la RMN, confirmat prin biopsie).
 
 Diagnostice secundare de reținut: focar pulmonar TB activ sau sechelar, statusul imun (HIV, diabet), gradul deficitului neurologic (ASIA), gradul de deformare (Cobb).
 
@@ -111,7 +115,7 @@ Radiografie față-profil (unghi Cobb, colaps vertebral), RMN cu contrast (exten
 
 ### 7. Tratament (3 min)
 
-Obiective: eradicarea infecției, recuperarea deficitului neurologic, corectarea/prevenirea progresiei deformării, conservarea funcției rahidiene. Opțiuni: tratament conservator exclusiv în formele fără deficit neurologic și fără instabilitate; tratament chirurgical asociat în deficit neurologic, instabilitate sau abces voluminos rezistent. Pentru acest pacient aleg [tratament conservator / debridare-fuziune anterioară tip Hong Kong ± instrumentație posterioară] pentru că [argumentez pe stadiu, deficit, grup Tuli].
+Obiective: eradicarea infecției, recuperarea deficitului neurologic, corectarea/prevenirea progresiei deformării, conservarea funcției rahidiene. Opțiuni: tratament conservator exclusiv în formele fără deficit neurologic și fără instabilitate; tratament chirurgical asociat în deficit neurologic, instabilitate sau abces voluminos rezistent. Pentru acest pacient aleg [tratament conservator / debridare-fuziune anterioară tip Hong Kong ± instrumentație posterioară] pentru că [argumentez pe stadiu, deficit, grup Hodgson și grad Tuli].
 
 Tehnica în pași (dacă chirurgical): 1) abord anterior sau posterolateral la nivelul focarului; 2) identificarea și protejarea structurilor vasculo-nervoase; 3) debridarea radicală a țesutului necrotic, cazeumului și sechestrelor; 4) decompresia canalului rahidian; 5) recoltare de biopsie pentru histopatologie și microbiologie; 6) reconstrucția coloanei anterioare cu grefă osoasă (costală/iliacă) sau cage; 7) instrumentație posterioară cu șuruburi pediculare, dacă e necesară; 8) închidere pe dren.
 
@@ -119,12 +123,12 @@ Protocol postoperator: chimioterapie continuată (total 9-12 luni), corset torac
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Fără tratament: distrucție progresivă, cifoză severă, paraplegie, fistulizare cronică. Complicații ale bolii: paraplegie Pott, insuficiență respiratorie restrictivă în formele toracice înalte, fistule cronice. Complicații ale tratamentului: hepatotoxicitate (izoniazidă, rifampicină, pirazinamidă), neuropatie optică (etambutol), pseudartroză, infecție de plagă. Prognostic bun sub tratament corect și precoce, mai rezervat în grupul B Tuli. Urmărire pe termen lung pentru a confirma fuziunea și absența recidivei.
+Fără tratament: distrucție progresivă, cifoză severă, paraplegie, fistulizare cronică. Complicații ale bolii: paraplegie Pott, insuficiență respiratorie restrictivă în formele toracice înalte, fistule cronice. Complicații ale tratamentului: hepatotoxicitate (izoniazidă, rifampicină, pirazinamidă), neuropatie optică (etambutol), pseudartroză, infecție de plagă. Prognostic bun sub tratament corect și precoce, mai rezervat în grupul B Hodgson și în gradele Tuli III și IV. Urmărire pe termen lung pentru a confirma fuziunea și absența recidivei.
 
 ### Fraze-cheie
 
 - Diagnosticul pozitiv de morb Pott se bazează pe triada: distrucție vertebrală cu afectare discală secundară, abces paravertebral cu perete gros la RMN și confirmare histobacteriologică prin biopsie.
-- Clasific paraplegia Pott după Tuli în grup A, precoce, prin abces și edem, care răspunde frecvent la tratament medical, și grup B, tardiv, prin punte osoasă rigidă, care necesită decompresie chirurgicală.
+- Clasific paraplegia Pott după Hodgson în grup A, a bolii active, prin abces și țesut de granulație, care răspunde frecvent la tratament medical, și grup B, a bolii vindecate, prin punte osoasă rigidă, care necesită decompresie chirurgicală; severitatea o gradez după Tuli, de la I la IV.
 - Schema standard este HRZE 2 luni, urmată de HR încă 7-10 luni, cu durată totală de 9 până la 12 luni pentru localizarea osteoarticulară.
 - Indicația chirurgicală se pune pentru deficit neurologic, instabilitate/cifoză progresivă, abces rezistent la tratament medical sau necesitatea unei biopsii deschise.
 - Operația Hong Kong înseamnă debridare radicală anterioară cu grefare osoasă a coloanei anterioare.
@@ -140,8 +144,8 @@ Fără tratament: distrucție progresivă, cifoză severă, paraplegie, fistuliz
 ### Î2. De ce discul intervertebral este afectat tardiv în tuberculoză, spre diferență de spondilodiscita piogenă?
 **R:** Discul adult este avascular, nutrit prin difuzie de la platouri, astfel afectarea discală este secundară distrucției osoase. În infecția piogenă există anastomoze vasculare transdiscale care permit afectarea discală precoce, explicând colapsul discal rapid.
 
-### Î3. Cum clasificați paraplegia Pott după Tuli și de ce este importantă clinic?
-**R:** Grupul A este precoce, prin abces, țesut de granulație, sechestre și edem, și răspunde de regulă la tratament medical cu sau fără decompresie. Grupul B este tardiv, pe coloană sechelară, prin punte osoasă rigidă și arahnoidită, și necesită decompresie chirurgicală, cu prognostic mai rezervat.
+### Î3. Cum clasificați paraplegia Pott și de ce este importantă clinic?
+**R:** După Hodgson, grupul A este paraplegia bolii active, prin abces, țesut de granulație, sechestre și edem, și răspunde de regulă la tratament medical, cu decompresie dacă nu se ameliorează în 3 până la 4 săptămâni. Grupul B este paraplegia bolii vindecate, pe coloană sechelară, prin punte osoasă rigidă, stenoză și arahnoidită, și necesită decompresie chirurgicală, cu prognostic mai rezervat. Seddon o împarte după debut în precoce și tardivă. Severitatea o gradez după Tuli: gradul I neglijabil (doar semne piramidale), II ușor (merge cu sprijin), III moderat (imobilizat, paraplegie spastică în extensie), IV sever (spasme în flexie sau paraplegie flască, tulburări sfincteriene).
 
 ### Î4. Ce faceți dacă pacientul are un deficit neurologic instalat de 2 săptămâni sub tratament antituberculos corect?
 **R:** Un deficit care nu se ameliorează sau progresează sub tratament corect este indicație de decompresie chirurgicală, de regulă prin debridare anterioară cu eventuală instrumentație de stabilizare. Continui în paralel chimioterapia postoperator conform schemei standard.

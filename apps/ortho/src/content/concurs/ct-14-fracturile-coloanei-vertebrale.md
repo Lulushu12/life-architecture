@@ -110,13 +110,13 @@ General: verificare ABC prioritar în politraumatism, mai ales la leziuni cervic
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: fractură [tip morfologic: compresie/burst/Chance/luxație] a vertebrei [nivel], AO Spine tip [A/B/C specific], TLICS/SLIC [scor], ASIA [grad A-E], pe baza mecanismului traumatic, a durerii locale cu/fără deficit neurologic la examenul clinic, și a aspectului CT de [descriere: retropulsie, cominuție, distracție] confirmat prin RMN pentru statusul complexului ligamentar posterior/disco-ligamentar și medular.
+Diagnostic pozitiv: fractură [tip morfologic: compresie/burst/Chance/luxație] a vertebrei [nivel], AO Spine tip [A/B/C], TLICS/SLIC [scor], ASIA [grad A-E], pe baza mecanismului, a durerii cu/fără deficit neurologic, și a CT-ului de [retropulsie, cominuție, distracție] confirmat prin RMN pentru PLC și status medular.
 
-Diagnostice secundare de reținut: leziuni vertebrale la niveluri adiacente (fracturi multiple, până la 15-20% (?) din cazuri), leziuni toraco-abdominale asociate în politraumatism, șocul medular (de diferențiat de leziunea completă definitivă).
+Diagnostice secundare: leziuni vertebrale la niveluri adiacente (15-20% (?) din cazuri), leziuni toraco-abdominale în politraumatism, șocul medular (de diferențiat de leziunea completă).
 
 ### 5. Diagnostic diferențial (1 min)
 
-Contuzia musculo-ligamentară simplă: fără linie de fractură/instabilitate la CT. Spondiloza degenerativă preexistentă: aspect cronic, fără context traumatic acut evident. Metastaza vertebrală patologică: context oncologic cunoscut, aspect litic/blastic, colaps la traumatism minor cu semne imagistice de leziune preexistentă. Spondilodiscita infecțioasă: context febril, markeri inflamatori crescuți, evoluție subacută. Fractura osteoporotică de fragilitate: context de osteoporoză, traumatism minor sau absent, fără instabilitate mecanică majoră de regulă.
+Contuzia musculo-ligamentară: fără linie de fractură la CT. Spondiloza degenerativă: aspect cronic, fără context traumatic acut. Metastaza vertebrală: context oncologic, colaps la traumatism minor cu semne de leziune preexistentă. Spondilodiscita: context febril, markeri inflamatori crescuți. Fractura osteoporotică de fragilitate: traumatism minor sau absent, fără instabilitate majoră de regulă.
 
 ### 6. Investigații (1 min)
 
@@ -124,15 +124,15 @@ Radiografie standard față-profil ca screening. CT al segmentului afectat (la p
 
 ### 7. Tratament (3 min)
 
-Obiective: stabilizarea mecanică a coloanei, decompresia elementelor neurale dacă există compresie cu deficit, prevenirea deformării progresive, mobilizare precoce pentru a preveni complicațiile de decubit. Opțiuni: tratament conservator (orteză TLSO/Jewett/halo-vest) pentru scor TLICS/SLIC sub 4 și PLC intact; tratament chirurgical (fixare posterioară cu șuruburi pediculare +/- decompresie, +/- abord anterior) pentru scor peste 4, deficit neurologic, instabilitate confirmată. Pentru acest pacient aleg [opțiunea concretă], pentru că [scorul TLICS/SLIC calculat, statusul PLC/disco-ligamentar la RMN, prezența/absența deficitului neurologic].
+Obiective: stabilizare mecanică, decompresia elementelor neurale la compresie cu deficit, prevenirea deformării progresive, mobilizare precoce. Opțiuni: conservator (orteză) pentru scor sub 4 și PLC intact; chirurgical (fixare posterioară +/- decompresie, +/- abord anterior) pentru scor peste 4, deficit neurologic, instabilitate confirmată. Pentru acest pacient aleg [opțiunea concretă], pentru că [scorul calculat, statusul PLC la RMN, prezența deficitului].
 
-Tehnica în pași (fixare posterioară cu decompresie, exemplu general): 1) poziționare în decubit ventral pe suporturi care descarcă abdomenul, fluoroscopie pentru identificarea nivelului; 2) abord posterior median, expunerea apofizelor articulare și pediculilor la nivelurile planificate (de regulă un nivel supra- și subiacent); 3) introducerea șuruburilor pediculare sub control fluoroscopic pe 2 incidențe, verificând traiectul intrapedicular; 4) dacă există compresie medulară directă prin fragment retropulsat, laminectomie decompresivă la nivelul afectat; 5) reducerea deformării (distracție/compresie pe tije, corectarea cifozei segmentare) sub control fluoroscopic; 6) fixarea tijelor și blocarea construcției; 7) dacă pierderea de suport anterior este mare, planificare pentru abord anterior secundar (corporectomie și cage) sau augmentare cu ciment; 8) verificare fluoroscopică finală, hemostază, drenaj, închidere în straturi.
+Tehnica în pași (fixare posterioară cu decompresie): 1) decubit ventral pe suporturi care descarcă abdomenul, fluoroscopie pentru nivel; 2) abord posterior median, expunerea fațetelor și pediculilor planificați; 3) șuruburi pediculare sub control fluoroscopic pe 2 incidențe; 4) dacă există compresie medulară directă, laminectomie decompresivă; 5) reducerea deformării pe tije, corectarea cifozei; 6) fixarea tijelor; 7) dacă pierderea de suport anterior este mare, abord anterior secundar (corporectomie, cage) sau augmentare cu ciment; 8) verificare fluoroscopică finală, hemostază, închidere.
 
-Protocol postoperator: mobilizare precoce, cât mai rapid posibil (în 24 la 48 de ore la pacient stabil neurologic), cu sau fără orteză de protecție externă suplimentară în funcție de calitatea fixării, kinetoterapie progresivă, profilaxie tromboembolică (mai agresivă și mai prelungită la pacientul cu deficit motor), monitorizare pentru complicații de decubit și disfuncție sfincteriană, control radiografic/CT la 6 și 12 săptămâni pentru menținerea corecției.
+Protocol postoperator: mobilizare precoce (24-48h la pacient stabil neurologic), kinetoterapie, profilaxie tromboembolică mai prelungită la deficit motor, monitorizare de decubit și sfincteriană, control radiografic la 6 și 12 săptămâni.
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Fără tratament corect, evoluția este spre cifoză progresivă, instabilitate mecanică cronică cu durere persistentă, sau, în leziunile cu compresie neurologică netratată, deteriorare neurologică progresivă ireversibilă. Complicații ale bolii: deficit neurologic permanent, sindrom de con/cauda equina, pseudartroză. Complicații ale tratamentului: eșec de instrumentație, infecție de plagă, tromboembolism venos, escare, infecții urinare la pacientul cu vezică neurogenă. Prognosticul funcțional depinde direct de gradul ASIA inițial și de rapiditatea decompresiei (ideal sub 24 de ore la deficit incomplet); leziunile ASIA A au șanse minime de recuperare motorie sub nivel, cele incomplete (B-D) au potențial de recuperare semnificativ, mai bun cu tratament precoce. Urmărire: control clinic neurologic și radiografic/CT periodic, reevaluarea funcțională standardizată ASIA la intervale regulate.
+Fără tratament corect, evoluția este spre cifoză progresivă, instabilitate cronică cu durere persistentă, sau, la compresie neurologică netratată, deteriorare progresivă ireversibilă. Complicații ale bolii: deficit neurologic permanent, sindrom de con/cauda equina, pseudartroză. Complicații ale tratamentului: eșec de instrumentație, infecție de plagă, tromboembolism venos, escare. Prognosticul funcțional depinde de gradul ASIA inițial și de rapiditatea decompresiei; ASIA A are șanse minime de recuperare sub nivel, cele incomplete (B-D) au potențial semnificativ, mai bun cu tratament precoce. Urmărire: control clinic neurologic și radiografic periodic, reevaluare ASIA la intervale regulate.
 
 ### Fraze-cheie
 
@@ -148,43 +148,43 @@ Fără tratament corect, evoluția este spre cifoză progresivă, instabilitate 
 ## Întrebările comisiei
 
 ### Î1. Care sunt cele trei coloane Denis și de ce sunt importante?
-**R:** Coloana anterioară (jumătatea anterioară a corpului vertebral și discul anterior), coloana medie (jumătatea posterioară a corpului și peretele posterior adiacent canalului) și coloana posterioară (arcul, pediculii, fațetele și complexul ligamentar posterior). Sunt importante pentru că numărul de coloane afectate și, mai ales, integritatea complexului ligamentar posterior determină stabilitatea mecanică a leziunii și fundamentează toate clasificările moderne (AO Spine, TLICS).
+**R:** Anterioară (corpul anterior și discul), medie (corpul posterior și peretele posterior adiacent canalului) și posterioară (arcul, pediculii, fațetele, complexul ligamentar posterior). Numărul de coloane afectate și mai ales integritatea PLC determină stabilitatea mecanică și fundamentează toate clasificările moderne (AO Spine, TLICS).
 
 ### Î2. Ce faceți dacă scorul TLICS calculat este exact 4?
-**R:** Scorul de 4 reprezintă zona gri a clasificării, unde decizia se individualizează în funcție de factori adiționali: statusul exact al complexului ligamentar posterior la RMN (indeterminat versus clar rupt), gradul de cifoză segmentară, comorbidități ale pacientului, cerere funcțională, și, dacă există orice incertitudine asupra stabilității pe termen lung, tind spre tratament chirurgical, mai ales la pacient tânăr activ.
+**R:** Este zona gri, unde decizia se individualizează după statusul exact al PLC la RMN, gradul de cifoză, comorbidități și cerere funcțională; la orice incertitudine asupra stabilității pe termen lung tind spre chirurgical, mai ales la pacient tânăr activ.
 
 ### Î3. Care sunt tipurile Anderson-D'Alonzo ale fracturii de odontoidă și care are cel mai mare risc de pseudartroză?
-**R:** Tip I, avulsie a vârfului prin ligamentul alar, stabilă. Tip II, la baza odontoidei, joncțiunea cu corpul C2, cea mai frecventă și cu cel mai mare risc de pseudartroză, mai ales cu deplasare peste 5mm sau la vârstnic. Tip III, traiectul se extinde în corpul C2, cu prognostic de consolidare mai bun datorită suprafeței osoase spongioase mai mari expuse la vindecare.
+**R:** Tip I, avulsie a vârfului, stabilă. Tip II, la baza odontoidei, cea mai frecventă și cu cel mai mare risc de pseudartroză, mai ales peste 5mm deplasare sau la vârstnic. Tip III, traiectul se extinde în corpul C2, prognostic mai bun prin suprafața spongioasă mare.
 
 ### Î4. Ce faceți dacă la un pacient cu fractură hangman tip IIA încercați reducerea prin tracțiune?
-**R:** Tracțiunea este contraindicată explicit la tipul IIA, pentru că mecanismul de flexie-distracție face ca tracțiunea axială să agraveze distracția fracturii și riscul de deteriorare neurologică; tratamentul corect este imobilizare rigidă (halo-vest) fără tracțiune sau, la instabilitate confirmată, fixare chirurgicală directă.
+**R:** Tracțiunea este contraindicată explicit, pentru că mecanismul de flexie-distracție face ca tracțiunea axială să agraveze distracția și riscul neurologic; tratamentul corect este halo-vest fără tracțiune sau, la instabilitate confirmată, fixare chirurgicală directă.
 
 ### Î5. Care este regula Spence și ce implicații are?
-**R:** Regula Spence stabilește că o deplasare laterală combinată a maselor laterale C1 față de marginile corpului C2, măsurată pe radiografie/CT, peste 6,9 milimetri (rotunjit clasic la 7mm), indică ruptura ligamentului transvers al atlasului și instabilitate C1-C2. Peste acest prag, tratamentul conservator cu orteză este insuficient și se indică fixare chirurgicală (artrodeză C1-C2).
+**R:** O deplasare laterală combinată a maselor laterale C1 față de marginile C2, peste 6,9 milimetri, indică ruptura ligamentului transvers și instabilitate C1-C2. Peste acest prag, tratamentul conservator cu orteză este insuficient și se indică artrodeză C1-C2.
 
 ### Î6. Ce este sacral sparing și de ce este cel mai important semn la examenul neurologic inițial?
-**R:** Este prezența sensibilității perianale și/sau a contracției voluntare a sfincterului anal la un pacient altfel complet paralizat/anesteziat sub nivelul leziunii. Este cel mai important semn clinic pentru că indică o leziune medulară incompletă (nu ASIA A), cu prognostic de recuperare mult mai bun, chiar și atunci când restul examenului motor și senzitiv pare complet abolit.
+**R:** Este prezența sensibilității perianale și/sau a contracției voluntare a sfincterului anal la un pacient altfel complet paralizat sub nivelul leziunii. Indică o leziune medulară incompletă (nu ASIA A), cu prognostic de recuperare mult mai bun, chiar dacă restul examenului pare complet abolit.
 
 ### Î7. Ce faceți dacă un pacient politraumatizat are deficit neurologic incomplet la o fractură burst toraco-lombară cu compresie medulară la CT?
-**R:** Indic decompresie chirurgicală de urgență cât mai rapid, ideal sub 24 de ore de la traumatism, conform dovezilor studiului STASCIS care arată rezultate neurologice superioare la decompresia precoce comparativ cu cea tardivă, combinată cu fixare posterioară pentru stabilizare mecanică.
+**R:** Indic decompresie chirurgicală de urgență, ideal sub 24 de ore, conform STASCIS, care arată rezultate neurologice superioare la decompresia precoce, combinată cu fixare posterioară pentru stabilizare mecanică.
 
 ### Î8. Care este diferența dintre șocul medular și o leziune medulară completă (ASIA A)?
-**R:** Șocul medular este o stare tranzitorie de areflexie/flacciditate sub nivelul leziunii în primele ore-zile posttraumatic, care se termină odată cu reapariția reflexului bulbocavernos; evaluarea ASIA definitivă a completitudinii leziunii nu poate fi făcută cu certitudine în șoc medular, pentru că funcția reziduală poate fi mascată. O leziune completă (ASIA A) se confirmă doar după terminarea șocului medular, prin absența persistentă a funcției motorii și senzitive sub nivel, inclusiv sacral sparing absent.
+**R:** Șocul medular este o stare tranzitorie de areflexie sub nivelul leziunii, care se termină la reapariția reflexului bulbocavernos; evaluarea ASIA definitivă nu poate fi făcută cu certitudine în șoc medular. O leziune completă se confirmă doar după terminarea șocului, prin absența persistentă a funcției motorii și senzitive, inclusiv sacral sparing absent.
 
 ### Î9. Ce faceți dacă un pacient vârstnic cu fractură de compresiune osteoporotică are durere persistentă severă la 8 săptămâni de tratament conservator?
-**R:** Reevaluez imagistic (CT/RMN) pentru a exclude progresia colapsului sau o componentă instabilă nesuspectată, și dacă durerea rămâne refractară fără semne de instabilitate majoră sau compromitere neurologică, indic kyphoplasty (augmentare percutană cu balon și ciment), care oferă ameliorare rapidă a durerii, cu mențiunea că beneficiul pe termen lung față de tratamentul conservator continuat este dezbătut în literatură.
+**R:** Reevaluez imagistic pentru a exclude progresia colapsului, și dacă durerea rămâne refractară fără instabilitate majoră sau deficit neurologic, indic kyphoplasty, care oferă ameliorare rapidă, cu mențiunea că beneficiul pe termen lung față de conservator este dezbătut în literatură.
 
 ### Î10. Care sunt categoriile scorului SLIC și pragul de tratament chirurgical?
-**R:** SLIC sumează morfologia leziunii (fără anomalie 0, compresie 1, distracție 3, rotație/translație 4), integritatea complexului disco-ligamentar (intact 0, indeterminat 1, rupt 2), și statusul neurologic (intact 0, radiculopatie 1, leziune medulară completă 2, incompletă 3, compresie persistentă cu deficit +1). Un scor sub 4 orientează spre tratament nonoperator, peste 4 spre chirurgical, 4 fiind zonă gri, similar structurii TLICS pentru toraco-lombar.
+**R:** Morfologia leziunii (0-4), integritatea complexului disco-ligamentar (0-2), statusul neurologic (0-3, +1 la compresie persistentă). Sub 4 nonoperator, peste 4 chirurgical, 4 fiind zonă gri, similar structurii TLICS.
 
 ### Î11. Ce faceți dacă la un copil cu deficit neurologic sever posttraumatic CT-ul coloanei cervicale este complet normal?
-**R:** Suspectez SCIWORA (spinal cord injury without radiographic abnormality), mai frecventă la copii datorită elasticității ligamentare și mobilității vertebrale crescute, care permite o deformare tranzitorie severă fără fractură persistentă vizibilă pe CT. Indic RMN de urgență pentru a documenta edemul/contuzia medulară și tratez predominant conservator, cu imobilizare și monitorizare, prognosticul fiind variabil în funcție de severitatea leziunii medulare la RMN.
+**R:** Suspectez SCIWORA, mai frecventă la copii prin elasticitatea ligamentară și mobilitatea vertebrală crescute, care permit o deformare tranzitorie severă fără fractură persistentă. Indic RMN de urgență pentru edem/contuzie medulară și tratez predominant conservator, prognosticul fiind variabil după severitatea leziunii la RMN.
 
 ### Î12. Care este diferența de tratament între fractura Jefferson sub și peste pragul Spence?
-**R:** Sub pragul de 6,9mm deplasare combinată, ligamentul transvers al atlasului este considerat intact funcțional, iar tratamentul este conservator cu orteză rigidă sau halo-vest. Peste acest prag, instabilitatea C1-C2 este semnificativă și necesită tratament chirurgical, tipic artrodeză posterioară C1-C2.
+**R:** Sub 6,9mm deplasare combinată, ligamentul transvers este considerat intact, tratament conservator cu orteză rigidă/halo-vest. Peste acest prag, instabilitatea C1-C2 este semnificativă și necesită artrodeză posterioară C1-C2.
 
 ### Î13. Ce faceți dacă la un pacient cu fractură Chance (seat belt) descoperiți și leziuni intraabdominale asociate?
-**R:** Fracturile Chance sunt clasic asociate cu leziuni intraabdominale (mezenter, intestin) prin același mecanism de centură de siguranță; solicit evaluare chirurgicală generală/abdominală de urgență în paralel cu managementul vertebral, pentru că leziunile intraabdominale pot fi ocult prezente și pun viața în pericol mai acut decât fractura vertebrală însăși.
+**R:** Fracturile Chance sunt clasic asociate cu leziuni intraabdominale (mezenter, intestin) prin același mecanism de centură de siguranță; solicit evaluare chirurgicală abdominală de urgență în paralel cu managementul vertebral, pentru că aceste leziuni pot fi oculte și pun viața în pericol mai acut decât fractura vertebrală.
 
 ### Î14. Care sunt argumentele pentru fixare short-segment versus long-segment în fracturile burst toraco-lombare?
 **R:** Fixarea short-segment (un nivel supra- și subiacent) este mai puțin invazivă și păstrează mai multă mobilitate segmentară, dar are risc mai mare de eșec/cifozare secundară la cominuție severă a coloanei anterioare fără suport. Fixarea long-segment (mai multe niveluri) oferă stabilitate biomecanică superioară în cominuții severe, cu prețul rigidizării unui segment mai lung; alegerea depinde de gradul de distrucție a coloanei anterioare și de calitatea osoasă.
