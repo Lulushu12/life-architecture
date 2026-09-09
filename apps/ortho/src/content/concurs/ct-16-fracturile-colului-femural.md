@@ -16,15 +16,15 @@ Fractura de col femural este soluția de continuitate osoasă situată intracaps
 
 ### Anatomie și biomecanică relevantă
 
-Vascularizația capului și colului femural provine predominant din artera circumflexă femurală medială (ramura profundă), care formează un inel retinacular la baza colului și trimite ramuri retinaculare ascendente (postero-superioare) ce penetrează capsula și alimentează cea mai mare parte a capului femural. Artera circumflexă femurală laterală contribuie mai puțin. Artera ligamentului rotund (ramură din obturatorie) are contribuție redusă la adult, mai importantă la copil. Traiectul intracapsular al colului face ca deplasarea fracturii să lezeze sau să întindă vasele retinaculare, motiv pentru care riscul de necroză avasculară (NAV) crește cu gradul de deplasare. Din punct de vedere biomecanic, colul femural este supus unor forțe de încovoiere (cantilever), cu solicitare de compresiune pe trabeculele calcarului medial și de tracțiune pe corticala superioară; unghiul col-diafizar normal este de 125 la 135 grade (coxa valga peste, coxa vara sub).
+Vascularizația capului și colului femural provine predominant din artera circumflexă femurală medială, care formează un inel retinacular la baza colului și trimite ramuri ascendente postero-superioare ce penetrează capsula și alimentează cea mai mare parte a capului. Circumflexa laterală și artera ligamentului rotund contribuie mult mai puțin la adult. Traiectul intracapsular face ca deplasarea fracturii să întindă sau să rupă vasele retinaculare, de aceea riscul de necroză avasculară (NAV) crește cu gradul de deplasare. Biomecanic, colul e supus unor forțe de încovoiere (cantilever), cu compresiune pe calcarul medial și tracțiune pe corticala superioară; unghiul col-diafizar normal este 125 la 135 grade (coxa valga peste, coxa vara sub).
 
 ### Etiopatogenie
 
-Vârstnic: osteoporoză (scăderea densității minerale osoase, deteriorarea microarhitecturii trabeculare), traumatism minor (cădere laterală pe trohanter), sarcopenie, risc de cădere (deficit vizual, tulburări de echilibru, polimedicație, hipotensiune ortostatică). Adult tânăr: traumatism de energie înaltă, os normal, fractură prin mecanism de forfecare verticală (Pauwels III) frecvent asociată cu leziuni de organe. Copil (Delbet): traumatism de energie înaltă (cădere de la înălțime, accident rutier), colul femural la copil are periost gros și vascularizație precară comparativ cu diafiza, de aceea riscul de NAV posttraumatică este cel mai mare din toată patologia traumatică pediatrică (până la 30 la 50%).
+Vârstnic: osteoporoză, traumatism minor (cădere laterală pe trohanter), sarcopenie, risc de cădere (deficit vizual, tulburări de echilibru, polimedicație). Adult tânăr: traumatism de energie înaltă, os normal, fractură prin forfecare verticală (Pauwels III), frecvent cu politraumatism asociat. Copil (Delbet): traumatism de energie înaltă, vascularizație precară a colului comparativ cu diafiza, de aceea riscul de NAV posttraumatică este cel mai mare din toată patologia traumatică pediatrică (până la 30 la 50%).
 
 ### Anatomie patologică
 
-Traiectul de fractură este intracapsular, la nivelul colului anatomic (subcapital), transcervical sau bazicervical. Leziunea vasculară asociată (întindere, torsiune, ruptură a vaselor retinaculare) determină ischemia capului femural, cu risc proporțional cu deplasarea inițială și cu timpul până la reducere. Cominuția posterioară (defect al corticalei postero-inferioare a colului) este un factor de instabilitate suplimentar, întâlnit mai ales în fracturile Pauwels III.
+Traiectul e intracapsular, subcapital, transcervical sau bazicervical. Leziunea vasculară asociată (întindere, torsiune, ruptură retinaculară) determină ischemia capului, cu risc proporțional cu deplasarea și timpul până la reducere. Cominuția posterioară (defect al corticalei postero-inferioare) e factor de instabilitate suplimentar, mai ales în Pauwels III.
 
 ### Clasificare
 
@@ -53,7 +53,7 @@ Traiectul de fractură este intracapsular, la nivelul colului anatomic (subcapit
 
 ### Clinic
 
-Durere la nivelul șoldului, iradiată în regiunea inghinală, impotență funcțională (nu poate ridica membrul, nu poate merge) în fracturile deplasate; în fracturile impactate/nedeplasate (Garden I) durerea poate fi moderată și pacientul poate încă merge, ceea ce impune vigilență diagnostică. Poziție tipică: membru inferior în rotație externă și scurtat, mai evident în fracturile deplasate. Semne clasice: scurtarea membrului (măsurată prin linia Nélaton-Roser, care unește spina iliacă antero-superioară cu tuberozitatea ischiatică, marele trohanter fiind normal pe această linie sau sub ea; ascensiunea trohanterului peste linie indică fractură deplasată sau luxație), triunghiul Bryant (modificat prin ascensiunea vârfului trohanterului). Echimoză tardivă posibilă în regiunea inghinală/perineală (semnul Destot).
+Durere la nivelul șoldului, iradiată inghinal, impotență funcțională în fracturile deplasate; în cele impactate (Garden I) durerea poate fi moderată și pacientul poate încă merge, ceea ce impune vigilență diagnostică. Poziție tipică: membru în rotație externă și scurtat, mai evident în deplasate. Semne clasice: linia Nélaton-Roser (unește spina iliacă antero-superioară cu tuberozitatea ischiatică; trohanterul normal pe linie sau sub ea, ascensiunea peste linie indică fractură deplasată sau luxație), triunghiul Bryant modificat. Echimoză tardivă inghinală/perineală posibilă (semnul Destot).
 
 ### Imagistică și explorări
 

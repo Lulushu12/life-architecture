@@ -47,7 +47,7 @@ Talus: fractură de col cea mai frecventă și mai gravă prin risc AVN; fractur
 
 ### Clinic
 
-Talus: durere și tumefacție profundă gleznă/mediopicior, deformare vizibilă în luxațiile Hawkins II-IV, tegument sub tensiune (urgență chirurgicală pentru reducere). Navicular: durere dorsomedială, durere la palparea "N-spot" (tuberozitate). Cuboid: durere laterală mediopicior. Lisfranc: durere mediopicior la mers/încărcare, echimoză plantară (semn relativ specific, similar semnului Mondor), instabilitate la testul de stress în abducție-pronație (piciorul posterior fixat, antepiciorul mobilizat în abducție/pronație reproduce durerea), testul "piano key" (mobilizare dureroasă a bazei metatarsiene). Metatarsiene: durere localizată, deformare la fracturi deplasate. Obligatoriu: examen neuro-vascular distal, evaluare pentru sindrom de compartiment la orice traumatism de energie mare al piciorului.
+Talus: durere și tumefacție profundă gleznă/mediopicior, deformare vizibilă în luxațiile Hawkins II-IV, tegument sub tensiune (urgență pentru reducere). Navicular: durere dorsomedială, la palparea "N-spot" (tuberozitate). Cuboid: durere laterală mediopicior. Lisfranc: durere mediopicior la încărcare, echimoză plantară (similar semnului Mondor), instabilitate la stress în abducție-pronație, testul "piano key". Metatarsiene: durere localizată, deformare la fracturi deplasate. Obligatoriu: examen neuro-vascular distal, screening pentru sindrom de compartiment.
 
 ### Imagistică și explorări
 
@@ -143,7 +143,7 @@ Fără tratament adecvat: talus evoluează spre AVN și colaps articular; Lisfra
 **R:** Tip I, linie de fractură coronală fără angulare a antepiciorului, tratament conservator dacă nedeplasată; tip II, linie oblică dorsolaterală spre plantomedial cu deplasare medială a antepiciorului, necesită ORIF; tip III, cominuție cu deplasare laterală, necesită ORIF, uneori grefă osoasă pentru restaurarea coloanei mediale.
 
 ### Î5. Ce este diastazisul Lisfranc și cum se măsoară?
-**R:** Este spațiul patologic dintre cuneiformul medial și baza metatarsianului 2, care apare prin ruptura ligamentului Lisfranc. Se măsoară pe radiografie cu încărcare sau CT; peste 2 mm este considerat patologic și indică instabilitate care necesită tratament chirurgical.
+**R:** Spațiul patologic dintre cuneiformul medial și baza metatarsianului 2, prin ruptura ligamentului Lisfranc. Se măsoară pe radiografie cu încărcare sau CT; peste 2 mm este patologic și indică instabilitate care necesită tratament chirurgical.
 
 ### Î6. Ce faceți dacă radiografia standard este normală dar suspiciunea clinică de leziune Lisfranc persistă?
 **R:** Solicit radiografii cu încărcare bilateral comparativ sau CT, pentru că leziunile subtile ligamentare pot fi invizibile pe radiografia standard nesolicitată; dacă persistă incertitudinea, RMN confirmă leziunea ligamentară conform clasificării Nunley-Vertullo, evitând subdiagnosticarea care duce la pes planus progresiv.
