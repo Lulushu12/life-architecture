@@ -9201,14 +9201,18 @@ Leziunea de bază este granulomul tuberculos cu necroză cazeoasă centrală, ce
 2. **Stadiul de stare** (distructiv): distrucția platourilor și a corpurilor vertebrale adiacente, prăbușirea spațiului discal, abces paravertebral, debut al tasării cuneiforme și al gibbusului.
 3. **Stadiul de reparație** (sechelar): scleroză marginală, fuziune osoasă spontană (blocul vertebral), consolidarea cifozei reziduale; poate coexista cu compresie medulară tardivă prin punte osoasă sau arahnoidită.
 
-**Clasificarea Kumar (radiologică, pe severitatea distrucției)** (?): tip I - predistructiv (edem, fără colaps); tip II - distructiv incipient, fără colaps vertebral; tip III - distructiv cu colaps vertebral și cifoză; tip IV - sechelar, cu deformare fixată. Utilă pentru a decide momentul intervenției (colapsul progresiv din tipul III este o indicație chirurgicală).
+**Clasificarea clinico-radiologică Kumar (1985), 5 stadii:** stadiul I predistructiv (rectitudine, contractură paravertebrală, hiperemie la scintigrafie, fără modificări structurale); stadiul II distructiv incipient (pensare de disc, eroziuni paradiscale, osteoporoză); stadiul III cifoză angulară ușoară (2 până la 3 vertebre afectate, cifoză sub 10 grade); stadiul IV cifoză moderată (peste 10 și sub 30 de grade, mai mult de 3 vertebre); stadiul V cifoză severă (peste 30 de grade). **Clasificarea GATA (Oguz, 2008), orientată chirurgical:** tip IA abces fără colaps și fără deficit (tratament medical, eventual drenaj), tip IB abces cu compresiune și deficit neurologic (decompresie anterioară), tip II colaps vertebral cu cifoză sau instabilitate, fără deficit sau cu deficit (debridare anterioară plus fuziune, instrumentație), tip III cifoză severă sechelară cu sau fără deficit tardiv (osteotomie de corecție, decompresie).
 
-**Clasificarea Tuli a paraplegiei Pott (esențială pentru conduita terapeutică):**
+**Clasificările paraplegiei Pott (esențiale pentru conduita terapeutică):**
 
-| Grup | Debut | Mecanism | Conduită |
+Seddon (după debut): paraplegie cu debut precoce (în faza activă, primii 2 ani) și paraplegie cu debut tardiv (la ani de la vindecarea aparentă). Hodgson (după activitatea bolii):
+
+| Grup Hodgson | Debut | Mecanism | Conduită |
 |---|---|---|---|
-| Grup A (precoce) | În plină activitate a bolii, primele 2 ani | Abces, țesut de granulație, sechestre, edem, subluxație instabilă | Răspunde frecvent la tratament conservator (antituberculos ± decompresie) |
-| Grup B (tardiv) | La ani-decenii de la vindecarea aparentă, pe coloană sechelară | Punte osoasă rigidă, arahnoidită, tracțiune vasculară pe măduva angulată | Necesită decompresie chirurgicală, prognostic mai rezervat |
+| Grup A: paraplegie a bolii active | În plină activitate a bolii, primele 2 ani | Presiune externă (abces, țesut de granulație, sechestre osoase sau discale, subluxație) sau leziune intrinsecă (edem, mielită, tromboză) | Răspunde frecvent la tratament antituberculos, decompresie dacă nu ameliorează în 3 până la 4 săptămâni sau se agravează |
+| Grup B: paraplegie a bolii vindecate | La ani sau decenii, pe coloană sechelară | Punte osoasă rigidă (gibbus intern), stenoză, fibroză durală, arahnoidită, tracțiune vasculară pe măduva angulată, reactivare | Necesită decompresie chirurgicală, prognostic mai rezervat |
+
+Tuli gradează severitatea deficitului: gradul I neglijabil (pacientul nu sesizează, clinicianul găsește Babinski sau clonus), gradul II ușor (merge cu sprijin, spasticitate), gradul III moderat (imobilizat la pat, paraplegie spastică în extensie, deficit senzitiv sub 50 la sută), gradul IV sever (gradul III plus spasme în flexie sau paraplegie flască, deficit senzitiv peste 50 la sută, tulburări sfincteriene).
 
 Această distincție ghidează direct decizia "tratament medical vs. chirurgie de urgență" în fața unui deficit neurologic.
 
@@ -9244,11 +9248,11 @@ Opțiuni: debridare radicală anterioară cu grefare osoasă (autogrefă costal�
 
 ### Complicații
 
-Paraplegia Pott (precoce Tuli A, tardivă Tuli B), cifoză severă progresivă cu insuficiență respiratorie restrictivă în formele toracice înalte, fistulizare cutanată, pseudartroză/instabilitate reziduală, recidivă prin tratament incomplet sau MDR-TB.
+Paraplegia Pott (a bolii active, Hodgson A, sau a bolii vindecate, Hodgson B; severitate Tuli I la IV), cifoză severă progresivă cu insuficiență respiratorie restrictivă în formele toracice înalte, fistulizare cutanată, pseudartroză/instabilitate reziduală, recidivă prin tratament incomplet sau MDR-TB.
 
 ### Evoluție și prognostic
 
-Sub tratament corect, vindecarea cu fuziune osoasă spontană este regula, cu recuperare neurologică bună în majoritatea cazurilor de grup A. Prognosticul este mai rezervat în grupul Tuli B și în leziunile cervicale înalte. Deformarea cifotică reziduală poate rămâne definitivă, dar de regulă stabilă dacă fuziunea s-a produs corect.
+Sub tratament corect, vindecarea cu fuziune osoasă spontană este regula, cu recuperare neurologică bună în majoritatea cazurilor de grup A. Prognosticul este mai rezervat în grupul Hodgson B, în gradele Tuli III și IV și în leziunile cervicale înalte. Deformarea cifotică reziduală poate rămâne definitivă, dar de regulă stabilă dacă fuziunea s-a produs corect.
 
 ## Script de prezentare
 ### 1. Prezentarea cazului (30 s)
@@ -9265,7 +9269,7 @@ General: stare de nutriție (posibilă casexie), subfebrilitate, adenopatii peri
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: tuberculoză vertebrală (morbul Pott) la nivelul [localizare, ex. T11-T12], stadiul [debut/stare/reparație], cu/fără paraplegie Pott grup [A/B] Tuli, pe baza argumentelor clinice (durere cronică, gibbus, sindrom subfebril, eventual deficit neurologic) și imagistice (distrucție vertebrală adiacentă, abces paravertebral cu perete gros la RMN, confirmat prin biopsie).
+Diagnostic pozitiv: tuberculoză vertebrală (morbul Pott) la nivelul [localizare, ex. T11-T12], stadiul [debut/stare/reparație], cu/fără paraplegie Pott grup [A/B] Hodgson, grad [I la IV] Tuli, pe baza argumentelor clinice (durere cronică, gibbus, sindrom subfebril, eventual deficit neurologic) și imagistice (distrucție vertebrală adiacentă, abces paravertebral cu perete gros la RMN, confirmat prin biopsie).
 
 Diagnostice secundare de reținut: focar pulmonar TB activ sau sechelar, statusul imun (HIV, diabet), gradul deficitului neurologic (ASIA), gradul de deformare (Cobb).
 
@@ -9279,7 +9283,7 @@ Radiografie față-profil (unghi Cobb, colaps vertebral), RMN cu contrast (exten
 
 ### 7. Tratament (3 min)
 
-Obiective: eradicarea infecției, recuperarea deficitului neurologic, corectarea/prevenirea progresiei deformării, conservarea funcției rahidiene. Opțiuni: tratament conservator exclusiv în formele fără deficit neurologic și fără instabilitate; tratament chirurgical asociat în deficit neurologic, instabilitate sau abces voluminos rezistent. Pentru acest pacient aleg [tratament conservator / debridare-fuziune anterioară tip Hong Kong ± instrumentație posterioară] pentru că [argumentez pe stadiu, deficit, grup Tuli].
+Obiective: eradicarea infecției, recuperarea deficitului neurologic, corectarea/prevenirea progresiei deformării, conservarea funcției rahidiene. Opțiuni: tratament conservator exclusiv în formele fără deficit neurologic și fără instabilitate; tratament chirurgical asociat în deficit neurologic, instabilitate sau abces voluminos rezistent. Pentru acest pacient aleg [tratament conservator / debridare-fuziune anterioară tip Hong Kong ± instrumentație posterioară] pentru că [argumentez pe stadiu, deficit, grup Hodgson și grad Tuli].
 
 Tehnica în pași (dacă chirurgical): 1) abord anterior sau posterolateral la nivelul focarului; 2) identificarea și protejarea structurilor vasculo-nervoase; 3) debridarea radicală a țesutului necrotic, cazeumului și sechestrelor; 4) decompresia canalului rahidian; 5) recoltare de biopsie pentru histopatologie și microbiologie; 6) reconstrucția coloanei anterioare cu grefă osoasă (costală/iliacă) sau cage; 7) instrumentație posterioară cu șuruburi pediculare, dacă e necesară; 8) închidere pe dren.
 
@@ -9287,12 +9291,12 @@ Protocol postoperator: chimioterapie continuată (total 9-12 luni), corset torac
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Fără tratament: distrucție progresivă, cifoză severă, paraplegie, fistulizare cronică. Complicații ale bolii: paraplegie Pott, insuficiență respiratorie restrictivă în formele toracice înalte, fistule cronice. Complicații ale tratamentului: hepatotoxicitate (izoniazidă, rifampicină, pirazinamidă), neuropatie optică (etambutol), pseudartroză, infecție de plagă. Prognostic bun sub tratament corect și precoce, mai rezervat în grupul B Tuli. Urmărire pe termen lung pentru a confirma fuziunea și absența recidivei.
+Fără tratament: distrucție progresivă, cifoză severă, paraplegie, fistulizare cronică. Complicații ale bolii: paraplegie Pott, insuficiență respiratorie restrictivă în formele toracice înalte, fistule cronice. Complicații ale tratamentului: hepatotoxicitate (izoniazidă, rifampicină, pirazinamidă), neuropatie optică (etambutol), pseudartroză, infecție de plagă. Prognostic bun sub tratament corect și precoce, mai rezervat în grupul B Hodgson și în gradele Tuli III și IV. Urmărire pe termen lung pentru a confirma fuziunea și absența recidivei.
 
 ### Fraze-cheie
 
 - Diagnosticul pozitiv de morb Pott se bazează pe triada: distrucție vertebrală cu afectare discală secundară, abces paravertebral cu perete gros la RMN și confirmare histobacteriologică prin biopsie.
-- Clasific paraplegia Pott după Tuli în grup A, precoce, prin abces și edem, care răspunde frecvent la tratament medical, și grup B, tardiv, prin punte osoasă rigidă, care necesită decompresie chirurgicală.
+- Clasific paraplegia Pott după Hodgson în grup A, a bolii active, prin abces și țesut de granulație, care răspunde frecvent la tratament medical, și grup B, a bolii vindecate, prin punte osoasă rigidă, care necesită decompresie chirurgicală; severitatea o gradez după Tuli, de la I la IV.
 - Schema standard este HRZE 2 luni, urmată de HR încă 7-10 luni, cu durată totală de 9 până la 12 luni pentru localizarea osteoarticulară.
 - Indicația chirurgicală se pune pentru deficit neurologic, instabilitate/cifoză progresivă, abces rezistent la tratament medical sau necesitatea unei biopsii deschise.
 - Operația Hong Kong înseamnă debridare radicală anterioară cu grefare osoasă a coloanei anterioare.
@@ -9308,8 +9312,8 @@ Fără tratament: distrucție progresivă, cifoză severă, paraplegie, fistuliz
 ### Î2. De ce discul intervertebral este afectat tardiv în tuberculoză, spre diferență de spondilodiscita piogenă?
 **R:** Discul adult este avascular, nutrit prin difuzie de la platouri, astfel afectarea discală este secundară distrucției osoase. În infecția piogenă există anastomoze vasculare transdiscale care permit afectarea discală precoce, explicând colapsul discal rapid.
 
-### Î3. Cum clasificați paraplegia Pott după Tuli și de ce este importantă clinic?
-**R:** Grupul A este precoce, prin abces, țesut de granulație, sechestre și edem, și răspunde de regulă la tratament medical cu sau fără decompresie. Grupul B este tardiv, pe coloană sechelară, prin punte osoasă rigidă și arahnoidită, și necesită decompresie chirurgicală, cu prognostic mai rezervat.
+### Î3. Cum clasificați paraplegia Pott și de ce este importantă clinic?
+**R:** După Hodgson, grupul A este paraplegia bolii active, prin abces, țesut de granulație, sechestre și edem, și răspunde de regulă la tratament medical, cu decompresie dacă nu se ameliorează în 3 până la 4 săptămâni. Grupul B este paraplegia bolii vindecate, pe coloană sechelară, prin punte osoasă rigidă, stenoză și arahnoidită, și necesită decompresie chirurgicală, cu prognostic mai rezervat. Seddon o împarte după debut în precoce și tardivă. Severitatea o gradez după Tuli: gradul I neglijabil (doar semne piramidale), II ușor (merge cu sprijin), III moderat (imobilizat, paraplegie spastică în extensie), IV sever (spasme în flexie sau paraplegie flască, tulburări sfincteriene).
 
 ### Î4. Ce faceți dacă pacientul are un deficit neurologic instalat de 2 săptămâni sub tratament antituberculos corect?
 **R:** Un deficit care nu se ameliorează sau progresează sub tratament corect este indicație de decompresie chirurgicală, de regulă prin debridare anterioară cu eventuală instrumentație de stabilizare. Continui în paralel chimioterapia postoperator conform schemei standard.
@@ -9382,9 +9386,9 @@ Sinovita tuberculoasă produce hipertrofie sinovială, pannus de granulație car
 3. **Stadiul de artrită avansată**: distrucție articulară netă, eroziuni ale capului și acetabulului, deformare în triplă poziție.
 4. **Stadiul avansat cu subluxație/luxație**: migrarea capului femural, distrucție masivă, "șold flotant" sau anchiloză.
 
-**Clasificarea radiologică Shanmugasundaram** (?) descrie tipuri progresive, de la forma pur sinovială, prin forme cu eroziune limitată și cap femural încă sferic ("tip Perthes"), până la forme cu distrucție severă și subluxație/protruzie ("arthritis destruens") - utilă pentru a estima potențialul de conservare articulară.
+**Clasificarea radiologică Shanmugasundaram (1983), 7 tipuri, după aspectul capului și al acetabulului:** 1) tipul normal (arhitectură păstrată, doar osteoporoză și pensare; cel mai bun prognostic); 2) tipul cu acetabul migrator ("travelling" sau "wandering acetabulum", acetabulul erodează superolateral și capul migrează cu el); 3) tipul cu luxație ("dislocating type", cap luxat posterosuperior); 4) tipul Perthes (cap femural aplatizat, fragmentat, similar bolii Legg-Calvé-Perthes); 5) tipul cu protruzie acetabulară; 6) tipul atrofic (cap și col atrofiate, resorbite); 7) tipul "mortar and pestle" (cap rotunjit, mic, într-un acetabul lărgit, ca pistilul în mojar). Tipurile normal, Perthes și cu protruzie au prognostic articular mai bun sub tratament; tipurile cu luxație, atrofic și cu acetabul migrator ajung de regulă la artrodeză sau artroplastie.
 
-**Clasificarea Tuli** (?), similară conceptual, distinge forma sinovială pură, forma cu artrită incipientă păstrând conturul capului, forma cu artrită distructivă avansată și forma cu luxație/subluxație patologică, corelând tipul cu indicația terapeutică (conservare articulară posibilă doar în formele incipiente, fără distrucție osoasă majoră).
+**Stadializarea Tuli (clinico-radiologică), 4 stadii, corelată cu atitudinea membrului:** stadiul I sinovită (efuziune, osteoporoză, șold în flexie, abducție și rotație externă, cu alungire aparentă; funcție recuperabilă complet); stadiul II artrită incipientă (eroziuni marginale, pensare sub 25 la sută, șold în flexie, adducție și rotație internă, cu scurtare aparentă; conservare articulară posibilă); stadiul III artrită avansată (distrucție de cap și acetabul, pensare marcată, triplă deformație cu scurtare reală); stadiul IV artrită avansată cu subluxație sau luxație (acetabul migrator, "șold flotant"); în stadiile III și IV conservarea articulației nu mai este posibilă, tratamentul definitiv fiind artrodeza sau artroplastia după stingerea bolii.
 
 ### Clinic
 
@@ -9525,7 +9529,7 @@ Fără tratament: distrucție articulară completă, anchiloză sau șold flotan
 title: Tuberculoza genunchiului
 probe: co
 number: 13
-tags: tumor albus, tuberculoza genunchiului, gonita TB, triada Phemister, Kerri, Martini, sinovectomie, artrodeza genunchi, artroplastie totala de genunchi, HRZE, biopsie sinoviala
+tags: tumor albus, tuberculoza genunchiului, gonita TB, triada Phemister, Kerri-Martini, sinovectomie, artrodeza genunchi, artroplastie totala de genunchi, HRZE, biopsie sinoviala
 region: Knee & Leg
 specialty: Oncology & Metabolic
 related: diagnoses/knee-osteoarthritis-tka, diagnoses/msk-infection-metabolic-bone, techniques/total-knee-arthroplasty, classifications/kellgren-lawrence-knee
@@ -9557,7 +9561,7 @@ Sinovita tuberculoasă produce hipertrofie villoasă, pannus de granulație cu n
 3. **Stadiul de artrită distructivă**: distrucție cartilaginoasă și osoasă subcondrală, instabilitate ligamentară, deformare în flexie.
 4. **Stadiul sechelar**: anchiloză fibroasă/osoasă sau articulație distrusă, instabilă.
 
-**Clasificarea Kerri** (?) și **clasificarea Martini** (?) descriu gradarea radiologică a distrucției osteoarticulare tuberculoase a genunchiului, de la forma pur sinovială/incipientă, fără pierdere de substanță osoasă, până la formele cu distrucție epifizară majoră și dezaxare secundară, fiind folosite pentru a ghida decizia între chirurgie conservatoare (sinovectomie, debridare) și chirurgie reconstructivă (artrodeza, artroplastia).
+**Clasificarea Kerri-Martini (1985), radiologică, 4 stadii:** stadiul I fără leziuni osoase, doar osteoporoză localizată și tumefacție de părți moi (forma sinovială; sinovectomie, funcție recuperabilă); stadiul II leziuni osoase (eroziuni marginale, geode) fără îngustarea spațiului articular (debridare, sinovectomie, articulație încă salvabilă); stadiul III distrucție osoasă cu îngustarea spațiului articular (artrită distructivă; conservarea articulației incertă, redoare reziduală probabilă); stadiul IV dezorganizare anatomică majoră a articulației (distrucție epifizară, subluxație, dezaxare; tratament reconstructiv: artrodeză sau artroplastie după stingerea bolii). Stadiul ghidează decizia între chirurgia conservatoare (sinovectomie, debridare) și cea reconstructivă.
 
 ### Clinic
 
@@ -12402,13 +12406,13 @@ General: verificare ABC prioritar în politraumatism, mai ales la leziuni cervic
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: fractură [tip morfologic: compresie/burst/Chance/luxație] a vertebrei [nivel], AO Spine tip [A/B/C specific], TLICS/SLIC [scor], ASIA [grad A-E], pe baza mecanismului traumatic, a durerii locale cu/fără deficit neurologic la examenul clinic, și a aspectului CT de [descriere: retropulsie, cominuție, distracție] confirmat prin RMN pentru statusul complexului ligamentar posterior/disco-ligamentar și medular.
+Diagnostic pozitiv: fractură [tip morfologic: compresie/burst/Chance/luxație] a vertebrei [nivel], AO Spine tip [A/B/C], TLICS/SLIC [scor], ASIA [grad A-E], pe baza mecanismului, a durerii cu/fără deficit neurologic, și a CT-ului de [retropulsie, cominuție, distracție] confirmat prin RMN pentru PLC și status medular.
 
-Diagnostice secundare de reținut: leziuni vertebrale la niveluri adiacente (fracturi multiple, până la 15-20% (?) din cazuri), leziuni toraco-abdominale asociate în politraumatism, șocul medular (de diferențiat de leziunea completă definitivă).
+Diagnostice secundare: leziuni vertebrale la niveluri adiacente (15-20% (?) din cazuri), leziuni toraco-abdominale în politraumatism, șocul medular (de diferențiat de leziunea completă).
 
 ### 5. Diagnostic diferențial (1 min)
 
-Contuzia musculo-ligamentară simplă: fără linie de fractură/instabilitate la CT. Spondiloza degenerativă preexistentă: aspect cronic, fără context traumatic acut evident. Metastaza vertebrală patologică: context oncologic cunoscut, aspect litic/blastic, colaps la traumatism minor cu semne imagistice de leziune preexistentă. Spondilodiscita infecțioasă: context febril, markeri inflamatori crescuți, evoluție subacută. Fractura osteoporotică de fragilitate: context de osteoporoză, traumatism minor sau absent, fără instabilitate mecanică majoră de regulă.
+Contuzia musculo-ligamentară: fără linie de fractură la CT. Spondiloza degenerativă: aspect cronic, fără context traumatic acut. Metastaza vertebrală: context oncologic, colaps la traumatism minor cu semne de leziune preexistentă. Spondilodiscita: context febril, markeri inflamatori crescuți. Fractura osteoporotică de fragilitate: traumatism minor sau absent, fără instabilitate majoră de regulă.
 
 ### 6. Investigații (1 min)
 
@@ -12416,15 +12420,15 @@ Radiografie standard față-profil ca screening. CT al segmentului afectat (la p
 
 ### 7. Tratament (3 min)
 
-Obiective: stabilizarea mecanică a coloanei, decompresia elementelor neurale dacă există compresie cu deficit, prevenirea deformării progresive, mobilizare precoce pentru a preveni complicațiile de decubit. Opțiuni: tratament conservator (orteză TLSO/Jewett/halo-vest) pentru scor TLICS/SLIC sub 4 și PLC intact; tratament chirurgical (fixare posterioară cu șuruburi pediculare +/- decompresie, +/- abord anterior) pentru scor peste 4, deficit neurologic, instabilitate confirmată. Pentru acest pacient aleg [opțiunea concretă], pentru că [scorul TLICS/SLIC calculat, statusul PLC/disco-ligamentar la RMN, prezența/absența deficitului neurologic].
+Obiective: stabilizare mecanică, decompresia elementelor neurale la compresie cu deficit, prevenirea deformării progresive, mobilizare precoce. Opțiuni: conservator (orteză) pentru scor sub 4 și PLC intact; chirurgical (fixare posterioară +/- decompresie, +/- abord anterior) pentru scor peste 4, deficit neurologic, instabilitate confirmată. Pentru acest pacient aleg [opțiunea concretă], pentru că [scorul calculat, statusul PLC la RMN, prezența deficitului].
 
-Tehnica în pași (fixare posterioară cu decompresie, exemplu general): 1) poziționare în decubit ventral pe suporturi care descarcă abdomenul, fluoroscopie pentru identificarea nivelului; 2) abord posterior median, expunerea apofizelor articulare și pediculilor la nivelurile planificate (de regulă un nivel supra- și subiacent); 3) introducerea șuruburilor pediculare sub control fluoroscopic pe 2 incidențe, verificând traiectul intrapedicular; 4) dacă există compresie medulară directă prin fragment retropulsat, laminectomie decompresivă la nivelul afectat; 5) reducerea deformării (distracție/compresie pe tije, corectarea cifozei segmentare) sub control fluoroscopic; 6) fixarea tijelor și blocarea construcției; 7) dacă pierderea de suport anterior este mare, planificare pentru abord anterior secundar (corporectomie și cage) sau augmentare cu ciment; 8) verificare fluoroscopică finală, hemostază, drenaj, închidere în straturi.
+Tehnica în pași (fixare posterioară cu decompresie): 1) decubit ventral pe suporturi care descarcă abdomenul, fluoroscopie pentru nivel; 2) abord posterior median, expunerea fațetelor și pediculilor planificați; 3) șuruburi pediculare sub control fluoroscopic pe 2 incidențe; 4) dacă există compresie medulară directă, laminectomie decompresivă; 5) reducerea deformării pe tije, corectarea cifozei; 6) fixarea tijelor; 7) dacă pierderea de suport anterior este mare, abord anterior secundar (corporectomie, cage) sau augmentare cu ciment; 8) verificare fluoroscopică finală, hemostază, închidere.
 
-Protocol postoperator: mobilizare precoce, cât mai rapid posibil (în 24 la 48 de ore la pacient stabil neurologic), cu sau fără orteză de protecție externă suplimentară în funcție de calitatea fixării, kinetoterapie progresivă, profilaxie tromboembolică (mai agresivă și mai prelungită la pacientul cu deficit motor), monitorizare pentru complicații de decubit și disfuncție sfincteriană, control radiografic/CT la 6 și 12 săptămâni pentru menținerea corecției.
+Protocol postoperator: mobilizare precoce (24-48h la pacient stabil neurologic), kinetoterapie, profilaxie tromboembolică mai prelungită la deficit motor, monitorizare de decubit și sfincteriană, control radiografic la 6 și 12 săptămâni.
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Fără tratament corect, evoluția este spre cifoză progresivă, instabilitate mecanică cronică cu durere persistentă, sau, în leziunile cu compresie neurologică netratată, deteriorare neurologică progresivă ireversibilă. Complicații ale bolii: deficit neurologic permanent, sindrom de con/cauda equina, pseudartroză. Complicații ale tratamentului: eșec de instrumentație, infecție de plagă, tromboembolism venos, escare, infecții urinare la pacientul cu vezică neurogenă. Prognosticul funcțional depinde direct de gradul ASIA inițial și de rapiditatea decompresiei (ideal sub 24 de ore la deficit incomplet); leziunile ASIA A au șanse minime de recuperare motorie sub nivel, cele incomplete (B-D) au potențial de recuperare semnificativ, mai bun cu tratament precoce. Urmărire: control clinic neurologic și radiografic/CT periodic, reevaluarea funcțională standardizată ASIA la intervale regulate.
+Fără tratament corect, evoluția este spre cifoză progresivă, instabilitate cronică cu durere persistentă, sau, la compresie neurologică netratată, deteriorare progresivă ireversibilă. Complicații ale bolii: deficit neurologic permanent, sindrom de con/cauda equina, pseudartroză. Complicații ale tratamentului: eșec de instrumentație, infecție de plagă, tromboembolism venos, escare. Prognosticul funcțional depinde de gradul ASIA inițial și de rapiditatea decompresiei; ASIA A are șanse minime de recuperare sub nivel, cele incomplete (B-D) au potențial semnificativ, mai bun cu tratament precoce. Urmărire: control clinic neurologic și radiografic periodic, reevaluare ASIA la intervale regulate.
 
 ### Fraze-cheie
 
@@ -12440,43 +12444,43 @@ Fără tratament corect, evoluția este spre cifoză progresivă, instabilitate 
 ## Întrebările comisiei
 
 ### Î1. Care sunt cele trei coloane Denis și de ce sunt importante?
-**R:** Coloana anterioară (jumătatea anterioară a corpului vertebral și discul anterior), coloana medie (jumătatea posterioară a corpului și peretele posterior adiacent canalului) și coloana posterioară (arcul, pediculii, fațetele și complexul ligamentar posterior). Sunt importante pentru că numărul de coloane afectate și, mai ales, integritatea complexului ligamentar posterior determină stabilitatea mecanică a leziunii și fundamentează toate clasificările moderne (AO Spine, TLICS).
+**R:** Anterioară (corpul anterior și discul), medie (corpul posterior și peretele posterior adiacent canalului) și posterioară (arcul, pediculii, fațetele, complexul ligamentar posterior). Numărul de coloane afectate și mai ales integritatea PLC determină stabilitatea mecanică și fundamentează toate clasificările moderne (AO Spine, TLICS).
 
 ### Î2. Ce faceți dacă scorul TLICS calculat este exact 4?
-**R:** Scorul de 4 reprezintă zona gri a clasificării, unde decizia se individualizează în funcție de factori adiționali: statusul exact al complexului ligamentar posterior la RMN (indeterminat versus clar rupt), gradul de cifoză segmentară, comorbidități ale pacientului, cerere funcțională, și, dacă există orice incertitudine asupra stabilității pe termen lung, tind spre tratament chirurgical, mai ales la pacient tânăr activ.
+**R:** Este zona gri, unde decizia se individualizează după statusul exact al PLC la RMN, gradul de cifoză, comorbidități și cerere funcțională; la orice incertitudine asupra stabilității pe termen lung tind spre chirurgical, mai ales la pacient tânăr activ.
 
 ### Î3. Care sunt tipurile Anderson-D'Alonzo ale fracturii de odontoidă și care are cel mai mare risc de pseudartroză?
-**R:** Tip I, avulsie a vârfului prin ligamentul alar, stabilă. Tip II, la baza odontoidei, joncțiunea cu corpul C2, cea mai frecventă și cu cel mai mare risc de pseudartroză, mai ales cu deplasare peste 5mm sau la vârstnic. Tip III, traiectul se extinde în corpul C2, cu prognostic de consolidare mai bun datorită suprafeței osoase spongioase mai mari expuse la vindecare.
+**R:** Tip I, avulsie a vârfului, stabilă. Tip II, la baza odontoidei, cea mai frecventă și cu cel mai mare risc de pseudartroză, mai ales peste 5mm deplasare sau la vârstnic. Tip III, traiectul se extinde în corpul C2, prognostic mai bun prin suprafața spongioasă mare.
 
 ### Î4. Ce faceți dacă la un pacient cu fractură hangman tip IIA încercați reducerea prin tracțiune?
-**R:** Tracțiunea este contraindicată explicit la tipul IIA, pentru că mecanismul de flexie-distracție face ca tracțiunea axială să agraveze distracția fracturii și riscul de deteriorare neurologică; tratamentul corect este imobilizare rigidă (halo-vest) fără tracțiune sau, la instabilitate confirmată, fixare chirurgicală directă.
+**R:** Tracțiunea este contraindicată explicit, pentru că mecanismul de flexie-distracție face ca tracțiunea axială să agraveze distracția și riscul neurologic; tratamentul corect este halo-vest fără tracțiune sau, la instabilitate confirmată, fixare chirurgicală directă.
 
 ### Î5. Care este regula Spence și ce implicații are?
-**R:** Regula Spence stabilește că o deplasare laterală combinată a maselor laterale C1 față de marginile corpului C2, măsurată pe radiografie/CT, peste 6,9 milimetri (rotunjit clasic la 7mm), indică ruptura ligamentului transvers al atlasului și instabilitate C1-C2. Peste acest prag, tratamentul conservator cu orteză este insuficient și se indică fixare chirurgicală (artrodeză C1-C2).
+**R:** O deplasare laterală combinată a maselor laterale C1 față de marginile C2, peste 6,9 milimetri, indică ruptura ligamentului transvers și instabilitate C1-C2. Peste acest prag, tratamentul conservator cu orteză este insuficient și se indică artrodeză C1-C2.
 
 ### Î6. Ce este sacral sparing și de ce este cel mai important semn la examenul neurologic inițial?
-**R:** Este prezența sensibilității perianale și/sau a contracției voluntare a sfincterului anal la un pacient altfel complet paralizat/anesteziat sub nivelul leziunii. Este cel mai important semn clinic pentru că indică o leziune medulară incompletă (nu ASIA A), cu prognostic de recuperare mult mai bun, chiar și atunci când restul examenului motor și senzitiv pare complet abolit.
+**R:** Este prezența sensibilității perianale și/sau a contracției voluntare a sfincterului anal la un pacient altfel complet paralizat sub nivelul leziunii. Indică o leziune medulară incompletă (nu ASIA A), cu prognostic de recuperare mult mai bun, chiar dacă restul examenului pare complet abolit.
 
 ### Î7. Ce faceți dacă un pacient politraumatizat are deficit neurologic incomplet la o fractură burst toraco-lombară cu compresie medulară la CT?
-**R:** Indic decompresie chirurgicală de urgență cât mai rapid, ideal sub 24 de ore de la traumatism, conform dovezilor studiului STASCIS care arată rezultate neurologice superioare la decompresia precoce comparativ cu cea tardivă, combinată cu fixare posterioară pentru stabilizare mecanică.
+**R:** Indic decompresie chirurgicală de urgență, ideal sub 24 de ore, conform STASCIS, care arată rezultate neurologice superioare la decompresia precoce, combinată cu fixare posterioară pentru stabilizare mecanică.
 
 ### Î8. Care este diferența dintre șocul medular și o leziune medulară completă (ASIA A)?
-**R:** Șocul medular este o stare tranzitorie de areflexie/flacciditate sub nivelul leziunii în primele ore-zile posttraumatic, care se termină odată cu reapariția reflexului bulbocavernos; evaluarea ASIA definitivă a completitudinii leziunii nu poate fi făcută cu certitudine în șoc medular, pentru că funcția reziduală poate fi mascată. O leziune completă (ASIA A) se confirmă doar după terminarea șocului medular, prin absența persistentă a funcției motorii și senzitive sub nivel, inclusiv sacral sparing absent.
+**R:** Șocul medular este o stare tranzitorie de areflexie sub nivelul leziunii, care se termină la reapariția reflexului bulbocavernos; evaluarea ASIA definitivă nu poate fi făcută cu certitudine în șoc medular. O leziune completă se confirmă doar după terminarea șocului, prin absența persistentă a funcției motorii și senzitive, inclusiv sacral sparing absent.
 
 ### Î9. Ce faceți dacă un pacient vârstnic cu fractură de compresiune osteoporotică are durere persistentă severă la 8 săptămâni de tratament conservator?
-**R:** Reevaluez imagistic (CT/RMN) pentru a exclude progresia colapsului sau o componentă instabilă nesuspectată, și dacă durerea rămâne refractară fără semne de instabilitate majoră sau compromitere neurologică, indic kyphoplasty (augmentare percutană cu balon și ciment), care oferă ameliorare rapidă a durerii, cu mențiunea că beneficiul pe termen lung față de tratamentul conservator continuat este dezbătut în literatură.
+**R:** Reevaluez imagistic pentru a exclude progresia colapsului, și dacă durerea rămâne refractară fără instabilitate majoră sau deficit neurologic, indic kyphoplasty, care oferă ameliorare rapidă, cu mențiunea că beneficiul pe termen lung față de conservator este dezbătut în literatură.
 
 ### Î10. Care sunt categoriile scorului SLIC și pragul de tratament chirurgical?
-**R:** SLIC sumează morfologia leziunii (fără anomalie 0, compresie 1, distracție 3, rotație/translație 4), integritatea complexului disco-ligamentar (intact 0, indeterminat 1, rupt 2), și statusul neurologic (intact 0, radiculopatie 1, leziune medulară completă 2, incompletă 3, compresie persistentă cu deficit +1). Un scor sub 4 orientează spre tratament nonoperator, peste 4 spre chirurgical, 4 fiind zonă gri, similar structurii TLICS pentru toraco-lombar.
+**R:** Morfologia leziunii (0-4), integritatea complexului disco-ligamentar (0-2), statusul neurologic (0-3, +1 la compresie persistentă). Sub 4 nonoperator, peste 4 chirurgical, 4 fiind zonă gri, similar structurii TLICS.
 
 ### Î11. Ce faceți dacă la un copil cu deficit neurologic sever posttraumatic CT-ul coloanei cervicale este complet normal?
-**R:** Suspectez SCIWORA (spinal cord injury without radiographic abnormality), mai frecventă la copii datorită elasticității ligamentare și mobilității vertebrale crescute, care permite o deformare tranzitorie severă fără fractură persistentă vizibilă pe CT. Indic RMN de urgență pentru a documenta edemul/contuzia medulară și tratez predominant conservator, cu imobilizare și monitorizare, prognosticul fiind variabil în funcție de severitatea leziunii medulare la RMN.
+**R:** Suspectez SCIWORA, mai frecventă la copii prin elasticitatea ligamentară și mobilitatea vertebrală crescute, care permit o deformare tranzitorie severă fără fractură persistentă. Indic RMN de urgență pentru edem/contuzie medulară și tratez predominant conservator, prognosticul fiind variabil după severitatea leziunii la RMN.
 
 ### Î12. Care este diferența de tratament între fractura Jefferson sub și peste pragul Spence?
-**R:** Sub pragul de 6,9mm deplasare combinată, ligamentul transvers al atlasului este considerat intact funcțional, iar tratamentul este conservator cu orteză rigidă sau halo-vest. Peste acest prag, instabilitatea C1-C2 este semnificativă și necesită tratament chirurgical, tipic artrodeză posterioară C1-C2.
+**R:** Sub 6,9mm deplasare combinată, ligamentul transvers este considerat intact, tratament conservator cu orteză rigidă/halo-vest. Peste acest prag, instabilitatea C1-C2 este semnificativă și necesită artrodeză posterioară C1-C2.
 
 ### Î13. Ce faceți dacă la un pacient cu fractură Chance (seat belt) descoperiți și leziuni intraabdominale asociate?
-**R:** Fracturile Chance sunt clasic asociate cu leziuni intraabdominale (mezenter, intestin) prin același mecanism de centură de siguranță; solicit evaluare chirurgicală generală/abdominală de urgență în paralel cu managementul vertebral, pentru că leziunile intraabdominale pot fi ocult prezente și pun viața în pericol mai acut decât fractura vertebrală însăși.
+**R:** Fracturile Chance sunt clasic asociate cu leziuni intraabdominale (mezenter, intestin) prin același mecanism de centură de siguranță; solicit evaluare chirurgicală abdominală de urgență în paralel cu managementul vertebral, pentru că aceste leziuni pot fi oculte și pun viața în pericol mai acut decât fractura vertebrală.
 
 ### Î14. Care sunt argumentele pentru fixare short-segment versus long-segment în fracturile burst toraco-lombare?
 **R:** Fixarea short-segment (un nivel supra- și subiacent) este mai puțin invazivă și păstrează mai multă mobilitate segmentară, dar are risc mai mare de eșec/cifozare secundară la cominuție severă a coloanei anterioare fără suport. Fixarea long-segment (mai multe niveluri) oferă stabilitate biomecanică superioară în cominuții severe, cu prețul rigidizării unui segment mai lung; alegerea depinde de gradul de distrucție a coloanei anterioare și de calitatea osoasă.
@@ -13394,9 +13398,9 @@ Nonunion hipertrofic: capete hipertrofiate, cu țesut de reparație abundent dar
 
 ### Clasificare
 
-**RUST score (Radiographic Union Scale for Tibial/femoral fractures):** evaluează pe radiografii AP și laterale fiecare din cele 4 corticale (antero-medială, postero-laterală etc., adaptat la femur cele 2 vizibile pe fiecare incidență) cu scor 1 (linie de fractură vizibilă, fără calus), 2 (calus prezent, linie vizibilă), 3 (calus prezent, linie parțial ștearsă), 4 (remodelare completă, linie invizibilă); scor total 4 la 16, scor sub 8 la peste 3 luni sugerează risc de nonunion, peste 12 sugerează consolidare avansată.
+**RUST score:** evaluează pe radiografii AP și laterale fiecare corticală vizibilă, cu scor 1 (linie vizibilă, fără calus) la 4 (remodelare completă, linie invizibilă); scor total 4 la 16, sub 8 la peste 3 luni sugerează risc de nonunion, peste 12 sugerează consolidare avansată.
 
-**Cierny-Mader (osteomielita/pseudartroza septică):** stadiul anatomic I (medular), II (superficial), III (localizat, cu sechestru dar stabilitate structurală păstrată), IV (difuz, instabilitate structurală, necesită rezecție și stabilizare); combinat cu clasa fiziologică a pacientului A (sănătos), B (compromis local Bl sau sistemic Bs), C (tratament ar face mai mult rău decât boala).
+**Cierny-Mader:** stadiul anatomic I (medular), II (superficial), III (localizat, sechestru dar stabilitate păstrată), IV (difuz, instabilitate structurală); combinat cu clasa fiziologică A (sănătos), B (compromis local/sistemic), C (tratament ar face mai mult rău decât boala).
 
 **FRI (fracture related infection) criterii de confirmare** (consens internațional): criterii confirmatorii (unul suficient) fistulă/dehiscență cu comunicare la os sau implant, prezența de puroi/pu la nivelul focarului, microorganism identic izolat din minim 2 probe tisulare profunde separate, prezența de microorganisme la examen histopatologic; criterii suggestive (necesită investigare suplimentară) febră, semne inflamatorii locale, secreție persistentă, markeri inflamatori crescuți fără altă cauză.
 
@@ -13404,11 +13408,11 @@ Nonunion hipertrofic: capete hipertrofiate, cu țesut de reparație abundent dar
 
 ### Clinic
 
-Durere mecanică persistentă la mers/sprijin la peste 6 luni de la fractură/fixare, care nu s-a ameliorat progresiv, sensibilitate la palparea/percuția focarului, posibilă mobilitate anormală la manevre de stres (mai evidentă în nonunion atrofic/instabil), deformare progresivă (varus, scurtare) în nonunion hipertrofic instabil. Pseudartroza septică asociază, în plus, semne inflamatorii locale (eritem, căldură, tumefacție), secreție purulentă persistentă sau intermitentă, traiect fistulos, febră (variabilă, poate fi absentă în infecții cu germeni cu virulență scăzută), stare generală alterată în forme acute.
+Durere mecanică persistentă la mers/sprijin la peste 6 luni de la fixare, care nu s-a ameliorat progresiv, sensibilitate la palparea/percuția focarului, posibilă mobilitate anormală la stres, deformare progresivă în nonunion hipertrofic instabil. Pseudartroza septică asociază semne inflamatorii locale, secreție purulentă persistentă sau intermitentă, traiect fistulos, febră variabilă, stare generală alterată în forme acute.
 
 ### Imagistică și explorări
 
-Radiografii seriate AP și laterale, evaluate cu RUST score la fiecare control, pentru obiectivarea lipsei de progresie a consolidării. CT pentru evaluarea pontajului osos real (radiografia poate fi înșelătoare din cauza implantului metalic) și pentru planificarea defectului osos în vederea reconstrucției. Pentru suspiciunea de infecție: markeri inflamatori (CRP, VSH, mai fiabili decât leucocitele), aspirație de focar cu cultură (dacă există colecție), scintigrafie osoasă/leucocitară marcată sau PET-CT la cazuri neclare (utile mai ales pentru diferențierea infecție versus remodelare mecanică activă). Biopsie/prelevare intraoperatorie de minim 5 probe tisulare profunde separate (instrumente separate pentru fiecare probă, pentru a minimiza contaminarea și a permite identificarea unui germene consistent pe mai multe probe, criteriu FRI) trimise pentru cultură (aerob, anaerob, prelungit 14 zile pentru germeni cu creștere lentă) și histopatologie.
+Radiografii seriate AP și laterale, evaluate cu RUST score, pentru obiectivarea lipsei de progresie. CT pentru evaluarea pontajului osos real (radiografia poate fi înșelătoare din cauza implantului) și planificarea defectului. Pentru suspiciunea de infecție: markeri inflamatori (CRP, VSH), aspirație de focar cu cultură dacă există colecție, scintigrafie/PET-CT la cazuri neclare. Biopsie intraoperatorie de minim 5 probe tisulare profunde separate (instrumente separate pentru fiecare, criteriu FRI) pentru cultură (14 zile) și histopatologie.
 
 ### Diagnostic diferențial
 
@@ -13416,17 +13420,17 @@ Consolidare întârziată (sub 6 luni, potențial reversibilă cu timp și optim
 
 ### Tratament
 
-**Aseptic, hipertrofic (capete bine vascularizate, instabilitate mecanică dominantă):** exchange reamed nailing (tijă de schimb, alezaj progresiv și introducerea unei tije de diametru mai mare cu 1 la 2 mm decât cea existentă), care crește stabilitatea mecanică și stimulează biologic focarul prin efectul osteoinductiv al alezajului (particule osoase din canal acționează ca autogrefă locală); rate de consolidare 70 la 90% (?) în seriile publicate. Augmentarea cu placă suplimentară pe tijă existentă ("nail plate combination") este o alternativă când schimbarea tijei nu e fezabilă sau canalul nu permite creșterea diametrului. Dinamizarea (îndepărtarea unui șurub de blocare static pentru a permite compresiune axială la focar) este opțiune mai simplă, dar cu rezultate mai puțin predictibile, indicată mai ales la nonunion incipient cu blocare static inutil de rigidă.
+**Aseptic, hipertrofic:** exchange reamed nailing (tijă de schimb, cu diametru mai mare cu 1 la 2 mm), care crește stabilitatea și stimulează biologic focarul prin efectul osteoinductiv al alezajului; consolidare 70 la 90% (?) în seriile publicate. Augmentarea cu placă pe tijă existentă ("nail plate combination") e alternativă când schimbarea tijei nu e fezabilă. Dinamizarea (îndepărtarea unui șurub static pentru compresiune axială) e opțiune mai simplă, rezultate mai puțin predictibile.
 
-**Aseptic, atrofic (capete devitalizate, deficit biologic dominant):** placă cu compresiune plus autogrefă osoasă, adesea recoltată prin RIA (reamer-irrigator-aspirator, tehnică care alezează canalul medular femural, de regulă contralateral sau chiar homolateral proximal, colectând un volum mare de grefă osoasă autologă cu morbiditate mai mică decât recoltarea din creasta iliacă). BMP-2 (proteină morfogenetică osoasă recombinantă) poate fi folosit ca adjuvant osteoinductiv la defecte biologice severe, dar statusul de utilizare este off-label la femur în majoritatea contextelor și cu date de evidență mai limitate/costuri mari, decizia fiind individualizată.
+**Aseptic, atrofic:** placă cu compresiune plus autogrefă, adesea recoltată prin RIA (reamer-irrigator-aspirator, alezează canalul femural contralateral, morbiditate mai mică decât creasta iliacă). BMP-2 poate fi adjuvant osteoinductiv la defecte severe, dar utilizarea la femur e mai ales off-label, cu evidență limitată, decizie individualizată.
 
-**Septic:** tratament stadializat, ghidat de clasificarea Cierny-Mader. Etapa 1: îndepărtarea completă a implantului infectat, debridare radicală (excizia tuturor țesuturilor devitalizate, a sechestrelor osoase, până la os sângerând "paprika sign"), prelevare de culturi înainte de antibioterapie dacă posibil. Etapa 2: stabilizare temporară, fie cu spacer cu ciment impregnat cu antibiotic (vancomicină/gentamicină/tobramicină, poate avea și rol structural la defect segmentar, tehnica Masquelet cu inducerea unei membrane biologice în jurul spacerului) fie cu tijă intramedulară cu antibiotic (mai rar la femur din motive de reconstrucție a canalului) fie cu fixator extern (la infecție severă/defect mare, permite și distragere osoasă/transport osos ulterior). Etapa 3 (tehnica Masquelet, la 6 la 8 săptămâni (?)): îndepărtarea spacerului cu prezervarea membranei induse, umplerea defectului cu autogrefă (RIA) în interiorul membranei, care acționează ca o cameră biologică favorabilă osteogenezei. Alternativ, transport osos cu fixator extern (Ilizarov/monolateral) pentru defecte mari. Antibioterapie sistemică țintită pe cultură, durata variază cu ghidurile (4 la 6 săptămâni intravenos/oral pentru infecție osoasă confirmată, mai lung la implant restant sau germeni dificili). Amputația rămâne opțiunea de ultimă instanță, la infecție necontrolabilă recurentă, defect osos/de părți moi ireconstructibil, sau la pacient cu comorbidități care fac reconstrucțiile multiple imposibil de tolerat.
+**Septic:** tratament stadializat, ghidat de Cierny-Mader. Etapa 1: îndepărtarea implantului infectat, debridare radicală până la os sângerând ("paprika sign"), culturi înainte de antibioterapie. Etapa 2: stabilizare temporară cu spacer de ciment cu antibiotic (vancomicină/gentamicină, rol structural la defect segmentar, tehnica Masquelet) sau fixator extern la defect mare. Etapa 3 (Masquelet, la 6 la 8 săptămâni (?)): îndepărtarea spacerului cu prezervarea membranei induse, umplere cu autogrefă RIA. Alternativ, transport osos cu fixator extern pentru defecte mari. Antibioterapie sistemică țintită, 4 la 6 săptămâni pentru infecție confirmată, mai lung la germeni dificili. Amputația rămâne ultima opțiune, la infecție necontrolabilă sau defect ireconstructibil.
 
-**Particularități subtrohanterian/distal femural:** aceste zone au forțe biomecanice mari (încovoiere) și, la subtrohanterian, canal medular larg cu corticale relativ mai groase, ceea ce face exchange nailing mai puțin eficient mecanic decât la nivel diafizar mediu; blade plate (placă lamă angulată) sau placă condiliană blocată sunt alternative frecvente la aceste niveluri, mai ales la nonunion distal unde deformarea în varus/recurvatum trebuie corectată simultan cu stabilizarea.
+**Particularități subtrohanterian/distal:** forțe biomecanice mari, canal larg la subtrohanterian face exchange nailing mai puțin eficient; blade plate sau placă condiliană blocată sunt alternative frecvente, mai ales la nonunion distal unde varusul/recurvatumul trebuie corectat simultan.
 
 ### Complicații
 
-Ale pseudartrozei: deformare progresivă, discrepanță de lungime, degradare articulară secundară (genunchi/șold) prin alterarea mecanicii membrului, handicap funcțional cronic. Ale tratamentului: eșecul exchange nailing (necesitând revizie ulterioară), infecție iatrogenă la reconstrucție, complicații de sit donator (RIA, minime comparativ cu creasta iliacă, dar posibile), pierderea membranei induse la tehnica Masquelet dacă manipulare intempestivă, recidivă de infecție după tratament stadializat (procent variabil, mai mare la germeni multirezistenți/biofilm dens), morbiditate psihologică prin durata lungă a tratamentului multi-etapizat.
+Ale pseudartrozei: deformare progresivă, discrepanță de lungime, degradare articulară secundară, handicap funcțional cronic. Ale tratamentului: eșecul exchange nailing, infecție iatrogenă, complicații de sit donator (RIA, minime comparativ cu creasta iliacă), pierderea membranei induse la manipulare intempestivă, recidivă de infecție (mai mare la germeni multirezistenți), morbiditate psihologică prin durata lungă a tratamentului.
 
 ### Evoluție și prognostic
 
@@ -13440,11 +13444,11 @@ Pacientul/a în vârstă de [vârstă] ani, [profesie], din [mediu], cu antecede
 
 ### 2. Anamneză (2 min)
 
-Motivul internării: durerea mecanică persistentă la nivelul focarului de fractură, care nu s-a ameliorat conform evoluției așteptate. Istoric: tipul fracturii inițiale și fixarea efectuată, evoluția postoperatorie (reluarea sprijinului, orice complicație de plagă în perioada precoce, care poate orienta spre infecție), radiografii de control anterioare și evoluția lor, eventuale semne inflamatorii intermitente (episoade de secreție, febră). Antecedente relevante pentru acest subiect: fumatul (factor major modificabil), diabet, tratament cronic cu AINS sau corticosteroizi, fractură deschisă inițial (risc mai mare de infecție), tip de implant folosit, numărul de intervenții anterioare la acest membru. Factori de risc: statusul nutrițional, aportul de vitamina D/calciu, complianța la protocolul de sprijin postoperator.
+Motivul internării: durerea mecanică persistentă la focar, fără evoluția favorabilă așteptată. Istoric: tipul fracturii inițiale și fixarea efectuată, evoluția postoperatorie (complicații de plagă precoce, care pot orienta spre infecție), radiografii de control anterioare, semne inflamatorii intermitente. Antecedente relevante: fumatul, diabet, AINS/corticoterapie cronică, fractură deschisă inițial, tip de implant, numărul de intervenții anterioare. Factori de risc: statusul nutrițional, aportul de vitamina D/calciu, complianța la sprijin postoperator.
 
 ### 3. Examen clinic (3 min)
 
-General: stare generală, semne de impregnare infecțioasă cronică (paloare, scădere ponderală) dacă infecție de lungă durată. Local, inspecție: cicatrice postoperatorie (aspect, eventuale traiecte fistuloase, secreție activă), deformare vizibilă a segmentului (angulare, scurtare), tumefacție. Palpare: durere la palparea/percuția directă a focarului, temperatură locală crescută dacă infecție activă, palparea unei eventuale colecții fluctuante. Mobilitate: se testează cu prudență mobilitatea anormală la focar (semn de instabilitate mecanică, dureros), fără a forța; goniometrie a articulațiilor adiacente (șold, genunchi) cu valorile normale de referință, adesea limitată prin decondiționare cronică. Măsurători: scurtimea membrului comparativ, circumferința segmentului (atrofie musculară cronică). Semne specifice: durere la sprijin monopodal sau la stres în varus/valgus al focarului. Examen neuro-vascular distal: pulsuri periferice, sensibilitate, motricitate distală. Examinarea articulațiilor supra- și subiacente: rigiditate articulară secundară imobilizării prelungite. Mers: șchiopătare cronică, sprijin cu ajutor de mers, posibil mers "în balama" la instabilitate mare a focarului.
+General: stare generală, semne de impregnare infecțioasă cronică dacă infecție de lungă durată. Local, inspecție: cicatrice postoperatorie (traiecte fistuloase, secreție activă), deformare vizibilă, tumefacție. Palpare: durere la palparea/percuția focarului, temperatură locală crescută dacă infecție activă. Mobilitate: se testează cu prudență mobilitatea anormală la focar, fără a forța; goniometrie a articulațiilor adiacente, adesea limitată prin decondiționare. Măsurători: scurtimea comparativă, circumferința segmentului. Semne specifice: durere la sprijin monopodal sau la stres în varus/valgus. Examen neuro-vascular distal: pulsuri, sensibilitate, motricitate. Examinarea articulațiilor supra- și subiacente: rigiditate secundară imobilizării. Mers: șchiopătare cronică, sprijin cu ajutor de mers, posibil "în balama" la instabilitate mare.
 
 ### 4. Diagnostic pozitiv (30 s)
 
@@ -13464,13 +13468,13 @@ Radiografii seriate AP și laterale, evaluate cu RUST score. CT pentru evaluarea
 
 Obiective: eradicarea infecției (dacă prezentă), restabilirea stabilității mecanice și a aportului biologic necesar consolidării, corectarea deformărilor axiale/discrepanței de lungime. Opțiuni: aseptic hipertrofic, exchange reamed nailing cu tijă mai mare cu 1 la 2 mm; aseptic atrofic, placă cu compresiune plus autogrefă (RIA); septic, tratament stadializat (îndepărtare implant, debridare, spacer cu antibiotic, ulterior tehnica Masquelet sau transport osos, antibioterapie sistemică țintită). Pentru acest pacient aleg [opțiunea concretă], pentru că [tipul de nonunion, prezența/absența infecției, dimensiunea defectului, factorii biologici].
 
-Tehnica în pași (exemplu tehnica Masquelet, etapa 2 spre 3, pseudartroză septică): 1) etapa 1 deja efectuată: îndepărtarea implantului infectat și debridare radicală până la os sângerând; 2) plasarea unui spacer din ciment impregnat cu antibiotic, modelat la dimensiunea defectului, cu rol structural temporar; 3) stabilizare suplimentară cu fixator extern sau placă de neutralizare dacă necesar; 4) așteptare 6 la 8 săptămâni pentru formarea membranei induse și confirmarea clinică/biologică a eradicării infecției; 5) etapa 3: incizie, îndepărtarea cu grijă a spacerului cu prezervarea integrității membranei induse; 6) recoltare de autogrefă osoasă prin RIA de la femurul contralateral; 7) umplerea defectului cu grefa osoasă în interiorul membranei induse păstrate; 8) fixare definitivă stabilă (placă/tijă), închidere în straturi cu atenție la acoperirea de părți moi.
+Tehnica în pași (Masquelet, etapa 2 spre 3, pseudartroză septică): 1) etapa 1 deja efectuată: îndepărtarea implantului și debridare radicală până la os sângerând; 2) spacer din ciment cu antibiotic, la dimensiunea defectului, rol structural temporar; 3) stabilizare suplimentară cu fixator extern sau placă de neutralizare; 4) așteptare 6 la 8 săptămâni pentru membrana indusă și eradicarea infecției; 5) etapa 3: îndepărtarea spacerului cu prezervarea membranei; 6) autogrefă RIA de la femurul contralateral; 7) umplerea defectului în interiorul membranei; 8) fixare definitivă stabilă, închidere cu atenție la acoperirea de părți moi.
 
-Protocol postoperator: sprijin protejat conform stabilității reconstrucției (frecvent parțial prelungit la reconstrucții de defect mare), profilaxie tromboembolică, antibioterapie sistemică țintită continuată conform duratei stabilite, kinetoterapie progresivă, urmărire radiografică (RUST score) la 6 săptămâni, 3 luni, 6 luni, monitorizare a markerilor inflamatori pentru detectarea precoce a recidivei infecțioase.
+Protocol postoperator: sprijin protejat conform stabilității (parțial prelungit la defect mare), profilaxie tromboembolică, antibioterapie continuată conform duratei stabilite, kinetoterapie progresivă, urmărire radiografică (RUST) la 6 săptămâni, 3 luni, 6 luni, monitorizare pentru recidivă infecțioasă.
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Fără tratament, evoluția este spre deformare progresivă, degradare articulară secundară și, în forma septică, infecție cronică fistulizantă cu risc sistemic. Complicații ale bolii: discrepanță de lungime, handicap funcțional cronic. Complicații ale tratamentului: eșecul exchange nailing sau al reconstrucției, recidiva infecției, complicații de sit donator la RIA, pierderea membranei induse la manipulare intempestivă. Prognostic funcțional: bun pentru pseudartroza aseptică hipertrofică tratată prompt (70 la 90% consolidare); mai rezervat pentru forma atrofică și septică, cu tratament de durată (luni, uneori peste 1 an) dar rate de succes bune la selecție corectă a cazurilor. Urmărire: pe termen lung, cu monitorizare a recidivei infecțioase și a consolidării finale.
+Fără tratament, evoluția e spre deformare progresivă, degradare articulară secundară și, în forma septică, infecție cronică fistulizantă. Complicații ale bolii: discrepanță de lungime, handicap funcțional cronic. Complicații ale tratamentului: eșecul reconstrucției, recidiva infecției, pierderea membranei induse la manipulare intempestivă. Prognostic: bun pentru forma hipertrofică tratată prompt (70 la 90%); mai rezervat pentru atrofică și septică, cu tratament de durată dar rate de succes bune la selecție corectă. Urmărire: pe termen lung, monitorizare a recidivei și consolidării.
 
 ### Fraze-cheie
 
