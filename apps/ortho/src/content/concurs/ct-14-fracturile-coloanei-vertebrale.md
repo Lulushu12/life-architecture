@@ -136,14 +136,13 @@ Fără tratament corect, evoluția este spre cifoză progresivă, instabilitate 
 
 ### Fraze-cheie
 
-- Complexul ligamentar posterior este cel mai important predictor de instabilitate mecanică la fracturile toraco-lombare și schimbă decizia terapeutică în zona gri TLICS.
-- Un scor TLICS sub 4 orientează spre tratament nonoperator, peste 4 spre tratament chirurgical, 4 fiind o zonă gri decisă individual.
-- Sacral sparing, prezența sensibilității perianale și a contracției voluntare a sfincterului anal, este cel mai important semn clinic de leziune medulară incompletă.
-- Decompresia chirurgicală în leziunea medulară cu deficit incomplet trebuie efectuată ideal sub 24 de ore, conform dovezilor din studiul STASCIS.
-- Regula Spence, deplasarea laterală combinată a maselor laterale C1 peste 6,9mm, indică ruptura ligamentului transvers și instabilitate C1-C2.
-- Tracțiunea este contraindicată la fractura hangman tip IIA, pentru riscul de agravare a distracției și a leziunii neurologice.
-- RMN este obligatorie pentru evaluarea complexului ligamentar posterior și a stării medulare, complementară CT-ului care caracterizează osul.
-- SCIWORA la copil este o leziune medulară fără anomalie radiografică vizibilă, diagnosticată prin RMN, datorită elasticității ligamentare crescute la această vârstă.
+- Complexul ligamentar posterior este cel mai important predictor de instabilitate mecanică și schimbă decizia terapeutică în zona gri TLICS.
+- Un scor TLICS sub 4 orientează spre nonoperator, peste 4 spre chirurgical, 4 fiind zonă gri decisă individual.
+- Sacral sparing este cel mai important semn clinic de leziune medulară incompletă.
+- Decompresia chirurgicală la deficit incomplet trebuie efectuată ideal sub 24 de ore, conform STASCIS.
+- Regula Spence, deplasarea combinată a maselor laterale C1 peste 6,9mm, indică ruptura ligamentului transvers și instabilitate C1-C2.
+- Tracțiunea este contraindicată la hangman tip IIA, pentru riscul de agravare a distracției și leziunii neurologice.
+- RMN este obligatorie pentru PLC și starea medulară, complementară CT-ului care caracterizează osul.
 
 ## Întrebările comisiei
 
@@ -187,7 +186,7 @@ Fără tratament corect, evoluția este spre cifoză progresivă, instabilitate 
 **R:** Fracturile Chance sunt clasic asociate cu leziuni intraabdominale (mezenter, intestin) prin același mecanism de centură de siguranță; solicit evaluare chirurgicală abdominală de urgență în paralel cu managementul vertebral, pentru că aceste leziuni pot fi oculte și pun viața în pericol mai acut decât fractura vertebrală.
 
 ### Î14. Care sunt argumentele pentru fixare short-segment versus long-segment în fracturile burst toraco-lombare?
-**R:** Fixarea short-segment (un nivel supra- și subiacent) este mai puțin invazivă și păstrează mai multă mobilitate segmentară, dar are risc mai mare de eșec/cifozare secundară la cominuție severă a coloanei anterioare fără suport. Fixarea long-segment (mai multe niveluri) oferă stabilitate biomecanică superioară în cominuții severe, cu prețul rigidizării unui segment mai lung; alegerea depinde de gradul de distrucție a coloanei anterioare și de calitatea osoasă.
+**R:** Short-segment (un nivel supra- și subiacent) este mai puțin invazivă, dar are risc mai mare de eșec la cominuție severă fără suport anterior. Long-segment oferă stabilitate superioară în cominuții severe, cu prețul rigidizării unui segment mai lung; alegerea depinde de gradul de distrucție anterioară și de calitatea osoasă.
 
 ### Î15. Ce faceți dacă un pacient cu leziune medulară cervicală înaltă (peste C5) prezintă dificultăți respiratorii la internare?
-**R:** Prioritizez imediat căile aeriene și suportul respirator (poate necesita intubare precoce, dat fiind riscul de paralizie diafragmatică sau a musculaturii intercostale la leziuni cervicale înalte), monitorizare în terapie intensivă, și abordez fixarea/decompresia chirurgicală cât mai rapid posibil odată ce pacientul este stabilizat respirator și hemodinamic, pentru a maximiza șansele de recuperare neurologică.
+**R:** Prioritizez imediat căile aeriene și suportul respirator (posibilă intubare precoce, prin riscul de paralizie diafragmatică/intercostală), monitorizare în terapie intensivă, și abordez fixarea/decompresia cât mai rapid odată ce pacientul este stabilizat, pentru a maximiza șansele de recuperare neurologică.
