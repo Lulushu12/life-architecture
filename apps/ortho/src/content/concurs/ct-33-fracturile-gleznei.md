@@ -12,7 +12,7 @@ related: classifications/weber-danis-classification-ankle-fracture, classificati
 
 ### Definiție și epidemiologie
 
-Fractura de gleznă este soluția de continuitate la nivelul mortezei tibio-fibulo-astragaliene, implicând una, două sau trei maleole (bimaleolară, trimaleolară) și, uneori, sindesmoza tibio-fibulară distală. Este una din cele mai frecvente fracturi tratate chirurgical, incidență de aproximativ 100 până la 200 la 100.000 de persoane/an, distribuție bimodală: tineri (energie mare, sport, accidente), vârstnici (fragilitate osoasă, cădere de la același nivel).
+Fractura de gleznă este soluția de continuitate la nivelul mortezei tibio-fibulo-astragaliene, implicând una, două sau trei maleole și, uneori, sindesmoza tibio-fibulară distală. Este una din cele mai frecvente fracturi tratate chirurgical, incidență de 100 până la 200 la 100.000 persoane/an, distribuție bimodală: tineri (energie mare, sport, accidente), vârstnici (fragilitate osoasă, cădere de la același nivel).
 
 ### Anatomie și biomecanică relevantă
 
@@ -55,21 +55,21 @@ Durere, tumefacție, echimoză perimaleolară, deformare vizibilă în fracturil
 
 ### Imagistică și explorări
 
-Radiografii AP, laterale și mortez (15 până la 20 grade rotație internă) ale gleznei. Criterii de stabilitate: overlap tibiofibular sub 6 mm pe AP normal (peste, suspiciune de diastază), clear space tibiofibular sub 6 mm, unghiul talocrural 83 ± 4 grade, medial clear space sub 4 până la 5 mm (peste, suspiciune de leziune deltoidiană/instabilitate medială). Radiografii de stres (gravity stress view sau external rotation stress view) pentru fracturi izolate de maleolă laterală, când stabilitatea e incertă clinic, pentru a decide tratament conservator versus chirurgical. CT pentru fracturi de maleolă posterioară (evaluarea dimensiunii fragmentului și congruenței) și pentru fracturi comminutive. Radiografie de gambă completă la suspiciune de Maisonneuve (durere la capul fibulei).
+Radiografii AP, laterale și mortez (15 până la 20 grade rotație internă). Criterii de stabilitate: overlap tibiofibular sub 6 mm pe AP normal (peste, suspiciune de diastază), clear space sub 6 mm, unghiul talocrural 83 ± 4 grade, medial clear space sub 4 până la 5 mm (peste, suspiciune de leziune deltoidiană). Radiografii de stres (gravity stress sau external rotation stress) pentru fracturi izolate de maleolă laterală cu stabilitate incertă clinic. CT pentru maleolă posterioară (dimensiunea fragmentului, congruența) și fracturi comminutive. Radiografie de gambă completă la suspiciune de Maisonneuve.
 
 ### Diagnostic diferențial
 
-Entorsă de gleznă (fără fractură radiologic, ligamentar pur), fractura de proces lateral al astragalului (durere anterolaterală, alt sediu), fractura osteocondrală de dom astragalian (durere articulară profundă, vizibilă la RMN/CT), fractura Jones/avulsie bază metatarsian V (durere la baza laterală a piciorului, palpare separată obligatorie), leziune de tendon peronier (durere retromaleolară laterală, testare specifică).
+Entorsă de gleznă (fără fractură radiologic), fractura de proces lateral al astragalului (durere anterolaterală, alt sediu), fractura osteocondrală de dom astragalian (durere articulară profundă, vizibilă la RMN/CT), fractura Jones/avulsie bază metatarsian V (durere laterală, palpare separată obligatorie), leziune de tendon peronier (durere retromaleolară, testare specifică).
 
 ### Tratament
 
-**Conservator (Weber B stabil):** cizmă de mers (walking boot) sau gips, sprijin conform toleranței (WBAT, weight bearing as tolerated) pentru fracturi de maleolă laterală izolate, stabile clinic și radiologic (fără deplasare, medial clear space normal, fără instabilitate la stres). Reevaluare radiologică la 1 și 2 săptămâni pentru a exclude deplasare secundară.
+**Conservator (Weber B stabil):** cizmă de mers sau gips, sprijin conform toleranței (WBAT) pentru fracturi izolate de maleolă laterală, stabile clinic și radiologic (fără deplasare, medial clear space normal, fără instabilitate la stres). Reevaluare radiologică la 1 și 2 săptămâni pentru a exclude deplasare secundară.
 
-**Chirurgical, indicații:** fractură bimaleolară/trimaleolară deplasată, instabilitate a sindesmozei, fractură Weber C, fractură-luxație, fractură deschisă, fractură cu medial clear space peste 4 până la 5 mm sau instabilă la stres.
+**Chirurgical, indicații:** fractură bimaleolară/trimaleolară deplasată, instabilitate a sindesmozei, Weber C, fractură-luxație, fractură deschisă, sau medial clear space peste 4 până la 5 mm/instabilă la stres.
 
 **Tehnică, principii:** fibula, placă în neutralizare plus șurub de compresie interfragmentar (lag screw) pentru fracturi spiroide/oblice, sau placă antiglide posterioară pentru fracturi transverse/scurte oblice, restaurând lungimea, rotația și alinierea fibulei (reperul cel mai important pentru congruența mortezei). Maleola medială: 2 șuruburi de compresie paralele sau șurub plus broșă antirotațională, bandă de tensiune la fragmente mici de avulsie. Maleola posterioară: fixare directă indicată la fragment peste 25% din suprafața articulară, deplasare peste 2 mm, sau instabilitate reziduală după fixarea fibulei și maleolei mediale (reface și inserția PITFL, reducând nevoia de șurub de sindesmoză separat). Sindesmoza: șurub transsindesmotic (1 până la 3 șuruburi, 2 până la 4 cm proximal de articulație, glezna în flexie dorsală neutră pentru a evita overcompresia) versus suture button, cu avantaj de mobilizare mai precoce și rezultate cel puțin echivalente.
 
-**Fracturi deschise de gleznă:** protocol standard fracturi deschise (antibioterapie, debridare, fixare conform gradului Gustilo-Anderson), frecvent fixare provizorie cu fixator extern dacă părțile moi sunt compromise, fixare definitivă diferată.
+**Fracturi deschise de gleznă:** protocol standard (antibioterapie, debridare, fixare conform gradului Gustilo-Anderson), frecvent fixare provizorie cu fixator extern dacă părțile moi sunt compromise, fixare definitivă diferată.
 
 **Pacientul vârstnic și diabetic:** placă cu blocare (locking plate) pentru os osteoporotic, fixare augmentată (șuruburi suplimentare, fibulă intramedulară la os foarte fragil), sprijin fără încărcare (NWB) prelungit (8 până la 12 săptămâni la diabetic cu neuropatie, risc de Charcot postoperator), considerare de artrodeză primară tibio-talo-calcaneană la neuropatie severă cu instabilitate marcată.
 
@@ -81,7 +81,7 @@ Infecție de plagă (mai frecventă la diabetic, fumător, edem sever preoperato
 
 ### Evoluție și prognostic
 
-Fracturile tratate corect (conservator sau chirurgical, conform stabilității) au prognostic funcțional bun, revenire la activitate normală la 3 până la 6 luni. Reducerea imperfectă a mortezei (chiar diferențe de 1 până la 2 mm) crește semnificativ riscul de artroză post-traumatică pe termen lung. Vârstnicii și diabeticii au risc mai mare de complicații de plagă și de consolidare întârziată.
+Fracturile tratate corect au prognostic funcțional bun, revenire la activitate normală la 3 până la 6 luni. Reducerea imperfectă a mortezei (chiar diferențe de 1 până la 2 mm) crește riscul de artroză post-traumatică pe termen lung. Vârstnicii și diabeticii au risc mai mare de complicații de plagă și consolidare întârziată.
 
 ## Script de prezentare
 
@@ -99,9 +99,9 @@ General: stare generală, semne de șoc dacă traumatism de energie mare. Local,
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: fractură de gleznă [bimaleolară/trimaleolară], Weber [A/B/C], Lauge-Hansen [SER/PER/PAB/SAD stadiul corespunzător], pe baza durerii și deformării locale și a aspectului radiografic (nivelul fracturii fibulare, medial clear space, congruența mortezei) pe radiografiile AP, laterale și mortez.
+Diagnostic pozitiv: fractură de gleznă [bimaleolară/trimaleolară], Weber [A/B/C], Lauge-Hansen [SER/PER/PAB/SAD, stadiul corespunzător], pe baza durerii și deformării locale și a aspectului radiografic (nivelul fracturii fibulare, medial clear space, congruența mortezei).
 
-Diagnostice secundare de reținut: leziune de sindesmoză asociată, fractură de maleolă posterioară, leziune Maisonneuve dacă durere la capul fibulei.
+Diagnostice secundare: leziune de sindesmoză asociată, fractură de maleolă posterioară, Maisonneuve dacă durere la capul fibulei.
 
 ### 5. Diagnostic diferențial (1 min)
 

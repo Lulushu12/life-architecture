@@ -12,19 +12,19 @@ related: classifications/ruedi-allgower-classification-pilon, classifications/ao
 
 ### Definiție și epidemiologie
 
-Fractura de pilon tibial este fractura articulară a metafizei tibiale distale cu extensie la suprafața portantă a articulației tibio-astragaliene, rezultată tipic din încărcare axială, diferită mecanic și prognostic de fractura maleolară standard (rotațională, tratată separat). Reprezintă 5 până la 7% din fracturile de tibie și 1% din fracturile membrului inferior, cu morbiditate disproporționat de mare din cauza leziunii de părți moi și cominuției articulare. Incidența maximă la adulți tineri (accidente rutiere, cădere de la înălțime) și la vârstnici (cădere de la același nivel, os osteoporotic, energie mai mică dar impact articular similar).
+Fractura de pilon tibial este fractura articulară a metafizei tibiale distale cu extensie la suprafața portantă a articulației tibio-astragaliene, rezultată tipic din încărcare axială, diferită mecanic și prognostic de fractura maleolară standard (rotațională, tratată separat). Reprezintă 5 până la 7% din fracturile de tibie, cu morbiditate disproporționat de mare din cauza leziunii de părți moi și cominuției articulare. Incidența maximă la adulți tineri (accidente rutiere, cădere de la înălțime) și la vârstnici (cădere de la același nivel, os osteoporotic, energie mai mică dar impact articular similar).
 
 ### Anatomie și biomecanică relevantă
 
-Diferența esențială față de fractura maleolară: pilonul tibial suportă direct greutatea corpului prin suprafața articulară tibio-astragaliană, astfel încât mecanismul de compresie axială (cădere de la înălțime, accident cu decelerare) transmite energie direct prin astragal în platoul tibial distal, cominuând suprafața articulară și impactând osul spongios metafizar (impacția articulară e caracteristică pilonului, absentă în fractura maleolară pur rotațională). Țesuturile moi anterioare ale gambei distale sunt subcutanate, cu vascularizație precară, motiv pentru care leziunea de părți moi (edem, flictene) precede și limitează fereastra chirurgicală. Fibula este frecvent fracturată concomitent (peste 75 până la 85%), iar fixarea ei precoce (versus diferată) rămâne dezbătută în protocolul stadializat.
+Diferența esențială față de fractura maleolară: pilonul tibial suportă direct greutatea corpului prin suprafața articulară tibio-astragaliană, astfel încât mecanismul de compresie axială (cădere de la înălțime, accident cu decelerare) transmite energie direct prin astragal în platoul tibial distal, cominuând suprafața articulară și impactând osul spongios metafizar (impacția articulară e caracteristică pilonului, absentă în fractura maleolară pur rotațională). Țesuturile moi anterioare ale gambei distale sunt subcutanate, cu vascularizație precară, motiv pentru care leziunea de părți moi (edem, flictene) precede și limitează fereastra chirurgicală. Fibula este frecvent fracturată concomitent (peste 75 până la 85%), iar fixarea ei precoce versus diferată rămâne dezbătută.
 
 ### Etiopatogenie
 
-Mecanism axial de compresie (cădere de la înălțime, accident cu decelerare pe pedala de frână) predomină în fracturile de energie mare, cu cominuție articulară severă și leziune de părți moi importantă. Mecanism rotațional cu componentă axială (torsiune plus cădere) produce fracturi de energie mai mică, cu cominuție redusă, prognostic mai bun. Fracturile de energie mare sunt frecvent asociate cu politraumatism (necesită evaluare sistemică conform principiilor damage control), fracturi ipsilaterale de platou tibial/calcaneu ("floating ankle" în anumite combinații), și leziuni de coloană/pelvis prin transmitere axială la impact.
+Mecanism axial de compresie (cădere de la înălțime, accident cu decelerare pe pedala de frână) predomină la fracturile de energie mare, cu cominuție articulară severă și leziune de părți moi importantă. Mecanism rotațional cu componentă axială (torsiune plus cădere) produce fracturi de energie mai mică, cominuție redusă, prognostic mai bun. Fracturile de energie mare se asociază frecvent cu politraumatism (evaluare sistemică damage control), fracturi ipsilaterale de platou tibial/calcaneu, și leziuni de coloană/pelvis prin transmitere axială la impact.
 
 ### Anatomie patologică
 
-Cominuția metafizară cu impacție a osului spongios subcondral, fragmente articulare multiple deplasate, adesea cu un fragment central impresionat ("die-punch"), leziune capsulo-ligamentară asociată. Leziunea de părți moi este parte integrantă a bolii, nu doar o complicație: edem tensionat, flictene (seroase sau hemoragice, acestea din urmă semnificând leziune dermică mai profundă), posibil necroză cutanată precoce la fracturile de energie mare.
+Cominuția metafizară cu impacție a osului spongios subcondral, fragmente articulare multiple deplasate, adesea cu un fragment central impresionat ("die-punch"), leziune capsulo-ligamentară asociată. Leziunea de părți moi e parte integrantă a bolii, nu doar o complicație: edem tensionat, flictene (seroase sau hemoragice, cele hemoragice semnificând leziune dermică mai profundă), posibil necroză cutanată precoce la energie mare.
 
 ### Clasificare
 
@@ -58,7 +58,7 @@ Fractura maleolară standard (mecanism rotațional, fără impacție articulară
 
 ### Tratament
 
-**Protocol stadializat (staged protocol), standardul actual pentru fracturile de energie mare/Rüedi III:** Timpul 1 (urgență): fixator extern spanning (de la tibie proximală la calcaneu/metatarsiene, "trecând" articulația), reducere provizorie a alinierii lungimii și axului, elevare, monitorizare pentru sindrom de compartiment. Fixarea fibulei în acest timp e dezbătută: unii autori o fixează precoce pentru a restaura lungimea ca reper pentru reducerea tibiei, alții o diferă la timpul 2 pentru a nu compromite adițional părțile moi laterale. Timpul 2 (fixare definitivă, la 10 până la 21 de zile, ghidat de "wrinkle sign" și remisia edemului, nu de un calendar fix): CT efectuat între timpi pentru planificarea definitivă, ORIF cu abord adaptat pattern-ului de fractură.
+**Protocol stadializat, standardul actual pentru fracturile de energie mare/Rüedi III:** Timpul 1 (urgență): fixator extern spanning (de la tibie proximală la calcaneu/metatarsiene), reducere provizorie a lungimii și axului, elevare, monitorizare pentru sindrom de compartiment. Fixarea fibulei e dezbătută: unii o fixează precoce ca reper pentru reducerea tibiei, alții o diferă la timpul 2 pentru a nu compromite adițional părțile moi laterale. Timpul 2 (fixare definitivă, la 10 până la 21 zile, ghidat de "wrinkle sign", nu de un calendar fix): CT efectuat între timpi pentru planificare, ORIF cu abord adaptat pattern-ului de fractură.
 
 **Aborduri:** anteromedial (cel mai folosit, expune fragmentele anteromediale și medial, risc pentru safena/vena safenă mare), anterolateral (pentru fragmente anterolaterale, tip Chaput, între tibialul anterior și extensorii), posterolateral (pentru fragmentul posterolateral Volkmann, cu pacientul în decubit ventral sau lateral, între peronieri și flexorul lung al policelui), medial direct (pentru fracturi cu componentă predominant medială simplă). Regula fundamentală: menținerea unui pod cutanat (skin bridge) de minim 7 cm între două incizii, pentru a evita necroza cutanată intermediară.
 
@@ -72,7 +72,7 @@ Fractura maleolară standard (mecanism rotațional, fără impacție articulară
 
 ### Complicații
 
-Dehiscență de plagă/necroză cutanată (istoric 10 până la 30%, redusă semnificativ prin protocolul stadializat modern), infecție profundă (5 până la 10%, mai frecventă la fixare precoce pe părți moi compromise), nonunion (rar la nivel metafizar bine vascularizat, mai frecvent la cominuție severă cu defect osos), malunion (varus/valgus, incongruență articulară reziduală), artroză post-traumatică (până la 50% pe termen lung, proporțională cu gradul de cominuție și calitatea reducerii articulare), rigiditate de gleznă.
+Dehiscență de plagă/necroză cutanată (istoric 10 până la 30%, redusă semnificativ prin protocolul stadializat), infecție profundă (5 până la 10%, mai frecventă la fixare precoce pe părți moi compromise), nonunion (rar la nivel metafizar bine vascularizat, mai frecvent la cominuție severă cu defect osos), malunion (varus/valgus, incongruență reziduală), artroză post-traumatică (până la 50% pe termen lung, proporțională cu cominuția și calitatea reducerii), rigiditate de gleznă.
 
 ### Evoluție și prognostic
 
@@ -94,9 +94,9 @@ General: evaluare politraumă conform ATLS dacă mecanism de energie mare. Local
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: fractură de pilon tibial [dreapta/stânga], Rüedi-Allgöwer tip [I/II/III], AO/OTA 43-[A/B/C], pe baza mecanismului de compresie axială, a deformării și tumefacției locale, și a aspectului de cominuție/impacție articulară pe radiografie și CT.
+Diagnostic pozitiv: fractură de pilon tibial [dreapta/stânga], Rüedi-Allgöwer tip [I/II/III], AO/OTA 43-[A/B/C], pe baza mecanismului de compresie axială, deformării locale, și aspectului de cominuție/impacție articulară pe radiografie și CT.
 
-Diagnostice secundare de reținut: leziune de fibulă asociată (peste 75 până la 85%), leziuni ipsilaterale la energie mare (platou tibial, calcaneu), sindrom de compartiment incipient.
+Diagnostice secundare: leziune de fibulă asociată (peste 75 până la 85%), leziuni ipsilaterale la energie mare (platou tibial, calcaneu), sindrom de compartiment incipient.
 
 ### 5. Diagnostic diferențial (1 min)
 

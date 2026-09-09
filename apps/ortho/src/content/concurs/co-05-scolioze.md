@@ -65,23 +65,23 @@ Atitudine scoliotică posturală (asimetrie fără rotație vertebrală structur
 - Debut precoce (sub 10 ani): tehnici de creștere ghidată (growing rods, VEPTR), cu revizii periodice, urmate de fuziune definitivă la maturitate.
 - Degenerativă a adultului: durere refractară, deficit neurologic, dezechilibru sagital progresiv, sau progresie documentată; decompresie cu fuziune instrumentată, extinsă adesea la osteotomii de corecție (pedicle subtraction osteotomy) pentru dezechilibru sagital sever.
 
-**Tehnică principii (AIS):** fuziune posterioară instrumentată cu șuruburi pediculare (standardul actual, a înlocuit crochetele din tehnicile mai vechi), corecție prin derotație/translație pe tije conturate, selecția nivelurilor ghidată de Lenke.
+**Tehnică principii (AIS):** fuziune posterioară cu șuruburi pediculare (standardul actual, a înlocuit crochetele), corecție prin derotație/translație pe tije conturate, nivelurile ghidate de Lenke.
 
-**Evidence:** BrAIST a stabilit rolul corsetului la curbe 25 la 40 grade la copil imatur. Fuziunea instrumentată posterioară are rate de corecție de 60 la 70% (?) și rezultate funcționale/calitate a vieții bune pe termen lung.
+**Evidence:** BrAIST a stabilit rolul corsetului la curbe 25 la 40 grade. Fuziunea instrumentată posterioară are rate de corecție de 60 la 70% (?) și rezultate funcționale bune pe termen lung.
 
 ### Complicații
 
-Ale bolii: progresie a curbei, restricție pulmonară la curbe toracice severe peste 80 la 100 grade, dezechilibru sagital progresiv, durere cronică. Ale tratamentului: la corset, intoleranță/iritație cutanată; chirurgical, pseudartroza, infecție profundă, leziune neurologică (risc mai mare la osteotomii severe), decompensare a segmentului adiacent (junctional kyphosis), pierderea corecției pe termen lung, complicații ale instrumentației.
+Ale bolii: progresie a curbei, restricție pulmonară la curbe toracice severe, dezechilibru sagital progresiv, durere cronică. Ale tratamentului: la corset, intoleranță/iritație cutanată; chirurgical, pseudartroza, infecție profundă, leziune neurologică, junctional kyphosis, pierderea corecției pe termen lung.
 
 ### Evoluție și prognostic
 
-AIS netratată: curbele mici (sub 30 grade) progresează rar la adult; curbele mari (peste 50 la 60 grade) continuă să progreseze (aproximativ 1 grad/an (?)), cu risc de restricție pulmonară și durere cronică. Cu corset la timp, progresia peste pragul chirurgical este redusă semnificativ. Cu fuziune adecvată, corecția se menține pe termen lung la majoritatea pacienților. Scolioza degenerativă a adultului are evoluție lent progresivă, prognosticul depinzând mai mult de dezechilibrul sagital decât de unghiul Cobb pur.
+AIS netratată: curbele mici (sub 30 grade) progresează rar la adult; curbele mari (peste 50 la 60 grade) continuă să progreseze (aproximativ 1 grad/an (?)). Cu corset la timp, progresia peste pragul chirurgical este redusă semnificativ. Cu fuziune adecvată, corecția se menține pe termen lung la majoritatea pacienților. Scolioza degenerativă a adultului are evoluție lent progresivă, prognosticul depinzând mai mult de dezechilibrul sagital decât de unghiul Cobb.
 
 ## Script de prezentare
 
 ### 1. Prezentarea cazului (30 s)
 
-Pacientul/a în vârstă de [vârstă] ani, [profesie/elev], din [mediu], se prezintă pentru [asimetrie toracică/de umeri observată de părinți la copil / durere lombară cu deformare progresivă la adult], cu debut de aproximativ [durata].
+Pacientul/a în vârstă de [vârstă] ani, [profesie/elev], din [mediu], se prezintă pentru [asimetrie toracică observată de părinți / durere lombară cu deformare progresivă], cu debut de aproximativ [durata].
 
 ### 2. Anamneză (2 min)
 
@@ -93,9 +93,9 @@ General: statură, greutate, semne de sindrom asociat (Marfan: arahnodactilie, h
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: scolioză idiopatică [a adolescentului/degenerativă a adultului] [toracică/lombară/toraco-lombară], curbă de [X] grade Cobb, Risser [stadiu] (la copil), tip Lenke [tip] (dacă AIS chirurgicală) sau clasificare SRS-Schwab [tip] (dacă adult), pe baza asimetriei clinice cu test Adams pozitiv și a măsurării unghiului Cobb pe radiografia coloanei întregi în ortostatism.
+Diagnostic pozitiv: scolioză idiopatică [a adolescentului/degenerativă a adultului] [toracică/lombară], curbă de [X] grade Cobb, Risser [stadiu] (la copil), tip Lenke [tip] sau SRS-Schwab [tip] (dacă adult), pe baza asimetriei clinice cu test Adams pozitiv și a măsurării unghiului Cobb pe radiografia coloanei întregi.
 
-Diagnostice secundare de reținut: excluderea unei cauze secundare (RMN dacă indicat), evaluarea maturității scheletice, evaluarea parametrilor spinopelvici la adult.
+Diagnostice secundare: excluderea unei cauze secundare (RMN dacă indicat), maturitatea scheletică, parametrii spinopelvici la adult.
 
 ### 5. Diagnostic diferențial (1 min)
 
@@ -111,11 +111,11 @@ Obiective: la copil, prevenirea progresiei sau corecția chirurgicală a curbelo
 
 Tehnica fuziunii posterioare instrumentate în pași: 1) poziționare în decubit ventral, monitorizare neurofiziologică instalată; 2) abord posterior median, disecție subperiostală bilaterală până la vârful proceselor transverse, expunerea nivelurilor conform Lenke; 3) plasarea șuruburilor pediculare, cu control fluoroscopic pentru traiectorie corectă; 4) osteotomii Ponte la nivelurile rigide, pentru mobilitate segmentară dacă e necesar; 5) contururarea tijelor conform profilului sagital dorit; 6) manevre de corecție (derotație, translație, compresie/distracție) pentru a reduce unghiul Cobb și a restabili echilibrul; 7) verificare cu monitorizare neurofiziologică continuă pentru integritatea neurologică; 8) decorticare osoasă și grefă osoasă pe toată lungimea fuziunii, hemostază, drenaj, închidere în straturi.
 
-Protocol postoperator: mobilizare precoce în 24 la 48 ore, fără corset extern de regulă necesar, evitarea flexiei/torsiunii extreme 3 la 6 luni, reluarea sportului de contact la 6 la 12 luni conform consolidării, urmărire radiografică la 6 săptămâni, 3 luni, 1 an, apoi anual.
+Protocol postoperator: mobilizare precoce în 24 la 48 ore, fără corset extern necesar, evitarea flexiei/torsiunii extreme 3 la 6 luni, reluarea sportului de contact la 6 la 12 luni, urmărire radiografică la 6 săptămâni, 3 luni, 1 an, apoi anual.
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Fără tratament, curbele mari la copil progresează rapid; la adult, curbele peste 50 la 60 grade continuă lent (aproximativ 1 grad/an (?)). Complicații ale bolii: restricție pulmonară, durere cronică, dezechilibru sagital progresiv. Complicații ale tratamentului: pseudartroza, infecție, leziune neurologică (rară dar gravă), junctional kyphosis, pierderea parțială a corecției pe termen lung. Prognosticul funcțional este bun cu tratament la momentul potrivit. Urmărire: radiografică periodică, la copil până la finalul creșterii, la adult indefinit.
+Fără tratament, curbele mari la copil progresează rapid; la adult, curbele peste 50 la 60 grade continuă lent (1 grad/an (?)). Complicații ale bolii: restricție pulmonară, durere cronică, dezechilibru sagital progresiv. Complicații ale tratamentului: pseudartroza, infecție, leziune neurologică (rară dar gravă), junctional kyphosis, pierderea parțială a corecției pe termen lung. Prognosticul funcțional este bun cu tratament la momentul potrivit. Urmărire: radiografică periodică, la copil până la finalul creșterii, la adult indefinit.
 
 ### Fraze-cheie
 
@@ -123,10 +123,10 @@ Fără tratament, curbele mari la copil progresează rapid; la adult, curbele pe
 - Unghiul Cobb se măsoară între perpendicularele pe platourile vertebrei limitantă superioară și inferioară ale curbei.
 - Testul Adams cu privire tangențială din spate este cel mai sensibil semn clinic pentru rotația vertebrală structurală.
 - Studiul BrAIST a demonstrat că corsetul reduce progresia peste 50 grade la curbe 25 la 40 grade, cu efect dependent de complianța la purtare.
-- Clasificarea Lenke, prin curbele structurale versus compensatorii identificate pe radiografiile de flexibilitate, determină nivelurile de fuziune.
-- O curbă stângă toracică sau durere marcată la un copil cu scolioză impune RMN pentru a exclude o cauză intraspinală.
-- La scolioza degenerativă a adultului, echilibrul sagital global influențează simptomatologia mai mult decât magnitudinea pură a unghiului Cobb.
-- Fuziunea posterioară instrumentată cu șuruburi pediculare este standardul actual, cu monitorizare neurofiziologică intraoperatorie obligatorie.
+- Clasificarea Lenke, prin curbele structurale versus compensatorii, determină nivelurile de fuziune.
+- O curbă stângă toracică sau durere marcată la un copil impune RMN pentru a exclude o cauză intraspinală.
+- La scolioza degenerativă a adultului, echilibrul sagital global influențează simptomatologia mai mult decât unghiul Cobb.
+- Fuziunea posterioară cu șuruburi pediculare este standardul actual, cu monitorizare neurofiziologică intraoperatorie obligatorie.
 
 ## Întrebările comisiei
 
@@ -137,31 +137,31 @@ Fără tratament, curbele mari la copil progresează rapid; la adult, curbele pe
 **R:** Risser 0 înseamnă absența osificării apofizei iliace, 1 la 4 marchează progresia osificării de la 25% la 100%, Risser 5 marchează fuziunea completă cu creasta iliacă. Este important pentru că riscul de progresie este maxim la Risser 0 la 2, perioadă în care corsetul are cea mai mare eficacitate.
 
 ### Î3. Ce faceți dacă descoperiți la un copil de 8 ani o curbă scoliotică toracică stângă?
-**R:** O curbă toracică stângă este atipică pentru scolioza idiopatică (care este de regulă toracică dreaptă) și impune RMN coloană întreagă obligatoriu, pentru a exclude o cauză secundară precum siringomielia, malformația Chiari, tumora medulară sau diastematomielia, înainte de a considera diagnosticul de idiopatică.
+**R:** O curbă toracică stângă este atipică pentru scolioza idiopatică (de regulă toracică dreaptă) și impune RMN coloană întreagă obligatoriu, pentru a exclude siringomielia, malformația Chiari sau tumora medulară, înainte de a considera diagnosticul de idiopatică.
 
 ### Î4. Cum se folosește clasificarea Lenke pentru a decide nivelurile de fuziune?
 **R:** Lenke identifică tipul curbei principale (1 la 6) și evaluează, prin radiografiile de flexibilitate, care curbe sunt structurale (trebuie incluse în fuziune) și care sunt compensatorii (pot fi lăsate libere), combinând aceasta cu modificatorul lombar și sagital toracic pentru a stabili extinderea fuziunii.
 
 ### Î5. Ce faceți dacă un adolescent cu curbă de 35 grade purtând corset progresează la 45 grade?
-**R:** Reevaluez complianța la purtarea corsetului (ore/zi), confirm progresia prin radiografie standardizată comparativă, și dacă progresia este confirmată dincolo de pragul de eficacitate a corsetului, discut cu familia trecerea la tratament chirurgical, mai ales dacă pacientul are creștere rămasă semnificativă (Risser scăzut).
+**R:** Reevaluez complianța la purtarea corsetului, confirm progresia prin radiografie standardizată comparativă, și dacă progresia este confirmată dincolo de pragul de eficacitate al corsetului, discut cu familia trecerea la tratament chirurgical, mai ales dacă are creștere rămasă semnificativă (Risser scăzut).
 
 ### Î6. Ce este studiul BrAIST și ce a demonstrat?
-**R:** Este un trial randomizat de referință care a comparat corsetul cu observația la adolescenți cu AIS și curbă 20 la 40 grade, demonstrând o reducere semnificativă a ratei de progresie peste 50 grade (prag chirurgical) în grupul cu corset, cu un efect dependent de doza de purtare, peste 12 la 13 ore/zi asociind cele mai bune rezultate.
+**R:** Este un trial randomizat de referință care a comparat corsetul cu observația la adolescenți cu AIS și curbă 20 la 40 grade, demonstrând o reducere semnificativă a progresiei peste 50 grade (prag chirurgical) în grupul cu corset, cu efect dependent de doza de purtare, peste 12 la 13 ore/zi asociind cele mai bune rezultate.
 
 ### Î7. Ce faceți dacă în timpul corecției chirurgicale monitorizarea neurofiziologică arată scădere semnificativă a potențialelor evocate?
-**R:** Opresc imediat manevra de corecție, verific și corectez eventuali factori sistemici (tensiune arterială, temperatură, anemie), reduc gradul de corecție/relaxez tensiunea pe tije, și dacă potențialele nu se recuperează, efectuez wake-up test intraoperator pentru a evalua funcția motorie a pacientului treaz, ajustând strategia chirurgicală în consecință.
+**R:** Opresc imediat manevra de corecție, verific factori sistemici (tensiune arterială, temperatură, anemie), reduc gradul de corecție/relaxez tensiunea pe tije, și dacă potențialele nu se recuperează, efectuez wake-up test intraoperator pentru a evalua funcția motorie, ajustând strategia în consecință.
 
 ### Î8. Care sunt parametrii spinopelvici relevanți în scolioza degenerativă a adultului?
 **R:** SVA (sagittal vertical axis, distanța de la plumb-line C7 la marginea posterioară a S1, peste 4 la 5 cm asociată cu dizabilitate crescută), PT (pelvic tilt, compensare pelvină), și PI-LL mismatch (discrepanța dintre incidența pelvină fixă și lordoza lombară măsurată), toți ghidând decizia pentru osteotomii de corecție.
 
 ### Î9. Ce faceți dacă un pacient adult cu scolioză degenerativă are stenoză simptomatică pe o singură radiculopatie, fără dezechilibru sagital marcat?
-**R:** Dacă dezechilibrul sagital este minim și simptomul dominant este radiculopatia focală, pot considera o decompresie limitată, eventual fără fuziune extensivă, dar trebuie să evaluez risc de decompensare a curbei existente postdecompresie; dacă există instabilitate segmentară semnificativă la nivelul decompresiei, adaug fuziune scurtă instrumentată la acel nivel.
+**R:** Dacă dezechilibrul sagital este minim și simptomul dominant este radiculopatia focală, pot considera o decompresie limitată, fără fuziune extensivă, dar evaluez riscul de decompensare a curbei postdecompresie; dacă există instabilitate segmentară la nivelul decompresiei, adaug fuziune scurtă instrumentată.
 
 ### Î10. Care este rolul osteotomiilor de tip pedicle subtraction în scolioza adultului?
-**R:** Se folosesc pentru a corecta dezechilibrul sagital sever fix (rigiditate care nu permite corecție doar prin instrumentare posterioară standard), prin rezecția unei porțiuni în formă de V din pedicul, corp vertebral posterior și elemente posterioare la un singur nivel, obținând o corecție angulară de aproximativ 30 la 35 grade (?) la acel nivel, cu risc chirurgical și de sângerare semnificativ mai mare decât fuziunea standard.
+**R:** Se folosesc pentru dezechilibrul sagital sever fix, prin rezecția unei porțiuni în formă de V din pedicul și elementele posterioare la un singur nivel, obținând o corecție angulară de aproximativ 30 la 35 grade (?) la acel nivel, cu risc chirurgical și de sângerare mai mare decât fuziunea standard.
 
 ### Î11. Ce faceți dacă un pacient cu scolioză neuromusculară (paralizie cerebrală) prezintă o curbă severă cu bazin oblic?
-**R:** Evaluez impactul funcțional (poziționare în scaunul cu rotile, îngrijire, escare de decubit prin dezechilibru pelvin), și dacă indicația chirurgicală este confirmată, planific fuziune extinsă până la pelvis (fixare iliacă/S2AI) pentru a corecta obliquitatea pelvină, cu atenție crescută la riscul perioperator dat de comorbiditățile neurologice și nutriționale asociate acestor pacienți.
+**R:** Evaluez impactul funcțional (poziționare în scaunul cu rotile, escare de decubit prin dezechilibru pelvin), și dacă indicația chirurgicală e confirmată, planific fuziune extinsă până la pelvis (fixare iliacă/S2AI) pentru a corecta obliquitatea, cu atenție la riscul perioperator dat de comorbiditățile neurologice și nutriționale asociate.
 
 ### Î12. Cum diferențiați clinic scolioza idiopatică de o scolioză secundară discrepanței de lungime a membrelor inferioare?
-**R:** La scolioza secundară discrepanței de membre, asimetria de la testul Adams se corectează parțial sau complet prin plasarea unui calaj sub membrul mai scurt, iar rotația vertebrală structurală (gibozitatea) este absentă sau minimă; la scolioza idiopatică, gibozitatea persistă indiferent de calaj, confirmând rotația vertebrală structurală fixă.
+**R:** La scolioza secundară discrepanței de membre, asimetria de la testul Adams se corectează parțial sau complet cu un calaj sub membrul mai scurt, iar gibozitatea este absentă sau minimă; la scolioza idiopatică, gibozitatea persistă indiferent de calaj, confirmând rotația vertebrală structurală fixă.

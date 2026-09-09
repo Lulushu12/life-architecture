@@ -12,7 +12,7 @@ related: diagnoses/tibia-fractures, classifications/nonunion-types-classificatio
 
 ### Definiție și epidemiologie
 
-Pseudartroza (nonunion) este absența consolidării osoase la 6 până la 9 luni de la fractură, fără progresie radiologică pe două radiografii succesive la interval de minim 3 luni. Delayed union este stadiul intermediar, peste durata medie de consolidare a segmentului dar cu progresie încă vizibilă. Gamba este segmentul cu cea mai mare incidență de pseudartroză din tot scheletul, din cauza vascularizației precare pe fața anteromedială subcutanată și acoperirii musculare reduse în 1/3 distală. Incidența globală e 5 până la 10% după fracturi diafizare tratate cu tijă, crescând la fracturi deschise (10 până la 20%, mai mult în Gustilo IIIB/IIIC) și la 1/3 distală (15 până la 20%).
+Pseudartroza (nonunion) este absența consolidării osoase la 6 până la 9 luni de la fractură, fără progresie radiologică pe două radiografii succesive la interval de minim 3 luni. Delayed union este stadiul intermediar, peste durata medie de consolidare dar cu progresie încă vizibilă. Gamba are cea mai mare incidență de pseudartroză din tot scheletul, din cauza vascularizației precare pe fața anteromedială subcutanată și acoperirii musculare reduse în 1/3 distală. Incidența globală e 5 până la 10% după fracturi diafizare tratate cu tijă, crescând la fracturi deschise (10 până la 20%, mai mult în Gustilo IIIB/IIIC) și la 1/3 distală (15 până la 20%).
 
 ### Anatomie și biomecanică relevantă
 
@@ -39,11 +39,11 @@ Se descriu clasic două categorii biologice: hipertrofică (biologie bună, calu
 | Pseudartroză în defect (gap) | Pierdere osoasă segmentară | Depinde de mărimea defectului |
 | Distrofic | Necroză a unui fragment intermediar | Fragment devitalizat interpus |
 
-**RUST score (Radiographic Union Score for Tibia)**: pe radiografii AP și laterale, se notează fiecare din cele 4 corticale (antero-medială, postero-laterală pe AP; antero-laterală, postero-medială pe laterală) cu 1 (linie de fractură vizibilă, fără calus), 2 (calus prezent, linie vizibilă) sau 3 (calus prezent, linie invizibilă/punte corticală). Scor total 4 (nonunion cert) la 12 (consolidare completă); sub 8 la 12 săptămâni prezice risc mare de nonunion cu sensibilitate/specificitate bune (?).
+**RUST score:** pe radiografii AP și laterale, se notează fiecare din cele 4 corticale cu 1 (linie vizibilă, fără calus), 2 (calus prezent, linie vizibilă) sau 3 (punte corticală, linie invizibilă). Scor total 4 (nonunion cert) la 12 (consolidare completă); sub 8 la 12 săptămâni prezice risc mare de nonunion (?).
 
-**Cierny-Mader** se aplică specific pseudartrozelor infectate (anatomic I-IV, gazdă A-C), detaliat separat pentru osteite.
+**Cierny-Mader** se aplică pseudartrozelor infectate (anatomic I-IV, gazdă A-C), detaliat separat.
 
-**Clasic vs actual:** manualele românești clasifică descriptiv hipertrofic/atrofic/infectat; practica actuală adaugă scoruri cantitative (RUST) pentru monitorizarea obiectivă a progresiei și decizia momentului de reintervenție, reducând subiectivitatea evaluării radiologice.
+**Clasic vs actual:** manualele românești clasifică descriptiv hipertrofic/atrofic/infectat; practica actuală adaugă scoruri cantitative (RUST) pentru monitorizarea obiectivă a progresiei, reducând subiectivitatea evaluării radiologice.
 
 ### Clinic
 

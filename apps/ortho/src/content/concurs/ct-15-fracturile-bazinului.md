@@ -24,11 +24,11 @@ Inel pelvin: compresie antero-posterioară (APC, impact frontal, "open book"), c
 
 ### Anatomie patologică
 
-Inel pelvin: leziunea poate fi predominant osoasă (fractură prin corpul osului), ligamentară (diastază pură), sau mixtă. Deschiderea simfizei peste 2,5cm sau deplasarea verticală/posterioară a hemipelvisului indică instabilitate completă a inelului. Acetabul: cele 10 tipuri Judet-Letournel (5 simple, 5 asociate) descriu combinațiile de fractură ale celor două coloane și ale peretelui/pereților.
+Inel pelvin: leziunea poate fi osoasă, ligamentară (diastază pură) sau mixtă. Deschiderea simfizei peste 2,5cm sau deplasarea verticală/posterioară indică instabilitate completă. Acetabul: cele 10 tipuri Judet-Letournel (5 simple, 5 asociate) descriu combinațiile de fractură ale celor două coloane și pereților.
 
 ### Clasificare
 
-**Tile/AO (inel pelvin, stabilitate mecanică):** tip A (stabil: A1 fracturi care nu implică inelul, A2 fractură minim deplasată a inelului, A3 fractură transversă a sacrului/coccisului fără afectare inel), tip B (instabil rotațional, stabil vertical: B1 open book unilateral, B2 compresie laterală unilaterală, B3 bilateral), tip C (instabil complet, rotațional și vertical: C1 unilateral, C2 bilateral asimetric, C3 asociat cu fractură acetabulară).
+**Tile/AO (inel pelvin, stabilitate mecanică):** tip A (stabil: A1 fără implicare de inel, A2 minim deplasat, A3 sacru/coccis fără afectare inel), tip B (instabil rotațional, stabil vertical: B1 open book unilateral, B2 compresie laterală unilaterală, B3 bilateral), tip C (instabil complet: C1 unilateral, C2 bilateral asimetric, C3 cu fractură acetabulară).
 
 **Young-Burgess (mecanism, corelat cu risc hemoragic):**
 
@@ -47,11 +47,11 @@ Inel pelvin: leziunea poate fi predominant osoasă (fractură prin corpul osului
 
 **Judet-Letournel (acetabul, 10 tipuri):**
 
-*Fracturi simple (o singură coloană/perete):* perete posterior, coloană posterioară, perete anterior, coloană anterioară, transversă (traiect orizontal prin ambele coloane, nedivizând complet suportul articular superior).
+*Simple:* perete posterior, coloană posterioară, perete anterior, coloană anterioară, transversă.
 
-*Fracturi asociate (combinații):* perete posterior + coloană posterioară, transversă + perete posterior (cea mai frecventă fractură asociată), T-shaped (transversă + traiect vertical care separă coloanele), coloană anterioară/perete anterior + hemitransversă posterioară, ambele coloane (both-column, întreaga suprafață articulară se separă de iliac, "spur sign" caracteristic pe radiografie oblică).
+*Asociate:* perete posterior + coloană posterioară, transversă + perete posterior (cea mai frecventă), T-shaped, coloană/perete anterior + hemitransversă posterioară, ambele coloane (întreaga suprafață articulară se separă de iliac, "spur sign" pe radiografie oblică).
 
-**Roof arc angle (Matta):** unghiul măsurat pe cele trei incidențe radiografice standard (față, oblică obturatoare, oblică iliacă) între centrul capului femural și marginea traiectului de fractură; peste 45 de grade pe toate cele trei incidențe indică suficient suport acetabular superior pentru tratament conservator la fracturi selectate, sub acest prag indică necesitatea fixării chirurgicale pentru a preveni migrarea superioară a capului femural.
+**Roof arc angle (Matta):** unghiul măsurat pe cele trei incidențe standard (față, oblică obturatoare, oblică iliacă) între centrul capului femural și marginea traiectului de fractură; peste 45 de grade pe toate trei indică suport suficient pentru conservator, sub acest prag indică fixare chirurgicală.
 
 ### Clinic
 
@@ -63,13 +63,11 @@ Radiografie de bazin AP în urgență, urmată de CT cu reconstrucții 3D, stand
 
 ### Diagnostic diferențial
 
-Contuzie simplă de bazin/coxo-femurală (fără traiect de fractură la CT), fractura izolată de sacru fără afectare inel (context osteoporotic, fără instabilitate), luxație pură de șold fără fractură acetabulară asociată (cap femural deplasat, contur acetabular intact), fractura de col femural la vârstnic (durere similară, dar localizare și mecanism diferit, membru în rotație externă/scurtat cu radiografie de bazin care exclude fractura de inel/acetabul).
+Contuzie simplă de bazin (fără traiect de fractură la CT), fractura izolată de sacru (context osteoporotic, fără instabilitate), luxație pură de șold (cap femural deplasat, contur acetabular intact), fractura de col femural la vârstnic (localizare și mecanism diferit, radiografia exclude afectarea de inel/acetabul).
 
 ### Tratament
 
 **ATLS, abordare inițială:** resuscitare ABCDE cu accent pe controlul hemoragic la inelul pelvin instabil hemodinamic. Algoritm: 1) binder pelvin la nivelul trohanterelor mari (NU crestelor iliace), cât mai precoce; 2) resuscitare volemică, protocol de transfuzie masivă la instabilitate persistentă; 3) dacă rămâne instabil, decizie rapidă între preperitoneal pelvic packing (chirurg disponibil imediat, cu fixare externă simultană) și angioembolizare (sângerare predominant arterială, radiologie intervențională rapidă); 4) fixare externă anterioară/C-clamp posterior pentru a stabiliza mecanic inelul și reduce volumul retroperitoneal.
-
-**Screening obligatoriu:** leziune uretrală (sânge la meat, prostată înaltă, contraindică sondaj direct, uretrografie retrogradă înainte), leziune rectală (sânge la tușeu, impune explorare și frecvent colostomie de derivație), fractura deschisă de bazin (plagă care comunică cu focarul, mortalitate mult mai mare, debridare agresivă și frecvent derivație fecală/urinară).
 
 **Fixare definitivă a inelului pelvin:** anterior, placare a simfizei (deschidere peste 2,5cm) sau INFIX (fixator intern subcutanat, profil mai bun pentru mobilizare); posterior, șuruburi iliosacrate percutane (atenție la dismorfismul sacrat) sau placare deschisă la deplasare mare. Fracturile de sacru se clasifică după zonele Denis (I, lateral de foramene, risc neurologic redus; II, prin foramene, risc de radiculopatie L5-S1; III, medial/canal central, risc de cauda equina).
 
@@ -85,7 +83,7 @@ Ale traumatismului: hemoragie masivă (principala cauză de deces precoce), lezi
 
 ### Evoluție și prognostic
 
-Fracturile de inel pelvin stabile (Tile A) au prognostic bun cu tratament conservator. Fracturile instabile (Tile B, C) tratate corect (control hemoragic urgent, fixare definitivă) au prognostic vital bun dacă hemoragia este controlată precoce, dar mortalitatea rămâne semnificativă (10-20% (?)) în formele cu instabilitate hemodinamică severă la prezentare. Fracturile acetabulare tratate cu reducere anatomică au rezultate funcționale bune pe termen lung la majoritatea pacienților tineri; calitatea reducerii este cel mai important factor prognostic pentru artroza posttraumatică. La vârstnic, conversia acută la artroplastie oferă mobilizare mai rapidă și evitarea unei intervenții secundare, cu rezultate funcționale comparabile sau superioare ORIF izolat la acest grup de pacienți.
+Fracturile de inel pelvin stabile (Tile A) au prognostic bun cu tratament conservator. Fracturile instabile (Tile B, C) tratate corect au prognostic vital bun dacă hemoragia este controlată precoce, dar mortalitatea rămâne semnificativă (10-20% (?)) în formele cu instabilitate hemodinamică severă. Fracturile acetabulare cu reducere anatomică au rezultate bune pe termen lung la majoritatea tinerilor; calitatea reducerii este cel mai important factor prognostic pentru artroza posttraumatică. La vârstnic, conversia acută la artroplastie oferă mobilizare mai rapidă și rezultate comparabile sau superioare ORIF izolat.
 
 ## Script de prezentare
 
@@ -103,13 +101,13 @@ General: prioritar evaluarea ABC și hemodinamică, pentru că fractura instabil
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: fractură de [inel pelvin/acetabul], tip Tile [A/B/C] respectiv Young-Burgess [APC/LC/VS specific] pentru inel, sau Judet-Letournel [tip specific] pentru acetabul, pe baza mecanismului traumatic, a instabilității mecanice/durerii la examenul clinic, și a aspectului CT cu reconstrucții 3D care arată [descriere: deschiderea simfizei / deplasarea verticală / traiectul acetabular].
+Diagnostic pozitiv: fractură de [inel pelvin/acetabul], tip Tile [A/B/C] respectiv Young-Burgess [APC/LC/VS] pentru inel, sau Judet-Letournel [tip] pentru acetabul, pe baza mecanismului traumatic, a instabilității/durerii clinice, și a CT-ului 3D care arată [deschiderea simfizei / deplasarea verticală / traiectul acetabular].
 
 Diagnostice secundare de reținut: leziunea uretrală/vezicală/rectală asociată, fractura deschisă de bazin, leziunea neurologică a plexului lombosacrat/nervului sciatic.
 
 ### 5. Diagnostic diferențial (1 min)
 
-Contuzia simplă de bazin: fără traiect de fractură la CT. Fractura izolată de sacru fără afectare de inel: context osteoporotic, fără instabilitate mecanică. Luxația pură de șold: cap femural deplasat, contur acetabular intact la imagistică. Fractura de col femural: mecanism și localizare diferite, radiografia de bazin exclude afectarea de inel/acetabul.
+Contuzia simplă: fără traiect de fractură la CT. Fractura izolată de sacru: context osteoporotic, fără instabilitate mecanică. Luxația pură de șold: cap femural deplasat, contur acetabular intact. Fractura de col femural: mecanism și localizare diferite, radiografia exclude afectarea de inel/acetabul.
 
 ### 6. Investigații (1 min)
 
@@ -125,62 +123,61 @@ Protocol postoperator: profilaxie tromboembolică prelungită, mobilizare progre
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Fără tratament corect, evoluția fracturii instabile de inel pelvin este spre hemoragie necontrolată cu deces, iar fractura acetabulară netratată corect evoluează spre incongruență articulară persistentă și artroză posttraumatică precoce. Complicații ale bolii: hemoragie masivă, leziuni urologice/rectale, leziune neurologică. Complicații ale tratamentului: tromboembolism venos, leziune iatrogenă de nerv sciatic/pachet femural, osificări heterotopice, necroză avasculară de cap femural, infecție de plagă. Prognosticul vital depinde de rapiditatea controlului hemoragic; prognosticul funcțional al fracturii acetabulare depinde direct de calitatea reducerii (criteriile Matta) și de vârstă/calitatea osoasă. Urmărire: control clinic și imagistic periodic, evaluare pentru semne precoce de artroză posttraumatică sau necroză avasculară.
+Fără tratament corect, fractura instabilă de inel pelvin evoluează spre hemoragie necontrolată cu deces, iar fractura acetabulară netratată evoluează spre incongruență persistentă și artroză posttraumatică precoce. Complicații ale bolii: hemoragie masivă, leziuni urologice/rectale, leziune neurologică. Complicații ale tratamentului: tromboembolism venos, leziune iatrogenă de nerv sciatic/pachet femural, osificări heterotopice, necroză avasculară, infecție de plagă. Prognosticul vital depinde de rapiditatea controlului hemoragic; prognosticul funcțional acetabular depinde de calitatea reducerii (Matta) și de vârstă/calitatea osoasă. Urmărire: control clinic și imagistic periodic.
 
 ### Fraze-cheie
 
-- Binder-ul pelvin se aplică la nivelul trohanterelor mari, nu la nivelul crestelor iliace, o poziționare greșită frecventă care reduce eficiența.
-- Sângerarea în fracturile instabile de inel pelvin este predominant venoasă (80-85%), din plexul presacrat, motiv pentru care tamponada mecanică prin fixare/packing este eficientă.
-- Young-Burgess corelează direct mecanismul cu riscul hemoragic: APC și forfecarea verticală au risc mult mai mare decât compresia laterală.
-- Sânge la meatul urinar sau prostată înaltă la tușeu rectal contraindică sondajul urinar direct, impunând uretrografie retrogradă înainte.
-- Roof arc angle sub 45 de grade pe orice incidență indică suport acetabular superior insuficient și necesitatea fixării chirurgicale.
-- Calitatea reducerii anatomice, conform criteriilor Matta, este cel mai important factor prognostic pentru artroza posttraumatică acetabulară.
-- Conversia acută la artroplastie totală de șold este o opțiune validă la pacientul vârstnic cu fractură acetabulară complexă și calitate osoasă precară.
-- Compresia manuală a inelului pelvin pentru testarea instabilității se face o singură dată, cu grijă, pentru a nu disloca un cheag hemostatic deja format.
+- Binder-ul pelvin se aplică la nivelul trohanterelor mari, nu al crestelor iliace, o poziționare greșită frecventă.
+- Sângerarea în fracturile instabile de inel pelvin este predominant venoasă (80-85%), din plexul presacrat.
+- Young-Burgess corelează mecanismul cu riscul hemoragic: APC și forfecarea verticală au risc mult mai mare decât compresia laterală.
+- Sânge la meatul urinar sau prostată înaltă la tușeu rectal contraindică sondajul urinar direct, impunând uretrografie retrogradă.
+- Roof arc angle sub 45 de grade pe orice incidență indică fixare chirurgicală.
+- Calitatea reducerii anatomice (Matta) este cel mai important factor prognostic pentru artroza posttraumatică acetabulară.
+- Conversia acută la artroplastie este validă la vârstnicul cu fractură acetabulară complexă și os precar.
 
 ## Întrebările comisiei
 
 ### Î1. Care sunt tipurile Young-Burgess și de ce sunt corelate cu riscul hemoragic?
-**R:** APC (compresie antero-posterioară, I la III după gradul de diastază și ruptura ligamentelor sacroiliace), LC (compresie laterală, I la III), VS (forfecare verticală) și CM (combinat). Sunt corelate cu riscul hemoragic pentru că mecanismul determină tipul de leziune ligamentară: APC și VS rup complet ligamentele sacroiliace posterioare și cresc volumul potențial retroperitoneal, expunând plexul venos presacrat și arterele pelvine la sângerare masivă, în timp ce LC I-II are risc hemoragic mai redus.
+**R:** APC (I-III, după gradul de diastază/ruptură sacroiliacă), LC (I-III), VS (forfecare verticală) și CM (combinat). APC și VS rup complet ligamentele sacroiliace posterioare și cresc volumul retroperitoneal, expunând plexul venos presacrat și arterele pelvine, în timp ce LC I-II are risc hemoragic mai redus.
 
-### Î2. Ce faceți dacă pacientul cu fractură instabilă de bazin rămâne hemodinamic instabil după aplicarea binder-ului și resuscitare volemică?
-**R:** Urmez algoritmul de control hemoragic: decid rapid, în funcție de resursele disponibile, între preperitoneal pelvic packing (dacă chirurg experimentat disponibil imediat, combinat cu fixare externă) și angioembolizare (dacă radiologie intervențională disponibilă rapid și suspiciunea este de sângerare arterială); nu întârzii aceste măsuri așteptând stabilizare spontană, pentru că fiecare oră de instabilitate crește mortalitatea.
+### Î2. Ce faceți dacă pacientul rămâne hemodinamic instabil după binder și resuscitare volemică?
+**R:** Decid rapid, după resursele disponibile, între preperitoneal pelvic packing (chirurg disponibil imediat, cu fixare externă) și angioembolizare (radiologie intervențională rapidă, suspiciune de sângerare arterială); nu întârzii aceste măsuri, pentru că fiecare oră de instabilitate crește mortalitatea.
 
 ### Î3. Care sunt cele 10 tipuri Judet-Letournel și cum se împart?
-**R:** Cinci tipuri simple: perete posterior, coloană posterioară, perete anterior, coloană anterioară, transversă. Cinci tipuri asociate: perete posterior plus coloană posterioară, transversă plus perete posterior (cea mai frecventă asociată), T-shaped, coloană anterioară/perete anterior plus hemitransversă posterioară, și ambele coloane (both-column). Clasificarea se bazează pe conceptul celor două coloane osoase (anterioară și posterioară) care formează acetabulul.
+**R:** Cinci simple: perete posterior, coloană posterioară, perete anterior, coloană anterioară, transversă. Cinci asociate: perete posterior plus coloană posterioară, transversă plus perete posterior (cea mai frecventă), T-shaped, coloană/perete anterior plus hemitransversă posterioară, ambele coloane. Se bazează pe conceptul celor două coloane osoase care formează acetabulul.
 
 ### Î4. Ce faceți dacă la tușeul rectal găsiți sânge la un pacient cu fractură de bazin?
-**R:** Suspectez leziune rectală asociată, care schimbă managementul: solicit evaluare chirurgicală generală de urgență, explorare și, frecvent, colostomie de derivație pentru a preveni contaminarea fecală a hematomului retroperitoneal și sepsis pelvin; de asemenea, prezența sângelui rectal cu comunicare la focarul de fractură reclasifică leziunea drept fractură deschisă de bazin, cu implicații de tratament și prognostic mult mai severe.
+**R:** Suspectez leziune rectală asociată: solicit evaluare chirurgicală generală de urgență, explorare și frecvent colostomie de derivație, pentru a preveni contaminarea fecală a hematomului retroperitoneal. Comunicarea la focarul de fractură reclasifică leziunea drept fractură deschisă de bazin, cu prognostic mult mai sever.
 
 ### Î5. Care este roof arc angle și cum se folosește în decizia terapeutică?
-**R:** Este unghiul măsurat pe cele trei incidențe radiografice standard (față, oblică obturatoare, oblică iliacă) între centrul capului femural și marginea traiectului de fractură acetabulară. Peste 45 de grade pe toate cele trei incidențe indică suport acetabular superior suficient pentru tratament conservator la fracturi selectate (de regulă transverse joase, fără deplasare); sub acest prag pe orice incidență indică necesitatea fixării chirurgicale, pentru risc de migrare superioară a capului femural.
+**R:** Unghiul măsurat pe cele trei incidențe standard (față, oblică obturatoare, oblică iliacă) între centrul capului femural și marginea traiectului de fractură. Peste 45 de grade pe toate trei indică suport acetabular superior suficient pentru conservator la fracturi selectate; sub acest prag pe orice incidență indică fixare chirurgicală, pentru risc de migrare superioară a capului femural.
 
-### Î6. Ce faceți dacă un pacient vârstnic de 78 de ani se prezintă cu fractură acetabulară complexă ambele coloane, cu calitate osoasă foarte precară?
-**R:** Evaluez calitatea osoasă și starea cartilajului la CT; la un pacient vârstnic cu comorbidități, cominuție severă și osteoporoză marcată, ORIF izolat are risc mare de eșec de fixare și rezultate funcționale slabe pe termen lung. Discut și, de regulă, aleg conversia acută la artroplastie totală de șold combinată cu fixarea coloanelor (fix-and-replace), care permite mobilizare mai rapidă și evită o a doua intervenție pentru artroza posttraumatică previzibilă.
+### Î6. Ce faceți dacă un pacient vârstnic de 78 de ani are fractură acetabulară complexă ambele coloane, cu os foarte precar?
+**R:** La un vârstnic cu comorbidități, cominuție severă și osteoporoză marcată, ORIF izolat are risc mare de eșec și rezultate slabe pe termen lung. Aleg conversia acută la artroplastie combinată cu fixarea coloanelor (fix-and-replace), care permite mobilizare mai rapidă și evită o a doua intervenție pentru artroza posttraumatică previzibilă.
 
 ### Î7. Care sunt zonele Denis ale fracturilor de sacru și relevanța lor neurologică?
-**R:** Zona I este laterală de foramenele sacrate, cu risc neurologic redus. Zona II trece prin foramenele sacrate, cu risc de radiculopatie L5-S1. Zona III este medială de foramene, prin canalul sacrat central, cu risc de sindrom de cauda equina/disfuncție sfincteriană și sexuală. Localizarea traiectului ghidează atât prognosticul neurologic cât și decizia de decompresie chirurgicală asociată fixării.
+**R:** Zona I, laterală de foramene, risc neurologic redus. Zona II, prin foramene, risc de radiculopatie L5-S1. Zona III, medială de foramene, prin canalul central, risc de cauda equina și disfuncție sfincteriană/sexuală. Localizarea ghidează prognosticul neurologic și decizia de decompresie asociată fixării.
 
-### Î8. Ce faceți dacă intraoperator, în timpul abordului Kocher-Langenbeck, observați sângerare abundentă din regiunea incizurii ischiatice mari?
-**R:** Suspectez leziunea arterei gluteale superioare, care trece adiacent incizurii ischiatice mari și este la risc direct în acest abord; controlez hemoragia prin compresie directă și identificare/ligatura selectivă a vasului lezat, evitând clamparea în masă care ar putea leza nervul sciatic aflat în vecinătate, și verific integritatea funcției nervului sciatic la finalul intervenției.
+### Î8. Ce faceți dacă intraoperator, în abordul Kocher-Langenbeck, observați sângerare abundentă din regiunea incizurii ischiatice mari?
+**R:** Suspectez leziunea arterei gluteale superioare, la risc direct în acest abord; controlez prin compresie directă și ligatura selectivă a vasului, evitând clamparea în masă care ar putea leza nervul sciatic din vecinătate, și verific funcția sciaticului la final.
 
 ### Î9. Care este diferența dintre abordul ilioinguinal și Stoppa modificat pentru acetabul?
-**R:** Ilioinguinal este un abord anterior extins, cu trei "ferestre" de-a lungul crestei iliace și inghinale, oferind acces la toată coloana anterioară dar cu disecție musculară mai extinsă și risc pentru pachetul vasculo-nervos femural și nervul cutanat femural lateral. Stoppa modificat este un abord intrapelvin mai direct, cu vizualizare bună a suprafeței cvadrilaterale interne și a coloanei anterioare, cu disecție musculară mai limitată, folosit tot mai frecvent ca alternativă sau complement la ilioinguinal, mai ales pentru fracturi cu componentă cvadrilaterală.
+**R:** Ilioinguinal este anterior extins, cu trei "ferestre" de-a lungul crestei iliace și inghinale, acces la toată coloana anterioară dar disecție musculară mai mare, risc pentru pachetul femural și cutanat femural lateral. Stoppa modificat este intrapelvin, mai direct pe coloana anterioară și suprafața cvadrilaterală, disecție mai limitată, folosit tot mai frecvent ca alternativă/complement.
 
-### Î10. Ce faceți dacă la controlul CT postoperator al unei fracturi acetabulare observați o deplasare reziduală de 4mm la suprafața portantă?
-**R:** Conform criteriilor Matta, o deplasare reziduală de peste 3mm este clasificată drept reducere slabă, asociată cu risc semnificativ crescut de artroză posttraumatică; informez pacientul despre acest risc, intensific urmărirea clinică și radiografică pe termen lung, și discut posibilitatea unei artroplastii tardive dacă evoluează simptomatic spre artroză.
+### Î10. Ce faceți dacă la CT postoperator al unei fracturi acetabulare observați o deplasare reziduală de 4mm la suprafața portantă?
+**R:** Conform Matta, peste 3mm este reducere slabă, cu risc crescut de artroză posttraumatică; informez pacientul, intensific urmărirea pe termen lung, și discut posibilitatea unei artroplastii tardive dacă evoluează simptomatic.
 
 ### Î11. Care este mecanismul APC III și de ce are cel mai mare risc hemoragic dintre variantele de compresie antero-posterioară?
-**R:** APC III implică ruptura completă a ligamentelor sacroiliace bilateral, cu instabilitate completă rotațională a inelului pelvin ("open book" bilateral sever); volumul potențial al spațiului retroperitoneal crește foarte mult, expunând plexul venos presacrat pe o suprafață mare, iar riscul de leziune a arterelor iliace interne/ramurilor lor este de asemenea crescut, motiv pentru care APC III are printre cele mai mari rate de hemoragie masivă și mortalitate dintre toate tipurile.
+**R:** Ruptura completă a ligamentelor sacroiliace bilateral, cu instabilitate rotațională completă ("open book" bilateral sever); volumul retroperitoneal crește foarte mult, expunând plexul venos presacrat pe o suprafață mare, cu risc crescut și de leziune arterială, motiv pentru cele mai mari rate de hemoragie masivă din toate tipurile.
 
-### Î12. Ce faceți dacă un pacient cu fractură de inel pelvin dezvoltă la câteva zile postoperator durere și edem la un membru inferior?
-**R:** Suspectez tromboembolism venos profund, o complicație foarte frecventă și severă în fracturile de bazin/acetabul; indic ecografie Doppler de urgență pentru confirmare, și dacă se confirmă, inițiez anticoagulare terapeutică (cu atenție la riscul hemoragic dacă intervenția recentă contraindică anticoagulare precoce completă), și verific dacă profilaxia tromboembolică a fost corect administrată și pentru cât timp.
+### Î12. Ce faceți dacă la câteva zile postoperator un pacient dezvoltă durere și edem la un membru inferior?
+**R:** Suspectez tromboembolism venos profund, complicație foarte frecventă în fracturile de bazin; indic ecografie Doppler de urgență, și dacă se confirmă, inițiez anticoagulare terapeutică (cu atenție la riscul hemoragic postoperator recent), verificând și dacă profilaxia a fost corect administrată.
 
 ### Î13. Care este diferența funcțională dintre INFIX și fixatorul extern anterior clasic?
-**R:** Fixatorul extern clasic are pinii și cadrul expuși extern, anterior de abdomen, ceea ce limitează poziționarea, igiena și confortul pacientului, mai ales la obezi sau la nevoia de mobilizare precoce. INFIX (fixator intern anterior subcutanat) plasează o tijă subcutanată între pediculii supra-acetabulari bilateral, oferind stabilitate similară cu profil extern minim, permițând mobilizare și îngrijire mai facilă, cu riscul specific de iritație/leziune a nervului cutanat femural lateral care trece în vecinătate.
+**R:** Fixatorul extern clasic are pinii și cadrul expuși anterior de abdomen, limitând poziționarea și confortul. INFIX plasează o tijă subcutanată între pediculii supra-acetabulari, cu stabilitate similară și profil minim, permițând mobilizare mai facilă, cu risc specific de iritație a nervului cutanat femural lateral.
 
 ### Î14. Ce faceți dacă la un pacient cu fractură de bazin descoperiți sânge la meatul urinar?
-**R:** Suspectez leziune uretrală asociată și NU introduc sondă urinară direct, pentru a nu agrava o leziune parțială transformând-o în completă sau a nu crea un traiect fals; indic uretrografie retrogradă pentru a caracteriza leziunea, iar dacă se confirmă, gestionarea se face în echipă cu urologia, frecvent prin cistostomie suprapubiană temporară până la reparare definitivă.
+**R:** Suspectez leziune uretrală și NU introduc sondă urinară direct, pentru a nu agrava o leziune parțială sau crea un traiect fals; indic uretrografie retrogradă, și dacă se confirmă, gestionez în echipă cu urologia, frecvent prin cistostomie suprapubiană temporară.
 
 ### Î15. Cum decideți între abordul posterior, anterior sau combinat pentru o fractură acetabulară T-shaped?
-**R:** Evaluez pe CT cu reconstrucții 3D care componentă (anterioară sau posterioară) are deplasarea principală și care necesită reducere directă sub control vizual; dacă deplasarea este predominant posterioară, aleg Kocher-Langenbeck cu reducere indirectă a componentei anterioare prin manevre de tracțiune/clamp; dacă ambele componente sunt semnificativ deplasate și nu pot fi reduse indirect adecvat, planific abord combinat (extensil sau secvențial anterior și posterior), acceptând morbiditatea mai mare a expunerii duble pentru a obține o reducere anatomică.
+**R:** Evaluez la CT 3D care componentă are deplasarea principală; dacă predominant posterioară, aleg Kocher-Langenbeck cu reducere indirectă anterioară prin tracțiune/clamp; dacă ambele componente sunt semnificativ deplasate, planific abord combinat, acceptând morbiditatea mai mare pentru o reducere anatomică.
