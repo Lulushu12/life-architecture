@@ -9109,15 +9109,15 @@ Netratat, sindromul poate progresa catre deficit motor permanent si atrofie musc
 
 ### Î1. Care sunt structurile continute in canalul carpian si de ce nervul median este cel mai expus la compresie?
 
-**R:** Canalul contine nervul median si noua tendoane flexoare (flexor digitorum superficialis x4, profundus x4, flexor pollicis longus). Nervul median este structura cea mai superficiala si anterioara in canal, motiv pentru care este cel mai expus la compresie prin cresterea presiunii intracanalare.
+**R:** Canalul contine nervul median si noua tendoane flexoare (FDS x4, FDP x4, FPL). Nervul median e structura cea mai superficiala si anterioara in canal, motiv pentru care e cel mai expus la compresie prin cresterea presiunii intracanalare.
 
 ### Î2. Care sunt cele trei zone ale canalului Guyon si semnificatia lor clinica?
 
-**R:** Zona 1, proximal de bifurcatia nervului ulnar, produce leziune mixta motorie si senzitiva; zona 2, in jurul ramurii motorii profunde, produce leziune predominant motorie a musculaturii intrinseci; zona 3, in jurul ramurii senzitive superficiale, produce leziune predominant senzitiva. Localizarea clinica a deficitului orienteaza catre zona afectata.
+**R:** Zona 1, proximal de bifurcatie, produce leziune mixta motorie si senzitiva; zona 2, ramura motorie profunda, leziune predominant motorie; zona 3, ramura senzitiva superficiala, leziune predominant senzitiva. Localizarea deficitului orienteaza catre zona afectata.
 
 ### Î3. Care sunt criteriile electrofiziologice pentru sindromul de canal carpian?
 
-**R:** Latenta motorie distala peste 4,5 ms (?), latenta senzitiva distala peste 3,5 ms (?), si viteza de conducere senzitiva scazuta sub 50 m/s (?), cu unde de denervare la EMG cu ac in cazurile severe cu afectare a musculaturii tenariene.
+**R:** Latenta motorie distala peste 4,5 ms (?), latenta senzitiva peste 3,5 ms (?), viteza de conducere sub 50 m/s (?), cu unde de denervare la EMG cu ac in cazurile severe.
 
 ### Î4. Ce faceti daca un pacient cu sindrom de canal carpian prezinta atrofie tenariana la prezentare?
 
@@ -11481,9 +11481,9 @@ Radiografie standard, utilă mai ales pentru a exclude fractură/avulsie osoasă
 
 ### Tratament
 
-**Proximal (LHB):** conservator este opțiunea standard la majoritatea pacienților, mai ales vârstnici cu cerințe funcționale reduse sau ruptură asociată unei rupturi extinse de manșetă rotatorilor la care prioritatea e repararea manșetei; deficitul cosmetic (Popeye) și pierderea de forță de supinație (aproximativ 20% (?)) sunt de regulă bine tolerate funcțional. Chirurgical (tenotomie simplă sau tenodesis) indicat la pacientul tânăr, activ, cu cerințe cosmetice sau de forță ridicate, sau la instabilitate simptomatică persistentă a tendonului fără ruptură completă. Tenotomia simplă (secționarea tendonului fără fixare) e mai rapidă, recuperare mai scurtă, dar risc mai mare de deformare cosmetică Popeye și crampe musculare ocazionale; tenodesis (fixarea tendonului distal de șanț, subpectoral sau suprapectoral, cu ancoră sau tenodesis interferențial) păstrează lungimea-tensiune musculară, cosmetică mai bună, recomandat la pacientul tânăr activ sub 60 de ani.
+**Proximal (LHB):** conservator este opțiunea standard la majoritatea, mai ales vârstnici sau ruptură asociată unei rupturi extinse de manșetă la care prioritatea e repararea manșetei; deficitul cosmetic (Popeye) și pierderea de forță de supinație sunt de regulă bine tolerate. Chirurgical (tenotomie sau tenodesis) indicat la tânărul activ cu cerințe cosmetice/de forță ridicate. Tenotomia (secționare fără fixare) e mai rapidă, dar cu risc mai mare de Popeye și crampe; tenodesis (fixare distal de șanț, subpectoral/suprapectoral) păstrează lungimea-tensiune musculară, recomandat sub 60 de ani.
 
-**Distal:** repararea chirurgicală este standardul pentru ruptura completă la pacientul activ, ideal în primele 2 la 3 săptămâni de la accidentare (fereastra optimă înainte de retracția semnificativă și degenerarea capătului tendinos care ar complica reinserția anatomică). Tehnici: incizie unică anterioară cu fixare prin cortical button (EndoButton) plus/minus șuruburi de interferență, tehnică modernă cu recuperare mai rapidă a forței; tehnica Boyd-Anderson cu două incizii (anterioară pentru identificarea tendonului, posterolaterală pentru inserția pe tuberozitate) reduce riscul de leziune a nervului interosos posterior prin evitarea disecției extensive anterioare, dar cu risc teoretic mai mare de sinostoză radioulnară prin expunerea membranei interosoase pe ambele fețe. Ruptura parțială sub 50% din secțiune poate fi tratată conservator cu imobilizare scurtă și monitorizare; peste 50%, reparare chirurgicală. Cronică (peste 4 la 6 săptămâni, retracție severă): reconstrucție cu alogref (tendon Achile sau semitendinos) când reinserția directă nu e posibilă fără tensiune excesivă.
+**Distal:** repararea chirurgicală este standardul pentru ruptura completă la pacientul activ, ideal în primele 2 la 3 săptămâni (înainte de retracția și degenerarea capătului tendinos). Tehnici: incizie unică anterioară cu cortical button (EndoButton) plus/minus șuruburi de interferență, recuperare mai rapidă; Boyd-Anderson cu două incizii reduce riscul de leziune PIN prin evitarea disecției extensive anterioare, dar cu risc teoretic mai mare de sinostoză prin expunerea membranei interosoase pe ambele fețe. Ruptura parțială sub 50% poate fi conservatoare cu monitorizare; peste 50%, reparare. Cronică (peste 4 la 6 săptămâni): reconstrucție cu alogref (tendon Achile sau semitendinos).
 
 ### Complicații
 
@@ -12353,7 +12353,7 @@ Inel pelvin: leziunea poate fi osoasă, ligamentară (diastază pură) sau mixt�
 | VS | Forfecare verticală | Deplasare craniocaudală completă SI + anterior | Foarte crescut |
 | CM | Combinat | Elemente mixte LC+VS/APC | Variabil, frecvent crescut |
 
-**Clasic vs actual:** manualele românești folosesc adesea doar Tile pentru decizia de stabilizare mecanică; Young-Burgess este preferată în context de urgență/resuscitare pentru că mecanismul corelează direct cu tipul și severitatea sângerării (APC și VS au risc hemoragic mult mai mare decât LC), ghidând decizia de binder și angioembolizare precoce, nu doar fixarea definitivă.
+**Clasic vs actual:** manualele românești folosesc adesea doar Tile pentru stabilizarea mecanică; Young-Burgess este preferată în urgență pentru că mecanismul corelează direct cu severitatea sângerării, ghidând decizia de binder și angioembolizare precoce, nu doar fixarea definitivă.
 
 **Judet-Letournel (acetabul, 10 tipuri):**
 
@@ -12988,7 +12988,7 @@ Fără tratament, evoluția este spre imobilizare prelungită cu complicații de
 **R:** Este suma distanțelor de la vârful șurubului cefalic la vârful capului femural, măsurate pe imaginile anteroposterioară și laterală și corectate pentru magnificarea radiografică. O valoare sub 25 milimetri este considerată sigură pentru prevenția cut-out-ului, iar poziția optimă a șurubului este centro-inferioară pe ambele imagini.
 
 ### Î4. Ce faceți dacă intraoperator, la introducerea tijei cefalomedulare, apare o fractură a peretelui lateral?
-**R:** Verific stabilitatea construcției rămase; dacă fractura peretelui lateral este mică și tija oferă deja suport medular suficient, continui cu blocare atentă. Dacă instabilitatea e semnificativă, adaug fixare suplimentară a peretelui (cablaj/placă de neutralizare) sau reconsider tipul de implant pentru a asigura stabilitate mecanică suficientă.
+**R:** Verific stabilitatea rămasă; dacă fractura peretelui e mică și tija oferă suport suficient, continui cu blocare atentă. Dacă instabilitatea e semnificativă, adaug cablaj/placă de neutralizare sau reconsider implantul.
 
 ### Î5. Care este diferența dintre Evans-Jensen și Kyle?
 **R:** Evans-Jensen clasifică pe număr de fragmente (2, 3 sau 4) și pe prezența suportului cortical posteromedial după reducere, fiind orientată spre predicția stabilității. Kyle clasifică în patru tipuri bazate pe gradul de deplasare și cominuție, fiind istoric folosită pentru a corela cu rezultatele fixării prin DHS.
@@ -14081,7 +14081,7 @@ Leziunile ligamentare ale genunchiului cuprind rupturile parțiale sau complete 
 
 ### Anatomie și biomecanică relevantă
 
-LCA se întinde de la fața medială a condilului femural lateral la aria intercondiliană anterioară tibială, cu două fascicule funcționale (anteromedial, tensionat în flexie; posterolateral, tensionat în extensie), controlează translația anterioară tibială și rotația. LCP se întinde de la fața laterală a condilului femural medial la aria intercondiliană posterioară tibială, controlează translația posterioară tibială, cel mai gros și mai rezistent ligament al genunchiului. LCM are strat superficial (de la epicondilul medial femural la tibia proximală, sub linia articulară, principal stabilizator la valgus) și strat profund (capsular, atașat la meniscul medial). Complexul postero-lateral (PLC) include LCL (fibular), tendonul popliteu, ligamentul popliteofibular, capsula postero-laterală, stabilizator la varus și la rotația externă tibială; nervul peronier comun trece imediat posterior de tendonul bicepsului femural, adiacent PLC, vulnerabil în leziunile acestei zone.
+LCA se întinde de la fața medială a condilului femural lateral la aria intercondiliană anterioară tibială, cu două fascicule (anteromedial, tensionat în flexie; posterolateral, tensionat în extensie), controlează translația anterioară tibială și rotația. LCP se întinde de la fața laterală a condilului femural medial la aria intercondiliană posterioară tibială, controlează translația posterioară, cel mai gros ligament al genunchiului. LCM are strat superficial (epicondil medial femural la tibia proximală, principal stabilizator la valgus) și strat profund (capsular, atașat la meniscul medial). Complexul postero-lateral (PLC) include LCL, tendonul popliteu, ligamentul popliteofibular, capsula postero-laterală, stabilizator la varus și rotația externă tibială; nervul peronier comun trece imediat posterior de tendonul bicepsului femural, adiacent PLC, vulnerabil în leziunile acestei zone.
 
 ### Etiopatogenie
 
