@@ -153,17 +153,11 @@ Fără tratament, evoluția este spre distrucție osoasă progresivă, fractură
 ### Î10. Ce faceți dacă intraoperator descoperiți că cartilajul articular este perforat de tumoră?
 **R:** Evaluez extensia perforației: dacă este limitată, pot continua curetajul extins cu adjuvant și accept un defect cartilaginos mic, eventual cu abordare adițională a defectului condral; dacă distrucția articulară este extensivă și funcția articulară nu mai poate fi conservată, conversia la rezecție largă cu reconstrucție articulară (endoprotezăm) devine necesară.
 
-### Î11. Care este diagnosticul diferențial imagistic cel mai important pentru TCG a genunchiului la un adult tânăr?
-**R:** Chistul osos aneurismal este principalul diagnostic diferențial, cu nivele lichid-lichid caracteristice la RMN, dar localizare tipic metafizară nu epifizară; osteosarcomul telangiectatic trebuie exclus prin evaluarea gradului de agresivitate radiologică și prezența matricei osteoide, absentă în TCG.
-
-### Î12. Ce este TCG malignă secundară și când apare?
+### Î11. Ce este TCG malignă secundară și când apare?
 **R:** Este transformarea rară (sub 1 la 5%) a unei TCG clasice într-un sarcom de grad înalt, de regulă la nivelul unei leziuni recidivate anterior, asociată frecvent cu antecedente de radioterapie; acesta este un motiv important pentru care radioterapia se evită ca tratament de primă linie în TCG.
 
 ### Î13. Ce faceți dacă pacienta este gravidă și diagnosticată cu TCG simptomatică a radiusului distal?
 **R:** Evaluez urgența clinică: dacă durerea și riscul de fractură patologică permit, temporizez chirurgia definitivă pentru perioada postpartum, tratând simptomatic; denosumab este contraindicat în sarcină din cauza riscului teratogen documentat pe modele animale, deci dacă tratamentul nu poate fi temporizat, curetajul chirurgical rămâne opțiunea preferată față de terapia biologică.
 
-### Î14. Care sunt structurile de risc la curetajul unei TCG de radius distal?
-**R:** Nervul median și tendoanele flexorilor situate volar, artera radială, și integritatea suprafeței articulare radiocarpiene, motiv pentru care abordul trebuie planificat cu disecție atentă și protejarea acestor structuri, iar reconstrucția (ciment sau grefă, cu sau fără placă de susținere) trebuie să mențină stabilitatea articulației radiocarpiene.
-
-### Î15. Ce faceți dacă biopsia inițială este neconcludentă pentru TCG dar imagistica este tipică?
-**R:** Repet biopsia, de preferat incizională cu prelevare mai amplă de țesut, pe traiectul care va fi folosit pentru chirurgia definitivă, și corelez cu markeri imunohistochimici (H3.3 G34W este specific pentru celulele stromale ale TCG) pentru confirmare diagnostică înainte de a proceda la tratamentul definitiv.
+### Î14. Ce faceți dacă biopsia inițială este neconcludentă pentru TCG dar imagistica este tipică?
+**R:** Repet biopsia, de preferat incizională cu prelevare mai amplă de țesut, pe traiectul care va fi folosit pentru chirurgia definitivă, și corelez cu markeri imunohistochimici (H3.3 G34W este specific pentru celulele stromale ale TCG) pentru confirmare diagnostică înainte de tratamentul definitiv.

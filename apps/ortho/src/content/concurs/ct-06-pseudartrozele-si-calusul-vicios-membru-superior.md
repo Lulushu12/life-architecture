@@ -87,41 +87,41 @@ Cu tratament adecvat conform diamond concept, rata de consolidare este de regul�
 
 ### 1. Prezentarea cazului (30 s)
 
-Pacientul/a în vârstă de [vârstă] ani, [profesie], din [mediu], cunoscut/ă cu fractură de [segment: humerus diafizar/antebraț/radius distal/scafoid] în urmă cu [durata] luni, tratată [conservator/chirurgical], se prezintă pentru durere persistentă și limitare funcțională la nivelul [segmentului], cu suspiciune de pseudartroză/calus vicios.
+Pacientul/a în vârstă de [vârstă] ani, [profesie], din [mediu], cunoscut/ă cu fractură de [segment] în urmă cu [durata] luni, tratată [conservator/chirurgical], se prezintă pentru durere persistentă și limitare funcțională, cu suspiciune de pseudartroză/calus vicios.
 
 ### 2. Anamneză (2 min)
 
-Motivul internării: durerea la focar, instabilitatea segmentului sau limitarea funcțională (pronosupinație, priză). Istoric: data și mecanismul fracturii inițiale, tratamentul aplicat (conservator: tip imobilizare, durată; sau chirurgical: tip implant), evoluția clinică și radiologică (dacă s-a observat vreodată progres de consolidare), semne de infecție în evoluție (febră, secreție, dehiscență). Antecedente relevante: fumat (cantitate, intenție de renunțare), diabet, corticoterapie cronică, AINS cronice, malnutriție, osteoporoză, deficit de vitamina D. Factori de risc de reținut: cominuție inițială, fractură deschisă, calitatea reducerii/fixării inițiale, complianța la protocol.
+Motivul internării: durerea la focar, instabilitatea segmentului sau limitarea funcțională. Istoric: mecanismul fracturii inițiale, tratamentul aplicat (conservator sau chirurgical, tip implant), evoluția clinică și radiologică (dacă s-a observat vreodată progres), semne de infecție (febră, secreție, dehiscență). Antecedente relevante: fumat, diabet, corticoterapie cronică, AINS cronice, malnutriție, osteoporoză, deficit de vitamina D. Factori de risc de reținut: cominuție inițială, fractură deschisă, calitatea reducerii/fixării inițiale, complianța la protocol.
 
 ### 3. Examen clinic (3 min)
 
-General: stare generală, semne de impregnare infecțioasă cronică (paloare, subfebrilitate). Local, inspecție: deformare vizibilă la focar (angulare, rotație, scurtare), cicatrici de intervenții anterioare, fistule sau semne inflamatorii tegumentare. Palpare: mobilitate anormală la focar ("falsă articulație", mișcare în balama la solicitare manuală blândă, patognomonică pentru pseudartroză mobilă), sensibilitate locală, căldură. Mobilitate: goniometrie comparativă bilaterală (cot: flexie 0 la 145 grade; pronosupinație: pronație 0 la 80 grade, supinație 0 la 85 grade; pumn: flexie/extensie 0 la 70-80 grade); la calus vicios de radius distal, măsor limitarea specifică a pronosupinației. Măsurători: lungimea segmentului comparativ cu contralateralul, unghiul de deformare clinic vizibil. Teste specifice: la scafoid, sensibilitate în tabachera anatomică și testul Watson pentru instabilitate scafolunată asociată; la cubitus varus, carrying angle comparativ (normal 5 la 15 grade valgus). Examen neuro-vascular distal: obligatoriu nervul ulnar în cubitus varus, nervul radial (extensie pumn/degete) în pseudartroza humerală. Examinarea articulațiilor supra- și subiacente pentru rigiditate secundară imobilizării. Mers: notez doar dacă pacientul compensează cu membrul contralateral.
+General: stare generală, semne de impregnare infecțioasă cronică. Local, inspecție: deformare vizibilă la focar, cicatrici anterioare, fistule sau semne inflamatorii. Palpare: mobilitate anormală la focar ("falsă articulație", patognomonică pentru pseudartroză mobilă), sensibilitate, căldură. Mobilitate: goniometrie comparativă bilaterală (cot: flexie 0 la 145 grade; pronosupinație: 0 la 80/85 grade; pumn: flexie/extensie 0 la 70-80 grade). Măsurători: lungimea segmentului comparativ cu contralateralul, unghiul de deformare vizibil. Teste specifice: la scafoid, sensibilitate în tabachera anatomică și testul Watson; la cubitus varus, carrying angle comparativ (normal 5 la 15 grade valgus). Examen neuro-vascular: obligatoriu nervul ulnar în cubitus varus, nervul radial în pseudartroza humerală. Examinarea articulațiilor adiacente pentru rigiditate secundară. Mers: notez doar compensarea cu membrul contralateral.
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: pseudartroză (tip Weber-Cech [hipertrofică/oligotrofică/atrofică]) sau calus vicios [localizare], pe baza absenței progresiei radiologice la controale seriate la peste 3 luni interval (sau, pentru calus vicios, a deformării consolidate peste limitele acceptabile) și a examenului clinic de mobilitate anormală/deformare la focar, susținute de aspectul CT.
+Diagnostic pozitiv: pseudartroză (tip Weber-Cech [hipertrofică/oligotrofică/atrofică]) sau calus vicios [localizare], pe baza absenței progresiei radiologice la controale seriate peste 3 luni interval (sau, pentru calus vicios, a deformării consolidate peste limitele acceptabile) și a mobilității anormale/deformării la focar, susținute de CT.
 
-Diagnostice secundare de reținut: infecție ocultă asociată (de exclus obligatoriu prin markeri și culturi), leziune nervoasă tardivă, artroză post-traumatică secundară.
+Diagnostice secundare de reținut: infecție ocultă asociată (de exclus prin markeri și culturi), leziune nervoasă tardivă, artroză post-traumatică secundară.
 
 ### 5. Diagnostic diferențial (1 min)
 
-Întârzierea de consolidare (delayed union): progres încă documentabil pe radiografii seriate, deci nu se reintervine încă. Fractura de stres pe os adiacent: fără istoric de fractură inițială la același focar. Tumoră osoasă la focar: aspect imagistic atipic, de exclus prin biopsie dacă persistă suspiciunea. Artropatie post-traumatică fără pseudartroză: os consolidat radiologic, durerea vine din articulația adiacentă. Infecție cronică fără pseudartroză radiologică francă: markeri inflamatori crescuți, fistulă, dar os aparent consolidat pe imagistică standard, necesită CT/RMN pentru confirmare.
+Întârzierea de consolidare: progres încă documentabil, deci nu se reintervine încă. Fractura de stres pe os adiacent: fără istoric de fractură inițială la același focar. Tumoră osoasă la focar: aspect atipic, de exclus prin biopsie. Artropatie post-traumatică fără pseudartroză: os consolidat, durerea vine din articulația adiacentă. Infecție cronică fără pseudartroză francă: markeri crescuți, fistulă, os aparent consolidat, necesită CT/RMN de confirmare.
 
 ### 6. Investigații (1 min)
 
-Radiografii seriate în două incidențe, comparate cu controale anterioare la interval de minim 3 luni, pentru documentarea lipsei de progres. CT cu reconstrucție 3D pentru evaluarea exactă a defectului osos, a punții corticale reale și pentru planificarea unghiului de corecție la calusul vicios. RMN dacă suspectez necroză avasculară (pol proximal scafoid) sau infecție ocultă. Markeri inflamatori (VSH, CRP, hemogramă) obligatorii înainte de reintervenție, pentru excluderea infecției. Preoperator: evaluare nutrițională și metabolică (vitamina D, calciu, funcție tiroidiană dacă există suspiciune), status de fumător documentat, grup sanguin, evaluare anestezică, planificare cu măsurarea exactă a unghiurilor de deformare pe CT pentru osteotomia corectoare.
+Radiografii seriate comparate cu controale anterioare la minim 3 luni interval, pentru documentarea lipsei de progres. CT cu reconstrucție 3D pentru defectul osos real, puntea corticală și planificarea unghiului de corecție. RMN dacă suspectez necroză avasculară (pol proximal scafoid) sau infecție ocultă. Markeri inflamatori obligatorii înainte de reintervenție. Preoperator: evaluare nutrițională (vitamina D, calciu), status de fumător documentat, grup sanguin, evaluare anestezică.
 
 ### 7. Tratament (3 min)
 
-Obiective: consolidare osoasă stabilă, corectarea deformării la nivele funcționale acceptabile, restaurarea mobilității și forței, eradicarea infecției dacă e prezentă. Opțiuni: hipertrofică, doar stabilizare rigidă; oligotrofică/atrofică, stabilizare plus grefă (diamond concept); infectată, protocol în 2 etape; calus vicios, osteotomie corectoare cu fixare internă și eventual grefă structurală. Pentru acest pacient aleg [placă de compresiune cu decorticare și grefă autologă din creasta iliacă], pentru că pseudartroza este de tip [oligotrofic/atrofic], fără semne de infecție, cu capital osos suficient pentru osteosinteză rigidă.
+Obiective: consolidare osoasă stabilă, corectarea deformării, restaurarea mobilității și forței, eradicarea infecției dacă e prezentă. Opțiuni: hipertrofică, doar stabilizare rigidă; oligotrofică/atrofică, stabilizare plus grefă; infectată, protocol în 2 etape; calus vicios, osteotomie corectoare. Pentru acest pacient aleg [placă de compresiune cu decorticare și grefă autologă din creasta iliacă], pentru că pseudartroza este de tip [oligotrofic/atrofic], fără infecție, cu capital osos suficient pentru osteosinteză rigidă.
 
-Tehnica în pași: 1) abord pe cicatricea anterioară, cu identificarea și protecția structurilor neurovasculare de risc; 2) ablația implantului anterior, cu culturi intraoperatorii multiple înainte de antibioticul profilactic dacă infecția nu e exclusă cert; 3) debridarea țesutului fibros interfragmentar și decorticarea capetelor osoase până la sângerare punctată ("paprika sign"); 4) reducerea/alinierea sub control fluoroscopic; 5) fixare cu placă de compresiune, minim 6 corticale de fiecare parte a focarului la antebraț; 6) grefare autologă din creasta iliacă la focar; 7) verificare fluoroscopică finală pe 2 incidențe; 8) hemostază, drenaj dacă necesar, închidere în straturi.
+Tehnica în pași: 1) abord pe cicatricea anterioară, cu protecția structurilor neurovasculare de risc; 2) ablația implantului, cu culturi intraoperatorii multiple dacă infecția nu e exclusă cert; 3) debridarea fibrozei interfragmentare și decorticarea până la sângerare punctată ("paprika sign"); 4) reducerea/alinierea sub fluoroscopie; 5) fixare cu placă de compresiune, minim 6 corticale de fiecare parte la antebraț; 6) grefare autologă din creasta iliacă; 7) verificare fluoroscopică finală pe 2 incidențe; 8) hemostază, drenaj dacă necesar, închidere în straturi.
 
-Protocol postoperator: imobilizare protectoare 2 la 4 săptămâni în funcție de stabilitatea fixării, mobilizare progresivă activă asistată, control clinic și radiologic la 6 săptămâni, 3 luni, 6 luni pentru confirmarea consolidării, oprirea fumatului susținută activ, supliment de vitamina D/calciu dacă deficitar, reluarea încărcării/forței progresiv după consolidare radiologică confirmată (de regulă la 3 la 4 luni).
+Protocol postoperator: imobilizare protectoare 2 la 4 săptămâni, mobilizare progresivă activă asistată, control clinic și radiologic la 6 săptămâni, 3 și 6 luni pentru confirmarea consolidării, oprirea fumatului susținută activ, supliment de vitamina D/calciu dacă deficitar, reluarea forței progresiv după consolidarea confirmată (de regulă la 3 la 4 luni).
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Fără tratament, pseudartroza evoluează spre durere cronică, deficit funcțional progresiv și, la scafoid, spre SNAC ireversibil. Complicații ale bolii: instabilitate, artroză secundară, leziuni nervoase tardive. Complicații ale tratamentului: eșec de reconsolidare (10 la 20% în cazurile complexe), infecție de material, leziune nervoasă iatrogenă, sinostoză radioulnară. Prognosticul funcțional este bun cu tratament conform diamond concept, consolidare peste 85 la 95%. Urmărire: la 6 săptămâni, 3, 6 și 12 luni.
+Fără tratament, pseudartroza evoluează spre durere cronică, deficit progresiv și, la scafoid, spre SNAC ireversibil. Complicații ale bolii: instabilitate, artroză secundară, leziuni nervoase tardive. Ale tratamentului: eșec de reconsolidare (10 la 20% în cazuri complexe), infecție de material, leziune nervoasă iatrogenă, sinostoză. Prognosticul funcțional e bun cu tratament conform diamond concept, consolidare peste 85 la 95%. Urmărire: la 6 săptămâni, 3, 6 și 12 luni.
 
 ### Fraze-cheie
 
@@ -137,7 +137,7 @@ Fără tratament, pseudartroza evoluează spre durere cronică, deficit funcțio
 ## Întrebările comisiei
 
 ### Î1. Care este diferența exactă între întârzierea de consolidare și pseudartroză?
-**R:** Întârzierea de consolidare este o fractură care la 3 luni nu a consolidat încă, dar procesul biologic de vindecare progresează încă pe controale seriate. Pseudartroza se definește la absența consolidării la 9 luni și, mai important pentru practica clinică, la absența oricărui progres radiologic în ultimele 3 luni consecutive, indiferent de timpul absolut scurs.
+**R:** Întârzierea de consolidare este o fractură care la 3 luni nu a consolidat încă, dar procesul biologic progresează pe controale seriate. Pseudartroza se definește prin absența consolidării la 9 luni și, mai important clinic, prin absența oricărui progres radiologic în ultimele 3 luni consecutive, indiferent de timpul absolut scurs.
 
 ### Î2. Descrieți clasificarea Weber-Cech și implicația ei terapeutică.
 **R:** Hipertrofică: capital biologic bun dar instabilitate mecanică, aspect "elephant foot" sau "horse hoof", necesită doar stabilizare rigidă fără grefă. Oligotrofică: capital biologic redus moderat, fără hipertrofie vizibilă, necesită stabilizare plus grefă. Atrofică: resorbție severă la capete, fără reacție de reparare, necesită întotdeauna aport biologic plus fixare fermă.
@@ -146,7 +146,7 @@ Fără tratament, pseudartroza evoluează spre durere cronică, deficit funcțio
 **R:** Convertesc managementul la protocol de pseudartroză infectată: debridare radicală, stabilizare provizorie (fixator extern sau spacer cu ciment cu antibiotic), antibioterapie țintită minim 6 săptămâni, cu reconstrucție definitivă diferată la 6 la 8 săptămâni după normalizarea markerilor.
 
 ### Î4. Care sunt criteriile de indicație pentru osteotomia corectoare în calusul vicios de radius distal?
-**R:** Tilt dorsal peste 20 grade, scurtare radială peste 3 mm față de ulna contralaterală, deviație sau step intraarticular peste 2 mm, pierderea înclinării radiale sub 15 grade, cu simptomatologie: durere, limitarea pronosupinației, instabilitate DRUJ sau deficit de forță de priză.
+**R:** Tilt dorsal peste 20 grade, scurtare radială peste 3 mm față de ulna contralaterală, step intraarticular peste 2 mm, înclinare radială sub 15 grade, cu simptomatologie: durere, limitarea pronosupinației, instabilitate DRUJ sau deficit de priză.
 
 ### Î5. Ce este diamond concept-ul și de ce este util în practică?
 **R:** Descrie cei cinci factori necesari simultan pentru consolidare: stabilitate mecanică, celule osteogenice viabile, factori de creștere, matrice osteoconductivă și aport vascular. Ghidează sistematic planul terapeutic: dacă mecanica e insuficientă, se rezolvă fixarea; dacă biologia e insuficientă, se adaugă decorticare și grefă.
@@ -155,10 +155,10 @@ Fără tratament, pseudartroza evoluează spre durere cronică, deficit funcțio
 **R:** Evaluez dacă paralizia este preexistentă sau nou instalată; la reintervenție explorez nervul radial (frecvent încorporat cicatricial), îl liberez, și dacă e intact continuu tratamentul cu placă și grefă; dacă e secționat, planific reparare sau grefă nervoasă cu microchirurgia.
 
 ### Î7. Care este rata de consolidare raportată pentru pseudartroza de humerus diafizar tratată cu placă și grefă?
-**R:** În seriile mari raportate în literatură (Rockwood & Green), rata de consolidare cu placă de compresiune plus decorticare și grefă osoasă autologă este de aproximativ 90%, fiind tratamentul de referință pentru pseudartroza humerală diafizară necomplicată de infecție.
+**R:** În seriile mari raportate în literatură (Rockwood & Green), rata de consolidare cu placă de compresiune plus decorticare și grefă osoasă autologă este de aproximativ 90%, tratamentul de referință pentru pseudartroza humerală diafizară necomplicată de infecție.
 
 ### Î8. Ce faceți dacă la un copil cu cubitus varus postfractură supracondiliană descoperiți semne de neuropatie ulnară tardivă?
-**R:** Documentez clinic și electrofiziologic severitatea neuropatiei, planific osteotomia corectoare supracondiliană pentru corectarea deformării varus, care este cauza mecanică a întinderii cronice a nervului, și, dacă simptomele neurologice sunt semnificative sau progresive, asociez transpoziția anterioară a nervului ulnar în același act operator.
+**R:** Documentez severitatea neuropatiei, planific osteotomia corectoare supracondiliană pentru deformarea varus, cauza mecanică a întinderii cronice, și dacă simptomele sunt semnificative sau progresive asociez transpoziția anterioară a nervului ulnar în același act operator.
 
 ### Î9. Ce este SNAC și cum se stadializează?
 **R:** SNAC (Scaphoid NonUnion Advanced Collapse) este artroza progresivă de carp secundară unei pseudartroze de scafoid netratate, stadializată Watson în patru stadii: I artroza la vârful stiloidei radiale, II extensie scafo-capitată, III extensie capito-lunată, IV pancarpită. Precoce se tentează salvarea prin grefă osoasă, avansat necesită salvage (PRC, artrodeză de carp).
@@ -167,16 +167,16 @@ Fără tratament, pseudartroza evoluează spre durere cronică, deficit funcțio
 **R:** Sub 2 la 3 cm optez pentru grefă autologă masivă din creasta iliacă; peste această dimensiune, consider tehnica Masquelet în 2 etape sau transport osos cu fixator extern, păstrând lungimea relativă radius-ulnă pentru pronosupinație.
 
 ### Î11. Care sunt parametrii radiografici normali ai radiusului distal pe care trebuie să îi restaurați într-o osteotomie corectoare?
-**R:** Înclinarea radială normală este de aproximativ 22 grade, tiltul volar de 11 grade, iar înălțimea radială de 11 la 12 mm; scopul osteotomiei corectoare este să readucă acești parametri cât mai apropiat de normal, folosind fluoroscopia intraoperatorie pentru verificare directă.
+**R:** Înclinarea radială normală este de aproximativ 22 grade, tiltul volar de 11 grade, iar înălțimea radială de 11 la 12 mm; osteotomia corectoare readuce acești parametri cât mai apropiat de normal, verificat fluoroscopic intraoperator.
 
 ### Î12. Ce faceți dacă un pacient fumător cu pseudartroză refuză să renunțe la fumat înainte de operație?
-**R:** Discut explicit riscul crescut de reeșec al consolidării la fumători, dar nu refuz operația doar pentru acest motiv dacă indicația e clară; optimizez tehnica (fixare cât mai rigidă, grefă osoasă generoasă) pentru a compensa parțial, susțin consilierea de renunțare la fumat, și informez pacientul explicit despre prognosticul mai rezervat.
+**R:** Discut riscul crescut de reeșec la fumători, dar nu refuz operația doar pentru acest motiv dacă indicația e clară; optimizez tehnica (fixare rigidă, grefă generoasă), susțin consilierea de renunțare, și informez explicit despre prognosticul mai rezervat.
 
 ### Î13. Care este diferența de tratament între pseudartroza claviculei și cea a humerusului diafizar?
-**R:** Ambele se tratează prin ORIF cu placă și decorticare plus grefă, dar clavicula are rate de consolidare mai mari (peste 90 la 95%) cu placă precontorurată LCP, în timp ce humerusul diafizar are riscul adițional al lezării nervului radial, motiv pentru care disecția și izolarea nervului este un pas obligatoriu la revizie.
+**R:** Ambele se tratează prin ORIF cu placă, decorticare și grefă, dar clavicula are consolidare mai mare (peste 90 la 95%) cu placă LCP precontorurată, în timp ce humerusul are riscul adițional al lezării nervului radial, deci izolarea lui e obligatorie la revizie.
 
 ### Î14. Ce faceți dacă la un pacient vârstnic cu pseudartroză de humerus proximal capul humeral este necrotic și osul osteoporotic sever?
-**R:** Renunț la tentativa de osteosinteză de revizie cu grefă, pentru că șansele de consolidare pe os osteoporotic sever cu cap necrotic sunt mici, și optez pentru artroplastie, de regulă inversă de umăr, care rezolvă atât problema mecanică cât și pe cea a capitalului osos insuficient.
+**R:** Renunț la osteosinteza de revizie cu grefă, pentru că șansele de consolidare pe os osteoporotic sever cu cap necrotic sunt mici, și optez pentru artroplastie, de regulă inversă, care rezolvă atât problema mecanică cât și capitalul osos insuficient.
 
 ### Î15. Ce criterii folosiți pentru a diferenția o pseudartroză infectată de una neinfectată preoperator?
 **R:** Markeri inflamatori crescuți susțin infecția, dar pot fi normali cu germeni cu virulență scăzută; caut clinic fistulă, secreție, istoric de dehiscență sau febră; RMN sau scintigrafie pot arăta infecție ocultă. Diagnosticul de certitudine se obține doar intraoperator, prin culturi multiple și histopatologie (peste 5 neutrofile pe câmp la mare putere).

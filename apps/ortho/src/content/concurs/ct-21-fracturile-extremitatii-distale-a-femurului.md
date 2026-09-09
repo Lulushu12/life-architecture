@@ -16,15 +16,15 @@ Fracturile extremității distale a femurului cuprind traiectele din ultimii 9 l
 
 ### Anatomie și biomecanică relevantă
 
-Metafiza distală femurală este lărgită, cu corticală mai fină decât diafiza, ceea ce explică cominuția frecventă. Doi condili (medial mai proeminent distal, lateral mai proeminent anterior) formează un trapez în plan axial, unite prin fosa intercondiliană. Forțele deformante clasice: gastrocnemianul (originea pe ambii condili posterior) trage fragmentul distal în flexie/recurvatum, iar aductorii (inserția pe linia aspera) trag fragmentul proximal în varus și adducție, generând deformarea tipică în varus-recurvatum a fracturilor supracondiliene netratate. Fragmentul Hoffa este planul de fractură coronal al condilului posterior (mai frecvent lateral), izolat de restul epifizei, instabil pentru că este fixat doar de capsulă și ligamente, tras posterior de gastrocnemian; se găsește la aproximativ 38% dintre fracturile de tip C evaluate prin CT. Artera poplitee este fixă la nivelul hiatusului adductor și al arcadei solearului, aderentă la capsula posterioară a genunchiului, motiv pentru care deplasarea marcată a fragmentului distal (mai ales posterior, ca în fracturile tip C cu deplasare) poate lacera sau întinde artera.
+Metafiza distală femurală e lărgită, cu corticală mai fină decât diafiza, ceea ce explică cominuția frecventă. Doi condili (medial mai proeminent distal, lateral mai proeminent anterior) formează un trapez axial, uniți prin fosa intercondiliană. Forțele deformante: gastrocnemianul (origine pe ambii condili posterior) trage fragmentul distal în flexie/recurvatum, aductorii (inserția pe linia aspera) trag fragmentul proximal în varus, generând deformarea tipică varus-recurvatum netratată. Fragmentul Hoffa e planul de fractură coronal al condilului posterior (mai frecvent lateral), izolat de epifiză, ținut doar de capsulă și tras posterior de gastrocnemian; prezent la aproximativ 38% din fracturile tip C evaluate CT. Artera poplitee e fixă la hiatusul adductor și arcada solearului, aderentă la capsula posterioară, motiv pentru care deplasarea marcată a fragmentului distal poate lacera sau întinde artera.
 
 ### Etiopatogenie
 
-Energie înaltă: traumatism direct axial cu genunchiul flectat (impact tablou de bord), asociat frecvent cu leziuni ligamentare de genunchi, leziune de menisc, fractură de rotulă ("triada tabloului de bord"), leziuni ipsilaterale de tibie (fractură etajată femur-tibie) și leziuni vasculare poplitee. Energie joasă: cădere simplă la vârstnic osteoporotic, os fragil, cominuție metafizară frecventă disproporțional cu energia traumatismului. Fractură periprotetică: notch anterior femural (stress riser), osteoliză, traumatism minor.
+Energie înaltă: traumatism direct axial cu genunchiul flectat (impact tablou de bord), asociat cu leziuni ligamentare de genunchi, leziune de menisc, fractură de rotulă ("triada tabloului de bord"), fractură etajată femur-tibie și leziuni vasculare poplitee. Energie joasă: cădere simplă la vârstnic osteoporotic, cominuție metafizară disproporțională cu energia traumatismului. Fractură periprotetică: notch anterior femural (stress riser), osteoliză, traumatism minor.
 
 ### Anatomie patologică
 
-Traiectul poate fi extraarticular pur (supracondilian), articular parțial (unicondilian, sau Hoffa) sau articular complet (bicondilian cu extensie diafizară în T sau Y). Cominuția metafizară posterioară și medială este frecventă și subestimată pe radiografia AP standard; corticala medială posterioară, dacă e cominuită, elimină suportul pentru o placă și favorizează colapsul în varus.
+Traiectul poate fi extraarticular pur (supracondilian), articular parțial (unicondilian, sau Hoffa) sau articular complet (bicondilian, extensie diafizară în T sau Y). Cominuția metafizară posterioară și medială e frecventă și subestimată pe radiografia AP; corticala medială posterioară cominuită elimină suportul pentru placă și favorizează colapsul în varus.
 
 ### Clasificare
 
@@ -88,7 +88,7 @@ General: stare generală, semne de șoc hemoragic, evaluare ATLS la politraumati
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: fractură de femur distal [drept/stâng], tip AO/OTA 33[A/B/C][subgrup], pe baza deformării clinice cu impotență funcțională totală și a aspectului radiografic de traiect [extraarticular/articular] la nivelul metafizei/condililor femurali, confirmat și detaliat prin CT cu reconstrucție 3D.
+Diagnostic pozitiv: fractură de femur distal [drept/stâng], tip AO/OTA 33[A/B/C][subgrup], pe baza deformării clinice cu impotență funcțională totală și a aspectului radiografic de traiect [extraarticular/articular] la nivelul metafizei/condililor, confirmat prin CT cu reconstrucție 3D.
 
 Diagnostice secundare de reținut: fragment Hoffa asociat, leziune ligamentară de genunchi, fractură de rotulă sau de platou tibial ipsilaterală, leziune vasculară poplitee.
 

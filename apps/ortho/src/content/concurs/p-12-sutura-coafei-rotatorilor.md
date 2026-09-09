@@ -29,7 +29,7 @@ Contraindicații:
 
 ### Anatomie chirurgicală
 
-Coafa rotatorilor e formată din supraspinat (abducție, inserție pe fațeta superioară a trohiterului mare), infraspinat și rotund mic (rotație externă, fațeta mijlocie/inferioară), subscapular (rotație internă, inserție pe trohin). Footprint-ul supraspinatului are aproximativ 12-15 mm în plan medio-lateral. Bursa subacromială separă coafa de acromion și ligamentul acromio-coracoidian. Nervul axilar trece la aproximativ 5-7 cm distal de marginea laterală a acromionului pe fața profundă a deltoidului, la risc în portalul lateral și în timpul mobilizării deltoidului. Nervul suprascapular trece prin incizura spinoglenoidiană, la risc în mobilizarea extensivă a infraspinatului sau în margin convergence posterior excesiv. Tendonul lung al bicepsului trece prin șanțul bicipital, sub ligamentul coracohumeral, adiacent marginii anterioare a supraspinatului, frecvent implicat în patologia coafei.
+Coafa rotatorilor e formată din supraspinat (abducție, fațeta superioară a trohiterului mare), infraspinat și rotund mic (rotație externă, fațeta mijlocie/inferioară), subscapular (rotație internă, trohin). Footprint-ul supraspinatului are aproximativ 12-15 mm medio-lateral. Bursa subacromială separă coafa de acromion și ligamentul acromio-coracoidian. Nervul axilar trece la 5-7 cm distal de marginea laterală a acromionului, pe fața profundă a deltoidului, la risc în portalul lateral. Nervul suprascapular trece prin incizura spinoglenoidiană, la risc în mobilizarea extensivă a infraspinatului sau margin convergence posterior excesiv. Tendonul lung al bicepsului trece prin șanțul bicipital, sub ligamentul coracohumeral, adiacent marginii anterioare a supraspinatului, frecvent implicat în patologia coafei.
 
 ### Opțiuni de implant / tehnică
 
@@ -57,7 +57,7 @@ Rata de retear (ecografic/RMN, nu neapărat simptomatic) variază cu mărimea: 1
 
 ### Complicații specifice
 
-Retear (cea mai frecventă, procent dependent de mărime), rigiditate/capsulită adezivă postoperatorie (mai frecventă la femei, la vârstă mai mică, poate necesita mobilizare sub anestezie), infecție (rară, sub 1%), leziune de nerv axilar sau suprascapular, pull-out de ancoră (mai frecvent în os osteoporotic), leziune iatrogenă de cartilaj glenoidian la trecerea firelor, algoneurodistrofie.
+Retear (cea mai frecventă, procent dependent de mărime), rigiditate/capsulită adezivă (mai frecventă la femei, la vârstă mai mică, poate necesita mobilizare sub anestezie), infecție (rară, sub 1%), leziune de nerv axilar sau suprascapular, pull-out de ancoră (mai frecvent în os osteoporotic), leziune iatrogenă de cartilaj glenoidian, algoneurodistrofie.
 
 ## Script operator
 
@@ -79,9 +79,9 @@ Portal posterior (standard, 2 cm distal și 1-2 cm medial de unghiul postero-lat
 
 ### 5. Pași operatori (3 min)
 
-1. Fac tur diagnostic glenohumeral complet (labrum, biceps, cartilaj, subscapular din interior), notez orice leziune asociată (SLAP, leziune Bankart, tenosinovită de biceps).
-2. Trec în spațiul subacromial, fac **bursectomia subacromială** cu shaver-ul și radiofrecvența, pentru vizualizare clară a coafei și a footprint-ului.
-3. Evaluez necesitatea **acromioplastiei**: rezec osteofitele subacromiale anterioare doar dacă există conflict mecanic documentat sau acromion tip Bigliani III (curbat/cârlig); nu fac acromioplastie de rutină, decizia fiind controversată în literatura actuală (studii recente nu arată beneficiu suplimentar consistent la adăugarea acromioplastiei de rutină).
+1. Fac tur diagnostic glenohumeral complet (labrum, biceps, cartilaj, subscapular), notez leziuni asociate (SLAP, Bankart, tenosinovită de biceps).
+2. Trec în spațiul subacromial, fac **bursectomia subacromială** cu shaver-ul și radiofrecvența, pentru vizualizare clară a coafei și footprint-ului.
+3. Evaluez necesitatea **acromioplastiei**: rezec osteofitele anterioare doar la conflict mecanic documentat sau acromion tip Bigliani III (curbat/cârlig); nu fac acromioplastie de rutină, decizia fiind controversată (studii recente nu arată beneficiu suplimentar consistent).
 4. Identific tiparul rupturii (crescent, U, L, masivă) prin tracțiune cu grasper pe marginea tendinoasă, evaluez mobilitatea și retracția.
 5. Pregătesc footprint-ul: decortic osul cu shaver-ul sau o freză mică până la os sănătos, sângerant, pe toată lățimea de inserție (12-15 mm), fără a exciza excesiv osul cortical (risc de fixare slabă a ancorelor).
 6. Mobilizez tendonul: eliberez ligamentul coracohumeral și aderențele capsulare superioare, dacă retracția e mare; pentru rupturi U sau L fac **margin convergence** cu fire side-to-side latero-medial, convertind forma în semilunară, reducând tensiunea reziduală la footprint.
@@ -103,7 +103,7 @@ Intraoperator: tensiune excesivă la fixare (evitată prin margin convergence ș
 
 ### 8. Variante și alternative (30 s)
 
-Abord mini-open (incizie deltoidiană mică, split de deltoid, fixare transosseous clasică sau cu ancore) rămâne o alternativă validă, mai rapidă de învățat, cu rezultate similare artroscopiei în studii comparative, dar cu vizualizare mai limitată a leziunilor asociate. Tratament conservator definitiv (fizioterapie, infiltrații) la pacientul vârstnic cu cerințe funcționale mici sau cu risc chirurgical mare. Debridare artroscopică simplă fără reparare, în rupturi ireparabile la pacient vârstnic cu coafă funcțională parțial păstrată. Transfer tendinos (latissimus dorsi, trapez inferior) sau grafic pentru rupturi masive ireparabile la pacient tânăr, activ, fără artropatie.
+Abord mini-open (incizie deltoidiană mică, split de deltoid, fixare transosseous clasică sau cu ancore) rămâne o alternativă validă, cu rezultate similare artroscopiei, dar vizualizare mai limitată a leziunilor asociate. Tratament conservator definitiv la vârstnic cu cerințe funcționale mici sau risc chirurgical mare. Debridare artroscopică simplă fără reparare, în rupturi ireparabile la vârstnic cu coafă funcțională parțial păstrată. Transfer tendinos (latissimus dorsi, trapez inferior) sau grafic pentru rupturi masive ireparabile la pacient tânăr activ fără artropatie.
 
 ### Fraze-cheie
 
@@ -123,7 +123,7 @@ Abord mini-open (incizie deltoidiană mică, split de deltoid, fixare transosseo
 **R:** Infiltrarea grasă Goutallier 3-4 pe cel puțin 2 din cei 4 mușchi ai coafei, distanța acromio-humerală sub 7 mm (Hamada 3-5) și artropatia de coafă cu migrare superioară a capului humeral și uzură glenoidiană. Aici reparare biologică nu se produce și fixarea mecanică eșuează precoce, artroplastia inversă restaurând funcția prin schimbarea centrului de rotație, nu prin refacerea coafei.
 
 ### Î2. Descrieți tiparele de ruptură și cum se mobilizează fiecare.
-**R:** Crescent (semilunară) are retracție minimă, marginile ajung direct la footprint fără eliberări extinse. U-shaped are retracție maximă la vârf, se face margin convergence latero-medial pentru a o converti în formă semilunară înainte de fixare. L/reverse-L combină o componentă longitudinală cu una transversală, tratate cu margin convergence pe partea longitudinală și fixare pe footprint pentru cea transversală. Ruptura masivă combină toate tehnicile, plus eliberări capsulare extinse.
+**R:** Crescent are retracție minimă, marginile ajung direct la footprint fără eliberări extinse. U-shaped are retracție maximă la vârf, se face margin convergence latero-medial pentru a o converti în formă semilunară. L/reverse-L combină o componentă longitudinală cu una transversală, tratate cu margin convergence pe partea longitudinală și fixare directă pe cea transversală. Ruptura masivă combină toate tehnicile, plus eliberări capsulare extinse.
 
 ### Î3. Ce faceți dacă, după mobilizare completă, tendonul nu ajunge la footprint fără tensiune?
 **R:** Reconsider ruptura ca parțial ireparabilă la tensiune fiziologică. Pot accepta o reparare parțială (margin convergence extins fără acoperire completă a footprint-ului), pot face eliberări suplimentare (interval rotator, capsulă posterioară), sau, dacă rămâne ireparabilă, discut cu pacientul debridare simplă sau, la pacient tânăr activ, transfer tendinos.
@@ -150,16 +150,16 @@ Abord mini-open (incizie deltoidiană mică, split de deltoid, fixare transosseo
 **R:** Scot ancora și repoziționez o ancoră nouă la o distanță de câțiva milimetri, verificând calitatea osului local; dacă osul e foarte osteoporotic, pot folosi o ancoră cu diametru mai mare sau schimb configurația (de exemplu adaug un rând suplimentar) pentru a redistribui forța pe o priză osoasă mai bună.
 
 ### Î11. Cum influențează vârsta și fumatul decizia terapeutică?
-**R:** Vârsta avansată (peste 65-70 ani) și fumatul cresc riscul de retear și încetinesc vindecarea biologică a tendonului, dar nu sunt contraindicații absolute pentru sutură dacă pacientul e simptomatic și activ funcțional. Discut cu pacientul riscul crescut de retear structural, care nu exclude neapărat un rezultat clinic satisfăcător.
+**R:** Vârsta peste 65-70 ani și fumatul cresc riscul de retear și încetinesc vindecarea tendonului, dar nu sunt contraindicații absolute dacă pacientul e simptomatic și activ funcțional. Discut riscul crescut de retear structural, care nu exclude neapărat un rezultat clinic satisfăcător.
 
 ### Î12. Care sunt structurile nervoase la risc în chirurgia artroscopică a coafei și cum le protejați?
-**R:** Nervul axilar, la aproximativ 5-7 cm distal de marginea laterală a acromionului pe fața profundă a deltoidului, la risc în portalul lateral, protejat prin limitarea profunzimii de penetrare a instrumentelor. Nervul suprascapular, în incizura spinoglenoidiană, la risc în margin convergence posterior extins sau în mobilizarea excesivă a infraspinatului, protejat prin limitarea tracțiunii mediale a tendonului la câțiva centimetri de glenă.
+**R:** Nervul axilar, la 5-7 cm distal de marginea laterală a acromionului pe fața profundă a deltoidului, la risc în portalul lateral, protejat prin limitarea profunzimii instrumentelor. Nervul suprascapular, în incizura spinoglenoidiană, la risc în margin convergence posterior extins, protejat prin limitarea tracțiunii mediale a tendonului la câțiva centimetri de glenă.
 
 ### Î13. Ce faceți dacă pacientul dezvoltă rigiditate/capsulită la 6 săptămâni postoperator?
-**R:** Continui mobilizarea pasivă progresivă supravegheată de kinetoterapeut, adaug antiinflamatoare și, la nevoie, infiltrație subacromială cu corticosteroid. Dacă rigiditatea persistă semnificativ după 3-4 luni și limitează funcția, discut mobilizare sub anestezie sau artroliza artroscopică a aderențelor, cu grijă să nu compromit reparare tendinoasă recentă.
+**R:** Continui mobilizarea pasivă progresivă supravegheată de kinetoterapeut, adaug antiinflamatoare și, la nevoie, infiltrație subacromială cu corticosteroid. Dacă rigiditatea persistă peste 3-4 luni și limitează funcția, discut mobilizare sub anestezie sau artroliza artroscopică, cu grijă să nu compromit reparare tendinoasă recentă.
 
 ### Î14. Care sunt indicațiile de reparare precoce versus tardivă în rupturile traumatice?
-**R:** Repararea precoce (în primele 2-6 săptămâni) e indicată la pacientul tânăr, activ, cu ruptură traumatică acută și deficit funcțional brusc instalat, pentru că previne retracția tendinoasă progresivă și infiltrarea grasă musculară, ambele reducând șansa de reparare de succes. Repararea tardivă, peste câteva luni, se asociază cu rezultate structurale mai slabe din cauza acestor modificări secundare ireversibile.
+**R:** Repararea precoce (2-6 săptămâni) e indicată la pacientul tânăr, activ, cu ruptură traumatică acută și deficit funcțional brusc instalat, pentru că previne retracția tendinoasă și infiltrarea grasă musculară, ambele reducând șansa de succes. Repararea tardivă se asociază cu rezultate structurale mai slabe din cauza acestor modificări secundare ireversibile.
 
 ### Î15. Ce faceți dacă preoperator RMN arată infiltrare grasă Goutallier 2 pe supraspinat, dar 0-1 pe restul mușchilor, la un pacient activ de 55 ani cu ruptură mare simptomatică?
 **R:** Indic reparare chirurgicală: Goutallier 2 e moderată, încă favorabilă vindecării, mai ales cu restul coafei de calitate bună. Aleg suture bridge, cu rezultate funcționale bune anticipate, dar explic riscul de retear structural, mai mare decât la o ruptură mică.

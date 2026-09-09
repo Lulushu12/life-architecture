@@ -55,7 +55,7 @@ Radiografie de profil (unghiurile Böhler și Gissane), incidența axială Harri
 
 ### Diagnostic diferențial
 
-Entorsa gravă de gleznă (radiografie negativă, dar palpare dureroasă difuză, se exclude prin radiografie dedicată), fractura procesului anterior calcaneal izolată (confundabilă clinic cu entorsă laterală de gleznă, diagnostic prin radiografie oblică sau CT), fractura de talus (durere mai proximală, subtalară, alt pattern la CT), leziune Lisfranc (durere mediotarsiană, deformare plantară, radiografie cu stress), ruptura de tendon ahilian (palpare gap, Thompson pozitiv, fără fractură osoasă), fractura de maleolă (durere la nivelul gleznei propriu-zise).
+Entorsa gravă de gleznă (radiografie de calcaneu negativă), fractura izolată a procesului anterior (confundabilă cu entorsa, diagnostic prin CT), fractura de talus (durere mai proximală, alt pattern CT), leziune Lisfranc (durere mediotarsiană, radiografie cu stress), ruptura de tendon ahilian (gap palpabil, Thompson pozitiv), fractura de maleolă (durere la nivelul gleznei).
 
 ### Tratament
 
@@ -71,11 +71,11 @@ Entorsa gravă de gleznă (radiografie negativă, dar palpare dureroasă difuză
 
 ### Complicații
 
-Complicații de plagă 10 la 25% (mai frecvente cu abordul lateral extins decât cu sinus tarsi), infecție profundă/osteomielită, leziune de nerv sural (parestezii, disestezii pe fața laterală a piciorului), impingement peronier (durere laterală persistentă prin peretele lateral necorect redus), artroză subtalară post-traumatică (frecventă chiar și după reducere corectă, din cauza leziunii cartilaginoase inițiale), malunion cu deformare (aplatizare, lărgire, varus), clasificată Stephens-Sanders, sindrom de compartiment nediagnosticat (poate duce la deformare permanentă în gheare a degetelor).
+Complicații de plagă 10 la 25% (mai frecvente cu abordul lateral extins), infecție profundă/osteomielită, leziune de nerv sural, impingement peronier (peretele lateral necorect redus), artroză subtalară post-traumatică (frecventă chiar și după reducere corectă), malunion cu deformare (clasificată Stephens-Sanders), sindrom de compartiment nediagnosticat (deformare permanentă în gheare a degetelor).
 
 ### Evoluție și prognostic
 
-Prognosticul funcțional este direct proporțional cu gradul de cominuție (Sanders) și cu calitatea reducerii fațetei posterioare; fracturile Sanders IV au prognostic rezervat indiferent de tratament. Fumatul, diabetul și accidentele de muncă (compensație) sunt factori predictivi negativi independenți pentru rezultatul funcțional. Revenirea la activitatea anterioară poate dura 6 la 12 luni, cu limitare funcțională reziduală frecventă (mers pe teren accidentat, alergare, poziție ghemuit prelungit).
+Prognosticul funcțional este proporțional cu gradul de cominuție (Sanders) și cu calitatea reducerii; Sanders IV are prognostic rezervat indiferent de tratament. Fumatul, diabetul și accidentele de muncă (compensație) sunt factori predictivi negativi. Revenirea la activitate durează 6 la 12 luni, cu limitare funcțională reziduală frecventă pe teren accidentat.
 
 ## Script de prezentare
 
@@ -93,7 +93,7 @@ General: stare generală, evaluare pentru politraumă (verificare coloană verte
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: fractură de calcaneu [drept/stâng], intraarticulară, tip Sanders [II/III/IV] (sau extraarticulară, tip [avulsie tuberozitară/proces anterior]), pe baza mecanismului de cădere de la înălțime, a tumefacției și deformării locale cu semnul Mondor prezent, și a aspectului radiografic cu scăderea unghiului Böhler și confirmarea tipului de fractură pe CT coronal.
+Diagnostic pozitiv: fractură de calcaneu [drept/stâng], intraarticulară, tip Sanders [II/III/IV] (sau extraarticulară, tip [avulsie tuberozitară/proces anterior]), pe baza căderii de la înălțime, a tumefacției cu semnul Mondor prezent, și a scăderii unghiului Böhler cu confirmarea tipului de fractură pe CT coronal.
 
 Diagnostice secundare de reținut: fractură vertebrală toraco-lombară asociată, fractură contralaterală de calcaneu (bilateralitate), sindrom de compartiment al piciorului.
 
@@ -103,7 +103,7 @@ Entorsa gravă de gleznă: radiografie de calcaneu negativă, durere localizată
 
 ### 6. Investigații (1 min)
 
-Radiografie de picior/gleznă de profil, cu măsurarea unghiului Böhler (normal 25 la 40 grade) și Gissane (normal 120 la 145 grade). Incidența axială Harris pentru lărgire și varus/valgus tuberozitar. CT cu reconstrucții coronale (obligatoriu, pentru clasificarea Sanders exactă la nivelul celei mai largi porțiuni a fațetei posterioare) și axiale (pentru articulația calcaneocuboidiană și sustentaculum). Radiografie de coloană toraco-lombară dacă anamneza sau examenul o justifică. Preoperator: hemogramă, coagulogramă, evaluare status vascular periferic (mai ales la diabetici), consult anestezic, evaluarea tegumentului (flictene, edem) pentru momentul optim al intervenției.
+Radiografie de profil, cu măsurarea unghiurilor Böhler (25 la 40 grade) și Gissane (120 la 145 grade). Incidența axială Harris pentru lărgire și varus/valgus tuberozitar. CT cu reconstrucții coronale (clasificarea Sanders) și axiale (calcaneocuboidiană, sustentaculum). Radiografie de coloană toraco-lombară dacă anamneza o justifică. Preoperator: hemogramă, coagulogramă, status vascular periferic, consult anestezic, evaluarea tegumentului pentru momentul optim al intervenției.
 
 ### 7. Tratament (3 min)
 
@@ -131,46 +131,43 @@ Fără tratament adecvat, evoluția este spre malunion cu aplatizare, lărgire �
 ## Întrebările comisiei
 
 ### Î1. Care sunt valorile normale ale unghiurilor Böhler și Gissane și ce reflectă modificarea lor?
-**R:** Unghiul Böhler normal este 25 la 40 de grade și reflectă înălțimea calcaneului; scăderea lui indică tasarea fațetei posterioare. Unghiul Gissane normal este 120 la 145 de grade și reflectă panta fațetei posterioare față de cea anterioară; creșterea lui apare la înfundarea fragmentului postero-lateral. Ambele se măsoară pe radiografia de profil și se folosesc pentru a monitoriza calitatea reducerii intraoperator pe fluoroscopie.
+**R:** Böhler normal 25 la 40 de grade, reflectă înălțimea calcaneului; scade la tasarea fațetei posterioare. Gissane normal 120 la 145 de grade, reflectă panta fațetei posterioare față de cea anterioară; crește la înfundarea fragmentului postero-lateral. Ambele se măsoară pe radiografia de profil și se monitorizează intraoperator pe fluoroscopie.
 
 ### Î2. Cum se face clasificarea Sanders și de ce se folosește CT-ul coronal?
-**R:** Clasificarea Sanders se bazează pe numărul de linii de fractură care traversează fațeta posterioară subtalară, vizualizate pe secțiunea coronală CT la nivelul celei mai largi porțiuni a fațetei: tip I nedeplasat, tip II o linie de fractură (2 fragmente), tip III două linii (3 fragmente, cu fragment central înfundat), tip IV cominuție severă (peste 3 linii). CT-ul coronal este necesar pentru că radiografia standard nu poate evalua congruența articulară a fațetei posterioare, esențială pentru planificarea reducerii.
+**R:** Se bazează pe numărul de linii de fractură prin fațeta posterioară, pe secțiunea coronală CT la cea mai largă porțiune a fațetei: tip I nedeplasat, tip II o linie (2 fragmente), tip III două linii (3 fragmente, cu fragment central înfundat), tip IV cominuție severă. CT-ul coronal este necesar pentru că radiografia standard nu poate evalua congruența articulară.
 
 ### Î3. Ce faceți dacă la internare pacientul are flictene hemoragice extinse pe călcâi?
 **R:** Nu operez imediat; imobilizez, elevez membrul, aplic pansament steril și așteptăm resorbția și epitelizarea flictenelor, monitorizând semnul cutelor pentru a stabili momentul chirurgical optim, de regulă 7 la 14 zile. Operarea peste flictene intacte sau recent rupte crește dramatic riscul de necroză de lambou și infecție profundă.
 
 ### Î4. Ce este semnul Mondor și ce importanță clinică are?
-**R:** Este echimoza care apare pe fața plantară a piciorului la 24 la 48 de ore de la traumatism, relativ specifică pentru fractura de calcaneu. Clinic ajută la orientarea diagnostică precoce, înainte ca imagistica să fie disponibilă, mai ales în context de politraumă.
+**R:** Echimoza care apare pe fața plantară a piciorului la 24 la 48 de ore de la traumatism, relativ specifică pentru fractura de calcaneu. Ajută la orientarea diagnostică precoce, înainte ca imagistica să fie disponibilă.
 
 ### Î5. Ce faceți dacă suspectați sindrom de compartiment al piciorului?
 **R:** Evaluez clinic durerea disproporționată, tensiunea la palparea compartimentelor și durerea la stretch pasiv al degetelor; dacă suspiciunea persistă, măsor presiunea intracompartimentală. Dacă presiunea confirmă sindromul de compartiment, indic fasciotomie de urgență (dorsală și/sau medială, pentru cele 9 compartimente ale piciorului), pentru a preveni deformarea permanentă în gheare a degetelor și pierderea funcțională ireversibilă.
 
 ### Î6. Care sunt indicațiile tratamentului conservator în fractura de calcaneu?
-**R:** Fracturile Sanders I (nedeplasate, indiferent de numărul liniilor de fractură), fracturile extraarticulare minim deplasate, și pacienții cu risc chirurgical mare (diabet necontrolat, boală vasculară periferică severă, fumători cu risc foarte mare de complicații de plagă). Studiul HeFT nu a arătat diferență funcțională semnificativă la 2 ani între tratamentul chirurgical și conservator la fracturi deplasate, dar a arătat rată mai mare de artrodeză subtalară secundară în grupul conservator.
+**R:** Sanders I (nedeplasate), fracturile extraarticulare minim deplasate, și pacienții cu risc chirurgical mare (diabet necontrolat, boală vasculară periferică severă, fumători). Studiul HeFT nu a arătat diferență funcțională la 2 ani între chirurgical și conservator la fracturi deplasate, dar a arătat rată mai mare de artrodeză subtalară secundară în grupul conservator.
 
 ### Î7. Ce diferență există între abordul lateral extins și abordul sinus tarsi?
-**R:** Abordul lateral extins (tip Seattle, în L) expune toată fața laterală a calcaneului, permite vizualizare directă excelentă a fațetei posterioare, dar are rate de complicații de plagă mai mari (necroză de lambou, dehiscență) din cauza vascularizației precare a acelui unghi cutanat. Abordul sinus tarsi este minim invaziv, oferă expunere suficientă pentru fracturi Sanders II și III simple, cu complicații de plagă semnificativ mai puține și rezultate funcționale comparabile.
+**R:** Abordul lateral extins ("Seattle") expune toată fața laterală, permite vizualizare excelentă a fațetei posterioare, dar are rate de plagă mai mari din cauza vascularizației precare a unghiului cutanat. Sinus tarsi este minim invaziv, expunere suficientă pentru Sanders II și III simple, complicații de plagă semnificativ mai puține, rezultate comparabile.
 
 ### Î8. Ce este manevra Essex-Lopresti și când se folosește?
-**R:** Este o tehnică de reducere percutanată pentru fracturile tip tongue, în care se introduce un Steinmann în fragmentul tuberozitar tasat, folosit ca joystick pentru a reduce fragmentul prin flexie plantară forțată combinată cu impactare manuală, urmată de fixare cu broșe sau șuruburi percutane. Se folosește la fracturi cu fragment posterior mare, unic, în continuitate cu tuberozitatea.
+**R:** Tehnică de reducere percutanată pentru fracturile tip tongue: se introduce un Steinmann în fragmentul tuberozitar tasat, folosit ca joystick pentru reducere prin flexie plantară forțată și impactare manuală, urmată de fixare cu broșe/șuruburi percutane. Se folosește la fragment posterior mare, unic, în continuitate cu tuberozitatea.
 
 ### Î9. Ce faceți dacă intraoperator constatați cominuție mult mai severă decât arăta CT-ul preoperator?
 **R:** Reevaluez posibilitatea unei reconstrucții articulare durabile; dacă fragmentele sunt prea mici și osteocondrale pentru fixare stabilă, consider conversia la artrodeză subtalară primară în același act operator, mai ales la un pacient tânăr activ, pentru a evita o a doua intervenție de salvare ulterioară.
 
 ### Î10. Care sunt indicațiile artrodezei subtalare primare?
-**R:** Fracturile Sanders IV, cu cominuție severă a fațetei posterioare care nu permite o reconstrucție articulară durabilă, la pacienți tineri activi la care artroza post-traumatică precoce este anticipată cu certitudine. Artrodeza primară evită expunerea repetată și reduce numărul total de intervenții comparativ cu ORIF urmat de artrodeză de salvare la 1 la 2 ani.
+**R:** Sanders IV, cu cominuție severă care nu permite reconstrucție articulară durabilă, la pacienți tineri activi la care artroza post-traumatică precoce este anticipată cu certitudine. Evită expunerea repetată și reduce numărul total de intervenții comparativ cu ORIF urmat de artrodeză de salvare la 1 la 2 ani.
 
 ### Î11. Care sunt complicațiile specifice ale chirurgiei calcaneului și cum le preveniți?
-**R:** Complicații de plagă (10 la 25%, mai frecvente cu abordul lateral extins), infecție profundă, leziune de nerv sural (evitată prin disecție atentă postero-laterală), impingement peronier prin reducere incompletă a peretelui lateral, artroză subtalară post-traumatică. Prevenția include respectarea timing-ului chirurgical (semnul cutelor), tehnică minim invazivă când e posibil, manipulare atentă a țesuturilor moi și hemostază meticuloasă.
+**R:** Complicații de plagă (10 la 25%), infecție profundă, leziune de nerv sural (disecție atentă postero-laterală), impingement peronier prin reducere incompletă a peretelui lateral, artroză subtalară post-traumatică. Prevenția: respectarea timing-ului (semnul cutelor), tehnică minim invazivă când e posibil, manipulare atentă a țesuturilor moi.
 
 ### Î12. Ce este clasificarea Stephens-Sanders și la ce se folosește?
 **R:** Este clasificarea malunion-ului calcaneal post-traumatic: tip I exostoză laterală izolată fără artroză subtalară, tip II exostoză laterală cu artroză subtalară, tip III ca tip II plus incongruență calcaneocuboidiană sau deviere talus varus/valgus. Ghidează alegerea intervenției de salvare: exostectomie izolată în tip I, artrodeză subtalară izolată în tip II, artrodeză combinată cu osteotomie de corecție sau artrodeză calcaneocuboidiană în tip III.
 
 ### Î13. Ce faceți dacă pacientul prezintă fractură bilaterală de calcaneu?
-**R:** Investighez sistematic și coloana vertebrală (asociere frecventă prin același mecanism de energie axială), evaluez fiecare fractură separat pentru indicație de tratament, și planific momentul chirurgical astfel încât să permit mobilizare cât mai precoce, dat fiind că sprijinul va fi contraindicat bilateral pentru câteva săptămâni, cu impact major asupra mobilității și riscului tromboembolic.
+**R:** Investighez sistematic coloana vertebrală (asociere frecventă prin același mecanism axial), evaluez fiecare fractură separat pentru indicație de tratament, și planific momentul chirurgical pentru mobilizare cât mai precoce, dat fiind că sprijinul va fi contraindicat bilateral, cu impact major asupra riscului tromboembolic.
 
-### Î14. Cum diferențiați clinic o fractură de calcaneu de o entorsă gravă de gleznă?
-**R:** În fractura de calcaneu, tumefacția și echimoza sunt centrate pe regiunea calcaneană și plantară (semnul Mondor), cu lărgire vizibilă a călcâiului, iar durerea la palpare este localizată osos; în entorsă, durerea este localizată la nivelul ligamentelor gleznei (colateral lateral), fără lărgire calcaneană, și radiografia dedicată de calcaneu este negativă.
-
-### Î15. Care este rolul incidențelor Broden și când le folosiți?
+### Î14. Care este rolul incidențelor Broden și când le folosiți?
 **R:** Incidențele Broden se obțin cu piciorul în dorsiflexie și rotații interne succesive de 10, 20, 30 și 40 de grade, vizualizând fațeta posterioară subtalară sub diferite unghiuri. Se folosesc mai ales intraoperator, la fluoroscopie, pentru a confirma reducerea anatomică a fațetei posterioare înainte de fixarea definitivă.

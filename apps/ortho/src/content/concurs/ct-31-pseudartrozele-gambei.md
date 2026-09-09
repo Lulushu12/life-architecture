@@ -12,7 +12,7 @@ related: diagnoses/tibia-fractures, classifications/nonunion-types-classificatio
 
 ### Definiție și epidemiologie
 
-Pseudartroza (nonunion) este absența consolidării osoase la 6 până la 9 luni de la fractură, fără progresie radiologică pe două radiografii succesive la interval de minim 3 luni, sau consolidare improbabilă în opinia clinică a chirurgului. Delayed union este stadiul intermediar, peste durata medie de consolidare a segmentului dar cu progresie încă vizibilă. Gamba este segmentul cu cea mai mare incidență de pseudartroză din tot scheletul, din cauza vascularizației precare pe fața anteromedială subcutanată și acoperirii musculare reduse în 1/3 distală. Incidența globală e 5 până la 10% după fracturi diafizare tratate cu tijă, crescând la fracturi deschise (10 până la 20%, mai mult în Gustilo IIIB/IIIC) și la 1/3 distală (15 până la 20%).
+Pseudartroza (nonunion) este absența consolidării osoase la 6 până la 9 luni de la fractură, fără progresie radiologică pe două radiografii succesive la interval de minim 3 luni. Delayed union este stadiul intermediar, peste durata medie de consolidare a segmentului dar cu progresie încă vizibilă. Gamba este segmentul cu cea mai mare incidență de pseudartroză din tot scheletul, din cauza vascularizației precare pe fața anteromedială subcutanată și acoperirii musculare reduse în 1/3 distală. Incidența globală e 5 până la 10% după fracturi diafizare tratate cu tijă, crescând la fracturi deschise (10 până la 20%, mai mult în Gustilo IIIB/IIIC) și la 1/3 distală (15 până la 20%).
 
 ### Anatomie și biomecanică relevantă
 
@@ -20,11 +20,11 @@ Tibia are vascularizație duală: artera nutritivă (ramură a tibialei posterio
 
 ### Etiopatogenie
 
-Factori de risc mecanici: instabilitate la focar (fixare insuficient de rigidă, tijă neîncărcată/unreamed în os cu canal larg, placă cu punte de lucru inadecvată), gap la focar peste 3 mm, comminuție severă, distragere iatrogenă. Factori biologici: leziune de părți moi/deschisă (devitalizare periost, pierdere osoasă), infecție, fumatul (reduce fluxul sanguin capilar, dublează riscul de nonunion), diabet (microangiopatie), AINS folosite cronic (inhibă COX-2, esențială în faza inflamatorie a consolidării), corticoterapie, malnutriție, boală vasculară periferică, radioterapie anterioară. Fracturile deschise de 1/3 distală cu pierdere osoasă segmentară sunt combinația cu cel mai mare risc.
+Factori mecanici: instabilitate la focar (fixare insuficient de rigidă, tijă neîncărcată/unreamed în canal larg, placă cu punte inadecvată), gap peste 3 mm, comminuție severă, distragere iatrogenă. Factori biologici: leziune de părți moi/fractură deschisă (devitalizare periost, pierdere osoasă), infecție, fumat (reduce fluxul capilar, dublează riscul de nonunion), diabet, AINS cronice (inhibă COX-2, esențială în faza inflamatorie), corticoterapie, malnutriție, boală vasculară periferică, radioterapie anterioară. Fracturile deschise de 1/3 distală cu pierdere osoasă segmentară au riscul cel mai mare.
 
 ### Anatomie patologică
 
-Se descriu clasic două mari categorii biologice: pseudartroza hipertrofică (biologie bună, calus abundent dar dezorganizat, "elephant foot" sau "horse hoof", problema e strict mecanică, instabilitate) și pseudartroza atrofică (biologie deficitară, capete osoase efilate, fără calus, țesut fibros interpus, avasculare). Între acestea, pseudartroza oligotrofică are calus minim cu capete relativ bine vascularizate. Pseudartroza infectată (septică) prezintă sechestre, fistule, os scleros și traiect purulent, indiferent de aspectul mecanic asociat.
+Se descriu clasic două categorii biologice: hipertrofică (biologie bună, calus abundent dar dezorganizat, "elephant foot" sau "horse hoof", problemă strict mecanică) și atrofică (biologie deficitară, capete efilate, fără calus, țesut fibros interpus, avasculară). Oligotrofică are calus minim cu capete relativ vascularizate. Pseudartroza infectată prezintă sechestre, fistule, os scleros și traiect purulent.
 
 ### Clasificare
 
@@ -47,15 +47,15 @@ Se descriu clasic două mari categorii biologice: pseudartroza hipertrofică (bi
 
 ### Clinic
 
-Durere la mobilizare/sprijin la focar, mobilitate anormală ("mișcare de balama") la palpare bimanuală, deformare progresivă (varus/valgus, procurvatum/recurvatum) sub sarcină, edem cronic, atrofie musculară de folosire redusă, eventual fistulă cu secreție (semn de infecție). Diferența majoră: pseudartroza hipertrofică poate fi relativ nedureroasă cu mobilitate redusă (calus voluminos care limitează mișcarea), atrofica e mai mobilă și mai dureroasă.
+Durere la mobilizare/sprijin, mobilitate anormală ("mișcare de balama") la palpare bimanuală, deformare progresivă (varus/valgus, procurvatum/recurvatum) sub sarcină, edem cronic, atrofie musculară, eventual fistulă cu secreție (semn de infecție). Pseudartroza hipertrofică poate fi relativ nedureroasă cu mobilitate redusă (calus voluminos), atrofica e mai mobilă și mai dureroasă.
 
 ### Imagistică și explorări
 
-Radiografii AP și laterale (calcul RUST), eventual oblice. CT cu reconstrucție pentru evaluarea punții corticale reale (subestimată pe radiografie simplă, mai fidelă pentru gap real și pentru sechestre). RMN utilă pentru diagnostic diferențial cu infecția subclinică (edem osos, colecții). Pentru infecție: CRP și VSH (sensibilitate mare dar nespecifice, utile pentru trend), leucocite (sensibilitate mică), aspirație/puncție la focar cu cultură, biopsie osoasă cu minim 3 până la 5 fragmente pentru cultură microbiologică (standard de aur), PET-CT cu FDG util în cazuri echivoce cu implant metalic prezent (scintigrafia cu leucocite marcate e alternativă). Antibioticele se întrerup minim 2 săptămâni înainte de recoltare pentru a evita fals-negative.
+Radiografii AP și laterale (calcul RUST), eventual oblice. CT cu reconstrucție pentru evaluarea punții corticale reale (subestimată pe radiografie simplă, mai fidelă pentru gap real și sechestre). RMN utilă pentru diferențiere cu infecția subclinică (edem osos, colecții). Pentru infecție: CRP și VSH (sensibile dar nespecifice, utile pentru trend), leucocite (sensibilitate mică), aspirație la focar cu cultură, biopsie osoasă cu minim 3 până la 5 fragmente (standard de aur), PET-CT cu FDG util în cazuri echivoce cu implant prezent. Antibioticele se întrerup minim 2 săptămâni înainte de recoltare, pentru a evita fals-negative.
 
 ### Diagnostic diferențial
 
-Delayed union (încă în progresie radiologică, nu s-a atins timpul minim de diagnostic), fractură de stres pe implant (durere nouă pe fond de consolidare aparentă), osteoliza periimplant din cauza corozie/particule (rar), artropatie Charcot la diabetic (context neuropatic), tumoare osoasă cu fractură patologică suprapusă (istoricul traumatic absent sau minor).
+Delayed union (încă în progresie radiologică, timpul minim neatins), fractură de stres pe implant (durere nouă pe fond de consolidare aparentă), osteoliza periimplant prin corozie/particule (rar), artropatie Charcot la diabetic, tumoare osoasă cu fractură patologică suprapusă (istoric traumatic minor sau absent).
 
 ### Tratament
 
@@ -73,15 +73,15 @@ Delayed union (încă în progresie radiologică, nu s-a atins timpul minim de d
 
 **Amputația** rămâne opțiune finală la pseudartroze infectate recidivante cu distrucție osoasă extinsă, pierdere de funcție ireversibilă a membrului, sau la pacient cu comorbidități care nu tolerează reconstrucții multiple prelungite.
 
-**Rate de consolidare pe tehnică:** exchange nailing alezat 80 până la 90%; placă cu grefă autologă 85 până la 95%; Ilizarov transport osos pentru defecte mari, 80 până la 90% dar cu timp de tratament lung (indexul de fixare externă, aproximativ 1 până la 1,5 luni/cm defect (?)); Masquelet, 80 până la 90% pentru defecte sub 10 până la 15 cm.
+**Rate de consolidare pe tehnică:** exchange nailing alezat 80 până la 90%; placă cu grefă autologă 85 până la 95%; transport osos Ilizarov pentru defecte mari, 80 până la 90%, timp de tratament lung (index de fixare externă, aproximativ 1 până la 1,5 luni/cm defect (?)); Masquelet, 80 până la 90% pentru defecte sub 10 până la 15 cm.
 
 ### Complicații
 
-Persistența pseudartrozei după prima reintervenție (10 până la 20%), infecție iatrogenă la reintervenție, complicații ale fixatorului extern (pin tract infection, rigiditate articulară), rigiditate de genunchi/gleznă din imobilizare prelungită, discrepanță de lungime la transport osos, refracturare după dinamizare precoce, tromboembolism la imobilizare prelungită.
+Persistența pseudartrozei după prima reintervenție (10 până la 20%), infecție iatrogenă, complicații de fixator extern (pin tract infection, rigiditate articulară), discrepanță de lungime la transport osos, refracturare după dinamizare precoce, tromboembolism la imobilizare prelungită.
 
 ### Evoluție și prognostic
 
-Netratată, pseudartroza persistă indefinit cu durere cronică, instabilitate funcțională și impotență la sprijin, cu impact socio-profesional major. Cu tratament adecvat conform algoritmului mecanic/biologic, ratele de consolidare finală (după eventuale reintervenții) ajung la 90 până la 95%. Prognosticul cel mai rezervat este la pseudartroza infectată cu defect osos peste 6 cm și la teren biologic compromis (fumător, diabetic necontrolat).
+Netratată, pseudartroza persistă indefinit cu durere cronică, instabilitate funcțională și impact socio-profesional major. Cu tratament adecvat conform algoritmului mecanic/biologic, ratele de consolidare finală ajung la 90 până la 95%. Prognosticul cel mai rezervat e la pseudartroza infectată cu defect peste 6 cm și teren biologic compromis (fumător, diabetic necontrolat).
 
 ## Script de prezentare
 
@@ -99,17 +99,17 @@ General: stare de nutriție, semne de infecție cronică (paloare, subfebrilitat
 
 ### 4. Diagnostic pozitiv (30 s)
 
-Diagnostic pozitiv: pseudartroză [hipertrofică/atrofică/infectată] de tibie 1/3 [proximală/medie/distală], tip Weber-Cech [specific], pe baza persistenței durerii și mobilității anormale la focar peste 9 luni de la fractura inițială și a absenței punții corticale pe cel puțin 3 din 4 corticale pe radiografiile AP și laterale (RUST sub 8).
+Diagnostic pozitiv: pseudartroză [hipertrofică/atrofică/infectată] de tibie 1/3 [proximală/medie/distală], tip Weber-Cech [specific], pe baza persistenței durerii și mobilității anormale peste 9 luni de la fractura inițială și absenței punții corticale pe cel puțin 3 din 4 corticale (RUST sub 8).
 
-Diagnostice secundare de reținut: infecție cronică asociată (dacă prezentă), deformare axială secundară, rigiditate articulară adiacentă.
+Diagnostice secundare de reținut: infecție cronică asociată, deformare axială secundară, rigiditate articulară adiacentă.
 
 ### 5. Diagnostic diferențial (1 min)
 
-Delayed union: încă în fereastra normală de timp pentru consolidare, cu progresie radiologică documentată între controale. Fractură de stres pe implant: durere nouă cu implant anterior asimptomatic. Osteoliza periimplant: context de corodare/uzură a materialului, rar. Artropatie Charcot: context de neuropatie diabetică, fără istoric traumatic clar sever. Tumoare osoasă cu fractură patologică: istoric traumatic minor sau absent, aspect radiografic tumoral.
+Delayed union: încă în fereastra normală de timp, cu progresie radiologică documentată. Fractură de stres pe implant: durere nouă cu implant anterior asimptomatic. Osteoliza periimplant: corodare/uzură a materialului, rar. Artropatie Charcot: context de neuropatie diabetică. Tumoare osoasă cu fractură patologică: istoric traumatic minor sau absent, aspect radiografic tumoral.
 
 ### 6. Investigații (1 min)
 
-Radiografii AP și laterale pentru calculul RUST și evaluarea tipului Weber-Cech. CT cu reconstrucție pentru evaluarea reală a punții corticale și a eventualelor sechestre. CRP, VSH, hemogramă cu leucocite pentru screening de infecție. Dacă suspiciune de infecție, aspirație la focar cu cultură și, la reintervenție, minim 3 până la 5 biopsii tisulare profunde pentru cultură, cu antibioticele întrerupte minim 2 săptămâni înainte. Preoperator: evaluare vasculară dacă suspiciune de boală arterială periferică, status nutrițional (albumină), status glicemic.
+Radiografii AP și laterale pentru RUST și tipul Weber-Cech. CT cu reconstrucție pentru punte corticală reală și eventuale sechestre. CRP, VSH, hemogramă pentru screening de infecție. Dacă suspiciune de infecție, aspirație la focar cu cultură și, la reintervenție, minim 3 până la 5 biopsii profunde, cu antibioticele întrerupte minim 2 săptămâni înainte. Preoperator: evaluare vasculară dacă suspiciune de boală arterială periferică, status nutrițional, glicemic.
 
 ### 7. Tratament (3 min)
 
@@ -125,14 +125,14 @@ Fără tratament, pseudartroza persistă indefinit cu durere cronică și instab
 
 ### Fraze-cheie
 
-- Pseudartroza hipertrofică e o problemă mecanică și se tratează prin stabilizare mai rigidă, cea atrofică e o problemă biologică și necesită grefă osoasă.
-- RUST score, calculat pe 4 corticale la radiografiile AP și laterale, obiectivează progresia consolidării și ghidează decizia de reintervenție.
-- Pseudartroza infectată se tratează în doi timpi: debridare radicală cu fixator extern, apoi reconstrucție definitivă după eradicare confirmată biologic.
-- Fumatul dublează riscul de pseudartroză prin reducerea fluxului sanguin capilar la focarul de fractură.
-- Exchange nailing alezat este soluția standard pentru pseudartroza hipertrofică pe tijă subdimensionată sau neîncărcată.
-- Decorticarea Judet plus grefa osoasă din creasta iliacă rămân standardul biologic pentru pseudartroza atrofică.
+- Pseudartroza hipertrofică e o problemă mecanică, tratată prin stabilizare mai rigidă; cea atrofică e biologică și necesită grefă osoasă.
+- RUST score, calculat pe 4 corticale AP și laterale, obiectivează progresia consolidării și ghidează decizia de reintervenție.
+- Pseudartroza infectată se tratează în doi timpi: debridare radicală cu fixator extern, apoi reconstrucție după eradicare confirmată.
+- Fumatul dublează riscul de pseudartroză prin reducerea fluxului capilar la focar.
+- Exchange nailing alezat e soluția standard pentru pseudartroza hipertrofică pe tijă subdimensionată sau neîncărcată.
+- Decorticarea Judet plus grefa din creasta iliacă rămân standardul biologic pentru pseudartroza atrofică.
 - Osteotomia fibulară permite compresia focarului tibial când fibula consolidată acționează ca stâlp de distanțare.
-- Biopsia osoasă cu minim 3 până la 5 fragmente, cu antibioticele întrerupte 2 săptămâni înainte, este standardul pentru diagnosticul microbiologic al pseudartrozei infectate.
+- Biopsia osoasă cu minim 3 până la 5 fragmente, antibiotice întrerupte 2 săptămâni înainte, e standardul microbiologic pentru pseudartroza infectată.
 
 ## Întrebările comisiei
 
