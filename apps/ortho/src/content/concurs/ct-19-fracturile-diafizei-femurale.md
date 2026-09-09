@@ -106,7 +106,7 @@ Protocol postoperator: mobilizare precoce, sprijin conform stabilității fractu
 
 ### 8. Evoluție, complicații, prognostic (1 min)
 
-Fără tratament, evoluția este spre deformare permanentă, scurtare, pseudartroză și complicații majore de decubit. Complicații ale fracturii: embolie grasă (criteriile Gurd, urgență ce necesită suport respirator), leziune vasculară/nervoasă asociată. Complicații ale tratamentului: malrotație (evaluare CT comparativă la simptome), nonunion (rar, sub 5%), infecție, tromboembolism, leziune de nerv peronier la manipulare excesivă. Prognostic funcțional bun cu fixare adecvată, consolidare peste 95% la 4 la 6 luni. Urmărire: radiografică periodică până la consolidare completă, evaluare clinică a rotației și lungimii membrului.
+Fără tratament, evoluția e spre deformare permanentă, scurtare, pseudartroză. Complicații ale fracturii: embolie grasă (criteriile Gurd), leziune vasculară/nervoasă asociată. Complicații ale tratamentului: malrotație, nonunion (rar, sub 5%), infecție, tromboembolism. Prognostic funcțional bun cu fixare adecvată, consolidare peste 95% la 4 la 6 luni. Urmărire: radiografică periodică, evaluare clinică a rotației și lungimii.
 
 ### Fraze-cheie
 
