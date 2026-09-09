@@ -43,7 +43,7 @@ Inel pelvin: leziunea poate fi osoasă, ligamentară (diastază pură) sau mixt�
 | VS | Forfecare verticală | Deplasare craniocaudală completă SI + anterior | Foarte crescut |
 | CM | Combinat | Elemente mixte LC+VS/APC | Variabil, frecvent crescut |
 
-**Clasic vs actual:** manualele românești folosesc adesea doar Tile pentru decizia de stabilizare mecanică; Young-Burgess este preferată în context de urgență/resuscitare pentru că mecanismul corelează direct cu tipul și severitatea sângerării (APC și VS au risc hemoragic mult mai mare decât LC), ghidând decizia de binder și angioembolizare precoce, nu doar fixarea definitivă.
+**Clasic vs actual:** manualele românești folosesc adesea doar Tile pentru stabilizarea mecanică; Young-Burgess este preferată în urgență pentru că mecanismul corelează direct cu severitatea sângerării, ghidând decizia de binder și angioembolizare precoce, nu doar fixarea definitivă.
 
 **Judet-Letournel (acetabul, 10 tipuri):**
 

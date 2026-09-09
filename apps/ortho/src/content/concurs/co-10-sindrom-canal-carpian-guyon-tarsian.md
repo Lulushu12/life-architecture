@@ -129,15 +129,15 @@ Netratat, sindromul poate progresa catre deficit motor permanent si atrofie musc
 
 ### Î1. Care sunt structurile continute in canalul carpian si de ce nervul median este cel mai expus la compresie?
 
-**R:** Canalul contine nervul median si noua tendoane flexoare (flexor digitorum superficialis x4, profundus x4, flexor pollicis longus). Nervul median este structura cea mai superficiala si anterioara in canal, motiv pentru care este cel mai expus la compresie prin cresterea presiunii intracanalare.
+**R:** Canalul contine nervul median si noua tendoane flexoare (FDS x4, FDP x4, FPL). Nervul median e structura cea mai superficiala si anterioara in canal, motiv pentru care e cel mai expus la compresie prin cresterea presiunii intracanalare.
 
 ### Î2. Care sunt cele trei zone ale canalului Guyon si semnificatia lor clinica?
 
-**R:** Zona 1, proximal de bifurcatia nervului ulnar, produce leziune mixta motorie si senzitiva; zona 2, in jurul ramurii motorii profunde, produce leziune predominant motorie a musculaturii intrinseci; zona 3, in jurul ramurii senzitive superficiale, produce leziune predominant senzitiva. Localizarea clinica a deficitului orienteaza catre zona afectata.
+**R:** Zona 1, proximal de bifurcatie, produce leziune mixta motorie si senzitiva; zona 2, ramura motorie profunda, leziune predominant motorie; zona 3, ramura senzitiva superficiala, leziune predominant senzitiva. Localizarea deficitului orienteaza catre zona afectata.
 
 ### Î3. Care sunt criteriile electrofiziologice pentru sindromul de canal carpian?
 
-**R:** Latenta motorie distala peste 4,5 ms (?), latenta senzitiva distala peste 3,5 ms (?), si viteza de conducere senzitiva scazuta sub 50 m/s (?), cu unde de denervare la EMG cu ac in cazurile severe cu afectare a musculaturii tenariene.
+**R:** Latenta motorie distala peste 4,5 ms (?), latenta senzitiva peste 3,5 ms (?), viteza de conducere sub 50 m/s (?), cu unde de denervare la EMG cu ac in cazurile severe.
 
 ### Î4. Ce faceti daca un pacient cu sindrom de canal carpian prezinta atrofie tenariana la prezentare?
 

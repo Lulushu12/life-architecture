@@ -143,7 +143,7 @@ Fără tratament, evoluția este spre imobilizare prelungită cu complicații de
 **R:** Este suma distanțelor de la vârful șurubului cefalic la vârful capului femural, măsurate pe imaginile anteroposterioară și laterală și corectate pentru magnificarea radiografică. O valoare sub 25 milimetri este considerată sigură pentru prevenția cut-out-ului, iar poziția optimă a șurubului este centro-inferioară pe ambele imagini.
 
 ### Î4. Ce faceți dacă intraoperator, la introducerea tijei cefalomedulare, apare o fractură a peretelui lateral?
-**R:** Verific stabilitatea construcției rămase; dacă fractura peretelui lateral este mică și tija oferă deja suport medular suficient, continui cu blocare atentă. Dacă instabilitatea e semnificativă, adaug fixare suplimentară a peretelui (cablaj/placă de neutralizare) sau reconsider tipul de implant pentru a asigura stabilitate mecanică suficientă.
+**R:** Verific stabilitatea rămasă; dacă fractura peretelui e mică și tija oferă suport suficient, continui cu blocare atentă. Dacă instabilitatea e semnificativă, adaug cablaj/placă de neutralizare sau reconsider implantul.
 
 ### Î5. Care este diferența dintre Evans-Jensen și Kyle?
 **R:** Evans-Jensen clasifică pe număr de fragmente (2, 3 sau 4) și pe prezența suportului cortical posteromedial după reducere, fiind orientată spre predicția stabilității. Kyle clasifică în patru tipuri bazate pe gradul de deplasare și cominuție, fiind istoric folosită pentru a corela cu rezultatele fixării prin DHS.
