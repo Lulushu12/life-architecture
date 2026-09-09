@@ -67,6 +67,8 @@ function buildArticles() {
     const m = path.match(/^\.\/content\/([^/]+)\/([^/]+)\.md$/);
     if (!m) continue;
     const [, category, slug] = m;
+    // Exam-prep topics have their own loader and views (concurs.js).
+    if (category === "concurs") continue;
     const { meta, body } = parseFrontMatter(raw);
     articles.push({
       id: `${category}/${slug}`,
