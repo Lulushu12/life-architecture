@@ -131,6 +131,9 @@ function BotGame({ store, setStore, nav }) {
   // and the hint both come from this one search, so a hinted move can never
   // be contradicted by the bar that judged it.
   const [evalInfo, setEvalInfo] = useState(null);
+  // Eval of a browsed past position: {fen, cp}. While a move is selected in
+  // the list, the bar shows THIS, not the live position's eval.
+  const [viewEval, setViewEval] = useState(null);
   const [engineReady, setEngineReady] = useState(false);
   const botBusy = useRef(false);
   const cooldowns = useRef({});
@@ -158,6 +161,31 @@ function BotGame({ store, setStore, nav }) {
     for (let i = 0; i <= viewPly; i++) c.move(g.sans[i]);
     return c.fen();
   }, [viewPly, liveFen, g.startFen, g.sans]);
+
+  // Browsing history: point the eval bar at the position being VIEWED. The
+  // stored game eval fills in instantly (see `cp` below); this refines it
+  // with a fresh search, sharing the engine queue with the bot's thinking.
+  useEffect(() => {
+    if (viewPly == null || g.serious || !store.settings.evalBar) return;
+    const fen = shownFen;
+    const c = new Chess(fen);
+    if (c.isGameOver()) {
+      setViewEval({ fen, cp: c.isCheckmate() ? (c.turn() === "w" ? -10000 : 10000) : 0 });
+      return;
+    }
+    let cancelled = false;
+    engine
+      .analyze(fen, { movetime: 300 })
+      .then((r) => {
+        if (cancelled || !r.lines[0]) return;
+        setViewEval({ fen, cp: cpWhite(r.lines[0], fen.split(" ")[1]) });
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewPly, shownFen, g.serious, store.settings.evalBar, engine]);
 
   // Legal moves for the player — from the live position, or from a past
   // position being previewed (playing there branches the game).
@@ -486,7 +514,11 @@ function BotGame({ store, setStore, nav }) {
     setViewPly(null);
   };
 
-  const cp = g.cps[g.cps.length - 1] ?? 0;
+  // Live position's eval normally; the viewed position's while browsing —
+  // stored game eval as the instant placeholder until the fresh search lands.
+  const liveCp = g.cps[g.cps.length - 1] ?? 0;
+  const cp =
+    viewPly == null ? liveCp : viewEval?.fen === shownFen ? viewEval.cp : (g.cps[viewPly + 1] ?? liveCp);
   const over = g.status === "over";
 
   return (
