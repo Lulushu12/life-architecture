@@ -1,5 +1,12 @@
 # Life Architecture v3 — Rebuild Plan
 
+> **Status (2026-09-23): historical.** Phases 0 to 2 shipped as a local-first
+> app (`src/system/`, `src/views/`, the overload gate, meal and waist logging).
+> The Firebase/Firestore layer and the `functions/coach` Cloud Function were
+> never built; the shipped coach is a browser-side OpenAI-compatible client
+> and sync is backup/import (plus an optional, off-by-default GitHub branch
+> push). For the current direction see `docs/design-audit-2026-09.md`.
+
 > Build brief for the agent. Self-contained: the v2 operating-system doc
 > (`sovereign_health_operating_system_v2`, in the owner's Google Drive) is the
 > health source of truth; this file is the architectural source of truth.
