@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { articlesInCategory, categories } from "./content.js";
 import { TopBar, ArticleRow } from "./ui.jsx";
 
@@ -37,16 +37,23 @@ function orderedValues(articles, field, order) {
 function ChipRow({ label, values, active, onPick }) {
   if (values.length < 2) return null;
   return (
-    <div className="filterrow">
+    <div className="filterrow" role="group" aria-label={label}>
       <span className="filterrow-label">{label}</span>
       <div className="filterrow-chips">
-        <button className={"chip" + (active === "" ? " active" : "")} onClick={() => onPick("")}>
+        <button
+          type="button"
+          className={"chip" + (active === "" ? " active" : "")}
+          aria-pressed={active === ""}
+          onClick={() => onPick("")}
+        >
           All
         </button>
         {values.map(({ value, count }) => (
           <button
+            type="button"
             key={value}
             className={"chip" + (active === value ? " active" : "")}
+            aria-pressed={active === value}
             onClick={() => onPick(active === value ? "" : value)}
           >
             {value} <span className="chip-count">{count}</span>
@@ -57,17 +64,16 @@ function ChipRow({ label, values, active, onPick }) {
   );
 }
 
-export default function CategoryView({ categoryKey, local, onOpenArticle, onNew, onHome }) {
+export default function CategoryView({ categoryKey, local, region, specialty, onFilter, onOpenArticle, onNew, onBack }) {
   const meta = categories(local).find((c) => c.key === categoryKey);
   const articles = articlesInCategory(categoryKey, local);
-  const [region, setRegion] = useState("");
-  const [specialty, setSpecialty] = useState("");
 
   const regions = useMemo(() => orderedValues(articles, "region", REGION_ORDER), [articles]);
   const specialties = useMemo(() => orderedValues(articles, "specialty", SPECIALTY_ORDER), [articles]);
 
-  const filtered = articles.filter(
-    (a) => (!region || a.region === region) && (!specialty || a.specialty === specialty)
+  const filtered = useMemo(
+    () => articles.filter((a) => (!region || a.region === region) && (!specialty || a.specialty === specialty)),
+    [articles, region, specialty]
   );
 
   return (
@@ -75,19 +81,17 @@ export default function CategoryView({ categoryKey, local, onOpenArticle, onNew,
       <TopBar
         title={meta ? meta.label : categoryKey}
         subtitle={`${filtered.length}${filtered.length !== articles.length ? ` of ${articles.length}` : ""} article${articles.length === 1 ? "" : "s"}`}
-        onBack={onHome}
+        onBack={onBack}
         right={
-          <button className="linkbtn" onClick={onNew}>
+          <button type="button" className="linkbtn" onClick={onNew}>
             + New
           </button>
         }
       />
-      <ChipRow label="Location" values={regions} active={region} onPick={setRegion} />
-      <ChipRow label="Pathology" values={specialties} active={specialty} onPick={setSpecialty} />
+      <ChipRow label="Location" values={regions} active={region} onPick={(v) => onFilter({ region: v })} />
+      <ChipRow label="Pathology" values={specialties} active={specialty} onPick={(v) => onFilter({ specialty: v })} />
       {articles.length === 0 && <p className="hint">No articles in this category yet.</p>}
-      {articles.length > 0 && filtered.length === 0 && (
-        <p className="hint">No articles match the selected filters.</p>
-      )}
+      {articles.length > 0 && filtered.length === 0 && <p className="hint">No articles match the selected filters.</p>}
       {filtered.map((a) => (
         <ArticleRow key={a.id} article={a} onOpen={onOpenArticle} />
       ))}

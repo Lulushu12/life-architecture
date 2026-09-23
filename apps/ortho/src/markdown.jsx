@@ -1,215 +1,198 @@
-// Minimal hand-written markdown renderer. No external dependency.
-// Renders into React elements (never dangerouslySetInnerHTML), so HTML in
-// the source is inert — React text nodes escape it automatically.
-//
-// Supported: # / ## / ### / #### headings, **bold**, *italic*, `code`, fenced code
-// blocks, unordered/ordered lists, pipe tables, blockquotes, horizontal
-// rules, links, plain paragraphs.
+import { memo, useMemo, useState } from "react";
+import { parseBlocks, inlineText } from "./mdparse.js";
 
-const INLINE_RE = /`([^`]+)`|\*\*([^*]+)\*\*|\*([^*]+)\*|\[([^\]]+)\]\(([^)]+)\)/g;
+const parseCache = new Map();
 
-function parseInline(text, keyPrefix = "i") {
-  const nodes = [];
-  let last = 0;
-  let m;
-  let key = 0;
-  INLINE_RE.lastIndex = 0;
-  while ((m = INLINE_RE.exec(text))) {
-    if (m.index > last) nodes.push(text.slice(last, m.index));
-    const k = `${keyPrefix}-${key++}`;
-    if (m[1] !== undefined) {
-      nodes.push(<code key={k}>{m[1]}</code>);
-    } else if (m[2] !== undefined) {
-      nodes.push(<strong key={k}>{m[2]}</strong>);
-    } else if (m[3] !== undefined) {
-      nodes.push(<em key={k}>{m[3]}</em>);
-    } else if (m[4] !== undefined) {
-      nodes.push(
-        <a key={k} href={m[5]} target="_blank" rel="noreferrer">
-          {m[4]}
-        </a>
-      );
-    }
-    last = INLINE_RE.lastIndex;
-  }
-  if (last < text.length) nodes.push(text.slice(last));
-  return nodes;
-}
-
-function isTableSeparator(line) {
-  return /^\s*\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)*\|?\s*$/.test(line);
-}
-
-function splitTableRow(line) {
-  let l = line.trim();
-  if (l.startsWith("|")) l = l.slice(1);
-  if (l.endsWith("|")) l = l.slice(0, -1);
-  return l.split("|").map((c) => c.trim());
-}
-
-function parseBlocks(text) {
-  const lines = text.replace(/\r\n/g, "\n").split("\n");
-  const blocks = [];
-  let i = 0;
-  while (i < lines.length) {
-    const line = lines[i];
-
-    if (line.trim() === "") {
-      i++;
-      continue;
-    }
-
-    // fenced code block
-    if (line.trimStart().startsWith("```")) {
-      const lang = line.trim().slice(3).trim();
-      i++;
-      const code = [];
-      while (i < lines.length && !lines[i].trimStart().startsWith("```")) {
-        code.push(lines[i]);
-        i++;
-      }
-      i++; // consume closing fence
-      blocks.push({ type: "code", lang, content: code.join("\n") });
-      continue;
-    }
-
-    // heading
-    const h = line.match(/^(#{1,4})\s+(.*)$/);
-    if (h) {
-      blocks.push({ type: "heading", level: h[1].length, text: h[2].trim() });
-      i++;
-      continue;
-    }
-
-    // horizontal rule
-    if (/^(-{3,}|\*{3,}|_{3,})\s*$/.test(line.trim())) {
-      blocks.push({ type: "hr" });
-      i++;
-      continue;
-    }
-
-    // blockquote
-    if (line.startsWith(">")) {
-      const quote = [];
-      while (i < lines.length && lines[i].startsWith(">")) {
-        quote.push(lines[i].replace(/^>\s?/, ""));
-        i++;
-      }
-      blocks.push({ type: "blockquote", text: quote.join(" ") });
-      continue;
-    }
-
-    // table: header row followed by a separator row
-    if (line.trim().startsWith("|") && lines[i + 1] && isTableSeparator(lines[i + 1])) {
-      const header = splitTableRow(line);
-      i += 2;
-      const rows = [];
-      while (i < lines.length && lines[i].trim().startsWith("|")) {
-        rows.push(splitTableRow(lines[i]));
-        i++;
-      }
-      blocks.push({ type: "table", header, rows });
-      continue;
-    }
-
-    // unordered list
-    if (/^\s*[-*+]\s+/.test(line)) {
-      const items = [];
-      while (i < lines.length && /^\s*[-*+]\s+/.test(lines[i])) {
-        items.push(lines[i].replace(/^\s*[-*+]\s+/, ""));
-        i++;
-      }
-      blocks.push({ type: "ul", items });
-      continue;
-    }
-
-    // ordered list
-    if (/^\s*\d+[.)]\s+/.test(line)) {
-      const items = [];
-      while (i < lines.length && /^\s*\d+[.)]\s+/.test(lines[i])) {
-        items.push(lines[i].replace(/^\s*\d+[.)]\s+/, ""));
-        i++;
-      }
-      blocks.push({ type: "ol", items });
-      continue;
-    }
-
-    // paragraph: consecutive non-blank lines
-    const para = [];
-    while (i < lines.length && lines[i].trim() !== "") {
-      para.push(lines[i]);
-      i++;
-    }
-    blocks.push({ type: "p", text: para.join(" ") });
+export function parseCached(text) {
+  const key = text || "";
+  let blocks = parseCache.get(key);
+  if (!blocks) {
+    blocks = parseBlocks(key);
+    if (parseCache.size > 24) parseCache.delete(parseCache.keys().next().value);
+    parseCache.set(key, blocks);
   }
   return blocks;
 }
 
-export function Markdown({ text }) {
-  const blocks = parseBlocks(text || "");
+export function Inline({ tokens, onOpenArticle }) {
+  return tokens.map((k, i) => {
+    switch (k.t) {
+      case "text":
+        return k.v;
+      case "code":
+        return <code key={i}>{k.v}</code>;
+      case "strong":
+        return (
+          <strong key={i}>
+            <Inline tokens={k.c} onOpenArticle={onOpenArticle} />
+          </strong>
+        );
+      case "em":
+        return (
+          <em key={i}>
+            <Inline tokens={k.c} onOpenArticle={onOpenArticle} />
+          </em>
+        );
+      case "img":
+        return <img key={i} className="md-img" src={k.src} alt={k.alt} loading="lazy" />;
+      case "link":
+        if (k.internal && onOpenArticle) {
+          return (
+            <a
+              key={i}
+              href={`#${k.internal}`}
+              className="md-internal"
+              onClick={(e) => {
+                e.preventDefault();
+                onOpenArticle(k.internal);
+              }}
+            >
+              <Inline tokens={k.c} onOpenArticle={onOpenArticle} />
+            </a>
+          );
+        }
+        return (
+          <a key={i} href={k.href} target="_blank" rel="noreferrer">
+            <Inline tokens={k.c} onOpenArticle={onOpenArticle} />
+          </a>
+        );
+      default:
+        return null;
+    }
+  });
+}
+
+function Table({ block, onOpenArticle }) {
+  const wide = block.header.length >= 5;
+  const [cards, setCards] = useState(false);
+  const labels = useMemo(() => block.header.map(inlineText), [block]);
+
+  return (
+    <div className="md-tableblock">
+      {wide && (
+        <div className="tabletoggle">
+          <button
+            type="button"
+            className={"chip" + (cards ? "" : " active")}
+            aria-pressed={!cards}
+            onClick={() => setCards(false)}
+          >
+            Table
+          </button>
+          <button
+            type="button"
+            className={"chip" + (cards ? " active" : "")}
+            aria-pressed={cards}
+            onClick={() => setCards(true)}
+          >
+            Cards
+          </button>
+        </div>
+      )}
+      {cards ? (
+        <div className="md-cards">
+          {block.rows.map((row, ri) => (
+            <dl key={ri} className="md-card">
+              {row.map((cell, ci) =>
+                cell.length === 0 ? null : (
+                  <div key={ci} className={ci === 0 ? "md-card-head" : "md-card-row"}>
+                    <dt>{labels[ci]}</dt>
+                    <dd>
+                      <Inline tokens={cell} onOpenArticle={onOpenArticle} />
+                    </dd>
+                  </div>
+                )
+              )}
+            </dl>
+          ))}
+        </div>
+      ) : (
+        <div className="tablewrap" tabIndex={0} role="region" aria-label={labels.join(", ")}>
+          <table className={"md-table" + (wide ? " wide" : "")}>
+            <thead>
+              <tr>
+                {block.header.map((c, j) => (
+                  <th key={j} style={block.align[j] ? { textAlign: block.align[j] } : undefined}>
+                    <Inline tokens={c} onOpenArticle={onOpenArticle} />
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {block.rows.map((row, ri) => (
+                <tr key={ri}>
+                  {row.map((c, ci) => (
+                    <td key={ci} style={block.align[ci] ? { textAlign: block.align[ci] } : undefined}>
+                      <Inline tokens={c} onOpenArticle={onOpenArticle} />
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ListBlock({ block, onOpenArticle }) {
+  const items = block.items.map((it, j) => (
+    <li key={j}>
+      <Inline tokens={it.inl} onOpenArticle={onOpenArticle} />
+      {it.blocks.length > 0 && <Blocks blocks={it.blocks} onOpenArticle={onOpenArticle} />}
+    </li>
+  ));
+  if (block.ordered) return <ol start={block.start !== 1 ? block.start : undefined}>{items}</ol>;
+  return <ul>{items}</ul>;
+}
+
+function Block({ b, onOpenArticle }) {
+  switch (b.type) {
+    case "heading": {
+      const Tag = `h${Math.min(b.level, 6)}`;
+      return (
+        <Tag id={b.id}>
+          <Inline tokens={b.inl} onOpenArticle={onOpenArticle} />
+        </Tag>
+      );
+    }
+    case "hr":
+      return <hr />;
+    case "blockquote":
+      return (
+        <blockquote>
+          <Blocks blocks={b.blocks} onOpenArticle={onOpenArticle} />
+        </blockquote>
+      );
+    case "code":
+      return (
+        <pre className="md-code">
+          <code>{b.content}</code>
+        </pre>
+      );
+    case "list":
+      return <ListBlock block={b} onOpenArticle={onOpenArticle} />;
+    case "table":
+      return <Table block={b} onOpenArticle={onOpenArticle} />;
+    default:
+      return (
+        <p>
+          <Inline tokens={b.inl} onOpenArticle={onOpenArticle} />
+        </p>
+      );
+  }
+}
+
+export const Blocks = memo(function Blocks({ blocks, onOpenArticle }) {
+  return blocks.map((b, idx) => <Block key={idx} b={b} onOpenArticle={onOpenArticle} />);
+});
+
+export function Markdown({ text, onOpenArticle }) {
+  const blocks = useMemo(() => parseCached(text), [text]);
   return (
     <div className="md-content">
-      {blocks.map((b, idx) => {
-        const key = `b${idx}`;
-        switch (b.type) {
-          case "heading": {
-            const Tag = `h${b.level}`;
-            return <Tag key={key}>{parseInline(b.text, key)}</Tag>;
-          }
-          case "hr":
-            return <hr key={key} />;
-          case "blockquote":
-            return <blockquote key={key}>{parseInline(b.text, key)}</blockquote>;
-          case "code":
-            return (
-              <pre key={key} className="md-code">
-                <code>{b.content}</code>
-              </pre>
-            );
-          case "ul":
-            return (
-              <ul key={key}>
-                {b.items.map((it, j) => (
-                  <li key={j}>{parseInline(it, `${key}-${j}`)}</li>
-                ))}
-              </ul>
-            );
-          case "ol":
-            return (
-              <ol key={key}>
-                {b.items.map((it, j) => (
-                  <li key={j}>{parseInline(it, `${key}-${j}`)}</li>
-                ))}
-              </ol>
-            );
-          case "table":
-            return (
-              <div key={key} className="tablewrap">
-                <table className="md-table">
-                  <thead>
-                    <tr>
-                      {b.header.map((c, j) => (
-                        <th key={j}>{parseInline(c, `${key}-h${j}`)}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {b.rows.map((row, ri) => (
-                      <tr key={ri}>
-                        {row.map((c, ci) => (
-                          <td key={ci}>{parseInline(c, `${key}-${ri}-${ci}`)}</td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            );
-          case "p":
-          default:
-            return <p key={key}>{parseInline(b.text, key)}</p>;
-        }
-      })}
+      <Blocks blocks={blocks} onOpenArticle={onOpenArticle} />
     </div>
   );
 }

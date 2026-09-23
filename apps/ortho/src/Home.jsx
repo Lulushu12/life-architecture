@@ -1,6 +1,7 @@
-import { categories, getArticle } from "./content.js";
-import { mergeImport } from "./storage.js";
-import BackupPanel from "./BackupPanel.jsx";
+import { BackupPanel } from "@shared/BackupPanel.jsx";
+import { categories, getArticle, recentlyUpdated, formatDate } from "./content.js";
+import { mergeImport, validateBackup, STORE_KEY } from "./storage.js";
+import { ArticleRow, RowButton } from "./ui.jsx";
 import { daysUntil, topicList, topicProgress } from "./concurs.js";
 import { PROBES } from "./tematica.js";
 
@@ -14,6 +15,7 @@ export default function Home({ store, setStore, onOpenCategory, onOpenArticle, o
   const local = store.localArticles;
   const favorites = store.favorites.map((id) => getArticle(id, local)).filter(Boolean);
   const recents = store.recents.map((id) => getArticle(id, local)).filter(Boolean);
+  const updated = recentlyUpdated(local);
 
   return (
     <div className="page">
@@ -21,51 +23,67 @@ export default function Home({ store, setStore, onOpenCategory, onOpenArticle, o
         Ortho <span>Reference</span>
       </h1>
 
-      <button className="input searchbox" onClick={onSearch}>
-        <span className="searchbox-icon">🔍</span>
+      <button type="button" className="input searchbox" onClick={onSearch}>
+        <span className="searchbox-icon" aria-hidden="true">🔍</span>
         <span className="searchbox-placeholder">Search classifications, techniques…</span>
       </button>
 
-      <button className="bigbtn newbtn" onClick={onNew}>
+      <button type="button" className="bigbtn newbtn" onClick={onNew}>
         + New article
       </button>
 
-      <div className="card probecard concurs-entry" onClick={onConcurs}>
-        <div className="probecard-head">
-          <div className="probecard-title">Concurs Foișor 2026</div>
-          <div className={"probecard-days" + (nextDays <= 3 ? " soon" : "")}>
+      <RowButton className="probecard concurs-entry" onClick={onConcurs}>
+        <span className="probecard-head">
+          <span className="probecard-title">Concurs Foișor 2026</span>
+          <span className={"probecard-days" + (nextDays <= 3 ? " soon" : "")}>
             {nextDays > 0 ? `${nextDays} zile` : nextDays === 0 ? "azi" : "încheiat"}
-          </div>
-        </div>
-        <div className="probecard-sub">
+          </span>
+        </span>
+        <span className="probecard-sub">
           {nextDays >= 0 ? `Urmează: ${nextProbe.label}` : "Toate probele au trecut"}
           {dueTotal > 0 ? ` · ${dueTotal} scadente` : ""}
-        </div>
-      </div>
+        </span>
+      </RowButton>
+
+      {updated.length > 0 && (
+        <>
+          <h2>Recently updated</h2>
+          <div className="updstrip">
+            {updated.map((a) => (
+              <button
+                key={a.id}
+                type="button"
+                className="updcard"
+                onClick={() => onOpenArticle(a.id)}
+              >
+                <span className="updcard-title">{a.title}</span>
+                <span className="updcard-sub">
+                  {a.categoryLabel} · {formatDate(a.updated)}
+                </span>
+              </button>
+            ))}
+          </div>
+        </>
+      )}
 
       <h2>Categories</h2>
       {categories(local).map((c) => (
-        <div key={c.key} className="card catcard" onClick={() => onOpenCategory(c.key)}>
-          <div className="catcard-main">
-            <div className="catcard-title">{c.label}</div>
-            <div className="catcard-sub">
+        <RowButton key={c.key} className="catcard" onClick={() => onOpenCategory(c.key)}>
+          <span className="catcard-main">
+            <span className="catcard-title">{c.label}</span>
+            <span className="catcard-sub">
               {c.count} article{c.count === 1 ? "" : "s"}
-            </div>
-          </div>
-          <span className="catcard-arrow">›</span>
-        </div>
+            </span>
+          </span>
+          <span className="catcard-arrow" aria-hidden="true">›</span>
+        </RowButton>
       ))}
 
       {favorites.length > 0 && (
         <>
           <h2>Favorites</h2>
           {favorites.map((a) => (
-            <div key={a.id} className="card articlerow" onClick={() => onOpenArticle(a.id)}>
-              <div className="articlerow-title">
-                <span className="star-inline">★</span> {a.title}
-              </div>
-              <div className="articlerow-tags">{a.categoryLabel}</div>
-            </div>
+            <ArticleRow key={a.id} article={a} onOpen={onOpenArticle} meta={a.categoryLabel} star />
           ))}
         </>
       )}
@@ -74,25 +92,25 @@ export default function Home({ store, setStore, onOpenCategory, onOpenArticle, o
         <>
           <h2>Recently viewed</h2>
           {recents.map((a) => (
-            <div key={a.id} className="card articlerow" onClick={() => onOpenArticle(a.id)}>
-              <div className="articlerow-title">{a.title}</div>
-              <div className="articlerow-tags">{a.categoryLabel}</div>
-            </div>
+            <ArticleRow key={a.id} article={a} onOpen={onOpenArticle} meta={a.categoryLabel} />
           ))}
         </>
       )}
 
+      <h2>Backup</h2>
       <BackupPanel
         data={store}
         onRestore={(d) => setStore((s) => mergeImport(s, d))}
-        validate={(d) => Boolean(d && (d.localArticles || d.favorites || d.recents))}
+        validate={validateBackup}
         prefix="ortho"
+        storageKey={STORE_KEY}
+        strip={["_recovered"]}
       />
 
       <p className="hint small footernote">
-        "+ New article" writes are stored on this device (back them up with Export).
-        For the permanent shared library, edit the Markdown files in
-        apps/ortho/src/content/ on GitHub — changes deploy automatically.
+        "+ New article" writes are stored on this device (back them up with Export). For the permanent
+        shared library, edit the Markdown files in apps/ortho/src/content/ on GitHub; changes deploy
+        automatically.
       </p>
     </div>
   );

@@ -1,3 +1,6 @@
+import { IconButton } from "@shared/ui.jsx";
+import { formatDate } from "./content.js";
+
 export function Chips({ tags }) {
   if (!tags || tags.length === 0) return null;
   return (
@@ -13,23 +16,25 @@ export function Chips({ tags }) {
 
 export function StarButton({ active, onToggle }) {
   return (
-    <button
-      className={"iconbtn starbtn" + (active ? " on" : "")}
+    <IconButton
+      className={"starbtn" + (active ? " on" : "")}
       onClick={onToggle}
-      aria-label={active ? "Remove from favorites" : "Add to favorites"}
+      label={active ? "Remove from favorites" : "Add to favorites"}
       aria-pressed={active}
     >
       {active ? "★" : "☆"}
-    </button>
+    </IconButton>
   );
 }
 
 export function TopBar({ title, subtitle, onBack, right }) {
   return (
     <div className="topbar">
-      <button className="iconbtn" onClick={onBack} aria-label="Back">
-        ←
-      </button>
+      {onBack && (
+        <IconButton label="Back" onClick={onBack}>
+          ←
+        </IconButton>
+      )}
       <div>
         <div className="tb-title">{title}</div>
         {subtitle && <div className="tb-sub">{subtitle}</div>}
@@ -39,13 +44,25 @@ export function TopBar({ title, subtitle, onBack, right }) {
   );
 }
 
-export function ArticleRow({ article, onOpen }) {
+export function RowButton({ className = "", onClick, children, ...rest }) {
   return (
-    <div className="card articlerow" onClick={() => onOpen(article.id)}>
-      <div className="articlerow-title">{article.title}</div>
-      {article.tags.length > 0 && (
-        <div className="articlerow-tags">{article.tags.join(" · ")}</div>
-      )}
-    </div>
+    <button type="button" className={"card rowbtn " + className} onClick={onClick} {...rest}>
+      {children}
+    </button>
+  );
+}
+
+export function ArticleRow({ article, onOpen, meta, star, children }) {
+  const sub = meta ?? article.tags.join(" · ");
+  return (
+    <RowButton className="articlerow" onClick={() => onOpen(article.id)}>
+      <span className="articlerow-title">
+        {star && <span className="star-inline" aria-hidden="true">★ </span>}
+        {article.title}
+      </span>
+      {sub && <span className="articlerow-tags">{sub}</span>}
+      {article.updated && <span className="articlerow-updated">Updated {formatDate(article.updated)}</span>}
+      {children}
+    </RowButton>
   );
 }

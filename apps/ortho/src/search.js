@@ -1,62 +1,57 @@
-// Live client-side full-text search across title (boosted), tags, and body.
-// Returns results sorted by score, each carrying a highlighted snippet.
+import { fold, plainText } from "./content.js";
 
-function normalizeBody(body) {
-  // Strip the most disruptive markdown punctuation so snippets read as
-  // plain text, then collapse whitespace/newlines to single spaces.
-  return body
-    .replace(/```/g, " ")
-    .replace(/[#>*`|_]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+const RADIUS = 40;
+const plainCache = new Map();
+
+function plainOf(a) {
+  let p = plainCache.get(a);
+  if (p === undefined) {
+    p = a._aligned ? plainText(a.body) : a._body;
+    if (plainCache.size > 200) plainCache.clear();
+    plainCache.set(a, p);
+  }
+  return p;
 }
 
-function buildSnippet(norm, idx, len) {
-  const RADIUS = 40;
-  if (idx === -1) {
-    return { before: "", match: "", after: norm.slice(0, 100) };
-  }
+export function snippetFor(result) {
+  const { article, idx, len } = result;
+  const text = plainOf(article);
+  if (idx === -1) return { before: "", match: "", after: text.slice(0, 100) + (text.length > 100 ? "…" : "") };
   const start = Math.max(0, idx - RADIUS);
-  const end = Math.min(norm.length, idx + len + RADIUS);
-  let before = norm.slice(start, idx);
-  const match = norm.slice(idx, idx + len);
-  let after = norm.slice(idx + len, end);
+  const end = Math.min(text.length, idx + len + RADIUS);
+  let before = text.slice(start, idx);
+  const match = text.slice(idx, idx + len);
+  let after = text.slice(idx + len, end);
   if (start > 0) before = "…" + before;
-  if (end < norm.length) after = after + "…";
+  if (end < text.length) after = after + "…";
   return { before, match, after };
 }
 
 export function search(articles, query) {
-  const q = query.trim().toLowerCase();
+  const q = fold(query.trim());
   if (!q) return [];
   const terms = q.split(/\s+/).filter(Boolean);
   const results = [];
 
   for (const a of articles) {
-    const titleLower = a.title.toLowerCase();
-    const tagsLower = a.tags.join(" ").toLowerCase();
-    const norm = normalizeBody(a.body);
-    const normLower = norm.toLowerCase();
-
     let score = 0;
-    let bestIdx = -1;
-    let bestLen = 0;
+    let idx = -1;
+    let len = 0;
     for (const term of terms) {
-      if (titleLower.includes(term)) score += 10;
-      if (tagsLower.includes(term)) score += 5;
-      const bi = normLower.indexOf(term);
+      if (a._title.includes(term)) score += 10;
+      if (a._tags.includes(term)) score += 5;
+      const bi = a._body.indexOf(term);
       if (bi !== -1) {
         score += 1;
-        if (bestIdx === -1) {
-          bestIdx = bi;
-          bestLen = term.length;
+        if (idx === -1) {
+          idx = bi;
+          len = term.length;
         }
       }
     }
-    if (score <= 0) continue;
-    results.push({ article: a, score, snippet: buildSnippet(norm, bestIdx, bestLen) });
+    if (score > 0) results.push({ article: a, score, idx, len });
   }
 
-  results.sort((x, y) => y.score - x.score);
+  results.sort((x, y) => y.score - x.score || x.article.title.localeCompare(y.article.title));
   return results;
 }
