@@ -32,7 +32,7 @@ export default function BlunderTrainer({ store, setStore, nav }) {
         <TopBar title="My blunders" onBack={() => nav("puzzles")} />
         <p className="hint">
           {store.puzzles.length > 0
-            ? "All cleaned up — every blunder retrained. 🎉"
+            ? "All cleaned up, every blunder retrained. 🎉"
             : "Play and review games; your mistakes will show up here as puzzles."}
         </p>
       </div>
@@ -100,10 +100,10 @@ export default function BlunderTrainer({ store, setStore, nav }) {
           return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
         }}
       />
-      {state === "wrong" && <p className="warn center">Not that one — try again.</p>}
+      {state === "wrong" && <p className="warn center">Not that one, try again.</p>}
       {(state === "solved" || state === "revealed") && (
         <p className="okmsg center">
-          {state === "solved" ? "✓ Exactly — " : ""}best was <b>{puzzle.bestSan}</b>
+          {state === "solved" ? "✓ Exactly: " : ""}best was <b>{puzzle.bestSan}</b>
         </p>
       )}
       <div className="btnrow toolrow">

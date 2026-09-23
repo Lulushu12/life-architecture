@@ -5,7 +5,9 @@ import { TopBar, Toggle, MoveList } from "./ui.jsx";
 import { Engine, getEngine, cpWhite } from "./engine.js";
 import { loadOpeningMeta, randomSharpLine } from "./openingdb.js";
 import { findOpening } from "./openings.js";
+import { ENGINE_LOADING } from "./platform.js";
 import { newId } from "./storage.js";
+import { useWakeLock } from "@shared/useWakeLock.js";
 
 // Two engines, both at full strength, playing each other while you watch.
 //
@@ -71,6 +73,7 @@ export default function EngineMatch({ store, setStore, nav, view }) {
   const [black, setBlack] = useState({ kind: "classical", ms: 1000 });
   const [adjudicate, setAdjudicate] = useState(true);
   const [running, setRunning] = useState(false);
+  useWakeLock(running);
   const [sans, setSans] = useState([]);
   const [scores, setScores] = useState([]); // per ply: {cp (White's view), by, depth}
   const [outcome, setOutcome] = useState(null);
@@ -317,7 +320,7 @@ export default function EngineMatch({ store, setStore, nav, view }) {
       {warming && (
         <div className="enginebanner">
           {white.kind === "nnue" || black.kind === "nnue"
-            ? "Loading engine (first time: ~39 MB)…"
+            ? ENGINE_LOADING
             : "Starting engine…"}
         </div>
       )}
@@ -350,7 +353,7 @@ export default function EngineMatch({ store, setStore, nav, view }) {
 
       {outcome && (
         <div className="card matchresult">
-          <b>{outcome.result === "*" ? "Match stopped" : outcome.result}</b> — {outcome.reason}
+          <b>{outcome.result === "*" ? "Match stopped" : outcome.result}</b>: {outcome.reason}
         </div>
       )}
 
@@ -409,7 +412,7 @@ export default function EngineMatch({ store, setStore, nav, view }) {
 
           <p className="hint small footernote">
             Neither engine is weakened: skill stays at maximum and strength limiting is off. The neural-net and
-            classical evaluations are both Stockfish 16 at full search — they just disagree about what a position is
+            classical evaluations are both Stockfish 16 at full search, they just disagree about what a position is
             worth, and each one's own read is shown above. When both sides use the same evaluator they share one
             worker, and with it one search table.
           </p>
@@ -430,7 +433,7 @@ function SideBadge({ cfg, score, side }) {
       </span>
       <span className="mh-score">
         {!score
-          ? "—"
+          ? "-"
           : score.mate != null
             ? (score.mate > 0 ? "M" : "-M") + Math.abs(score.mate)
             : (score.cp > 0 ? "+" : "") + (score.cp / 100).toFixed(2)}

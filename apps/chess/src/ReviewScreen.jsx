@@ -3,9 +3,12 @@ import { Chess } from "chess.js";
 import Board from "./Board.jsx";
 import { TopBar, MoveList, useArrowKeys } from "./ui.jsx";
 import { getEngine, winPct, cpWhite, nullMoveFen, fmtCp } from "./engine.js";
-import { reviewGame, extractPuzzles, CLASSIFICATIONS, pvToSans } from "./review.js";
+import { reviewGame, extractPuzzles, CLASSIFICATIONS, CLASS_ORDER, PHASES, phaseAccuracy, keyMoments, pvToSans } from "./review.js";
 import { PERSONAS, getPersona } from "./personas.js";
 import { newId } from "./storage.js";
+import { useToast } from "@shared/ui.jsx";
+import { gamePgn, pgnFilename, copyToClipboard } from "./pgn.js";
+import ExportSheet from "./ExportSheet.jsx";
 
 export default function ReviewScreen({ store, setStore, nav, view }) {
   if (view.importing) return <PgnImport store={store} setStore={setStore} nav={nav} />;
@@ -21,6 +24,7 @@ export default function ReviewScreen({ store, setStore, nav, view }) {
 }
 
 function PgnImport({ store, setStore, nav }) {
+  const toast = useToast();
   const [paste, setPaste] = useState("");
   const load = () => {
     try {
@@ -38,6 +42,14 @@ function PgnImport({ store, setStore, nav }) {
             date: Date.now(),
             mode: "import",
             label: header.White && header.Black ? `${header.White} vs ${header.Black}` : "Imported game",
+            headers: {
+              ...(header.Event ? { Event: header.Event } : {}),
+              ...(header.Site ? { Site: header.Site } : {}),
+              ...(header.Date ? { Date: header.Date } : {}),
+            },
+            players: header.White && header.Black
+              ? { w: header.White, b: header.Black, wElo: header.WhiteElo || null, bElo: header.BlackElo || null }
+              : undefined,
             sans,
             result: header.Result && header.Result !== "*" ? header.Result : null,
             review: null,
@@ -47,12 +59,12 @@ function PgnImport({ store, setStore, nav }) {
       }));
       nav("review", { gameId: id });
     } catch {
-      alert("Couldn't parse that PGN.");
+      toast("Couldn't parse that PGN. Paste the full game text, headers optional.");
     }
   };
   return (
     <div className="page">
-      <TopBar title="Review a PGN" sub="Paste any game — e.g. exported from chess.com" onBack={() => nav("home")} />
+      <TopBar title="Review a PGN" sub="Paste any game: e.g. exported from chess.com" onBack={() => nav("home")} />
       <textarea
         className="input"
         rows={10}
@@ -68,6 +80,7 @@ function PgnImport({ store, setStore, nav }) {
 }
 
 function Review({ store, setStore, nav, game }) {
+  const toast = useToast();
   const engine = getEngine();
   const [progress, setProgress] = useState(game.review ? 1 : 0);
   const [running, setRunning] = useState(false);
@@ -87,6 +100,8 @@ function Review({ store, setStore, nav, game }) {
   const threatSeq = useRef(0);
   const lineSeq = useRef(0);
   const startedRef = useRef(false);
+  const [retryN, setRetryN] = useState(0);
+  const [exporting, setExporting] = useState(false);
   const review = game.review;
 
   useEffect(() => {
@@ -103,6 +118,7 @@ function Review({ store, setStore, nav, game }) {
         if (!abandoned) setProgress(p);
       },
       shouldStop: () => abandoned,
+      tag: "review",
     })
       .then((result) => {
         if (result === null) return; // abandoned; nothing to commit
@@ -124,7 +140,7 @@ function Review({ store, setStore, nav, game }) {
         setViewIdx(game.sans.length);
       })
       .catch((e) => {
-        if (!abandoned) alert("Review failed: " + e.message);
+        if (!abandoned) toast("Review failed: " + e.message, { action: { label: "Retry", onClick: () => { startedRef.current = false; setRunning(false); setRetryN((n) => n + 1); } } });
       })
       .finally(() => {
         if (!abandoned) setRunning(false);
@@ -133,10 +149,10 @@ function Review({ store, setStore, nav, game }) {
     return () => {
       abandoned = true;
       startedRef.current = false; // let a re-entry restart the review
-      engine.stopCurrent();
+      engine.cancel("review");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [review]);
+  }, [review, retryN]);
 
   const positions = useMemo(() => {
     const c = game.startFen ? new Chess(game.startFen) : new Chess();
@@ -185,10 +201,10 @@ function Review({ store, setStore, nav, game }) {
     if (c.isGameOver() || c.inCheck()) return;
     let cancelled = false;
     const nfen = nullMoveFen(viewedFen);
-    engine
-      .analyze(nfen, { movetime: 350, multipv: 2 })
+    const timer = setTimeout(() => engine
+      .analyze(nfen, { movetime: 350, multipv: 2, tag: "review-threat" })
       .then((r) => {
-        if (cancelled || seq !== threatSeq.current) return;
+        if (cancelled || seq !== threatSeq.current || !r.lines[0]) return;
         const best = cpWhite(r.lines[0] || {}, nfen.split(" ")[1]);
         setThreats(
           r.lines
@@ -197,9 +213,11 @@ function Review({ store, setStore, nav, game }) {
             .map((l) => [l.move.slice(0, 2), l.move.slice(2, 4)])
         );
       })
-      .catch(() => {});
+      .catch(() => {}), 120);
     return () => {
       cancelled = true;
+      clearTimeout(timer);
+      engine.cancel("review-threat");
     };
   }, [viewedFen, review, showThreats, engine]);
 
@@ -210,8 +228,8 @@ function Review({ store, setStore, nav, game }) {
     if (!review) return;
     if (new Chess(dispFen).isGameOver()) return;
     let cancelled = false;
-    engine
-      .analyze(dispFen, { movetime: 700, multipv: 5 })
+    const timer = setTimeout(() => engine
+      .analyze(dispFen, { movetime: 700, multipv: 5, tag: "review-lines" })
       .then((r) => {
         if (cancelled || seq !== lineSeq.current) return;
         setLines(
@@ -222,9 +240,11 @@ function Review({ store, setStore, nav, game }) {
           }))
         );
       })
-      .catch(() => {});
+      .catch(() => {}), 120);
     return () => {
       cancelled = true;
+      clearTimeout(timer);
+      engine.cancel("review-lines");
     };
   }, [dispFen, review, engine]);
 
@@ -322,7 +342,7 @@ function Review({ store, setStore, nav, game }) {
   useArrowKeys(stepBack, stepFwd);
 
   const moveAt = viewIdx > 0 && review ? review.moves[viewIdx - 1] : null;
-  const badMove = moveAt && ["inaccuracy", "mistake", "blunder"].includes(moveAt.class);
+  const badMove = moveAt && ["inaccuracy", "mistake", "miss", "blunder"].includes(moveAt.class);
   // The engine's alternative to the played move, when they differ — shown as
   // an overlay on the CURRENT board, never by rewinding the position.
   const playedUci = lastMovePair ? lastMovePair[0] + lastMovePair[1] : null;
@@ -393,6 +413,8 @@ function Review({ store, setStore, nav, game }) {
   }
 
   const acc = review.accuracy;
+  const phases = review.phases || phaseAccuracy(review.moves);
+  const moments = keyMoments(review);
   const who =
     game.mode === "bot"
       ? { w: game.playerColor === "w" ? "You" : botName(game), b: game.playerColor === "b" ? "You" : botName(game) }
@@ -417,14 +439,39 @@ function Review({ store, setStore, nav, game }) {
         <div className="acccard">
           <div className="acc-name">{who.w} (White)</div>
           <div className="acc-val">{acc.w}%</div>
+          <PhaseLine phases={phases.w} />
           <ClassCounts counts={review.counts.w} />
         </div>
         <div className="acccard">
           <div className="acc-name">{who.b} (Black)</div>
           <div className="acc-val">{acc.b}%</div>
+          <PhaseLine phases={phases.b} />
           <ClassCounts counts={review.counts.b} />
         </div>
       </div>
+
+      {moments.length > 0 && (
+        <div className="momentrow" aria-label="Key moments">
+          <span className="moment-label">Key moments</span>
+          {moments.map((m) => (
+            <button
+              key={m.ply}
+              className={"chip moment" + (viewIdx === m.ply + 1 && !branch ? " sel" : "")}
+              style={{ borderColor: CLASSIFICATIONS[m.cls]?.color }}
+              onClick={() => {
+                if (branch) leaveBranch();
+                setViewIdx(m.ply + 1);
+                setShowBest(false);
+              }}
+            >
+              {Math.floor(m.ply / 2) + 1}
+              {m.color === "w" ? "." : "..."} {m.san}
+              {CLASSIFICATIONS[m.cls]?.icon && !["best", "book", "forced"].includes(m.cls) ? ` ${CLASSIFICATIONS[m.cls].icon}` : ""}{" "}
+              <span className="moment-swing">-{Math.round(m.swing)}%</span>
+            </button>
+          ))}
+        </div>
+      )}
 
       <EvalGraph
         evals={review.evals}
@@ -489,7 +536,7 @@ function Review({ store, setStore, nav, game }) {
         >
           <b style={brCls ? { color: CLASSIFICATIONS[brCls].color } : undefined}>
             {branch.sans[branchUpto - 1]}
-            {brCls ? ` — ${CLASSIFICATIONS[brCls].label}` : ""}
+            {brCls ? `: ${CLASSIFICATIONS[brCls].label}` : ""}
           </b>
           {brAlt && brAlt.bestSan && (
             <span>
@@ -506,7 +553,7 @@ function Review({ store, setStore, nav, game }) {
       {!branch && moveAt && (
         <div className="moveverdict" style={{ borderColor: CLASSIFICATIONS[moveAt.class].color }}>
           <b style={{ color: CLASSIFICATIONS[moveAt.class].color }}>
-            {moveAt.san} — {CLASSIFICATIONS[moveAt.class].label}
+            {moveAt.san}: {CLASSIFICATIONS[moveAt.class].label}
           </b>
           {altUci && moveAt.bestSan && (
             <span>
@@ -561,6 +608,24 @@ function Review({ store, setStore, nav, game }) {
           ⚠ Threats {showThreats ? "on" : "off"}
         </button>
       </div>
+      <div className="btnrow toolrow">
+        <button className="linkbtn" onClick={() => setExporting(true)}>
+          ⤓ Export PGN
+        </button>
+        <button
+          className="linkbtn"
+          onClick={async () => toast((await copyToClipboard(dispFen)) ? "FEN copied" : "Copy blocked by the browser")}
+        >
+          Copy FEN
+        </button>
+      </div>
+      <ExportSheet
+        open={exporting}
+        title="Export game"
+        text={exporting ? gamePgn(game) : ""}
+        filename={pgnFilename("game")}
+        onClose={() => setExporting(false)}
+      />
 
       <MoveList
         sans={game.sans}
@@ -594,8 +659,20 @@ function pickRetryPersona(game) {
   return game.mode === "bot" ? game.personaId : PERSONAS[Math.floor(PERSONAS.length / 2)].id;
 }
 
+function PhaseLine({ phases }) {
+  return (
+    <div className="phaseline">
+      {PHASES.map(([k, label]) => (
+        <span key={k} title={`${label} accuracy`}>
+          {label.slice(0, 3)} <b>{phases[k] == null ? "-" : Math.round(phases[k])}</b>
+        </span>
+      ))}
+    </div>
+  );
+}
+
 function ClassCounts({ counts }) {
-  const order = ["brilliant", "best", "excellent", "good", "inaccuracy", "mistake", "blunder"];
+  const order = CLASS_ORDER.filter((k) => k !== "book" && k !== "forced");
   return (
     <div className="classcounts">
       {order

@@ -209,7 +209,7 @@ export const EN_PERSONALITIES = {
         "Snatched! My hands are literally shaking, let's go!",
       ],
       you_capture: [
-        "You took my— wait where's my coffee. Fine, take it!",
+        "You took my... wait where's my coffee. Fine, take it!",
         "Rude! Kidding, kidding, keep it, I'll get it back!",
         "Fine, take the piece, I'm getting another one anyway!",
       ],

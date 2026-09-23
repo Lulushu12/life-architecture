@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
-import { Capacitor } from "@capacitor/core";
-import { App as CapacitorApp } from "@capacitor/app";
-import { loadStore, saveStore } from "./storage.js";
+import { useCallback, useEffect, useMemo, useRef } from "react";
+import { usePersistentStore } from "@shared/store.js";
+import { useHistoryNav } from "@shared/useHistoryNav.js";
+import { registerSw } from "@shared/swRegister.js";
+import { useToast } from "@shared/ui.jsx";
+import { chessStore, capStore, STORAGE_KEY } from "./storage.js";
 import Home from "./Home.jsx";
 import PlayBot from "./PlayBot.jsx";
 import PassPlay from "./PassPlay.jsx";
@@ -17,48 +19,85 @@ import GamesDB from "./GamesDB.jsx";
 import Lessons from "./Lessons.jsx";
 import Settings from "./Settings.jsx";
 
+const QUOTA_CHARS = 5 * 1024 * 1024;
+const NEAR_FULL = 0.85;
+const ACTIONS = { play: { screen: "play", pick: true }, puzzles: { screen: "puzzles" }, analysis: { screen: "analysis" } };
+
+function StorageBanner({ store, status }) {
+  const used = useMemo(() => {
+    try {
+      return JSON.stringify(store.games).length + JSON.stringify(store.puzzles).length;
+    } catch {
+      return 0;
+    }
+  }, [store.games, store.puzzles]);
+  let text = null;
+  if (!status.ok) text = "Storage full: changes are not being saved. Export and delete old games in the Archive to free space.";
+  else if (store._recovered)
+    text = `Saved data was unreadable and has been reset; the raw copy is under ${STORAGE_KEY}.corrupt`;
+  else if (used > QUOTA_CHARS * NEAR_FULL)
+    text = `Storage nearly full: about ${(used / 1048576).toFixed(1)} of 5 MB used. Export and delete old games soon.`;
+  if (!text) return null;
+  return (
+    <div className="page storagebanner-wrap">
+      <p className="warn storagebanner" role="alert">
+        {text}
+      </p>
+    </div>
+  );
+}
+
 export default function App() {
-  const [store, setStore] = useState(loadStore);
-  const [view, setView] = useState({ screen: "home" });
+  const [store, setRawStore, status] = usePersistentStore(chessStore);
+  const { view, nav: go } = useHistoryNav({ screen: "home" }, { persistKey: "chess:view" });
+  const toast = useToast();
+  const viewRef = useRef(view);
+  viewRef.current = view;
 
-  // Write-through persistence: every state change hits localStorage
-  // immediately — killing the app never loses a game or a review.
-  useEffect(() => {
-    saveStore(store);
-  }, [store]);
+  const setStore = useCallback(
+    (u) => setRawStore((s) => capStore(typeof u === "function" ? u(s) : u, [viewRef.current.gameId])),
+    [setRawStore]
+  );
 
-  // Every in-app navigation is mirrored into the browser history, so going
-  // back pops screens instead of closing the app. Only at the home screen —
-  // no history left — does back leave the app.
-  useEffect(() => {
-    window.history.replaceState({ view: { screen: "home" } }, "");
-    const onPop = (e) => setView(e.state?.view || { screen: "home" });
-    window.addEventListener("popstate", onPop);
-    return () => window.removeEventListener("popstate", onPop);
-  }, []);
+  const nav = useCallback((screen, params = {}) => go({ screen, ...params }), [go]);
 
-  // The browser back button fires popstate on its own, but Android's hardware
-  // back does NOT reach the WebView by default — Capacitor closes the activity
-  // unless something listens for its backButton event. So in the APK: pop our
-  // history while there is any, exit only from the home screen.
   useEffect(() => {
-    if (!Capacitor.isNativePlatform()) return;
-    const sub = CapacitorApp.addListener("backButton", ({ canGoBack }) => {
-      if (canGoBack) window.history.back();
-      else CapacitorApp.exitApp();
+    registerSw({
+      onUpdate: (reload) =>
+        toast("Update available", { action: { label: "Reload", onClick: reload }, duration: 0 }),
     });
-    return () => {
-      Promise.resolve(sub).then((h) => h.remove());
-    };
-  }, []);
+  }, [toast]);
 
-  const nav = (screen, params = {}) => {
-    const v = { screen, ...params };
-    setView(v);
-    window.history.pushState({ view: v }, "");
-  };
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const target = ACTIONS[params.get("action")];
+    if (!params.has("action")) return;
+    window.history.replaceState({ view: { screen: "home" } }, "", window.location.pathname);
+    if (target) go(target);
+  }, [go]);
+
+  const capHits = store.capHits || 0;
+  const lastCap = useRef(capHits);
+  useEffect(() => {
+    if (capHits > lastCap.current) {
+      const n = capHits - lastCap.current;
+      toast(`Archive full: ${n} old ${n === 1 ? "game was" : "games were"} removed. Star games to keep them.`, {
+        duration: 7000,
+      });
+    }
+    lastCap.current = capHits;
+  }, [capHits, toast]);
+
   const props = { store, setStore, nav, view };
+  return (
+    <>
+      <StorageBanner store={store} status={status} />
+      <Screen view={view} props={props} />
+    </>
+  );
+}
 
+function Screen({ view, props }) {
   switch (view.screen) {
     case "play":
       return <PlayBot {...props} />;

@@ -3,12 +3,16 @@ import { Chess } from "chess.js";
 import Board, { EvalBar } from "./Board.jsx";
 import { TopBar, Toggle, MoveList, useArrowKeys } from "./ui.jsx";
 import { getPersona, personasByLang, LEVELS } from "./personas.js";
-import { getEngine, cpWhite } from "./engine.js";
+import { getEngine, cpWhite, nullMoveFen } from "./engine.js";
 import { chooseBotMove } from "./bot.js";
-import { detectEvents, pickLine, aiReact } from "./chat.js";
+import { detectEvents, pickLine, pickLineWithEvent, aiReact, recentMoves } from "./chat.js";
 import { findOpening } from "./openings.js";
 import { play as sfx, buzz } from "./audio.js";
 import { newId } from "./storage.js";
+import { ENGINE_LOADING } from "./platform.js";
+import { useConfirm } from "@shared/ui.jsx";
+import { useWakeLock } from "@shared/useWakeLock.js";
+import { emitEvent } from "@shared/bridge.js";
 
 export default function PlayBot({ store, setStore, nav, view }) {
   const cur = store.current;
@@ -108,7 +112,7 @@ function BotPicker({ store, setStore, nav, view }) {
                     <span className="bm-avatar">{p.avatar}</span>
                     <span className="bm-name">{p.name}</span>
                     <span className="bm-rec">
-                      {rec ? `${rec.w}-${rec.d}-${rec.l}` : "—"}
+                      {rec ? `${rec.w}-${rec.d}-${rec.l}` : "-"}
                     </span>
                   </button>
                 );
@@ -135,9 +139,13 @@ function BotGame({ store, setStore, nav }) {
   // the list, the bar shows THIS, not the live position's eval.
   const [viewEval, setViewEval] = useState(null);
   const [engineReady, setEngineReady] = useState(false);
+  const [confirm, confirmSheet] = useConfirm();
   const botBusy = useRef(false);
   const cooldowns = useRef({});
   const lastMoveStart = useRef(Date.now());
+  const chatGate = useRef({ lastPly: -99, queued: null });
+  const mutedRef = useRef(false);
+  const botToMoveRef = useRef(false);
 
   useEffect(() => {
     engine.ready.then(() => setEngineReady(true));
@@ -153,6 +161,9 @@ function BotGame({ store, setStore, nav }) {
   const botColor = g.playerColor === "w" ? "b" : "w";
   const playerTurn = chess.turn() === g.playerColor && g.status === "playing";
   const opening = useMemo(() => findOpening(g.sans), [g.sans]);
+  mutedRef.current = !!g.muted;
+  botToMoveRef.current = g.status === "playing" && chess.turn() === botColor;
+  useWakeLock(g.status === "playing");
 
   // position being displayed (live or a past ply preview)
   const shownFen = useMemo(() => {
@@ -174,15 +185,17 @@ function BotGame({ store, setStore, nav }) {
       return;
     }
     let cancelled = false;
-    engine
-      .analyze(fen, { movetime: 300 })
+    const timer = setTimeout(() => engine
+      .analyze(fen, { movetime: 300, tag: "play-view" })
       .then((r) => {
         if (cancelled || !r.lines[0]) return;
         setViewEval({ fen, cp: cpWhite(r.lines[0], fen.split(" ")[1]) });
       })
-      .catch(() => {});
+      .catch(() => {}), 120);
     return () => {
       cancelled = true;
+      clearTimeout(timer);
+      engine.cancel("play-view");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [viewPly, shownFen, g.serious, store.settings.evalBar, engine]);
@@ -200,6 +213,49 @@ function BotGame({ store, setStore, nav }) {
     }
     return map;
   }, [chess, shownFen, viewPly, g.status, g.playerColor]);
+
+  const premoveDests = useMemo(() => {
+    if (g.status !== "playing" || viewPly != null || chess.turn() !== botColor) return null;
+    try {
+      const c = new Chess(nullMoveFen(liveFen));
+      const map = new Map();
+      for (const m of c.moves({ verbose: true })) {
+        if (!map.has(m.from)) map.set(m.from, []);
+        map.get(m.from).push(m.to);
+      }
+      return map;
+    } catch {
+      return null;
+    }
+  }, [chess, liveFen, viewPly, g.status, botColor]);
+
+  const setPremove = (from, to, promotion) =>
+    setStore((s) =>
+      s.current && s.current.id === g.id
+        ? { ...s, current: { ...s.current, premove: from ? { from, to, promotion: promotion || null } : null } }
+        : s
+    );
+
+  useEffect(() => {
+    const pm = g.premove;
+    if (!pm || g.status !== "playing" || chess.turn() !== g.playerColor) return;
+    if (g.cps.length < g.sans.length + 1) return;
+    let mv = null;
+    try {
+      mv = new Chess(liveFen).move({ from: pm.from, to: pm.to, promotion: pm.promotion || "q" });
+    } catch {
+      mv = null;
+    }
+    if (!mv) {
+      setPremove(null);
+      return;
+    }
+    sfx(store, mv.captured ? "capture" : "move");
+    buzz(store, mv.captured ? 25 : 12);
+    applyMove(mv.san, g.sans.length, { premove: null });
+    lastMoveStart.current = Date.now();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [g.premove, g.sans.length, g.cps.length, g.status]);
 
   // Arrow keys: left/right step through the game.
   useArrowKeys(
@@ -281,13 +337,14 @@ function BotGame({ store, setStore, nav }) {
         const c = s.current;
         if (!c || c.id !== g.id || c.status !== "playing") return s;
         const branches = [...(c.branches || [])];
-        if (c.sans.length > base) branches.unshift({ atPly: base, sans: c.sans });
+        if (c.sans.length > base) branches.unshift({ atPly: base, sans: c.sans, cps: c.cps });
         return {
           ...s,
           current: {
             ...c,
             sans: [...c.sans.slice(0, base), mv.san],
             cps: c.cps.slice(0, base + 1),
+            premove: null,
             branches: branches.slice(0, 8),
           },
         };
@@ -315,13 +372,15 @@ function BotGame({ store, setStore, nav }) {
       const branches = [...(c.branches || [])];
       const b = branches.splice(i, 1)[0];
       if (!b) return s;
-      if (c.sans.length > b.atPly) branches.unshift({ atPly: b.atPly, sans: c.sans });
+      if (c.sans.length > b.atPly) branches.unshift({ atPly: b.atPly, sans: c.sans, cps: c.cps });
+      const cps = Array.isArray(b.cps) ? b.cps.slice(0, b.sans.length + 1) : [...c.cps.slice(0, b.atPly + 1)];
       return {
         ...s,
         current: {
           ...c,
           sans: b.sans,
-          cps: Array(b.sans.length).fill(0),
+          cps: cps.length ? cps : [0],
+          premove: null,
           status: "playing",
           result: null,
           branches: branches.slice(0, 8),
@@ -383,11 +442,23 @@ function BotGame({ store, setStore, nav }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [g.sans.length, g.cps.length, g.status]);
 
+  useEffect(() => {
+    const gate = chatGate.current;
+    if (botToMoveRef.current || !gate.queued) return;
+    const q = gate.queued;
+    gate.queued = null;
+    if (mutedRef.current || g.status !== "playing") return;
+    gate.lastPly = q.ply;
+    sfx(store, "chat");
+    pushChat(q.text);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [g.sans.length, g.status]);
+
   // greeting
   useEffect(() => {
     if (g.sans.length === 0 && g.chat.length === 0) {
       const line = pickLine(persona, ["greeting"], 0, cooldowns.current);
-      if (line) pushChat(line);
+      if (line && !g.muted) pushChat(line);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -413,20 +484,38 @@ function BotGame({ store, setStore, nav }) {
       const allowed = ["castle", "promote", "i_check", "you_check", "endgame"];
       events = events.filter((e) => allowed.includes(e));
     }
-    const canned = pickLine(persona, events, g.sans.length, cooldowns.current);
-    if (!canned) return;
+    if (g.sans.length < 10) events = events.filter((e) => e !== "equal");
+    const ply = g.sans.length;
+    if (mutedRef.current || ply - chatGate.current.lastPly < 2) return;
+    const picked = pickLineWithEvent(persona, events, ply, cooldowns.current);
+    if (!picked) return;
     const ai = store.settings.ai;
     if (ai.baseUrl && ai.model && !g.serious) {
-      aiReact({ ai, persona, event: events[0], pgn: chess.pgn(), cpWhitePersp: cpAfter, botColor }).then(
-        (text) => {
-          sfx(store, "chat");
-          pushChat(text || canned);
-        }
-      );
+      aiReact({
+        ai,
+        persona,
+        event: picked.event,
+        recent: recentMoves(g.sans, 10, startPly(g.startFen)),
+        cpWhitePersp: cpAfter,
+        cpWhiteBefore: cpBefore,
+        botColor,
+      }).then((text) => say(text || picked.text, ply));
     } else {
-      sfx(store, "chat");
-      pushChat(canned);
+      say(picked.text, ply);
     }
+  }
+
+  function say(text, ply) {
+    const gate = chatGate.current;
+    if (mutedRef.current || ply - gate.lastPly < 2) return;
+    if (botToMoveRef.current) {
+      gate.queued = { text, ply };
+      return;
+    }
+    gate.queued = null;
+    gate.lastPly = ply;
+    sfx(store, "chat");
+    pushChat(text);
   }
 
   function finishGame(resigned = false) {
@@ -444,7 +533,9 @@ function BotGame({ store, setStore, nav }) {
     const playerWon = (result === "1-0") === (g.playerColor === "w") && result !== "1/2-1/2";
     sfx(store, result === "1/2-1/2" ? "chat" : playerWon ? "gameEnd" : "lose");
     const endEvent = result === "1/2-1/2" ? "draw" : playerWon ? "i_lose" : "i_win";
-    const line = pickLine(persona, [endEvent], g.sans.length, cooldowns.current);
+    const line = g.muted ? null : pickLine(persona, [endEvent], g.sans.length, cooldowns.current);
+    chatGate.current.queued = null;
+    emitEvent({ app: "chess", type: "chess.game", value: { result: playerWon ? "win" : result === "1/2-1/2" ? "draw" : "loss", botElo: persona.elo } });
 
     setStore((s) => {
       const c = s.current;
@@ -508,7 +599,7 @@ function BotGame({ store, setStore, nav }) {
     while (n > 0 && n % 2 !== parity) n = n - 1;
     setStore((s) =>
       s.current && s.current.id === g.id
-        ? { ...s, current: { ...s.current, sans: s.current.sans.slice(0, n), cps: s.current.cps.slice(0, n + 1) } }
+        ? { ...s, current: { ...s.current, sans: s.current.sans.slice(0, n), cps: s.current.cps.slice(0, n + 1), premove: null } }
         : s
     );
     setViewPly(null);
@@ -531,8 +622,8 @@ function BotGame({ store, setStore, nav }) {
           !over && (
             <button
               className="linkbtn"
-              onClick={() => {
-                if (confirm("Resign this game?")) finishGame(true);
+              onClick={async () => {
+                if (await confirm({ title: "Resign this game?", confirmLabel: "Resign", danger: true })) finishGame(true);
               }}
             >
               Resign
@@ -541,7 +632,7 @@ function BotGame({ store, setStore, nav }) {
         }
       />
 
-      {!engineReady && <div className="enginebanner">Loading engine (first time: ~39 MB)…</div>}
+      {!engineReady && <div className="enginebanner">{ENGINE_LOADING}</div>}
 
       <ChatBubbles chat={g.chat} persona={persona} />
 
@@ -554,6 +645,9 @@ function BotGame({ store, setStore, nav }) {
           checkSquare={checkSquare}
           dests={!over ? dests : null}
           onMove={onMove}
+          premoveDests={!over ? premoveDests : null}
+          onPremove={setPremove}
+          premove={g.premove || null}
           arrow={viewPly == null ? hintArrow : null}
           theme={store.settings.theme}
           custom={store.settings.boardCustom}
@@ -561,7 +655,7 @@ function BotGame({ store, setStore, nav }) {
           animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
           needsPromotion={(from, to) => {
-            const piece = new Chess(liveFen).get(from);
+            const piece = new Chess(shownFen).get(from);
             return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
           }}
         />
@@ -570,7 +664,7 @@ function BotGame({ store, setStore, nav }) {
       {viewPly != null && (
         <div className="previewbar">
           {viewPly < 0 ? "Start position" : `Viewing move ${Math.floor(viewPly / 2) + 1}`}
-          {!over && " — play here to branch"}
+          {!over && ". Play here to branch"}
           <button className="linkbtn" onClick={() => setViewPly(null)}>
             Back to live
           </button>
@@ -617,11 +711,23 @@ function BotGame({ store, setStore, nav }) {
           <button className="linkbtn" onClick={takeback} disabled={g.sans.length === 0}>
             ↩ Takeback
           </button>
+          <button
+            className="linkbtn"
+            aria-pressed={!!g.muted}
+            onClick={() =>
+              setStore((s) =>
+                s.current && s.current.id === g.id ? { ...s, current: { ...s.current, muted: !s.current.muted } } : s
+              )
+            }
+          >
+            {g.muted ? "🔇 Chat off" : "💬 Chat on"}
+          </button>
           {!playerTurn && g.status === "playing" && <span className="thinking">{persona.name} is thinking…</span>}
         </div>
       )}
 
       <MoveList sans={g.sans} activePly={viewPly ?? g.sans.length - 1} onTap={setViewPly} />
+      {confirmSheet}
     </div>
   );
 }
@@ -639,4 +745,10 @@ function ChatBubbles({ chat, persona }) {
       ))}
     </div>
   );
+}
+
+function startPly(fen) {
+  if (!fen) return 0;
+  const parts = fen.split(" ");
+  return (Math.max(1, parseInt(parts[5], 10) || 1) - 1) * 2 + (parts[1] === "b" ? 1 : 0);
 }

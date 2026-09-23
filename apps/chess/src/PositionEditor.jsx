@@ -79,7 +79,7 @@ function problems(board, fen) {
     return out;
   }
   if (opponentInCheck(fen))
-    out.push("The side not to move is in check — that position can't arise.");
+    out.push("The side not to move is in check, that position can't arise.");
   return out;
 }
 

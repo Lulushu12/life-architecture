@@ -34,7 +34,7 @@ export async function loadPuzzleDb() {
 // Tier metadata is needed to render the hub before the (larger) puzzle payload
 // has loaded, so it is duplicated here rather than read from the JSON.
 export const TIERS = [
-  { key: "starter", label: "Starter", blurb: "First tactics — one clear idea", range: "under 1000" },
+  { key: "starter", label: "Starter", blurb: "First tactics, one clear idea", range: "under 1000" },
   { key: "easy", label: "Easy", blurb: "Forks, pins, back rank", range: "1000–1300" },
   { key: "medium", label: "Medium", blurb: "Two-move combinations", range: "1300–1600" },
   { key: "hard", label: "Hard", blurb: "Quiet moves and deflections", range: "1600–1900" },

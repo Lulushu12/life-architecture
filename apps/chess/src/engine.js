@@ -7,6 +7,27 @@
 
 const ENGINE_URL = import.meta.env.BASE_URL + "engine/stockfish-nnue-16-single.js";
 
+// A hidden tab or a backgrounded APK must not keep Stockfish at full CPU:
+// the running search is stopped and queued jobs wait until the page is visible.
+const liveEngines = new Set();
+let visibleWaiters = [];
+const isHidden = () => typeof document !== "undefined" && document.visibilityState === "hidden";
+function whenVisible() {
+  if (!isHidden()) return Promise.resolve();
+  return new Promise((resolve) => visibleWaiters.push(resolve));
+}
+if (typeof document !== "undefined") {
+  document.addEventListener("visibilitychange", () => {
+    if (isHidden()) {
+      for (const e of liveEngines) e.stopCurrent();
+    } else {
+      const waiting = visibleWaiters;
+      visibleWaiters = [];
+      for (const r of waiting) r();
+    }
+  });
+}
+
 export class Engine {
   /**
    * @param {object}  opts
@@ -25,6 +46,11 @@ export class Engine {
       for (const fn of this.listeners) fn(line);
     };
     this.ready = this._init();
+    this.busy = false;
+    this.pending = 0;
+    this.gens = new Map();
+    this.currentTag = null;
+    liveEngines.add(this);
   }
 
   _init() {
@@ -53,7 +79,17 @@ export class Engine {
 
   // Serialize engine jobs; each job gets exclusive use of the worker.
   _run(job) {
-    const next = this.queue.then(job, job);
+    this.pending++;
+    const gated = () =>
+      whenVisible().then(() => {
+        this.busy = true;
+        return job();
+      });
+    const next = this.queue.then(gated, gated).finally(() => {
+      this.busy = false;
+      this.currentTag = null;
+      this.pending--;
+    });
     // keep the chain alive even if a job rejects
     this.queue = next.catch(() => {});
     return next;
@@ -64,10 +100,14 @@ export class Engine {
    * (index 0 = best) of { move, cp, mate, pv } with scores from the
    * side-to-move's perspective (UCI convention).
    */
-  analyze(fen, { movetime = 400, depth = null, nodes = null, multipv = 1, elo = null, skill = null } = {}) {
-    return this._run(
-      () =>
-        new Promise((resolve) => {
+  // `tag` groups searches a screen owns, so cancel(tag) can drop its queued
+  // work and stop its running search without touching anyone else's.
+  analyze(fen, { movetime = 400, depth = null, nodes = null, multipv = 1, elo = null, skill = null, tag = null } = {}) {
+    const gen = tag ? this.gens.get(tag) || 0 : 0;
+    return this._run(() => {
+      if (tag && (this.gens.get(tag) || 0) !== gen) return { bestmove: null, lines: [], cancelled: true };
+      this.currentTag = tag;
+      return new Promise((resolve) => {
           const lines = new Array(multipv).fill(null);
           const onLine = (raw) => {
             if (raw.startsWith("info ") && raw.includes(" pv ")) {
@@ -93,15 +133,21 @@ export class Engine {
           if (depth) this.send("go depth " + depth);
           else if (nodes) this.send("go nodes " + nodes);
           else this.send("go movetime " + movetime);
-        })
-    );
+      });
+    });
+  }
+
+  cancel(tag) {
+    this.gens.set(tag, (this.gens.get(tag) || 0) + 1);
+    if (this.busy && this.currentTag === tag) this.send("stop");
   }
 
   stopCurrent() {
-    this.send("stop");
+    if (this.busy) this.send("stop");
   }
 
   destroy() {
+    liveEngines.delete(this);
     this.worker.terminate();
   }
 }
@@ -145,9 +191,10 @@ export function cpWhite(info, fenTurn) {
 
 // Win probability (0..100) for white from a white-perspective cp score.
 // Same logistic model lichess publishes.
+export const WIN_K = 0.00368208;
 export function winPct(cp) {
   const clamped = Math.max(-10000, Math.min(10000, cp));
-  return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * clamped)) - 1);
+  return 50 + 50 * (2 / (1 + Math.exp(-WIN_K * clamped)) - 1);
 }
 
 // White-perspective cp → display string ("+0.34", "-1.20", "M"/"-M").

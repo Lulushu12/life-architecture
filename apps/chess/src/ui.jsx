@@ -25,7 +25,7 @@ export function TopBar({ title, sub, onBack, right }) {
   return (
     <div className="topbar">
       {onBack && (
-        <button className="iconbtn" onClick={onBack}>
+        <button className="iconbtn" aria-label="Back" onClick={onBack}>
           ‹
         </button>
       )}
@@ -38,22 +38,7 @@ export function TopBar({ title, sub, onBack, right }) {
   );
 }
 
-export function Toggle({ checked, onChange }) {
-  return (
-    <button className={"toggle" + (checked ? " on" : "")} onClick={() => onChange(!checked)}>
-      <span className="knob" />
-    </button>
-  );
-}
-
-export function SettingRow({ label, children }) {
-  return (
-    <div className="setrow">
-      <span className="setlabel">{label}</span>
-      {children}
-    </div>
-  );
-}
+export { Toggle, SettingRow } from "@shared/ui.jsx";
 
 // Two-column SAN move list. onTap(plyIndex) with plyIndex 0-based.
 export function MoveList({ sans, annotations, activePly, onTap }) {

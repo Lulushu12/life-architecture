@@ -172,7 +172,7 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
         <TopBar title={tier.label} onBack={() => nav("puzzles")} />
         <p className="hint">
           {theme
-            ? "Every puzzle with this theme is solved — clear the filter for more."
+            ? "Every puzzle with this theme is solved, clear the filter for more."
             : `All ${list.length} solved. 🎉`}
         </p>
         {theme && (
@@ -280,10 +280,10 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
         }}
       />
 
-      {state === "wrong" && <p className="warn center">Not that one — try again.</p>}
+      {state === "wrong" && <p className="warn center">Not that one, try again.</p>}
       {state === "revealed" && <p className="hint center">The move is {expected}.</p>}
       {state === "solved" && <p className="okmsg center">✓ Solved</p>}
-      {state === "try" && ply > 1 && <p className="hint center small">Keep going — the line continues.</p>}
+      {state === "try" && ply > 1 && <p className="hint center small">Keep going, the line continues.</p>}
 
       <div className="btnrow toolrow">
         <button className="linkbtn" onClick={() => setShowThemes((s) => !s)}>

@@ -50,6 +50,10 @@ const PRIORITY = [
 
 // Pick at most one line. cooldowns: { [category]: lastPly } mutated in place.
 export function pickLine(persona, events, ply, cooldowns) {
+  return pickLineWithEvent(persona, events, ply, cooldowns)?.text ?? null;
+}
+
+export function pickLineWithEvent(persona, events, ply, cooldowns) {
   const ordered = PRIORITY.filter((e) => events.includes(e));
   for (const ev of ordered) {
     const lines = persona.lines[ev];
@@ -59,17 +63,54 @@ export function pickLine(persona, events, ply, cooldowns) {
     if (cooldowns[ev] != null && ply - cooldowns[ev] < cool) continue;
     if (!big && Math.random() > persona.style.chattiness * 0.75) return null;
     cooldowns[ev] = ply;
-    return lines[Math.floor(Math.random() * lines.length)];
+    return { text: lines[Math.floor(Math.random() * lines.length)], event: ev };
   }
   return null;
 }
 
 // Optional live-AI reaction. Returns a string or null (any failure → null,
 // callers fall back to the canned line). Never throws.
-export async function aiReact({ ai, persona, event, pgn, cpWhitePersp, botColor }) {
+const EVENT_TEXT = {
+  i_win: "you just won the game",
+  i_lose: "you just lost the game",
+  draw: "the game ended in a draw",
+  you_blunder: "your opponent just blundered",
+  i_blunder: "you just blundered",
+  you_brilliant: "your opponent found a strong move",
+  promote: "a pawn just promoted",
+  i_capture: "you just captured a piece",
+  you_capture: "your opponent just captured one of your pieces",
+  winning: "you are winning",
+  losing: "you are losing",
+  i_check: "you just gave check",
+  you_check: "your opponent just gave you check",
+  castle: "someone just castled",
+  endgame: "the game has reached an endgame",
+  slow_move: "your opponent took a long time to move",
+  equal: "the position is balanced",
+  greeting: "the game is starting",
+};
+
+// Last `n` plies as numbered SAN ("21. Nf3 Nc6 22. Bb5"), not the whole PGN:
+// the model only needs the recent moves to react, and short prompts are faster.
+export function recentMoves(sans, n = 10, startPly = 0) {
+  const from = Math.max(0, sans.length - n);
+  const out = [];
+  for (let i = from; i < sans.length; i++) {
+    const ply = startPly + i;
+    const num = Math.floor(ply / 2) + 1;
+    if (ply % 2 === 0) out.push(`${num}. ${sans[i]}`);
+    else out.push(i === from ? `${num}... ${sans[i]}` : sans[i]);
+  }
+  return out.join(" ");
+}
+
+export async function aiReact({ ai, persona, event, recent, cpWhitePersp, cpWhiteBefore, botColor }) {
   if (!ai?.baseUrl || !ai?.model) return null;
   try {
-    const evalForBot = (botColor === "w" ? 1 : -1) * (cpWhitePersp / 100);
+    const sign = botColor === "w" ? 1 : -1;
+    const evalForBot = (sign * cpWhitePersp) / 100;
+    const deltaForBot = cpWhiteBefore == null ? 0 : (sign * (cpWhitePersp - cpWhiteBefore)) / 100;
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 6000);
     const res = await fetch(ai.baseUrl.replace(/\/$/, "") + "/chat/completions", {
@@ -92,7 +133,10 @@ export async function aiReact({ ai, persona, event, pgn, cpWhitePersp, botColor 
           },
           {
             role: "user",
-            content: `Game so far (PGN): ${pgn}\nSituation: ${event}. Your eval: ${evalForBot > 0 ? "+" : ""}${evalForBot.toFixed(1)} pawns.`,
+            content:
+              `Last moves: ${recent || "(none yet)"}\nWhat just happened: ${EVENT_TEXT[event] || event}. ` +
+              `Your eval: ${evalForBot > 0 ? "+" : ""}${evalForBot.toFixed(1)} pawns ` +
+              `(${deltaForBot >= 0 ? "+" : ""}${deltaForBot.toFixed(1)} since the previous move).`,
           },
         ],
       }),

@@ -139,7 +139,7 @@ function LessonHome({ store, nav }) {
       })}
 
       <p className="hint small footernote">
-        Lessons run on the same board as the rest of the app — play the moves yourself when
+        Lessons run on the same board as the rest of the app, play the moves yourself when
         asked. Progress is saved on this device.
       </p>
     </div>
@@ -399,7 +399,7 @@ function LessonRunner({ lesson, store, setStore, nav }) {
           {!solved ? (
             <>
               <b>{step.quiz.prompt || "Your move."}</b>
-              {wrong && <div className="quizfeed">{wrong} isn't it — try again.</div>}
+              {wrong && <div className="quizfeed">{wrong} isn't it, try again.</div>}
               {showAnswer && <div className="quizfeed">The move is {step.quiz.answer}.</div>}
               {step.quiz.hint && !showAnswer && <div className="quizhint">Hint: {step.quiz.hint}</div>}
             </>

@@ -3,6 +3,7 @@ import { Chess } from "chess.js";
 import Board from "./Board.jsx";
 import { TopBar, MoveList, useArrowKeys } from "./ui.jsx";
 import { newId } from "./storage.js";
+import { IS_NATIVE } from "./platform.js";
 import {
   loadGamesIndex,
   loadFamous,
@@ -118,6 +119,7 @@ function Hub({ nav, go }) {
         </button>
       </div>
 
+      {!IS_NATIVE && (
       <div className="card">
         {dl === null && (
           <>
@@ -140,7 +142,7 @@ function Hub({ nav, go }) {
             </p>
           </>
         )}
-        {dl === "done" && <p className="okmsg">Entire database cached — every game now works offline. ✓</p>}
+        {dl === "done" && <p className="okmsg">Entire database cached: every game now works offline. ✓</p>}
         {typeof dl === "string" && dl.startsWith("error:") && (
           <>
             <p className="warn">{dl.slice(6)}</p>
@@ -150,10 +152,11 @@ function Hub({ nav, go }) {
           </>
         )}
       </div>
+      )}
 
       <p className="hint small footernote">
         Every World Championship match since 1886, Candidates and Interzonals, and the great
-        tournaments from Hastings 1895 to today's super-events — validated move by move. Game data
+        tournaments from Hastings 1895 to today's super-events, validated move by move. Game data
         from pgnmentor.com; live relay by lichess.org.
       </p>
     </div>
@@ -277,7 +280,7 @@ function Archive({ back, go }) {
 
       <input
         className="input"
-        placeholder="Search — e.g. Linares, Zurich 1953, Tata"
+        placeholder="Search: e.g. Linares, Zurich 1953, Tata"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
@@ -339,7 +342,7 @@ function EventGames({ back, go, eventId, eventName }) {
       <TopBar title={eventName} sub={ev ? `${ev.games.length} games` : ""} onBack={back} />
       {error && (
         <p className="warn">
-          Couldn't load this event — it may not be cached for offline yet. ({error})
+          Couldn't load this event, it may not be cached for offline yet. ({error})
         </p>
       )}
       {!ev && !error && <p className="hint">Loading…</p>}
@@ -434,6 +437,8 @@ function Viewer({ store, setStore, nav, back, game, context, story }) {
           date: Date.now(),
           mode: "import",
           label: `${surname(game.w)} vs ${surname(game.b)}${context ? ` · ${context}` : ""}`,
+          players: { w: game.w, b: game.b, wElo: game.we || null, bElo: game.be || null },
+          headers: context ? { Event: context } : undefined,
           sans,
           result: RESULT_LABEL[game.res] ? game.res.replace("=", "1/2-1/2") : null,
           review: null,
@@ -516,7 +521,7 @@ function Viewer({ store, setStore, nav, back, game, context, story }) {
 function StaleBanner({ at }) {
   return (
     <p className="warn">
-      Offline — showing the last data fetched {new Date(at).toLocaleString()}. Fetching fresh
+      Offline: showing the last data fetched {new Date(at).toLocaleString()}. Fetching fresh
       rounds needs a connection.
     </p>
   );
@@ -551,7 +556,7 @@ function Live({ back, go }) {
       <TopBar title="Live tournaments" sub="Relayed by lichess.org" onBack={back} />
       {error && (
         <p className="warn">
-          Couldn't reach lichess.org — live tournaments need an internet connection. ({error})
+          Couldn't reach lichess.org, live tournaments need an internet connection. ({error})
         </p>
       )}
       {!res && !error && <p className="hint">Loading broadcasts…</p>}
@@ -602,7 +607,7 @@ function Tour({ back, go, tourId, tourName }) {
   return (
     <div className="page">
       <TopBar title={tourName} sub={res ? `${res.data.rounds.length} rounds` : ""} onBack={back} />
-      {error && <p className="warn">Couldn't load rounds — are you online? ({error})</p>}
+      {error && <p className="warn">Couldn't load rounds, are you online? ({error})</p>}
       {res?.stale && <StaleBanner at={res.at} />}
       {res?.data.rounds.map((r) => (
         <button
@@ -652,9 +657,9 @@ function Round({ back, go, roundId, roundName, tourName }) {
           </button>
         }
       />
-      {error && <p className="warn">Couldn't load this round — are you online? ({error})</p>}
+      {error && <p className="warn">Couldn't load this round, are you online? ({error})</p>}
       {res?.stale && <StaleBanner at={res.at} />}
-      {live && <p className="hint small">● Games in progress — tap ⟳ for the latest moves.</p>}
+      {live && <p className="hint small">● Games in progress, tap ⟳ for the latest moves.</p>}
       {res && (
         <GameRows
           games={res.data}

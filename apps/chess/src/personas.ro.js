@@ -186,14 +186,14 @@ export const RO_PERSONALITIES = {
     lines: {
       greeting: [
         "Hai, așază-te, frate, să-ți arăt eu șah de parc.",
-        "Graba strică treaba — hurry ruins the work. Stai calm.",
+        "Graba strică treaba, hurry ruins the work. Stai calm.",
         "Cine se scoală de dimineață departe ajunge, hai să vedem cine mută bine azi.",
         "Bine ai venit la masa mea, aici se joacă serios, cu semințe.",
       ],
       i_capture: [
         "Cine sapă groapa altuia cade singur în ea, frate.",
         "Am luat-o, măi! Nu te supăra, așa-i jocul.",
-        "Vezi, cine n-are bătrân să-l cumpere — și eu ți-am luat piesa.",
+        "Vezi, cine n-are bătrân să-l cumpere, și eu ți-am luat piesa.",
       ],
       you_capture: [
         "Bine, ai luat-o. Cine se laudă singur se face de râs, nu mă supăr.",
@@ -202,12 +202,12 @@ export const RO_PERSONALITIES = {
       ],
       i_blunder: [
         "Vai de mine, măi, am dat cu bâta-n baltă rău de tot.",
-        "Cine nu greșește nu învață — dar asta a durut.",
+        "Cine nu greșește nu învață, dar asta a durut.",
         "Am mutat cu piciorul, nu cu capul, frate.",
       ],
       you_blunder: [
         "Ha, lăcomia strică omenia! O iau, mulțumesc.",
-        "Cine se grăbește, greșește — iar tu te-ai grăbit.",
+        "Cine se grăbește, greșește, iar tu te-ai grăbit.",
         "Bine, ai lăsat piesa acolo, io n-o refuz, frate.",
       ],
       i_check: [
@@ -272,7 +272,7 @@ export const RO_PERSONALITIES = {
       ],
       you_brilliant: [
         "Aoleu, măi, aia a fost lovitură de maestru, chiar bine văzută.",
-        "Cine nu te știe, te cumpără — dar io te-am văzut, bravo!",
+        "Cine nu te știe, te cumpără, dar io te-am văzut, bravo!",
         "Frumoasă mutare, frate, chiar m-ai prins pe picior greșit.",
       ],
     },

@@ -8,14 +8,21 @@ import { findOpening } from "./openings.js";
 
 export const CLASSIFICATIONS = {
   brilliant: { label: "Brilliant", icon: "!!", color: "#26c2a3" },
+  great: { label: "Great", icon: "!", color: "#5c8bb0" },
   best: { label: "Best", icon: "★", color: "#81b64c" },
   excellent: { label: "Excellent", icon: "✓", color: "#81b64c" },
   good: { label: "Good", icon: "✓", color: "#95b776" },
   book: { label: "Book", icon: "📖", color: "#a88865" },
+  forced: { label: "Forced", icon: "□", color: "#9a948c" },
   inaccuracy: { label: "Inaccuracy", icon: "?!", color: "#f0c15c" },
   mistake: { label: "Mistake", icon: "?", color: "#e58f2a" },
   blunder: { label: "Blunder", icon: "??", color: "#e02828" },
+  miss: { label: "Miss", icon: "✗", color: "#ee6b55" },
 };
+
+export const CLASS_ORDER = [
+  "brilliant", "great", "best", "excellent", "good", "book", "forced", "inaccuracy", "mistake", "miss", "blunder",
+];
 
 const PIECE_VALUE = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 0 };
 
@@ -32,15 +39,15 @@ const PIECE_VALUE = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 0 };
 export async function reviewGame(
   engine,
   sans,
-  { startFen = null, movetime = 400, onProgress = () => {}, shouldStop = () => false } = {}
+  { startFen = null, movetime = 400, onProgress = () => {}, shouldStop = () => false, tag = null } = {}
 ) {
   const chess = startFen ? new Chess(startFen) : new Chess();
-  const positions = [{ fen: chess.fen(), turn: chess.turn() }];
+  const positions = [{ fen: chess.fen(), turn: chess.turn(), legal: chess.moves().length }];
   const verbose = [];
   for (const san of sans) {
     const mv = chess.move(san);
     verbose.push(mv);
-    positions.push({ fen: chess.fen(), turn: chess.turn() });
+    positions.push({ fen: chess.fen(), turn: chess.turn(), legal: chess.moves().length });
   }
   const finalOver = chess.isGameOver();
 
@@ -48,10 +55,7 @@ export async function reviewGame(
   const evals = [];
   const bests = [];
   for (let i = 0; i < positions.length; i++) {
-    if (shouldStop()) {
-      engine.stopCurrent();
-      return null;
-    }
+    if (shouldStop()) return null;
     const isLast = i === positions.length - 1;
     if (isLast && finalOver) {
       evals.push(terminalCp(chess));
@@ -59,13 +63,19 @@ export async function reviewGame(
     } else {
       // Two lines, so a "brilliant" can require the move to be clearly better
       // than the alternative rather than merely first in a noisy search.
-      const r = await engine.analyze(positions[i].fen, { movetime, multipv: 2 });
+      const r = await engine.analyze(positions[i].fen, { movetime, multipv: 2, tag });
+      if (r.cancelled || shouldStop()) return null;
       const info = r.lines[0];
       const second = r.lines[1];
       evals.push(info ? cpWhite(info, positions[i].turn) : 0);
       bests.push(
         info
-          ? { uci: info.move, pv: info.pv, margin: second ? lineScore(info) - lineScore(second) : Infinity }
+          ? {
+              uci: info.move,
+              pv: info.pv,
+              margin: second ? lineScore(info) - lineScore(second) : Infinity,
+              secondCp: second ? cpWhite(second, positions[i].turn) : null,
+            }
           : null
       );
     }
@@ -84,20 +94,25 @@ export async function reviewGame(
     const before = winPct(evals[i] * sign);
     const after = winPct(evals[i + 1] * sign);
     const drop = Math.max(0, before - after);
-    accDrops[mv.color].push(drop);
+    const forced = positions[i].legal === 1;
+    if (!forced) accDrops[mv.color].push(drop);
 
     sanSeq.push(mv.san);
-    const op = findOpening(sanSeq);
+    const op = startFen ? null : findOpening(sanSeq);
     if (op) opening = op;
-    const inBook = op != null;
+    const inBook = op != null && op.plies === sanSeq.length;
     openingSoFar.push(inBook);
 
     const bestUci = bests[i]?.uci || null;
     const playedUci = mv.from + mv.to + (mv.promotion || "");
     const isBest = bestUci === playedUci;
 
+    const secondWin = bests[i]?.secondCp != null ? winPct(bests[i].secondCp * sign) : null;
+    const prevBlunder = i > 0 && moves[i - 1].class === "blunder";
+
     let cls;
     if (inBook && i < 20) cls = "book";
+    else if (forced) cls = "forced";
     else if (
       isBest &&
       (bests[i]?.margin ?? 0) >= 50 && // clearly better than the alternative, not search noise
@@ -106,7 +121,9 @@ export async function reviewGame(
       before < 92
     )
       cls = "brilliant";
+    else if (isBest && secondWin != null && before - secondWin >= 10) cls = "great";
     else if (isBest) cls = "best";
+    else if (prevBlunder && drop >= 10) cls = "miss";
     else if (drop < 2) cls = "excellent";
     else if (drop < 5) cls = "good";
     else if (drop < 10) cls = "inaccuracy";
@@ -121,6 +138,7 @@ export async function reviewGame(
       bestUci,
       bestSan: bestUci ? uciToSan(positions[i].fen, bestUci) : null,
       fenBefore: positions[i].fen,
+      ...(forced ? { forced: true } : {}),
     });
   }
 
@@ -129,10 +147,11 @@ export async function reviewGame(
     b: playerAccuracy(accDrops.b),
   };
   const counts = { w: countClasses(moves, "w"), b: countClasses(moves, "b") };
+  const phases = phaseAccuracy(moves);
   // Best line per position (SAN, truncated), so the review browser can show
   // the engine's idea at any move without re-searching.
   const pvs = positions.map((p, i) => (bests[i] ? pvToSans(p.fen, bests[i].pv.slice(0, 6)) : null));
-  return { evals, moves, accuracy, opening, counts, pvs };
+  return { evals, moves, accuracy, opening, counts, pvs, phases };
 }
 
 // UCI-perspective score of a parsed info line, mates folded to big numbers.
@@ -166,6 +185,44 @@ function playerAccuracy(drops) {
   if (!drops.length) return 100;
   const per = drops.map((d) => Math.max(0, Math.min(100, 103.1668 * Math.exp(-0.04354 * d) - 3.1669)));
   return Math.round((per.reduce((a, b) => a + b, 0) / per.length) * 10) / 10;
+}
+
+export const PHASES = [
+  ["opening", "Opening"],
+  ["middlegame", "Middlegame"],
+  ["endgame", "Endgame"],
+];
+
+export function movePhase(ply, fenBefore) {
+  if (ply < 20) return "opening";
+  const pieces = String(fenBefore || "").split(" ")[0].replace(/[^a-zA-Z]/g, "").length;
+  return pieces > 12 ? "middlegame" : "endgame";
+}
+
+export function phaseAccuracy(moves) {
+  const drops = { w: {}, b: {} };
+  moves.forEach((m, i) => {
+    if (m.forced || m.class === "forced") return;
+    const ph = movePhase(i, m.fenBefore);
+    (drops[m.color][ph] ||= []).push(m.drop || 0);
+  });
+  const out = { w: {}, b: {} };
+  for (const c of ["w", "b"])
+    for (const [ph] of PHASES) out[c][ph] = drops[c][ph]?.length ? playerAccuracy(drops[c][ph]) : null;
+  return out;
+}
+
+export function keyMoments(review, n = 3) {
+  const out = review.moves.map((m, i) => {
+    const sign = m.color === "w" ? 1 : -1;
+    const swing = winPct(review.evals[i] * sign) - winPct(review.evals[i + 1] * sign);
+    return { ply: i, san: m.san, color: m.color, cls: m.class, swing };
+  });
+  return out
+    .filter((m) => m.swing >= 5)
+    .sort((a, b) => b.swing - a.swing)
+    .slice(0, n)
+    .sort((a, b) => a.ply - b.ply);
 }
 
 function countClasses(moves, color) {
@@ -218,7 +275,7 @@ export function uciToSan(fen, uci) {
 export function extractPuzzles(review, playerColor) {
   return review.moves
     .map((m, i) => ({ ...m, ply: i }))
-    .filter((m) => m.color === playerColor && (m.class === "blunder" || m.class === "mistake") && m.bestSan)
+    .filter((m) => m.color === playerColor && (m.class === "blunder" || m.class === "mistake" || m.class === "miss") && m.bestSan)
     .map((m) => ({
       fen: m.fenBefore,
       bestSan: m.bestSan,

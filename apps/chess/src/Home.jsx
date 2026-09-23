@@ -1,3 +1,4 @@
+import { IS_NATIVE } from "./platform.js";
 import { getPersona } from "./personas.js";
 
 export default function Home({ store, nav }) {
@@ -61,8 +62,8 @@ export default function Home({ store, nav }) {
       </button>
 
       <p className="hint small footernote">
-        Everything runs on this phone — Stockfish 16 NNUE included. First visit
-        downloads the 39 MB engine net once; after that it works fully offline.
+        Everything runs on this phone, Stockfish 16 NNUE included.
+        {!IS_NATIVE && " First visit downloads the 39 MB engine net once; after that it works fully offline."}
       </p>
     </div>
   );

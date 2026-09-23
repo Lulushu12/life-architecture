@@ -77,7 +77,7 @@ export async function downloadAll(onProgress) {
         await r.arrayBuffer(); // drain so the SW commits it to cache
       } catch {
         ids.unshift(id);
-        throw new Error("Download interrupted — check your connection and try again.");
+        throw new Error("Download interrupted, check your connection and try again.");
       }
       onProgress(++done, idx.events.length);
     }

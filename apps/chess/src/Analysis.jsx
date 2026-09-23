@@ -5,6 +5,10 @@ import { TopBar, MoveList, useArrowKeys } from "./ui.jsx";
 import { getEngine, cpWhite, winPct, nullMoveFen, fmtCp } from "./engine.js";
 import { CLASSIFICATIONS } from "./review.js";
 import { findOpening } from "./openings.js";
+import { ENGINE_LOADING } from "./platform.js";
+import { useToast } from "@shared/ui.jsx";
+import { gamePgn, pgnFilename, copyToClipboard } from "./pgn.js";
+import ExportSheet from "./ExportSheet.jsx";
 
 function classifyDrop(drop, isBest) {
   if (isBest) return "best";
@@ -18,6 +22,8 @@ function classifyDrop(drop, isBest) {
 // Free analysis board: play both sides, paste a FEN or PGN, watch the eval
 // bar and the engine's best line update continuously.
 export default function Analysis({ store, nav, view }) {
+  const toast = useToast();
+  const [exporting, setExporting] = useState(false);
   const engine = getEngine();
   const [sans, setSans] = useState([]);
   // Arriving from the position editor hands the board a position to start from.
@@ -79,8 +85,8 @@ export default function Analysis({ store, nav, view }) {
       setEvalInfo(null);
       return;
     }
-    engine
-      .analyze(fen, { movetime: 600, multipv: 5 })
+    const timer = setTimeout(() => engine
+      .analyze(fen, { movetime: 600, multipv: 5, tag: "analysis" })
       .then((r) => {
         if (cancelled || seq !== evalSeq.current || !r.lines[0]) return;
         const info = r.lines[0];
@@ -112,9 +118,11 @@ export default function Analysis({ store, nav, view }) {
           });
         }
       })
-      .catch(() => {});
+      .catch(() => {}), 120);
     return () => {
       cancelled = true;
+      clearTimeout(timer);
+      engine.cancel("analysis");
     };
   }, [fen, engine, chess]);
 
@@ -125,10 +133,10 @@ export default function Analysis({ store, nav, view }) {
     if (!showThreats || chess.isGameOver() || chess.inCheck()) return;
     let cancelled = false;
     const nfen = nullMoveFen(fen);
-    engine
-      .analyze(nfen, { movetime: 350, multipv: 2 })
+    const timer = setTimeout(() => engine
+      .analyze(nfen, { movetime: 350, multipv: 2, tag: "analysis-threat" })
       .then((r) => {
-        if (cancelled || seq !== threatSeq.current) return;
+        if (cancelled || seq !== threatSeq.current || !r.lines[0]) return;
         const best = cpWhite(r.lines[0] || {}, nfen.split(" ")[1]);
         setThreats(
           r.lines
@@ -141,9 +149,11 @@ export default function Analysis({ store, nav, view }) {
             .map((l) => [l.move.slice(0, 2), l.move.slice(2, 4)])
         );
       })
-      .catch(() => {});
+      .catch(() => {}), 120);
     return () => {
       cancelled = true;
+      clearTimeout(timer);
+      engine.cancel("analysis-threat");
     };
   }, [fen, engine, chess, showThreats]);
 
@@ -235,7 +245,7 @@ export default function Analysis({ store, nav, view }) {
       setBranches([]);
       setShowPaste(false);
     } catch {
-      alert("Couldn't parse that as a FEN or PGN.");
+      toast("Couldn't parse that as a FEN or PGN.");
     }
   };
 
@@ -258,7 +268,7 @@ export default function Analysis({ store, nav, view }) {
           </button>
         }
       />
-      {!engineReady && <div className="enginebanner">Loading engine (first time: ~39 MB)…</div>}
+      {!engineReady && <div className="enginebanner">{ENGINE_LOADING}</div>}
 
       <div className="boardrow">
         <EvalBar cp={evalInfo ? evalInfo.cp : 0} orientation={orientation} />
@@ -291,7 +301,7 @@ export default function Analysis({ store, nav, view }) {
       {verdict && (
         <div className="moveverdict" style={{ borderColor: CLASSIFICATIONS[verdict.cls].color }}>
           <b style={{ color: CLASSIFICATIONS[verdict.cls].color }}>
-            {verdict.san} — {CLASSIFICATIONS[verdict.cls].label}
+            {verdict.san}: {CLASSIFICATIONS[verdict.cls].label}
           </b>
           {verdict.cls !== "best" && verdict.bestSan && (
             <>
@@ -322,7 +332,7 @@ export default function Analysis({ store, nav, view }) {
 
       {viewPly != null && (
         <div className="previewbar">
-          {viewPly < 0 ? "Start position" : `Viewing move ${Math.floor(viewPly / 2) + 1}`} — play here to
+          {viewPly < 0 ? "Start position" : `Viewing move ${Math.floor(viewPly / 2) + 1}`}. Play here to
           branch
           <button className="linkbtn" onClick={() => setViewPly(null)}>
             To end
@@ -355,10 +365,18 @@ export default function Analysis({ store, nav, view }) {
         <button
           className="linkbtn"
           onClick={() => {
+            const prev = { sans, startFen, branches };
             setSans([]);
             setStartFen(null);
             setViewPly(null);
             setBranches([]);
+            if (prev.sans.length || prev.startFen)
+              toast.undo("Board reset", () => {
+                setSans(prev.sans);
+                setStartFen(prev.startFen);
+                setBranches(prev.branches);
+                setViewPly(null);
+              });
           }}
         >
           Reset
@@ -372,7 +390,23 @@ export default function Analysis({ store, nav, view }) {
         <button className="linkbtn" onClick={() => setShowPaste((s) => !s)}>
           {showPaste ? "Close" : "Paste FEN/PGN"}
         </button>
+        <button className="linkbtn" onClick={() => setExporting(true)} disabled={sans.length === 0}>
+          ⤓ Export PGN
+        </button>
+        <button
+          className="linkbtn"
+          onClick={async () => toast((await copyToClipboard(fen)) ? "FEN copied" : "Copy blocked by the browser")}
+        >
+          Copy FEN
+        </button>
       </div>
+      <ExportSheet
+        open={exporting}
+        title="Export analysis"
+        text={exporting ? gamePgn({ mode: "analysis", date: Date.now(), sans, startFen, result: null }) : ""}
+        filename={pgnFilename("analysis")}
+        onClose={() => setExporting(false)}
+      />
 
       {showPaste && (
         <div className="card">

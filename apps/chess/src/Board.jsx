@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { winPct } from "./engine.js";
 
 // Piece sets (SVGs from lichess, see README attribution) inlined at build
 // time — fully offline. Folder name = set id: pieces/<set>/<wK…bP>.svg
@@ -288,6 +289,9 @@ export default function Board({
   arrowColors,
   needsPromotion,
   animMs = 200,
+  premoveDests,
+  onPremove,
+  premove,
 }) {
   const colorsArrow = { ...DEFAULT_ARROW_COLORS, ...(arrowColors || {}) };
   const [selected, setSelected] = useState(null);
@@ -296,6 +300,9 @@ export default function Board({
   const [drawFrom, setDrawFrom] = useState(null);
   const [dragTo, setDragTo] = useState(null); // live preview while drawing
   const boardRef = useRef(null);
+  const ghostRef = useRef(null);
+  const drag = useRef(null);
+  const [dragging, setDragging] = useState(null); // {from, code}
   const touch = useRef(null);
   const suppressClick = useRef(false);
   const pieces = useMemo(() => fenToMap(fen), [fen]);
@@ -322,28 +329,120 @@ export default function Board({
   const svgs = PIECE_SETS[pieceSet] || PIECE_SETS.cburnett;
   const ranks = orientation === "w" ? [7, 6, 5, 4, 3, 2, 1, 0] : [0, 1, 2, 3, 4, 5, 6, 7];
   const files = orientation === "w" ? [0, 1, 2, 3, 4, 5, 6, 7] : [7, 6, 5, 4, 3, 2, 1, 0];
-  const targets = selected && dests ? dests.get(selected) || [] : [];
+  const isPre = !dests && !!premoveDests && !!onPremove;
+  const moveDests = dests || (isPre ? premoveDests : null);
+  const targets = selected && moveDests ? moveDests.get(selected) || [] : [];
 
   useEffect(() => {
     setShapes([]);
     setSelected(null);
   }, [fen]);
 
+  const commit = (from, to) => {
+    if (isPre) {
+      const code = pieces[from];
+      const promo = code?.[1] === "P" && (to[1] === "8" || to[1] === "1") ? "q" : undefined;
+      onPremove(from, to, promo);
+    } else if (needsPromotion && needsPromotion(from, to)) {
+      setPendingPromo({ from, to });
+    } else {
+      onMove(from, to);
+    }
+  };
+
   const tap = (sq) => {
     if (suppressClick.current) return; // tail of a long-press drawing gesture
     setShapes([]);
-    if (!dests) return;
+    if (!moveDests) return;
     if (selected && targets.includes(sq)) {
-      if (needsPromotion && needsPromotion(selected, sq)) {
-        setPendingPromo({ from: selected, to: sq });
-      } else {
-        onMove(selected, sq);
-      }
+      commit(selected, sq);
       setSelected(null);
       return;
     }
-    setSelected(dests.has(sq) && sq !== selected ? sq : null);
+    if (isPre && premove && !moveDests.has(sq)) onPremove(null);
+    setSelected(moveDests.has(sq) && sq !== selected ? sq : null);
   };
+
+  const onPointerDown = (e) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    if (!moveDests || drawFrom) return;
+    const sq = e.target.closest?.("[data-sq]")?.dataset.sq;
+    if (!sq || !moveDests.has(sq) || !pieces[sq]) return;
+    drag.current = { from: sq, code: pieces[sq], x: e.clientX, y: e.clientY, id: e.pointerId, active: false };
+  };
+
+  useEffect(() => {
+    const DRAG_START = 6;
+    const place = (x, y) => {
+      const g = ghostRef.current;
+      const b = boardRef.current;
+      if (!g || !b) return;
+      const r = b.getBoundingClientRect();
+      const size = r.width / 8;
+      g.style.width = size + "px";
+      g.style.height = size + "px";
+      g.style.transform = `translate(${x - r.left - size / 2}px, ${y - r.top - size / 2}px)`;
+    };
+    const onMovePtr = (e) => {
+      const d = drag.current;
+      if (!d || e.pointerId !== d.id) return;
+      if (!d.active) {
+        if (Math.hypot(e.clientX - d.x, e.clientY - d.y) < DRAG_START) return;
+        d.active = true;
+        if (touch.current?.timer) clearTimeout(touch.current.timer);
+        touch.current = null;
+        setSelected(d.from);
+        setDragging({ from: d.from, code: d.code });
+      }
+      d.lastX = e.clientX;
+      d.lastY = e.clientY;
+      place(e.clientX, e.clientY);
+    };
+    const onUp = (e) => {
+      const d = drag.current;
+      if (!d || e.pointerId !== d.id) return;
+      drag.current = null;
+      if (!d.active) return;
+      setDragging(null);
+      suppressClick.current = true;
+      setTimeout(() => {
+        suppressClick.current = false;
+      }, 80);
+      if (e.type === "pointercancel") return;
+      const sq = document.elementFromPoint(e.clientX, e.clientY)?.closest?.("[data-sq]")?.dataset.sq;
+      const ok = sq && (moveDestsRef.current?.get(d.from) || []).includes(sq);
+      if (ok) {
+        commitRef.current(d.from, sq);
+        setSelected(null);
+      } else if (sq !== d.from) setSelected(null);
+    };
+    window.addEventListener("pointermove", onMovePtr);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onUp);
+    return () => {
+      window.removeEventListener("pointermove", onMovePtr);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
+    };
+  }, []);
+
+  const moveDestsRef = useRef(moveDests);
+  moveDestsRef.current = moveDests;
+  const commitRef = useRef(commit);
+  commitRef.current = commit;
+
+  useEffect(() => {
+    if (!dragging || !drag.current) return;
+    const d = drag.current;
+    const g = ghostRef.current;
+    const b = boardRef.current;
+    if (!g || !b) return;
+    const r = b.getBoundingClientRect();
+    const size = r.width / 8;
+    g.style.width = size + "px";
+    g.style.height = size + "px";
+    g.style.transform = `translate(${(d.lastX ?? d.x) - r.left - size / 2}px, ${(d.lastY ?? d.y) - r.top - size / 2}px)`;
+  }, [dragging]);
 
   const idx = (sq) => {
     const f = FILES.indexOf(sq[0]);
@@ -444,7 +543,8 @@ export default function Board({
     <div className="boardwrap">
       <div
         ref={boardRef}
-        className={"board" + (drawFrom ? " drawing" : "")}
+        className={"board" + (drawFrom ? " drawing" : "") + (moveDests ? " interactive" : "")}
+        onPointerDown={onPointerDown}
         style={{
           "--light": custom?.light || colors.light,
           "--dark": custom?.dark || colors.dark,
@@ -466,7 +566,8 @@ export default function Board({
               (isDark ? "dark" : "light") +
               (isLast ? " last" : "") +
               (sq === selected ? " sel" : "") +
-              (sq === checkSquare ? " check" : "");
+              (sq === checkSquare ? " check" : "") +
+              (premove && (premove.from === sq || premove.to === sq) ? " premove" : "");
             return (
               <div
                 key={sq}
@@ -510,7 +611,12 @@ export default function Board({
             return (
               <div
                 key={p.key}
-                className={"apiece" + (p.dead ? " dead" : "") + (p.moving ? " moving" : "")}
+                className={
+                  "apiece" +
+                  (p.dead ? " dead" : "") +
+                  (p.moving ? " moving" : "") +
+                  (dragging && dragging.from === p.sq && !p.dead ? " dragsrc" : "")
+                }
                 style={{ transform: `translate(${col * 100}%, ${row * 100}%)` }}
                 dangerouslySetInnerHTML={{ __html: svgs[p.code] }}
               />
@@ -534,6 +640,9 @@ export default function Board({
           )}
           {arrow && <Arrow from={idx(arrow[0])} to={idx(arrow[1])} color={colorsArrow.hint} width={2.6} />}
         </svg>
+        {dragging && (
+          <div ref={ghostRef} className="dragghost" dangerouslySetInnerHTML={{ __html: svgs[dragging.code] }} />
+        )}
       </div>
 
       {pendingPromo && (
@@ -562,7 +671,7 @@ export default function Board({
 
 // Eval bar: cp from white's perspective; oriented with the board.
 export function EvalBar({ cp, orientation }) {
-  const pct = 50 + 50 * (2 / (1 + Math.exp(-0.004 * Math.max(-1500, Math.min(1500, cp)))) - 1);
+  const pct = winPct(cp);
   const whiteShare = Math.max(4, Math.min(96, pct));
   const label = Math.abs(cp) >= 9000 ? (cp > 0 ? "M" : "-M") : (cp / 100).toFixed(1);
   return (

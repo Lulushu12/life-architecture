@@ -94,7 +94,7 @@ export default function Openings({ store, nav }) {
 
       <input
         className="input"
-        placeholder="Search by name or ECO — e.g. Najdorf, B90, London"
+        placeholder="Search by name or ECO: e.g. Najdorf, B90, London"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
@@ -146,7 +146,7 @@ export default function Openings({ store, nav }) {
               <div className="oc-title">
                 {named.eco} · {named.name}
               </div>
-              {!exact && <div className="hint small">Position is deeper than this name — you've transposed out of book.</div>}
+              {!exact && <div className="hint small">Position is deeper than this name, you've transposed out of book.</div>}
               {ev && (
                 <div className="oc-eval">
                   <b>{formatEval(ev)}</b> <span className="hint small">{verdict(ev)}</span>
@@ -208,7 +208,7 @@ export default function Openings({ store, nav }) {
 
           <p className="hint small footernote">
             Lines from lichess-org/chess-openings (CC0). Game counts come from tagged games in the
-            Lichess puzzle database and are shown only for exactly-named lines — sub-variations
+            Lichess puzzle database and are shown only for exactly-named lines, sub-variations
             without their own count are listed by how many named lines run through them, rather
             than inheriting their parent's figures. Evaluations are this app's own Stockfish at
             depth 12.

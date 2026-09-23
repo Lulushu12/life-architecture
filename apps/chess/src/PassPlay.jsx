@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Chess } from "chess.js";
 import Board from "./Board.jsx";
 import { TopBar, Toggle, MoveList } from "./ui.jsx";
 import { findOpening } from "./openings.js";
 import { play as sfx, buzz } from "./audio.js";
 import { newId } from "./storage.js";
+import { useConfirm } from "@shared/ui.jsx";
+import { useWakeLock } from "@shared/useWakeLock.js";
 
 export default function PassPlay({ store, setStore, nav, view }) {
   const cur = store.current;
@@ -84,7 +86,9 @@ function Setup({ store, setStore, nav }) {
 
 function Game({ store, setStore, nav }) {
   const g = store.current;
-  const [, tick] = useState(0);
+  const [tickN, tick] = useState(0);
+  const [confirm, confirmSheet] = useConfirm();
+  const lowWarned = useRef(null);
 
   const chess = useMemo(() => {
     const c = new Chess();
@@ -96,6 +100,7 @@ function Game({ store, setStore, nav }) {
   const orientation = g.autoFlip ? turn : "w";
   const opening = useMemo(() => findOpening(g.sans), [g.sans]);
   const over = g.status === "over";
+  useWakeLock(!over);
 
   // clock ticking (display only; remaining is computed from timestamps)
   useEffect(() => {
@@ -111,21 +116,33 @@ function Game({ store, setStore, nav }) {
     return Math.max(0, ms);
   };
 
-  // flag check
   useEffect(() => {
-    if (!g.clock || over) return;
+    if (!g.clock || over || !g.clock.turnStartedAt) return;
     const r = remaining(turn);
+    const key = turn + g.sans.length;
+    if (r > 0 && r < 10000 && lowWarned.current !== key) {
+      lowWarned.current = key;
+      sfx(store, "lowTime");
+      buzz(store, 30);
+    }
     if (r <= 0) {
       setStore((s) =>
         s.current && s.current.id === g.id && s.current.status === "playing"
           ? {
               ...s,
-              current: { ...s.current, status: "over", result: turn === "w" ? "0-1" : "1-0", reason: "time" },
+              current: {
+                ...s.current,
+                status: "over",
+                result: turn === "w" ? "0-1" : "1-0",
+                reason: "time",
+                clock: { ...s.current.clock, [turn]: 0, turnStartedAt: null },
+              },
             }
           : s
       );
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tickN, over, turn, g.clock, g.id, g.sans.length]);
 
   const dests = useMemo(() => {
     if (over) return null;
@@ -161,7 +178,8 @@ function Game({ store, setStore, nav }) {
           turnStartedAt: Date.now(),
         };
       }
-      const next = { ...c, sans: [...c.sans, mv.san], clock };
+      const clockHist = c.clock ? [...(c.clockHist || []), c.clock].slice(-400) : c.clockHist;
+      const next = { ...c, sans: [...c.sans, mv.san], clock, clockHist };
       if (test.isGameOver()) {
         next.status = "over";
         next.result = test.isCheckmate() ? (test.turn() === "w" ? "0-1" : "1-0") : "1/2-1/2";
@@ -193,8 +211,8 @@ function Game({ store, setStore, nav }) {
       />
       {g.clock && (
         <div className="clockrow">
-          <span className={"clockchip" + (turn === "b" && !over ? " running" : "")}>♟ {fmt(remaining("b"))}</span>
-          <span className={"clockchip" + (turn === "w" && !over ? " running" : "")}>♙ {fmt(remaining("w"))}</span>
+          <span className={"clockchip" + (turn === "b" && !over ? " running" : "") + (remaining("b") < 10000 ? " low" : "")}>♟ {fmt(remaining("b"))}</span>
+          <span className={"clockchip" + (turn === "w" && !over ? " running" : "") + (remaining("w") < 10000 ? " low" : "")}>♙ {fmt(remaining("w"))}</span>
         </div>
       )}
       <Board
@@ -218,11 +236,24 @@ function Game({ store, setStore, nav }) {
         <button
           className="linkbtn"
           onClick={() =>
-            setStore((s) =>
-              s.current && s.current.id === g.id
-                ? { ...s, current: { ...s.current, sans: s.current.sans.slice(0, -1), status: "playing", result: null } }
-                : s
-            )
+            setStore((s) => {
+              const c = s.current;
+              if (!c || c.id !== g.id) return s;
+              let clock = c.clock;
+              let clockHist = c.clockHist;
+              if (clock) {
+                const hist = [...(c.clockHist || [])];
+                const prev = hist.pop();
+                clockHist = hist;
+                clock = prev
+                  ? { ...prev, turnStartedAt: c.sans.length > 1 ? Date.now() : null }
+                  : { ...clock, turnStartedAt: null };
+              }
+              return {
+                ...s,
+                current: { ...c, sans: c.sans.slice(0, -1), status: "playing", result: null, reason: null, clock, clockHist },
+              };
+            })
           }
           disabled={g.sans.length === 0}
         >
@@ -249,14 +280,17 @@ function Game({ store, setStore, nav }) {
         )}
         <button
           className="linkbtn danger"
-          onClick={() => {
-            if (confirm("End this game?")) setStore((s) => ({ ...s, current: null })), nav("home");
+          onClick={async () => {
+            if (!(await confirm({ title: "End this game?", message: "The game is discarded without saving.", confirmLabel: "End game", danger: true }))) return;
+            setStore((s) => ({ ...s, current: null }));
+            nav("home");
           }}
         >
           End
         </button>
       </div>
       <MoveList sans={g.sans} activePly={g.sans.length - 1} />
+      {confirmSheet}
     </div>
   );
 }

@@ -1,8 +1,8 @@
-import { useRef, useState } from "react";
 import { TopBar, Toggle, SettingRow } from "./ui.jsx";
+import { BackupPanel } from "@shared/BackupPanel.jsx";
+import { useToast } from "@shared/ui.jsx";
 import { BOARD_THEMES, TEXTURES, PIECE_SETS, PIECE_SET_NAMES, DEFAULT_ARROW_COLORS } from "./Board.jsx";
-import { loadStore, saveStore } from "./storage.js";
-import { backupText, backupFilename, canDownload, copyToClipboard, downloadJson, parseBackup } from "./backup.js";
+import { STORAGE_KEY, validateBackup } from "./storage.js";
 
 const ARROW_LABELS = {
   hint: "Engine / best move",
@@ -20,11 +20,7 @@ const COORD_FONTS = [
 ];
 
 export default function Settings({ store, setStore, nav }) {
-  const fileRef = useRef();
-  const [backup, setBackup] = useState(null); // exported text, shown for copying
-  const [copied, setCopied] = useState(false);
-  const [paste, setPaste] = useState("");
-  const [pasteErr, setPasteErr] = useState("");
+  const toast = useToast();
   const set = (patch) => setStore((s) => ({ ...s, settings: { ...s.settings, ...patch } }));
   const themeDef = BOARD_THEMES[store.settings.theme] || BOARD_THEMES.brown;
   const bc = store.settings.boardCustom || {};
@@ -32,36 +28,6 @@ export default function Settings({ store, setStore, nav }) {
   const previewPieces = PIECE_SETS[store.settings.pieces] || PIECE_SETS.cburnett;
   const setAi = (patch) =>
     setStore((s) => ({ ...s, settings: { ...s.settings, ai: { ...s.settings.ai, ...patch } } }));
-
-  const onImport = (e) => {
-    const f = e.target.files?.[0];
-    if (!f) return;
-    f.text().then((t) => {
-      try {
-        const imported = JSON.parse(t);
-        if (!imported.settings || !Array.isArray(imported.games)) throw new Error("bad");
-        saveStore(imported);
-        setStore(loadStore());
-        alert("Backup restored.");
-      } catch {
-        alert("Not a valid backup file.");
-      }
-    });
-    e.target.value = "";
-  };
-
-  const restoreFrom = (text) => {
-    try {
-      const data = parseBackup(text, (d) => d.settings && Array.isArray(d.games));
-      saveStore(data);
-      setStore(loadStore());
-      setPaste("");
-      setPasteErr("");
-      alert("Backup restored.");
-    } catch (e) {
-      setPasteErr(e.message);
-    }
-  };
 
   return (
     <div className="page">
@@ -175,7 +141,7 @@ export default function Settings({ store, setStore, nav }) {
         </div>
       </SettingRow>
       <p className="hint small">
-        "Default" follows the board theme picked above — a theme's texture keeps working under your own
+        "Default" follows the board theme picked above. A theme's texture keeps working under your own
         square colors, so you can recolor a wood or marble board freely.
       </p>
 
@@ -244,9 +210,9 @@ export default function Settings({ store, setStore, nav }) {
 
       <h2>Live AI banter (optional)</h2>
       <p className="hint small">
-        Point this at any OpenAI-compatible endpoint (same as the Life Architecture coach —
+        Point this at any OpenAI-compatible endpoint (same as the Life Architecture coach,
         e.g. Gemini's free tier, or a local model over Tailscale) and the bots react with live,
-        position-aware chat. Leave empty to use the built-in lines. The key stays on this device.
+        position-aware chat. Leave empty to use the built-in lines. The key stays on this device and is never included in backups.
       </p>
       <input
         className="input"
@@ -270,69 +236,26 @@ export default function Settings({ store, setStore, nav }) {
 
       <h2>Data</h2>
       <p className="hint small">
-        Everything lives in this app's own storage. Uninstalling deletes it, and backups are
-        off by design — so take one before you uninstall or replace the app.
+        Everything lives in this app's own storage. Uninstalling deletes it, so take a backup
+        before you uninstall or replace the app.
       </p>
-      <div className="backuprow">
-        <button
-          className="linkbtn"
-          onClick={() => {
-            setBackup(backupText(store));
-            setCopied(false);
-          }}
-        >
-          Export backup
-        </button>
-        <button className="linkbtn" onClick={() => fileRef.current.click()}>
-          Import from file
-        </button>
-        <input ref={fileRef} type="file" accept="application/json" hidden onChange={onImport} />
-      </div>
-
-      {backup && (
-        <div className="card">
-          <div className="backuprow">
-            <button
-              className="bigbtn"
-              onClick={async () => setCopied(await copyToClipboard(backup))}
-            >
-              {copied ? "✓ Copied" : "Copy to clipboard"}
-            </button>
-            {canDownload() && (
-              <button
-                className="linkbtn"
-                onClick={() => downloadJson(backup, backupFilename("chess"))}
-              >
-                Download file
-              </button>
-            )}
-            <button className="linkbtn" onClick={() => setBackup(null)}>
-              Close
-            </button>
-          </div>
-          <textarea className="input backuptext" readOnly value={backup} onFocus={(e) => e.target.select()} />
-          <p className="hint small">
-            Paste this somewhere safe — a note, an email to yourself. Restoring it below brings
-            back every game, puzzle and setting.
-          </p>
-        </div>
-      )}
-
-      <div className="field">
-        <textarea
-          className="input backuptext"
-          placeholder="…or paste a backup here to restore it"
-          value={paste}
-          onChange={(e) => {
-            setPaste(e.target.value);
-            setPasteErr("");
-          }}
-        />
-        {pasteErr && <p className="warn">{pasteErr}</p>}
-        <button className="linkbtn" disabled={!paste.trim()} onClick={() => restoreFrom(paste)}>
-          Restore from pasted text
-        </button>
-      </div>
+      <BackupPanel
+        data={store}
+        prefix="chess"
+        storageKey={STORAGE_KEY}
+        strip={["settings.ai.apiKey"]}
+        validate={validateBackup}
+        onRestore={(data, { dropped }) => {
+          setStore((s) => ({
+            ...data,
+            settings: {
+              ...data.settings,
+              ai: { ...data.settings.ai, apiKey: data.settings.ai?.apiKey || s.settings.ai.apiKey },
+            },
+          }));
+          toast(dropped ? `Backup restored; ${dropped} damaged games were skipped.` : "Backup restored.");
+        }}
+      />
 
       <h2>Version</h2>
       <div className="backuprow">
@@ -345,7 +268,7 @@ export default function Settings({ store, setStore, nav }) {
       </div>
       <p className="hint small">
         Opens the release page in your browser. Download the APK there and install it over this
-        one — your data stays put, as long as both builds are signed with the same key.
+        one. Your data stays put as long as both builds are signed with the same key.
       </p>
 
       <p className="hint small footernote">
