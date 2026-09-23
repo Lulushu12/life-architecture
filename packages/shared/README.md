@@ -170,9 +170,15 @@ Fixed version of Breathe's hook: tracks `released`, listens for the sentinel's
 - `isNativeNotify()`; `requestPermission()` resolves `"granted" | "denied" |
   "unsupported"` (native: `LocalNotifications.requestPermissions`; web:
   `Notification.requestPermission`).
-- `scheduleAt({ id, title, body, at, channel? })` schedules a local notification
-  for `at` (ms). Native only; on web resolves `false` (callers fall back to
-  in-app cues). `cancel(id)`, `cancelAll(prefix?)`.
+- `scheduleAt({ id, title, body, at, channel?, every?, count? })` schedules a
+  local notification for `at` (ms). Native only; on web resolves `false`
+  (callers fall back to in-app cues). With `every` (ms) it schedules `count`
+  (default 12) occurrences at `at + k * every` with ids `id + k`, so the caller
+  must reserve a contiguous block of at least `count` ids starting at `id` and
+  re-arm the block (e.g. on app open) to keep the horizon rolling. Without
+  `every` it schedules exactly one notification, as before.
+- `cancel(id, { count? })` cancels ids `id` to `id + count - 1` (default 1, so
+  pass the block size for a repeating reminder). `cancelAll(prefix?)`.
 - `notifyNow({ title, body, tag })` web Notification / native immediate.
 - Ids are numbers; each app reserves a range (focus 1000-1999, breathe
   2000-2999, life-architecture 3000-3999).

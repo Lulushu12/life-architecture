@@ -204,6 +204,12 @@ export default function App() {
     );
   }
 
+  const hasPill = pill != null;
+  useEffect(() => {
+    document.body.classList.toggle("has-pill", hasPill);
+    return () => document.body.classList.remove("has-pill");
+  }, [hasPill]);
+
   const tabProps = { store, setStore, now, today };
 
   return (

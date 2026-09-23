@@ -8,6 +8,9 @@ export const EXTEND_MIN = 5;
 export const SESSION_CAP = 5000;
 export const NOTIFY_PHASE_ID = 1001;
 export const NOTIFY_REMINDER_BASE = 1100;
+export const NOTIFY_REMINDER_BLOCK = 20;
+export const NOTIFY_REMINDER_REPEATS = 12;
+const NOTIFY_RANGE_END = 2000;
 
 export const PRESETS = [
   { label: "25/5", workMin: 25, shortBreakMin: 5 },
@@ -486,7 +489,9 @@ export function notificationPlan(store) {
   }
   Object.values(store.reminders.items).forEach((r, i) => {
     if (!r.enabled || store.reminders.banners.includes(r.id)) return;
-    plan.push({ id: NOTIFY_REMINDER_BASE + i, at: effectiveDueAt(store, r), title: r.label, body: "Reminder due" });
+    const id = NOTIFY_REMINDER_BASE + i * NOTIFY_REMINDER_BLOCK;
+    if (id + NOTIFY_REMINDER_BLOCK > NOTIFY_RANGE_END) return;
+    plan.push({ id, at: effectiveDueAt(store, r), every: r.intervalMin * 60000, title: r.label, body: "Reminder due" });
   });
   return plan;
 }

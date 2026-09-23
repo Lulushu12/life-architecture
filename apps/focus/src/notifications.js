@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cancel, cancelAll, isNativeNotify, requestPermission, scheduleAt } from "@shared/notify.js";
+import { NOTIFY_REMINDER_BLOCK, NOTIFY_REMINDER_REPEATS, rollForward } from "./logic.js";
 
 async function readPermission() {
   if (isNativeNotify()) {
@@ -44,7 +45,8 @@ export function useNotifyPermission() {
   return { permission, request, refresh };
 }
 
-const signature = (n) => `${n.at}|${n.title}|${n.body}`;
+const signature = (n) => `${n.at}|${n.every || 0}|${n.title}|${n.body}`;
+const blockSize = (n) => (n.every > 0 ? NOTIFY_REMINDER_BLOCK : 1);
 
 // Keeps the device's pending notifications equal to `plan`. Operations are
 // chained so a cancel never races the schedule that replaces it.
@@ -66,16 +68,18 @@ export function useNotificationPlan(plan) {
       const next = new Map();
       for (const [id, n] of prev) {
         const want = wanted.get(id);
-        if (!want || signature(want) !== signature(n)) await cancel(id);
+        if (!want || signature(want) !== signature(n)) await cancel(id, { count: blockSize(n) });
       }
       for (const [id, n] of wanted) {
-        if (n.at <= now) continue;
+        const at = n.every > 0 ? rollForward(n.at, n.every, now) : n.at;
+        if (at <= now) continue;
         const old = prev.get(id);
         if (old && signature(old) === signature(n)) {
           next.set(id, n);
           continue;
         }
-        if (await scheduleAt({ id, title: n.title, body: n.body, at: n.at })) next.set(id, n);
+        const repeat = n.every > 0 ? { every: n.every, count: NOTIFY_REMINDER_REPEATS } : {};
+        if (await scheduleAt({ id, title: n.title, body: n.body, at, ...repeat })) next.set(id, n);
       }
       applied.current = next;
     });

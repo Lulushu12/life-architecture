@@ -36,13 +36,17 @@ export async function requestPermission() {
   }
 }
 
-export async function scheduleAt({ id, title, body, at, channel }) {
+export async function scheduleAt({ id, title, body, at, channel, every, count = 12 }) {
   const ln = localNotifications();
   if (!ln) return false;
   try {
-    const n = { id, title, body, schedule: { at: new Date(at), allowWhileIdle: true } };
-    if (channel) n.channelId = channel;
-    await ln.schedule({ notifications: [n] });
+    const times = every > 0 ? Array.from({ length: Math.max(1, count) }, (_, k) => at + k * every) : [at];
+    const notifications = times.map((t, k) => {
+      const n = { id: id + k, title, body, schedule: { at: new Date(t), allowWhileIdle: true } };
+      if (channel) n.channelId = channel;
+      return n;
+    });
+    await ln.schedule({ notifications });
     return true;
   } catch (err) {
     console.warn("scheduleAt failed:", err);
@@ -50,11 +54,12 @@ export async function scheduleAt({ id, title, body, at, channel }) {
   }
 }
 
-export async function cancel(id) {
+export async function cancel(id, { count = 1 } = {}) {
   const ln = localNotifications();
   if (!ln) return false;
   try {
-    await ln.cancel({ notifications: [{ id }] });
+    const notifications = Array.from({ length: Math.max(1, count) }, (_, k) => ({ id: id + k }));
+    await ln.cancel({ notifications });
     return true;
   } catch {
     return false;
