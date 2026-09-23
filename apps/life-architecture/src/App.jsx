@@ -12,7 +12,8 @@ import { migrateUserData, SCHEMA_VERSION } from "./data/migrate.js";
 import { lsSet, loadUserRaw, buildSnapshot, applySnapshot, savedAt, onStorageStatus } from "./data/store.js";
 import { getSyncConfig, setSyncConfig, pullSnapshot, schedulePush, onSyncStatus, isGithubMode } from "./data/branchSync.js";
 import { getWorkoutLogSync } from "./data/logs.js";
-import { pendingEvents, applyEvents, subscribeEvents, effectiveMacros } from "./data/bridge.js";
+import { pendingEvents, applyEvents, subscribeEvents } from "./data/bridge.js";
+import { effectiveMacros } from "./data/macros.js";
 import { getSettings, setSettings, rescheduleReminders, enableReminders, cancelReminders } from "./data/reminders.js";
 import { isNative } from "./data/platform.js";
 import { css } from "./views/shared.jsx";
@@ -392,8 +393,8 @@ export default function App() {
             <div className="fi-anim" key={page}>
               {page === "today" && <Today data={data} today={today} toggleDaily={toggleDaily} nav={nav} macros={macros} pplOffset={data.pplOffset} />}
               {page === "train" && <Train {...trackerProps} initialMode={view?.mode} />}
-              {page === "fuel" && <Nutrition user={USER} onMacrosChanged={onMacrosChanged} macros={macros} />}
-              {page === "coach" && <Coach {...trackerProps} />}
+              {page === "fuel" && <Nutrition user={USER} onMacrosChanged={onMacrosChanged} bridgeMacros={data.bridgeMacros} />}
+              {page === "coach" && <Coach {...trackerProps} bridgeMacros={data.bridgeMacros} />}
               {page === "quests" && <Quests data={data} today={today} level={level} total={total} toggleLong={toggleLong} toggleDaily={toggleDaily} delLong={delLong} openAdd={cat => setModal({ mode: "add", category: cat })} openEdit={q => setModal({ mode: "edit", quest: q })} />}
               {page === "schedule" && <Schedule schedDay={schedDay} setSchedDay={setSchedDay} />}
               {page === "review" && <Review data={data} today={today} commit={commit} setDailyAuto={setDailyAuto} />}

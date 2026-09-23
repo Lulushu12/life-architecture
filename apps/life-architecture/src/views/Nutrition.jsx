@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { MACROS, todayKey } from "../system/constants.js";
 import { SLOTS, OPTIONS, FAT_RULE, DINNER_NOTE } from "../system/meals.js";
-import { saveMealLog, getMealLog, macroTotals, saveBodyMetric, recentBodyMetrics } from "../data/logs.js";
+import { saveMealLog, getMealLog, saveBodyMetric, recentBodyMetrics } from "../data/logs.js";
+import { effectiveMacros } from "../data/macros.js";
 import { Ring } from "./shared.jsx";
 import { uid } from "../system/constants.js";
 import { isNative } from "../data/platform.js";
@@ -18,7 +19,7 @@ const MACRO_RINGS = [
   { key: "fat",     label: "Fat",     color: "#f59e0b" },
 ];
 
-export default function Nutrition({ user, onMacrosChanged, macros }) {
+export default function Nutrition({ user, onMacrosChanged, bridgeMacros }) {
   const today = todayKey();
   const [entries, setEntries] = useState([]);
   const [openSlot, setOpenSlot] = useState(null);
@@ -30,9 +31,8 @@ export default function Nutrition({ user, onMacrosChanged, macros }) {
   useEffect(() => { getMealLog(user.uid, today).then(setEntries); }, [user.uid, today]);
   useEffect(() => { recentBodyMetrics(user.uid).then(setMetrics); }, [user.uid]);
 
-  const laTotals = macroTotals(entries);
-  const fromCalories = macros?.source === "calories";
-  const totals = fromCalories ? macros.totals : laTotals;
+  const { totals, source } = effectiveMacros({ bridgeMacros }, today, entries);
+  const fromCalories = source === "calories";
   const [showLocal, setShowLocal] = useState(!fromCalories);
   const remaining = Math.round(MACROS.kcal - totals.kcal);
   const over = remaining < 0;

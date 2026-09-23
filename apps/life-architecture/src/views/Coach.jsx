@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { parseLog, askCoach, deloadCheck, explainCoachError, coachConfigured, CONFIDENCE_FLOOR } from "../coach/client.js";
 import { plannedSession, todayKey, WEEKDAYS, XP_AWARDS } from "../system/constants.js";
-import { recentWorkoutLogs, getMealLog, macroTotals, saveWorkoutLog, getWorkoutLog, saveMealLog, saveBodyMetric, recentBodyMetrics } from "../data/logs.js";
+import { recentWorkoutLogs, getMealLog, saveWorkoutLog, getWorkoutLog, saveMealLog, saveBodyMetric, recentBodyMetrics } from "../data/logs.js";
 import { evaluateSession } from "../data/overloadGate.js";
+import { effectiveMacros } from "../data/macros.js";
 import { uid } from "../system/constants.js";
 
 const weekdayOf = (d = new Date()) => WEEKDAYS[(d.getDay() + 6) % 7];
 
-export default function Coach({ user, liftProgress, saveLiftProgress, pplOffset, onSessionLogged, onMacrosChanged, awardXP }) {
+export default function Coach({ user, liftProgress, saveLiftProgress, pplOffset, onSessionLogged, onMacrosChanged, awardXP, bridgeMacros }) {
   const today = todayKey();
   const [logText, setLogText] = useState("");
   const [situation, setSituation] = useState("");
@@ -21,7 +22,7 @@ export default function Coach({ user, liftProgress, saveLiftProgress, pplOffset,
     const [recent, meals] = await Promise.all([recentWorkoutLogs(user.uid, 10), getMealLog(user.uid, today)]);
     return {
       date: today, weekday: weekdayOf(), plannedSession: plannedSession(new Date(), pplOffset),
-      todayMacros: macroTotals(meals),
+      todayMacros: effectiveMacros({ bridgeMacros }, today, meals).totals,
       liftWeights: Object.fromEntries(Object.entries(liftProgress).map(([k, v]) => [k, v.currentWeightKg])),
       recentWorkouts: recent.map(w => ({
         date: w.date, session: w.session, missed: !!w.missed, minimum: !!w.minimum, notes: w.notes || "",

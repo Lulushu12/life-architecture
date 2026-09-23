@@ -41,4 +41,3 @@ export async function deleteBodyMetric(_uid, date) {
   schedulePush();
 }
 
-export { macroTotals } from "./macros.js";

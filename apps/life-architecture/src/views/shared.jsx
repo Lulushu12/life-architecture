@@ -4,31 +4,6 @@ import { STREAK_LABEL, STREAK_COLOR } from "../system/constants.js";
 import { previewCompletion, streakState, ruleHint } from "../system/streak.js";
 
 export const css = `
-:root{
-  --bg:#12151a;--surface:#1b2026;--surface2:#232a32;--border:#293039;--text:#f2f5f9;--muted:#8290a0;
-  --accent:#4f8ef7;--accent2:#8ab6ff;--accent-ink:#ffffff;--danger:#ef4444;--gold:#f59e0b;--ok:#22c55e;
-  --font:'DM Sans',system-ui,sans-serif;
-  --card:var(--surface);--modal:#20262e;--th:var(--surface2);
-  --bd:var(--border);--bd2:#232932;--bdh:#3a444f;
-  --tx:var(--text);--tx1:#d7dde5;--tx2:#9fabb8;--mut:var(--muted);--dim:#5d6b7a;--fnt:#46525f;
-  --acc:var(--accent);--acc-h:#3b76e0;--acc-soft:rgba(79,142,247,0.14);
-  --blue-t:#8ab6ff;--green-t:#4ade80;--red-t:#f87171;--purp-t:#d8b4fe;
-  --hover:rgba(255,255,255,0.04);--line:rgba(255,255,255,0.07);--ring:#2a323c;
-  --sh:0 1px 2px rgba(0,0,0,0.25);
-  --co-n:rgba(79,142,247,0.10);--co-g:rgba(245,158,11,0.10);--co-r:rgba(239,68,68,0.10);--co-gr:rgba(34,197,94,0.10);
-}
-[data-theme="light"]{
-  --bg:#f2f4f8;--surface:#ffffff;--surface2:#f4f6fa;--border:#e8ecf2;--text:#212b36;--muted:#7b8b9b;
-  --accent:#0066ee;--accent2:#0a58d0;--accent-ink:#ffffff;--gold:#b45309;--ok:#178a4c;
-  --modal:#ffffff;
-  --bd2:#eef1f6;--bdh:#c6d0dc;
-  --tx1:#3c4a59;--tx2:#5d6d7e;--dim:#9aa8b6;--fnt:#b8c2cd;
-  --acc-h:#0052c2;--acc-soft:rgba(0,102,238,0.10);
-  --blue-t:#0a58d0;--green-t:#178a4c;--red-t:#c92a2a;--purp-t:#6d28d9;
-  --hover:rgba(23,32,44,0.05);--line:rgba(23,32,44,0.08);--ring:#e9edf3;
-  --sh:0 1px 3px rgba(23,32,44,0.08),0 1px 2px rgba(23,32,44,0.05);
-  --co-n:rgba(0,102,238,0.07);--co-g:rgba(217,119,6,0.09);--co-r:rgba(220,38,38,0.07);--co-gr:rgba(22,163,74,0.08);
-}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased}
 .shell{display:flex;min-height:100dvh}

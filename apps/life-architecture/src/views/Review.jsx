@@ -3,7 +3,7 @@ import { addDays } from "@shared/store.js";
 import { MACROS, plannedSession, CAT_COLORS } from "../system/constants.js";
 import { isScheduled, weekdayOfKey } from "../system/streak.js";
 import { getWorkoutLogSync, recentBodyMetricsSync } from "../data/logs.js";
-import { effectiveMacros } from "../data/bridge.js";
+import { effectiveMacros } from "../data/macros.js";
 
 const DOW = ["S", "M", "T", "W", "T", "F", "S"];
 

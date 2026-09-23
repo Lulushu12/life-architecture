@@ -1,8 +1,6 @@
 import { readEvents, subscribeEvents } from "@shared/bridge.js";
 import { addDays } from "@shared/store.js";
 import { isNative } from "./platform.js";
-import { getMealLogSync } from "./logs.js";
-import { macroTotals } from "./macros.js";
 
 export { subscribeEvents };
 
@@ -109,13 +107,4 @@ export function caloriesStoreTotals(day) {
 export function hasCaloriesStore() {
   if (isNative()) return false;
   try { return localStorage.getItem("calories-v1") != null; } catch { return false; }
-}
-
-export function effectiveMacros(data, day) {
-  const bridged = data?.bridgeMacros?.[day];
-  if (bridged) return { totals: bridged, source: "calories" };
-  const la = macroTotals(getMealLogSync(day));
-  const direct = caloriesStoreTotals(day);
-  if (direct && (direct.entries > 0 || la.kcal === 0)) return { totals: direct, source: "calories" };
-  return { totals: la, source: la.kcal > 0 ? "la" : null };
 }
