@@ -1,7 +1,7 @@
-import { formatMMSS } from "./ui.jsx";
+import { formatElapsed, plural } from "./format.js";
 
-export default function BreathingEnd({ entry, onDone }) {
-  const rounds = entry.rounds || [];
+export default function BreathingEnd({ entry, onDone, onOneMore }) {
+  const rounds = entry.rounds;
   const times = rounds.map((r) => r.retentionSeconds);
   const best = times.length ? Math.max(...times) : 0;
   const avg = times.length ? times.reduce((a, b) => a + b, 0) / times.length : 0;
@@ -9,11 +9,12 @@ export default function BreathingEnd({ entry, onDone }) {
   return (
     <div className="page">
       <div className="topbar">
-        <span />
         <div>
-          <div className="tb-title">Session complete</div>
+          <div className="tb-title">{entry.complete ? "Session complete" : "Session ended"}</div>
           <div className="tb-sub">
-            {entry.complete ? `${rounds.length} round${rounds.length === 1 ? "" : "s"}` : `Ended early · ${rounds.length}/${entry.plannedRounds} rounds`}
+            {entry.complete
+              ? plural(rounds.length, "round")
+              : `Ended early · ${rounds.length}/${entry.plannedRounds} rounds`}
           </div>
         </div>
       </div>
@@ -32,7 +33,7 @@ export default function BreathingEnd({ entry, onDone }) {
                 {rounds.map((r, i) => (
                   <tr key={i}>
                     <td>{i + 1}</td>
-                    <td className="time">{formatMMSS(r.retentionSeconds)}</td>
+                    <td className="time">{formatElapsed(r.retentionSeconds)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -41,12 +42,12 @@ export default function BreathingEnd({ entry, onDone }) {
 
           <div className="summaryrow">
             <div className="stattile">
-              <div className="val">{formatMMSS(best)}</div>
-              <div className="lbl">Best</div>
+              <div className="val">{formatElapsed(best)}</div>
+              <div className="lbl">Best hold</div>
             </div>
             <div className="stattile">
-              <div className="val">{formatMMSS(avg)}</div>
-              <div className="lbl">Average</div>
+              <div className="val">{formatElapsed(avg)}</div>
+              <div className="lbl">Average hold</div>
             </div>
           </div>
         </>
@@ -54,8 +55,11 @@ export default function BreathingEnd({ entry, onDone }) {
         <p className="hint">No rounds were completed this session.</p>
       )}
 
-      <button className="bigbtn start" onClick={onDone}>
+      <button type="button" className="bigbtn start" onClick={onDone}>
         Done
+      </button>
+      <button type="button" className="bigbtn secondary gap" onClick={onOneMore}>
+        One more round
       </button>
     </div>
   );

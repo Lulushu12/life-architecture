@@ -1,100 +1,62 @@
-import { formatMMSS } from "./ui.jsx";
+import { useState } from "react";
+import { IconButton } from "@shared/ui.jsx";
+import { BackupPanel } from "@shared/BackupPanel.jsx";
+import { formatElapsed } from "./format.js";
+import { STORE_KEY, validateBackup } from "./storage.js";
 
-function isCounted(entry) {
-  if (entry.type === "breathing") return entry.rounds && entry.rounds.length > 0;
-  if (entry.type === "meditation") return typeof entry.actualSeconds === "number" && entry.actualSeconds > 0;
-  return false;
-}
+const PAGE = 20;
 
-function dateKey(ts) {
-  const d = new Date(ts);
-  return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
-}
-
-function startOfWeek(now) {
-  const d = new Date(now);
-  d.setHours(0, 0, 0, 0);
-  const dow = (d.getDay() + 6) % 7; // Monday = 0
-  d.setDate(d.getDate() - dow);
-  return d.getTime();
-}
-
-function computeStats(history) {
-  const counted = history.filter(isCounted);
-
-  const weekStart = startOfWeek(Date.now());
-  const sessionsThisWeek = counted.filter((h) => h.startedAt >= weekStart).length;
-
-  const dayset = new Set(counted.map((h) => dateKey(h.startedAt)));
-  let streak = 0;
-  const cursor = new Date();
-  cursor.setHours(0, 0, 0, 0);
-  if (!dayset.has(dateKey(cursor.getTime()))) {
-    // today has no session yet — streak can still continue from yesterday
-    cursor.setDate(cursor.getDate() - 1);
-  }
-  while (dayset.has(dateKey(cursor.getTime()))) {
-    streak++;
-    cursor.setDate(cursor.getDate() - 1);
-  }
-
-  let bestRetention = 0;
-  for (const h of history) {
-    if (h.type !== "breathing") continue;
-    for (const r of h.rounds || []) bestRetention = Math.max(bestRetention, r.retentionSeconds);
-  }
-
-  return { sessionsThisWeek, streak, bestRetention };
+function monthLabel(ts) {
+  return new Date(ts).toLocaleDateString(undefined, { month: "long", year: "numeric" });
 }
 
 function HistoryCard({ entry, onDelete }) {
-  const date = new Date(entry.startedAt).toLocaleDateString(undefined, {
-    month: "short",
-    day: "numeric",
-  });
-  const incomplete = !entry.complete;
+  const date = new Date(entry.startedAt).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+  const breathing = entry.type === "breathing";
+  const title = breathing ? "Breathing" : "Meditation";
 
   return (
     <div className="card histcard">
       <div className="histcard-main">
         <div className="histcard-title">
-          {entry.type === "breathing" ? "🌬️ Breathing" : "🧘 Meditation"}
-          {incomplete && <span className="badge incomplete">incomplete</span>}
+          <span aria-hidden="true">{breathing ? "🌬️" : "🧘"}</span> {title}
+          {!entry.complete && <span className="badge incomplete">incomplete</span>}
         </div>
-        {entry.type === "breathing" ? (
+        {breathing ? (
           <>
             <div className="histcard-sub">
-              {date} · {entry.rounds.length}/{entry.plannedRounds} round
-              {entry.plannedRounds === 1 ? "" : "s"}
+              {date} · {entry.rounds.length}/{entry.plannedRounds} round{entry.plannedRounds === 1 ? "" : "s"}
             </div>
             {entry.rounds.length > 0 && (
               <div className="histcard-rounds">
-                {entry.rounds.map((r) => formatMMSS(r.retentionSeconds)).join("  ·  ")}
+                {entry.rounds.map((r) => formatElapsed(r.retentionSeconds)).join("  ·  ")}
               </div>
             )}
           </>
         ) : (
           <div className="histcard-sub">
-            {date} · {entry.actualSeconds != null ? formatMMSS(entry.actualSeconds) : "0:00"} of{" "}
-            {formatMMSS(entry.targetSeconds)}
+            {date} · {formatElapsed(entry.actualSeconds || 0)} of {formatElapsed(entry.targetSeconds)}
           </div>
         )}
       </div>
-      <button
-        className="iconbtn"
-        onClick={() => {
-          if (confirm("Delete this session?")) onDelete(entry.id);
-        }}
-      >
+      <IconButton label={`Delete ${title.toLowerCase()} session from ${date}`} onClick={() => onDelete(entry.id)}>
         ✕
-      </button>
+      </IconButton>
     </div>
   );
 }
 
-export default function Home({ store, onDelete, onNewBreathing, onNewMeditation }) {
-  const history = [...store.history].sort((a, b) => b.startedAt - a.startedAt);
-  const stats = computeStats(store.history);
+export default function Home({ store, stats, hiddenId, onDelete, onNewBreathing, onNewMeditation, onRestore, onSafety }) {
+  const [limit, setLimit] = useState(PAGE);
+  const history = store.history.filter((h) => h.id !== hiddenId).sort((a, b) => b.startedAt - a.startedAt);
+  const shown = history.slice(0, limit);
+  const groups = [];
+  for (const h of shown) {
+    const label = monthLabel(h.startedAt);
+    const last = groups[groups.length - 1];
+    if (last && last.label === label) last.items.push(h);
+    else groups.push({ label, items: [h] });
+  }
 
   return (
     <div className="page">
@@ -102,43 +64,72 @@ export default function Home({ store, onDelete, onNewBreathing, onNewMeditation 
         Bre<span>athe</span>
       </h1>
 
-      <div className="statsrow">
+      <div className="statsgrid">
         <div className="stattile">
-          <div className="val">{stats.sessionsThisWeek}</div>
-          <div className="lbl">This week</div>
+          <div className="val">{stats.breathingThisWeek}</div>
+          <div className="lbl">Breathing sessions this week</div>
+        </div>
+        <div className="stattile">
+          <div className="val">{stats.meditationMinutesThisWeek}</div>
+          <div className="lbl">Meditation minutes this week</div>
         </div>
         <div className="stattile">
           <div className="val">{stats.streak}</div>
           <div className="lbl">Day streak</div>
         </div>
         <div className="stattile">
-          <div className="val">{formatMMSS(stats.bestRetention)}</div>
-          <div className="lbl">Best hold</div>
+          <div className="val">{formatElapsed(stats.bestHold)}</div>
+          <div className="lbl">Best breath hold</div>
         </div>
       </div>
 
-      <button className="modebtn" onClick={onNewBreathing}>
-        <span className="emoji">🌬️</span>
+      <button type="button" className="modebtn" onClick={onNewBreathing}>
+        <span className="emoji" aria-hidden="true">🌬️</span>
         <span>
-          <div className="modetitle">Breathing</div>
-          <div className="modesub">Wim Hof style rounds with retention holds</div>
+          <span className="modetitle">Breathing</span>
+          <span className="modesub">Wim Hof style rounds with retention holds</span>
         </span>
       </button>
-      <button className="modebtn" onClick={onNewMeditation}>
-        <span className="emoji">🧘</span>
+      <button type="button" className="modebtn" onClick={onNewMeditation}>
+        <span className="emoji" aria-hidden="true">🧘</span>
         <span>
-          <div className="modetitle">Meditation</div>
-          <div className="modesub">Timed sit with optional interval bell</div>
+          <span className="modetitle">Meditation</span>
+          <span className="modesub">Timed sit with optional interval bell</span>
         </span>
       </button>
 
       {history.length > 0 && <h2>History</h2>}
-      {history.map((h) => (
-        <HistoryCard key={h.id} entry={h} onDelete={onDelete} />
+      {groups.map((g) => (
+        <section key={g.label} aria-label={g.label}>
+          <div className="monthlabel">{g.label}</div>
+          {g.items.map((h) => (
+            <HistoryCard key={h.id} entry={h} onDelete={onDelete} />
+          ))}
+        </section>
       ))}
+      {history.length > limit && (
+        <button type="button" className="bigbtn secondary" onClick={() => setLimit((n) => n + PAGE)}>
+          Show more ({history.length - limit} older)
+        </button>
+      )}
       {history.length === 0 && (
         <p className="hint">No sessions yet. Start a breathing round or a timed meditation above.</p>
       )}
+
+      <h2>Data</h2>
+      <div className="card">
+        <BackupPanel
+          data={store}
+          prefix="breathe"
+          storageKey={STORE_KEY}
+          strip={["_recovered", "activeSession"]}
+          validate={validateBackup}
+          onRestore={onRestore}
+        />
+        <button type="button" className="linkbtn" onClick={onSafety}>
+          Breathing safety notes
+        </button>
+      </div>
     </div>
   );
 }

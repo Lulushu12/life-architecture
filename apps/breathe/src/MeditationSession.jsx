@@ -1,107 +1,116 @@
 import { useEffect, useRef, useState } from "react";
-import { playBell, playGong } from "./audio.js";
-import { useWakeLock } from "./useWakeLock.js";
-import { formatMMSS } from "./ui.jsx";
+import { useBackGuard } from "@shared/useHistoryNav.js";
+import { useWakeLock } from "@shared/useWakeLock.js";
+import { ConfirmSheet } from "@shared/ui.jsx";
+import { audio } from "@shared/audio.js";
+import { GETREADY_MS, LATE_CUE_MS, advanceMeditation, isHalted, phaseElapsed, stateKey } from "./engine.js";
+import { clearMeditationNotifications, scheduleMeditationNotifications, sittingStart } from "./notifications.js";
+import { useSessionClock } from "./BreathingSession.jsx";
+import { cue } from "./cues.js";
+import { formatCountdown } from "./format.js";
 
-export default function MeditationSession({ entry, soundOn, getAudioCtx, onFinish }) {
-  const { targetSeconds, bellIntervalMinutes } = entry;
-  const targetMs = targetSeconds * 1000;
-
-  const startedAtRef = useRef(Date.now());
-  const totalPausedMsRef = useRef(0);
-  const pausedAtRef = useRef(null);
-  const lastBellCountRef = useRef(0);
-  const finishedRef = useRef(false);
-
-  const [paused, setPaused] = useState(false);
-  const [now, setNow] = useState(Date.now());
-  const [confirmEnd, setConfirmEnd] = useState(false);
+export default function MeditationSession({ active, entry, settings, actions }) {
+  const actionsRef = useRef(actions);
+  actionsRef.current = actions;
+  const now = useSessionClock(active, (at) => actionsRef.current.hidden(at));
+  const [endOpen, setEndOpen] = useState(false);
+  const handledRef = useRef(null);
+  const tickRef = useRef(null);
+  const paused = isHalted(active);
+  const start = sittingStart(active);
 
   useWakeLock(!paused);
+  useBackGuard(true, () => setEndOpen(true));
 
+  const entryRef = useRef(entry);
+  entryRef.current = entry;
+  const activeRef = useRef(active);
+  activeRef.current = active;
   useEffect(() => {
-    const id = setInterval(() => setNow(Date.now()), 100);
-    return () => clearInterval(id);
-  }, []);
-
-  const activeMs = (paused ? pausedAtRef.current : now) - startedAtRef.current - totalPausedMsRef.current;
-  const remainingMs = Math.max(0, targetMs - activeMs);
-
-  useEffect(() => {
-    if (finishedRef.current) return;
-
-    if (bellIntervalMinutes > 0) {
-      const bellMs = bellIntervalMinutes * 60000;
-      const count = Math.floor(activeMs / bellMs);
-      if (count > lastBellCountRef.current && remainingMs > 0) {
-        lastBellCountRef.current = count;
-        if (soundOn) playBell(getAudioCtx());
-      }
-    }
-
-    if (remainingMs <= 0) {
-      finishedRef.current = true;
-      if (soundOn) playGong(getAudioCtx());
-      onFinish(Math.round(activeMs / 1000));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [now, paused]);
-
-  function togglePause() {
     if (paused) {
-      totalPausedMsRef.current += Date.now() - pausedAtRef.current;
-      setPaused(false);
-    } else {
-      pausedAtRef.current = Date.now();
-      setPaused(true);
+      clearMeditationNotifications();
+      return undefined;
     }
-  }
+    scheduleMeditationNotifications(activeRef.current, entryRef.current);
+    return () => clearMeditationNotifications();
+  }, [paused, start]);
 
-  function endEarly() {
-    if (finishedRef.current) return;
-    finishedRef.current = true;
-    const finalActiveMs = paused ? pausedAtRef.current - startedAtRef.current - totalPausedMsRef.current : activeMs;
-    if (soundOn) playGong(getAudioCtx());
-    onFinish(Math.round(finalActiveMs / 1000));
-  }
+  useEffect(() => {
+    const r = advanceMeditation(active, entry, now);
+    if (!r) return;
+    const key = stateKey(active);
+    if (handledRef.current === key) return;
+    handledRef.current = key;
+    for (const ev of r.events) {
+      if (now - ev.at > LATE_CUE_MS) continue;
+      if (ev.type === "sitting") cue(settings, "bell", "phase");
+      else if (ev.type === "bell") cue(settings, "bell", "bell");
+      else if (ev.type === "finish") cue(settings, "gong", "gong");
+    }
+    if (r.finished) actionsRef.current.finish(r.activeMs, r.active.bellsRung);
+    else actionsRef.current.advance(now);
+  }, [now, active, entry, settings]);
+
+  const el = phaseElapsed(active, now);
+
+  useEffect(() => {
+    if (paused || active.phase !== "getready") return;
+    const n = Math.ceil((GETREADY_MS - el) / 1000);
+    if (n < 1 || n > 3 || tickRef.current === n) return;
+    tickRef.current = n;
+    cue(settings, "tick", "tap");
+  }, [el, paused, active.phase, settings]);
+
+  const getready = active.phase === "getready";
+  const remaining = getready ? entry.targetSeconds : entry.targetSeconds - el / 1000;
 
   return (
     <div className="session-page">
-      <div className="phase-label">{paused ? "Paused" : "Meditating"}</div>
+      <div className="phase-label" aria-live="polite">
+        {paused ? "Paused" : getready ? "Get ready" : "Meditating"}
+      </div>
 
       <div className="med-bg">
-        <div className={"med-pulse" + (paused ? " paused" : "")} />
-        <div className="med-timer">{formatMMSS(remainingMs / 1000)}</div>
+        <div className={"med-pulse" + (paused || getready ? " paused" : "")} />
+        <div className="med-timer" role="timer">
+          {getready && !paused ? Math.max(1, Math.ceil((GETREADY_MS - el) / 1000)) : formatCountdown(remaining)}
+        </div>
       </div>
-      {bellIntervalMinutes > 0 && <div className="med-sub">Bell every {bellIntervalMinutes} min</div>}
+      {entry.bellIntervalMinutes > 0 && <div className="med-sub">Bell every {entry.bellIntervalMinutes} min</div>}
+      {active.pausedAt != null && (
+        <p className="hint center">Paused. Your time so far is kept.</p>
+      )}
 
       <div className="session-actions">
-        <button className="bigbtn" onClick={togglePause}>
+        <button
+          type="button"
+          className="bigbtn"
+          onClick={() => {
+            audio.ensure();
+            if (paused) actions.resume();
+            else actions.pause();
+          }}
+        >
           {paused ? "Resume" : "Pause"}
         </button>
-        <button className="bigbtn ghost" onClick={() => setConfirmEnd(true)}>
+        <button type="button" className="bigbtn ghost" onClick={() => setEndOpen(true)}>
           End session
         </button>
       </div>
 
-      {confirmEnd && (
-        <div className="overlay">
-          <div className="card modal">
-            <h3>End this meditation?</h3>
-            <p className="hint" style={{ margin: "0 0 4px" }}>
-              Your time so far will be saved to history.
-            </p>
-            <div className="btnrow">
-              <button className="linkbtn" onClick={() => setConfirmEnd(false)}>
-                Keep going
-              </button>
-              <button className="bigbtn danger" onClick={endEarly}>
-                End session
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <ConfirmSheet
+        open={endOpen}
+        title="End this meditation?"
+        message="Your time so far will be saved to history."
+        confirmLabel="End session"
+        cancelLabel="Keep going"
+        danger
+        onCancel={() => setEndOpen(false)}
+        onConfirm={() => {
+          setEndOpen(false);
+          actions.abort();
+        }}
+      />
     </div>
   );
 }
