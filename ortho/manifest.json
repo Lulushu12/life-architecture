@@ -1,7 +1,8 @@
 {
+  "id": "/life-architecture/ortho/",
   "name": "Ortho Reference",
   "short_name": "Ortho",
-  "description": "Personal orthopedic reference — offline, self-authored notes, classifications & checklists",
+  "description": "Personal orthopedic reference: offline, self-authored notes, classifications and checklists",
   "start_url": "/life-architecture/ortho/",
   "scope": "/life-architecture/ortho/",
   "display": "standalone",
@@ -9,17 +10,18 @@
   "background_color": "#0b1220",
   "theme_color": "#0b1220",
   "icons": [
+    { "src": "/life-architecture/ortho/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/life-architecture/ortho/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/life-architecture/ortho/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/life-architecture/ortho/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
     {
-      "src": "/life-architecture/ortho/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/life-architecture/ortho/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "name": "Search",
+      "short_name": "Search",
+      "description": "Search classifications, techniques and diagnoses",
+      "url": "/life-architecture/ortho/?action=search",
+      "icons": [{ "src": "/life-architecture/ortho/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     }
   ]
 }
