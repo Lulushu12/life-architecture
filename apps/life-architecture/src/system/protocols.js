@@ -1,8 +1,8 @@
 /**
- * Compliance protocols — Sovereign Health OS v2.
+ * Compliance protocols, Sovereign Health OS v2.
  * "No motivation. No pep talks. Just the recovery action."
  * These are injected into every coach call; the coach matches + adapts + CITES,
- * it never invents advice. Keep ids stable — they are the audit trail.
+ * it never invents advice. Keep ids stable, they are the audit trail.
  */
 
 export const PROTOCOLS = [
@@ -24,7 +24,7 @@ export const PROTOCOLS = [
   {
     id: "sleep_drift",
     trigger: "Sleep drifted past 23:00.",
-    action: "Next night is a forced 22:00 lights-out. No joker slot that day — joker time becomes pre-sleep wind-down. " +
+    action: "Next night is a forced 22:00 lights-out. No joker slot that day, joker time becomes pre-sleep wind-down. " +
             "One bad night is noise. Two consecutive bad nights is a pattern.",
     routing: null,
   },
@@ -47,7 +47,7 @@ export const PROTOCOLS = [
     action: "Recovery routing depends on the time you left Pallady.",
     routing: [
       { if: "left Pallady after 13:20 but before 14:00", then: "Skip Titan Park. Drive toward Sun Plaza, stop at Sudului for a 30-min time-capped session." },
-      { if: "genuine emergency past 14:00",              then: "Force-skip. Do not train after 20:00. Mark it. Slide PPL. Move on. Despina time starts ~20:30 on arrival home — still non-negotiable." },
+      { if: "genuine emergency past 14:00",              then: "Force-skip. Do not train after 20:00. Mark it. Slide PPL. Move on. Despina time starts ~20:30 on arrival home, still non-negotiable." },
     ],
   },
   {
@@ -84,7 +84,7 @@ export const PROTOCOLS = [
   },
   {
     id: "performance_degrading",
-    trigger: "Training performance degrading — weights stalling, persistent fatigue.",
+    trigger: "Training performance degrading, weights stalling, persistent fatigue.",
     action: "Intake too low. Add one planned snack from the pre-approved list.",
     routing: null,
   },

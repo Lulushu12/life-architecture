@@ -1,5 +1,5 @@
 /**
- * Progressive-overload gate — pure, deterministic. No AI here.
+ * Progressive-overload gate, pure, deterministic. No AI here.
  *
  * Doc rule: "Advance by the smallest available increment ONLY when 3x10 is
  * clean and pain-free across two consecutive sessions. Hard stop at any
@@ -25,8 +25,6 @@ export function defaultProgress(exId) {
   };
 }
 
-export function catalogEntry(exId) { return CATALOG[exId] || null; }
-
 /**
  * Evaluate one logged exercise against the gate.
  * @param progress  current liftProgress entry (or undefined → defaults)
@@ -42,7 +40,7 @@ export function evaluateLift(exId, progress, logged, date) {
   const sets = (logged && logged.sets) || [];
   const anyPain = sets.some(s => s.painFree === false);
 
-  // HARD STOP — shoulder work with discomfort: drop back to previous weight, never advance.
+  // HARD STOP, shoulder work with discomfort: drop back to previous weight, never advance.
   if (anyPain && ex.shoulderWork) {
     const prev = [...p.history].reverse().find(h => h.event === "advance");
     const backTo = prev
@@ -51,18 +49,18 @@ export function evaluateLift(exId, progress, logged, date) {
     p.currentWeightKg = Math.min(p.currentWeightKg, backTo);
     p.cleanStreak = 0;
     p.history.push({ date, weightKg: p.currentWeightKg, event: "drop_back" });
-    return { action: "drop_back", next: p, reason: "Shoulder discomfort — hard stop. Dropped to previous weight, not to zero." };
+    return { action: "drop_back", next: p, reason: "Shoulder discomfort: hard stop. Dropped to previous weight, not to zero." };
   }
 
   // Bodyweight / manual-progression lifts: never auto-advance.
   if (ex.incrementKg == null) {
-    return { action: "untracked", next: p, reason: "Bodyweight lift — progression is manual (add weight when 3×10 BW is easy)." };
+    return { action: "untracked", next: p, reason: "Bodyweight lift: progression is manual (add weight when 3×10 BW is easy)." };
   }
 
   // Non-shoulder pain: no advancement, streak resets, weight holds.
   if (anyPain) {
     p.cleanStreak = 0;
-    return { action: "hold", next: p, reason: "Discomfort logged — streak reset, weight held." };
+    return { action: "hold", next: p, reason: "Discomfort logged: streak reset, weight held." };
   }
 
   // Clean session test: ≥3 sets of ≥10 clean reps at (or above) current weight.
@@ -71,7 +69,7 @@ export function evaluateLift(exId, progress, logged, date) {
 
   if (!isClean) {
     p.cleanStreak = 0;
-    return { action: "hold", next: p, reason: `Not a clean ${SETS}×${REPS} at ${p.currentWeightKg}kg — streak reset.` };
+    return { action: "hold", next: p, reason: `Not a clean ${SETS}×${REPS} at ${p.currentWeightKg}kg: streak reset.` };
   }
 
   p.cleanStreak += 1;
@@ -80,9 +78,9 @@ export function evaluateLift(exId, progress, logged, date) {
     p.cleanStreak = 0;
     p.lastAdvanced = date;
     p.history.push({ date, weightKg: p.currentWeightKg, event: "advance" });
-    return { action: "advance", next: p, reason: `Two consecutive clean ${SETS}×${REPS} sessions → +${ex.incrementKg}kg → ${p.currentWeightKg}kg.` };
+    return { action: "advance", next: p, reason: `Two consecutive clean ${SETS}×${REPS} sessions: +${ex.incrementKg}kg to ${p.currentWeightKg}kg.` };
   }
-  return { action: "hold", next: p, reason: `Clean session 1/2 at ${p.currentWeightKg}kg — one more to advance.` };
+  return { action: "hold", next: p, reason: `Clean session 1/2 at ${p.currentWeightKg}kg: one more to advance.` };
 }
 
 /**
@@ -96,29 +94,15 @@ export function evaluateSession(progressMap, exercisesLogged, date) {
   for (const entry of exercisesLogged || []) {
     const exId = entry.id;
     if (!CATALOG[exId]) continue;
-    const r = evaluateLift(exId, progress[exId], entry, date);
-    progress[exId] = r.next;
+    const cur = progress[exId];
+    if (cur && (cur.lastEvaluated === date || (cur.history || []).some(h => h.date === date))) {
+      results.push({ exId, name: CATALOG[exId].name, action: "already", reason: "Already gated today; edits do not re-run the gate." });
+      continue;
+    }
+    const r = evaluateLift(exId, cur, entry, date);
+    progress[exId] = { ...r.next, lastEvaluated: date };
     results.push({ exId, name: CATALOG[exId].name, action: r.action, reason: r.reason });
     if (r.action === "advance") advances++;
   }
   return { progress, results, advances };
-}
-
-/** Deterministic deload pre-screen (the coach confirms; this only counts regressions). */
-export function weightsRegressing(workoutLogs) {
-  // true if any lift shows strictly lower top-set weight across 2 consecutive sessions
-  const byLift = {};
-  for (const log of workoutLogs) {
-    for (const ex of log.exercises || []) {
-      const top = Math.max(0, ...(ex.sets || []).map(s => s.weightKg || 0));
-      (byLift[ex.id] = byLift[ex.id] || []).push({ date: log.date, top });
-    }
-  }
-  return Object.values(byLift).some(arr => {
-    const a = arr.sort((x, y) => x.date.localeCompare(y.date));
-    for (let i = 2; i < a.length; i++) {
-      if (a[i].top < a[i - 1].top && a[i - 1].top < a[i - 2].top) return true;
-    }
-    return false;
-  });
 }

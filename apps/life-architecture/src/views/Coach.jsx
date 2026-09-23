@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { parseLog, askCoach, deloadCheck, explainCoachError, coachConfigured, CONFIDENCE_FLOOR } from "../coach/client.js";
-import { plannedSession, todayKey, WEEKDAYS } from "../system/constants.js";
+import { plannedSession, todayKey, WEEKDAYS, XP_AWARDS } from "../system/constants.js";
 import { recentWorkoutLogs, getMealLog, macroTotals, saveWorkoutLog, getWorkoutLog, saveMealLog, saveBodyMetric, recentBodyMetrics } from "../data/logs.js";
 import { evaluateSession } from "../data/overloadGate.js";
 import { uid } from "../system/constants.js";
@@ -51,7 +51,6 @@ export default function Coach({ user, liftProgress, saveLiftProgress, pplOffset,
     }
   };
 
-  /** User confirmed the parse proposal — NOW the client writes. */
   const confirmProposal = async () => {
     const p = proposal;
     setProposal(null); setLogText("");
@@ -68,8 +67,8 @@ export default function Coach({ user, liftProgress, saveLiftProgress, pplOffset,
       };
       const ev = evaluateSession(liftProgress, logged, today);
       await saveLiftProgress(ev.progress);
-      if (ev.advances > 0) awardXP(ev.advances * 50);
-      log.gate = ev.results.map(r => ({ exId: r.exId, action: r.action }));
+      if (ev.advances > 0) awardXP(ev.advances * XP_AWARDS.liftAdvance);
+      log.gate = [...(existing?.gate || []).filter(g => !ev.results.some(r => r.exId === g.exId && r.action === "already")), ...ev.results.filter(r => r.action !== "already").map(r => ({ exId: r.exId, action: r.action }))];
       await saveWorkoutLog(user.uid, log);
       onSessionLogged();
       setSaved({ kind: "workout", gate: ev.results, flags: p.flags || [] });
@@ -77,7 +76,7 @@ export default function Coach({ user, liftProgress, saveLiftProgress, pplOffset,
       const entries = await getMealLog(user.uid, today);
       const next = [...entries, { id: uid(), slot: p.meal.slot, description: p.meal.description, kcal: p.meal.kcal, protein: p.meal.protein, fat: p.meal.fat, carbs: p.meal.carbs }];
       await saveMealLog(user.uid, today, next);
-      onMacrosChanged(macroTotals(next));
+      onMacrosChanged();
       setSaved({ kind: "meal", flags: p.flags || [] });
     } else if (p.kind === "metric" && p.metric) {
       await saveBodyMetric(user.uid, today, p.metric);
@@ -88,12 +87,12 @@ export default function Coach({ user, liftProgress, saveLiftProgress, pplOffset,
   return (
     <>
       <div className="pg-title">Coach</div>
-      <div className="pg-sub">Action only — no motivation, no pep talks. The coach proposes; you confirm; the app writes.</div>
+      <div className="pg-sub">Action only: no motivation, no pep talks. The coach proposes; you confirm; the app writes.</div>
 
       {!coachConfigured() && (
         <div className="callout cn"><div className="ct">
-          <strong>Coach is off.</strong> Connect any OpenAI-compatible model — a free local one via Ollama works well — under
-          {" "}<b>Data &amp; sync → AI Coach</b>. The rest of the tracker doesn't need it.
+          <strong>Coach is off.</strong> Connect any OpenAI-compatible model (a free local one via Ollama works well) under
+          {" "}<b>More, Sync &amp; coach settings, AI Coach</b>. The rest of the tracker does not need it.
         </div></div>
       )}
       {error && <div className="callout cr"><div className="ct">{error}</div></div>}
@@ -110,17 +109,17 @@ export default function Coach({ user, liftProgress, saveLiftProgress, pplOffset,
         <div className="coach-card" style={{ borderColor: "#3b82f6" }}>
           <div className="coach-pid">PROPOSAL · kind={proposal.kind} · confidence {(proposal.confidence * 100 | 0)}%{(proposal.flags || []).map(f => ` · ⚑${f}`)}</div>
           {proposal.kind === "unclear" || proposal.confidence < CONFIDENCE_FLOOR ? (
-            <div className="coach-act">Could not parse confidently. Rephrase with exercise, sets × reps, weight — or log manually in Train/Fuel.</div>
+            <div className="coach-act">Could not parse confidently. Rephrase with exercise, sets × reps, weight, or log manually in Train/Fuel.</div>
           ) : (
             <>
-              <pre style={{ fontSize: 11, color: "#94a3b8", fontFamily: "JetBrains Mono", whiteSpace: "pre-wrap", lineHeight: 1.6 }}>
+              <pre style={{ fontSize: 11, color: "var(--tx2)", fontFamily: "JetBrains Mono", whiteSpace: "pre-wrap", lineHeight: 1.6 }}>
                 {proposal.kind === "workout" && proposal.workout && proposal.workout.exercises.map(e =>
                   `${e.name}: ${e.sets.map(s => `${s.reps}×${s.weightKg}kg${s.clean === false ? " ✗clean" : ""}${s.painFree === false ? " ⚠PAIN" : ""}`).join(", ")}`).join("\n")}
                 {proposal.kind === "meal" && proposal.meal && `${proposal.meal.slot}: ${proposal.meal.description}\n${proposal.meal.kcal} kcal · ${proposal.meal.protein}P / ${proposal.meal.fat}F / ${proposal.meal.carbs}C (estimate)`}
-                {proposal.kind === "metric" && proposal.metric && `waist ${proposal.metric.waistCm ?? "—"} cm · weight ${proposal.metric.weightKg ?? "—"} kg`}
+                {proposal.kind === "metric" && proposal.metric && `waist ${proposal.metric.waistCm ?? "-"} cm · weight ${proposal.metric.weightKg ?? "-"} kg`}
               </pre>
               {(proposal.flags || []).includes("shoulder_hardstop") &&
-                <div className="callout cr" style={{ margin: "8px 0" }}><div className="ct"><strong>Shoulder hard stop flagged.</strong> The gate will drop this lift back — not to zero.</div></div>}
+                <div className="callout cr" style={{ margin: "8px 0" }}><div className="ct"><strong>Shoulder hard stop flagged.</strong> The gate will drop this lift back, not to zero.</div></div>}
               <div className="mf" style={{ justifyContent: "flex-start" }}>
                 <button className="bp green" onClick={confirmProposal}>Confirm & save</button>
                 <button className="bs" onClick={() => setProposal(null)}>Discard</button>
@@ -140,7 +139,7 @@ export default function Coach({ user, liftProgress, saveLiftProgress, pplOffset,
       )}
 
       <div className="card">
-        <div className="card-t">Situation → protocol</div>
+        <div className="card-t">Situation to protocol</div>
         <textarea className="fta" placeholder={'e.g. "left Pallady at 13:40, no training yet" or "I skipped lunch and just realized" or "what closes my macro gap tonight?"'} value={situation} onChange={e => setSituation(e.target.value)} />
         <div className="mf" style={{ justifyContent: "flex-start" }}>
           <button className="bp" onClick={run("ask")} disabled={busy === "ask" || !situation.trim()}>{busy === "ask" ? "Consulting…" : "Get the action"}</button>
@@ -161,7 +160,7 @@ function Directive({ d, onClose }) {
       <div className="coach-act">
         {d.type === "none" ? "No protocol applies. Nothing to do." : d.action}
         {d.macro_fill && <div style={{ marginTop: 8, fontFamily: "JetBrains Mono", fontSize: 12, color: "#4ade80" }}>→ {d.macro_fill.item} (closes {d.macro_fill.closes})</div>}
-        {d.signals?.length > 0 && <div style={{ marginTop: 8, fontSize: 11, color: "#f87171" }}>Signals: {d.signals.join(" · ")} — flag for discussion. Do not self-prescribe.</div>}
+        {d.signals?.length > 0 && <div style={{ marginTop: 8, fontSize: 11, color: "#f87171" }}>Signals: {d.signals.join(" · ")} . Flag for discussion. Do not self-prescribe.</div>}
       </div>
       <div className="mf" style={{ justifyContent: "flex-start" }}><button className="bs" onClick={onClose}>Dismiss</button></div>
     </div>

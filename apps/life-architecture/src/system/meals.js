@@ -1,5 +1,5 @@
 /**
- * Meal options — Sovereign Health OS v2.
+ * Meal options, Sovereign Health OS v2.
  * Macros are reasonable per-option ESTIMATES to drive the running total;
  * every quick-logged entry is editable before save. Dinner is the adjustment valve.
  */
@@ -7,8 +7,8 @@
 export const SLOTS = [
   { id: "breakfast", label: "Breakfast",  when: "~06:30, at home (Sat ~07:00 as pre-workout)" },
   { id: "preworkout", label: "Pre-Workout", when: "~11:30–12:30, packed night before, portable" },
-  { id: "recovery",  label: "Recovery Container", when: "Wednesday ~14:30, in car or at Sun Plaza — NON-OPTIONAL" },
-  { id: "dinner",    label: "Dinner",     when: "Post-workout, flexible — fill the MFP gap" },
+  { id: "recovery",  label: "Recovery Container", when: "Wednesday ~14:30, in car or at Sun Plaza, NON-OPTIONAL" },
+  { id: "dinner",    label: "Dinner",     when: "Post-workout, flexible, fill the MFP gap" },
   { id: "snack",     label: "Late Night Snack", when: "Only if protein gap after dinner. Optional when full, not when tired." },
 ];
 
@@ -45,6 +45,6 @@ export const OPTIONS = {
 };
 
 export const DINNER_NOTE =
-  "Cook whatever you and Despina feel like. Check the running total — the remaining gap is your dinner target. " +
-  "Sirloin is a regular option. Ribeye is a weekend treat — its fat will eat most of the daily fat budget in one meal. " +
+  "Cook whatever you and Despina feel like. Check the running total, the remaining gap is your dinner target. " +
+  "Sirloin is a regular option. Ribeye is a weekend treat, its fat will eat most of the daily fat budget in one meal. " +
   "Do not eat back gym calories.";

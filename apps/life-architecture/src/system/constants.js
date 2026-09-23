@@ -4,16 +4,31 @@
  * Source of truth: sovereign_health_operating_system_v2 + PLAN.md.
  */
 
-// ── XP engine (retained from v8) ─────────────────────────────────────────
-export const LEVELS = [
-  { name: "Novice Adventurer",    min: 0 },
-  { name: "Apprentice",           min: 1000 },
-  { name: "Journeyman",           min: 3000 },
-  { name: "Skilled Practitioner", min: 6000 },
-  { name: "Expert",               min: 10000 },
-  { name: "Master",               min: 15000 },
-  { name: "Legendary Figure",     min: 22000 },
+import { dayKey } from "@shared/store.js";
+
+export const MAX_LEVEL = 40;
+export const TITLES = [
+  { level: 1,  name: "Novice Adventurer" },
+  { level: 5,  name: "Apprentice" },
+  { level: 10, name: "Journeyman" },
+  { level: 15, name: "Skilled Practitioner" },
+  { level: 20, name: "Expert" },
+  { level: 25, name: "Master" },
+  { level: 30, name: "Legendary Figure" },
+  { level: 40, name: "Life Architect" },
 ];
+export const levelThreshold = (n) => (n <= 1 ? 0 : Math.round(500 * Math.pow(1.35, n - 1)));
+export const titleFor = (n) => TITLES.reduce((t, x) => (n >= x.level ? x.name : t), TITLES[0].name);
+
+export function getLevel(xp) {
+  let n = 1;
+  while (n < MAX_LEVEL && xp >= levelThreshold(n + 1)) n++;
+  const min = levelThreshold(n);
+  const next = n < MAX_LEVEL ? levelThreshold(n + 1) : null;
+  const progress = next == null ? 100 : Math.max(0, Math.min(100, Math.round(((xp - min) / (next - min)) * 100)));
+  return { level: n, name: titleFor(n), min, next, progress };
+}
+
 export const CATEGORIES = ["Health & Fitness", "Medicine & Surgery", "Trading", "Hobbies & Creativity"];
 export const CAT_COLORS = {
   "Health & Fitness":     { accent: "#22c55e", light: "#86efac" },
@@ -22,22 +37,10 @@ export const CAT_COLORS = {
   "Hobbies & Creativity": { accent: "#f59e0b", light: "#fcd34d" },
 };
 export const STREAK_MULT  = (s) => s >= 30 ? 3 : s >= 14 ? 2 : s >= 7 ? 1.5 : 1;
-export const STREAK_LABEL = (s) => s >= 30 ? "3x" : s >= 14 ? "2x" : s >= 7 ? "1.5x" : "1x";
+export const STREAK_LABEL = (s) => s >= 30 ? "x3" : s >= 14 ? "x2" : s >= 7 ? "x1.5" : "x1";
 export const STREAK_COLOR = (s) => s >= 30 ? "#a855f7" : s >= 14 ? "#ef4444" : s >= 7 ? "#f59e0b" : "#64748b";
 
-export function getLevel(xp) {
-  for (let i = LEVELS.length - 1; i >= 0; i--) if (xp >= LEVELS[i].min) return { ...LEVELS[i], index: i };
-  return { ...LEVELS[0], index: 0 };
-}
-export function getLevelProgress(xp) {
-  const l = getLevel(xp), n = LEVELS[l.index + 1];
-  if (!n) return 100;
-  return Math.round(((xp - l.min) / (n.min - l.min)) * 100);
-}
-export const todayKey = (d = new Date()) => {
-  const tz = d.getTimezoneOffset() * 60000;
-  return new Date(d - tz).toISOString().slice(0, 10);
-};
+export const todayKey = (d = new Date()) => dayKey(d);
 export const uid = () => "q" + Date.now() + Math.random().toString(36).slice(2, 7);
 
 // ── v2: Macro targets (daily, flat) ──────────────────────────────────────
@@ -59,16 +62,6 @@ export function plannedSession(date = new Date(), pplOffset = 0) {
   return ROTATION[idx];
 }
 
-// ── v2: Non-negotiables ──────────────────────────────────────────────────
-export const NON_NEGOTIABLES = [
-  { id: "creatine",  label: "Creatine 5g with water", detail: "Every morning immediately after brushing teeth." },
-  { id: "vmo",       label: "VMO exercises",          detail: "Every single day, including Sunday. In bed and remembered? Get up." },
-  { id: "despina",   label: "Despina time 19:30–21:00", detail: "Wednesday from ~20:30. Phone down, no screens, no work." },
-  { id: "phone",     label: "Phone dock 21:00",       detail: "Every night. Physical distance." },
-  { id: "mobility",  label: "Bedtime mobility 21:45", detail: "The mat being out is the trigger." },
-  { id: "lights",    label: "Lights out 22:00–22:30", detail: "Non-negotiable sleep window." },
-];
-
 // ── v2: Gym network ──────────────────────────────────────────────────────
 export const GYMS = [
   { id: "titan",     name: "Titan Park",     role: "Primary. Mon–Sat by default.",                       travel: "19 min subway from Pallady · 12 min drive from home · 14 min from Foisor" },
@@ -89,14 +82,10 @@ export const IDENTITY_ANCHORS = [
 export const SHOW_UP_RULE =
   "The habit is walking through the gym door, not the workout. On every training day, regardless of energy, " +
   "motivation, or mood, you go. Minimum viable session: 10 minutes on the stationary bike. That counts. " +
-  "Wrong gym is not an excuse — walk to Bucuresti Mall (3 min).";
+  "Wrong gym is not an excuse, walk to Bucuresti Mall (3 min).";
 export const OVERLOAD_RULE =
   "Advance by the smallest available increment ONLY when 3×10 is clean and pain-free across two consecutive " +
-  "sessions. Hard stop at any discomfort on shoulder work — drop back to previous weight, not to zero. " +
+  "sessions. Hard stop at any discomfort on shoulder work, drop back to previous weight, not to zero. " +
   "Progression is gate-controlled by performance, not by a schedule.";
 
-// XP awards for tracker-driven events
-export const XP_AWARDS = {
-  liftAdvance: 50,       // overload gate advances a lift
-  sessionMinimum: 0,     // show-up minimum still completes the gym quest; no bonus
-};
+export const XP_AWARDS = { liftAdvance: 50 };

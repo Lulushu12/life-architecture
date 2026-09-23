@@ -8,13 +8,13 @@ export default function Schedule({ schedDay, setSchedDay }) {
     <>
       <div className="pg-title">Schedule</div>
       <div className="pg-sub">Sovereign Health OS v2 · PPL @ Titan Park · Tap any block for details</div>
-      <div className="day-tabs">{Object.keys(SCHEDULE_V2).map(d => <div key={d} className={"day-tab" + (schedDay === d ? " active" : "")} onClick={() => setSchedDay(d)}>{d}</div>)}</div>
+      <div className="day-tabs">{Object.keys(SCHEDULE_V2).map(d => <button type="button" key={d} aria-pressed={schedDay === d} className={"day-tab" + (schedDay === d ? " active" : "")} style={{ minHeight: 40, fontFamily: "inherit" }} onClick={() => setSchedDay(d)}>{d}</button>)}</div>
       <div className="day-type">{day.type}</div>
       <div className="day-sub">{day.subtitle}</div>
       {day.blocks.map((b, i) => <Blk key={i} b={b} />)}
       {day.routing && (
         <div className="callout cn" style={{ marginTop: 14 }}>
-          <div className="ct"><strong>Routing variants — </strong>{day.routing}</div>
+          <div className="ct"><strong>Routing variants: </strong>{day.routing}</div>
         </div>
       )}
       <div className="leg">{used.map(t => { const m = BLOCK_META_V2[t]; if (!m) return null; return <div key={t} className="leg-i"><div className="leg-d" style={{ background: m.color }} />{m.label}</div>; })}</div>

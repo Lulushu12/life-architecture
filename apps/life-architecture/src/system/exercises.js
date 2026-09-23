@@ -1,5 +1,5 @@
 /**
- * Exercise protocols — Sovereign Health OS v2.
+ * Exercise protocols, Sovereign Health OS v2.
  * startWeightKg = doc's starting weight (lower bound where a range is given).
  * incrementKg   = smallest available increment for the overload gate (null = bodyweight, manual).
  * shoulderWork  = pain here is a HARD STOP → drop back to previous weight (never advance).
@@ -25,7 +25,7 @@ export const PROTOCOLS = {
   ],
   Pull: [
     { id: "lat_pull",   name: "Cable lat pulldown",       startWeightKg: 50, incrementKg: 2.5, shoulderWork: false, note: "Warm-up set at 25kg first" },
-    { id: "low_row",    name: "Low row",                  startWeightKg: 50, incrementKg: 2.5, shoulderWork: false, note: "Do not start aggressively — back strain risk" },
+    { id: "low_row",    name: "Low row",                  startWeightKg: 50, incrementKg: 2.5, shoulderWork: false, note: "Do not start aggressively, back strain risk" },
     { id: "ng_pull",    name: "Neutral grip pulldown",    startWeightKg: 45, incrementKg: 2.5, shoulderWork: false, note: "" },
     { id: "rear_delt",  name: "Rear delt fly",            startWeightKg: 8,  incrementKg: 1,   shoulderWork: true,  note: "8–10kg/hand. Training + shoulder rehab. Full ROM, controlled. Do not skip, do not rush the load." },
     { id: "db_curl",    name: "DB bicep curl",            startWeightKg: 10, incrementKg: 2,   shoulderWork: false, note: "Per hand" },
@@ -34,10 +34,10 @@ export const PROTOCOLS = {
   Legs: [
     { id: "squat",      name: "Barbell squat",            startWeightKg: 40, incrementKg: 2.5, shoulderWork: false, note: "Warm-up set at 20kg first" },
     { id: "leg_press",  name: "Leg press",                startWeightKg: 60, incrementKg: 5,   shoulderWork: false, note: "Adjust up next session if trivial" },
-    { id: "bss",        name: "Bulgarian split squat",    startWeightKg: 0,  incrementKg: null, shoulderWork: false, note: "Bodyweight. Replaces leg extension — harder than it looks" },
-    { id: "nordic",     name: "Nordic curl",              startWeightKg: 0,  incrementKg: null, shoulderWork: false, note: "Bodyweight. Replaces leg curl — hands to push back up" },
+    { id: "bss",        name: "Bulgarian split squat",    startWeightKg: 0,  incrementKg: null, shoulderWork: false, note: "Bodyweight. Replaces leg extension, harder than it looks" },
+    { id: "nordic",     name: "Nordic curl",              startWeightKg: 0,  incrementKg: null, shoulderWork: false, note: "Bodyweight. Replaces leg curl, hands to push back up" },
     { id: "back_ext",   name: "Back extension",           startWeightKg: 0,  incrementKg: null, shoulderWork: false, note: "Add weight when 3×10 BW is easy. DROPS from Wednesday time-capped session → carries to Saturday.", dropOnWednesday: true },
-    { id: "rdl",        name: "Romanian deadlift",        startWeightKg: 40, incrementKg: 2.5, shoulderWork: false, note: "Eccentric load will humble you — do not rush" },
+    { id: "rdl",        name: "Romanian deadlift",        startWeightKg: 40, incrementKg: 2.5, shoulderWork: false, note: "Eccentric load will humble you, do not rush" },
     { id: "crunch",     name: "Cable crunch",             startWeightKg: 25, incrementKg: 2.5, shoulderWork: false, note: "Form over weight" },
   ],
 };
@@ -50,15 +50,15 @@ export const CALL_DAY_CIRCUIT = [
   { name: "Supermans", reps: 20 },
   { name: "Plank and kick-throughs", reps: 10 },
   { name: "Body saw planks", reps: 10 },
-  { name: "Banded rows", reps: 15, note: "Pull component — resistance band" },
-  { name: "Banded face pulls", reps: 15, note: "Shoulder rehab — controlled" },
+  { name: "Banded rows", reps: 15, note: "Pull component, resistance band" },
+  { name: "Banded face pulls", reps: 15, note: "Shoulder rehab, controlled" },
   { name: "Banded pull-aparts", reps: 15 },
 ];
 
 export const CARDIO = {
   Push: "30–60 min stationary bike post working sets",
   Pull: "30–60 min stationary bike post working sets",
-  Legs: "20–30 min post working sets — legs will be taxed",
+  Legs: "20–30 min post working sets, legs will be taxed",
   Wednesday: "Skip. Time cap makes cardio non-viable.",
 };
 
@@ -71,4 +71,4 @@ export function exercisesFor(session, weekday) {
 
 export const SHOULDER_CONSTRAINT =
   "No overhead pressing movements. Lateral raises start at 4kg. Rear delt fly is both training and protective " +
-  "rehabilitation — do not skip it and do not rush the load.";
+  "rehabilitation, do not skip it and do not rush the load.";

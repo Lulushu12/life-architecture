@@ -1,10 +1,7 @@
 /**
- * Branch sync — commits the local snapshot to a git branch via the GitHub
- * contents API, so one branch == one person's data. No accounts, no backend:
- * a fine-grained personal access token (contents: read/write on this repo
- * only) is pasted once at setup and kept in this browser's localStorage.
- *
- * File written: data/store.json on the configured branch.
+ * Deprecated branch sync: commits the local snapshot to data/store.json on a
+ * git branch via the GitHub contents API. Off by default; local mode plus
+ * backup and import is the supported path.
  */
 
 import { buildSnapshot } from "./store.js";
@@ -16,11 +13,14 @@ const API = "https://api.github.com";
 export function getSyncConfig() {
   try { const r = localStorage.getItem(CFG_KEY); return r ? JSON.parse(r) : null; } catch { return null; }
 }
+export function isGithubMode() {
+  return getSyncConfig()?.mode === "github";
+}
 export function setSyncConfig(cfg) {
   try { localStorage.setItem(CFG_KEY, JSON.stringify(cfg)); } catch { /* blocked */ }
 }
 
-let sha = null;          // sha of data/store.json at the last pull/push
+let sha = null;
 let timer = null;
 let pushing = false;
 let queued = false;
@@ -34,10 +34,14 @@ const hdrs = (cfg) => ({
 });
 const fileUrl = (cfg) => `${API}/repos/${cfg.repo}/contents/${FILE_PATH}?ref=${encodeURIComponent(cfg.branch)}`;
 
-const b64encode = (s) => btoa(String.fromCharCode(...new TextEncoder().encode(s)));
+function b64encode(s) {
+  const bytes = new TextEncoder().encode(s);
+  let bin = "";
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
 const b64decode = (s) => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\n/g, "")), c => c.charCodeAt(0)));
 
-/** Fetch the remote snapshot (null if the file doesn't exist yet). Throws on auth/network errors. */
 export async function pullSnapshot() {
   const cfg = getSyncConfig();
   if (!cfg || cfg.mode !== "github") return null;
@@ -46,7 +50,8 @@ export async function pullSnapshot() {
   if (!res.ok) throw new Error(`GitHub read failed (${res.status})`);
   const body = await res.json();
   sha = body.sha;
-  try { return JSON.parse(b64decode(body.content)); } catch { return null; }
+  if (!body.content || body.encoding === "none") throw new Error("Remote data file is too large to read through the contents API.");
+  try { return JSON.parse(b64decode(body.content)); } catch { throw new Error("Remote data file is not valid JSON."); }
 }
 
 async function refreshSha(cfg) {
@@ -70,7 +75,6 @@ async function pushNow() {
     };
     let res = await fetch(`${API}/repos/${cfg.repo}/contents/${FILE_PATH}`, { method: "PUT", headers: hdrs(cfg), body: JSON.stringify(body) });
     if (res.status === 409 || res.status === 422) {
-      // sha drifted (edited elsewhere) — refresh and retry once, last write wins
       await refreshSha(cfg);
       res = await fetch(`${API}/repos/${cfg.repo}/contents/${FILE_PATH}`, { method: "PUT", headers: hdrs(cfg), body: JSON.stringify({ ...body, ...(sha ? { sha } : {}) }) });
     }
@@ -85,7 +89,6 @@ async function pushNow() {
   }
 }
 
-/** Debounced push — call after every local write. */
 export function schedulePush() {
   const cfg = getSyncConfig();
   if (!cfg || cfg.mode !== "github") return;
@@ -94,11 +97,10 @@ export function schedulePush() {
   timer = setTimeout(pushNow, 2500);
 }
 
-/** Setup-screen check: can we see the repo + branch (and write, if token given)? */
 export async function testConnection(cfg) {
   const res = await fetch(`${API}/repos/${cfg.repo}/branches/${encodeURIComponent(cfg.branch)}`, { headers: hdrs(cfg) });
   if (res.status === 404) return { ok: false, msg: "Repo or branch not found (private repos need the token to read too)." };
-  if (res.status === 401) return { ok: false, msg: "Token rejected — check it has contents read/write on this repo." };
+  if (res.status === 401) return { ok: false, msg: "Token rejected. Check it has contents read/write on this repo." };
   if (!res.ok) return { ok: false, msg: `GitHub answered ${res.status}.` };
   return { ok: true, msg: `Found ${cfg.repo} @ ${cfg.branch}.` };
 }

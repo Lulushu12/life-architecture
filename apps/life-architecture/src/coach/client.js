@@ -1,11 +1,11 @@
 /**
- * Coach client — talks directly to any OpenAI-compatible chat endpoint from
+ * Coach client, talks directly to any OpenAI-compatible chat endpoint from
  * the browser. No backend of ours required:
  *
  *   - Local model:  Ollama (http://localhost:11434/v1), LM Studio
- *                   (http://localhost:1234/v1), llama.cpp server — free,
+ *                   (http://localhost:1234/v1), llama.cpp server, free,
  *                   private, key optional.
- *   - Hosted model: any OpenAI-compatible provider — needs its API key,
+ *   - Hosted model: any OpenAI-compatible provider, needs its API key,
  *                   which then lives in THIS browser only. Fine for a
  *                   personal device; do not do it on shared machines.
  *
@@ -31,7 +31,7 @@ export function coachConfigured() { return !!getCoachConfig()?.url; }
 
 export const CONFIDENCE_FLOOR = 0.7;
 
-// ── Schemas (ported from functions/index.js) ─────────────────────────────
+// ── Schemas ─────────────────────────────
 const PARSE_LOG_SCHEMA = {
   type: "object", additionalProperties: false,
   required: ["kind", "confidence"],
@@ -104,18 +104,18 @@ const COACH_SCHEMA = {
   },
 };
 
-// ── System prompts (ported from functions/index.js) ──────────────────────
+// ── System prompts ──────────────────────
 const COACH_SYSTEM = `You are the coach for a Sovereign Health Operating System. You enforce a fixed system; you do not motivate, encourage, or soften.
 
 OUTPUT RULES
 - Action only. No preamble, no validation, no emoji.
-- Every directive must cite the protocol_id it derives from. If no protocol in the provided set matches, return type:"none" — never invent advice.
+- Every directive must cite the protocol_id it derives from. If no protocol in the provided set matches, return type:"none", never invent advice.
 - For minor judgment calls, decide and state the action. Do not ask.
 - Deload is NEVER self-prescribed: flag for discussion only, and only on 2+ co-occurring signals (weights regressing across 2 consecutive sessions, soreness not clearing in 48h, sleep quality dropping, motivation gone 3-4 consecutive days). Fewer than 2 signals → type:"none".
 - Shoulder discomfort on any pressing/lateral work is a hard stop: drop to the previous weight, never advance.
 - Macro gap-fill must respect the remaining fat budget and suggest only from the provided meal options.
 
-You are given: the protocol set, today's schedule slot, and recent logs. Ground every response in those — not in general fitness knowledge.
+You are given: the protocol set, today's schedule slot, and recent logs. Ground every response in those, not in general fitness knowledge.
 Respond with ONLY a JSON object matching this schema, no markdown fences, no commentary:
 ${JSON.stringify(COACH_SCHEMA)}`;
 
@@ -169,7 +169,7 @@ async function chat({ system, user, schema, schemaName, maxTokens }) {
   const e = new Error(`coach rejected request (${lastErr})`); e.code = "unavailable"; throw e;
 }
 
-/** Small local models sometimes wrap JSON in fences or prose — dig it out. */
+/** Small local models sometimes wrap JSON in fences or prose, dig it out. */
 function parseJsonLoose(text) {
   try { return JSON.parse(text); } catch { /* keep digging */ }
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/);
@@ -207,7 +207,7 @@ export async function askCoach(situation, ctx) {
   });
 }
 
-/** Nightly deload screen — same coach op, fixed instruction. Flags only; never prescribes. */
+/** Nightly deload screen, same coach op, fixed instruction. Flags only; never prescribes. */
 export async function deloadCheck(ctx) {
   return askCoach(
     "Scheduled deload screen. Evaluate the recent logs for the deload_suspicion protocol. " +
@@ -218,10 +218,10 @@ export async function deloadCheck(ctx) {
 
 export function explainCoachError(err) {
   const code = err?.code || "";
-  if (code === "not-configured") return "Coach not set up — point it at a local model (e.g. Ollama) under More → Data & sync → settings. The tracker works fully without it.";
+  if (code === "not-configured") return "Coach not set up, point it at a local model (e.g. Ollama) under More, Sync & coach settings. The tracker works fully without it.";
   if (code === "auth") return "The coach endpoint rejected the API key.";
-  if (code === "not-found") return "No chat endpoint at that URL — it should be an OpenAI-compatible base like http://localhost:11434/v1.";
-  if (code === "bad-output") return "The model didn't return valid JSON — try again, or use a slightly larger model.";
+  if (code === "not-found") return "No chat endpoint at that URL, it should be an OpenAI-compatible base like http://localhost:11434/v1.";
+  if (code === "bad-output") return "The model didn't return valid JSON, try again, or use a slightly larger model.";
   if (code === "unavailable" || code.includes("unavailable")) return "Coach endpoint unreachable. Is the local model server running (and OLLAMA_ORIGINS set)?";
-  return "Coach unreachable. Logs still work — the tracker is fully offline-capable.";
+  return "Coach unreachable. Logs still work, the tracker is fully offline-capable.";
 }

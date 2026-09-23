@@ -2,11 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="%BASE_URL%icon-192.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="%BASE_URL%icon-192.png" />
+    <link rel="apple-touch-icon" href="%BASE_URL%icon-192.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#12151a" />
-    <meta name="description" content="Life Architecture - personal life planning and goal tracking" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Life Architecture" />
+    <meta name="description" content="Life Architecture: personal life planning and goal tracking" />
     <link rel="manifest" href="%BASE_URL%manifest.json" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="%BASE_URL%fonts/v17-rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K4.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="%BASE_URL%fonts/v22-V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2" />
+    <link rel="stylesheet" href="%BASE_URL%fonts/fonts.css" />
+    <script>
+      try {
+        var t = localStorage.getItem("la3_theme");
+        if (t === "light") {
+          document.documentElement.dataset.theme = "light";
+          document.querySelector('meta[name="theme-color"]').setAttribute("content", "#f2f4f8");
+        }
+      } catch (e) {}
+    </script>
     <title>Life Architecture</title>
   </head>
   <body>

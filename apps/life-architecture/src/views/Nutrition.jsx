@@ -4,11 +4,12 @@ import { SLOTS, OPTIONS, FAT_RULE, DINNER_NOTE } from "../system/meals.js";
 import { saveMealLog, getMealLog, macroTotals, saveBodyMetric, recentBodyMetrics } from "../data/logs.js";
 import { Ring } from "./shared.jsx";
 import { uid } from "../system/constants.js";
+import { isNative } from "../data/platform.js";
 
 const SLOT_NOTES = {
-  preworkout: { cls: "cg", body: <><strong>Fat rule — </strong>{FAT_RULE}</> },
-  dinner:     { cls: "cn", body: <><strong>Dinner — </strong>{DINNER_NOTE}</> },
-  recovery:   { cls: "cr", body: <><strong>Wednesday recovery bridge — non-optional.</strong> In the car or at Sun Plaza entrance. Covers the 6-hour gap before dinner.</> },
+  preworkout: { cls: "cg", body: <><strong>Fat rule: </strong>{FAT_RULE}</> },
+  dinner:     { cls: "cn", body: <><strong>Dinner: </strong>{DINNER_NOTE}</> },
+  recovery:   { cls: "cr", body: <><strong>Wednesday recovery bridge, non-optional.</strong> In the car or at Sun Plaza entrance. Covers the 6-hour gap before dinner.</> },
 };
 
 const MACRO_RINGS = [
@@ -17,7 +18,7 @@ const MACRO_RINGS = [
   { key: "fat",     label: "Fat",     color: "#f59e0b" },
 ];
 
-export default function Nutrition({ user, onMacrosChanged }) {
+export default function Nutrition({ user, onMacrosChanged, macros }) {
   const today = todayKey();
   const [entries, setEntries] = useState([]);
   const [openSlot, setOpenSlot] = useState(null);
@@ -29,14 +30,17 @@ export default function Nutrition({ user, onMacrosChanged }) {
   useEffect(() => { getMealLog(user.uid, today).then(setEntries); }, [user.uid, today]);
   useEffect(() => { recentBodyMetrics(user.uid).then(setMetrics); }, [user.uid]);
 
-  const totals = macroTotals(entries);
+  const laTotals = macroTotals(entries);
+  const fromCalories = macros?.source === "calories";
+  const totals = fromCalories ? macros.totals : laTotals;
+  const [showLocal, setShowLocal] = useState(!fromCalories);
   const remaining = Math.round(MACROS.kcal - totals.kcal);
   const over = remaining < 0;
 
   const persist = useCallback(async (next) => {
     setEntries(next);
     await saveMealLog(user.uid, today, next);
-    onMacrosChanged(macroTotals(next));
+    onMacrosChanged();
   }, [user.uid, today, onMacrosChanged]);
 
   const quickAdd = (slot, opt) => persist([...entries, { id: uid(), slot, description: opt.label, kcal: opt.kcal, protein: opt.protein, fat: opt.fat, carbs: opt.carbs }]);
@@ -66,11 +70,11 @@ export default function Nutrition({ user, onMacrosChanged }) {
   return (
     <>
       <div className="pg-title">Fuel</div>
-      <div className="pg-sub">2,100 kcal · 160P / 65F / 210C flat. Dinner is the adjustment valve — the remaining gap is the dinner target.</div>
+      <div className="pg-sub">2,100 kcal · 160P / 65F / 210C flat. Dinner is the adjustment valve: the remaining gap is the dinner target.</div>
 
       <div className="card">
         <div className="card-t">Calories</div>
-        <div style={{ fontSize: 12.5, color: "var(--mut)", marginTop: -8, marginBottom: 14 }}>Remaining = Goal − Food</div>
+        <div style={{ fontSize: 12.5, color: "var(--mut)", marginTop: -8, marginBottom: 14 }}>Remaining = Goal - Food</div>
         <div className="fh-row">
           <Ring size={136} stroke={11} pct={(totals.kcal / MACROS.kcal) * 100} color={over ? "#ef4444" : "var(--acc)"}>
             <span className="fh-big" style={over ? { color: "var(--red-t)" } : {}}>{Math.abs(remaining).toLocaleString()}</span>
@@ -117,9 +121,28 @@ export default function Nutrition({ user, onMacrosChanged }) {
             );
           })}
         </div>
+        <div className="src-line">
+          <span>{fromCalories ? "From Calories" : entries.length ? "From this app's log" : "Nothing logged yet today"}</span>
+          {!isNative() && <a href="./calories/">Open Calories</a>}
+        </div>
       </div>
 
-      {SLOTS.map(s => {
+      <div className="card">
+        <div className="card-t">Meal protocol</div>
+        {SLOTS.map(sl => (
+          <div key={sl.id} style={{ marginBottom: 10 }}>
+            <div className="dy-nm" style={{ fontSize: 14 }}>{sl.label}</div>
+            <div className="dy-when">{sl.when}</div>
+            {SLOT_NOTES[sl.id] && <div className={"callout " + SLOT_NOTES[sl.id].cls} style={{ marginTop: 6, marginBottom: 0 }}><div className="ct">{SLOT_NOTES[sl.id].body}</div></div>}
+          </div>
+        ))}
+      </div>
+
+      <button type="button" className="bs" style={{ minHeight: 44, marginBottom: 14 }} aria-expanded={showLocal} onClick={() => setShowLocal(v => !v)}>
+        {showLocal ? "Hide local log" : "Log here instead"}
+      </button>
+
+      {showLocal && SLOTS.map(s => {
         const slotEntries = entries.filter(e => e.slot === s.id);
         const slotKcal = Math.round(slotEntries.reduce((sum, e) => sum + (e.kcal || 0), 0));
         const isOpen = openSlot === s.id;
@@ -147,18 +170,18 @@ export default function Nutrition({ user, onMacrosChanged }) {
                 ))}
               </div>
             )}
-            <button className="dy-add" onClick={() => setOpenSlot(isOpen ? null : s.id)}>{isOpen ? "− Close" : "＋ Add Food"}</button>
+            <button className="dy-add" style={{ minHeight: 44 }} aria-expanded={isOpen} onClick={() => setOpenSlot(isOpen ? null : s.id)}>{isOpen ? "Close" : "＋ Add Food"}</button>
             {isOpen && (
               <div className="dy-panel">
                 {note && <div className={"callout " + note.cls}><div className="ct">{note.body}</div></div>}
                 {(OPTIONS[s.id] || []).map(o => (
-                  <div key={o.id} className="dy-opt" onClick={() => quickAdd(s.id, o)}>
+                  <button type="button" key={o.id} className="dy-opt" style={{ width: "100%", textAlign: "left", fontFamily: "inherit", color: "var(--tx)", background: "transparent" }} onClick={() => quickAdd(s.id, o)}>
                     <span className="dy-plus">＋</span>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div className="dy-en-t">{o.label}</div>
                       <div className="dy-en-m">{o.kcal} kcal · {o.protein}P / {o.carbs}C / {o.fat}F{o.fatNote ? ` · ${o.fatNote}` : ""}</div>
                     </div>
-                  </div>
+                  </button>
                 ))}
                 <div style={{ marginTop: 10 }}>
                   <div className="fl">Custom entry</div>
@@ -181,8 +204,8 @@ export default function Nutrition({ user, onMacrosChanged }) {
         <div style={{ fontSize: 12.5, color: "var(--mut)", marginTop: -8, marginBottom: 12 }}>Every 2nd Sunday, before eating, before drinking.</div>
         {flat && <div className="callout cr"><div className="ct"><strong>Review trigger (waist flat):</strong> no decrease across two consecutive measurements. Reduce carbs by 25–38g from the rice portion in Meal 3.</div></div>}
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
-          <input className="fi sm" style={{ width: 104 }} type="number" step="0.1" placeholder="waist cm" value={waist} onChange={e => setWaist(e.target.value)} />
-          <input className="fi sm" style={{ width: 104 }} type="number" step="0.1" placeholder="weight kg" value={weight} onChange={e => setWeight(e.target.value)} />
+          <input className="fi sm" style={{ width: 104 }} type="number" step="0.1" placeholder="waist cm" aria-label="Waist in cm" value={waist} onChange={e => setWaist(e.target.value)} />
+          <input className="fi sm" style={{ width: 104 }} type="number" step="0.1" placeholder="weight kg" aria-label="Weight in kg" value={weight} onChange={e => setWeight(e.target.value)} />
           <button className="bp" onClick={saveMetrics}>Log</button>
         </div>
         {waists.length > 0 && (
@@ -195,8 +218,8 @@ export default function Nutrition({ user, onMacrosChanged }) {
                 return (
                   <tr key={m.date}>
                     <td>{m.date}</td>
-                    <td>{m.waistCm != null ? m.waistCm + " cm" : "—"}</td>
-                    <td style={{ color: d == null ? "var(--dim)" : +d < 0 ? "var(--green-t)" : +d > 0 ? "var(--red-t)" : "var(--tx2)", fontWeight: 700 }}>{d == null ? "—" : (+d > 0 ? "+" : "") + d}</td>
+                    <td>{m.waistCm != null ? m.waistCm + " cm" : "-"}</td>
+                    <td style={{ color: d == null ? "var(--dim)" : +d < 0 ? "var(--green-t)" : +d > 0 ? "var(--red-t)" : "var(--tx2)", fontWeight: 700 }}>{d == null ? "-" : (+d > 0 ? "+" : "") + d}</td>
                     <td>{m.weightKg != null ? m.weightKg + " kg" : <span style={{ color: "var(--dim)" }}>directional noise only</span>}</td>
                   </tr>
                 );
