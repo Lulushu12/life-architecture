@@ -1,22 +1,23 @@
-// Monoalphabetic substitution cipher helpers for the cryptogram game.
+import { shuffle } from "./rng.js";
 
-function shuffle(arr) {
-  const a = arr.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-// A random derangement of 0..25: perm[i] is the cipher-letter index for
-// plain-letter index i, guaranteed perm[i] !== i for every i.
-export function randomDerangement() {
+// perm[i] is the cipher-letter index for plain-letter index i, and perm[i] !== i for every i.
+export function randomDerangement(rng = Math.random) {
   let perm;
   do {
-    perm = shuffle([...Array(26).keys()]);
+    perm = shuffle([...Array(26).keys()], rng);
   } while (perm.some((v, i) => v === i));
   return perm;
+}
+
+export const letterCount = (s) => (String(s).match(/[a-zA-Z]/g) || []).length;
+
+export function isValidPerm(perm) {
+  return (
+    Array.isArray(perm) &&
+    perm.length === 26 &&
+    new Set(perm).size === 26 &&
+    perm.every((v) => Number.isInteger(v) && v >= 0 && v < 26)
+  );
 }
 
 export function invert(perm) {
@@ -27,8 +28,6 @@ export function invert(perm) {
 
 const A = "A".charCodeAt(0);
 
-// Splits puzzle text into tokens for rendering: words (arrays of letter
-// cells) separated by literal whitespace/punctuation runs.
 export function tokenize(text) {
   const tokens = [];
   let word = null;
@@ -57,7 +56,6 @@ export function plainLetterOf(cipherLetter, inv) {
   return String.fromCharCode(65 + inv[cipherLetter.charCodeAt(0) - A]);
 }
 
-// Unique cipher letters that actually appear in the puzzle text.
 export function usedCipherLetters(text, perm) {
   const set = new Set();
   for (const ch of text.toUpperCase()) {
@@ -74,4 +72,18 @@ export function isSolved(text, perm, guesses) {
     if (guesses[cipherLetter] !== ch) return false;
   }
   return true;
+}
+
+export function cipherSequence(text, perm) {
+  const out = [];
+  for (const ch of text.toUpperCase()) {
+    if (ch >= "A" && ch <= "Z") out.push(cipherLetterOf(ch, perm));
+  }
+  return out;
+}
+
+export function cipherFrequency(text, perm) {
+  const counts = new Map();
+  for (const cl of cipherSequence(text, perm)) counts.set(cl, (counts.get(cl) || 0) + 1);
+  return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 }

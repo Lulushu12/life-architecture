@@ -1,145 +1,219 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { IconButton, useToast } from "@shared/ui.jsx";
+import { useBackGuard } from "@shared/useHistoryNav.js";
+import { audio } from "@shared/audio.js";
+import { vibrate } from "@shared/haptics.js";
+import {
+  BEEP_TIME_MS,
+  LOW_TIME_MS,
+  delayLeftMs,
+  flagIfOut,
+  fmtClock,
+  isRunning,
+  pauseClock,
+  pressClock,
+  remainingMs,
+  togglePause,
+} from "./chessClock.js";
 
-function other(side) {
-  return side === 0 ? 1 : 0;
-}
+const FLAG_BUZZ = [400, 120, 400, 120, 400];
 
-// Remaining ms for both sides right now, folding in the running side's
-// elapsed time since turnStartedAt. Pure function of persisted state + now.
-function remainingMs(game, now) {
-  const tl = [...game.timeLeft];
-  if (game.started && !game.paused && game.flagged == null && game.activeSide != null) {
-    const elapsed = now - game.turnStartedAt;
-    tl[game.activeSide] = Math.max(0, tl[game.activeSide] - elapsed);
-  }
-  return tl;
-}
-
-function fmtTime(ms) {
-  if (ms <= 0) return "0:00";
-  if (ms < 20000) return (ms / 1000).toFixed(1);
-  const totalSec = Math.floor(ms / 1000);
-  const m = Math.floor(totalSec / 60);
-  const s = totalSec % 60;
-  return `${m}:${String(s).padStart(2, "0")}`;
-}
-
-export default function ChessClock({ game, onChange, onNewClock, onHome }) {
+export default function ChessClock({ game, prefs, onChange, onReset, onSettings, onHome, confirm }) {
+  const toast = useToast();
   const [, setTick] = useState(0);
+  const gameRef = useRef(game);
+  gameRef.current = game;
+  const prefsRef = useRef(prefs);
+  prefsRef.current = prefs;
+  const changeRef = useRef(onChange);
+  changeRef.current = onChange;
+  const beepRef = useRef({ side: null, sec: null });
+  const flagRef = useRef(game.flagged);
 
-  // Force a re-render every 100ms while a clock is actually running, and
-  // commit a flag to the store the instant a side hits zero.
+  const running = isRunning(game);
+
   useEffect(() => {
-    if (!game.started || game.paused || game.flagged != null || game.activeSide == null) return;
+    if (!running) return undefined;
     const id = setInterval(() => {
+      const g = gameRef.current;
       const now = Date.now();
-      const elapsed = now - game.turnStartedAt;
-      const remaining = game.timeLeft[game.activeSide] - elapsed;
-      if (remaining <= 0) {
-        onChange((g) => {
-          if (g.flagged != null) return g;
-          const timeLeft = [...g.timeLeft];
-          timeLeft[g.activeSide] = 0;
-          return { ...g, timeLeft, flagged: g.activeSide, paused: true };
-        });
-      } else {
-        setTick((t) => t + 1);
+      if (!isRunning(g)) return;
+      const left = remainingMs(g, now)[g.activeSide];
+      if (left <= 0) {
+        changeRef.current((x) => flagIfOut(x, Date.now()));
+        return;
       }
+      if (left < BEEP_TIME_MS) {
+        const sec = Math.ceil(left / 1000);
+        const last = beepRef.current;
+        if (last.side !== g.activeSide || last.sec !== sec) {
+          beepRef.current = { side: g.activeSide, sec };
+          audio.play("lowTime", { enabled: prefsRef.current.sound });
+        }
+      }
+      setTick((t) => (t + 1) % 1000000);
     }, 100);
     return () => clearInterval(id);
-  }, [game.started, game.paused, game.flagged, game.activeSide, game.turnStartedAt, game.timeLeft, onChange]);
+  }, [running]);
+
+  useEffect(() => {
+    if (flagRef.current == null && game.flagged != null) {
+      audio.play("fail", { enabled: prefsRef.current.sound });
+      vibrate(FLAG_BUZZ, { enabled: prefsRef.current.vibrate });
+    }
+    flagRef.current = game.flagged;
+  }, [game.flagged]);
+
+  const pause = useCallback(() => {
+    const now = Date.now();
+    changeRef.current((g) => pauseClock(g, now));
+  }, []);
+
+  useBackGuard(running, () => {
+    pause();
+    toast("Clock paused. Press back again to leave.");
+  });
+
+  const tap = useCallback((side) => {
+    const g = gameRef.current;
+    if (g.flagged != null || g.paused) return;
+    if (g.started && g.activeSide !== side) return;
+    const now = Date.now();
+    audio.ensure();
+    audio.play("click", { enabled: prefsRef.current.sound });
+    vibrate("tap", { enabled: prefsRef.current.vibrate });
+    changeRef.current((x) => pressClock(x, side, now));
+  }, []);
+
+  const onTogglePause = () => {
+    audio.ensure();
+    const now = Date.now();
+    onChange((g) => togglePause(g, now));
+  };
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key !== " " && e.code !== "Space") return;
+      if (document.querySelector(".sheet-backdrop")) return;
+      const g = gameRef.current;
+      if (!isRunning(g)) return;
+      e.preventDefault();
+      tap(g.activeSide);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [tap]);
+
+  const leaveOr = (fn) => () => {
+    if (isRunning(gameRef.current)) {
+      pause();
+      toast("Clock paused. Tap again to leave.");
+      return;
+    }
+    fn();
+  };
+
+  const reset = async () => {
+    const g = gameRef.current;
+    if (g.started && g.flagged == null) {
+      if (isRunning(g)) pause();
+      const ok = await confirm({
+        title: "Reset the clock?",
+        message: "Both sides go back to the start of this time control.",
+        confirmLabel: "Reset",
+        danger: true,
+      });
+      if (!ok) return;
+    }
+    onReset();
+  };
 
   const now = Date.now();
-  const [msTop, msBottom] = remainingMs(game, now);
+  const times = remainingMs(game, now);
+  const delayLeft = delayLeftMs(game, now);
+  const moves = game.moves || [0, 0];
 
-  const tap = (side) => {
-    if (game.flagged != null || game.paused) return;
-    onChange((g) => {
-      if (g.flagged != null || g.paused) return g;
-      const incMs = g.incrementSec * 1000;
-      if (!g.started) {
-        return { ...g, started: true, activeSide: other(side), turnStartedAt: Date.now() };
-      }
-      if (g.activeSide !== side) return g;
-      const elapsed = Date.now() - g.turnStartedAt;
-      const remaining = g.timeLeft[side] - elapsed;
-      const timeLeft = [...g.timeLeft];
-      if (remaining <= 0) {
-        timeLeft[side] = 0;
-        return { ...g, timeLeft, flagged: side, paused: true };
-      }
-      timeLeft[side] = remaining + incMs;
-      return { ...g, timeLeft, activeSide: other(side), turnStartedAt: Date.now() };
-    });
-  };
-
-  const togglePause = () => {
-    onChange((g) => {
-      if (g.flagged != null || !g.started) return g;
-      if (g.paused) {
-        return { ...g, paused: false, turnStartedAt: Date.now() };
-      }
-      const elapsed = Date.now() - g.turnStartedAt;
-      const timeLeft = [...g.timeLeft];
-      if (g.activeSide != null) timeLeft[g.activeSide] = Math.max(0, timeLeft[g.activeSide] - elapsed);
-      return { ...g, paused: true, timeLeft, turnStartedAt: null };
-    });
-  };
-
-  const reset = () => {
-    if (game.started && !confirm("Reset the clock back to the start of this time control?")) return;
-    onChange((g) => {
-      const ms = g.minutesPerSide * 60000;
-      return {
-        ...g,
-        timeLeft: [ms, ms],
-        started: false,
-        paused: false,
-        activeSide: null,
-        turnStartedAt: null,
-        flagged: null,
-      };
-    });
-  };
-
-  const newControl = () => {
-    if (game.started && !confirm("Start a new time control? Current clock will be discarded.")) return;
-    onNewClock();
-  };
-
-  const zoneClass = (side, ms) => {
+  const zone = (side) => {
+    const ms = times[side];
+    const active = game.started && game.flagged == null && game.activeSide === side;
     const classes = ["cc-zone", side === 0 ? "top" : "bottom"];
     if (game.flagged === side) classes.push("flagged");
-    else if (game.started && !game.paused && game.activeSide === side) classes.push("active");
-    return classes.join(" ");
+    else if (active && !game.paused) classes.push("active");
+    else if (active && game.paused) classes.push("waiting");
+    if (game.started && game.flagged == null && ms < LOW_TIME_MS) {
+      classes.push("low");
+      if (active && !game.paused) classes.push("pulse");
+    }
+    let status = "";
+    if (game.flagged === side) status = "Flag fell";
+    else if (game.flagged != null) status = "Wins on time";
+    else if (!game.started) status = side === 0 ? "Tap to start bottom clock" : "Tap to start top clock";
+    else if (game.paused) status = "Paused";
+    else if (active && delayLeft > 0) status = `Delay ${(delayLeft / 1000).toFixed(1)}`;
+    return (
+      <button
+        type="button"
+        className={classes.join(" ")}
+        aria-label={`${side === 0 ? "Top" : "Bottom"} clock, ${fmtClock(ms)}`}
+        onPointerDown={(e) => {
+          if (e.pointerType === "mouse" && e.button !== 0) return;
+          tap(side);
+        }}
+        onClick={(e) => {
+          if (e.detail === 0) tap(side);
+        }}
+        onContextMenu={(e) => e.preventDefault()}
+      >
+        <span className="cc-face">
+          <span className="cc-time">{fmtClock(ms)}</span>
+          <span className="cc-meta">
+            <span>Moves {moves[side]}</span>
+            {status && <span className="cc-status">{status}</span>}
+          </span>
+        </span>
+      </button>
+    );
   };
+
+  const pauseLabel = game.paused ? "Resume" : "Pause";
+  const pauseIcon = game.paused ? "▶" : "⏸";
+  const pauseDisabled = !game.started || game.flagged != null;
 
   return (
     <div className="chessclock">
-      <button className="cc-corner cc-home" onClick={onHome} aria-label="Home">
-        ⌂
-      </button>
-      <button className="cc-corner cc-new" onClick={newControl} aria-label="New time control">
-        ⚙
-      </button>
-
-      <div className={zoneClass(0, msTop)} onClick={() => tap(0)}>
-        <div className="cc-time">{fmtTime(msTop)}</div>
-      </div>
+      {zone(0)}
 
       <div className="cc-mid">
-        <button className="cc-midbtn" onClick={togglePause} disabled={!game.started || game.flagged != null}>
-          {game.paused ? "▶ Resume" : "⏸ Pause"}
-        </button>
-        <div className="cc-label">{game.presetLabel}</div>
-        <button className="cc-midbtn" onClick={reset}>
-          ⟲ Reset
-        </button>
+        <div className="cc-strip cc-strip-top">
+          <IconButton
+            label={`${pauseLabel} (top player)`}
+            onClick={onTogglePause}
+            disabled={pauseDisabled}
+            className="cc-btn"
+          >
+            {pauseIcon}
+          </IconButton>
+          <span className="cc-label">{game.presetLabel}</span>
+          <span className="cc-count">#{Math.max(moves[0], moves[1]) + (game.started ? 1 : 0)}</span>
+        </div>
+        <div className="cc-strip">
+          <IconButton label="Home" onClick={leaveOr(onHome)} className="cc-btn">
+            ⌂
+          </IconButton>
+          <IconButton label="Reset" onClick={reset} className="cc-btn">
+            ⟲
+          </IconButton>
+          <span className="cc-label">{game.presetLabel}</span>
+          <IconButton label={pauseLabel} onClick={onTogglePause} disabled={pauseDisabled} className="cc-btn">
+            {pauseIcon}
+          </IconButton>
+          <IconButton label="Time control and settings" onClick={leaveOr(onSettings)} className="cc-btn">
+            ⚙
+          </IconButton>
+        </div>
       </div>
 
-      <div className={zoneClass(1, msBottom)} onClick={() => tap(1)}>
-        <div className="cc-time">{fmtTime(msBottom)}</div>
-      </div>
+      {zone(1)}
     </div>
   );
 }

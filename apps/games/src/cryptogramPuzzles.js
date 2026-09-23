@@ -1,6 +1,6 @@
 // 40 hardcoded cryptogram puzzles: common English proverbs and a small set
 // of famous, extremely well-documented public-domain quotes. Attributions
-// are kept conservative — "Proverb" for sayings with no single known
+// are kept conservative: "Proverb" for sayings with no single known
 // author, and a named person only for lines that are directly verifiable
 // against a primary source (a speech, a play, a founding document).
 
