@@ -385,7 +385,6 @@ function Review({ store, setStore, nav, game }) {
         sans: [],
         chat: [],
         cps: [0],
-        hints: 0,
         status: "playing",
         result: null,
         createdAt: Date.now(),

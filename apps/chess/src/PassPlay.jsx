@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Chess } from "chess.js";
 import Board from "./Board.jsx";
-import { TopBar, Toggle, MoveList } from "./ui.jsx";
+import { TopBar, Toggle, MoveList, useGameBackGuard } from "./ui.jsx";
 import { findOpening } from "./openings.js";
 import { play as sfx, buzz } from "./audio.js";
 import { newId } from "./storage.js";
@@ -101,6 +101,10 @@ function Game({ store, setStore, nav }) {
   const opening = useMemo(() => findOpening(g.sans), [g.sans]);
   const over = g.status === "over";
   useWakeLock(!over);
+  const askEnd = () =>
+    confirm({ title: "End this game?", message: "The game is discarded without saving.", confirmLabel: "End game", danger: true });
+  const discard = () => setStore((s) => ({ ...s, current: null }));
+  useGameBackGuard(g.status === "playing" && g.sans.length > 0, askEnd, discard);
 
   // clock ticking (display only; remaining is computed from timestamps)
   useEffect(() => {
@@ -281,8 +285,8 @@ function Game({ store, setStore, nav }) {
         <button
           className="linkbtn danger"
           onClick={async () => {
-            if (!(await confirm({ title: "End this game?", message: "The game is discarded without saving.", confirmLabel: "End game", danger: true }))) return;
-            setStore((s) => ({ ...s, current: null }));
+            if (!(await askEnd())) return;
+            discard();
             nav("home");
           }}
         >

@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useBackGuard } from "@shared/useHistoryNav.js";
 
 // Left/right arrow keys navigate moves wherever a board screen mounts this.
 export function useArrowKeys(onPrev, onNext) {
@@ -19,6 +20,35 @@ export function useArrowKeys(onPrev, onNext) {
     window.addEventListener("keydown", h);
     return () => window.removeEventListener("keydown", h);
   }, []);
+}
+
+export function useGameBackGuard(active, ask, end) {
+  const [leaving, setLeaving] = useState(false);
+  const asking = useRef(false);
+  const endRef = useRef(end);
+  endRef.current = end;
+
+  useBackGuard(active && !leaving, async () => {
+    if (asking.current) return;
+    asking.current = true;
+    const ok = await ask();
+    asking.current = false;
+    if (ok) setLeaving(true);
+  });
+
+  useEffect(() => {
+    if (!leaving) return;
+    const leave = () => {
+      endRef.current();
+      window.history.back();
+    };
+    if (window.history.state?.__backGuard == null) {
+      leave();
+      return;
+    }
+    window.addEventListener("popstate", leave, { once: true });
+    return () => window.removeEventListener("popstate", leave);
+  }, [leaving]);
 }
 
 export function TopBar({ title, sub, onBack, right }) {

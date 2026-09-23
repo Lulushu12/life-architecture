@@ -4,6 +4,7 @@ import Board from "./Board.jsx";
 import { TopBar, MoveList, useArrowKeys } from "./ui.jsx";
 import { newId } from "./storage.js";
 import { IS_NATIVE } from "./platform.js";
+import { useBackGuard } from "@shared/useHistoryNav.js";
 import {
   loadGamesIndex,
   loadFamous,
@@ -21,18 +22,13 @@ import {
 // today (bundled, works offline), a curated famous-games shelf, and live
 // tournament broadcasts relayed by lichess.org when online.
 export default function GamesDB({ store, setStore, nav }) {
-  const [page, setPage] = useState({ name: "hub" });
-  const [trail, setTrail] = useState([]); // stack of previous pages
+  const [{ page, trail }, setStack] = useState({ page: { name: "hub" }, trail: [] });
 
-  const go = (next) => {
-    setTrail((t) => [...t, page]);
-    setPage(next);
-  };
-  const back = () => {
-    if (trail.length === 0) return nav("home");
-    setPage(trail[trail.length - 1]);
-    setTrail((t) => t.slice(0, -1));
-  };
+  const go = (next) => setStack((s) => ({ page: next, trail: [...s.trail, s.page] }));
+  const pop = () =>
+    setStack((s) => (s.trail.length ? { page: s.trail[s.trail.length - 1], trail: s.trail.slice(0, -1) } : s));
+  const back = () => (trail.length === 0 ? nav("home") : pop());
+  useBackGuard(trail.length > 0, pop);
 
   const props = { store, setStore, nav, go, back };
   switch (page.name) {

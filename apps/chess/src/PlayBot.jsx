@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Chess } from "chess.js";
 import Board, { EvalBar } from "./Board.jsx";
-import { TopBar, Toggle, MoveList, useArrowKeys } from "./ui.jsx";
+import { TopBar, Toggle, MoveList, useArrowKeys, useGameBackGuard } from "./ui.jsx";
 import { getPersona, personasByLang, LEVELS } from "./personas.js";
 import { getEngine, cpWhite, nullMoveFen } from "./engine.js";
 import { chooseBotMove } from "./bot.js";
@@ -50,7 +50,6 @@ function BotPicker({ store, setStore, nav, view }) {
         sans: [],
         chat: [],
         cps: [0],
-        hints: 0,
         status: "playing",
         result: null,
         createdAt: Date.now(),
@@ -586,9 +585,6 @@ function BotGame({ store, setStore, nav }) {
         setHintArrow([r.lines[0].move.slice(0, 2), r.lines[0].move.slice(2, 4)]);
       });
     }
-    setStore((s) =>
-      s.current && s.current.id === g.id ? { ...s, current: { ...s.current, hints: s.current.hints + 1 } } : s
-    );
   };
 
   const takeback = () => {
@@ -611,6 +607,8 @@ function BotGame({ store, setStore, nav }) {
   const cp =
     viewPly == null ? liveCp : viewEval?.fen === shownFen ? viewEval.cp : (g.cps[viewPly + 1] ?? liveCp);
   const over = g.status === "over";
+  const askResign = () => confirm({ title: "Resign this game?", confirmLabel: "Resign", danger: true });
+  useGameBackGuard(g.status === "playing" && g.sans.length > 0, askResign, () => finishGame(true));
 
   return (
     <div className="page gamepage">
@@ -623,7 +621,7 @@ function BotGame({ store, setStore, nav }) {
             <button
               className="linkbtn"
               onClick={async () => {
-                if (await confirm({ title: "Resign this game?", confirmLabel: "Resign", danger: true })) finishGame(true);
+                if (await askResign()) finishGame(true);
               }}
             >
               Resign
