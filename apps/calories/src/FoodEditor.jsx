@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { NumInput } from "./ui.jsx";
+import { NumInput, Toggle } from "@shared/ui.jsx";
+import { TopBar } from "./ui.jsx";
 
 export default function FoodEditor({ food, onSave, onCancel, onDelete }) {
   const [name, setName] = useState(food?.name || "");
@@ -10,8 +11,12 @@ export default function FoodEditor({ food, onSave, onCancel, onDelete }) {
   const [fat100, setFat100] = useState(food?.fat100 ?? 0);
   const [isPiece, setIsPiece] = useState(!!food?.isPiece);
   const [pieceWeight, setPieceWeight] = useState(food?.pieceWeight ?? 50);
+  const [servingGrams, setServingGrams] = useState(food?.servingGrams ?? 0);
 
   const canSave = name.trim().length > 0;
+  const macrosChanged =
+    food &&
+    (food.protein100 !== protein100 || food.carbs100 !== carbs100 || food.fat100 !== fat100);
 
   const save = () => {
     if (!canSave) return;
@@ -24,75 +29,86 @@ export default function FoodEditor({ food, onSave, onCancel, onDelete }) {
       fat100: Number(fat100) || 0,
       isPiece,
       pieceWeight: isPiece ? Number(pieceWeight) || 0 : undefined,
+      servingGrams: servingGrams > 0 ? servingGrams : undefined,
       source: food?.source || "custom",
+      ...(macrosChanged ? { macrosIncomplete: false } : {}),
     });
   };
 
   return (
     <div className="page">
-      <div className="topbar">
-        <button className="iconbtn" onClick={onCancel}>
-          ‹
-        </button>
-        <div>
-          <div className="tb-title">{food ? "Edit food" : "New food"}</div>
-          <div className="tb-sub">Macros are per 100 g</div>
-        </div>
-      </div>
+      <TopBar title={food ? "Edit food" : "New food"} sub="Macros are per 100 g" onBack={onCancel} />
 
       <div className="field">
-        <div className="flabel">Name</div>
-        <input className="input" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Chicken breast" />
+        <label className="flabel" htmlFor="fe-name">
+          Name
+        </label>
+        <input
+          id="fe-name"
+          className="input"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="e.g. Chicken breast"
+          maxLength={120}
+        />
       </div>
       <div className="field">
-        <div className="flabel">Brand (optional)</div>
-        <input className="input" value={brand} onChange={(e) => setBrand(e.target.value)} placeholder="e.g. Generic" />
+        <label className="flabel" htmlFor="fe-brand">
+          Brand (optional)
+        </label>
+        <input
+          id="fe-brand"
+          className="input"
+          value={brand}
+          onChange={(e) => setBrand(e.target.value)}
+          placeholder="e.g. Generic"
+          maxLength={120}
+        />
       </div>
+      {food?.macrosIncomplete && (
+        <p className="warn">Open Food Facts was missing some macros for this product. Check them against the label.</p>
+      )}
 
       <div className="flabel">Per 100 g</div>
       <div className="setrow">
         <span className="setlabel">Calories (kcal)</span>
-        <NumInput value={kcal100} onChange={setKcal100} min={0} max={9000} step={5} />
+        <NumInput value={kcal100} onChange={setKcal100} min={0} max={900} step={5} label="Calories per 100 g" />
       </div>
       <div className="setrow">
         <span className="setlabel">Protein (g)</span>
-        <NumInput value={protein100} onChange={setProtein100} min={0} max={100} step={1} />
+        <NumInput value={protein100} onChange={setProtein100} min={0} max={100} step={1} decimals={1} label="Protein per 100 g" />
       </div>
       <div className="setrow">
         <span className="setlabel">Carbs (g)</span>
-        <NumInput value={carbs100} onChange={setCarbs100} min={0} max={100} step={1} />
+        <NumInput value={carbs100} onChange={setCarbs100} min={0} max={100} step={1} decimals={1} label="Carbs per 100 g" />
       </div>
       <div className="setrow">
         <span className="setlabel">Fat (g)</span>
-        <NumInput value={fat100} onChange={setFat100} min={0} max={100} step={1} />
+        <NumInput value={fat100} onChange={setFat100} min={0} max={100} step={1} decimals={1} label="Fat per 100 g" />
       </div>
 
       <div className="setrow">
+        <span className="setlabel">Serving size (g, optional)</span>
+        <NumInput value={servingGrams} onChange={setServingGrams} min={0} max={2000} step={5} label="Serving size" />
+      </div>
+      <div className="setrow">
         <span className="setlabel">Log by piece</span>
-        <button className={"toggle" + (isPiece ? " on" : "")} onClick={() => setIsPiece((v) => !v)}>
-          <span className="knob" />
-        </button>
+        <Toggle checked={isPiece} onChange={setIsPiece} label="Log by piece" />
       </div>
       {isPiece && (
         <div className="setrow">
           <span className="setlabel">Weight per piece (g)</span>
-          <NumInput value={pieceWeight} onChange={setPieceWeight} min={1} max={2000} step={1} />
+          <NumInput value={pieceWeight} onChange={setPieceWeight} min={1} max={2000} step={1} label="Weight per piece" />
         </div>
       )}
 
       <div className="btnrow" style={{ justifyContent: onDelete ? "space-between" : "flex-end" }}>
         {onDelete && (
-          <button
-            className="linkbtn"
-            style={{ color: "var(--danger)" }}
-            onClick={() => {
-              if (confirm(`Delete "${food.name}"? Existing log entries keep their saved values.`)) onDelete();
-            }}
-          >
+          <button type="button" className="linkbtn danger-text" onClick={onDelete}>
             Delete
           </button>
         )}
-        <button className="bigbtn" disabled={!canSave} onClick={save} style={{ width: "auto", padding: "12px 26px" }}>
+        <button type="button" className="bigbtn" disabled={!canSave} onClick={save}>
           Save
         </button>
       </div>

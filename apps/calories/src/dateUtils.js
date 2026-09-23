@@ -1,40 +1,29 @@
-// Local-calendar date helpers. We always work with YYYY-MM-DD strings built
-// from local getFullYear/getMonth/getDate, never toISOString(), so a day
-// boundary always matches what the device clock shows the user.
+import { addDays, todayKey } from "@shared/store.js";
 
-export function toDateStr(d) {
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}-${m}-${day}`;
-}
+export { addDays, todayKey };
 
-export function todayStr() {
-  return toDateStr(new Date());
-}
-
-export function addDays(dateStr, n) {
+export function fmtDateHeader(dateStr, today = todayKey()) {
   const [y, m, d] = dateStr.split("-").map(Number);
   const dt = new Date(y, m - 1, d);
-  dt.setDate(dt.getDate() + n);
-  return toDateStr(dt);
-}
-
-export function fmtDateHeader(dateStr) {
-  const [y, m, d] = dateStr.split("-").map(Number);
-  const dt = new Date(y, m - 1, d);
-  const today = todayStr();
-  const yest = addDays(today, -1);
-  const tom = addDays(today, 1);
   if (dateStr === today) return "Today";
-  if (dateStr === yest) return "Yesterday";
-  if (dateStr === tom) return "Tomorrow";
+  if (dateStr === addDays(today, -1)) return "Yesterday";
+  if (dateStr === addDays(today, 1)) return "Tomorrow";
   return dt.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
 }
 
-// Last `n` date strings ending at (and including) `endDateStr`, oldest first.
+export function fmtShortDay(dateStr) {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString(undefined, { weekday: "narrow" });
+}
+
 export function lastNDates(endDateStr, n) {
   const out = [];
   for (let i = n - 1; i >= 0; i--) out.push(addDays(endDateStr, -i));
   return out;
+}
+
+export function daysBetween(a, b) {
+  const [y1, m1, d1] = a.split("-").map(Number);
+  const [y2, m2, d2] = b.split("-").map(Number);
+  return Math.round((Date.UTC(y2, m2 - 1, d2) - Date.UTC(y1, m1 - 1, d1)) / 86400000);
 }

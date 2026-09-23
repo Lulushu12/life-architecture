@@ -1,114 +1,312 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { NumInput } from "@shared/ui.jsx";
 import { fmtDateHeader, addDays } from "./dateUtils.js";
-import { macrosForGrams } from "./food.js";
-import { ProgressBar, Modal, NumInput, fmtNum } from "./ui.jsx";
-import { MEALS } from "./storage.js";
+import { dayTotals, entryMacros, macrosForGrams, entryLabel, piecesForGrams } from "./food.js";
+import { ProgressBar, Modal, fmtNum, DayNav, MacroRow } from "./ui.jsx";
+import { MEALS, MEAL_LABELS } from "./storage.js";
 
-const MEAL_LABELS = { breakfast: "Breakfast", lunch: "Lunch", dinner: "Dinner", snacks: "Snacks" };
+export default function TodayView({
+  date,
+  today,
+  onStepDate,
+  dayLogs,
+  targets,
+  view,
+  highlight,
+  onAddFood,
+  onOpenEntry,
+  onOpenMenu,
+  onOpenWeek,
+  onCloseOverlay,
+  logsFor,
+  onUpdateEntry,
+  onDeleteEntry,
+  onCopyMeal,
+  onSaveTemplate,
+}) {
+  const totals = dayTotals(dayLogs);
+  const noTargets = targets.kcal <= 0 && targets.protein <= 0 && targets.carbs <= 0 && targets.fat <= 0;
+  const remaining = targets.kcal > 0 ? targets.kcal - totals.kcal : null;
 
-export default function TodayView({ date, setDate, dayLogs, targets, onAddFood, onUpdateEntry, onDeleteEntry }) {
-  const [editing, setEditing] = useState(null); // { meal, entry }
+  useEffect(() => {
+    if (!highlight) return;
+    const el = document.getElementById(`entry-${highlight}`);
+    el?.scrollIntoView?.({ block: "center", behavior: "smooth" });
+  }, [highlight]);
 
-  const totals = { kcal: 0, protein: 0, carbs: 0, fat: 0 };
-  for (const meal of MEALS) {
-    for (const e of dayLogs[meal] || []) {
-      const m = macrosForGrams(e, e.grams);
-      totals.kcal += m.kcal;
-      totals.protein += m.protein;
-      totals.carbs += m.carbs;
-      totals.fat += m.fat;
+  let overlay = null;
+  if (view.screen === "entry") {
+    const entryDate = view.date || date;
+    const entry = (logsFor(entryDate)[view.meal] || []).find((e) => e.id === view.entryId);
+    if (entry) {
+      overlay = (
+        <EditEntryModal
+          key={entry.id}
+          entry={entry}
+          onClose={onCloseOverlay}
+          onSave={(patch) => {
+            onUpdateEntry(entryDate, view.meal, entry.id, patch);
+            onCloseOverlay();
+          }}
+          onDelete={() => {
+            onDeleteEntry(entryDate, view.meal, entry.id);
+            onCloseOverlay();
+          }}
+        />
+      );
     }
+  } else if (view.screen === "mealmenu" && MEALS.includes(view.meal)) {
+    overlay = (
+      <MealMenu
+        meal={view.meal}
+        date={date}
+        entries={dayLogs[view.meal] || []}
+        onClose={onCloseOverlay}
+        onCopyYesterday={() => {
+          onCopyMeal(addDays(date, -1), view.meal, date, view.meal);
+          onCloseOverlay();
+        }}
+        onCopyTo={(target) => {
+          onCopyMeal(date, view.meal, date, target);
+          onCloseOverlay();
+        }}
+        onSaveTemplate={(name) => {
+          onSaveTemplate(name, view.meal, dayLogs[view.meal] || []);
+          onCloseOverlay();
+        }}
+      />
+    );
   }
 
   return (
-    <div className="page">
-      <div className="daynav">
-        <button className="iconbtn" onClick={() => setDate(addDays(date, -1))}>
-          ‹
-        </button>
-        <div className="daynav-label">{fmtDateHeader(date)}</div>
-        <button className="iconbtn" onClick={() => setDate(addDays(date, 1))}>
-          ›
-        </button>
-      </div>
+    <div className="page page-tabs">
+      <DayNav date={date} today={today} onDate={onStepDate} label={fmtDateHeader(date, today)} />
 
       <div className="card">
         <ProgressBar label="Calories" value={totals.kcal} target={targets.kcal} unit=" kcal" />
         <ProgressBar label="Protein" value={totals.protein} target={targets.protein} unit="g" />
         <ProgressBar label="Carbs" value={totals.carbs} target={targets.carbs} unit="g" />
         <ProgressBar label="Fat" value={totals.fat} target={targets.fat} unit="g" />
-        {targets.kcal <= 0 && targets.protein <= 0 && targets.carbs <= 0 && targets.fat <= 0 && (
+        {noTargets && (
           <p className="hint small">
-            Totals: {fmtNum(totals.kcal)} kcal · P {fmtNum(totals.protein)}g · C {fmtNum(totals.carbs)}g · F{" "}
+            Totals: {Math.round(totals.kcal)} kcal · P {fmtNum(totals.protein)}g · C {fmtNum(totals.carbs)}g · F{" "}
             {fmtNum(totals.fat)}g. Set targets in Settings to see progress bars.
           </p>
         )}
+        <div className="totals-foot">
+          {remaining != null && (
+            <span className={remaining < 0 ? "over-text" : "muted"}>
+              {remaining >= 0 ? `${Math.round(remaining)} kcal left` : `${Math.round(-remaining)} kcal over`}
+            </span>
+          )}
+          <button type="button" className="linkbtn" onClick={onOpenWeek}>
+            This week
+          </button>
+        </div>
       </div>
 
-      {MEALS.map((meal) => (
-        <div key={meal} className={`mealblock meal-${meal}`}>
-          <h2>{MEAL_LABELS[meal]}</h2>
-          <div className="card">
-            {(dayLogs[meal] || []).length === 0 && <p className="hint small" style={{ margin: "4px 2px" }}>No entries yet.</p>}
-            {(dayLogs[meal] || []).map((e) => {
-              const m = macrosForGrams(e, e.grams);
-              return (
-                <div key={e.id} className="logrow" onClick={() => setEditing({ meal, entry: e })}>
-                  <div className="logrow-main">
-                    <div className="logrow-name">{e.name}</div>
-                    <div className="logrow-sub">
-                      {Math.round(e.grams)} g · {Math.round(m.kcal)} kcal · P {fmtNum(m.protein)}g
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-            <button className="linkbtn addfoodbtn" onClick={() => onAddFood(meal)}>
-              + Add food
-            </button>
-          </div>
-        </div>
-      ))}
-
-      {editing && (
-        <EditEntryModal
-          entry={editing.entry}
-          onClose={() => setEditing(null)}
-          onSave={(grams) => {
-            onUpdateEntry(editing.meal, editing.entry.id, grams);
-            setEditing(null);
-          }}
-          onDelete={() => {
-            onDeleteEntry(editing.meal, editing.entry.id);
-            setEditing(null);
-          }}
-        />
-      )}
+      {MEALS.map((meal) => {
+        const entries = dayLogs[meal] || [];
+        const mealKcal = entries.reduce((a, e) => a + entryMacros(e).kcal, 0);
+        return (
+          <section key={meal} className={`mealblock meal-${meal}`} aria-label={MEAL_LABELS[meal]}>
+            <div className="mealhead">
+              <h2>
+                {MEAL_LABELS[meal]}
+                {entries.length > 0 && <span className="mealkcal"> · {Math.round(mealKcal)} kcal</span>}
+              </h2>
+              <button
+                type="button"
+                className="iconbtn ghosticon"
+                aria-label={`${MEAL_LABELS[meal]} options`}
+                onClick={() => onOpenMenu(meal)}
+              >
+                ⋯
+              </button>
+            </div>
+            <div className="card">
+              {entries.length === 0 && (
+                <p className="hint small" style={{ margin: "4px 2px" }}>
+                  No entries yet.
+                </p>
+              )}
+              {entries.map((e) => {
+                const m = entryMacros(e);
+                return (
+                  <button
+                    type="button"
+                    key={e.id}
+                    id={`entry-${e.id}`}
+                    className={"logrow" + (highlight === e.id ? " flash" : "")}
+                    onClick={() => onOpenEntry(meal, e.id)}
+                  >
+                    <span className="logrow-main">
+                      <span className="logrow-name">{e.name}</span>
+                      <span className="logrow-sub">
+                        {entryLabel(e)} · {Math.round(m.kcal)} kcal · P {fmtNum(m.protein)}g · C {fmtNum(m.carbs)}g · F{" "}
+                        {fmtNum(m.fat)}g
+                      </span>
+                    </span>
+                  </button>
+                );
+              })}
+              <button type="button" className="linkbtn addfoodbtn" onClick={() => onAddFood(meal)}>
+                + Add food
+              </button>
+            </div>
+          </section>
+        );
+      })}
+      {overlay}
     </div>
   );
 }
 
 function EditEntryModal({ entry, onClose, onSave, onDelete }) {
+  const pw = entry.pieceWeight || (entry.pieces > 0 ? entry.grams / entry.pieces : 0);
+  const isPiece = entry.pieces > 0 && pw > 0;
   const [grams, setGrams] = useState(entry.grams);
-  const m = macrosForGrams(entry, grams);
+  const [kcal, setKcal] = useState(entry.kcal100);
+  const [protein, setProtein] = useState(entry.protein100);
+  const [carbs, setCarbs] = useState(entry.carbs100);
+  const [fat, setFat] = useState(entry.fat100);
+  const pieceFood = { pieceWeight: pw };
+  const pieces = isPiece ? piecesForGrams(pieceFood, grams) : null;
+
+  const m = entry.quick
+    ? { kcal, protein, carbs, fat }
+    : macrosForGrams(entry, grams);
+
+  const save = () => {
+    if (entry.quick) onSave({ kcal100: kcal, protein100: protein, carbs100: carbs, fat100: fat });
+    else onSave(isPiece ? { grams, pieces, pieceWeight: pw } : { grams });
+  };
+
   return (
-    <Modal onClose={onClose}>
-      <h3>{entry.name}</h3>
-      <div className="field">
-        <div className="flabel">Grams</div>
-        <NumInput value={grams} onChange={setGrams} min={0} max={5000} step={5} />
+    <Modal onClose={onClose} title={entry.name}>
+      {entry.quick ? (
+        <>
+          <div className="setrow">
+            <span className="setlabel">Calories (kcal)</span>
+            <NumInput value={kcal} onChange={setKcal} min={0} max={9000} step={10} label="Calories" />
+          </div>
+          <div className="setrow">
+            <span className="setlabel">Protein (g)</span>
+            <NumInput value={protein} onChange={setProtein} min={0} max={500} step={1} label="Protein" />
+          </div>
+          <div className="setrow">
+            <span className="setlabel">Carbs (g)</span>
+            <NumInput value={carbs} onChange={setCarbs} min={0} max={900} step={1} label="Carbs" />
+          </div>
+          <div className="setrow">
+            <span className="setlabel">Fat (g)</span>
+            <NumInput value={fat} onChange={setFat} min={0} max={400} step={1} label="Fat" />
+          </div>
+        </>
+      ) : (
+        <>
+          {isPiece && (
+            <div className="setrow">
+              <span className="setlabel">Pieces ({fmtNum(pw)} g each)</span>
+              <NumInput
+                value={pieces}
+                onChange={(p) => setGrams(Math.round(p * pw * 10) / 10)}
+                min={0}
+                max={99}
+                step={1}
+                decimals={1}
+                label="Pieces"
+              />
+            </div>
+          )}
+          <div className="setrow">
+            <span className="setlabel">Grams</span>
+            <NumInput value={grams} onChange={setGrams} min={0} max={5000} step={5} label="Grams" />
+          </div>
+        </>
+      )}
+      <div className="card inset">
+        <MacroRow {...m} />
       </div>
-      <p className="hint small">
-        {Math.round(m.kcal)} kcal · P {fmtNum(m.protein)}g · C {fmtNum(m.carbs)}g · F {fmtNum(m.fat)}g
-      </p>
       <div className="btnrow" style={{ justifyContent: "space-between" }}>
-        <button className="linkbtn" style={{ color: "var(--danger)" }} onClick={onDelete}>
+        <button type="button" className="linkbtn danger-text" onClick={onDelete}>
           Delete
         </button>
-        <button className="bigbtn" style={{ width: "auto", padding: "12px 26px" }} onClick={() => onSave(grams)}>
-          Save
-        </button>
+        <div className="btnrow-inner">
+          <button type="button" className="linkbtn" onClick={onClose}>
+            Cancel
+          </button>
+          <button type="button" className="bigbtn" onClick={save} disabled={!entry.quick && !(grams > 0)}>
+            Save
+          </button>
+        </div>
       </div>
+    </Modal>
+  );
+}
+
+function MealMenu({ meal, date, entries, onClose, onCopyYesterday, onCopyTo, onSaveTemplate }) {
+  const [mode, setMode] = useState(null);
+  const [name, setName] = useState(`${MEAL_LABELS[meal]} ${date.slice(5)}`);
+  const others = MEALS.filter((m) => m !== meal);
+
+  return (
+    <Modal sheet onClose={onClose} title={`${MEAL_LABELS[meal]} options`}>
+      {mode === null && (
+        <div className="menu-list">
+          <button type="button" className="menu-item" onClick={onCopyYesterday}>
+            Copy from yesterday
+          </button>
+          <button type="button" className="menu-item" disabled={!entries.length} onClick={() => setMode("copy")}>
+            Copy to another meal
+          </button>
+          <button type="button" className="menu-item" disabled={!entries.length} onClick={() => setMode("template")}>
+            Save as template
+          </button>
+          <button type="button" className="menu-item muted" onClick={onClose}>
+            Cancel
+          </button>
+        </div>
+      )}
+      {mode === "copy" && (
+        <>
+          <p className="hint small">Copy {entries.length} {entries.length === 1 ? "item" : "items"} to:</p>
+          <div className="chips">
+            {others.map((m) => (
+              <button type="button" key={m} className="chip" onClick={() => onCopyTo(m)}>
+                {MEAL_LABELS[m]}
+              </button>
+            ))}
+          </div>
+          <button type="button" className="linkbtn" onClick={() => setMode(null)}>
+            Back
+          </button>
+        </>
+      )}
+      {mode === "template" && (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (name.trim()) onSaveTemplate(name.trim());
+          }}
+        >
+          <label className="flabel" htmlFor="tpl-name">
+            Template name
+          </label>
+          <input id="tpl-name" className="input" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} />
+          <p className="hint small">
+            Saves the {entries.length} {entries.length === 1 ? "item" : "items"} in this meal. Apply it from Add food.
+          </p>
+          <div className="sheet-actions">
+            <button type="button" className="bigbtn secondary" onClick={() => setMode(null)}>
+              Back
+            </button>
+            <button type="submit" className="bigbtn" disabled={!name.trim()}>
+              Save template
+            </button>
+          </div>
+        </form>
+      )}
     </Modal>
   );
 }

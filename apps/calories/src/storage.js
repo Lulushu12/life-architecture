@@ -1,103 +1,199 @@
-// All data lives in one localStorage key, written through on every state
-// change — killing the app or rebooting the phone never loses anything.
+import { createStore } from "@shared/store.js";
+import { seedTemplates } from "./templates.js";
 
-const KEY = "calories-v1";
+export const STORAGE_KEY = "calories-v1";
 
-const MEALS = ["breakfast", "lunch", "dinner", "snacks"];
+export const MEALS = ["breakfast", "lunch", "dinner", "snacks"];
+export const MEAL_LABELS = { breakfast: "Breakfast", lunch: "Lunch", dinner: "Dinner", snacks: "Snacks" };
 
-function emptyStore() {
+export function defaults() {
   return {
     foods: {},
     exercises: {},
-    logs: {}, // date -> { breakfast: [entry], lunch: [...], dinner: [...], snacks: [...] }
-    training: {}, // date -> { entries: [entry], updatedAt }
-    weights: {}, // date -> { kg, updatedAt }
-    settings: { targets: { kcal: 0, protein: 0, carbs: 0, fat: 0 }, updatedAt: 0 },
+    logs: {},
+    training: {},
+    weights: {},
+    templates: {},
+    templatesSeeded: false,
+    settings: { targets: { kcal: 0, protein: 0, carbs: 0, fat: 0 }, country: "ro", updatedAt: 0 },
   };
-}
-
-export function loadStore() {
-  try {
-    const s = JSON.parse(localStorage.getItem(KEY));
-    if (s && typeof s === "object") {
-      const base = emptyStore();
-      return {
-        ...base,
-        ...s,
-        logs: s.logs || {},
-        training: s.training || {},
-        weights: s.weights || {},
-        foods: s.foods || {},
-        exercises: s.exercises || {},
-        settings: { ...base.settings, ...(s.settings || {}) },
-      };
-    }
-  } catch {
-    /* corrupted store falls through to a fresh one */
-  }
-  return emptyStore();
-}
-
-export function saveStore(store) {
-  try {
-    localStorage.setItem(KEY, JSON.stringify(store));
-  } catch {
-    /* quota errors: nothing sensible to do, data stays in memory */
-  }
-}
-
-export function newId() {
-  return crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
 export function emptyDayLogs() {
   return { breakfast: [], lunch: [], dinner: [], snacks: [] };
 }
 
-export function exportStore(store) {
-  const blob = new Blob([JSON.stringify(store, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = `calories-backup-${new Date().toISOString().slice(0, 10)}.json`;
-  a.click();
-  URL.revokeObjectURL(a.href);
+const num = (v, fallback = 0) => {
+  const n = Number(v);
+  return Number.isFinite(n) ? n : fallback;
+};
+
+const isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+
+function lastTouched(f) {
+  return Math.max(num(f.lastUsedAt), num(f.updatedAt));
 }
 
-// Imported records win only when newer than the local copy of the same key,
-// applied per top-level id/date-keyed collection.
+export function dedupeFoods(foods) {
+  const byCode = new Map();
+  const remap = {};
+  for (const f of Object.values(foods)) {
+    if (!f.code) continue;
+    const keep = byCode.get(f.code);
+    if (!keep) {
+      byCode.set(f.code, f);
+      continue;
+    }
+    const [winner, loser] = lastTouched(f) > lastTouched(keep) ? [f, keep] : [keep, f];
+    byCode.set(f.code, {
+      ...winner,
+      useCount: num(winner.useCount) + num(loser.useCount),
+      favorite: !!(winner.favorite || loser.favorite),
+    });
+    remap[loser.id] = winner.id;
+  }
+  if (!Object.keys(remap).length) return { foods, remap };
+  const out = {};
+  for (const f of Object.values(foods)) {
+    if (remap[f.id]) continue;
+    out[f.id] = f.code ? byCode.get(f.code) : f;
+  }
+  for (const [from, to] of Object.entries(remap)) {
+    let target = to;
+    while (remap[target]) target = remap[target];
+    remap[from] = target;
+  }
+  return { foods: out, remap };
+}
+
+function normalizeEntry(e) {
+  if (!isObj(e)) return null;
+  return {
+    ...e,
+    id: e.id || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`,
+    name: typeof e.name === "string" && e.name ? e.name : "Unnamed food",
+    grams: num(e.grams),
+    kcal100: num(e.kcal100),
+    protein100: num(e.protein100),
+    carbs100: num(e.carbs100),
+    fat100: num(e.fat100),
+  };
+}
+
+export function normalize(store) {
+  const foods = {};
+  for (const [id, f] of Object.entries(isObj(store.foods) ? store.foods : {})) {
+    if (!isObj(f)) continue;
+    foods[id] = {
+      ...f,
+      id,
+      name: typeof f.name === "string" && f.name ? f.name : "Unnamed food",
+      kcal100: num(f.kcal100),
+      protein100: num(f.protein100),
+      carbs100: num(f.carbs100),
+      fat100: num(f.fat100),
+    };
+  }
+  const { foods: deduped, remap } = dedupeFoods(foods);
+  const fixId = (e) => (e.foodId && remap[e.foodId] ? { ...e, foodId: remap[e.foodId] } : e);
+
+  const logs = {};
+  for (const [date, day] of Object.entries(isObj(store.logs) ? store.logs : {})) {
+    if (!isObj(day)) continue;
+    const next = { ...day };
+    for (const m of MEALS) {
+      next[m] = (Array.isArray(day[m]) ? day[m] : []).map(normalizeEntry).filter(Boolean).map(fixId);
+    }
+    logs[date] = next;
+  }
+
+  const templates = {};
+  for (const [id, t] of Object.entries(isObj(store.templates) ? store.templates : {})) {
+    if (!isObj(t) || !Array.isArray(t.items)) continue;
+    templates[id] = {
+      ...t,
+      id,
+      name: t.name || "Template",
+      meal: MEALS.includes(t.meal) ? t.meal : "snacks",
+      items: t.items.map(normalizeEntry).filter(Boolean).map(fixId),
+    };
+  }
+
+  const exercises = {};
+  for (const [id, ex] of Object.entries(isObj(store.exercises) ? store.exercises : {})) {
+    if (!isObj(ex)) continue;
+    exercises[id] = { ...ex, id, name: ex.name || "Exercise", type: ex.type === "cardio" ? "cardio" : "strength" };
+  }
+
+  const training = {};
+  for (const [date, day] of Object.entries(isObj(store.training) ? store.training : {})) {
+    if (!isObj(day)) continue;
+    training[date] = { ...day, entries: (Array.isArray(day.entries) ? day.entries : []).filter(isObj) };
+  }
+
+  const weights = {};
+  for (const [date, w] of Object.entries(isObj(store.weights) ? store.weights : {})) {
+    if (isObj(w) && Number.isFinite(Number(w.kg)) && Number(w.kg) > 0) weights[date] = { ...w, kg: Number(w.kg) };
+  }
+
+  const base = defaults().settings;
+  const s = isObj(store.settings) ? store.settings : {};
+  const t = isObj(s.targets) ? s.targets : {};
+  const settings = {
+    ...base,
+    ...s,
+    targets: { kcal: num(t.kcal), protein: num(t.protein), carbs: num(t.carbs), fat: num(t.fat) },
+    country: typeof s.country === "string" ? s.country : "ro",
+  };
+
+  return { ...store, foods: deduped, logs, templates, exercises, training, weights, settings };
+}
+
+function withSeed(store) {
+  if (store.templatesSeeded) return store;
+  return { ...store, templates: { ...seedTemplates(), ...(store.templates || {}) }, templatesSeeded: true };
+}
+
+const base = createStore({ key: STORAGE_KEY, version: 1, defaults, normalize });
+
+export const storeDef = { key: base.key, save: base.save, load: () => withSeed(base.load()) };
+
 function mergeById(local, imported) {
-  const out = { ...local };
-  for (const [id, rec] of Object.entries(imported || {})) {
-    if (!out[id] || (rec.updatedAt || 0) > (out[id].updatedAt || 0)) out[id] = rec;
+  const out = { ...(local || {}) };
+  for (const [id, rec] of Object.entries(isObj(imported) ? imported : {})) {
+    if (!isObj(rec)) continue;
+    if (!out[id] || num(rec.updatedAt) > num(out[id].updatedAt)) out[id] = rec;
   }
   return out;
 }
 
+export function dayStamp(day) {
+  if (!isObj(day)) return 0;
+  let max = Math.max(num(day.updatedAt), num(day.deletedAt));
+  for (const m of MEALS) for (const e of Array.isArray(day[m]) ? day[m] : []) max = Math.max(max, num(e?.updatedAt));
+  return max;
+}
+
 export function mergeImport(store, imported) {
-  if (!imported || typeof imported !== "object") return store;
+  if (!isObj(imported)) return store;
   const next = { ...store };
   next.foods = mergeById(store.foods, imported.foods);
   next.exercises = mergeById(store.exercises, imported.exercises);
   next.training = mergeById(store.training, imported.training);
   next.weights = mergeById(store.weights, imported.weights);
-  // logs is date -> per-meal arrays; treat each date bucket as one record.
+  next.templates = mergeById(store.templates, imported.templates);
   const logs = { ...store.logs };
-  for (const [date, dayLogs] of Object.entries(imported.logs || {})) {
-    const localUpdated = MEALS.flatMap((m) => (logs[date]?.[m] || [])).reduce(
-      (max, e) => Math.max(max, e.updatedAt || 0),
-      0
-    );
-    const importedUpdated = MEALS.flatMap((m) => (dayLogs?.[m] || [])).reduce(
-      (max, e) => Math.max(max, e.updatedAt || 0),
-      0
-    );
-    if (!logs[date] || importedUpdated > localUpdated) logs[date] = { ...emptyDayLogs(), ...dayLogs };
+  for (const [date, dayLogs] of Object.entries(isObj(imported.logs) ? imported.logs : {})) {
+    if (!isObj(dayLogs)) continue;
+    if (!logs[date] || dayStamp(dayLogs) > dayStamp(logs[date])) logs[date] = { ...emptyDayLogs(), ...dayLogs };
   }
   next.logs = logs;
-  if (imported.settings && (imported.settings.updatedAt || 0) > (store.settings.updatedAt || 0)) {
-    next.settings = imported.settings;
+  if (isObj(imported.settings) && num(imported.settings.updatedAt) > num(store.settings.updatedAt)) {
+    next.settings = { ...store.settings, ...imported.settings };
   }
-  return next;
+  return normalize(next);
 }
 
-export { MEALS };
+export function validateBackup(d) {
+  return Boolean(isObj(d) && (d.logs || d.foods || d.training || d.weights));
+}
