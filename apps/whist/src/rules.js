@@ -14,6 +14,7 @@ export const WHIST_DEFAULT_CONFIG = (playerCount) => ({
   streakLen: 5,
   streakBonus: 10,
   streakMalus: 10,
+  streakSkipOnes: false,
   forbidEqualSum: true, // last bidder cannot make the bid sum equal the cards
 });
 
@@ -59,14 +60,15 @@ export function computeWhist(game) {
         let pts = hit
           ? cfg.successBase + row.bids[p] * cfg.successPerTrick
           : -(cfg.failBase + Math.abs(row.taken[p] - row.bids[p]) * cfg.failPerTrick);
-        if (hit) {
+        const counts = !(cfg.streakSkipOnes && cards === 1);
+        if (counts && hit) {
           okStreak[p]++;
           badStreak[p] = 0;
-        } else {
+        } else if (counts) {
           badStreak[p]++;
           okStreak[p] = 0;
         }
-        if (cfg.streaksEnabled) {
+        if (cfg.streaksEnabled && counts) {
           if (okStreak[p] === cfg.streakLen) {
             row.bonus[p] = cfg.streakBonus;
             okStreak[p] = 0;
@@ -121,12 +123,13 @@ export function handPoints(def, data, n, defs) {
   const pts = Array(n).fill(0);
   if (!def || !data) return pts;
   const byId = Object.fromEntries(defs.map((d) => [d.id, d]));
+  const val = (id) => Number(byId[id]?.value) || 0;
   const single = (id, playerIdx) => {
-    if (playerIdx != null) pts[playerIdx] += byId[id].value;
+    if (Number.isInteger(playerIdx) && playerIdx >= 0 && playerIdx < n) pts[playerIdx] += val(id);
   };
   const units = (id, arr) =>
-    (arr || []).forEach((u, p) => {
-      pts[p] += (u || 0) * byId[id].value;
+    (Array.isArray(arr) ? arr : []).slice(0, n).forEach((u, p) => {
+      pts[p] += (Number(u) || 0) * val(id);
     });
   switch (def.type) {
     case "single":
@@ -136,13 +139,13 @@ export function handPoints(def, data, n, defs) {
       units(def.id, data.units);
       break;
     case "positions":
-      (data.order || []).forEach((p, pos) => {
-        pts[p] += def.values[pos] ?? 0;
+      (Array.isArray(data.order) ? data.order : []).forEach((p, pos) => {
+        if (p >= 0 && p < n) pts[p] += def.values?.[pos] ?? 0;
       });
       break;
     case "totale":
       // Totale combines the negative games. Old saved games may still carry
-      // an "Ultima levată" def — honor it so their history recomputes intact.
+      // an "Ultima levată" def; honor it so their history recomputes intact.
       single("king", data.king);
       if (byId.last && data.last != null) single("last", data.last);
       units("queens", data.queens);
@@ -177,3 +180,15 @@ export function computeRentz(game) {
     done: game.hands.length === totalHands,
   };
 }
+
+export function ranks(totals) {
+  return totals.map((t) => 1 + totals.filter((x) => x > t).length);
+}
+
+export const ordinal = (k) => {
+  const tens = k % 100;
+  if (tens >= 11 && tens <= 13) return `${k}th`;
+  return k + ({ 1: "st", 2: "nd", 3: "rd" }[k % 10] || "th");
+};
+
+export const signed = (v) => (v > 0 ? `+${v}` : `${v}`);

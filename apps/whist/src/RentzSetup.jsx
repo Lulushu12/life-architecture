@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { RENTZ_GAME_DEFS, resizePositions } from "./rules.js";
-import { newId } from "./storage.js";
-import { NumInput, Toggle, SettingRow, PlayersEditor } from "./ui.jsx";
+import { newId } from "@shared/store.js";
+import { IconButton, NumInput, SettingRow, Toggle } from "@shared/ui.jsx";
+import { PlayersEditor, displayNames, duplicateName } from "./ui.jsx";
 
-export default function RentzSetup({ onCancel, onCreate }) {
+export default function RentzSetup({ onCancel, onCreate, recent }) {
   const [players, setPlayers] = useState(["", "", "", ""]);
   const [firstChooser, setFirstChooser] = useState(0);
   const [defs, setDefs] = useState(RENTZ_GAME_DEFS(4));
@@ -28,15 +29,16 @@ export default function RentzSetup({ onCancel, onCreate }) {
   const setDef = (id, patch) =>
     setDefs((ds) => ds.map((d) => (d.id === id ? { ...d, ...patch } : d)));
 
-  const names = players.map((p, i) => p.trim() || `Player ${i + 1}`);
+  const names = displayNames(players);
+  const dup = duplicateName(names);
   const enabledCount = defs.filter((d) => d.enabled).length;
 
   return (
     <div className="page">
       <div className="topbar">
-        <button className="iconbtn" onClick={onCancel}>
+        <IconButton label="Back" onClick={onCancel}>
           ‹
-        </button>
+        </IconButton>
         <div>
           <div className="tb-title">New Rentz game</div>
           <div className="tb-sub">
@@ -45,7 +47,7 @@ export default function RentzSetup({ onCancel, onCreate }) {
         </div>
       </div>
 
-      <PlayersEditor players={players} setPlayers={setPlayers} onCountChange={onCountChange} />
+      <PlayersEditor players={players} setPlayers={setPlayers} onCountChange={onCountChange} recent={recent} />
 
       <div className="field">
         <div className="flabel">First to choose a game</div>
@@ -53,6 +55,8 @@ export default function RentzSetup({ onCancel, onCreate }) {
           {names.map((p, i) => (
             <button
               key={i}
+              type="button"
+              aria-pressed={firstChooser === i}
               className={"chip" + (firstChooser === i ? " sel" : "")}
               onClick={() => setFirstChooser(i)}
             >
@@ -66,7 +70,7 @@ export default function RentzSetup({ onCancel, onCreate }) {
       {defs.map((d) => (
         <div key={d.id} className={"card gamedef" + (d.enabled ? "" : " off")}>
           <div className="gd-head">
-            <Toggle checked={d.enabled} onChange={(v) => setDef(d.id, { enabled: v })} />
+            <Toggle label={d.name} checked={d.enabled} onChange={(v) => setDef(d.id, { enabled: v })} />
             <span className="gd-name">{d.name}</span>
           </div>
           {d.enabled && d.type === "single" && (
@@ -98,8 +102,11 @@ export default function RentzSetup({ onCancel, onCreate }) {
         </div>
       ))}
 
+      {dup && <p className="warn">Every player needs a different name to start.</p>}
       <button
+        type="button"
         className="bigbtn start"
+        disabled={!!dup}
         onClick={() =>
           onCreate({
             id: newId(),

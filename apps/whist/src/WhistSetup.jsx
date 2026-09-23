@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { WHIST_DEFAULT_CONFIG, whistSequence } from "./rules.js";
-import { newId } from "./storage.js";
-import { NumInput, Toggle, SettingRow, PlayersEditor } from "./ui.jsx";
+import { newId } from "@shared/store.js";
+import { IconButton, NumInput, SettingRow, Toggle } from "@shared/ui.jsx";
+import { PlayersEditor, displayNames, duplicateName } from "./ui.jsx";
 
-export default function WhistSetup({ onCancel, onCreate }) {
+export default function WhistSetup({ onCancel, onCreate, recent }) {
   const [players, setPlayers] = useState(["", "", "", ""]);
   const [firstDealer, setFirstDealer] = useState(0);
   const [cfg, setCfg] = useState(WHIST_DEFAULT_CONFIG(4));
@@ -25,22 +26,23 @@ export default function WhistSetup({ onCancel, onCreate }) {
     set(k, v);
   };
 
-  const names = players.map((p, i) => p.trim() || `Player ${i + 1}`);
+  const names = displayNames(players);
+  const dup = duplicateName(names);
   const seqLen = whistSequence(cfg).length;
 
   return (
     <div className="page">
       <div className="topbar">
-        <button className="iconbtn" onClick={onCancel}>
+        <IconButton label="Back" onClick={onCancel}>
           ‹
-        </button>
+        </IconButton>
         <div>
           <div className="tb-title">New Whist game</div>
           <div className="tb-sub">{seqLen} rounds</div>
         </div>
       </div>
 
-      <PlayersEditor players={players} setPlayers={setPlayers} onCountChange={onCountChange} />
+      <PlayersEditor players={players} setPlayers={setPlayers} onCountChange={onCountChange} recent={recent} />
 
       <div className="field">
         <div className="flabel">First dealer</div>
@@ -48,6 +50,8 @@ export default function WhistSetup({ onCancel, onCreate }) {
           {names.map((p, i) => (
             <button
               key={i}
+              type="button"
+              aria-pressed={firstDealer === i}
               className={"chip" + (firstDealer === i ? " sel" : "")}
               onClick={() => setFirstDealer(i)}
             >
@@ -57,20 +61,22 @@ export default function WhistSetup({ onCancel, onCreate }) {
         </div>
       </div>
 
-      <button className="linkbtn" onClick={() => setShowRules((s) => !s)}>
-        {showRules ? "▾ Hide rules" : "▸ Rules (standard — tap to customize)"}
+      <button type="button" className="linkbtn" aria-expanded={showRules} onClick={() => setShowRules((s) => !s)}>
+        {showRules ? "▾ Hide rules" : "▸ Rules: standard, tap to customize"}
       </button>
       {showRules && (
         <div className="card rules">
           <div className="flabel">Round order</div>
           <div className="chips">
             <button
+              type="button"
               className={"chip" + (cfg.order === "ones" ? " sel" : "")}
               onClick={() => set("order", "ones")}
             >
               1 → 8 → 1
             </button>
             <button
+              type="button"
               className={"chip" + (cfg.order === "eights" ? " sel" : "")}
               onClick={() => set("order", "eights")}
             >
@@ -96,7 +102,7 @@ export default function WhistSetup({ onCancel, onCreate }) {
             <NumInput value={cfg.failPerTrick} min={0} onChange={(v) => set("failPerTrick", v)} />
           </SettingRow>
           <SettingRow label="Streak bonuses">
-            <Toggle checked={cfg.streaksEnabled} onChange={(v) => set("streaksEnabled", v)} />
+            <Toggle label="Streak bonuses" checked={cfg.streaksEnabled} onChange={(v) => set("streaksEnabled", v)} />
           </SettingRow>
           {cfg.streaksEnabled && (
             <>
@@ -109,16 +115,26 @@ export default function WhistSetup({ onCancel, onCreate }) {
               <SettingRow label="Streak penalty (−)">
                 <NumInput value={cfg.streakMalus} min={0} step={5} onChange={(v) => set("streakMalus", v)} />
               </SettingRow>
+              <SettingRow label="Skip 1-card rounds" hint="1-card rounds neither extend nor break a streak">
+                <Toggle
+                  label="Skip 1-card rounds in streaks"
+                  checked={!!cfg.streakSkipOnes}
+                  onChange={(v) => set("streakSkipOnes", v)}
+                />
+              </SettingRow>
             </>
           )}
           <SettingRow label="Dealer can't equalize bid sum">
-            <Toggle checked={cfg.forbidEqualSum} onChange={(v) => set("forbidEqualSum", v)} />
+            <Toggle label="Dealer can't equalize bid sum" checked={cfg.forbidEqualSum} onChange={(v) => set("forbidEqualSum", v)} />
           </SettingRow>
         </div>
       )}
 
+      {dup && <p className="warn">Every player needs a different name to start.</p>}
       <button
+        type="button"
         className="bigbtn start"
+        disabled={!!dup}
         onClick={() =>
           onCreate({
             id: newId(),

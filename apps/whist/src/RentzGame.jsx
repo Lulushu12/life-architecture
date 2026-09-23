@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { computeRentz } from "./rules.js";
-import { NumInput, Standings } from "./ui.jsx";
+import { IconButton, NumInput, useConfirm, useToast } from "@shared/ui.jsx";
+import { vibrate, haptics } from "@shared/haptics.js";
+import { computeRentz, handPoints, ranks, signed } from "./rules.js";
+import { Standings, TotalHead } from "./ui.jsx";
+import { useFlash, useEscape } from "./hooks.js";
 
 const sum = (a) => (a || []).reduce((s, x) => s + (x || 0), 0);
 
@@ -17,19 +20,20 @@ function entryComplete(def, data, n, byId) {
       return (
         data.king != null &&
         (!byId.last || data.last != null) &&
-        sum(data.queens) === byId.queens.units &&
-        sum(data.tricks) === byId.tricks.units &&
-        sum(data.diamonds) === byId.diamonds.units
+        ["queens", "tricks", "diamonds"].every((id) => !byId[id] || sum(data[id]) === byId[id].units)
       );
     default:
       return false;
   }
 }
 
-export default function RentzGame({ game, onChange, onHome }) {
+export default function RentzGame({ game, onChange, onHome, onPlayAgain }) {
+  const toast = useToast();
+  const [confirm, confirmSheet] = useConfirm();
   const n = game.players.length;
   const c = computeRentz(game);
   const [editIdx, setEditIdx] = useState(null);
+  const [flash, triggerFlash] = useFlash();
   const byId = Object.fromEntries(game.config.games.map((d) => [d.id, d]));
   const chooser = c.nextChooser;
   const pending = game.pending || null;
@@ -39,7 +43,9 @@ export default function RentzGame({ game, onChange, onHome }) {
   const setData = (fn) =>
     onChange((g) => ({ ...g, pending: { ...g.pending, data: fn(g.pending.data) } }));
   const cancelPending = () => onChange((g) => ({ ...g, pending: null }));
-  const commit = () =>
+  const commit = () => {
+    const pts = handPoints(pendingDef, pending.data, n, game.config.games);
+    const handNo = game.hands.length;
     onChange((g) => ({
       ...g,
       hands: [
@@ -52,15 +58,41 @@ export default function RentzGame({ game, onChange, onHome }) {
       ],
       pending: null,
     }));
-  const undo = () =>
-    onChange((g) => (g.pending ? { ...g, pending: null } : { ...g, hands: g.hands.slice(0, -1) }));
+    vibrate(haptics.tap);
+    triggerFlash(handNo);
+    toast(`Hand ${handNo + 1}, ${pendingDef.name}: ${game.players.map((p, i) => `${p} ${signed(pts[i])}`).join(", ")}`);
+  };
+
+  const undo = async () => {
+    if (pending) {
+      const saved = pending;
+      onChange((g) => ({ ...g, pending: null }));
+      toast.undo(`Discarded the ${pendingDef.name} entry`, () =>
+        onChange((g) => (g.pending ? g : { ...g, pending: saved }))
+      );
+      return;
+    }
+    const last = game.hands[game.hands.length - 1];
+    if (!last) return;
+    const lastName = byId[last.gameId]?.name || "hand";
+    const yes = await confirm({
+      title: "Undo the last hand?",
+      message: `${game.players[last.chooserIdx]}'s ${lastName} and its scores will be removed.`,
+      confirmLabel: "Undo hand",
+      danger: true,
+    });
+    if (!yes) return;
+    const count = game.hands.length;
+    onChange((g) => (g.hands.length === count && !g.pending ? { ...g, hands: g.hands.slice(0, -1) } : g));
+    toast(`Undone: ${game.players[last.chooserIdx]}'s ${lastName}`);
+  };
 
   return (
     <div className="page">
       <div className="topbar">
-        <button className="iconbtn" onClick={onHome}>
+        <IconButton label="Back to games" onClick={onHome}>
           ‹
-        </button>
+        </IconButton>
         <div>
           <div className="tb-title">Rentz</div>
           <div className="tb-sub">
@@ -70,19 +102,19 @@ export default function RentzGame({ game, onChange, onHome }) {
           </div>
         </div>
         {!c.done && (pending || game.hands.length > 0) && (
-          <button
-            className="linkbtn"
-            onClick={() => {
-              if (pending || confirm("Undo the last hand?")) undo();
-            }}
-          >
+          <button type="button" className="linkbtn" onClick={undo}>
             Undo
           </button>
         )}
       </div>
 
       {c.done ? (
-        <Standings players={game.players} totals={c.totals} />
+        <Standings
+          players={game.players}
+          totals={c.totals}
+          onPlayAgain={onPlayAgain}
+          againHint={`Same games and points; ${game.players[(game.firstChooser + 1) % n]} chooses first.`}
+        />
       ) : (
         <div className="entry card">
           {!pending ? (
@@ -94,6 +126,7 @@ export default function RentzGame({ game, onChange, onHome }) {
                   return (
                     <button
                       key={d.id}
+                      type="button"
                       disabled={usedIt}
                       className={"gamebtn" + (usedIt ? " off" : "")}
                       onClick={() => pick(d.id)}
@@ -108,7 +141,7 @@ export default function RentzGame({ game, onChange, onHome }) {
             <>
               <div className="entry-label">
                 {pendingDef.name}
-                <button className="linkbtn" onClick={cancelPending}>
+                <button type="button" className="linkbtn" onClick={cancelPending}>
                   change game
                 </button>
               </div>
@@ -120,6 +153,7 @@ export default function RentzGame({ game, onChange, onHome }) {
                 setData={setData}
               />
               <button
+                type="button"
                 className="bigbtn start"
                 disabled={!entryComplete(pendingDef, pending.data, n, byId)}
                 onClick={commit}
@@ -131,10 +165,11 @@ export default function RentzGame({ game, onChange, onHome }) {
         </div>
       )}
 
-      <RentzTable game={game} c={c} onEdit={setEditIdx} />
+      <RentzTable game={game} c={c} onEdit={setEditIdx} flashRow={flash} />
       {c.rows.length > 0 && (
-        <p className="hint small">Tap a row to correct it — totals recompute automatically.</p>
+        <p className="hint small">Tap a row to correct it. Totals recompute automatically.</p>
       )}
+      {confirmSheet}
 
       {editIdx != null && (
         <HandEditor
@@ -201,27 +236,33 @@ function HandEntry({ def, byId, players, data, setData }) {
               label="Ultima levată taken by"
             />
           )}
-          <UnitsEntry
-            players={players}
-            label="Dame"
-            units={byId.queens.units}
-            value={data.queens}
-            onChange={(u) => setData((d) => ({ ...d, queens: u }))}
-          />
-          <UnitsEntry
-            players={players}
-            label="Levate"
-            units={byId.tricks.units}
-            value={data.tricks}
-            onChange={(u) => setData((d) => ({ ...d, tricks: u }))}
-          />
-          <UnitsEntry
-            players={players}
-            label="Caro"
-            units={byId.diamonds.units}
-            value={data.diamonds}
-            onChange={(u) => setData((d) => ({ ...d, diamonds: u }))}
-          />
+          {byId.queens && (
+            <UnitsEntry
+              players={players}
+              label="Dame"
+              units={byId.queens.units}
+              value={data.queens}
+              onChange={(u) => setData((d) => ({ ...d, queens: u }))}
+            />
+          )}
+          {byId.tricks && (
+            <UnitsEntry
+              players={players}
+              label="Levate"
+              units={byId.tricks.units}
+              value={data.tricks}
+              onChange={(u) => setData((d) => ({ ...d, tricks: u }))}
+            />
+          )}
+          {byId.diamonds && (
+            <UnitsEntry
+              players={players}
+              label="Caro"
+              units={byId.diamonds.units}
+              value={data.diamonds}
+              onChange={(u) => setData((d) => ({ ...d, diamonds: u }))}
+            />
+          )}
         </>
       );
     default:
@@ -237,6 +278,8 @@ function PlayerPick({ players, value, onPick, label }) {
         {players.map((p, i) => (
           <button
             key={i}
+            type="button"
+            aria-pressed={value === i}
             className={"pchip btn" + (value === i ? " active" : "")}
             onClick={() => onPick(i)}
           >
@@ -260,6 +303,7 @@ function UnitsEntry({ players, label, units, value, onChange }) {
         <div key={i} className="unitrow">
           <span className="pname">{p}</span>
           <NumInput
+            label={`${label} for ${p}`}
             value={vals[i]}
             min={0}
             max={vals[i] + units - total}
@@ -291,13 +335,13 @@ function OrderEntry({ players, value, onChange }) {
       )}
       <div className="playerchips">
         {remaining.map((i) => (
-          <button key={i} className="pchip btn" onClick={() => onChange([...value, i])}>
+          <button key={i} type="button" className="pchip btn" onClick={() => onChange([...value, i])}>
             {players[i]}
           </button>
         ))}
       </div>
       {value.length > 0 && (
-        <button className="linkbtn" onClick={() => onChange(value.slice(0, -1))}>
+        <button type="button" className="linkbtn" onClick={() => onChange(value.slice(0, -1))}>
           Remove last
         </button>
       )}
@@ -305,35 +349,30 @@ function OrderEntry({ players, value, onChange }) {
   );
 }
 
-function RentzTable({ game, c, onEdit }) {
+function RentzTable({ game, c, onEdit, flashRow }) {
+  const place = ranks(c.totals);
+  const best = Math.max(...c.totals);
+  const scored = c.rows.length > 0;
   return (
     <div className="tablewrap">
       <table className="scoretable">
         <thead>
           <tr>
-            <th className="rdcol">Game</th>
+            <th className="rdcol" scope="col">
+              Game
+            </th>
             {game.players.map((p, i) => (
-              <th key={i}>
-                <div className="thname">{p}</div>
-              </th>
-            ))}
-          </tr>
-          <tr className="totalsrow">
-            <th className="rdcol">Σ</th>
-            {c.totals.map((t, i) => (
-              <th key={i} className="total">
-                {t}
-              </th>
+              <TotalHead key={i} name={p} total={c.totals[i]} rank={place[i]} delta={c.totals[i] - best} scored={scored} />
             ))}
           </tr>
         </thead>
         <tbody>
           {c.rows.map((r, i) => (
-            <tr key={i} className="done" onClick={() => onEdit(i)}>
-              <td className="rdcol gname">
+            <tr key={i} className={"done" + (flashRow === i ? " flash" : "")} onClick={() => onEdit(i)}>
+              <th className="rdcol gname" scope="row">
                 <span className="bid">{game.players[r.chooser]}</span>
                 {r.def.name}
-              </td>
+              </th>
               {r.pts.map((p, j) => (
                 <td key={j} className={p < 0 ? "badcell" : p > 0 ? "okcell" : ""}>
                   <span className="bid">{p ? (p > 0 ? "+" + p : p) : ""}</span>
@@ -354,18 +393,26 @@ function HandEditor({ game, idx, byId, onSave, onClose }) {
   const n = game.players.length;
   const [data, setDataState] = useState(h.data);
   const setData = (fn) => setDataState((d) => fn(d));
+  useEscape(onClose);
   return (
     <div className="overlay" onClick={onClose}>
-      <div className="modal card" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal card"
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Edit ${def.name}`}
+        onClick={(e) => e.stopPropagation()}
+      >
         <h3>
           Edit: {def.name} ({game.players[h.chooserIdx]})
         </h3>
         <HandEntry def={def} byId={byId} players={game.players} data={data} setData={setData} />
         <div className="btnrow">
-          <button className="linkbtn" onClick={onClose}>
+          <button type="button" className="linkbtn" onClick={onClose}>
             Cancel
           </button>
           <button
+            type="button"
             className="bigbtn"
             disabled={!entryComplete(def, data, n, byId)}
             onClick={() => onSave(data)}
