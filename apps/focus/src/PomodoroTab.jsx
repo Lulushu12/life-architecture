@@ -1,153 +1,237 @@
 import { useState } from "react";
+import { useConfirm } from "@shared/ui.jsx";
 import {
-  startPomodoro,
+  EXTEND_MIN,
+  PRESETS,
+  applyConfig,
+  dismissPhaseEnd,
+  extendPhase,
+  goalStreaks,
+  isBreak,
+  isRunning,
   pausePomodoro,
-  resetPomodoro,
-  skipPomodoro,
-  phaseDurationMs,
+  phaseLabel,
   pomodoroRemainingMs,
+  pomodoroTotalMs,
+  resetPomodoro,
+  setPomodoroTask,
+  skipBreak,
+  skipPomodoro,
+  startPomodoro,
 } from "./logic.js";
-import { dayKey } from "./storage.js";
-import { ensureAudioContext } from "./audio.js";
-import { notifySupported, notifyPermission, requestNotifyPermission } from "./notify.js";
-import { NumInput, Toggle, SettingRow, ProgressRing } from "./ui.jsx";
+import { Ring, Sheet, fmtClock } from "./ui.jsx";
 
-function fmt(ms) {
-  const total = Math.max(0, Math.round(ms / 1000));
-  const m = Math.floor(total / 60);
-  const s = total % 60;
-  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-}
+const TIPS = [
+  "Look at something 20 feet away for 20 seconds.",
+  "Stand up and roll your shoulders a few times.",
+  "Drink a glass of water.",
+  "Take five slow breaths, making each exhale longer than the inhale.",
+  "Step away from the screen and let your eyes rest.",
+  "Stretch your wrists, fingers and neck.",
+  "Walk to a window and get some daylight.",
+  "Leave your phone alone: a real break beats a scroll.",
+];
 
-export default function PomodoroTab({ store, setStore, now, phaseLabel }) {
+export default function PomodoroTab({ store, setStore, now, today, onStartGesture, onStart }) {
+  const [confirm, confirmSheet] = useConfirm();
+  const [picker, setPicker] = useState(false);
   const p = store.pomodoro;
-  const phase = p.run?.phase || "work";
-  const running = !!(p.run && p.run.pausedRemainingMs == null);
+  const run = p.run;
+  const phase = run?.phase || "work";
+  const running = isRunning(run);
   const remainingMs = pomodoroRemainingMs(store, now);
-  const totalMs = phaseDurationMs(p.config, phase);
+  const totalMs = pomodoroTotalMs(store);
   const pct = totalMs > 0 ? 1 - remainingMs / totalMs : 0;
-  const todayCount = store.logs.days[dayKey(now)]?.pomodoroCount || 0;
-  const [permission, setPermission] = useState(notifyPermission());
+  const elapsedMs = run && run.startedAt != null ? totalMs - remainingMs : 0;
+  const todayCount = store.logs.days[today]?.pomodoroCount || 0;
+  const goal = store.settings.dailyGoal;
+  const streak = goalStreaks(store.logs.days, goal, today);
+  const task = p.taskId ? store.tasks.items[p.taskId] : null;
+  const activeTasks = Object.values(store.tasks.items)
+    .filter((t) => !t.archived)
+    .sort((a, b) => a.createdAt - b.createdAt);
+  const pe = running ? null : p.phaseEnd;
 
-  const setConfig = (patch) =>
-    setStore((s) => ({ ...s, pomodoro: { ...s.pomodoro, config: { ...s.pomodoro.config, ...patch } } }));
-
-  const handleStart = () => {
-    ensureAudioContext();
-    setStore((s) => startPomodoro(s, Date.now()));
+  const act = (fn) => {
+    onStartGesture();
+    setStore((s) => fn(s, Date.now()));
   };
-  const handlePause = () => setStore((s) => pausePomodoro(s, Date.now()));
-  const handleSkip = () => setStore((s) => skipPomodoro(s, Date.now()));
-  const handleReset = () => setStore((s) => resetPomodoro(s));
 
-  const unit = p.config.unit;
-  const unitLabel = unit === "sec" ? "sec" : "min";
+  const guardWork = async (title) => {
+    if (phase !== "work" || elapsedMs < 60000) return true;
+    return confirm({
+      title,
+      message: `${fmtClock(elapsedMs)} of focus so far will not count as a pomodoro.`,
+      confirmLabel: title.startsWith("Skip") ? "Skip" : "Reset",
+      danger: true,
+    });
+  };
+
+  const handleSkip = async () => {
+    if (await guardWork("Skip this focus session?")) setStore((s) => skipPomodoro(s, Date.now()));
+  };
+  const handleReset = async () => {
+    if (await guardWork("Reset this focus session?")) setStore((s) => resetPomodoro(s, Date.now()));
+  };
+
+  const pickTask = (id) => {
+    setStore((s) => setPomodoroTask(s, id));
+    setPicker(false);
+  };
 
   return (
     <div>
-      <div className="card pomo-card">
-        <div className="pomo-phase">{phaseLabel(phase)}</div>
-        <ProgressRing pct={pct}>
-          <div className="pomo-time">{fmt(remainingMs)}</div>
-        </ProgressRing>
-        <div className="pomo-count">🍅 {todayCount} today</div>
-        <div className="pomo-controls">
-          {running ? (
-            <button className="bigbtn" onClick={handlePause}>
-              Pause
-            </button>
-          ) : (
-            <button className="bigbtn" onClick={handleStart}>
-              {p.run ? "Resume" : "Start"}
-            </button>
-          )}
-          <div className="pomo-subbtns">
-            <button className="linkbtn" onClick={handleSkip}>
-              Skip
-            </button>
-            <button className="linkbtn" onClick={handleReset}>
-              Reset
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <h2>Settings</h2>
-      <div className="card">
-        <div className="unitrow">
-          <span className="setlabel">Debug unit</span>
-          <div className="chips">
-            {["min", "sec"].map((u) => (
-              <button
-                key={u}
-                className={"chip" + (unit === u ? " sel" : "")}
-                onClick={() => setConfig({ unit: u })}
-              >
-                {u}
+      {pe && (
+        <div className="card phaseend" role="status">
+          <div className="phaseend-title">{pe.finished === "work" ? "Focus complete" : "Break over"}</div>
+          <p className="hint small">
+            {pe.finished === "work"
+              ? `Up next: ${phaseLabel(pe.next).toLowerCase()}.`
+              : "Ready for the next focus session?"}
+          </p>
+          {pe.finished === "work" ? (
+            <>
+              <button type="button" className="bigbtn" onClick={() => act(startPomodoro)}>
+                Start break
               </button>
-            ))}
-          </div>
+              <div className="phaseend-row">
+                <button type="button" className="linkbtn" onClick={() => act(skipBreak)}>
+                  Skip break
+                </button>
+                <button type="button" className="linkbtn" onClick={() => act(extendPhase)}>
+                  +{EXTEND_MIN} min
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <button type="button" className="bigbtn" onClick={() => act(startPomodoro)}>
+                Start focus
+              </button>
+              <div className="phaseend-row">
+                <button type="button" className="linkbtn" onClick={() => act(extendPhase)}>
+                  +{EXTEND_MIN} min break
+                </button>
+                <button type="button" className="linkbtn" onClick={() => setStore(dismissPhaseEnd)}>
+                  Later
+                </button>
+              </div>
+            </>
+          )}
         </div>
-        <SettingRow label={`Work (${unitLabel})`}>
-          <NumInput
-            value={p.config.workMin}
-            min={unit === "sec" ? 1 : 1}
-            max={unit === "sec" ? 600 : 180}
-            onChange={(v) => setConfig({ workMin: v })}
-          />
-        </SettingRow>
-        <SettingRow label={`Short break (${unitLabel})`}>
-          <NumInput
-            value={p.config.shortBreakMin}
-            min={1}
-            max={unit === "sec" ? 600 : 60}
-            onChange={(v) => setConfig({ shortBreakMin: v })}
-          />
-        </SettingRow>
-        <SettingRow label={`Long break (${unitLabel})`}>
-          <NumInput
-            value={p.config.longBreakMin}
-            min={1}
-            max={unit === "sec" ? 600 : 90}
-            onChange={(v) => setConfig({ longBreakMin: v })}
-          />
-        </SettingRow>
-        <SettingRow label="Long break every">
-          <NumInput
-            value={p.config.longBreakEvery}
-            min={2}
-            max={12}
-            onChange={(v) => setConfig({ longBreakEvery: Math.round(v) })}
-          />
-        </SettingRow>
-        <SettingRow label="Auto-start next phase">
-          <Toggle checked={p.config.autoStart} onChange={(v) => setConfig({ autoStart: v })} />
-        </SettingRow>
-        <SettingRow label="Sound">
-          <Toggle checked={p.config.sound} onChange={(v) => setConfig({ sound: v })} />
-        </SettingRow>
-      </div>
+      )}
 
-      <h2>Notifications</h2>
-      <div className="card">
-        {!notifySupported() ? (
-          <div className="hint small">Notifications aren't supported in this browser.</div>
-        ) : permission === "granted" ? (
-          <div className="hint small">Notifications enabled.</div>
-        ) : permission === "denied" ? (
-          <div className="hint small">Notifications blocked — enable them in your browser settings.</div>
-        ) : (
-          <button
-            className="bigbtn"
-            onClick={async () => {
-              const res = await requestNotifyPermission();
-              setPermission(res);
-            }}
-          >
-            Enable notifications
-          </button>
+      <div className={"card pomo-card" + (isBreak(phase) ? " onbreak" : "")}>
+        <div className="pomo-phase">
+          {phaseLabel(phase)}
+          {run?.extension ? " (extra)" : ""}
+        </div>
+        <Ring pct={pct} className="pomo-ring">
+          <div className="pomo-time" role="timer" aria-live="off">
+            {fmtClock(remainingMs)}
+          </div>
+        </Ring>
+        <button
+          type="button"
+          className={"chip taskchip" + (task ? " sel" : "")}
+          onClick={() => setPicker(true)}
+          aria-label={task ? `Focus task: ${task.name}. Change` : "Link a task"}
+        >
+          {task ? `🎯 ${task.name}` : "+ Link a task"}
+        </button>
+
+        {!pe && (
+          <div className="pomo-controls">
+            {running ? (
+              <button type="button" className="bigbtn" onClick={() => setStore((s) => pausePomodoro(s, Date.now()))}>
+                Pause
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="bigbtn"
+                onClick={() => {
+                  onStartGesture();
+                  onStart();
+                }}
+              >
+                {run?.startedAt != null ? "Resume" : phase === "work" ? "Start" : `Start ${phaseLabel(phase).toLowerCase()}`}
+              </button>
+            )}
+            <div className="pomo-subbtns">
+              <button type="button" className="linkbtn" onClick={handleSkip}>
+                Skip
+              </button>
+              <button type="button" className="linkbtn" onClick={handleReset} disabled={!run}>
+                Reset
+              </button>
+            </div>
+          </div>
         )}
       </div>
+
+      {running && isBreak(phase) && (
+        <div className="card tipcard" aria-live="polite">
+          <div className="flabel">Break idea</div>
+          <div>{TIPS[Math.floor(now / 30000) % TIPS.length]}</div>
+        </div>
+      )}
+
+      <div className="card goalcard">
+        <Ring pct={todayCount / goal} size={64} stroke={7} className="goal-ring">
+          <span className="goal-num">{todayCount}</span>
+        </Ring>
+        <div className="goal-text">
+          <div className="goal-main">
+            🍅 {todayCount} / {goal} today
+          </div>
+          <div className="hint small goal-sub">
+            Streak {streak.current} {streak.current === 1 ? "day" : "days"} · best {streak.best}
+          </div>
+        </div>
+      </div>
+
+      <h2>Presets</h2>
+      <div className="chips">
+        {PRESETS.map((pre) => {
+          const sel = p.config.workMin === pre.workMin && p.config.shortBreakMin === pre.shortBreakMin;
+          return (
+            <button
+              key={pre.label}
+              type="button"
+              className={"chip" + (sel ? " sel" : "")}
+              aria-pressed={sel}
+              onClick={() => setStore((s) => applyConfig(s, { workMin: pre.workMin, shortBreakMin: pre.shortBreakMin }))}
+            >
+              {pre.label}
+            </button>
+          );
+        })}
+      </div>
+      <p className="hint small">Presets apply from the next phase. Fine-tune durations in Settings.</p>
+
+      <Sheet open={picker} title="Focus on" onClose={() => setPicker(false)}>
+        <div className="pickerlist">
+          <button type="button" className={"pickrow" + (!p.taskId ? " sel" : "")} onClick={() => pickTask(null)}>
+            No task
+          </button>
+          {activeTasks.map((t) => (
+            <button
+              key={t.id}
+              type="button"
+              className={"pickrow" + (p.taskId === t.id ? " sel" : "")}
+              onClick={() => pickTask(t.id)}
+            >
+              {t.name}
+            </button>
+          ))}
+        </div>
+        {activeTasks.length === 0 && <p className="hint small">Add tasks on the Tasks tab to link them here.</p>}
+        <button type="button" className="bigbtn secondary" onClick={() => setPicker(false)}>
+          Close
+        </button>
+      </Sheet>
+      {confirmSheet}
     </div>
   );
 }

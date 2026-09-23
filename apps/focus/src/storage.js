@@ -1,136 +1,158 @@
-// Everything lives in one localStorage key, written through on every state
-// change — killing the app or rebooting the phone never loses anything.
+import { createStore } from "@shared/store.js";
+import { PHASES, phaseDurationMs } from "./logic.js";
 
-const KEY = "focus-v1";
+export const STORAGE_KEY = "focus-v1";
 
-export function defaultStore() {
-  const now = Date.now();
+export const DEFAULT_CONFIG = {
+  workMin: 25,
+  shortBreakMin: 5,
+  longBreakMin: 15,
+  longBreakEvery: 4,
+  autoStart: false,
+  sound: true,
+  unit: "min",
+};
+
+export const DEFAULT_SETTINGS = {
+  vibrate: true,
+  keepAwake: true,
+  dailyGoal: 8,
+  notifAsked: false,
+};
+
+export function defaultStore(now = Date.now()) {
   return {
-    pomodoro: {
-      config: {
-        workMin: 25,
-        shortBreakMin: 5,
-        longBreakMin: 15,
-        longBreakEvery: 4,
-        autoStart: false,
-        sound: true,
-        unit: "min", // "min" | "sec" — "sec" is a debug/testing toggle
-      },
-      run: null, // { phase: 'work'|'short'|'long', phaseEndsAt, pausedRemainingMs }
-      pomosSinceLongBreak: 0,
-    },
-    tasks: {
-      items: {}, // id -> { id, name, archived, createdAt }
-      run: null, // { taskId, startedAt }
-    },
+    pomodoro: { config: { ...DEFAULT_CONFIG }, run: null, pomosSinceLongBreak: 0, taskId: null, phaseEnd: null },
+    tasks: { items: {}, run: null },
     reminders: {
       items: {
-        posture: {
-          id: "posture",
-          label: "Posture check",
-          intervalMin: 30,
-          enabled: true,
-          nextDueAt: now + 30 * 60000,
-        },
-        stretch: {
-          id: "stretch",
-          label: "Stand up & stretch",
-          intervalMin: 60,
-          enabled: true,
-          nextDueAt: now + 60 * 60000,
-        },
+        posture: { id: "posture", label: "Posture check", intervalMin: 30, enabled: true, nextDueAt: now + 30 * 60000 },
+        stretch: { id: "stretch", label: "Stand up and stretch", intervalMin: 60, enabled: true, nextDueAt: now + 60 * 60000 },
       },
-      banners: [], // ids of reminders currently overdue/showing a banner
+      banners: [],
     },
-    logs: {
-      days: {}, // 'YYYY-MM-DD' -> { pomodoroCount, pomodoroMinutes, tasks: { taskId: minutes } }
-    },
+    logs: { days: {}, sessions: [] },
+    settings: { ...DEFAULT_SETTINGS },
   };
 }
 
-export function loadStore() {
-  try {
-    const s = JSON.parse(localStorage.getItem(KEY));
-    if (s && typeof s === "object" && s.pomodoro && s.tasks && s.reminders && s.logs) {
-      return s;
-    }
-  } catch {
-    /* corrupted store falls through to a fresh one */
-  }
-  return defaultStore();
-}
+const isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+const fin = (v) => typeof v === "number" && Number.isFinite(v);
+const num = (v, d) => (fin(v) ? v : d);
+const clamp = (v, lo, hi, d) => Math.min(hi, Math.max(lo, num(v, d)));
+const bool = (v, d) => (typeof v === "boolean" ? v : d);
+const numMap = (m) => (isObj(m) ? Object.fromEntries(Object.entries(m).filter(([, v]) => fin(v))) : {});
 
-export function saveStore(store) {
-  try {
-    localStorage.setItem(KEY, JSON.stringify(store));
-  } catch {
-    /* quota errors: nothing sensible to do, data stays in memory */
-  }
-}
-
-export function newId() {
-  return crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-}
-
-// Local-date key, e.g. "2026-08-04" — matches the user's wall-clock day,
-// not UTC, so stats line up with when the user actually worked.
-export function dayKey(ts) {
-  const d = new Date(ts);
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}-${m}-${day}`;
-}
-
-export function startOfNextLocalDay(ts) {
-  const d = new Date(ts);
-  d.setHours(24, 0, 0, 0);
-  return d.getTime();
-}
-
-function ensureDay(logs, key) {
-  if (!logs.days[key]) logs.days[key] = { pomodoroCount: 0, pomodoroMinutes: 0, tasks: {} };
-  return logs.days[key];
-}
-
-export function addPomodoroCompletion(logs, endedAt, minutes) {
-  const key = dayKey(endedAt);
-  const days = { ...logs.days };
-  const day = ensureDay({ days }, key);
-  days[key] = {
-    ...day,
-    pomodoroCount: day.pomodoroCount + 1,
-    pomodoroMinutes: day.pomodoroMinutes + minutes,
+function normalizeConfig(c) {
+  const config = { ...DEFAULT_CONFIG, ...(isObj(c) ? c : {}) };
+  const unit = import.meta.env.DEV && config.unit === "sec" ? "sec" : "min";
+  return {
+    ...config,
+    workMin: clamp(config.workMin, 1, 600, 25),
+    shortBreakMin: clamp(config.shortBreakMin, 1, 600, 5),
+    longBreakMin: clamp(config.longBreakMin, 1, 600, 15),
+    longBreakEvery: Math.round(clamp(config.longBreakEvery, 2, 12, 4)),
+    autoStart: bool(config.autoStart, false),
+    sound: bool(config.sound, true),
+    unit,
   };
-  return { ...logs, days };
 }
 
-// Splits [startedAt, endedAt) into per-local-day segments and adds the
-// elapsed minutes of each segment to that day's task total — this is what
-// makes a task left running across midnight (or across an app kill) get
-// attributed correctly instead of dumping everything into one day.
-export function addTaskElapsed(logs, taskId, startedAt, endedAt) {
-  if (endedAt <= startedAt) return logs;
-  const days = { ...logs.days };
-  let cursor = startedAt;
-  let guard = 0;
-  while (cursor < endedAt && guard < 3650) {
-    guard++;
-    const segEnd = Math.min(endedAt, startOfNextLocalDay(cursor));
-    const key = dayKey(cursor);
-    const day = ensureDay({ days }, key);
-    const minutes = (segEnd - cursor) / 60000;
-    days[key] = {
-      ...day,
-      tasks: { ...day.tasks, [taskId]: (day.tasks[taskId] || 0) + minutes },
+function normalizeRun(run, config, taskIds) {
+  if (!isObj(run) || !PHASES.includes(run.phase) || !fin(run.phaseEndsAt)) return null;
+  const durationMs = fin(run.durationMs) && run.durationMs > 0 ? run.durationMs : phaseDurationMs(config, run.phase);
+  const paused = run.pausedRemainingMs == null ? null : clamp(run.pausedRemainingMs, 0, durationMs, durationMs);
+  const startedAt = fin(run.startedAt) ? run.startedAt : paused === durationMs ? null : run.phaseEndsAt - durationMs;
+  return {
+    ...run,
+    durationMs,
+    startedAt,
+    pausedRemainingMs: paused,
+    taskId: run.phase === "work" && taskIds.has(run.taskId) ? run.taskId : null,
+  };
+}
+
+export function normalize(store) {
+  const sec = (v) => (isObj(v) ? v : {});
+  const p = sec(store.pomodoro);
+  const tk = sec(store.tasks);
+  const rm = sec(store.reminders);
+  const lg = sec(store.logs);
+  const config = normalizeConfig(p.config);
+
+  const items = {};
+  for (const [id, t] of Object.entries(isObj(tk.items) ? tk.items : {})) {
+    if (!isObj(t)) continue;
+    items[id] = { ...t, id, name: String(t.name ?? "Untitled"), archived: !!t.archived, createdAt: num(t.createdAt, 0) };
+  }
+  const taskIds = new Set(Object.keys(items));
+  const tr = tk.run;
+  const taskRun =
+    isObj(tr) && taskIds.has(tr.taskId) && fin(tr.startedAt)
+      ? { ...tr, sessionStart: num(tr.sessionStart, tr.startedAt) }
+      : null;
+
+  const reminders = {};
+  const now = Date.now();
+  for (const [id, r] of Object.entries(isObj(rm.items) ? rm.items : {})) {
+    if (!isObj(r)) continue;
+    const intervalMin = clamp(r.intervalMin, 0.1, 1440, 30);
+    reminders[id] = {
+      ...r,
+      id,
+      label: String(r.label ?? "Reminder"),
+      intervalMin,
+      enabled: !!r.enabled,
+      nextDueAt: num(r.nextDueAt, now + intervalMin * 60000),
     };
-    cursor = segEnd;
   }
-  return { ...logs, days };
+  const banners = Array.isArray(rm.banners)
+    ? [...new Set(rm.banners.filter((b) => reminders[b]))]
+    : [];
+
+  const days = {};
+  for (const [key, d] of Object.entries(isObj(lg.days) ? lg.days : {})) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(key) || !isObj(d)) continue;
+    days[key] = {
+      pomodoroCount: num(d.pomodoroCount, 0),
+      pomodoroMinutes: num(d.pomodoroMinutes, 0),
+      tasks: numMap(d.tasks),
+      pomoTasks: numMap(d.pomoTasks),
+    };
+  }
+  const sessions = Array.isArray(lg.sessions)
+    ? lg.sessions.filter((s) => isObj(s) && fin(s.start) && fin(s.end) && typeof s.kind === "string")
+    : [];
+
+  const pe = p.phaseEnd;
+  const phaseEnd = isObj(pe) && PHASES.includes(pe.finished) && PHASES.includes(pe.next) ? pe : null;
+
+  const s = sec(store.settings);
+  return {
+    ...store,
+    pomodoro: {
+      ...p,
+      config,
+      run: normalizeRun(p.run, config, taskIds),
+      pomosSinceLongBreak: Math.max(0, Math.round(num(p.pomosSinceLongBreak, 0))),
+      taskId: taskIds.has(p.taskId) ? p.taskId : null,
+      phaseEnd,
+    },
+    tasks: { ...tk, items, run: taskRun },
+    reminders: { ...rm, items: reminders, banners },
+    logs: { ...lg, days, sessions },
+    settings: {
+      ...s,
+      vibrate: bool(s.vibrate, true),
+      keepAwake: bool(s.keepAwake, true),
+      dailyGoal: Math.round(clamp(s.dailyGoal, 1, 30, 8)),
+      notifAsked: bool(s.notifAsked, false),
+    },
+  };
 }
 
-export function last7DayKeys(now = Date.now()) {
-  const keys = [];
-  for (let i = 6; i >= 0; i--) keys.push(dayKey(now - i * 86400000));
-  return keys;
+export const focusStore = createStore({ key: STORAGE_KEY, version: 1, defaults: defaultStore, normalize });
+
+export function validateBackup(obj) {
+  return isObj(obj) && isObj(obj.pomodoro) && isObj(obj.tasks) && isObj(obj.reminders) && isObj(obj.logs);
 }

@@ -1,6 +1,15 @@
 import { useState } from "react";
-import { newId } from "./storage.js";
-import { NumInput, Toggle } from "./ui.jsx";
+import { newId } from "@shared/store.js";
+import { IconButton, NumInput, Toggle, useToast } from "@shared/ui.jsx";
+import { isNativeNotify } from "@shared/notify.js";
+import {
+  addReminder,
+  deleteReminder,
+  effectiveDueAt,
+  restoreReminder,
+  setReminderEnabled,
+  setReminderInterval,
+} from "./logic.js";
 
 function fmtInterval(mins) {
   if (mins < 1) return `${Math.round(mins * 60)}s`;
@@ -8,103 +17,94 @@ function fmtInterval(mins) {
   return `${mins}m`;
 }
 
-export default function RemindersTab({ store, setStore }) {
+function fmtDue(ms) {
+  const mins = Math.max(0, Math.round(ms / 60000));
+  if (mins < 1) return "now";
+  if (mins < 60) return `in ${mins}m`;
+  return `in ${Math.floor(mins / 60)}h ${mins % 60}m`;
+}
+
+export default function RemindersTab({ store, setStore, now }) {
+  const toast = useToast();
   const [label, setLabel] = useState("");
   const [interval, setInterval_] = useState(30);
 
   const items = Object.values(store.reminders.items).sort((a, b) => a.label.localeCompare(b.label));
 
-  const addReminder = () => {
+  const add = () => {
     const trimmed = label.trim();
     if (!trimmed) return;
     const id = newId();
-    const now = Date.now();
-    setStore((s) => ({
-      ...s,
-      reminders: {
-        ...s.reminders,
-        items: {
-          ...s.reminders.items,
-          [id]: { id, label: trimmed, intervalMin: interval, enabled: true, nextDueAt: now + interval * 60000 },
-        },
-      },
-    }));
+    setStore((s) => addReminder(s, id, trimmed, interval, Date.now()));
     setLabel("");
   };
 
-  const toggleEnabled = (id, enabled) => {
-    setStore((s) => {
-      const r = s.reminders.items[id];
-      if (!r) return s;
-      const next = { ...r, enabled, nextDueAt: enabled ? Date.now() + r.intervalMin * 60000 : r.nextDueAt };
-      const banners = enabled ? s.reminders.banners : (s.reminders.banners || []).filter((b) => b !== id);
-      return { ...s, reminders: { ...s.reminders, items: { ...s.reminders.items, [id]: next }, banners } };
-    });
-  };
-
-  const setIntervalFor = (id, mins) => {
-    setStore((s) => {
-      const r = s.reminders.items[id];
-      if (!r) return s;
-      return {
-        ...s,
-        reminders: {
-          ...s.reminders,
-          items: { ...s.reminders.items, [id]: { ...r, intervalMin: mins, nextDueAt: Date.now() + mins * 60000 } },
-        },
-      };
-    });
-  };
-
-  const deleteReminder = (id) => {
-    setStore((s) => {
-      const items = { ...s.reminders.items };
-      delete items[id];
-      const banners = (s.reminders.banners || []).filter((b) => b !== id);
-      return { ...s, reminders: { ...s.reminders, items, banners } };
-    });
+  const remove = (r) => {
+    setStore((s) => deleteReminder(s, r.id));
+    toast.undo(`Deleted ${r.label}`, () => setStore((s) => restoreReminder(s, r)));
   };
 
   return (
     <div>
       <div className="card">
-        <div className="field">
-          <input
-            className="input"
-            placeholder="Reminder label (e.g. Drink water)"
-            value={label}
-            onChange={(e) => setLabel(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && addReminder()}
-          />
-        </div>
-        <div className="unitrow">
+        <input
+          className="input"
+          placeholder="Reminder label (e.g. Drink water)"
+          aria-label="Reminder label"
+          value={label}
+          onChange={(e) => setLabel(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && add()}
+        />
+        <div className="setrow">
           <span className="setlabel">Every (min)</span>
-          <NumInput value={interval} min={0.1} max={480} step={5} onChange={setInterval_} />
+          <NumInput value={interval} min={1} max={480} step={5} label="Interval in minutes" onChange={setInterval_} />
         </div>
-        <button className="bigbtn" onClick={addReminder} disabled={!label.trim()}>
+        <button type="button" className="bigbtn" onClick={add} disabled={!label.trim()}>
           + Add reminder
         </button>
       </div>
 
       <h2>Reminders</h2>
-      {items.length === 0 && <div className="hint">No reminders — add one above.</div>}
+      {items.length === 0 && <p className="hint">No reminders. Add one above.</p>}
       {items.map((r) => (
         <div className="card reminderrow" key={r.id}>
-          <div className="reminderrow-main">
-            <div className="taskrow-name">{r.label}</div>
-            <div className="taskrow-sub">every {fmtInterval(r.intervalMin)}</div>
+          <div className="reminderrow-top">
+            <div className="reminderrow-main">
+              <div className="taskrow-name">{r.label}</div>
+              <div className="taskrow-sub">
+                every {fmtInterval(r.intervalMin)}
+                {r.enabled ? ` · next ${fmtDue(effectiveDueAt(store, r) - now)}` : " · off"}
+              </div>
+            </div>
+            <Toggle
+              checked={r.enabled}
+              label={`${r.label} enabled`}
+              onChange={(v) => setStore((s) => setReminderEnabled(s, r.id, v, Date.now()))}
+            />
+            <IconButton label={`Delete ${r.label}`} onClick={() => remove(r)}>
+              ✕
+            </IconButton>
           </div>
-          <NumInput value={r.intervalMin} min={0.1} max={480} step={5} onChange={(v) => setIntervalFor(r.id, v)} />
-          <Toggle checked={r.enabled} onChange={(v) => toggleEnabled(r.id, v)} />
-          <button className="iconbtn" onClick={() => deleteReminder(r.id)} title="Delete">
-            ✕
-          </button>
+          <div className="setrow">
+            <span className="setlabel">Every (min)</span>
+            <NumInput
+              value={r.intervalMin}
+              min={1}
+              max={480}
+              step={5}
+              label={`${r.label} interval in minutes`}
+              onChange={(v) => setStore((s) => setReminderInterval(s, r.id, v, Date.now()))}
+            />
+          </div>
         </div>
       ))}
 
-      <div className="hint small">
-        Reminders fire while the app is open — Android may silence them when the app is fully closed.
-      </div>
+      <p className="hint small">
+        Reminders stay quiet during pomodoro breaks.{" "}
+        {isNativeNotify()
+          ? "They arrive as notifications even when the app is closed."
+          : "In the browser they only fire while the app is open."}
+      </p>
     </div>
   );
 }

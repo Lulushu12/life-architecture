@@ -1,18 +1,22 @@
 import { useState } from "react";
-import { newId } from "./storage.js";
-import { startTask, stopRunningTask, taskTodayMinutes } from "./logic.js";
-
-function fmtDur(mins) {
-  const totalSec = Math.round(mins * 60);
-  const h = Math.floor(totalSec / 3600);
-  const m = Math.floor((totalSec % 3600) / 60);
-  const s = totalSec % 60;
-  if (h > 0) return `${h}h ${m}m`;
-  if (m > 0) return `${m}m ${s}s`;
-  return `${s}s`;
-}
+import { newId } from "@shared/store.js";
+import { IconButton, useToast } from "@shared/ui.jsx";
+import {
+  addTask,
+  archiveTask,
+  deleteTask,
+  isWorkRunning,
+  renameTask,
+  restoreTask,
+  startTask,
+  stopRunningTask,
+  taskTodayMinutes,
+  unarchiveTask,
+} from "./logic.js";
+import { fmtDur } from "./ui.jsx";
 
 export default function TasksTab({ store, setStore, now }) {
+  const toast = useToast();
   const [name, setName] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [editName, setEditName] = useState("");
@@ -21,101 +25,126 @@ export default function TasksTab({ store, setStore, now }) {
   const active = items.filter((t) => !t.archived);
   const archived = items.filter((t) => t.archived);
   const runningId = store.tasks.run?.taskId || null;
+  const pomoTaskId = isWorkRunning(store) ? store.pomodoro.run.taskId : null;
 
-  const addTask = () => {
+  const add = () => {
     const trimmed = name.trim();
     if (!trimmed) return;
     const id = newId();
-    setStore((s) => ({
-      ...s,
-      tasks: { ...s.tasks, items: { ...s.tasks.items, [id]: { id, name: trimmed, archived: false, createdAt: Date.now() } } },
-    }));
+    setStore((s) => addTask(s, id, trimmed, Date.now()));
     setName("");
   };
 
-  const toggleRun = (id) => {
-    setStore((s) => {
-      if (s.tasks.run?.taskId === id) return stopRunningTask(s, Date.now());
-      return startTask(s, id, Date.now());
-    });
+  const toggleRun = (t) => {
+    if (runningId === t.id) {
+      setStore((s) => stopRunningTask(s, Date.now()));
+      return;
+    }
+    if (isWorkRunning(store)) toast(`The running pomodoro now counts toward ${t.name}`);
+    setStore((s) => startTask(s, t.id, Date.now()));
   };
 
-  const saveRename = (id) => {
+  const beginRename = (t) => {
+    setEditingId(t.id);
+    setEditName(t.name);
+  };
+
+  const saveRename = () => {
     const trimmed = editName.trim();
-    setStore((s) => {
-      const t = s.tasks.items[id];
-      if (!t || !trimmed) return s;
-      return { ...s, tasks: { ...s.tasks, items: { ...s.tasks.items, [id]: { ...t, name: trimmed } } } };
-    });
+    const id = editingId;
+    if (trimmed) setStore((s) => renameTask(s, id, trimmed));
     setEditingId(null);
   };
 
-  const archiveTask = (id) => {
-    setStore((s) => {
-      let s2 = s.tasks.run?.taskId === id ? stopRunningTask(s, Date.now()) : s;
-      const t = s2.tasks.items[id];
-      if (!t) return s2;
-      return { ...s2, tasks: { ...s2.tasks, items: { ...s2.tasks.items, [id]: { ...t, archived: true } } } };
-    });
+  const archive = (t) => {
+    setStore((s) => archiveTask(s, t.id, Date.now()));
+    toast.undo(`Archived ${t.name}`, () => setStore((s) => unarchiveTask(s, t.id)));
   };
 
-  const unarchiveTask = (id) => {
-    setStore((s) => {
-      const t = s.tasks.items[id];
-      if (!t) return s;
-      return { ...s, tasks: { ...s.tasks, items: { ...s.tasks.items, [id]: { ...t, archived: false } } } };
-    });
+  const remove = (t) => {
+    const snapshot = store.tasks.items[t.id];
+    setStore((s) => deleteTask(s, t.id, Date.now()));
+    toast.undo(`Deleted ${t.name}`, () => setStore((s) => restoreTask(s, snapshot)));
   };
 
   return (
     <div>
       <div className="card">
-        <div className="newrow">
-          <input
-            className="input"
-            placeholder="New task name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && addTask()}
-          />
-        </div>
-        <button className="bigbtn" onClick={addTask} disabled={!name.trim()}>
+        <input
+          className="input"
+          placeholder="New task name"
+          aria-label="New task name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && add()}
+        />
+        <button type="button" className="bigbtn" onClick={add} disabled={!name.trim()}>
           + Add task
         </button>
       </div>
 
       <h2>Today</h2>
-      {active.length === 0 && <div className="hint">No tasks yet — add one above.</div>}
+      {active.length === 0 && <p className="hint">No tasks yet. Add one above.</p>}
       {active.map((t) => {
         const isRunning = runningId === t.id;
         const mins = taskTodayMinutes(store, t.id, now);
-        return (
-          <div className="card taskrow" key={t.id}>
-            {editingId === t.id ? (
+        if (editingId === t.id) {
+          return (
+            <div className="card taskrow" key={t.id}>
               <input
-                className="input"
+                className="input renameinput"
                 autoFocus
+                aria-label="Task name"
                 value={editName}
                 onChange={(e) => setEditName(e.target.value)}
-                onBlur={() => saveRename(t.id)}
-                onKeyDown={(e) => e.key === "Enter" && saveRename(t.id)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") saveRename();
+                  if (e.key === "Escape") setEditingId(null);
+                }}
               />
-            ) : (
-              <div className="taskrow-main" onClick={() => { setEditingId(t.id); setEditName(t.name); }}>
-                <div className="taskrow-name">{t.name}</div>
-                <div className="taskrow-sub">{fmtDur(mins)} today{isRunning ? " · running" : ""}</div>
+              <div className="taskrow-actions">
+                <IconButton label="Save name" onClick={saveRename}>
+                  ✓
+                </IconButton>
+                <IconButton label="Cancel rename" onClick={() => setEditingId(null)}>
+                  ✕
+                </IconButton>
+                <IconButton
+                  label={`Delete ${t.name}`}
+                  onClick={() => {
+                    setEditingId(null);
+                    remove(t);
+                  }}
+                >
+                  🗑
+                </IconButton>
               </div>
-            )}
+            </div>
+          );
+        }
+        return (
+          <div className={"card taskrow" + (isRunning || pomoTaskId === t.id ? " live" : "")} key={t.id}>
+            <div className="taskrow-main">
+              <div className="taskrow-name">{t.name}</div>
+              <div className="taskrow-sub">
+                {fmtDur(mins)} today
+                {isRunning ? " · running" : pomoTaskId === t.id ? " · in pomodoro" : ""}
+              </div>
+            </div>
             <div className="taskrow-actions">
               <button
+                type="button"
                 className={"bigbtn tasktoggle" + (isRunning ? " stop" : "")}
-                onClick={() => toggleRun(t.id)}
+                onClick={() => toggleRun(t)}
               >
                 {isRunning ? "Stop" : "Start"}
               </button>
-              <button className="iconbtn" onClick={() => archiveTask(t.id)} title="Archive">
+              <IconButton label={`Rename ${t.name}`} onClick={() => beginRename(t)}>
+                ✎
+              </IconButton>
+              <IconButton label={`Archive ${t.name}`} onClick={() => archive(t)}>
                 🗄
-              </button>
+              </IconButton>
             </div>
           </div>
         );
@@ -130,14 +159,20 @@ export default function TasksTab({ store, setStore, now }) {
                 <div className="taskrow-name">{t.name}</div>
               </div>
               <div className="taskrow-actions">
-                <button className="linkbtn" onClick={() => unarchiveTask(t.id)}>
+                <button type="button" className="linkbtn" onClick={() => setStore((s) => unarchiveTask(s, t.id))}>
                   Restore
                 </button>
+                <IconButton label={`Delete ${t.name}`} onClick={() => remove(t)}>
+                  🗑
+                </IconButton>
               </div>
             </div>
           ))}
         </>
       )}
+      <p className="hint small">
+        Starting a task while a pomodoro runs links the pomodoro to it instead, so no minute is counted twice.
+      </p>
     </div>
   );
 }
