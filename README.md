@@ -7,7 +7,7 @@ write-through on every action) unless noted.
 
 | App | Path | Serves at | Description |
 |-----|------|-----------|-------------|
-| Life Architecture | `apps/life-architecture` | `/` | Habit tracker RPG — daily/long-term quests, XP, levels, streaks, weekly schedule. Syncs via Firebase. |
+| Life Architecture | `apps/life-architecture` | `/` | Habit tracker RPG and the suite's home: daily/long-term quests, XP, levels, streaks, weekly schedule, PPL training log with an overload gate, macro protocol view, optional AI coach. Local-first; backup/import is the sync story (an optional GitHub branch sync exists but is off by default). Reads Focus, Breathe and Calories activity through the shared event ledger to auto-complete quests. |
 | Whist & Rentz | `apps/whist` | `/whist/` | Scorekeeper for Romanian Whist and Rentz. Configurable rules, undo/edit with recompute, resume unfinished games, JSON backup. |
 | Breathe | `apps/breathe` | `/breathe/` | Wim Hof-style guided breathing rounds + meditation timer, with session history and synthesized audio cues. |
 | Focus | `apps/focus` | `/focus/` | Pomodoro, named task timers, interval break/posture reminders, and daily stats. |
@@ -90,9 +90,14 @@ outside the repo — losing it means installs can't be updated in place.
 
 ### What the APKs can reach
 
-Each APK requests only `android.permission.INTERNET` — no camera, microphone,
-location, or storage. The native bridge registers zero Capacitor plugins, so
-nothing in the WebView can reach a native API at all.
+Each APK requests `android.permission.INTERNET`. Three exceptions, each
+deliberate: Focus, Breathe and Life Architecture also request
+`POST_NOTIFICATIONS` (Android 13+) so their timers and reminders can fire
+through `@capacitor/local-notifications` while the app is closed; this is a
+local alarm, it never touches the network. Calories requests `CAMERA` for
+barcode scanning in the WebView. Every app registers `@capacitor/app` so the
+hardware Back button pops in-app screens instead of closing the activity;
+no other native API is reachable from the WebView.
 
 Four apps make no network calls whatsoever:
 
@@ -126,8 +131,27 @@ and drops the (redundant) service worker.
 
 ## Conventions
 
+Shared infrastructure lives in `packages/shared` (source only, no build step,
+no npm workspace): design tokens and base CSS, UI primitives (toggle, stepper,
+confirm sheet, toasts), an error boundary, a versioned localStorage store with
+migration and corruption recovery, the backup/import panel, a Vite plugin that
+generates each app's service worker with a per-app cache prefix and a
+build-hash cache name, history-backed navigation with Android Back handling,
+wake lock, synthesized audio and haptics, local notifications, and the
+cross-app event ledger (`la_events_v1`) that Life Architecture reads.
+`packages/shared/README.md` is the contract; `packages/shared/ADOPTION.md` is
+the checklist a new app follows.
+
 New apps copy the patterns of `apps/whist`: same dependency set, dark
 mobile-first UI, a `base` that switches between `/life-architecture/<name>/`
-and `./` on `--mode android`, service worker registration in `main.jsx` guarded
-by that mode, an app-specific cache name, and single-key localStorage
-persistence written through on every state change.
+and `./` on `--mode android`, the `@shared` Vite alias, `sharedSw({ name })`
+in the plugin list, `registerSw()` from the app, a config snapshot per record
+with totals derived on read, and single-key localStorage persistence written
+through on every state change via `createStore`.
+
+All eight apps share one origin on GitHub Pages, so they share localStorage
+and CacheStorage. Never clear caches you do not own by name prefix, and never
+assume a storage key is private to one app.
+
+`docs/design-audit-2026-09.md` records the audit this structure came from,
+with per-app findings under `docs/audits/`.
