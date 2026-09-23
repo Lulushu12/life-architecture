@@ -10,7 +10,15 @@ const fonts = fs.readdirSync(path.resolve(__dirname, 'public/fonts')).map((f) =>
 //   `vite build`                 → GitHub Pages, served from /life-architecture/
 //   `vite build --mode android`  → Capacitor, served from the WebView root
 export default defineConfig(({ mode }) => ({
-  plugins: [react(), sharedSw({ name: 'life-architecture', extraPrecache: fonts })],
+  plugins: [
+    react(),
+    sharedSw({
+      name: 'life-architecture',
+      extraPrecache: fonts,
+      // The root scope encloses every sibling app; leave their files to their own workers.
+      ignore: [/^\/life-architecture\/(whist|breathe|focus|games|calories|ortho|chess)\//],
+    }),
+  ],
   base: mode === 'android' ? './' : '/life-architecture/',
   resolve: {
     alias: { '@shared': path.resolve(__dirname, '../../packages/shared/src') },

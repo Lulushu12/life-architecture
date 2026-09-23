@@ -183,7 +183,11 @@ Fixed version of Breathe's hook: tracks `released`, listens for the sentinel's
 the app can show an "Update available" toast whose action calls `reload()`.
 
 ## vite/swPlugin.js
-`sharedSw({ name, extraPrecache = [], cacheOnly = [], skipPrecache = [] })`.
+`sharedSw({ name, extraPrecache = [], cacheOnly = [], skipPrecache = [], ignore = [] })`.
+`cacheOnly` files are stored in a `<name>-data` cache that activate never
+deletes, so a 40MB engine net survives deploys. `ignore` regexes (matched
+against the path) make the worker pass those requests through untouched; the
+root app uses it to stay out of the sibling apps' scopes.
 On non-android builds, in `closeBundle` writes `<outDir>/sw.js`:
 - `CACHE_NAME = "<name>-<8-char build hash>"` (hash of the emitted asset list).
 - Precache: `base`, `base + "index.html"`, `manifest.json`, `icon-192.png`,
