@@ -155,9 +155,9 @@ export function resetClock(g) {
   };
 }
 
-export function fmtClock(ms) {
-  if (ms <= 0) return "0:00.0";
-  if (ms < LOW_TIME_MS) {
+export function fmtClock(ms, tenthsMs = LOW_TIME_MS) {
+  if (ms <= 0) return tenthsMs > 0 ? "0:00.0" : "0:00";
+  if (ms < tenthsMs) {
     const tenths = Math.ceil(ms / 100);
     const s = Math.floor(tenths / 10);
     return `0:${String(s).padStart(2, "0")}.${tenths % 10}`;

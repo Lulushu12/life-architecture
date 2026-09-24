@@ -12,7 +12,8 @@ const UNDO_CAP = 200;
 const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
 const DIGITS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-export function freshSudoku(difficulty, { puzzle, solution, clueCount }, prev = null, daily = null) {
+export function freshSudoku(difficulty, { puzzle, solution, clueCount }, settings = null, daily = null) {
+  const check = settings?.sudokuCheck || "conflicts";
   const now = Date.now();
   return {
     difficulty,
@@ -24,9 +25,9 @@ export function freshSudoku(difficulty, { puzzle, solution, clueCount }, prev = 
     undo: [],
     selected: null,
     mode: "digit",
-    showConflicts: prev ? prev.showConflicts !== false : true,
-    showMistakes: prev ? !!prev.showMistakes : false,
-    autoCandidates: prev ? !!prev.autoCandidates : false,
+    showConflicts: check === "conflicts" || check === "both",
+    showMistakes: check === "mistakes" || check === "both",
+    autoCandidates: !!settings?.autoCandidates,
     paused: false,
     elapsedMs: 0,
     resumedAt: null,
@@ -208,10 +209,14 @@ export function DailySudokuLoader({ day, difficulty, onReady, onCancel }) {
   );
 }
 
-export default function Sudoku({ game, onChange, onHome, visible, stats, queued, onCreate, confirm }) {
+export default function Sudoku({ game, onChange, onHome, visible, stats, queued, onCreate, confirm, settings }) {
+  const peerHighlight = settings?.peerHighlight !== false;
+  const sameDigit = settings?.sameDigit !== false;
+  const hapticsRef = useRef(true);
+  hapticsRef.current = settings?.haptics !== false;
   const [pickingNew, setPickingNew] = useState(false);
   const running = !game.solved && !game.paused && visible && !pickingNew;
-  useActiveTimer(onChange, running);
+  useActiveTimer(onChange, running, game.resumedAt == null);
   useTicker(running, 1000);
 
   const gameRef = useRef(game);
@@ -238,7 +243,7 @@ export default function Sudoku({ game, onChange, onHome, visible, stats, queued,
       const pencilMode = g0.mode === "pencil" && !g0.autoCandidates;
       const i = g0.selected;
       const wrong = !pencilMode && g0.entries[i] !== digit && digit !== g0.solution[i];
-      vibrate(wrong && g0.showMistakes ? "warn" : "tap");
+      vibrate(wrong && g0.showMistakes ? "warn" : "tap", { enabled: hapticsRef.current });
       onChange((g) => {
         if (g.selected !== i || g.givens[i] !== 0 || g.solved) return g;
         if (pencilMode) {
@@ -465,8 +470,8 @@ export default function Sudoku({ game, onChange, onHome, visible, stats, queued,
             if (r === 8) classes.push("bb");
             if (given) classes.push("given");
             if (sel === i) classes.push("selected");
-            else if (sel != null && isPeer(sel, i)) classes.push("peer");
-            if (selVal && val === selVal && sel !== i) classes.push("samedigit");
+            else if (peerHighlight && sel != null && isPeer(sel, i)) classes.push("peer");
+            if (sameDigit && selVal && val === selVal && sel !== i) classes.push("samedigit");
             if (!given && val && conflicts.has(i)) classes.push("conflict");
             if (!given && val && game.showMistakes && val !== game.solution[i]) classes.push("mistake");
             const marks = !val ? (game.autoCandidates ? candidatesAt(values, i) : game.pencil[i]) : [];
@@ -484,7 +489,7 @@ export default function Sudoku({ game, onChange, onHome, visible, stats, queued,
                 ) : marks.length ? (
                   <span className={`sd-pencil${game.autoCandidates ? " auto" : ""}`}>
                     {DIGITS.map((d) => (
-                      <span key={d} className={selVal === d ? "hl" : undefined}>
+                      <span key={d} className={sameDigit && selVal === d ? "hl" : undefined}>
                         {marks.includes(d) ? d : ""}
                       </span>
                     ))}

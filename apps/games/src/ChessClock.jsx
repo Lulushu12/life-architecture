@@ -128,6 +128,7 @@ export default function ChessClock({ game, prefs, onChange, onReset, onSettings,
     onReset();
   };
 
+  const tenthsMs = (prefs.tenthsSec ?? 20) * 1000;
   const now = Date.now();
   const times = remainingMs(game, now);
   const delayLeft = delayLeftMs(game, now);
@@ -154,7 +155,7 @@ export default function ChessClock({ game, prefs, onChange, onReset, onSettings,
       <button
         type="button"
         className={classes.join(" ")}
-        aria-label={`${side === 0 ? "Top" : "Bottom"} clock, ${fmtClock(ms)}`}
+        aria-label={`${side === 0 ? "Top" : "Bottom"} clock, ${fmtClock(ms, tenthsMs)}`}
         onPointerDown={(e) => {
           if (e.pointerType === "mouse" && e.button !== 0) return;
           tap(side);
@@ -165,7 +166,7 @@ export default function ChessClock({ game, prefs, onChange, onReset, onSettings,
         onContextMenu={(e) => e.preventDefault()}
       >
         <span className="cc-face">
-          <span className="cc-time">{fmtClock(ms)}</span>
+          <span className="cc-time">{fmtClock(ms, tenthsMs)}</span>
           <span className="cc-meta">
             <span>Moves {moves[side]}</span>
             {status && <span className="cc-status">{status}</span>}

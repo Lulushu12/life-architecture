@@ -34,7 +34,8 @@ function applyGuesses(p, guesses, text, extra = {}) {
   return { ...stopTimer(base, now), solvedAt: now };
 }
 
-export default function CryptogramPlay({ puzzle, progress, visible, onChange, onHome }) {
+export default function CryptogramPlay({ puzzle, progress, visible, settings, onChange, onHome }) {
+  const haptics = settings?.haptics !== false;
   const perm = progress.perm;
   const inv = useMemo(() => invert(perm), [perm]);
   const tokens = useMemo(() => tokenize(puzzle.text), [puzzle.text]);
@@ -48,7 +49,7 @@ export default function CryptogramPlay({ puzzle, progress, visible, onChange, on
   const [wrongSet, setWrongSet] = useState(() => new Set());
 
   const running = !solved && visible;
-  useActiveTimer(onChange, running);
+  useActiveTimer(onChange, running, progress.resumedAt == null);
   useTicker(running, 1000);
 
   const guessCounts = {};
@@ -73,13 +74,13 @@ export default function CryptogramPlay({ puzzle, progress, visible, onChange, on
       if (done) return;
       const target = cur || nextUnfilled(sequence, g, null);
       if (!target) return;
-      vibrate("tap");
+      vibrate("tap", { enabled: haptics });
       setWrongSet(new Set());
       const nextGuesses = { ...g, [target]: letter };
       onChange((p) => applyGuesses(p, { ...(p.guesses || {}), [target]: letter }, puzzle.text));
       setSelected(nextUnfilled(sequence, nextGuesses, target) || target);
     },
-    [onChange, puzzle.text, sequence]
+    [onChange, puzzle.text, sequence, haptics]
   );
 
   const clearSelected = useCallback(() => {
@@ -109,7 +110,7 @@ export default function CryptogramPlay({ puzzle, progress, visible, onChange, on
     }
     setWrongSet(wrong);
     if (!wrong.size) setWrongSet(new Set(["__ok"]));
-    vibrate(wrong.size ? "warn" : "success");
+    vibrate(wrong.size ? "warn" : "success", { enabled: haptics });
   };
 
   const hint = () => {

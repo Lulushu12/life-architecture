@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { Capacitor } from "@capacitor/core";
-import { usePersistentStore, useVisibleDate } from "@shared/store.js";
+import { addDays, usePersistentStore, useVisibleDate } from "@shared/store.js";
 import { useHistoryNav } from "@shared/useHistoryNav.js";
 import { useWakeLock } from "@shared/useWakeLock.js";
 import { useConfirm, useToast } from "@shared/ui.jsx";
@@ -14,6 +14,12 @@ import ChessClock from "./ChessClock.jsx";
 import Sudoku, { SudokuSetup, DailySudokuLoader, freshSudoku } from "./Sudoku.jsx";
 import CryptogramList from "./CryptogramList.jsx";
 import CryptogramPlay from "./CryptogramPlay.jsx";
+import Word from "./Word.jsx";
+import Settings from "./Settings.jsx";
+import Nonogram, { freshNono } from "./Nonogram.jsx";
+import { generateNonogram } from "./nonogram.js";
+import { seededRng } from "./rng.js";
+import { dailyWordAnswer, freshWord, randomWordAnswer, wordStats } from "./word.js";
 import { PUZZLES } from "./cryptogramPuzzles.js";
 import { randomDerangement } from "./cryptogram.js";
 import { DIFFICULTIES } from "./sudokuGen.js";
@@ -22,13 +28,14 @@ import { freshClock, isRunning, resetClock, sameControl, totalMoves } from "./ch
 import {
   DAILY_SUDOKU_DIFFICULTY,
   dailyCryptoId,
+  dailyNonoSeed,
   dailyCryptoPerm,
   dailyCryptoPuzzle,
   dayOfDailyId,
   isDailyCryptoId,
 } from "./daily.js";
 import { pushStat } from "./stats.js";
-import { usePageVisible } from "./timing.js";
+import { useFocused, usePageVisible } from "./timing.js";
 
 const HOME = { screen: "home" };
 const emitted = new Set();
@@ -62,6 +69,7 @@ export default function App() {
   const { view, nav, back, replace } = useHistoryNav(HOME, { persistKey: "games:view" });
   const today = useVisibleDate();
   const visible = usePageVisible();
+  const focused = useFocused();
   const native = useMemo(() => Capacitor.isNativePlatform(), []);
 
   useEffect(() => {
@@ -102,12 +110,61 @@ export default function App() {
     [setStore, nav, replace]
   );
 
+  const ensureWord = useCallback(
+    (daily, { fresh = false } = {}) =>
+      setStore((s) => {
+        const slot = daily ? "daily" : "practice";
+        const cur = s.word[slot];
+        if (daily && cur && cur.daily === daily) return s;
+        if (!daily && cur && !fresh) return s;
+        let stats = s.stats;
+        if (!daily && fresh && cur && cur.status === "playing" && cur.guesses.length) {
+          stats = pushStat(stats, "word", { daily: null, won: false, guesses: cur.guesses.length, hard: cur.hard });
+        }
+        const answer = daily ? dailyWordAnswer(daily) : randomWordAnswer([cur?.answer, s.word.daily?.answer]);
+        const game = freshWord(answer, { daily, hard: s.settings.wordHard });
+        return { ...s, stats, word: { ...s.word, [slot]: game } };
+      }),
+    [setStore]
+  );
+
+  const openWord = useCallback(
+    (daily = null, { fresh = false, replaceView = false } = {}) => {
+      ensureWord(daily, { fresh });
+      (replaceView ? replace : nav)(daily ? { screen: "word", daily } : { screen: "word" });
+    },
+    [ensureWord, nav, replace]
+  );
+
+  const ensureNono = useCallback(
+    (daily, { fresh = false } = {}) =>
+      setStore((s) => {
+        const slot = daily ? "daily" : "practice";
+        const cur = s.nono[slot];
+        if (daily && cur && cur.daily === daily) return s;
+        if (!daily && cur && !fresh) return s;
+        const puzzle = generateNonogram(daily ? seededRng(dailyNonoSeed(daily)) : Math.random);
+        return { ...s, nono: { ...s.nono, [slot]: freshNono(puzzle, daily) } };
+      }),
+    [setStore]
+  );
+
+  const openNono = useCallback(
+    (daily = null, { fresh = false } = {}) => {
+      ensureNono(daily, { fresh });
+      nav(daily ? { screen: "nono", daily } : { screen: "nono" });
+    },
+    [ensureNono, nav]
+  );
+
   const openDaily = useCallback(
     (which, day = today) => {
       if (which === "sudoku") nav({ screen: "sudoku", daily: day });
+      else if (which === "word") openWord(day);
+      else if (which === "nono") openNono(day);
       else openCrypto(dailyCryptoId(day));
     },
-    [nav, openCrypto, today]
+    [nav, openCrypto, openWord, openNono, today]
   );
 
   useEffect(() => {
@@ -121,10 +178,14 @@ export default function App() {
       if (action === "chess") nav({ screen: "chess" });
       else if (action === "sudoku") nav({ screen: "sudoku" });
       else if (action === "crypto") nav({ screen: "crypto-list" });
+      else if (action === "word") openWord(null);
+      else if (action === "nono") openNono(null);
       else if (action === "daily") {
         const done = store.daily[today] || {};
         if (done.sudoku == null) nav({ screen: "sudoku", daily: today });
         else if (done.crypto == null) openCrypto(dailyCryptoId(today));
+        else if (done.word == null && !done.wordFailed) openWord(today);
+        else if (done.nono == null) openNono(today);
         else replace(HOME);
       } else replace(HOME);
       return;
@@ -142,6 +203,7 @@ export default function App() {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
+    if (!focused) return;
     const jobs = [];
     for (const slot of ["sudoku", "dailySudoku"]) {
       const g = store[slot];
@@ -149,6 +211,14 @@ export default function App() {
     }
     for (const [id, p] of Object.entries(store.crypto.progress)) {
       if (p.solved && !p.recorded) jobs.push({ kind: "crypto", id, key: `c:${id}:${p.solvedAt}`, p });
+    }
+    for (const slot of ["daily", "practice"]) {
+      const w = store.word[slot];
+      if (w && w.status !== "playing" && !w.recorded) jobs.push({ kind: "word", slot, key: `w:${slot}:${w.startedAt}`, w });
+    }
+    for (const slot of ["daily", "practice"]) {
+      const n = store.nono[slot];
+      if (n?.solved && !n.recorded) jobs.push({ kind: "nono", slot, key: `n:${slot}:${n.createdAt}`, n });
     }
     if (store.chess && store.chess.flagged != null && !store.chess.recorded) {
       jobs.push({ kind: "chess", key: `h:${store.chess.createdAt}:${store.chess.updatedAt}` });
@@ -178,6 +248,29 @@ export default function App() {
             game: "cryptogram",
             difficulty: isDailyCryptoId(job.id) ? "daily" : undefined,
             seconds: Math.round((job.p.elapsedMs || 0) / 1000),
+          },
+        });
+      } else if (job.kind === "nono") {
+        emitEvent({
+          app: "games",
+          type: "games.solved",
+          dayKey: job.n.daily || undefined,
+          value: {
+            game: "nonogram",
+            difficulty: job.n.daily ? "daily" : undefined,
+            seconds: Math.round((job.n.elapsedMs || 0) / 1000),
+          },
+        });
+      } else if (job.kind === "word" && job.w.status === "won") {
+        emitEvent({
+          app: "games",
+          type: "games.solved",
+          dayKey: job.w.daily || undefined,
+          value: {
+            game: "word",
+            difficulty: job.w.daily ? "daily" : undefined,
+            guesses: job.w.guesses.length,
+            hard: job.w.hard,
           },
         });
       }
@@ -215,6 +308,33 @@ export default function App() {
         if (day) next.daily = { ...next.daily, [day]: { ...next.daily[day], crypto: seconds } };
       }
       if (progress !== next.crypto.progress) next = { ...next, crypto: { ...next.crypto, progress } };
+      for (const slot of ["daily", "practice"]) {
+        const n = next.nono[slot];
+        if (!n?.solved || n.recorded) continue;
+        const seconds = Math.round((n.elapsedMs || 0) / 1000);
+        next = {
+          ...next,
+          nono: { ...next.nono, [slot]: { ...n, recorded: true } },
+          stats: pushStat(next.stats, "nono", { seconds, checks: n.checks || 0, daily: n.daily }),
+        };
+        if (n.daily) next.daily = { ...next.daily, [n.daily]: { ...next.daily[n.daily], nono: seconds } };
+      }
+      for (const slot of ["daily", "practice"]) {
+        const w = next.word[slot];
+        if (!w || w.status === "playing" || w.recorded) continue;
+        const won = w.status === "won";
+        next = {
+          ...next,
+          word: { ...next.word, [slot]: { ...w, recorded: true } },
+          stats: pushStat(next.stats, "word", { daily: w.daily, won, guesses: w.guesses.length, hard: w.hard }),
+        };
+        if (w.daily) {
+          const entry = { ...next.daily[w.daily] };
+          if (won) entry.word = w.guesses.length;
+          else entry.wordFailed = true;
+          next.daily = { ...next.daily, [w.daily]: entry };
+        }
+      }
       const c = next.chess;
       if (c && c.flagged != null && !c.recorded) {
         next = {
@@ -225,7 +345,7 @@ export default function App() {
       }
       return next;
     });
-  }, [store, setStore]);
+  }, [store, setStore, focused]);
 
   const inflight = useRef(new Set());
   useEffect(() => {
@@ -252,8 +372,44 @@ export default function App() {
   );
 
   const updateChessPrefs = useCallback(
-    (fn) => setStore((s) => ({ ...s, chessPrefs: fn(s.chessPrefs) })),
+    (fn) =>
+      setStore((s) => {
+        const { sound, vibrate, tenthsSec, ...prefs } = fn({
+          ...s.chessPrefs,
+          sound: s.settings.sound,
+          vibrate: s.settings.haptics,
+          tenthsSec: s.settings.tenthsSec,
+        });
+        return {
+          ...s,
+          chessPrefs: { ...prefs, sound, vibrate },
+          settings: { ...s.settings, sound, haptics: vibrate, tenthsSec },
+        };
+      }),
     [setStore]
+  );
+
+  const updateSettings = useCallback(
+    (fn) =>
+      setStore((s) => {
+        const settings = fn(s.settings);
+        return {
+          ...s,
+          settings,
+          chessPrefs: { ...s.chessPrefs, sound: settings.sound, vibrate: settings.haptics },
+        };
+      }),
+    [setStore]
+  );
+
+  const clockPrefs = useMemo(
+    () => ({
+      ...store.chessPrefs,
+      sound: store.settings.sound,
+      vibrate: store.settings.haptics,
+      tenthsSec: store.settings.tenthsSec,
+    }),
+    [store.chessPrefs, store.settings]
   );
 
   const stopChess = useCallback(
@@ -312,8 +468,7 @@ export default function App() {
   const createSudoku = useCallback(
     (key, generated, { fromQueue = false, daily = null } = {}) =>
       setStore((s) => {
-        const prev = daily ? s.dailySudoku : s.sudoku;
-        const game = freshSudoku(key, generated, prev, daily);
+        const game = freshSudoku(key, generated, s.settings, daily);
         const next = { ...s, [daily ? "dailySudoku" : "sudoku"]: game };
         if (fromQueue) next.sudokuNext = { ...s.sudokuNext, [key]: null };
         return next;
@@ -393,14 +548,67 @@ export default function App() {
 
   const restoreBackup = useCallback((data) => setStore(hydrate(data)), [setStore]);
 
+  const wordSlot = view.screen === "word" && view.daily ? "daily" : "practice";
+  const wordGame = store.word[wordSlot];
+  const wordReady = view.screen === "word" && !!wordGame && (!view.daily || wordGame.daily === view.daily);
+  useEffect(() => {
+    if (view.screen === "word" && !wordReady) ensureWord(view.daily || null);
+  }, [view, wordReady, ensureWord]);
+
+  const nonoSlot = view.screen === "nono" && view.daily ? "daily" : "practice";
+  const nonoGame = store.nono[nonoSlot];
+  const nonoReady = view.screen === "nono" && !!nonoGame && (!view.daily || nonoGame.daily === view.daily);
+  useEffect(() => {
+    if (view.screen === "nono" && !nonoReady) ensureNono(view.daily || null);
+  }, [view, nonoReady, ensureNono]);
+
+  const updateNono = useCallback(
+    (fn) =>
+      setStore((s) => {
+        const g = s.nono[nonoSlot];
+        if (!g) return s;
+        const next = fn(g);
+        return next === g ? s : { ...s, nono: { ...s.nono, [nonoSlot]: { ...next, updatedAt: Date.now() } } };
+      }),
+    [setStore, nonoSlot]
+  );
+
+  const updateWord = useCallback(
+    (fn) =>
+      setStore((s) => {
+        const g = s.word[wordSlot];
+        if (!g) return s;
+        const next = fn(g);
+        return next === g ? s : { ...s, word: { ...s.word, [wordSlot]: { ...next, updatedAt: Date.now() } } };
+      }),
+    [setStore, wordSlot]
+  );
+
+  const setWordHard = useCallback(
+    (v) =>
+      setStore((s) => {
+        const g = s.word[wordSlot];
+        const word = g && !g.guesses.length ? { ...s.word, [wordSlot]: { ...g, hard: v } } : s.word;
+        return { ...s, word, settings: { ...s.settings, wordHard: v } };
+      }),
+    [setStore, wordSlot]
+  );
+
+  const wordSummary = useMemo(
+    () => wordStats(store.stats.word, store.daily, today, addDays),
+    [store.stats.word, store.daily, today]
+  );
+
   const chessGame = store.chess;
   const sudokuGame = store[sudokuSlot];
   const cryptoProgress = view.screen === "crypto-play" ? store.crypto.progress[view.id] : null;
   const wake =
     (view.screen === "chess" && isRunning(chessGame)) ||
     (view.screen === "sudoku" && !!sudokuGame && !sudokuGame.solved && !sudokuGame.paused) ||
-    (view.screen === "crypto-play" && !!cryptoProgress && !cryptoProgress.solved);
-  useWakeLock(wake && visible);
+    (view.screen === "crypto-play" && !!cryptoProgress && !cryptoProgress.solved) ||
+    (view.screen === "word" && wordReady && wordGame.status === "playing") ||
+    (view.screen === "nono" && nonoReady && !nonoGame.solved);
+  useWakeLock(wake && visible && store.settings.keepAwake);
 
   const banner =
     status.ok === false ? (
@@ -420,7 +628,7 @@ export default function App() {
     if (!chessGame || fromClock) {
       screen = (
         <ChessSetup
-          prefs={store.chessPrefs}
+          prefs={clockPrefs}
           native={native}
           onPrefs={updateChessPrefs}
           onStart={(control, opts) => startChess(control, { ...opts, fromClock: fromClock && !!chessGame })}
@@ -432,7 +640,7 @@ export default function App() {
       screen = (
         <ChessClock
           game={chessGame}
-          prefs={store.chessPrefs}
+          prefs={clockPrefs}
           onChange={updateChess}
           onReset={resetChess}
           onSettings={() => nav({ screen: "chess-setup" })}
@@ -446,7 +654,7 @@ export default function App() {
       const game = store.dailySudoku;
       screen =
         game && game.daily === view.daily ? (
-          <Sudoku key={`daily-${view.daily}`} game={game} onChange={updateSudoku} onHome={back} visible={visible} stats={store.stats} confirm={confirm} />
+          <Sudoku key={`daily-${view.daily}`} game={game} onChange={updateSudoku} onHome={back} visible={visible} stats={store.stats} confirm={confirm} settings={store.settings} />
         ) : (
           <DailySudokuLoader
             day={view.daily}
@@ -476,6 +684,7 @@ export default function App() {
           queued={store.sudokuNext}
           onCreate={createSudoku}
           confirm={confirm}
+          settings={store.settings}
         />
       );
     }
@@ -491,6 +700,49 @@ export default function App() {
         onHome={back}
       />
     );
+  } else if (view.screen === "settings") {
+    screen = (
+      <Settings
+        store={store}
+        settings={store.settings}
+        onSettings={updateSettings}
+        onRestore={restoreBackup}
+        onHome={back}
+      />
+    );
+  } else if (view.screen === "word") {
+    screen = wordReady ? (
+      <Word
+        key={`${wordSlot}-${wordGame.startedAt}`}
+        game={wordGame}
+        settings={store.settings}
+        summary={wordSummary}
+        onChange={updateWord}
+        onHard={setWordHard}
+        onNewRandom={() => (view.daily ? openWord(null, { fresh: !!store.word.practice && store.word.practice.status !== "playing" }) : ensureWord(null, { fresh: true }))}
+        onDaily={() => openWord(today, { replaceView: true })}
+        onHome={back}
+        confirm={confirm}
+      />
+    ) : (
+      <div className="page" />
+    );
+  } else if (view.screen === "nono") {
+    screen = nonoReady ? (
+      <Nonogram
+        key={`${nonoSlot}-${nonoGame.createdAt}`}
+        game={nonoGame}
+        settings={store.settings}
+        visible={visible}
+        stats={store.stats.nono}
+        onChange={updateNono}
+        onNew={() => (view.daily ? openNono(null, { fresh: !!store.nono.practice?.solved }) : ensureNono(null, { fresh: true }))}
+        onHome={back}
+        confirm={confirm}
+      />
+    ) : (
+      <div className="page" />
+    );
   } else if (view.screen === "crypto-play") {
     const puzzle = findPuzzle(view.id);
     if (puzzle && cryptoProgress) {
@@ -500,6 +752,7 @@ export default function App() {
           puzzle={puzzle}
           progress={cryptoProgress}
           visible={visible}
+          settings={store.settings}
           onChange={(fn) => updateCryptoProgress(view.id, fn)}
           onHome={back}
         />
@@ -516,8 +769,11 @@ export default function App() {
         onChess={() => nav({ screen: "chess" })}
         onSudoku={() => nav({ screen: "sudoku" })}
         onCrypto={() => nav({ screen: "crypto-list" })}
+        onWord={() => openWord(null)}
+        onNono={() => openNono(null)}
+        onSettings={() => nav({ screen: "settings" })}
+        wordSummary={wordSummary}
         onDaily={openDaily}
-        onRestore={restoreBackup}
       />
     );
   }

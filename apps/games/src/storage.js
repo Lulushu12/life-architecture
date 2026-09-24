@@ -3,6 +3,8 @@ import { DIFFICULTIES } from "./sudokuGen.js";
 import { DELAY_MODES, normalizeControl } from "./chessClock.js";
 import { isValidPerm } from "./cryptogram.js";
 import { isDailyCryptoId, dayOfDailyId } from "./daily.js";
+import { MAX_GUESSES, WORD_LEN } from "./word.js";
+import { NONO_SIZE } from "./nonogram.js";
 
 export const STORE_KEY = "games-v1";
 
@@ -26,10 +28,36 @@ export const STORE_KEY = "games-v1";
  *                hints, elapsedMs, resumedAt, solved, solvedAt, recorded, startedAt, updatedAt }
  *                (daily ids are "d:YYYY-MM-DD"); custom: [{ id, text, attribution,
  *                custom: true | source: "web" }]
- *   daily        dayKey -> { sudoku?: seconds, crypto?: seconds }
+ *   word         daily | practice: null | { answer, daily, guesses [word], hard, status
+ *                ("playing"|"won"|"lost"), recorded, startedAt, finishedAt, updatedAt }
+ *   nono         daily | practice: null | { daily, solution [100], rows, cols [[run]], cells [100]
+ *                (0 empty, 1 filled, 2 crossed), undo [cells], mode ("fill"|"cross"), elapsedMs,
+ *                resumedAt, checks, solved, solvedAt, recorded, createdAt, updatedAt }
+ *   settings     sound, haptics, tenthsSec, peerHighlight, sameDigit, autoCandidates,
+ *                sudokuCheck ("conflicts"|"mistakes"|"both"|"off"), keepAwake, wordHard
+ *   daily        dayKey -> { sudoku?: seconds, crypto?: seconds, word?: guesses, wordFailed? }
  *   stats        sudoku [{ at, difficulty, seconds, mistakes, hints, daily }],
- *                crypto [{ at, id, seconds, hints, daily }], chess [{ at, control, result, moves }]
+ *                crypto [{ at, id, seconds, hints, daily }], chess [{ at, control, result, moves }],
+ *                word [{ at, daily, won, guesses, hard }], nono [{ at, seconds, checks, daily }]
  */
+
+export const VERSION = 2;
+export const SUDOKU_CHECKS = ["conflicts", "mistakes", "both", "off"];
+export const TENTHS_OPTIONS = [0, 10, 20, 30, 60];
+
+export function defaultSettings() {
+  return {
+    sound: true,
+    haptics: true,
+    tenthsSec: 20,
+    peerHighlight: true,
+    sameDigit: true,
+    autoCandidates: false,
+    sudokuCheck: "conflicts",
+    keepAwake: true,
+    wordHard: false,
+  };
+}
 
 export function defaults() {
   return {
@@ -45,8 +73,11 @@ export function defaults() {
     dailySudoku: null,
     sudokuNext: { easy: null, medium: null, hard: null },
     crypto: { progress: {}, custom: [] },
+    word: { daily: null, practice: null },
+    nono: { daily: null, practice: null },
+    settings: defaultSettings(),
     daily: {},
-    stats: { sudoku: [], crypto: [], chess: [] },
+    stats: { sudoku: [], crypto: [], chess: [], word: [], nono: [] },
   };
 }
 
@@ -68,7 +99,19 @@ function migrateSudoku(g) {
 }
 
 function migrate(store, from) {
-  if (from >= 1) return store;
+  let s = from < 1 ? migrateV0(store) : store;
+  if (from < 2) {
+    const prefs = isObj(s.chessPrefs) ? s.chessPrefs : {};
+    const old = isObj(s.settings) ? s.settings : {};
+    s = {
+      ...s,
+      settings: { ...defaultSettings(), sound: prefs.sound !== false, haptics: prefs.vibrate !== false, ...old },
+    };
+  }
+  return s;
+}
+
+function migrateV0(store) {
   const s = { ...store, sudoku: migrateSudoku(store.sudoku) };
   if (isObj(s.chess) && s.chess.flagged != null) s.chess = { ...s.chess, recorded: true, paused: false };
   if (isObj(s.crypto) && isObj(s.crypto.progress)) {
@@ -87,8 +130,10 @@ function migrate(store, from) {
   return s;
 }
 
+let closeOpenTimers = true;
+
 function closeTimer(rec) {
-  if (!isObj(rec) || rec.resumedAt == null) return rec;
+  if (!isObj(rec) || rec.resumedAt == null || !closeOpenTimers) return rec;
   const end = Number(rec.updatedAt) || 0;
   const extra = end > rec.resumedAt ? Math.min(end - rec.resumedAt, 6 * 3600 * 1000) : 0;
   return { ...rec, elapsedMs: (Number(rec.elapsedMs) || 0) + extra, resumedAt: null };
@@ -139,6 +184,58 @@ function normalizeChess(g) {
   };
 }
 
+function normalizeWord(g) {
+  if (!isObj(g) || typeof g.answer !== "string" || !/^[a-z]{5}$/.test(g.answer)) return null;
+  const guesses = (Array.isArray(g.guesses) ? g.guesses : [])
+    .filter((w) => typeof w === "string" && w.length === WORD_LEN && /^[a-z]+$/.test(w))
+    .slice(0, MAX_GUESSES);
+  const status = guesses.includes(g.answer) ? "won" : guesses.length >= MAX_GUESSES ? "lost" : "playing";
+  return {
+    ...g,
+    guesses,
+    status,
+    hard: !!g.hard,
+    daily: typeof g.daily === "string" ? g.daily : null,
+    recorded: status === "playing" ? false : !!g.recorded,
+  };
+}
+
+const isClue = (c) => Array.isArray(c) && c.every((n) => Number.isInteger(n) && n > 0 && n <= NONO_SIZE);
+
+function normalizeNono(g) {
+  const cellsOk = (a, max) => Array.isArray(a) && a.length === NONO_SIZE * NONO_SIZE && a.every((v) => v === 0 || v === 1 || v === max);
+  if (!isObj(g) || !cellsOk(g.solution, 1) || !cellsOk(g.cells, 2)) return null;
+  if (!Array.isArray(g.rows) || g.rows.length !== NONO_SIZE || !g.rows.every(isClue)) return null;
+  if (!Array.isArray(g.cols) || g.cols.length !== NONO_SIZE || !g.cols.every(isClue)) return null;
+  return closeTimer({
+    ...g,
+    daily: typeof g.daily === "string" ? g.daily : null,
+    undo: Array.isArray(g.undo) ? g.undo.filter((u) => cellsOk(u, 2)).slice(-100) : [],
+    mode: g.mode === "cross" ? "cross" : "fill",
+    elapsedMs: Number(g.elapsedMs) || 0,
+    checks: Number(g.checks) || 0,
+    solved: !!g.solved,
+    recorded: g.solved ? !!g.recorded : false,
+  });
+}
+
+function normalizeSettings(v) {
+  const d = defaultSettings();
+  const s = isObj(v) ? v : {};
+  const bool = (k) => (typeof s[k] === "boolean" ? s[k] : d[k]);
+  return {
+    sound: bool("sound"),
+    haptics: bool("haptics"),
+    tenthsSec: TENTHS_OPTIONS.includes(s.tenthsSec) ? s.tenthsSec : d.tenthsSec,
+    peerHighlight: bool("peerHighlight"),
+    sameDigit: bool("sameDigit"),
+    autoCandidates: bool("autoCandidates"),
+    sudokuCheck: SUDOKU_CHECKS.includes(s.sudokuCheck) ? s.sudokuCheck : d.sudokuCheck,
+    keepAwake: bool("keepAwake"),
+    wordHard: bool("wordHard"),
+  };
+}
+
 function normalizePuzzleNext(p) {
   return isObj(p) && isGrid(p.puzzle) && isGrid(p.solution) ? p : null;
 }
@@ -183,29 +280,53 @@ export function normalize(store) {
   );
   s.crypto = { ...crypto, progress, custom };
 
+  const word = isObj(s.word) ? s.word : {};
+  s.word = { daily: normalizeWord(word.daily), practice: normalizeWord(word.practice) };
+  if (s.word.daily && !s.word.daily.daily) s.word.daily = null;
+  const nono = isObj(s.nono) ? s.nono : {};
+  s.nono = { daily: normalizeNono(nono.daily), practice: normalizeNono(nono.practice) };
+  if (s.nono.daily && !s.nono.daily.daily) s.nono.daily = null;
+  s.settings = normalizeSettings(s.settings);
+
   s.daily = isObj(s.daily) ? s.daily : {};
   const stats = isObj(s.stats) ? s.stats : {};
+  const list = (k) => (Array.isArray(stats[k]) ? stats[k].filter(isObj) : []);
   s.stats = {
-    sudoku: Array.isArray(stats.sudoku) ? stats.sudoku.filter(isObj) : [],
-    crypto: Array.isArray(stats.crypto) ? stats.crypto.filter(isObj) : [],
-    chess: Array.isArray(stats.chess) ? stats.chess.filter(isObj) : [],
+    sudoku: list("sudoku"),
+    crypto: list("crypto"),
+    chess: list("chess"),
+    word: list("word"),
+    nono: list("nono"),
   };
   return s;
 }
 
-export const gamesStore = createStore({ key: STORE_KEY, version: 1, defaults, migrate, normalize });
+let booted = false;
+
+function normalizeOnLoad(store) {
+  closeOpenTimers = !booted;
+  booted = true;
+  try {
+    return normalize(store);
+  } finally {
+    closeOpenTimers = true;
+  }
+}
+
+export const gamesStore = createStore({ key: STORE_KEY, version: VERSION, defaults, migrate, normalize: normalizeOnLoad });
 
 export function hydrate(data) {
+  const from = typeof data?.version === "number" ? data.version : 0;
+  const migrated = from < VERSION ? migrate(data, from) : data;
   const base = defaults();
-  const merged = { ...base, ...data };
+  const merged = { ...base, ...migrated };
   for (const [k, v] of Object.entries(base)) {
     if (isObj(v) && isObj(merged[k])) merged[k] = { ...v, ...merged[k] };
   }
-  const from = typeof data?.version === "number" ? data.version : 0;
-  return { ...normalize(from < 1 ? migrate(merged, from) : merged), version: 1 };
+  return { ...normalize(merged), version: VERSION };
 }
 
 export function validateBackup(obj) {
   if (!isObj(obj)) return false;
-  return ["chess", "sudoku", "crypto", "stats", "daily"].some((k) => k in obj);
+  return ["chess", "sudoku", "crypto", "word", "nono", "stats", "daily"].some((k) => k in obj);
 }

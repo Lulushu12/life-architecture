@@ -39,7 +39,7 @@ export function usePageVisible() {
   return visible;
 }
 
-export function useActiveTimer(update, running) {
+export function useActiveTimer(update, running, idle = false) {
   const updateRef = useRef(update);
   updateRef.current = update;
   useEffect(() => {
@@ -47,6 +47,26 @@ export function useActiveTimer(update, running) {
     updateRef.current((r) => (r && r.resumedAt == null ? { ...r, resumedAt: Date.now() } : r));
     return () => updateRef.current((r) => stopTimer(r));
   }, [running]);
+  useEffect(() => {
+    if (running && idle) updateRef.current((r) => (r && r.resumedAt == null ? { ...r, resumedAt: Date.now() } : r));
+  }, [running, idle]);
+}
+
+export function useFocused() {
+  const read = () => typeof document === "undefined" || typeof document.hasFocus !== "function" || document.hasFocus();
+  const [focused, setFocused] = useState(read);
+  useEffect(() => {
+    const on = () => setFocused(read());
+    window.addEventListener("focus", on);
+    window.addEventListener("blur", on);
+    document.addEventListener("visibilitychange", on);
+    return () => {
+      window.removeEventListener("focus", on);
+      window.removeEventListener("blur", on);
+      document.removeEventListener("visibilitychange", on);
+    };
+  }, []);
+  return focused;
 }
 
 export function useTicker(active, every = 1000) {
