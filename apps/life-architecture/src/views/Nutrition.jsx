@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { MACROS, todayKey } from "../system/constants.js";
+import { todayKey } from "../system/constants.js";
 import { SLOTS, OPTIONS, FAT_RULE, DINNER_NOTE } from "../system/meals.js";
 import { saveMealLog, getMealLog, saveBodyMetric, recentBodyMetrics } from "../data/logs.js";
 import { effectiveMacros } from "../data/macros.js";
@@ -19,7 +19,7 @@ const MACRO_RINGS = [
   { key: "fat",     label: "Fat",     color: "#f59e0b" },
 ];
 
-export default function Nutrition({ user, onMacrosChanged, bridgeMacros }) {
+export default function Nutrition({ user, onMacrosChanged, bridgeMacros, targets }) {
   const today = todayKey();
   const [entries, setEntries] = useState([]);
   const [openSlot, setOpenSlot] = useState(null);
@@ -34,7 +34,7 @@ export default function Nutrition({ user, onMacrosChanged, bridgeMacros }) {
   const { totals, source } = effectiveMacros({ bridgeMacros }, today, entries);
   const fromCalories = source === "calories";
   const [showLocal, setShowLocal] = useState(!fromCalories);
-  const remaining = Math.round(MACROS.kcal - totals.kcal);
+  const remaining = Math.round(targets.kcal - totals.kcal);
   const over = remaining < 0;
 
   const persist = useCallback(async (next) => {
@@ -70,13 +70,13 @@ export default function Nutrition({ user, onMacrosChanged, bridgeMacros }) {
   return (
     <>
       <div className="pg-title">Fuel</div>
-      <div className="pg-sub">2,100 kcal · 160P / 65F / 210C flat. Dinner is the adjustment valve: the remaining gap is the dinner target.</div>
+      <div className="pg-sub">{targets.kcal.toLocaleString()} kcal · {targets.protein}P / {targets.fat}F / {targets.carbs}C flat. Dinner is the adjustment valve: the remaining gap is the dinner target.</div>
 
       <div className="card">
         <div className="card-t">Calories</div>
         <div style={{ fontSize: 12.5, color: "var(--mut)", marginTop: -8, marginBottom: 14 }}>Remaining = Goal - Food</div>
         <div className="fh-row">
-          <Ring size={136} stroke={11} pct={(totals.kcal / MACROS.kcal) * 100} color={over ? "#ef4444" : "var(--acc)"}>
+          <Ring size={136} stroke={11} pct={(totals.kcal / targets.kcal) * 100} color={over ? "#ef4444" : "var(--acc)"}>
             <span className="fh-big" style={over ? { color: "var(--red-t)" } : {}}>{Math.abs(remaining).toLocaleString()}</span>
             <span className="fh-lbl">{over ? "Over" : "Remaining"}</span>
           </Ring>
@@ -84,7 +84,7 @@ export default function Nutrition({ user, onMacrosChanged, bridgeMacros }) {
             <div className="fh-line">
               <span className="fh-ic" style={{ background: "var(--acc-soft)", color: "var(--acc)" }}>⚑</span>
               <span className="fh-k">Base goal</span>
-              <span className="fh-v">{MACROS.kcal.toLocaleString()}</span>
+              <span className="fh-v">{targets.kcal.toLocaleString()}</span>
             </div>
             <div className="fh-line">
               <span className="fh-ic" style={{ background: "rgba(34,197,94,0.12)", color: "var(--green-t)" }}>🍽</span>
@@ -105,7 +105,7 @@ export default function Nutrition({ user, onMacrosChanged, bridgeMacros }) {
         <div className="mac-rings">
           {MACRO_RINGS.map(m => {
             const val = Math.round(totals[m.key]);
-            const target = MACROS[m.key];
+            const target = targets[m.key];
             const left = target - val;
             return (
               <div className="mac-ring" key={m.key}>

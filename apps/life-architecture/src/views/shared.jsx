@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { buzz } from "../data/feedback.js";
 import { BLOCK_META_V2 } from "../system/schedule.js";
 import { STREAK_LABEL, STREAK_COLOR } from "../system/constants.js";
-import { previewCompletion, streakState, ruleHint } from "../system/streak.js";
+import { previewCompletion, streakState, ruleHint, isSkipped } from "../system/streak.js";
 
 export const css = `
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -74,10 +75,27 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 .heat td{height:22px;border-radius:5px;text-align:center}
 .heat th{font-weight:600;color:var(--mut);font-size:10.5px}
 .heat td.q{text-align:left;color:var(--tx2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px;height:auto}
+.st-cat{margin-bottom:14px}
+.st-cat-h{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--tx2);margin:6px 0 8px}
+.st-q{display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid var(--bd2)}
+.st-q:last-child{border-bottom:none}
+.st-q svg{flex-shrink:0;display:block}
+.st-qh{flex:1;min-width:0}
+.st-qt{font-size:13px;font-weight:600;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st-qs{font-size:11.5px;color:var(--mut);margin-top:2px}
+.st-lift{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--bd2)}
+.st-lift:last-child{border-bottom:none}
+.st-w{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;min-width:58px;text-align:right}
+.st-w span{font-size:11px;color:var(--mut);margin-left:2px}
+.st-trend-h{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--tx2);margin-bottom:4px;flex-wrap:wrap}
+.st-trend-h b{color:var(--tx)}
+.st-trend-h b span{font-size:12px;font-weight:600;margin-left:6px}
 .stat{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--bd2);font-size:13.5px}
 .stat:last-child{border-bottom:none}
 .stat b{font-weight:700}
 .pg-title{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;margin-bottom:4px}
+.pg-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pg-head-btn{min-height:44px;padding:8px 16px}
 .pg-sub{font-size:13.5px;color:var(--mut);margin-bottom:22px;line-height:1.55}
 
 /* ── Level / XP header ─────────────────────────────────────────────── */
@@ -122,11 +140,36 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 .blk-d{border-top:1px solid var(--line);padding:11px 13px}
 .det{font-size:13px;color:var(--tx2);line-height:1.6;margin-bottom:8px}
 .tm{background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.3);border-radius:10px;padding:8px 11px;display:flex;gap:8px;align-items:flex-start}
-.tm-l{font-size:10px;font-weight:700;letter-spacing:0.5px;color:#a855f7;flex-shrink:0;margin-top:2px}
+.tm-l{font-size:10px;font-weight:700;letter-spacing:0.5px;color:var(--purp-t);flex-shrink:0;margin-top:2px}
 .tm-t{font-size:12.5px;color:var(--purp-t);line-height:1.5}
 .leg{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
 .leg-i{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--mut)}
 .leg-d{width:8px;height:8px;border-radius:3px;flex-shrink:0}
+
+.tl-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.tl-next{font-size:13px;color:var(--tx2)}
+.tl-next b{color:var(--tx)}
+.tl-all{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.tl-chip{font-size:12px;font-weight:600;padding:4px 10px;border-radius:99px;background:var(--th);color:var(--tx2)}
+.tl-past{background:none;border:none;color:var(--acc);font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;min-height:36px;padding:0 2px}
+.tl{list-style:none;position:relative;margin:0;padding:0}
+.tl::before{content:"";position:absolute;left:86px;top:6px;bottom:6px;width:2px;background:var(--bd)}
+.tl-i{position:relative}
+.tl-b{display:flex;align-items:center;gap:10px;width:100%;min-height:40px;padding:6px 4px;background:none;border:none;border-radius:10px;color:var(--tx);font-family:inherit;text-align:left;cursor:pointer}
+.tl-b:disabled{cursor:default;color:var(--tx)}
+.tl-b:not(:disabled):hover{background:var(--hover)}
+.tl-t{width:68px;flex-shrink:0;font-size:11.5px;font-weight:700;color:var(--mut);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;position:relative;z-index:1;box-shadow:0 0 0 3px var(--card)}
+.tl-l{flex:1;min-width:0;font-size:13.5px;font-weight:600;line-height:1.35}
+.tl-cur{margin-left:8px;font-size:10.5px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--acc);background:var(--acc-soft);padding:2px 7px;border-radius:99px}
+.tl-i.cur .tl-b{background:var(--acc-soft)}
+.tl-i.cur .tl-dot{box-shadow:0 0 0 3px var(--card),0 0 0 5px var(--acc)}
+.tl-i.past .tl-l,.tl-i.past .tl-t{color:var(--dim)}
+.tl-d{padding:2px 4px 10px 96px}
+.tl-now{position:relative;height:18px;display:flex;align-items:center;margin:2px 0}
+.tl-now::before{content:"";position:absolute;left:78px;right:0;height:2px;background:var(--red-t);top:50%}
+.tl-now::after{content:"";position:absolute;left:82px;width:10px;height:10px;border-radius:50%;background:var(--red-t);top:4px}
+.tl-now span{position:relative;width:72px;text-align:right;font-size:11px;font-weight:700;color:var(--red-t)}
 
 /* ── Tables ────────────────────────────────────────────────────────── */
 .tbl{width:100%;border-collapse:collapse;font-size:13px}
@@ -144,7 +187,7 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 .chip{padding:7px 15px;border-radius:99px;border:1px solid var(--bd);background:var(--card);font-size:13px;font-weight:600;cursor:pointer;color:var(--tx2);transition:all 0.15s;user-select:none}
 .chip:hover{border-color:var(--bdh);color:var(--tx)}
 .chip.active{background:var(--acc);border-color:var(--acc);color:#fff}
-.chip.dc{border-color:rgba(168,85,247,0.5);color:#a855f7}
+.chip.dc{border-color:rgba(168,85,247,0.5);color:var(--purp-t)}
 .chip.dc.active{background:#a855f7;border-color:#a855f7;color:#fff}
 
 /* ── Quests ────────────────────────────────────────────────────────── */
@@ -171,8 +214,18 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 .bi.del:hover{border-color:#ef4444;color:var(--red-t);background:rgba(239,68,68,0.1)}
 .btn-add{width:100%;padding:11px;border-radius:12px;border:1px dashed var(--bdh);background:transparent;cursor:pointer;color:var(--acc);font-size:13px;font-weight:700;font-family:'DM Sans',sans-serif;transition:all 0.15s;margin-top:4px}
 .btn-add:hover{border-color:var(--acc);background:var(--acc-soft)}
-.dq{width:100%;min-height:52px;text-align:left;font-family:inherit;color:var(--tx);cursor:pointer;background:var(--card);border:1px solid var(--bd);box-shadow:var(--sh);border-radius:14px;padding:12px 15px;display:flex;align-items:center;gap:12px;margin-bottom:7px;transition:border-color 0.15s}
-.dq.lockd{cursor:default}
+.dq{width:100%;min-height:52px;color:var(--tx);background:var(--card);border:1px solid var(--bd);box-shadow:var(--sh);border-radius:14px;display:flex;align-items:stretch;margin-bottom:7px;transition:border-color 0.15s,opacity 0.15s}
+.dq-main{flex:1;min-width:0;display:flex;align-items:center;gap:12px;padding:12px 4px 12px 15px;background:none;border:none;color:inherit;font-family:inherit;text-align:left;cursor:pointer;border-radius:14px 0 0 14px;-webkit-touch-callout:none;user-select:none}
+.dq.lockd .dq-main,.dq.skipped .dq-main{cursor:default}
+.dq-more{width:44px;flex-shrink:0;background:none;border:none;border-radius:0 14px 14px 0;color:var(--mut);font-size:18px;font-weight:700;cursor:pointer;font-family:inherit}
+.dq-more:hover{color:var(--tx);background:var(--hover)}
+.dq.skipped{border-style:dashed;background:transparent;box-shadow:none}
+.dq.skipped .dt{color:var(--mut)}
+.dskip{font-size:11px;font-weight:700;padding:1.5px 8px;border-radius:99px;color:var(--tx2);border:1px dashed var(--bdh)}
+.qsheet-q{font-size:14px;font-weight:600;margin:0 0 14px;color:var(--tx)}
+.qsheet-a{display:block;width:100%;min-height:48px;padding:12px 14px;margin-bottom:8px;border-radius:12px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-family:inherit;font-size:14px;font-weight:600;text-align:left;cursor:pointer}
+.qsheet-a:disabled{opacity:0.45;cursor:default}
+.qsheet-a small{display:block;font-size:12px;font-weight:500;color:var(--mut);margin-top:2px}
 .dq .qchk{pointer-events:none}
 .dq:hover{border-color:var(--bdh)}
 .dq.done{opacity:0.5}
@@ -183,6 +236,21 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 .sb{display:flex;align-items:center;gap:3px;font-size:12px;font-weight:700}
 .mb{font-size:11px;padding:1.5px 8px;border-radius:99px;font-weight:700}
 .dn{font-size:11.5px;color:var(--mut)}
+
+.ms-bar{display:flex;align-items:center;gap:8px;width:100%;margin-top:8px;min-height:32px;background:none;border:none;padding:0;color:inherit;font-family:inherit;cursor:pointer}
+.ms-n{font-size:11.5px;font-weight:700;color:var(--mut)}
+.ms-list{margin-top:6px;display:flex;flex-direction:column;gap:2px}
+.ms-i{display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 2px;background:none;border:none;color:var(--tx);font-family:inherit;font-size:13px;text-align:left;cursor:pointer;border-radius:8px}
+.ms-i:hover{background:var(--hover)}
+.ms-i .qchk{pointer-events:none;margin-top:0}
+.ms-i.done .ms-t{text-decoration:line-through;color:var(--mut)}
+.ms-t{flex:1;min-width:0}
+.ms-x{font-size:11.5px;font-weight:700;color:var(--acc);flex-shrink:0;min-width:36px;text-align:right}
+.ms-edit{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.ms-edit .fi{flex:1;min-width:0;padding:8px 10px}
+.ms-edit .qchk{width:28px;height:28px;margin-top:0}
+.ms-edit .bi{width:34px;height:34px;flex-shrink:0}
+.ms-edit .bi:disabled{opacity:0.35;cursor:default}
 
 /* ── Modal & forms ─────────────────────────────────────────────────── */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px}
@@ -211,7 +279,7 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 .oc{background:var(--card);border:1px solid var(--bd);box-shadow:var(--sh);border-radius:14px;padding:15px 17px;margin-bottom:9px;display:flex;align-items:flex-start;gap:14px}
 .oc.done{border-color:rgba(34,197,94,0.5)}
 .on{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--fnt);flex-shrink:0;width:32px;text-align:center}
-.oc.done .on{color:#22c55e}
+.oc.done .on{color:var(--green-t)}
 .ot{font-size:14.5px;font-weight:600;color:var(--tx);margin-bottom:3px}
 .od{font-size:13px;color:var(--mut);line-height:1.55}
 .op{font-size:10.5px;padding:3px 10px;border-radius:99px;font-weight:700;margin-left:auto;flex-shrink:0;white-space:nowrap}
@@ -263,7 +331,7 @@ html,body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;
 .ex-card{background:var(--card);border:1px solid var(--bd);box-shadow:var(--sh);border-radius:14px;padding:14px 16px;margin-bottom:9px}
 .ex-hd{display:flex;align-items:baseline;gap:9px;margin-bottom:9px;flex-wrap:wrap}
 .ex-nm{font-size:14px;font-weight:700}
-.ex-wt{font-size:12.5px;font-weight:700;color:#f59e0b}
+.ex-wt{font-size:12.5px;font-weight:700;color:var(--gold)}
 .ex-nt{font-size:11.5px;color:var(--mut)}
 .gate{font-size:12px;font-weight:600;padding:8px 11px;border-radius:10px;margin-top:6px;line-height:1.5}
 .gate.advance{background:rgba(34,197,94,0.1);color:var(--green-t);border:1px solid rgba(34,197,94,0.35)}
@@ -318,17 +386,23 @@ export function Ring({ size = 108, stroke = 9, pct = 0, color = "var(--acc)", ch
   );
 }
 
+const BLOCK_TEXT = {
+  meal: "var(--green-t)", gym_push: "var(--gold)", gym_pull: "var(--gold)", gym_legs: "var(--gold)", joker: "var(--blue-t)",
+  sacred: "var(--gold)", mobility: "var(--purp-t)", sleep: "var(--blue-t)", metric: "var(--cyan-t)", task: "var(--red-t)", wildcard: "var(--mut)",
+};
+
 export function Blk({ b }) {
   const [open, setOpen] = useState(false);
   const m = BLOCK_META_V2[b.type] || BLOCK_META_V2.wildcard;
+  const tc = BLOCK_TEXT[b.type] || "var(--mut)";
   const inter = !!(b.detail || b.twoMin);
   return (
-    <div className={"blk" + (inter ? " ck" : "")} style={{ borderColor: m.color + "55", background: m.bg, opacity: b.type === "wildcard" ? 0.6 : 1 }} onClick={() => inter && setOpen(o => !o)}>
+    <div className={"blk" + (inter ? " ck" : "")} style={{ borderColor: b.type === "wildcard" ? "var(--bd)" : m.color + "55", background: m.bg }} onClick={() => inter && setOpen(o => !o)}>
       <div className="blk-m">
-        <div className="blk-t" style={{ color: m.color }}>{b.time}</div>
+        <div className="blk-t" style={{ color: tc }}>{b.time}</div>
         <div className="blk-c">
-          <span className="blk-l" style={{ color: b.type === "wildcard" ? "var(--dim)" : "var(--tx)" }}>{b.label}</span>
-          <span className="blk-b" style={{ color: m.color }}>{m.label}</span>
+          <span className="blk-l" style={{ color: b.type === "wildcard" ? "var(--tx2)" : "var(--tx)" }}>{b.label}</span>
+          <span className="blk-b" style={{ color: tc }}>{m.label}</span>
         </div>
         {inter && <div className={"blk-a" + (open ? " open" : "")}>▾</div>}
       </div>
@@ -342,32 +416,58 @@ export function Blk({ b }) {
   );
 }
 
-export function DQ({ q, onToggle, ac, today }) {
+export function DQ({ q, onToggle, onMenu, ac, today }) {
   const done = q.lastDone === today;
+  const skipped = !done && isSkipped(q, today);
   const st = streakState(q, today);
   const shown = done ? { xp: q.lastXp ?? previewCompletion(q, today).xp, streak: q.streak } : previewCompletion(q, today);
   const sc = STREAK_COLOR(shown.streak);
   const locked = !!q.auto;
+  const press = useRef({ timer: null, fired: false, x: 0, y: 0 });
+  const clear = () => { clearTimeout(press.current.timer); press.current.timer = null; };
+  const openMenu = () => { if (onMenu) { press.current.fired = true; clear(); buzz("tap"); onMenu(q); } };
+  const pressProps = onMenu ? {
+    onPointerDown: (e) => { press.current.fired = false; press.current.x = e.clientX; press.current.y = e.clientY; clear(); press.current.timer = setTimeout(openMenu, 520); },
+    onPointerMove: (e) => { if (press.current.timer && Math.hypot(e.clientX - press.current.x, e.clientY - press.current.y) > 10) clear(); },
+    onPointerUp: clear,
+    onPointerLeave: clear,
+    onPointerCancel: clear,
+    onContextMenu: (e) => { e.preventDefault(); if (!press.current.fired) openMenu(); },
+  } : {};
   const inner = (
     <>
-      <span className="qchk" aria-hidden="true" style={done ? { borderColor: ac, background: ac } : locked ? { borderStyle: "dashed" } : {}}>{done ? "✓" : locked ? "·" : ""}</span>
+      <span className="qchk" aria-hidden="true" style={done ? { borderColor: ac, background: ac } : skipped ? { borderStyle: "dashed", color: "var(--mut)" } : locked ? { borderStyle: "dashed" } : {}}>{done ? "✓" : skipped ? "–" : locked ? "·" : ""}</span>
       <span className="di">
         <span className={"dt" + (done ? " done" : "")} style={{ display: "block" }}>{q.title}</span>
         <span className="dm">
-          <span className="qxp">{done ? "" : "+"}{shown.xp} XP</span>
+          {skipped ? <span className="dskip">Skipped today</span> : <span className="qxp">{done ? "" : "+"}{shown.xp} XP</span>}
           {st.streak > 0 && <span className="sb" style={{ color: STREAK_COLOR(st.streak) }}>🔥 {st.streak}</span>}
-          {shown.streak >= 7 && <span className="mb" style={{ color: sc, background: sc + "22", border: "1px solid " + sc }}>{STREAK_LABEL(shown.streak)}</span>}
+          {!skipped && shown.streak >= 7 && <span className="mb" style={{ color: sc, background: `color-mix(in srgb, ${sc} 14%, transparent)`, border: "1px solid " + sc }}>{STREAK_LABEL(shown.streak)}</span>}
           {q.note && <span className="dn">{q.note}</span>}
         </span>
         <span className="qhint" style={{ display: "block" }}>{ruleHint(q, today)}</span>
       </span>
     </>
   );
-  if (locked) return <div className={"dq lockd" + (done ? " done" : "")} title="Auto-completed by the tracker">{inner}</div>;
+  const cls = "dq" + (done ? " done" : "") + (skipped ? " skipped" : "") + (locked ? " lockd" : "");
+  const more = onMenu && (
+    <button type="button" className="dq-more" aria-label={`More actions for ${q.title}`} aria-haspopup="dialog" onClick={() => onMenu(q)}>⋯</button>
+  );
+  if (locked || skipped) {
+    return (
+      <div className={cls}>
+        <div className="dq-main" title={skipped ? "Skipped today" : "Auto-completed by the tracker"} {...pressProps}>{inner}</div>
+        {more}
+      </div>
+    );
+  }
   return (
-    <button type="button" className={"dq" + (done ? " done" : "")} aria-pressed={done} onClick={() => onToggle(q.id)}>
-      {inner}
-    </button>
+    <div className={cls}>
+      <button type="button" className="dq-main" aria-pressed={done} {...pressProps} onClick={() => { if (press.current.fired) { press.current.fired = false; return; } onToggle(q.id); }}>
+        {inner}
+      </button>
+      {more}
+    </div>
   );
 }
 

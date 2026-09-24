@@ -198,7 +198,7 @@ export async function askCoach(situation, ctx) {
     system: COACH_SYSTEM + "\n\nPROTOCOL SET:\n" + JSON.stringify(ctx?.protocols || PROTOCOLS, null, 1),
     user:
       `TODAY: ${ctx?.date || "?"} (${ctx?.weekday || "?"}), planned session: ${ctx?.plannedSession || "?"}.\n` +
-      `MACRO TARGETS: 2100 kcal / 160P / 65F / 210C. Today so far: ${JSON.stringify(ctx?.todayMacros || {})}.\n` +
+      `MACRO TARGETS: ${ctx?.targets ? `${ctx.targets.kcal} kcal / ${ctx.targets.protein}P / ${ctx.targets.fat}F / ${ctx.targets.carbs}C` : "2100 kcal / 160P / 65F / 210C"}. Today so far: ${JSON.stringify(ctx?.todayMacros || {})}.\n` +
       `MEAL OPTIONS (for macro_fill): ${JSON.stringify(mealOptions)}\n` +
       `RECENT WORKOUTS (compact): ${JSON.stringify(ctx?.recentWorkouts || [])}\n` +
       (ctx?.bodyMetrics ? `WAIST LOG: ${JSON.stringify(ctx.bodyMetrics)}\n` : "") +

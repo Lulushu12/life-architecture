@@ -10,7 +10,7 @@ export function PIdentity() {
         <div className="card-t">Identity Anchors: Sovereign Health OS v2</div>
         {IDENTITY_ANCHORS.map(a => (
           <div key={a} style={{ display: "flex", gap: 10, marginBottom: 10, alignItems: "flex-start" }}>
-            <span style={{ color: "#22c55e", fontFamily: "JetBrains Mono", fontSize: 11, marginTop: 3, flexShrink: 0 }}>◆</span>
+            <span style={{ color: "var(--green-t)", fontFamily: "JetBrains Mono", fontSize: 11, marginTop: 3, flexShrink: 0 }}>◆</span>
             <span style={{ fontSize: 14, fontWeight: 600, color: "var(--tx)" }}>{a}</span>
           </div>
         ))}
@@ -22,7 +22,7 @@ export function PIdentity() {
           ["Builder", "CAD patents complete; technical skill applied selectively and with purpose"],
           ["Partner", "Despina time 19:30–21:00 is a non-negotiable boundary. I am a present partner."]].map(([t, d]) => (
           <div key={t} style={{ display: "flex", gap: 12, marginBottom: 12, alignItems: "flex-start" }}>
-            <span style={{ fontFamily: "Space Grotesk", fontSize: 12, letterSpacing: 2, color: "#3b82f6", width: 64, flexShrink: 0, paddingTop: 2 }}>{t}</span>
+            <span style={{ fontFamily: "Space Grotesk", fontSize: 12, letterSpacing: 2, color: "var(--blue-t)", width: 64, flexShrink: 0, paddingTop: 2 }}>{t}</span>
             <span style={{ fontSize: 12, color: "var(--tx2)", lineHeight: 1.6 }}>{d}</span>
           </div>
         ))}
@@ -70,7 +70,7 @@ export function PHabits() {
           "After the mat comes out at 21:45: VMO + mobility. The mat being out IS the trigger.",
         ].map((s, i) => (
           <div key={i} style={{ display: "flex", gap: 8, marginBottom: 8, alignItems: "flex-start" }}>
-            <span style={{ color: "#3b82f6", fontFamily: "JetBrains Mono", fontSize: 11, marginTop: 2, flexShrink: 0 }}>→</span>
+            <span style={{ color: "var(--blue-t)", fontFamily: "JetBrains Mono", fontSize: 11, marginTop: 2, flexShrink: 0 }}>→</span>
             <span style={{ fontSize: 12, color: "var(--tx2)", lineHeight: 1.6 }}>{s}</span>
           </div>
         ))}
@@ -88,7 +88,7 @@ export function PHabits() {
           "Yoga mat visible in the bedroom, bedtime mobility happens because it is already there",
           "Resistance band + 4–6mm mat live in the hospital bag, call days have no excuse path"].map((s, i) => (
           <div key={i} style={{ display: "flex", gap: 8, marginBottom: 8, alignItems: "flex-start" }}>
-            <span style={{ color: "#f59e0b", fontSize: 11, marginTop: 2, flexShrink: 0 }}>◆</span>
+            <span style={{ color: "var(--gold)", fontSize: 11, marginTop: 2, flexShrink: 0 }}>◆</span>
             <span style={{ fontSize: 12, color: "var(--tx2)", lineHeight: 1.6 }}>{s}</span>
           </div>
         ))}
@@ -98,10 +98,10 @@ export function PHabits() {
 }
 
 const OUTPUTS = [
-  { num: "01", qid: "l14", match: /trading system/i, title: "Documented Trading System", done: "Written rules for entries, exits, position sizing, risk management, and review cadence", pri: "PRIMARY", pc: "#22c55e", pb: "rgba(34,197,94,0.12)" },
-  { num: "02", qid: "l5",  match: /15\s*kg/i, title: "Lose 15kg by end of summer", done: "Hard deadline: end of September 2026. PPL 6x/week + 2,100 kcal flat, tracked in-app. Waist is the primary indicator.", pri: "PRIMARY", pc: "#22c55e", pb: "rgba(34,197,94,0.12)" },
-  { num: "03", qid: "l8",  match: /patent/i, title: "Patent Approvals x2", done: "Both CAD patents approved, monitoring only, no new design work required", pri: "MEDICINE", pc: "#ef4444", pb: "rgba(239,68,68,0.12)" },
-  { num: "04", qid: "l7",  match: /srats/i, title: "SRATS Conference Presentation", done: "Slide deck + speaker script finalized and rehearsed for submission deadline", pri: "MEDICINE", pc: "#ef4444", pb: "rgba(239,68,68,0.12)" },
+  { num: "01", qid: "l14", match: /trading system/i, title: "Documented Trading System", done: "Written rules for entries, exits, position sizing, risk management, and review cadence", pri: "PRIMARY", pc: "var(--green-t)", pb: "rgba(34,197,94,0.12)" },
+  { num: "02", qid: "l5",  match: /15\s*kg/i, title: "Lose 15kg by end of summer", done: "Hard deadline: end of September 2026. PPL 6x/week + 2,100 kcal flat, tracked in-app. Waist is the primary indicator.", pri: "PRIMARY", pc: "var(--green-t)", pb: "rgba(34,197,94,0.12)" },
+  { num: "03", qid: "l8",  match: /patent/i, title: "Patent Approvals x2", done: "Both CAD patents approved, monitoring only, no new design work required", pri: "MEDICINE", pc: "var(--red-t)", pb: "rgba(239,68,68,0.12)" },
+  { num: "04", qid: "l7",  match: /srats/i, title: "SRATS Conference Presentation", done: "Slide deck + speaker script finalized and rehearsed for submission deadline", pri: "MEDICINE", pc: "var(--red-t)", pb: "rgba(239,68,68,0.12)" },
 ];
 
 function questFor(o, longQ) {
@@ -127,7 +127,7 @@ export function POutputs({ longQ = [] }) {
               <div className="od">{o.done}</div>
             </div>
             <div className="op" style={isDone
-              ? { color: "#22c55e", background: "rgba(34,197,94,0.12)", border: "1px solid #22c55e" }
+              ? { color: "var(--green-t)", background: "rgba(34,197,94,0.12)", border: "1px solid #22c55e" }
               : { color: o.pc, background: o.pb, border: "1px solid " + o.pc }}>{isDone ? "COMPLETE" : o.pri}</div>
           </div>
         );

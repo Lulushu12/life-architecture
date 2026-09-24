@@ -8,8 +8,12 @@ export function weekdayOfKey(key) {
   return new Date(y, m - 1, d, 12).getDay();
 }
 
-export const isScheduled = (q, key) =>
+export const isPlanned = (q, key) =>
   !Array.isArray(q.days) || q.days.length === 0 || q.days.includes(weekdayOfKey(key));
+
+export const isSkipped = (q, key) => Array.isArray(q.skips) && q.skips.includes(key);
+
+export const isScheduled = (q, key) => isPlanned(q, key) && !isSkipped(q, key);
 
 const anchorOf = (q) => q.lastSched || q.lastDone || "";
 
@@ -92,7 +96,8 @@ export function daysLabel(days) {
 export function ruleHint(q, today) {
   const st = streakState(q, today);
   const parts = [`${daysLabel(q.days)}, never miss twice`];
-  if (!isScheduled(q, today)) parts.push("off day: no effect on the streak");
+  if (q.lastDone !== today && isSkipped(q, today)) parts.push("skipped: the streak neither breaks nor grows");
+  else if (!isScheduled(q, today)) parts.push("off day: no effect on the streak");
   else if (st.held && q.lastDone !== today) parts.push("1 miss: do it today to keep the streak");
   else if (st.held) parts.push("grace used");
   return parts.join(" · ");

@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import { addDays } from "@shared/store.js";
-import { MACROS, plannedSession, CAT_COLORS } from "../system/constants.js";
-import { isScheduled, weekdayOfKey } from "../system/streak.js";
+import { plannedSession, CAT_COLORS } from "../system/constants.js";
+import { proteinHit, kcalInWindow } from "../system/targets.js";
+import { isScheduled, isSkipped, weekdayOfKey } from "../system/streak.js";
 import { getWorkoutLogSync, recentBodyMetricsSync } from "../data/logs.js";
 import { effectiveMacros } from "../data/macros.js";
 
@@ -25,7 +26,7 @@ const CADENCE = [
   { title: "Monthly, first Sunday", items: ["Six-month output progress: where are the four outputs tracking?", "Deload screen: any 2+ co-occurring fatigue signals this month?", "Sleep check: is the 22:00–22:30 lights-out window holding?", "Trading P&L review and system adjustments"] },
 ];
 
-export default function Review({ data, today, commit, setDailyAuto }) {
+export default function Review({ data, today, commit, setDailyAuto, targets }) {
   const week = isoWeek(today);
   const review = data.reviews?.[week] || {};
   const priorities = [0, 1, 2].map(i => review.priorities?.[i] || "");
@@ -42,7 +43,7 @@ export default function Review({ data, today, commit, setDailyAuto }) {
       const m = effectiveMacros(data, k);
       if (m.source) {
         macroDays++;
-        if (m.totals.protein >= MACROS.protein && m.totals.kcal >= MACROS.kcalFloor && m.totals.kcal <= MACROS.kcalCeil) macroHit++;
+        if (proteinHit(m.totals, targets) && kcalInWindow(m.totals, targets)) macroHit++;
       }
     }
     const first = days[0];
@@ -56,7 +57,7 @@ export default function Review({ data, today, commit, setDailyAuto }) {
     const last = waists[waists.length - 1], prev = waists[waists.length - 2];
     const waistDelta = last && prev ? +(last.waistCm - prev.waistCm).toFixed(1) : null;
     return { planned, sessions, pain, macroHit, macroDays, advances, drops, waistDelta, lastWaist: last };
-  }, [days, data, today]);
+  }, [days, data, today, targets]);
 
   const setPriority = (i, text) => {
     commit(d => {
@@ -95,7 +96,10 @@ export default function Review({ data, today, commit, setDailyAuto }) {
                     {days.map(k => {
                       const sched = isScheduled(q, k);
                       const hit = done(q, k);
-                      return <td key={k} aria-label={`${q.title} ${k}: ${hit ? "done" : sched ? "missed" : "off day"}`} style={{ background: hit ? c : sched ? "var(--ring)" : "transparent", border: sched ? "none" : "1px dashed var(--bd)" }} />;
+                      const skip = !hit && isSkipped(q, k);
+                      const label = hit ? "done" : skip ? "skipped" : sched ? "missed" : "off day";
+                      const style = hit ? { background: c } : skip ? { background: "repeating-linear-gradient(135deg, transparent 0 3px, var(--bdh) 3px 4px)", border: "1px solid var(--bdh)" } : sched ? { background: "var(--ring)" } : { background: "transparent", border: "1px dashed var(--bd)" };
+                      return <td key={k} aria-label={`${q.title} ${k}: ${label}`} title={label} style={style} />;
                     })}
                   </tr>
                 );

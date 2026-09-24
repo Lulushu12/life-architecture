@@ -1,3 +1,4 @@
+import { cleanTargets } from "../system/targets.js";
 import { DEFAULT_DAILY_V2, V8_DAILY_MIGRATION, DEFAULT_DAYS, BREATH_QUEST } from "../system/quests.js";
 
 export const SCHEMA_VERSION = 4;
@@ -50,10 +51,20 @@ const obj = (v) => (v && typeof v === "object" && !Array.isArray(v) ? v : {});
 export function normalizeUser(data) {
   const dailyQ = (Array.isArray(data.dailyQ) ? data.dailyQ : [])
     .filter(q => q && typeof q === "object" && q.id)
-    .map(q => ({ ...q, title: String(q.title || q.id), baseXp: num(q.baseXp, 25), streak: num(q.streak), lastDone: typeof q.lastDone === "string" ? q.lastDone : "" }));
+    .map(q => {
+      const out = { ...q, title: String(q.title || q.id), baseXp: num(q.baseXp, 25), streak: num(q.streak), lastDone: typeof q.lastDone === "string" ? q.lastDone : "" };
+      if (Array.isArray(q.skips)) out.skips = q.skips.filter(k => typeof k === "string" && /^\d{4}-\d{2}-\d{2}$/.test(k)).slice(-120);
+      else delete out.skips;
+      return out;
+    });
   const longQ = (Array.isArray(data.longQ) ? data.longQ : [])
     .filter(q => q && typeof q === "object" && q.id)
-    .map(q => ({ ...q, title: String(q.title || ""), xp: num(q.xp), status: q.status || "Pending" }));
+    .map(q => {
+      const out = { ...q, title: String(q.title || ""), xp: num(q.xp), status: q.status || "Pending" };
+      if (Array.isArray(q.milestones)) out.milestones = q.milestones.filter(m => m && typeof m === "object" && m.id).map(m => ({ id: String(m.id), title: String(m.title || ""), done: !!m.done }));
+      else delete out.milestones;
+      return out;
+    });
   return {
     ...data,
     dailyQ,
@@ -67,6 +78,7 @@ export function normalizeUser(data) {
     bridgeTraining: obj(data.bridgeTraining),
     dayLog: obj(data.dayLog),
     reviews: obj(data.reviews),
+    targets: cleanTargets(data.targets),
   };
 }
 

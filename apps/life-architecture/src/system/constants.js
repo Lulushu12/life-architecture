@@ -31,14 +31,14 @@ export function getLevel(xp) {
 
 export const CATEGORIES = ["Health & Fitness", "Medicine & Surgery", "Trading", "Hobbies & Creativity"];
 export const CAT_COLORS = {
-  "Health & Fitness":     { accent: "#22c55e", light: "#86efac" },
-  "Medicine & Surgery":   { accent: "#ef4444", light: "#fca5a5" },
-  "Trading":              { accent: "#06b6d4", light: "#67e8f9" },
-  "Hobbies & Creativity": { accent: "#f59e0b", light: "#fcd34d" },
+  "Health & Fitness":     { accent: "#22c55e", light: "#86efac", text: "var(--green-t)" },
+  "Medicine & Surgery":   { accent: "#ef4444", light: "#fca5a5", text: "var(--red-t)" },
+  "Trading":              { accent: "#06b6d4", light: "#67e8f9", text: "var(--cyan-t)" },
+  "Hobbies & Creativity": { accent: "#f59e0b", light: "#fcd34d", text: "var(--gold)" },
 };
 export const STREAK_MULT  = (s) => s >= 30 ? 3 : s >= 14 ? 2 : s >= 7 ? 1.5 : 1;
 export const STREAK_LABEL = (s) => s >= 30 ? "x3" : s >= 14 ? "x2" : s >= 7 ? "x1.5" : "x1";
-export const STREAK_COLOR = (s) => s >= 30 ? "#a855f7" : s >= 14 ? "#ef4444" : s >= 7 ? "#f59e0b" : "#64748b";
+export const STREAK_COLOR = (s) => s >= 30 ? "var(--purp-t)" : s >= 14 ? "var(--red-t)" : s >= 7 ? "var(--gold)" : "var(--grey-t)";
 
 export const todayKey = (d = new Date()) => dayKey(d);
 export const uid = () => "q" + Date.now() + Math.random().toString(36).slice(2, 7);

@@ -1,21 +1,19 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
-import { useHistoryNav } from "@shared/useHistoryNav.js";
-import { useToast, Toggle, SettingRow } from "@shared/ui.jsx";
-import { BackupPanel } from "@shared/BackupPanel.jsx";
+import { useHistoryNav, useBackGuard } from "@shared/useHistoryNav.js";
+import { useToast } from "@shared/ui.jsx";
 import { registerSw } from "@shared/swRegister.js";
 import { useVisibleDate, addDays } from "@shared/store.js";
-import { vibrate } from "@shared/haptics.js";
-import { getLevel, MACROS, uid, WEEKDAYS, todayKey } from "./system/constants.js";
+import { getLevel, uid, WEEKDAYS, todayKey } from "./system/constants.js";
 import { DEFAULT_LONG, DEFAULT_DAILY_V2 } from "./system/quests.js";
-import { completeQuest, uncompleteQuest } from "./system/streak.js";
+import { completeQuest, uncompleteQuest, isSkipped, isPlanned as isPlannedToday } from "./system/streak.js";
 import { migrateUserData, SCHEMA_VERSION } from "./data/migrate.js";
-import { lsSet, loadUserRaw, buildSnapshot, applySnapshot, savedAt, onStorageStatus } from "./data/store.js";
+import { lsSet, loadUserRaw, applySnapshot, savedAt, onStorageStatus } from "./data/store.js";
 import { getSyncConfig, setSyncConfig, pullSnapshot, schedulePush, onSyncStatus, isGithubMode } from "./data/branchSync.js";
 import { getWorkoutLogSync } from "./data/logs.js";
 import { pendingEvents, applyEvents, subscribeEvents } from "./data/bridge.js";
 import { effectiveMacros } from "./data/macros.js";
 import { getSettings, setSettings, rescheduleReminders, enableReminders, cancelReminders } from "./data/reminders.js";
-import { isNative } from "./data/platform.js";
+import { buzz } from "./data/feedback.js";
 import { css } from "./views/shared.jsx";
 import { PIdentity, PHabits, POutputs, PPrinciples } from "./views/StaticPages.jsx";
 import Schedule from "./views/Schedule.jsx";
@@ -26,10 +24,13 @@ import Coach from "./views/Coach.jsx";
 import Setup from "./views/Setup.jsx";
 import Today from "./views/Today.jsx";
 import Review from "./views/Review.jsx";
+import Stats from "./views/Stats.jsx";
+import { resolveTargets, proteinHit, kcalInWindow } from "./system/targets.js";
+import Settings from "./views/Settings.jsx";
+import { longEarned, milestonesOf } from "./system/milestones.js";
 
 const USER = { uid: "local", email: null };
 const THEME_COLORS = { dark: "#12151a", light: "#f2f4f8" };
-const buzz = (pattern) => { if (typeof navigator === "undefined" || navigator.userActivation?.hasBeenActive !== false) vibrate(pattern); };
 
 const Icon = ({ children, size = 22 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{children}</svg>
@@ -42,6 +43,8 @@ const ICONS = {
   quests:   <><path d="M5.5 21V4" /><path d="M5.5 4.5h12l-3 4 3 4h-12" /></>,
   schedule: <><rect x="4" y="5.5" width="16" height="15" rx="2.5" /><path d="M8 3.5v4M16 3.5v4M4 10.5h16" /></>,
   review:   <><path d="M4 12a8 8 0 1 0 2.4-5.7" /><path d="M4 4v4h4" /><path d="M12 8v4l3 2" /></>,
+  stats:    <><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" /></>,
+  settings: <><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" /></>,
   more:     <><circle cx="5" cy="12" r="1.7" fill="currentColor" stroke="none" /><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none" /><circle cx="19" cy="12" r="1.7" fill="currentColor" stroke="none" /></>,
 };
 
@@ -53,6 +56,7 @@ const NAV_DAILY = [
   { id: "quests",   label: "Quests" },
   { id: "schedule", label: "Schedule" },
   { id: "review",   label: "Weekly review" },
+  { id: "stats",    label: "Stats" },
 ];
 const NAV_LIBRARY = [
   { id: "identity",   glyph: "◈", label: "Identity" },
@@ -67,8 +71,8 @@ const TABS = [
   { id: "quests", label: "Quests" },
   { id: "more",   label: "More" },
 ];
-const PAGES = new Set([...NAV_DAILY.map(n => n.id), ...NAV_LIBRARY.map(n => n.id), "more", "sync"]);
-const MORE_IDS = ["coach", "schedule", "review", "sync", ...NAV_LIBRARY.map(n => n.id), "more"];
+const PAGES = new Set([...NAV_DAILY.map(n => n.id), ...NAV_LIBRARY.map(n => n.id), "more", "sync", "settings"]);
+const MORE_IDS = ["coach", "schedule", "review", "stats", "settings", "sync", ...NAV_LIBRARY.map(n => n.id), "more"];
 
 const SYNC_LABEL = {
   off:     { dot: "var(--dim)", text: "Device only" },
@@ -101,7 +105,7 @@ function loadInitial() {
   return { seed, recovered };
 }
 
-const totalOf = (d) => (d.longQ || []).filter(q => q.status === "Completed").reduce((s, q) => s + (+q.xp || 0), 0) + (+d.cumulativeDailyXP || 0);
+const totalOf = (d) => (d.longQ || []).reduce((s, q) => s + longEarned(q), 0) + (+d.cumulativeDailyXP || 0);
 
 function pruneDayLog(dayLog, today) {
   const cutoff = addDays(today, -120);
@@ -121,6 +125,7 @@ export default function App() {
   const { view, nav, replace } = useHistoryNav({ page: "today" }, { persistKey: "la:page" });
   const page = PAGES.has(view?.page) ? view.page : "today";
   const [modal, setModal] = useState(null);
+  const [questMenu, setQuestMenu] = useState(null);
   const [levelUp, setLevelUp] = useState(null);
   const [syncCfg, setSyncCfg] = useState(() => getSyncConfig() || { mode: "local" });
   const [syncStatus, setSyncStatus] = useState(() => (isGithubMode() ? "syncing" : "off"));
@@ -191,6 +196,7 @@ export default function App() {
     commit(d => {
       const q = d.dailyQ.find(x => x.id === id);
       if (!q) return d;
+      if (q.lastDone !== t && isSkipped(q, t)) return d;
       if (q.lastDone === t) {
         const r = uncompleteQuest(q);
         out = { undo: true, q, xp: r.xp };
@@ -213,6 +219,7 @@ export default function App() {
       if (!q) return d;
       const isDone = q.lastDone === t;
       if (done === isDone) return d;
+      if (done && isSkipped(q, t)) return d;
       if (done) {
         const r = completeQuest(q, t);
         out = { q, xp: r.xp, mult: r.mult, grace: r.next.graceUsed };
@@ -224,12 +231,31 @@ export default function App() {
     if (out && !quiet) xpToast(out.q, out.xp, out.mult, out.grace);
   }, [commit, xpToast]);
 
+  const skipDaily = useCallback((id, on) => {
+    const t = todayKey();
+    let q0 = null;
+    commit(d => {
+      const q = d.dailyQ.find(x => x.id === id);
+      if (!q || q.lastDone === t) return d;
+      q0 = q;
+      const cutoff = addDays(t, -120);
+      const rest = (Array.isArray(q.skips) ? q.skips : []).filter(k => k !== t && k >= cutoff);
+      const next = { ...q, skips: on ? [...rest, t] : rest };
+      return { ...d, dailyQ: d.dailyQ.map(x => (x.id === id ? next : x)) };
+    });
+    if (!q0) return;
+    buzz("tap");
+    if (on) toast.undo(`${q0.title}: skipped today, streak paused`, () => skipDaily(id, false));
+    else toast(`${q0.title}: back on today`, { duration: 2000 });
+  }, [commit, toast]);
+
   const evaluateMacros = useCallback(() => {
     const t = todayKey();
     const { totals, source } = effectiveMacros(dataRef.current, t);
     if (!source) return;
-    setDailyAuto("hf_protein", totals.protein >= MACROS.protein);
-    setDailyAuto("hf_kcal", totals.kcal >= MACROS.kcalFloor && totals.kcal <= MACROS.kcalCeil);
+    const tg = resolveTargets(dataRef.current);
+    setDailyAuto("hf_protein", proteinHit(totals, tg));
+    setDailyAuto("hf_kcal", kcalInWindow(totals, tg));
   }, [setDailyAuto]);
 
   const onSessionLogged = useCallback(() => setDailyAuto("hf_gym", true), [setDailyAuto]);
@@ -284,6 +310,12 @@ export default function App() {
 
   const saveLong = (fn) => commit(d => ({ ...d, longQ: fn(d.longQ) }));
   const onLongSave = (fields) => {
+    if (modal.mode === "daily") {
+      const id = modal.quest.id;
+      commit(d => ({ ...d, dailyQ: d.dailyQ.map(q => (q.id === id ? { ...q, ...fields } : q)) }));
+      setModal(null);
+      return;
+    }
     if (modal.mode === "add") saveLong(list => [...list, { id: uid(), status: "Active", ...fields }]);
     else saveLong(list => list.map(q => (q.id === modal.quest.id ? { ...q, ...fields } : q)));
     setModal(null);
@@ -303,13 +335,36 @@ export default function App() {
       q0 = q;
       return { ...q, status: q.status === "Completed" ? "Active" : "Completed" };
     }));
-    if (q0 && q0.status !== "Completed") { toast(`${q0.title}: +${(+q0.xp || 0).toLocaleString()} XP`); buzz("success"); }
+    if (q0 && q0.status !== "Completed") { toast(`${q0.title}: +${Math.max(0, (+q0.xp || 0) - longEarned(q0)).toLocaleString()} XP`); buzz("success"); }
+  };
+  const toggleMilestone = (qid, mid) => {
+    let out = null;
+    saveLong(list => list.map(q => {
+      if (q.id !== qid) return q;
+      const ms = milestonesOf(q);
+      const idx = ms.findIndex(m => m.id === mid);
+      if (idx < 0) return q;
+      const nextMs = ms.map(m => (m.id === mid ? { ...m, done: !m.done } : m));
+      const allDone = nextMs.every(m => m.done);
+      const status = allDone ? "Completed" : q.status === "Completed" ? "Active" : q.status === "Pending" ? "Active" : q.status;
+      const next = { ...q, milestones: nextMs, status };
+      out = { q: next, m: nextMs[idx], delta: longEarned(next) - longEarned(q), allDone };
+      return next;
+    }));
+    if (!out) return;
+    if (out.m.done) {
+      toast(`${out.m.title}: +${out.delta.toLocaleString()} XP${out.allDone ? ", quest complete" : ""}`, { duration: 2600 });
+      buzz("success");
+    } else {
+      toast(`${out.m.title}: ${out.delta.toLocaleString()} XP`, { duration: 2000 });
+      buzz("tap");
+    }
   };
 
   const saveSetup = (cfg) => {
     setSyncConfig(cfg);
     setSyncCfg(cfg);
-    nav({ page: "more" });
+    nav({ page: "settings" });
     if (cfg.mode === "github") pullRemote();
     else setSyncStatus("off");
   };
@@ -334,12 +389,19 @@ export default function App() {
     setSettingsState(setSettings({ reminders: on }));
   };
 
+  const openQuestMenu = useCallback((q) => setQuestMenu(q.id), []);
+  const closeQuestMenu = useCallback(() => setQuestMenu(null), []);
+  useBackGuard(!!questMenu, closeQuestMenu);
+  const menuQuest = questMenu ? data.dailyQ.find(q => q.id === questMenu) : null;
+
   const total = totalOf(data);
   const level = getLevel(total);
   const macros = effectiveMacros(data, today);
+  const targets = resolveTargets(data);
 
   const trackerProps = { user: USER, liftProgress: data.liftProgress, saveLiftProgress, pplOffset: data.pplOffset, slidePPL, onSessionLogged, onMacrosChanged, awardXP };
   const toggleTheme = () => setTheme(t => (t === "dark" ? "light" : "dark"));
+  const onSettings = (patch) => setSettingsState(setSettings(patch));
   const sync = SYNC_LABEL[syncStatus] || SYNC_LABEL.off;
   const syncWhere = syncCfg.mode === "github" ? `${syncCfg.repo}@${syncCfg.branch}` : "this device";
   const go = (id) => nav({ page: id });
@@ -371,7 +433,7 @@ export default function App() {
           {NAV_DAILY.map(n => navItem(n, <Icon size={19}>{ICONS[n.id]}</Icon>))}
           <div className="nav-s">Library</div>
           {NAV_LIBRARY.map(n => navItem(n, <span style={{ fontSize: 15 }}>{n.glyph}</span>))}
-          {navItem({ id: "more", label: "Settings & data" }, <Icon size={19}>{ICONS.more}</Icon>)}
+          {navItem({ id: "settings", label: "Settings & data" }, <Icon size={19}>{ICONS.settings}</Icon>)}
           <div className="side-foot">
             <div className="side-mail" title={syncWhere}>
               <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", background: sync.dot, marginRight: 6 }} />{sync.text}
@@ -391,21 +453,26 @@ export default function App() {
             {!storage.ok && <div className="banner" role="alert"><strong>{storage.error || "Storage full: changes are not being saved."}</strong> Export a backup from More before closing the app.</div>}
             {recovered && <div className="banner" role="alert">Saved data was unreadable and has been reset; the raw copy is under la3_local_user.corrupt.</div>}
             <div className="fi-anim" key={page}>
-              {page === "today" && <Today data={data} today={today} toggleDaily={toggleDaily} nav={nav} macros={macros} pplOffset={data.pplOffset} />}
+              {page === "today" && <Today data={data} today={today} toggleDaily={toggleDaily} onQuestMenu={openQuestMenu} nav={nav} macros={macros} targets={targets} pplOffset={data.pplOffset} />}
               {page === "train" && <Train {...trackerProps} initialMode={view?.mode} />}
-              {page === "fuel" && <Nutrition user={USER} onMacrosChanged={onMacrosChanged} bridgeMacros={data.bridgeMacros} />}
-              {page === "coach" && <Coach {...trackerProps} bridgeMacros={data.bridgeMacros} />}
-              {page === "quests" && <Quests data={data} today={today} level={level} total={total} toggleLong={toggleLong} toggleDaily={toggleDaily} delLong={delLong} openAdd={cat => setModal({ mode: "add", category: cat })} openEdit={q => setModal({ mode: "edit", quest: q })} />}
+              {page === "fuel" && <Nutrition user={USER} onMacrosChanged={onMacrosChanged} bridgeMacros={data.bridgeMacros} targets={targets} />}
+              {page === "coach" && <Coach {...trackerProps} bridgeMacros={data.bridgeMacros} targets={targets} />}
+              {page === "quests" && <Quests data={data} today={today} level={level} total={total} toggleLong={toggleLong} toggleMilestone={toggleMilestone} toggleDaily={toggleDaily} onQuestMenu={openQuestMenu} delLong={delLong} openAdd={cat => setModal({ mode: "add", category: cat })} openEdit={q => setModal({ mode: "edit", quest: q })} />}
               {page === "schedule" && <Schedule schedDay={schedDay} setSchedDay={setSchedDay} />}
-              {page === "review" && <Review data={data} today={today} commit={commit} setDailyAuto={setDailyAuto} />}
+              {page === "stats" && <Stats data={data} today={today} targets={targets} />}
+              {page === "review" && <Review data={data} today={today} commit={commit} setDailyAuto={setDailyAuto} targets={targets} />}
               {page === "identity" && <PIdentity />}
               {page === "habits" && <PHabits />}
               {page === "outputs" && <POutputs longQ={data.longQ} />}
               {page === "principles" && <PPrinciples />}
-              {page === "sync" && <Setup initial={syncCfg} onDone={saveSetup} onCancel={() => nav({ page: "more" })} />}
+              {page === "sync" && <Setup initial={syncCfg} onDone={saveSetup} onCancel={() => nav({ page: "settings" })} />}
+              {page === "settings" && (
+                <Settings data={data} commit={commit} targets={targets} theme={theme} setTheme={setTheme} settings={settings} onSettings={onSettings}
+                  reminders={!!settings.reminders} toggleReminders={toggleReminders} sync={sync} syncWhere={syncWhere} go={go}
+                  onRestore={restoreData} onTargetsChanged={evaluateMacros} />
+              )}
               {page === "more" && (
-                <More go={go} theme={theme} toggleTheme={toggleTheme} sync={sync} syncWhere={syncWhere}
-                  onRestore={restoreData} reminders={!!settings.reminders} toggleReminders={toggleReminders} />
+                <More go={go} sync={sync} syncWhere={syncWhere} />
               )}
             </div>
           </main>
@@ -424,6 +491,12 @@ export default function App() {
         </div>
       </div>
       {modal && <QModal modal={modal} onSave={onLongSave} onClose={() => setModal(null)} />}
+      {menuQuest && (
+        <QuestSheet q={menuQuest} today={today} onClose={closeQuestMenu}
+          onSkip={(on) => { closeQuestMenu(); skipDaily(menuQuest.id, on); }}
+          onToggle={() => { closeQuestMenu(); toggleDaily(menuQuest.id); }}
+          onEdit={() => { closeQuestMenu(); setModal({ mode: "daily", quest: menuQuest }); }} />
+      )}
       {levelUp && (
         <div className="sheet-backdrop" onClick={(e) => e.target === e.currentTarget && setLevelUp(null)}>
           <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="lvlup-t">
@@ -441,52 +514,52 @@ export default function App() {
 }
 
 
-function More({ go, theme, toggleTheme, sync, syncWhere, onRestore, reminders, toggleReminders }) {
+function QuestSheet({ q, today, onClose, onSkip, onToggle, onEdit }) {
+  const done = q.lastDone === today;
+  const skipped = !done && isSkipped(q, today);
+  const scheduled = isPlannedToday(q, today);
+  const openedAt = useRef(Date.now());
+  return (
+    <div className="sheet-backdrop" onClick={(e) => e.target === e.currentTarget && Date.now() - openedAt.current > 450 && onClose()} onKeyDown={(e) => e.key === "Escape" && onClose()}>
+      <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="qsheet-t">
+        <h3 id="qsheet-t">Quest actions</h3>
+        <div className="qsheet-q">{q.title}</div>
+        {skipped ? (
+          <button type="button" className="qsheet-a" autoFocus onClick={() => onSkip(false)}>Undo skip<small>Put it back on today's list</small></button>
+        ) : (
+          <button type="button" className="qsheet-a" autoFocus disabled={done || !scheduled} onClick={() => onSkip(true)}>
+            Skip today (not applicable)
+            <small>{done ? "Already done today. Untick it first to skip." : !scheduled ? "Not scheduled today, nothing to skip." : "The streak neither breaks nor grows, no XP."}</small>
+          </button>
+        )}
+        {!q.auto && !skipped && <button type="button" className="qsheet-a" onClick={onToggle}>{done ? "Mark not done" : "Mark done"}</button>}
+        <button type="button" className="qsheet-a" onClick={onEdit}>Edit quest<small>Title, base XP, note</small></button>
+        <div className="sheet-actions"><button type="button" className="bigbtn secondary" onClick={onClose}>Close</button></div>
+      </div>
+    </div>
+  );
+}
+
+function More({ go, sync, syncWhere }) {
   const rows = [
     { id: "coach", glyph: <Icon size={19}>{ICONS.coach}</Icon>, label: "Coach" },
     { id: "schedule", glyph: <Icon size={19}>{ICONS.schedule}</Icon>, label: "Schedule" },
     { id: "review", glyph: <Icon size={19}>{ICONS.review}</Icon>, label: "Weekly review" },
+    { id: "stats", glyph: <Icon size={19}>{ICONS.stats}</Icon>, label: "Stats" },
     ...NAV_LIBRARY.map(n => ({ id: n.id, glyph: <span style={{ fontSize: 16 }}>{n.glyph}</span>, label: n.label })),
+    { id: "settings", glyph: <Icon size={19}>{ICONS.settings}</Icon>, label: "Settings & data", sub: `${sync.text} · ${syncWhere}` },
   ];
-  const snapshot = useMemo(() => buildSnapshot(), []);
   return (
     <>
       <div className="pg-title">More</div>
-      <div className="pg-sub">Coach, schedule, system reference, settings and data</div>
+      <div className="pg-sub">Coach, schedule, stats, system reference and settings</div>
       {rows.map(r => (
         <button type="button" key={r.id} className="mr-row" onClick={() => go(r.id)} style={{ width: "100%", fontFamily: "inherit", color: "var(--tx)", textAlign: "left" }}>
           <span className="nav-ic" style={{ color: "var(--acc)" }}>{r.glyph}</span>
-          <span className="mr-t">{r.label}</span>
+          <span className="mr-t">{r.label}{r.sub && <span className="qhint" style={{ display: "block", fontWeight: 500 }}>{r.sub}</span>}</span>
           <span className="mr-a">›</span>
         </button>
       ))}
-      <div className="card" style={{ marginTop: 18 }}>
-        <div className="card-t">Settings</div>
-        <SettingRow label="Light theme"><Toggle checked={theme === "light"} onChange={toggleTheme} label="Light theme" /></SettingRow>
-        <SettingRow label="Evening reminders" hint={isNative() ? "21:00 phone dock and 21:45 mobility daily, Sunday 10:00 waist." : "Fires in the Android app only."}>
-          <Toggle checked={reminders} onChange={toggleReminders} label="Evening reminders" />
-        </SettingRow>
-      </div>
-      <div className="card">
-        <div className="card-t">Data</div>
-        <div style={{ fontSize: 13, color: "var(--mut)", marginBottom: 12 }}>
-          <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", background: sync.dot, marginRight: 6 }} />
-          {sync.text} · {syncWhere}
-        </div>
-        <div style={{ fontSize: 12.5, color: "var(--mut)", lineHeight: 1.55, marginBottom: 8 }}>
-          Everything lives on this device. Export a backup and import it on another device to move your data.
-        </div>
-        <BackupPanel
-          data={snapshot}
-          onRestore={onRestore}
-          validate={(d) => Boolean(d && typeof d === "object" && (d.user || d.workoutLogs || d.mealLogs))}
-          prefix="life-architecture"
-          storageKey="la3_local_user"
-        />
-        <div className="btnrow" style={{ marginTop: 14 }}>
-          <button className="bs" onClick={() => go("sync")}>Sync & coach settings</button>
-        </div>
-      </div>
     </>
   );
 }

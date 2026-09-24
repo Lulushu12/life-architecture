@@ -8,7 +8,7 @@ import { uid } from "../system/constants.js";
 
 const weekdayOf = (d = new Date()) => WEEKDAYS[(d.getDay() + 6) % 7];
 
-export default function Coach({ user, liftProgress, saveLiftProgress, pplOffset, onSessionLogged, onMacrosChanged, awardXP, bridgeMacros }) {
+export default function Coach({ user, liftProgress, saveLiftProgress, pplOffset, onSessionLogged, onMacrosChanged, awardXP, bridgeMacros, targets }) {
   const today = todayKey();
   const [logText, setLogText] = useState("");
   const [situation, setSituation] = useState("");
@@ -23,6 +23,7 @@ export default function Coach({ user, liftProgress, saveLiftProgress, pplOffset,
     return {
       date: today, weekday: weekdayOf(), plannedSession: plannedSession(new Date(), pplOffset),
       todayMacros: effectiveMacros({ bridgeMacros }, today, meals).totals,
+      targets,
       liftWeights: Object.fromEntries(Object.entries(liftProgress).map(([k, v]) => [k, v.currentWeightKg])),
       recentWorkouts: recent.map(w => ({
         date: w.date, session: w.session, missed: !!w.missed, minimum: !!w.minimum, notes: w.notes || "",
@@ -154,14 +155,14 @@ export default function Coach({ user, liftProgress, saveLiftProgress, pplOffset,
 }
 
 function Directive({ d, onClose }) {
-  const border = { directive: "#f59e0b", deload_signal: "#ef4444", macro_fill: "#22c55e", review_trigger: "#06b6d4", none: "#334155" }[d.type] || "#334155";
+  const border = { directive: "#f59e0b", deload_signal: "#ef4444", macro_fill: "#22c55e", review_trigger: "#06b6d4", none: "var(--bdh)" }[d.type] || "var(--bdh)";
   return (
     <div className="coach-card" style={{ borderColor: border }}>
       <div className="coach-pid">{d.type.toUpperCase()}{d.protocol_id ? ` · per protocol: ${d.protocol_id}` : ""}</div>
       <div className="coach-act">
         {d.type === "none" ? "No protocol applies. Nothing to do." : d.action}
-        {d.macro_fill && <div style={{ marginTop: 8, fontFamily: "JetBrains Mono", fontSize: 12, color: "#4ade80" }}>→ {d.macro_fill.item} (closes {d.macro_fill.closes})</div>}
-        {d.signals?.length > 0 && <div style={{ marginTop: 8, fontSize: 11, color: "#f87171" }}>Signals: {d.signals.join(" · ")} . Flag for discussion. Do not self-prescribe.</div>}
+        {d.macro_fill && <div style={{ marginTop: 8, fontFamily: "JetBrains Mono", fontSize: 12, color: "var(--green-t)" }}>→ {d.macro_fill.item} (closes {d.macro_fill.closes})</div>}
+        {d.signals?.length > 0 && <div style={{ marginTop: 8, fontSize: 11, color: "var(--red-t)" }}>Signals: {d.signals.join(" · ")} . Flag for discussion. Do not self-prescribe.</div>}
       </div>
       <div className="mf" style={{ justifyContent: "flex-start" }}><button className="bs" onClick={onClose}>Dismiss</button></div>
     </div>

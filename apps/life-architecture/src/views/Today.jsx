@@ -1,11 +1,12 @@
 import { useMemo } from "react";
-import { MACROS, WEEKDAYS, CAT_COLORS, plannedSession } from "../system/constants.js";
+import { WEEKDAYS, CAT_COLORS, plannedSession } from "../system/constants.js";
 import { SCHEDULE_V2 } from "../system/schedule.js";
-import { isScheduled } from "../system/streak.js";
+import { isScheduled, isPlanned } from "../system/streak.js";
 import { getWorkoutLogSync } from "../data/logs.js";
 import { appsWithLastUsed, relativeTime } from "../data/launcher.js";
 import { isNative } from "../data/platform.js";
 import { DQ } from "./shared.jsx";
+import Timeline from "./Timeline.jsx";
 
 const QUEST_TIME = {
   hf_creatine: [b => /wake|breakfast/i.test(b.label), 6],
@@ -53,7 +54,7 @@ export function dueLabel(n) {
   return `${n} days left`;
 }
 
-export default function Today({ data, today, toggleDaily, nav, macros, pplOffset }) {
+export default function Today({ data, today, toggleDaily, onQuestMenu, nav, macros, targets, pplOffset }) {
   const [y, m, d] = today.split("-").map(Number);
   const date = new Date(y, m - 1, d, 12);
   const weekday = WEEKDAYS[(date.getDay() + 6) % 7];
@@ -64,7 +65,7 @@ export default function Today({ data, today, toggleDaily, nav, macros, pplOffset
   const groups = useMemo(() => {
     const out = { Morning: [], Day: [], Evening: [] };
     for (const q of data.dailyQ) {
-      if (q.auto || !isScheduled(q, today)) continue;
+      if (q.auto || !isPlanned(q, today)) continue;
       const h = questHour(q, day.blocks);
       out[bucketOf(h)].push({ q, h });
     }
@@ -79,15 +80,18 @@ export default function Today({ data, today, toggleDaily, nav, macros, pplOffset
     .sort((a, b) => a.n - b.n);
 
   const t = macros.totals;
-  const kcalLeft = Math.round(MACROS.kcal - (t.kcal || 0));
-  const proteinLeft = Math.round(MACROS.protein - (t.protein || 0));
+  const kcalLeft = Math.round(targets.kcal - (t.kcal || 0));
+  const proteinLeft = Math.round(targets.protein - (t.protein || 0));
   const manual = data.dailyQ.filter(q => !q.auto && isScheduled(q, today));
   const doneCount = manual.filter(q => q.lastDone === today).length;
   const autoQ = data.dailyQ.filter(q => q.auto && isScheduled(q, today));
 
   return (
     <>
-      <div className="pg-title">Today</div>
+      <div className="pg-head">
+        <div className="pg-title">Today</div>
+        <button type="button" className="bs pg-head-btn" onClick={() => nav({ page: "stats" })}>Stats</button>
+      </div>
       <div className="pg-sub">{weekday} · {day.type} · {doneCount}/{manual.length} quests done</div>
 
       {dueSoon.length > 0 && (
@@ -102,6 +106,8 @@ export default function Today({ data, today, toggleDaily, nav, macros, pplOffset
           </div>
         </>
       )}
+
+      <Timeline key={today} blocks={day.blocks} />
 
       <div className="card">
         <div className="card-t">Session</div>
@@ -129,11 +135,11 @@ export default function Today({ data, today, toggleDaily, nav, macros, pplOffset
         <div className="mrem">
           <div className="mrem-i">
             <div className="mrem-v" style={{ color: kcalLeft < 0 ? "var(--red-t)" : "var(--tx)" }}>{Math.abs(kcalLeft).toLocaleString()}</div>
-            <div className="mrem-l">kcal {kcalLeft < 0 ? "over" : "left"} of {MACROS.kcal.toLocaleString()}</div>
+            <div className="mrem-l">kcal {kcalLeft < 0 ? "over" : "left"} of {targets.kcal.toLocaleString()}</div>
           </div>
           <div className="mrem-i">
             <div className="mrem-v" style={{ color: proteinLeft <= 0 ? "var(--green-t)" : "var(--tx)" }}>{Math.max(0, proteinLeft)}g</div>
-            <div className="mrem-l">protein left of {MACROS.protein}g</div>
+            <div className="mrem-l">protein left of {targets.protein}g</div>
           </div>
         </div>
         <div className="src-line">
@@ -151,7 +157,7 @@ export default function Today({ data, today, toggleDaily, nav, macros, pplOffset
         <section key={k}>
           <div className="sec-h">{k}</div>
           {groups[k].map(({ q }) => (
-            <DQ key={q.id} q={q} today={today} onToggle={toggleDaily} ac={(CAT_COLORS[q.category] || CAT_COLORS["Health & Fitness"]).accent} />
+            <DQ key={q.id} q={q} today={today} onToggle={toggleDaily} onMenu={onQuestMenu} ac={(CAT_COLORS[q.category] || CAT_COLORS["Health & Fitness"]).accent} />
           ))}
         </section>
       ))}
