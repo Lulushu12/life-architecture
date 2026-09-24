@@ -100,7 +100,7 @@ export default function RemindersTab({ store, setStore, now }) {
       ))}
 
       <p className="hint small">
-        Reminders stay quiet during pomodoro breaks.{" "}
+        Reminders stay quiet during pomodoro breaks, and posture and stretch restart their timers when a break ends.{" "}
         {isNativeNotify()
           ? "They arrive as notifications even when the app is closed."
           : "In the browser they only fire while the app is open."}

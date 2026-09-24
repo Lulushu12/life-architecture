@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="start_focus"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/shortcut_start_short"
+        android:shortcutLongLabel="@string/shortcut_start_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="io.github.lulushu12.focus"
+            android:targetClass="io.github.lulushu12.focus.MainActivity"
+            android:data="io.github.lulushu12.focus://open?action=start" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="stats"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/shortcut_stats_short"
+        android:shortcutLongLabel="@string/shortcut_stats_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="io.github.lulushu12.focus"
+            android:targetClass="io.github.lulushu12.focus.MainActivity"
+            android:data="io.github.lulushu12.focus://open?action=stats" />
+    </shortcut>
+</shortcuts>

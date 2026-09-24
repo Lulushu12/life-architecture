@@ -119,14 +119,6 @@
   margin-top: 8px;
 }
 
-.tipcard {
-  border-color: var(--ok);
-  line-height: 1.5;
-}
-.tipcard .flabel {
-  margin-top: 0;
-}
-
 .goalcard {
   display: flex;
   align-items: center;
@@ -409,4 +401,176 @@
 .heatlegend .heatcell {
   width: 12px;
   height: 12px;
+}
+
+.rowhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.rangechips {
+  margin: 12px 0 4px;
+}
+.rangechips .chip {
+  min-height: 32px;
+  padding: 4px 12px;
+  font-size: 13px;
+}
+.statval.delta.up {
+  color: var(--ok);
+}
+.statval.delta.down {
+  color: var(--danger);
+}
+.statbar-label.wide {
+  width: 96px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13.5px;
+  color: var(--text);
+}
+
+.hourhist {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 96px;
+}
+.hourbar {
+  flex: 1;
+  background: color-mix(in srgb, var(--accent) 45%, var(--surface2));
+  border-radius: 2px 2px 0 0;
+}
+.hourbar.best {
+  background: var(--accent);
+}
+.hourlabels {
+  display: flex;
+  margin-top: 6px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.hourlabels span {
+  flex: 1;
+}
+
+.splitbar {
+  height: 14px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--danger) 70%, var(--surface2));
+  overflow: hidden;
+}
+.splitbar-ok {
+  height: 100%;
+  background: var(--ok);
+}
+.splitlegend {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.dot.ok {
+  background: var(--ok);
+}
+.dot.bad {
+  background: color-mix(in srgb, var(--danger) 70%, var(--surface2));
+}
+
+.routinecard {
+  border-color: var(--ok);
+  line-height: 1.5;
+}
+.routinecard .flabel {
+  margin-top: 0;
+}
+.routine-title {
+  font-weight: 700;
+  font-size: 18px;
+}
+.routine-text {
+  margin: 4px 0 10px;
+}
+.routine-clock {
+  text-align: center;
+  font-size: 34px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  margin: 4px 0 10px;
+}
+.routine-clock.over {
+  color: var(--ok);
+  font-size: 24px;
+}
+.routine-done {
+  margin: 0;
+}
+
+.distract {
+  align-self: stretch;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.distract-btn {
+  display: block;
+  margin: 0 auto;
+}
+.distract-form {
+  text-align: left;
+}
+.distract-form .flabel {
+  margin-top: 0;
+}
+.notes-list .note-when {
+  color: var(--muted);
+  font-size: 12.5px;
+}
+.statbar-fill.bad {
+  background: color-mix(in srgb, var(--danger) 75%, var(--surface2));
+}
+.notes-list .flabel {
+  margin-top: 0;
+}
+
+.ambmute {
+  margin-top: 8px;
+  min-height: 36px;
+  padding: 6px 14px;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+.ambmute.on {
+  color: var(--text);
+  border-color: var(--accent);
+}
+.ambchips {
+  margin-bottom: 4px;
+}
+.range {
+  width: 150px;
+  accent-color: var(--accent);
+  min-height: var(--tap);
+}
+.range:disabled {
+  opacity: 0.4;
+}
+
+.csvexport {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.csvexport .flabel {
+  margin-top: 0;
 }

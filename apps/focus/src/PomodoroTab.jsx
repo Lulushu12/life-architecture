@@ -1,36 +1,162 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useConfirm } from "@shared/ui.jsx";
+import { audio } from "@shared/audio.js";
+import { haptics, vibrate } from "@shared/haptics.js";
 import {
   EXTEND_MIN,
   PRESETS,
   applyConfig,
+  ambienceActive,
+  breakRoutineRemainingMs,
+  completeBreakRoutine,
+  currentBreakRoutine,
   dismissPhaseEnd,
   extendPhase,
   goalStreaks,
   isBreak,
+  NOTE_MAX,
   isRunning,
+  logDistraction,
+  nextBreakRoutine,
+  noteDistraction,
   pausePomodoro,
   phaseLabel,
   pomodoroRemainingMs,
   pomodoroTotalMs,
   resetPomodoro,
+  setAmbience,
   setPomodoroTask,
   skipBreak,
   skipPomodoro,
+  startBreakRoutine,
   startPomodoro,
 } from "./logic.js";
 import { Ring, Sheet, fmtClock } from "./ui.jsx";
+import { AMBIENCE_KINDS } from "./ambience.js";
 
-const TIPS = [
-  "Look at something 20 feet away for 20 seconds.",
-  "Stand up and roll your shoulders a few times.",
-  "Drink a glass of water.",
-  "Take five slow breaths, making each exhale longer than the inhale.",
-  "Step away from the screen and let your eyes rest.",
-  "Stretch your wrists, fingers and neck.",
-  "Walk to a window and get some daylight.",
-  "Leave your phone alone: a real break beats a scroll.",
-];
+function BreakRoutineCard({ store, setStore, now, onGesture }) {
+  const routine = currentBreakRoutine(store);
+  const run = store.pomodoro.run;
+  const remaining = breakRoutineRemainingMs(store, now);
+  const done = !!run?.breakRoutine;
+  const started = remaining != null;
+  const cued = useRef(null);
+  const startedAt = run?.routine?.startedAt ?? null;
+
+  useEffect(() => {
+    if (!started || done || remaining > 0 || cued.current === startedAt) return;
+    cued.current = startedAt;
+    audio.play("success", { enabled: store.pomodoro.config.sound });
+    vibrate(haptics.success, { enabled: store.settings.vibrate });
+  }, [started, done, remaining, startedAt, store.pomodoro.config.sound, store.settings.vibrate]);
+
+  if (!routine) return null;
+  const act = (fn) => setStore((s) => fn(s, Date.now()));
+
+  return (
+    <div className={"card routinecard" + (done ? " done" : "")} aria-live="polite">
+      <div className="flabel">Break routine</div>
+      <div className="routine-title">{routine.title}</div>
+      <p className="routine-text">{routine.text}</p>
+      {done ? (
+        <p className="okmsg routine-done">✓ Done. Enjoy the rest of your break.</p>
+      ) : (
+        <>
+          {started && (
+            <div className={"routine-clock" + (remaining === 0 ? " over" : "")} role="timer">
+              {remaining === 0 ? "Time's up" : fmtClock(remaining)}
+            </div>
+          )}
+          <div className="routine-actions">
+            {!started ? (
+              <button
+                type="button"
+                className="bigbtn secondary"
+                onClick={() => {
+                  onGesture();
+                  act(startBreakRoutine);
+                }}
+              >
+                Start {fmtClock(routine.seconds * 1000)}
+              </button>
+            ) : (
+              <button type="button" className="bigbtn" onClick={() => act(completeBreakRoutine)}>
+                Done
+              </button>
+            )}
+            <div className="phaseend-row">
+              {!started && (
+                <button type="button" className="linkbtn" onClick={() => act(completeBreakRoutine)}>
+                  Done
+                </button>
+              )}
+              <button type="button" className="linkbtn" onClick={() => setStore(nextBreakRoutine)}>
+                Another
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function DistractionLog({ run, setStore }) {
+  const [noteAt, setNoteAt] = useState(null);
+  const [text, setText] = useState("");
+  const count = run.distractions?.length || 0;
+
+  const log = () => {
+    const at = Date.now();
+    setStore((s) => logDistraction(s, at));
+    setNoteAt(at);
+    setText("");
+  };
+  const close = () => {
+    setNoteAt(null);
+    setText("");
+  };
+  const save = (e) => {
+    e.preventDefault();
+    const at = noteAt;
+    const value = text;
+    setStore((s) => noteDistraction(s, at, value));
+    close();
+  };
+
+  return (
+    <div className="distract">
+      {noteAt == null ? (
+        <button type="button" className="chip distract-btn" onClick={log}>
+          😵‍💫 I got distracted{count > 0 ? ` (${count})` : ""}
+        </button>
+      ) : (
+        <form className="distract-form" onSubmit={save}>
+          <label className="flabel" htmlFor="distract-note">
+            Logged. What pulled you away? (optional)
+          </label>
+          <input
+            id="distract-note"
+            className="input"
+            value={text}
+            maxLength={NOTE_MAX}
+            autoFocus
+            placeholder="e.g. checked messages"
+            onChange={(e) => setText(e.target.value)}
+          />
+          <div className="phaseend-row">
+            <button type="submit" className="linkbtn" disabled={!text.trim()}>
+              Save note
+            </button>
+            <button type="button" className="linkbtn" onClick={close}>
+              Skip
+            </button>
+          </div>
+        </form>
+      )}
+    </div>
+  );
+}
 
 export default function PomodoroTab({ store, setStore, now, today, onStartGesture, onStart }) {
   const [confirm, confirmSheet] = useConfirm();
@@ -51,6 +177,8 @@ export default function PomodoroTab({ store, setStore, now, today, onStartGestur
     .filter((t) => !t.archived)
     .sort((a, b) => a.createdAt - b.createdAt);
   const pe = running ? null : p.phaseEnd;
+  const amb = store.settings.ambience;
+  const ambLabel = AMBIENCE_KINDS.find((k) => k.id === amb.kind)?.label || "Ambience";
 
   const act = (fn) => {
     onStartGesture();
@@ -139,6 +267,20 @@ export default function PomodoroTab({ store, setStore, now, today, onStartGestur
         >
           {task ? `🎯 ${task.name}` : "+ Link a task"}
         </button>
+        {amb.kind !== "off" && (
+          <button
+            type="button"
+            className={"chip ambmute" + (amb.muted ? "" : " on")}
+            aria-pressed={!amb.muted}
+            aria-label={amb.muted ? `Unmute ${ambLabel}` : `Mute ${ambLabel}`}
+            onClick={() => {
+              onStartGesture();
+              setStore((s) => setAmbience(s, { muted: !s.settings.ambience.muted }));
+            }}
+          >
+            {amb.muted ? "🔇" : ambienceActive(store) ? "🔊" : "🔈"} {ambLabel}
+          </button>
+        )}
 
         {!pe && (
           <div className="pomo-controls">
@@ -168,13 +310,11 @@ export default function PomodoroTab({ store, setStore, now, today, onStartGestur
             </div>
           </div>
         )}
+        {phase === "work" && run?.startedAt != null && <DistractionLog run={run} setStore={setStore} />}
       </div>
 
-      {running && isBreak(phase) && (
-        <div className="card tipcard" aria-live="polite">
-          <div className="flabel">Break idea</div>
-          <div>{TIPS[Math.floor(now / 30000) % TIPS.length]}</div>
-        </div>
+      {isBreak(phase) && run?.startedAt != null && (
+        <BreakRoutineCard store={store} setStore={setStore} now={now} onGesture={onStartGesture} />
       )}
 
       <div className="card goalcard">

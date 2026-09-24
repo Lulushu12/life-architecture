@@ -19,8 +19,15 @@
     {
       "name": "Start focus",
       "short_name": "Start focus",
-      "description": "Start a pomodoro right away",
+      "description": "Start a focus session right away",
       "url": "/life-architecture/focus/?action=start",
+      "icons": [{ "src": "/life-architecture/focus/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Focus stats",
+      "short_name": "Stats",
+      "description": "Open your focus stats",
+      "url": "/life-architecture/focus/?action=stats",
       "icons": [{ "src": "/life-architecture/focus/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     }
   ]

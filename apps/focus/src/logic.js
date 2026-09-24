@@ -20,6 +20,16 @@ export const PRESETS = [
 
 export const isBreak = (phase) => phase === "short" || phase === "long";
 
+export const BREAK_ROUTINES = [
+  { id: "eyes", title: "20-20-20 eyes", text: "Look at something about 20 feet (6 m) away for 20 seconds. Blink slowly.", seconds: 20 },
+  { id: "stretch", title: "Stand and stretch", text: "Stand up, reach overhead, then roll your shoulders and neck.", seconds: 60 },
+  { id: "water", title: "Drink water", text: "Fill a glass and drink it slowly, away from the screen.", seconds: 45 },
+  { id: "posture", title: "Posture reset", text: "Feet flat, hips back, shoulders down and relaxed, screen at eye level.", seconds: 30 },
+  { id: "walk", title: "Walk 2 minutes", text: "Walk around the room or down the hall and back.", seconds: 120 },
+];
+export const BREAK_SATISFIES = ["posture", "stretch"];
+const BREAK_SATISFY_MIN_MS = 60000;
+
 const unitMs = (unit) => (unit === "sec" ? 1000 : 60000);
 
 function phaseMins(config, phase) {
@@ -121,11 +131,54 @@ export function addTaskElapsed(logs, taskId, startedAt, endedAt) {
   return { ...logs, days };
 }
 
-function logPartial(logs, run, now) {
-  if (!run || run.startedAt == null) return logs;
+function runExtras(run) {
+  const out = {};
+  if (run.extension) out.extension = true;
+  if (run.breakRoutine) out.breakRoutine = run.breakRoutine;
+  const ds = run.distractions || [];
+  if (ds.length) {
+    out.interruptions = ds.length;
+    const notes = ds.filter((d) => d.text);
+    if (notes.length) out.notes = notes;
+  }
+  return out;
+}
+
+function runElapsedMs(run, now) {
+  if (!run || run.startedAt == null) return 0;
   const remaining = isRunning(run) ? Math.max(0, run.phaseEndsAt - now) : run.pausedRemainingMs;
-  if (run.durationMs - remaining < 1000) return logs;
-  return addSession(logs, { start: run.startedAt, end: now, kind: run.phase, taskId: run.taskId || null, completed: false });
+  return run.durationMs - remaining;
+}
+
+function logPartial(logs, run, now) {
+  if (runElapsedMs(run, now) < 1000) return logs;
+  return addSession(logs, {
+    start: run.startedAt,
+    end: now,
+    kind: run.phase,
+    taskId: run.taskId || null,
+    completed: false,
+    ...runExtras(run),
+  });
+}
+
+export function satisfyBreakReminders(store, at) {
+  const { items, banners } = store.reminders;
+  let nextItems = items;
+  let nextBanners = banners;
+  for (const id of BREAK_SATISFIES) {
+    const r = items[id];
+    if (!r || !r.enabled) continue;
+    nextItems = { ...nextItems, [id]: { ...r, nextDueAt: at + r.intervalMin * 60000 } };
+    nextBanners = nextBanners.filter((b) => b !== id);
+  }
+  if (nextItems === items) return store;
+  return { ...store, reminders: { ...store.reminders, items: nextItems, banners: nextBanners } };
+}
+
+function endBreakEarly(store, run, now) {
+  if (!run || !isBreak(run.phase) || runElapsedMs(run, now) < BREAK_SATISFY_MIN_MS) return store;
+  return satisfyBreakReminders(store, now);
 }
 
 // ---- pomodoro ----
@@ -180,16 +233,18 @@ export function pausePomodoro(store, now) {
 export function resetPomodoro(store, now) {
   const p = store.pomodoro;
   if (!p.run && !p.phaseEnd) return store;
-  return { ...store, logs: logPartial(store.logs, p.run, now), pomodoro: { ...p, run: null, phaseEnd: null } };
+  const s = endBreakEarly(store, p.run, now);
+  return { ...s, logs: logPartial(s.logs, p.run, now), pomodoro: { ...p, run: null, phaseEnd: null } };
 }
 
 export function skipPomodoro(store, now) {
   const p = store.pomodoro;
   const cur = p.run || readyRun("work", phaseDurationMs(p.config, "work"), now, p.taskId);
-  const logs = logPartial(store.logs, p.run, now);
+  const base = endBreakEarly(store, p.run, now);
+  const logs = logPartial(base.logs, p.run, now);
   const { phase, pomosSinceLongBreak } = followingPhase(cur, p.pomosSinceLongBreak, p.config);
   const durationMs = phaseDurationMs(p.config, phase);
-  const s = { ...store, logs, pomodoro: { ...p, pomosSinceLongBreak, phaseEnd: null, run: readyRun(phase, durationMs, now, p.taskId) } };
+  const s = { ...base, logs, pomodoro: { ...p, pomosSinceLongBreak, phaseEnd: null, run: readyRun(phase, durationMs, now, p.taskId) } };
   return p.config.autoStart ? beginRun(s, runningRun(phase, durationMs, now, p.taskId), now) : s;
 }
 
@@ -238,7 +293,7 @@ export function advancePomodoroIfDue(store, now) {
       kind: run.phase,
       taskId: run.taskId || null,
       completed: true,
-      ...(run.extension ? { extension: true } : {}),
+      ...runExtras(run),
     });
     if (run.phase === "work") {
       logs = addPomodoroCompletion(logs, end, run.durationMs / 60000, run.taskId || null, { count: !run.extension });
@@ -246,6 +301,7 @@ export function advancePomodoroIfDue(store, now) {
     const { phase: next, pomosSinceLongBreak } = followingPhase(run, p.pomosSinceLongBreak, p.config);
     const durationMs = phaseDurationMs(p.config, next);
     s = { ...s, logs, pomodoro: { ...p, pomosSinceLongBreak } };
+    if (isBreak(run.phase)) s = satisfyBreakReminders(s, end);
     if (p.config.autoStart) {
       s = beginRun(s, runningRun(next, durationMs, end, p.taskId), end);
     } else {
@@ -290,6 +346,128 @@ export function setPomodoroTask(store, taskId) {
   const p = store.pomodoro;
   const run = p.run && p.run.phase === "work" ? { ...p.run, taskId } : p.run;
   return { ...store, pomodoro: { ...p, taskId, run } };
+}
+
+// ---- break routine ----
+
+function patchRun(store, patch) {
+  const p = store.pomodoro;
+  if (!p.run) return store;
+  return { ...store, pomodoro: { ...p, run: { ...p.run, ...patch } } };
+}
+
+export function currentBreakRoutine(store) {
+  const run = store.pomodoro.run;
+  if (!run || !isBreak(run.phase)) return null;
+  if (run.routine?.id) return BREAK_ROUTINES.find((r) => r.id === run.routine.id) || BREAK_ROUTINES[0];
+  let breaks = 0;
+  for (const s of store.logs.sessions) if (isBreak(s.kind) && !s.extension) breaks++;
+  return BREAK_ROUTINES[(breaks + (run.routineShift || 0)) % BREAK_ROUTINES.length];
+}
+
+export function startBreakRoutine(store, now) {
+  const r = currentBreakRoutine(store);
+  if (!r || store.pomodoro.run.breakRoutine) return store;
+  return patchRun(store, { routine: { id: r.id, startedAt: now } });
+}
+
+export function nextBreakRoutine(store) {
+  const run = store.pomodoro.run;
+  if (!currentBreakRoutine(store) || run.breakRoutine) return store;
+  return patchRun(store, { routine: null, routineShift: (run.routineShift || 0) + 1 });
+}
+
+export function completeBreakRoutine(store, now) {
+  const r = currentBreakRoutine(store);
+  if (!r || store.pomodoro.run.breakRoutine) return store;
+  const routine = { id: r.id, startedAt: store.pomodoro.run.routine?.startedAt ?? now, doneAt: now };
+  return patchRun(store, { routine, breakRoutine: r.id });
+}
+
+export function breakRoutineRemainingMs(store, now) {
+  const r = currentBreakRoutine(store);
+  const st = store.pomodoro.run?.routine?.startedAt;
+  if (!r || st == null) return null;
+  return Math.max(0, st + r.seconds * 1000 - now);
+}
+
+// ---- distractions ----
+
+export const NOTE_MAX = 140;
+
+export function logDistraction(store, now) {
+  const run = store.pomodoro.run;
+  if (!run || run.phase !== "work" || run.startedAt == null) return store;
+  return patchRun(store, { distractions: [...(run.distractions || []), { at: now }] });
+}
+
+function withNote(list, at, text) {
+  let hit = false;
+  const next = list.map((d) => {
+    if (d.at !== at) return d;
+    hit = true;
+    return text ? { at, text } : { at };
+  });
+  return hit ? next : null;
+}
+
+export function noteDistraction(store, at, raw) {
+  const text = String(raw || "").replace(/\s+/g, " ").trim().slice(0, NOTE_MAX);
+  if (!text) return store;
+  const run = store.pomodoro.run;
+  const live = run?.distractions && withNote(run.distractions, at, text);
+  if (live) return patchRun(store, { distractions: live });
+  const sessions = store.logs.sessions;
+  for (let i = sessions.length - 1; i >= 0; i--) {
+    const s = sessions[i];
+    if (s.kind !== "work" || at < s.start || at > s.end || !s.interruptions) continue;
+    const notes = [...(s.notes || []).filter((n) => n.at !== at), { at, text }].sort((a, b) => a.at - b.at);
+    const next = [...sessions];
+    next[i] = { ...s, notes };
+    return { ...store, logs: { ...store.logs, sessions: next } };
+  }
+  return store;
+}
+
+export function interruptionsByDay(store, keys) {
+  const wanted = new Set(keys);
+  const out = Object.fromEntries(keys.map((k) => [k, 0]));
+  for (const s of store.logs.sessions) {
+    if (!s.interruptions) continue;
+    const k = dayKey(new Date(s.end));
+    if (wanted.has(k)) out[k] += s.interruptions;
+  }
+  for (const d of store.pomodoro.run?.distractions || []) {
+    const k = dayKey(new Date(d.at));
+    if (wanted.has(k)) out[k] += 1;
+  }
+  return out;
+}
+
+export function recentDistractionNotes(store, n) {
+  const all = [];
+  for (const s of store.logs.sessions) {
+    for (const note of s.notes || []) all.push({ ...note, taskId: s.taskId || null });
+  }
+  const run = store.pomodoro.run;
+  for (const d of run?.distractions || []) if (d.text) all.push({ ...d, taskId: run.taskId || null });
+  return all.sort((a, b) => b.at - a.at).slice(0, n);
+}
+
+// ---- settings ----
+
+export const AMBIENCE_IDS = ["off", "brown", "pink", "rain"];
+
+export function setAmbience(store, patch) {
+  const a = { ...store.settings.ambience, ...patch };
+  if (!AMBIENCE_IDS.includes(a.kind)) return store;
+  a.volume = Math.max(0, Math.min(1, Number(a.volume) || 0));
+  return { ...store, settings: { ...store.settings, ambience: a } };
+}
+
+export function ambienceActive(store) {
+  const a = store.settings.ambience;
+  return a.kind !== "off" && !a.muted && isWorkRunning(store);
 }
 
 // ---- tasks ----
@@ -526,4 +704,114 @@ export function goalStreaks(days, goal, today) {
     prev = key;
   }
   return { current, best: Math.max(best, current) };
+}
+
+export const INSIGHT_DAYS = 28;
+
+export function weekdayIndex(key) {
+  const [y, m, d] = key.split("-").map(Number);
+  return (new Date(y, m - 1, d, 12).getDay() + 6) % 7;
+}
+
+export function dayStartMs(key) {
+  const [y, m, d] = key.split("-").map(Number);
+  return new Date(y, m - 1, d).getTime();
+}
+
+export function weekComparison(minutesOf, today) {
+  const wd = weekdayIndex(today);
+  const thisStart = addDays(today, -wd);
+  const lastStart = addDays(thisStart, -7);
+  let thisWeek = 0;
+  let lastToDate = 0;
+  let lastWeek = 0;
+  for (let i = 0; i < 7; i++) {
+    const m = minutesOf(addDays(lastStart, i));
+    lastWeek += m;
+    if (i <= wd) {
+      lastToDate += m;
+      thisWeek += minutesOf(addDays(thisStart, i));
+    }
+  }
+  return { thisWeek, lastToDate, lastWeek, delta: thisWeek - lastToDate };
+}
+
+const countsAsFocus = (s) => s.kind === "task" || (s.kind === "work" && s.completed);
+
+export function hourHistogram(sessions, since) {
+  const hours = new Array(24).fill(0);
+  for (const s of sessions) {
+    if (!countsAsFocus(s) || s.end <= since) continue;
+    let cursor = Math.max(s.start, since);
+    let guard = 0;
+    while (cursor < s.end && guard < 2000) {
+      guard++;
+      const d = new Date(cursor);
+      const next = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours() + 1).getTime();
+      const segEnd = Math.min(s.end, next);
+      hours[d.getHours()] += (segEnd - cursor) / 60000;
+      cursor = segEnd;
+    }
+  }
+  return hours;
+}
+
+export function taskTotals(days, keys) {
+  const out = {};
+  for (const key of keys) {
+    const day = days[key];
+    if (!day) continue;
+    for (const src of [day.tasks, day.pomoTasks]) {
+      for (const [id, m] of Object.entries(src || {})) out[id] = (out[id] || 0) + m;
+    }
+  }
+  return out;
+}
+
+export function workOutcomes(sessions, since) {
+  let completed = 0;
+  let interrupted = 0;
+  for (const s of sessions) {
+    if (s.kind !== "work" || s.extension || s.end < since) continue;
+    if (s.completed) completed++;
+    else interrupted++;
+  }
+  return { completed, interrupted };
+}
+
+// ---- export ----
+
+export const CSV_COLUMNS = ["date", "start", "end", "kind", "task", "minutes", "completed", "interruptions"];
+
+const pad2 = (n) => String(n).padStart(2, "0");
+const hhmm = (ts) => {
+  const d = new Date(ts);
+  return `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+};
+
+function csvCell(v) {
+  const t = v == null ? "" : String(v);
+  return /[",\r\n]/.test(t) || /^[=+\-@]/.test(t) ? `"${t.replace(/"/g, '""')}"` : t;
+}
+
+export function sessionsCsv(store) {
+  const rows = [CSV_COLUMNS.join(",")];
+  const sorted = [...store.logs.sessions].sort((a, b) => a.start - b.start);
+  for (const s of sorted) {
+    rows.push(
+      [
+        dayKey(new Date(s.start)),
+        hhmm(s.start),
+        hhmm(s.end),
+        s.kind,
+        s.taskId ? store.tasks.items[s.taskId]?.name || "(deleted task)" : "",
+        Math.round(((s.end - s.start) / 60000) * 10) / 10,
+        s.completed ? "yes" : "no",
+        s.interruptions || 0,
+      ]
+        .map(csvCell)
+        .join(",")
+    );
+  }
+  return rows.join("\r\n") + "\r\n";
 }

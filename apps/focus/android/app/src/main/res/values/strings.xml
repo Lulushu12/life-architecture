@@ -4,4 +4,8 @@
     <string name="title_activity_main">Focus</string>
     <string name="package_name">io.github.lulushu12.focus</string>
     <string name="custom_url_scheme">io.github.lulushu12.focus</string>
+    <string name="shortcut_start_short">Start focus</string>
+    <string name="shortcut_start_long">Start a focus session</string>
+    <string name="shortcut_stats_short">Stats</string>
+    <string name="shortcut_stats_long">Focus stats</string>
 </resources>

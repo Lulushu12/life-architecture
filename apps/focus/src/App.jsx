@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Capacitor } from "@capacitor/core";
 import { dayKey, usePersistentStore, useVisibleDate } from "@shared/store.js";
 import { useHistoryNav } from "@shared/useHistoryNav.js";
 import { useWakeLock } from "@shared/useWakeLock.js";
@@ -10,6 +11,7 @@ import { emitEvent } from "@shared/bridge.js";
 import { isNativeNotify, notifyNow } from "@shared/notify.js";
 import { STORAGE_KEY, focusStore } from "./storage.js";
 import {
+  ambienceActive,
   isRunning,
   notificationPlan,
   phaseLabel,
@@ -19,6 +21,7 @@ import {
   startPomodoro,
 } from "./logic.js";
 import { useNotificationPlan, useNotifyPermission } from "./notifications.js";
+import { setAmbienceVolume, startAmbience, stopAmbience } from "./ambience.js";
 import { TabBar, fmtClock, fmtDur } from "./ui.jsx";
 import Banners from "./Banners.jsx";
 import PomodoroTab from "./PomodoroTab.jsx";
@@ -36,6 +39,28 @@ const TABS = [
 ];
 const SCREENS = new Set(TABS.map((t) => t.id));
 const CUE_WINDOW_MS = 5 * 60000;
+const LAUNCH_KEY = "focus:launchUrl";
+
+function actionFromUrl(url) {
+  const m = /[?&]action=([a-z]+)/.exec(url || "");
+  return m ? m[1] : null;
+}
+
+function readSession(key) {
+  try {
+    return sessionStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function writeSession(key, value) {
+  try {
+    sessionStorage.setItem(key, value);
+  } catch {
+    return;
+  }
+}
 
 function phaseNotice(kind) {
   return kind === "work"
@@ -59,17 +84,51 @@ export default function App() {
     });
   }, [toast]);
 
+  const runAction = useCallback(
+    (action) => {
+      if (action === "start") {
+        replace({ screen: "pomodoro" });
+        setStore((s) => startFocus(s, Date.now()));
+      } else if (action === "stats") {
+        replace({ screen: "stats" });
+      }
+    },
+    [setStore, replace]
+  );
+
   useEffect(() => {
     const t = Date.now();
     setStore((s) => reconcileOnLoad(s, t));
     setNow(t);
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("action") === "start") {
+    const action = new URLSearchParams(window.location.search).get("action");
+    if (action) {
       window.history.replaceState(window.history.state, "", window.location.pathname + window.location.hash);
-      replace({ screen: "pomodoro" });
-      setStore((s) => startFocus(s, t));
+      runAction(action);
     }
-  }, [setStore, replace]);
+  }, [setStore, runAction]);
+
+  useEffect(() => {
+    if (!Capacitor.isNativePlatform()) return undefined;
+    let cancelled = false;
+    let handle = null;
+    import("@capacitor/app")
+      .then(async ({ App: CapApp }) => {
+        const launch = await CapApp.getLaunchUrl();
+        const url = launch?.url;
+        if (!cancelled && url && readSession(LAUNCH_KEY) !== url) {
+          writeSession(LAUNCH_KEY, url);
+          runAction(actionFromUrl(url));
+        }
+        const h = await CapApp.addListener("appUrlOpen", (e) => runAction(actionFromUrl(e?.url)));
+        if (cancelled) h.remove();
+        else handle = h;
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+      if (handle) handle.remove();
+    };
+  }, [runAction]);
 
   const pr = store.pomodoro.run;
   const pomoRunning = isRunning(pr);
@@ -100,6 +159,19 @@ export default function App() {
   }, [setStore]);
 
   useWakeLock(store.settings.keepAwake && running);
+
+  const amb = store.settings.ambience;
+  const ambOn = ambienceActive(store);
+  const ambVolume = useRef(amb.volume);
+  ambVolume.current = amb.volume;
+  useEffect(() => {
+    if (ambOn) startAmbience(amb.kind, ambVolume.current);
+    else stopAmbience();
+  }, [ambOn, amb.kind]);
+  useEffect(() => {
+    setAmbienceVolume(amb.volume);
+  }, [amb.volume]);
+  useEffect(() => stopAmbience, []);
 
   const plan = useMemo(() => notificationPlan(store), [store]);
   useNotificationPlan(plan);

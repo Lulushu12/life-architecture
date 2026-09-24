@@ -1,5 +1,5 @@
 import { createStore } from "@shared/store.js";
-import { PHASES, phaseDurationMs } from "./logic.js";
+import { AMBIENCE_IDS, PHASES, phaseDurationMs } from "./logic.js";
 
 export const STORAGE_KEY = "focus-v1";
 
@@ -18,7 +18,18 @@ export const DEFAULT_SETTINGS = {
   keepAwake: true,
   dailyGoal: 8,
   notifAsked: false,
+  ambience: { kind: "off", volume: 0.5, muted: false },
 };
+
+function normalizeAmbience(a) {
+  const d = DEFAULT_SETTINGS.ambience;
+  if (!isObj(a)) return { ...d };
+  return {
+    kind: AMBIENCE_IDS.includes(a.kind) ? a.kind : d.kind,
+    volume: clamp(a.volume, 0, 1, d.volume),
+    muted: bool(a.muted, false),
+  };
+}
 
 export function defaultStore(now = Date.now()) {
   return {
@@ -32,7 +43,7 @@ export function defaultStore(now = Date.now()) {
       banners: [],
     },
     logs: { days: {}, sessions: [] },
-    settings: { ...DEFAULT_SETTINGS },
+    settings: { ...DEFAULT_SETTINGS, ambience: { ...DEFAULT_SETTINGS.ambience } },
   };
 }
 
@@ -63,12 +74,21 @@ function normalizeRun(run, config, taskIds) {
   const durationMs = fin(run.durationMs) && run.durationMs > 0 ? run.durationMs : phaseDurationMs(config, run.phase);
   const paused = run.pausedRemainingMs == null ? null : clamp(run.pausedRemainingMs, 0, durationMs, durationMs);
   const startedAt = fin(run.startedAt) ? run.startedAt : paused === durationMs ? null : run.phaseEndsAt - durationMs;
+  const routine = isObj(run.routine) && typeof run.routine.id === "string" && fin(run.routine.startedAt) ? run.routine : null;
   return {
     ...run,
     durationMs,
     startedAt,
     pausedRemainingMs: paused,
     taskId: run.phase === "work" && taskIds.has(run.taskId) ? run.taskId : null,
+    routine,
+    routineShift: Math.max(0, Math.round(num(run.routineShift, 0))),
+    breakRoutine: typeof run.breakRoutine === "string" ? run.breakRoutine : null,
+    distractions: Array.isArray(run.distractions)
+      ? run.distractions
+          .filter((d) => isObj(d) && fin(d.at))
+          .map((d) => (typeof d.text === "string" && d.text ? { at: d.at, text: d.text } : { at: d.at }))
+      : [],
   };
 }
 
@@ -147,6 +167,7 @@ export function normalize(store) {
       keepAwake: bool(s.keepAwake, true),
       dailyGoal: Math.round(clamp(s.dailyGoal, 1, 30, 8)),
       notifAsked: bool(s.notifAsked, false),
+      ambience: normalizeAmbience(s.ambience),
     },
   };
 }

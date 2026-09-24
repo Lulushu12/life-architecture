@@ -1,7 +1,10 @@
-import { NumInput, SettingRow, Toggle } from "@shared/ui.jsx";
+import { NumInput, SettingRow, Toggle, useToast } from "@shared/ui.jsx";
 import { BackupPanel } from "@shared/BackupPanel.jsx";
+import { canDownload, copyToClipboard, downloadJson } from "@shared/backup.js";
 import { isNativeNotify } from "@shared/notify.js";
-import { applyConfig } from "./logic.js";
+import { audio } from "@shared/audio.js";
+import { applyConfig, sessionsCsv, setAmbience } from "./logic.js";
+import { AMBIENCE_KINDS } from "./ambience.js";
 import { STORAGE_KEY, validateBackup } from "./storage.js";
 
 function PermissionRow({ permission, onRequest }) {
@@ -34,12 +37,80 @@ function PermissionRow({ permission, onRequest }) {
   );
 }
 
+function csvFilename() {
+  return `focus-sessions-${new Date().toISOString().slice(0, 10)}.csv`;
+}
+
+function CsvExport({ store }) {
+  const toast = useToast();
+  const count = store.logs.sessions.length;
+  const canShare = typeof navigator !== "undefined" && typeof navigator.share === "function";
+
+  const onDownload = () => {
+    downloadJson(sessionsCsv(store), csvFilename());
+    toast("Sessions CSV downloaded");
+  };
+  const onCopy = async () => {
+    const ok = await copyToClipboard(sessionsCsv(store));
+    toast(ok ? "Sessions CSV copied" : "Copy failed");
+  };
+  const onShare = async () => {
+    const text = sessionsCsv(store);
+    const filename = csvFilename();
+    try {
+      let file = null;
+      try {
+        file = new File([text], filename, { type: "text/csv" });
+        if (!navigator.canShare?.({ files: [file] })) file = null;
+      } catch {
+        file = null;
+      }
+      if (file) await navigator.share({ files: [file], title: filename });
+      else await navigator.share({ title: filename, text });
+    } catch (e) {
+      if (e?.name !== "AbortError") toast("Sharing failed. Copy the CSV instead.");
+    }
+  };
+
+  return (
+    <div className="csvexport">
+      <div className="flabel">Sessions as CSV</div>
+      <p className="hint small">
+        {count} {count === 1 ? "session" : "sessions"}: date, start, end, kind, task, minutes, completed, interruptions.
+      </p>
+      <div className="backuprow">
+        {canDownload() ? (
+          <button type="button" className="linkbtn" onClick={onDownload} disabled={!count}>
+            Download CSV
+          </button>
+        ) : (
+          <>
+            <button type="button" className="linkbtn" onClick={onCopy} disabled={!count}>
+              Copy CSV
+            </button>
+            {canShare && (
+              <button type="button" className="linkbtn" onClick={onShare} disabled={!count}>
+                Share CSV
+              </button>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function SettingsTab({ store, setStore, permission, onRequestPermission, onRestore }) {
   const c = store.pomodoro.config;
   const st = store.settings;
   const unitLabel = c.unit === "sec" ? "sec" : "min";
   const setConfig = (patch) => setStore((s) => applyConfig(s, patch));
   const setSettings = (patch) => setStore((s) => ({ ...s, settings: { ...s.settings, ...patch } }));
+  const amb = st.ambience;
+  const setAmb = (patch) => {
+    audio.ensure();
+    setStore((s) => setAmbience(s, patch));
+  };
 
   return (
     <div>
@@ -95,6 +166,39 @@ export default function SettingsTab({ store, setStore, permission, onRequestPerm
         </SettingRow>
       </div>
 
+      <h2>Ambience</h2>
+      <div className="card">
+        <div className="chips ambchips" role="group" aria-label="Ambient sound">
+          {AMBIENCE_KINDS.map((k) => (
+            <button
+              key={k.id}
+              type="button"
+              className={"chip" + (amb.kind === k.id ? " sel" : "")}
+              aria-pressed={amb.kind === k.id}
+              onClick={() => setAmb({ kind: k.id, muted: false })}
+            >
+              {k.label}
+            </button>
+          ))}
+        </div>
+        <SettingRow label="Volume">
+          <input
+            type="range"
+            className="range"
+            min={0}
+            max={100}
+            step={1}
+            value={Math.round(amb.volume * 100)}
+            disabled={amb.kind === "off"}
+            aria-label="Ambience volume"
+            onChange={(e) => setAmb({ volume: Number(e.target.value) / 100 })}
+          />
+        </SettingRow>
+        <p className="hint small">
+          Generated on the device, no downloads. Plays during focus phases and stops on breaks and pauses. Mute it any time from the Pomodoro tab.
+        </p>
+      </div>
+
       <h2>Notifications</h2>
       <div className="card">
         <PermissionRow permission={permission} onRequest={onRequestPermission} />
@@ -109,6 +213,7 @@ export default function SettingsTab({ store, setStore, permission, onRequestPerm
           prefix="focus"
           storageKey={STORAGE_KEY}
         />
+        <CsvExport store={store} />
       </div>
     </div>
   );
