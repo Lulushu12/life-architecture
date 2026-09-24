@@ -6,6 +6,8 @@ import { vibrate, haptics } from "@shared/haptics.js";
 import { audio } from "@shared/audio.js";
 import { fmtDateHeader, addDays } from "./dateUtils.js";
 import { DayNav, TopBar } from "./ui.jsx";
+import { e1rm, entryVolume, bestBefore, isPR, sessionsFor, fmtKg, fmtVolume, entryBest } from "./training.js";
+import Sparkline from "./Sparkline.jsx";
 
 const TYPE_LABEL = { strength: "Strength", cardio: "Cardio" };
 const REST_KEY = "calories:rest";
@@ -14,6 +16,7 @@ const REST_CHOICES = [60, 90, 120, 180];
 function fmtEntry(e) {
   if (Array.isArray(e?.sets) && e.sets.length) return e.sets.map((s) => `${s.reps}×${s.weight}kg`).join(", ");
   if (e?.minutes != null) return `${e.minutes} min${e.km ? ` · ${e.km} km` : ""}`;
+  if (Array.isArray(e?.sets)) return "No sets";
   return "No details";
 }
 
@@ -22,7 +25,7 @@ function historyFor(training, exerciseId, beforeDate) {
   for (const [date, day] of Object.entries(training)) {
     if (date > beforeDate) continue;
     for (const e of day.entries || []) {
-      if (e.exerciseId === exerciseId) rows.push({ date, entry: e });
+      if (e.exerciseId === exerciseId && !e.planned) rows.push({ date, entry: e });
     }
   }
   rows.sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -124,6 +127,103 @@ function RestTimer({ endsAt, total, onSkip, onAdd }) {
   );
 }
 
+function SetE1rm({ reps, weight, prevBest }) {
+  const v = e1rm(parseNum(reps), parseNum(weight));
+  const pr = prevBest > 0 && v > prevBest + 1e-9;
+  return (
+    <span className="setgrid-e1" aria-label={v ? `Estimated one rep max ${Math.round(v)} kg${pr ? ", personal record" : ""}` : undefined}>
+      {v ? Math.round(v) : "-"}
+      {pr && <span className="tag tag-pr">PR</span>}
+    </span>
+  );
+}
+
+function RoutineEditor({ routine, exercises, onSave, onCancel, onDelete }) {
+  const [name, setName] = useState(routine?.name || "");
+  const [ids, setIds] = useState(() => (routine?.exerciseIds || []).filter((id) => exercises[id]));
+  const available = Object.values(exercises)
+    .filter((ex) => !ids.includes(ex.id))
+    .sort((a, b) => a.name.localeCompare(b.name));
+  const move = (i, dir) =>
+    setIds((list) => {
+      const j = i + dir;
+      if (j < 0 || j >= list.length) return list;
+      const next = [...list];
+      [next[i], next[j]] = [next[j], next[i]];
+      return next;
+    });
+  return (
+    <div className="page">
+      <TopBar title={routine ? "Edit routine" : "New routine"} onBack={onCancel} />
+      <div className="field">
+        <label className="flabel" htmlFor="rt-name">
+          Name
+        </label>
+        <input
+          id="rt-name"
+          className="input"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="e.g. Push day"
+          maxLength={60}
+        />
+      </div>
+      <div className="flabel">Exercises, in order</div>
+      <div className="card routine-list">
+        {ids.length === 0 && <p className="hint small">Add exercises from your library below.</p>}
+        {ids.map((id, i) => (
+          <div className="logrow static" key={id}>
+            <span className="logrow-main">
+              <span className="logrow-name">
+                {i + 1}. {exercises[id].name}
+              </span>
+            </span>
+            <span className="orderbtns">
+              <IconButton label={`Move ${exercises[id].name} up`} disabled={i === 0} onClick={() => move(i, -1)}>
+                ↑
+              </IconButton>
+              <IconButton label={`Move ${exercises[id].name} down`} disabled={i === ids.length - 1} onClick={() => move(i, 1)}>
+                ↓
+              </IconButton>
+              <IconButton label={`Remove ${exercises[id].name}`} onClick={() => setIds((l) => l.filter((x) => x !== id))}>
+                ✕
+              </IconButton>
+            </span>
+          </div>
+        ))}
+      </div>
+      {available.length > 0 && (
+        <>
+          <div className="flabel">Add exercise</div>
+          <div className="chips">
+            {available.map((ex) => (
+              <button type="button" key={ex.id} className="chip small" onClick={() => setIds((l) => [...l, ex.id])}>
+                + {ex.name}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+      {Object.keys(exercises).length === 0 && <p className="hint">Create exercises in the library first.</p>}
+      <div className="btnrow" style={{ justifyContent: onDelete ? "space-between" : "flex-end" }}>
+        {onDelete && (
+          <button type="button" className="linkbtn danger-text" onClick={onDelete}>
+            Delete
+          </button>
+        )}
+        <button
+          type="button"
+          className="bigbtn"
+          disabled={!name.trim() || ids.length === 0}
+          onClick={() => onSave({ name: name.trim(), exerciseIds: ids })}
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function LogForm({ exercise, training, date, today, existing, onSave, onCancel }) {
   const history = historyFor(training, exercise.id, addDays(date, -1));
   const lastSets = history.find((h) => Array.isArray(h.entry.sets) && h.entry.sets.length)?.entry.sets;
@@ -136,6 +236,7 @@ function LogForm({ exercise, training, date, today, existing, onSave, onCancel }
   const [km, setKm] = useState(existing?.km ?? 0);
   const [rest, setRest] = useState(readRest);
   const [timer, setTimer] = useState(null);
+  const prevBest = exercise.type === "strength" ? bestBefore(training, exercise.id, date, existing?.id ?? "") : 0;
 
   useWakeLock(!!timer);
 
@@ -199,6 +300,7 @@ function LogForm({ exercise, training, date, today, existing, onSave, onCancel }
               <span>Set</span>
               <span>Reps</span>
               <span>kg</span>
+              <span>e1RM</span>
               <span>Done</span>
               <span />
             </div>
@@ -223,6 +325,7 @@ function LogForm({ exercise, training, date, today, existing, onSave, onCancel }
                   onFocus={(e) => e.target.select()}
                   onChange={(e) => /^\d{0,4}([.,]\d{0,2})?$/.test(e.target.value) && updateSet(i, { weight: e.target.value })}
                 />
+                <SetE1rm reps={s.reps} weight={s.weight} prevBest={prevBest} />
                 <button
                   type="button"
                   className={"iconbtn check" + (s.done ? " on" : "")}
@@ -243,7 +346,8 @@ function LogForm({ exercise, training, date, today, existing, onSave, onCancel }
             {sets.length > 0 && (
               <p className="hint small">
                 {doneCount}/{sets.length} sets done
-                {!existing && lastSets ? ". Prefilled from your last session." : "."}
+                {(!existing || existing.planned) && lastSets ? ". Prefilled from your last session." : "."}
+                {prevBest > 0 ? ` Best e1RM so far ${fmtKg(prevBest)}.` : ""}
               </p>
             )}
           </div>
@@ -319,6 +423,24 @@ function LogForm({ exercise, training, date, today, existing, onSave, onCancel }
   );
 }
 
+function SessionSummary({ entries }) {
+  const done = entries.filter((e) => !e.planned);
+  const volume = done.reduce((a, e) => a + entryVolume(e), 0);
+  const sets = done.reduce((a, e) => a + (Array.isArray(e.sets) ? e.sets.length : 0), 0);
+  const planned = entries.length - done.length;
+  return (
+    <div className="sessionsum">
+      <span>
+        Session volume <strong>{fmtVolume(volume)}</strong>
+      </span>
+      <span>
+        {sets} {sets === 1 ? "set" : "sets"}
+        {planned ? ` · ${planned} planned` : ""}
+      </span>
+    </div>
+  );
+}
+
 export default function TrainingView({
   view,
   nav,
@@ -336,7 +458,12 @@ export default function TrainingView({
   onLogEntry,
   onUpdateEntry,
   onDeleteEntry,
+  routines,
+  onSaveRoutine,
+  onDeleteRoutine,
+  onStartRoutine,
 }) {
+  const routineList = Object.values(routines || {}).sort((a, b) => a.name.localeCompare(b.name));
   const exList = Object.values(exercises).sort((a, b) => a.name.localeCompare(b.name));
   const screen = view.screen;
 
@@ -362,6 +489,60 @@ export default function TrainingView({
             : undefined
         }
       />
+    );
+  }
+
+  if (screen === "editRoutine") {
+    const rt = view.routineId ? routines?.[view.routineId] : null;
+    return (
+      <RoutineEditor
+        key={view.routineId || "new"}
+        routine={rt}
+        exercises={exercises}
+        onCancel={back}
+        onSave={(draft) => {
+          onSaveRoutine({ ...draft, id: rt?.id || newId(), updatedAt: Date.now() });
+          back();
+        }}
+        onDelete={
+          rt
+            ? () => {
+                onDeleteRoutine(rt.id);
+                back();
+              }
+            : undefined
+        }
+      />
+    );
+  }
+
+  if (screen === "routines") {
+    return (
+      <div className="page">
+        <TopBar title="Routines" onBack={back} />
+        <button type="button" className="bigbtn" onClick={() => nav({ tab: "training", screen: "editRoutine", routineId: null, d: 2 })}>
+          + New routine
+        </button>
+        <p className="hint small">A routine is an ordered list of exercises. Starting one adds them all to the day, prefilled from your last session.</p>
+        {routineList.length === 0 && <p className="hint">No routines yet.</p>}
+        {routineList.map((rt) => (
+          <div key={rt.id} className="card foodrow">
+            <button
+              type="button"
+              className="foodrow-main"
+              onClick={() => nav({ tab: "training", screen: "editRoutine", routineId: rt.id, d: 2 })}
+            >
+              <span className="foodrow-name">{rt.name}</span>
+              <span className="foodrow-sub">
+                {rt.exerciseIds
+                  .map((id) => exercises[id]?.name)
+                  .filter(Boolean)
+                  .join(", ") || "No exercises"}
+              </span>
+            </button>
+          </div>
+        ))}
+      </div>
     );
   }
 
@@ -394,18 +575,37 @@ export default function TrainingView({
       <div className="page">
         <TopBar title="Log exercise" onBack={back} />
         {exList.length === 0 && <p className="hint">No exercises in your library yet. Add one first.</p>}
-        {exList.map((ex) => (
-          <div key={ex.id} className="card foodrow">
-            <button
-              type="button"
-              className="foodrow-main"
-              onClick={() => nav({ tab: "training", screen: "log", exerciseId: ex.id, d: 2 })}
-            >
-              <span className="foodrow-name">{ex.name}</span>
-              <span className="foodrow-sub">{TYPE_LABEL[ex.type]}</span>
-            </button>
-          </div>
-        ))}
+        {exList.map((ex) => {
+          const sessions = sessionsFor(training, ex.id);
+          const strength = ex.type === "strength";
+          const values = sessions.map((r) => (strength ? r.best : r.minutes));
+          const best = strength ? Math.max(0, ...values) : 0;
+          const sub = sessions.length
+            ? strength && best > 0
+              ? `Best e1RM ${fmtKg(best)} · ${sessions.length} sessions`
+              : `${sessions.length} sessions`
+            : "No sessions yet";
+          return (
+            <div key={ex.id} className="card foodrow">
+              <button
+                type="button"
+                className="foodrow-main withspark"
+                onClick={() => nav({ tab: "training", screen: "log", exerciseId: ex.id, d: 2 })}
+              >
+                <span className="foodrow-text">
+                  <span className="foodrow-name">{ex.name}</span>
+                  <span className="foodrow-sub">
+                    {TYPE_LABEL[ex.type]} · {sub}
+                  </span>
+                </span>
+                <Sparkline
+                  values={values}
+                  label={`${ex.name} ${strength ? "estimated 1RM" : "minutes"} over the last ${values.length} sessions`}
+                />
+              </button>
+            </div>
+          );
+        })}
         <button type="button" className="linkbtn" onClick={() => nav({ tab: "training", screen: "editExercise", exerciseId: null, d: 2 })}>
           + New exercise
         </button>
@@ -432,7 +632,7 @@ export default function TrainingView({
           existing={existing}
           onCancel={back}
           onSave={(payload) => {
-            if (existing) onUpdateEntry(existing.id, payload);
+            if (existing) onUpdateEntry(existing.id, { ...payload, planned: false });
             else onLogEntry({ exerciseId: exercise.id, ...payload });
             close(view.d);
           }}
@@ -454,9 +654,24 @@ export default function TrainingView({
         </button>
       </div>
 
+      <div className="flabel">Routines</div>
+      <div className="chips">
+        {routineList.map((rt) => (
+          <button type="button" key={rt.id} className="chip" onClick={() => onStartRoutine(rt)}>
+            ▶ {rt.name}
+          </button>
+        ))}
+        <button type="button" className="chip small" onClick={() => nav({ tab: "training", screen: "routines", d: 1 })}>
+          {routineList.length ? "Manage" : "+ Create a routine"}
+        </button>
+      </div>
+
       {dayEntries.length === 0 && <p className="hint">Nothing logged for this day yet.</p>}
+      {dayEntries.length > 0 && <SessionSummary entries={dayEntries} />}
       {dayEntries.map((e) => {
         const exercise = exercises[e.exerciseId];
+        const vol = entryVolume(e);
+        const pr = isPR(training, date, e);
         return (
           <div key={e.id} className="card foodrow">
             <button
@@ -465,7 +680,13 @@ export default function TrainingView({
               onClick={() => nav({ tab: "training", screen: "log", exerciseId: e.exerciseId, entryId: e.id, d: 1 })}
             >
               <span className="foodrow-name">{exercise ? exercise.name : "(deleted exercise)"}</span>
-              <span className="foodrow-sub">{fmtEntry(e)}</span>
+              <span className="foodrow-sub">
+                {fmtEntry(e)}
+                {!e.planned && vol > 0 ? ` · ${fmtVolume(vol)}` : ""}
+                {!e.planned && entryBest(e) > 0 ? ` · e1RM ${Math.round(entryBest(e))}` : ""}
+                {pr && <span className="tag tag-pr">PR</span>}
+                {e.planned && <span className="tag tag-plan">Planned</span>}
+              </span>
             </button>
             <IconButton label="Delete entry" onClick={() => onDeleteEntry(e.id)}>
               ✕

@@ -1,11 +1,18 @@
+import { useEffect, useState } from "react";
 import { lastNDates, fmtDateHeader, fmtShortDay } from "./dateUtils.js";
 import { dayTotals } from "./food.js";
 import { TopBar, fmtNum } from "./ui.jsx";
 import { weightSummary } from "./weight.js";
+import { estimateExpenditure } from "./tdee.js";
+import EnergyCard from "./EnergyCard.jsx";
 
 const ADHERENCE_BAND = 0.1;
 
-export default function WeekView({ logs, weights, targets, endDate, today, onBack }) {
+export default function WeekView({ logs, weights, targets, endDate, today, onBack, goal, onGoal, onApply, onEstimate }) {
+  const [est] = useState(() => estimateExpenditure({ logs, weights, today }));
+  useEffect(() => {
+    onEstimate?.(est);
+  }, [est]);
   const days = lastNDates(endDate, 7).map((date) => {
     const day = logs[date];
     const t = dayTotals(day);
@@ -83,6 +90,8 @@ export default function WeekView({ logs, weights, targets, endDate, today, onBac
           <span className="stat-label">Weight trend per week</span>
         </div>
       </div>
+      <h2>Energy target</h2>
+      <EnergyCard est={est} goal={goal} targets={targets} today={today} onGoal={onGoal} onApply={onApply} />
       <div className="card">
         {days
           .slice()

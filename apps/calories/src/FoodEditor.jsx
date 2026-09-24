@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { NumInput, Toggle } from "@shared/ui.jsx";
 import { TopBar } from "./ui.jsx";
+import { MICROS } from "./food.js";
+
+const MICRO_MAX = { fiber100: 100, sugars100: 100, satFat100: 100, salt100: 100 };
 
 export default function FoodEditor({ food, onSave, onCancel, onDelete }) {
   const [name, setName] = useState(food?.name || "");
@@ -12,6 +15,11 @@ export default function FoodEditor({ food, onSave, onCancel, onDelete }) {
   const [isPiece, setIsPiece] = useState(!!food?.isPiece);
   const [pieceWeight, setPieceWeight] = useState(food?.pieceWeight ?? 50);
   const [servingGrams, setServingGrams] = useState(food?.servingGrams ?? 0);
+  const [micros, setMicros] = useState(() => {
+    const out = {};
+    for (const m of MICROS) out[m.field] = Number.isFinite(food?.[m.field]) ? food[m.field] : null;
+    return out;
+  });
 
   const canSave = name.trim().length > 0;
   const macrosChanged =
@@ -30,6 +38,7 @@ export default function FoodEditor({ food, onSave, onCancel, onDelete }) {
       isPiece,
       pieceWeight: isPiece ? Number(pieceWeight) || 0 : undefined,
       servingGrams: servingGrams > 0 ? servingGrams : undefined,
+      ...Object.fromEntries(MICROS.map((m) => [m.field, micros[m.field] == null ? undefined : micros[m.field]])),
       source: food?.source || "custom",
       ...(macrosChanged ? { macrosIncomplete: false } : {}),
     });
@@ -86,6 +95,23 @@ export default function FoodEditor({ food, onSave, onCancel, onDelete }) {
         <span className="setlabel">Fat (g)</span>
         <NumInput value={fat100} onChange={setFat100} min={0} max={100} step={1} decimals={1} label="Fat per 100 g" />
       </div>
+
+      <div className="flabel">Per 100 g, optional</div>
+      {MICROS.map((m) => (
+        <div className="setrow" key={m.field}>
+          <span className="setlabel">{m.label} (g)</span>
+          <NumInput
+            value={micros[m.field]}
+            onChange={(v) => setMicros((cur) => ({ ...cur, [m.field]: v }))}
+            min={0}
+            max={MICRO_MAX[m.field]}
+            step={0.5}
+            decimals={2}
+            label={`${m.label} per 100 g`}
+          />
+        </div>
+      ))}
+      <p className="hint small">Leave blank when unknown; blank values are not counted in daily totals.</p>
 
       <div className="setrow">
         <span className="setlabel">Serving size (g, optional)</span>

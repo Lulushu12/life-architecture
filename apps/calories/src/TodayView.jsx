@@ -4,6 +4,7 @@ import { fmtDateHeader, addDays } from "./dateUtils.js";
 import { dayTotals, entryMacros, macrosForGrams, entryLabel, piecesForGrams } from "./food.js";
 import { ProgressBar, Modal, fmtNum, DayNav, MacroRow } from "./ui.jsx";
 import { MEALS, MEAL_LABELS } from "./storage.js";
+import WaterCard from "./WaterCard.jsx";
 
 export default function TodayView({
   date,
@@ -11,9 +12,15 @@ export default function TodayView({
   onStepDate,
   dayLogs,
   targets,
+  microTargets,
+  archived,
+  waterMl,
+  waterSettings,
+  onWater,
   view,
   highlight,
   onAddFood,
+  defaultMeal,
   onOpenEntry,
   onOpenMenu,
   onOpenWeek,
@@ -24,7 +31,7 @@ export default function TodayView({
   onCopyMeal,
   onSaveTemplate,
 }) {
-  const totals = dayTotals(dayLogs);
+  const totals = archived ? archivedTotals(archived) : dayTotals(dayLogs);
   const noTargets = targets.kcal <= 0 && targets.protein <= 0 && targets.carbs <= 0 && targets.fat <= 0;
   const remaining = targets.kcal > 0 ? targets.kcal - totals.kcal : null;
 
@@ -87,6 +94,7 @@ export default function TodayView({
         <ProgressBar label="Protein" value={totals.protein} target={targets.protein} unit="g" />
         <ProgressBar label="Carbs" value={totals.carbs} target={targets.carbs} unit="g" />
         <ProgressBar label="Fat" value={totals.fat} target={targets.fat} unit="g" />
+        <MicroLine totals={totals} targets={microTargets} />
         {noTargets && (
           <p className="hint small">
             Totals: {Math.round(totals.kcal)} kcal · P {fmtNum(totals.protein)}g · C {fmtNum(totals.carbs)}g · F{" "}
@@ -105,7 +113,22 @@ export default function TodayView({
         </div>
       </div>
 
-      {MEALS.map((meal) => {
+      {!archived && (
+        <button type="button" className="bigbtn quicklog" onClick={() => onAddFood(defaultMeal)}>
+          + Add to {MEAL_LABELS[defaultMeal]}
+        </button>
+      )}
+
+      <WaterCard ml={waterMl} settings={waterSettings} onChange={onWater} readOnly={!!archived} />
+
+      {archived && (
+        <p className="hint small archived-note">
+          Archived day: entries older than 12 months are kept as daily totals only ({archived.entries || 0}{" "}
+          {archived.entries === 1 ? "item" : "items"} logged).
+        </p>
+      )}
+
+      {!archived && MEALS.map((meal) => {
         const entries = dayLogs[meal] || [];
         const mealKcal = entries.reduce((a, e) => a + entryMacros(e).kcal, 0);
         return (
@@ -162,6 +185,47 @@ export default function TodayView({
   );
 }
 
+function archivedTotals(a) {
+  const hasMicro = (a.fiber || 0) + (a.sugars || 0) + (a.satFat || 0) + (a.salt || 0) > 0;
+  return {
+    kcal: a.kcal || 0,
+    protein: a.protein || 0,
+    carbs: a.carbs || 0,
+    fat: a.fat || 0,
+    fiber: a.fiber || 0,
+    sugars: a.sugars || 0,
+    satFat: a.satFat || 0,
+    salt: a.salt || 0,
+    entries: a.entries || 0,
+    withMicros: hasMicro ? a.entries || 1 : 0,
+  };
+}
+
+function MicroLine({ totals, targets }) {
+  if (!totals.withMicros) return null;
+  const part = (label, v, t) => `${label} ${fmtNum(v)}${t > 0 ? `/${fmtNum(t)}` : ""} g`;
+  const items = [
+    { key: "fiber", text: part("Fibre", totals.fiber, targets?.fiber), low: targets?.fiber > 0 && totals.fiber < targets.fiber },
+    { key: "sugars", text: part("Sugars", totals.sugars, 0) },
+    { key: "satFat", text: part("Sat. fat", totals.satFat, 0) },
+    { key: "salt", text: part("Salt", totals.salt, targets?.salt), over: targets?.salt > 0 && totals.salt > targets.salt },
+  ];
+  return (
+    <div className="microline">
+      {items.map((it) => (
+        <span key={it.key} className={"macro" + (it.over ? " over-text" : "")}>
+          {it.text}
+        </span>
+      ))}
+      {totals.withMicros < totals.entries && (
+        <span className="macro microcov">
+          ({totals.withMicros} of {totals.entries} items have data)
+        </span>
+      )}
+    </div>
+  );
+}
+
 function EditEntryModal({ entry, onClose, onSave, onDelete }) {
   const pw = entry.pieceWeight || (entry.pieces > 0 ? entry.grams / entry.pieces : 0);
   const isPiece = entry.pieces > 0 && pw > 0;
@@ -170,6 +234,7 @@ function EditEntryModal({ entry, onClose, onSave, onDelete }) {
   const [protein, setProtein] = useState(entry.protein100);
   const [carbs, setCarbs] = useState(entry.carbs100);
   const [fat, setFat] = useState(entry.fat100);
+  const [eatenAt, setEatenAt] = useState(entry.eatenAt || "");
   const pieceFood = { pieceWeight: pw };
   const pieces = isPiece ? piecesForGrams(pieceFood, grams) : null;
 
@@ -178,8 +243,9 @@ function EditEntryModal({ entry, onClose, onSave, onDelete }) {
     : macrosForGrams(entry, grams);
 
   const save = () => {
-    if (entry.quick) onSave({ kcal100: kcal, protein100: protein, carbs100: carbs, fat100: fat });
-    else onSave(isPiece ? { grams, pieces, pieceWeight: pw } : { grams });
+    const time = /^\d{2}:\d{2}$/.test(eatenAt) ? { eatenAt } : {};
+    if (entry.quick) onSave({ kcal100: kcal, protein100: protein, carbs100: carbs, fat100: fat, ...time });
+    else onSave(isPiece ? { grams, pieces, pieceWeight: pw, ...time } : { grams, ...time });
   };
 
   return (
@@ -225,6 +291,18 @@ function EditEntryModal({ entry, onClose, onSave, onDelete }) {
           </div>
         </>
       )}
+      <div className="setrow">
+        <label className="setlabel" htmlFor="entry-time">
+          Eaten at
+        </label>
+        <input
+          id="entry-time"
+          className="input timeinput"
+          type="time"
+          value={eatenAt}
+          onChange={(e) => setEatenAt(e.target.value)}
+        />
+      </div>
       <div className="card inset">
         <MacroRow {...m} />
       </div>

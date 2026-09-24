@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { NumInput, IconButton } from "@shared/ui.jsx";
 import { newId } from "@shared/store.js";
 import { searchFoods, lookupBarcode } from "./offc.js";
-import { macrosForGrams, piecesForGrams, foodScore, matchesQuery } from "./food.js";
+import { macrosForGrams, piecesForGrams, foodScore, matchesQuery, MICROS } from "./food.js";
 import { MacroRow, TopBar, fmtNum } from "./ui.jsx";
 import { MEAL_LABELS } from "./storage.js";
 import { fmtDateHeader } from "./dateUtils.js";
@@ -11,6 +11,12 @@ import FoodEditor from "./FoodEditor.jsx";
 import BarcodeScanner from "./BarcodeScanner.jsx";
 
 const DEBOUNCE_MS = 400;
+
+function microFields(food) {
+  const out = {};
+  for (const m of MICROS) if (Number.isFinite(food[m.field])) out[m.field] = food[m.field];
+  return out;
+}
 
 function macroLine(f) {
   return `${Math.round(f.kcal100)} kcal · P ${fmtNum(f.protein100)} · C ${fmtNum(f.carbs100)} · F ${fmtNum(f.fat100)} /100g`;
@@ -343,12 +349,7 @@ function LogStep({ food, meal, subtitle, onBack, onAdd, onStar }) {
     chips.push({ label: `Last (${fmtNum(food.lastGrams)} g)`, grams: food.lastGrams });
   }
 
-  const extras = [
-    ["Fiber", food.fiber100],
-    ["Sugars", food.sugars100],
-    ["Sat. fat", food.satFat100],
-    ["Salt", food.salt100],
-  ].filter(([, v]) => v != null);
+  const extras = MICROS.map((m) => [m.label, food[m.field]]).filter(([, v]) => Number.isFinite(v));
 
   return (
     <div className="page">
@@ -432,6 +433,7 @@ function LogStep({ food, meal, subtitle, onBack, onAdd, onStar }) {
             protein100: food.protein100,
             carbs100: food.carbs100,
             fat100: food.fat100,
+            ...microFields(food),
           })
         }
       >

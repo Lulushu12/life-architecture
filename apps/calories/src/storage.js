@@ -1,7 +1,14 @@
-import { createStore } from "@shared/store.js";
+import { createStore, todayKey } from "@shared/store.js";
+import { dayTotals } from "./food.js";
 import { seedTemplates } from "./templates.js";
+import { GOALS } from "./tdee.js";
 
 export const STORAGE_KEY = "calories-v1";
+
+export const ARCHIVE_KEY = "archive";
+export const STORE_VERSION = 2;
+const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+export const isDateKey = (k) => typeof k === "string" && DATE_RE.test(k);
 
 export const MEALS = ["breakfast", "lunch", "dinner", "snacks"];
 export const MEAL_LABELS = { breakfast: "Breakfast", lunch: "Lunch", dinner: "Dinner", snacks: "Snacks" };
@@ -13,9 +20,19 @@ export function defaults() {
     logs: {},
     training: {},
     weights: {},
+    water: {},
+    routines: {},
     templates: {},
     templatesSeeded: false,
-    settings: { targets: { kcal: 0, protein: 0, carbs: 0, fat: 0 }, country: "ro", updatedAt: 0 },
+    tdee: null,
+    settings: {
+      targets: { kcal: 0, protein: 0, carbs: 0, fat: 0 },
+      microTargets: { fiber: 30, salt: 6 },
+      water: { step: 250, target: 2000, unit: "glass" },
+      country: "ro",
+      goal: "maintain",
+      updatedAt: 0,
+    },
   };
 }
 
@@ -66,10 +83,23 @@ export function dedupeFoods(foods) {
   return { foods: out, remap };
 }
 
+const MICRO_FIELDS = ["fiber100", "sugars100", "satFat100", "salt100"];
+
+function cleanMicros(o) {
+  const out = { ...o };
+  for (const k of MICRO_FIELDS) {
+    if (out[k] == null) continue;
+    const n = Number(out[k]);
+    if (Number.isFinite(n) && n >= 0) out[k] = n;
+    else delete out[k];
+  }
+  return out;
+}
+
 function normalizeEntry(e) {
   if (!isObj(e)) return null;
   return {
-    ...e,
+    ...cleanMicros(e),
     id: e.id || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`,
     name: typeof e.name === "string" && e.name ? e.name : "Unnamed food",
     grams: num(e.grams),
@@ -77,6 +107,7 @@ function normalizeEntry(e) {
     protein100: num(e.protein100),
     carbs100: num(e.carbs100),
     fat100: num(e.fat100),
+    eatenAt: typeof e.eatenAt === "string" && /^\d{2}:\d{2}$/.test(e.eatenAt) ? e.eatenAt : undefined,
   };
 }
 
@@ -85,7 +116,7 @@ export function normalize(store) {
   for (const [id, f] of Object.entries(isObj(store.foods) ? store.foods : {})) {
     if (!isObj(f)) continue;
     foods[id] = {
-      ...f,
+      ...cleanMicros(f),
       id,
       name: typeof f.name === "string" && f.name ? f.name : "Unnamed food",
       kcal100: num(f.kcal100),
@@ -98,8 +129,19 @@ export function normalize(store) {
   const fixId = (e) => (e.foodId && remap[e.foodId] ? { ...e, foodId: remap[e.foodId] } : e);
 
   const logs = {};
-  for (const [date, day] of Object.entries(isObj(store.logs) ? store.logs : {})) {
-    if (!isObj(day)) continue;
+  const srcLogs = isObj(store.logs) ? store.logs : {};
+  if (isObj(srcLogs[ARCHIVE_KEY])) {
+    const archive = {};
+    for (const [date, a] of Object.entries(srcLogs[ARCHIVE_KEY])) {
+      if (!isDateKey(date) || !isObj(a)) continue;
+      const rec = {};
+      for (const k of ARCHIVE_FIELDS) rec[k] = num(a[k]);
+      archive[date] = rec;
+    }
+    logs[ARCHIVE_KEY] = archive;
+  }
+  for (const [date, day] of Object.entries(srcLogs)) {
+    if (!isDateKey(date) || !isObj(day)) continue;
     const next = { ...day };
     for (const m of MEALS) {
       next[m] = (Array.isArray(day[m]) ? day[m] : []).map(normalizeEntry).filter(Boolean).map(fixId);
@@ -125,6 +167,17 @@ export function normalize(store) {
     exercises[id] = { ...ex, id, name: ex.name || "Exercise", type: ex.type === "cardio" ? "cardio" : "strength" };
   }
 
+  const routines = {};
+  for (const [id, r] of Object.entries(isObj(store.routines) ? store.routines : {})) {
+    if (!isObj(r)) continue;
+    routines[id] = {
+      ...r,
+      id,
+      name: typeof r.name === "string" && r.name ? r.name : "Routine",
+      exerciseIds: (Array.isArray(r.exerciseIds) ? r.exerciseIds : []).filter((x) => typeof x === "string"),
+    };
+  }
+
   const training = {};
   for (const [date, day] of Object.entries(isObj(store.training) ? store.training : {})) {
     if (!isObj(day)) continue;
@@ -136,6 +189,11 @@ export function normalize(store) {
     if (isObj(w) && Number.isFinite(Number(w.kg)) && Number(w.kg) > 0) weights[date] = { ...w, kg: Number(w.kg) };
   }
 
+  const water = {};
+  for (const [date, w] of Object.entries(isObj(store.water) ? store.water : {})) {
+    if (isObj(w) && Number.isFinite(Number(w.ml)) && Number(w.ml) >= 0) water[date] = { ...w, ml: Number(w.ml) };
+  }
+
   const base = defaults().settings;
   const s = isObj(store.settings) ? store.settings : {};
   const t = isObj(s.targets) ? s.targets : {};
@@ -143,10 +201,92 @@ export function normalize(store) {
     ...base,
     ...s,
     targets: { kcal: num(t.kcal), protein: num(t.protein), carbs: num(t.carbs), fat: num(t.fat) },
+    microTargets: {
+      fiber: num(s.microTargets?.fiber, base.microTargets.fiber),
+      salt: num(s.microTargets?.salt, base.microTargets.salt),
+    },
     country: typeof s.country === "string" ? s.country : "ro",
+    water: {
+      step: Math.max(10, num(s.water?.step, base.water.step)),
+      target: Math.max(0, num(s.water?.target, base.water.target)),
+      unit: s.water?.unit === "ml" ? "ml" : "glass",
+    },
+    goal: GOALS.some((g) => g.id === s.goal) ? s.goal : "maintain",
   };
 
-  return { ...store, foods: deduped, logs, templates, exercises, training, weights, settings };
+  return { ...store, foods: deduped, logs, templates, exercises, training, weights, water, routines, settings };
+}
+
+const ARCHIVE_FIELDS = ["kcal", "protein", "carbs", "fat", "fiber", "sugars", "satFat", "salt", "water", "entries"];
+const YEAR_MS = 365 * 86400000;
+
+export function cutoffDate(today = todayKey()) {
+  const [y, m, d] = today.split("-");
+  return `${Number(y) - 1}-${m}-${d}`;
+}
+
+const r1 = (v) => Math.round(v * 10) / 10;
+
+export function compactStore(store, today = todayKey(), now = Date.now()) {
+  const cutoff = cutoffDate(today);
+  const srcLogs = isObj(store.logs) ? store.logs : {};
+  const srcWater = isObj(store.water) ? store.water : {};
+  const oldDays = Object.keys(srcLogs).filter((d) => isDateKey(d) && d < cutoff);
+  const oldWater = Object.keys(srcWater).filter((d) => isDateKey(d) && d < cutoff);
+  const usedIds = new Set();
+  for (const t of Object.values(isObj(store.templates) ? store.templates : {})) {
+    for (const it of Array.isArray(t?.items) ? t.items : []) if (it?.foodId) usedIds.add(it.foodId);
+  }
+  const staleFoods = Object.values(isObj(store.foods) ? store.foods : {}).filter(
+    (f) =>
+      isObj(f) &&
+      !f.lastUsedAt &&
+      !f.useCount &&
+      !f.favorite &&
+      !usedIds.has(f.id) &&
+      num(f.updatedAt) > 0 &&
+      now - num(f.updatedAt) > YEAR_MS
+  );
+  if (!oldDays.length && !oldWater.length && !staleFoods.length) return store;
+
+  const logs = { ...srcLogs };
+  const water = { ...srcWater };
+  const archive = { ...(isObj(srcLogs[ARCHIVE_KEY]) ? srcLogs[ARCHIVE_KEY] : {}) };
+  const empty = () => Object.fromEntries(ARCHIVE_FIELDS.map((k) => [k, 0]));
+  for (const d of oldDays) {
+    const t = dayTotals(logs[d]);
+    const prev = archive[d] || empty();
+    archive[d] = {
+      kcal: Math.round(t.kcal),
+      protein: r1(t.protein),
+      carbs: r1(t.carbs),
+      fat: r1(t.fat),
+      fiber: r1(t.fiber),
+      sugars: r1(t.sugars),
+      satFat: r1(t.satFat),
+      salt: Math.round(t.salt * 100) / 100,
+      water: prev.water,
+      entries: t.entries,
+    };
+    delete logs[d];
+  }
+  for (const d of oldWater) {
+    archive[d] = { ...(archive[d] || empty()), water: num(water[d]?.ml) };
+    delete water[d];
+  }
+  logs[ARCHIVE_KEY] = archive;
+  let foods = store.foods;
+  if (staleFoods.length) {
+    foods = { ...store.foods };
+    for (const f of staleFoods) delete foods[f.id];
+  }
+  return { ...store, logs, water, foods };
+}
+
+function migrate(store, from) {
+  let next = store;
+  if (from < 2) next = compactStore(next);
+  return next;
 }
 
 function withSeed(store) {
@@ -154,9 +294,9 @@ function withSeed(store) {
   return { ...store, templates: { ...seedTemplates(), ...(store.templates || {}) }, templatesSeeded: true };
 }
 
-const base = createStore({ key: STORAGE_KEY, version: 1, defaults, normalize });
+const base = createStore({ key: STORAGE_KEY, version: STORE_VERSION, defaults, migrate, normalize });
 
-export const storeDef = { key: base.key, save: base.save, load: () => withSeed(base.load()) };
+export const storeDef = { key: base.key, save: base.save, load: () => compactStore(withSeed(base.load())) };
 
 function mergeById(local, imported) {
   const out = { ...(local || {}) };
@@ -181,17 +321,26 @@ export function mergeImport(store, imported) {
   next.exercises = mergeById(store.exercises, imported.exercises);
   next.training = mergeById(store.training, imported.training);
   next.weights = mergeById(store.weights, imported.weights);
+  next.water = mergeById(store.water, imported.water);
+  next.routines = mergeById(store.routines, imported.routines);
   next.templates = mergeById(store.templates, imported.templates);
   const logs = { ...store.logs };
+  const impArchive = isObj(imported.logs?.[ARCHIVE_KEY]) ? imported.logs[ARCHIVE_KEY] : null;
+  if (impArchive) {
+    const archive = { ...(isObj(logs[ARCHIVE_KEY]) ? logs[ARCHIVE_KEY] : {}) };
+    for (const [date, a] of Object.entries(impArchive)) if (!archive[date] && !logs[date]) archive[date] = a;
+    logs[ARCHIVE_KEY] = archive;
+  }
   for (const [date, dayLogs] of Object.entries(isObj(imported.logs) ? imported.logs : {})) {
-    if (!isObj(dayLogs)) continue;
+    if (!isDateKey(date) || !isObj(dayLogs)) continue;
+    if (logs[ARCHIVE_KEY]?.[date]) continue;
     if (!logs[date] || dayStamp(dayLogs) > dayStamp(logs[date])) logs[date] = { ...emptyDayLogs(), ...dayLogs };
   }
   next.logs = logs;
   if (isObj(imported.settings) && num(imported.settings.updatedAt) > num(store.settings.updatedAt)) {
     next.settings = { ...store.settings, ...imported.settings };
   }
-  return normalize(next);
+  return compactStore(normalize(next));
 }
 
 export function validateBackup(d) {

@@ -4,10 +4,11 @@ import { useHistoryNav } from "@shared/useHistoryNav.js";
 import { registerSw } from "@shared/swRegister.js";
 import { useToast } from "@shared/ui.jsx";
 import { emitEvent } from "@shared/bridge.js";
-import { storeDef, STORAGE_KEY, MEALS, MEAL_LABELS, emptyDayLogs, mergeImport } from "./storage.js";
+import { storeDef, STORAGE_KEY, MEALS, MEAL_LABELS, emptyDayLogs, mergeImport, isDateKey, ARCHIVE_KEY } from "./storage.js";
 import { addDays } from "./dateUtils.js";
 import { dayTotals, roundTotals } from "./food.js";
 import { TabBar } from "./ui.jsx";
+import { lastSession } from "./training.js";
 import TodayView from "./TodayView.jsx";
 import WeekView from "./WeekView.jsx";
 import FoodsView from "./FoodsView.jsx";
@@ -29,6 +30,10 @@ export function mealForNow(d = new Date()) {
   return "snacks";
 }
 
+export function timeOfDay(d = new Date()) {
+  return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+}
+
 function firstLevel(v, store) {
   if (!v.screen) return null;
   if (v.tab === "today") {
@@ -41,8 +46,9 @@ function firstLevel(v, store) {
     return null;
   }
   if (v.tab === "training") {
-    if (v.screen === "library" || v.screen === "pick") return { tab: "training", screen: v.screen, d: 1 };
+    if (v.screen === "library" || v.screen === "pick" || v.screen === "routines") return { tab: "training", screen: v.screen, d: 1 };
     if (v.screen === "editExercise") return { tab: "training", screen: "library", d: 1 };
+    if (v.screen === "editRoutine") return { tab: "training", screen: "routines", d: 1 };
     return null;
   }
   return null;
@@ -138,7 +144,12 @@ export default function App() {
       dirtyTraining.current.clear();
       for (const d of dates) {
         const names = [
-          ...new Set((store.training[d]?.entries || []).map((e) => store.exercises[e.exerciseId]?.name).filter(Boolean)),
+          ...new Set(
+            (store.training[d]?.entries || [])
+              .filter((e) => !e.planned)
+              .map((e) => store.exercises[e.exerciseId]?.name)
+              .filter(Boolean)
+          ),
         ];
         emitEvent({ app: APP, type: "calories.training", dayKey: d, value: { exercises: names } });
       }
@@ -172,7 +183,7 @@ export default function App() {
     const now = Date.now();
     const entries = payloads.map((p) => {
       const { id: _drop, updatedAt: _u, ...rest } = p;
-      return { grams: 0, ...rest, id: newId(), updatedAt: now };
+      return { grams: 0, ...rest, eatenAt: rest.eatenAt || timeOfDay(), id: newId(), updatedAt: now };
     });
     updateDay(date, (day) => ({ ...day, [meal]: [...(day[meal] || []), ...entries] }));
     setStore((s) => {
@@ -256,7 +267,7 @@ export default function App() {
 
   const saveTemplate = (name, meal, entries) => {
     const id = newId();
-    const items = entries.map(({ id: _i, updatedAt: _u, ...rest }) => rest);
+    const items = entries.map(({ id: _i, updatedAt: _u, eatenAt: _t, ...rest }) => rest);
     setStore((s) => ({ ...s, templates: { ...s.templates, [id]: { id, name, meal, items, updatedAt: Date.now() } } }));
     toast(`Saved template "${name}"`);
   };
@@ -349,6 +360,46 @@ export default function App() {
     );
   };
 
+  const saveRoutine = (rt) => setStore((s) => ({ ...s, routines: { ...s.routines, [rt.id]: rt } }));
+
+  const deleteRoutine = (id) => {
+    const rt = store.routines?.[id];
+    if (!rt) return;
+    setStore((s) => {
+      const routines = { ...s.routines };
+      delete routines[id];
+      return { ...s, routines };
+    });
+    toast.undo(`Deleted routine "${rt.name}"`, () =>
+      setStore((s) => ({ ...s, routines: { ...s.routines, [id]: { ...rt, updatedAt: Date.now() } } }))
+    );
+  };
+
+  const startRoutine = (rt) => {
+    const date = trainingDate;
+    const payloads = rt.exerciseIds
+      .map((exId) => store.exercises[exId])
+      .filter(Boolean)
+      .map((ex) => {
+        const last = lastSession(store.training, ex.id, date);
+        if (ex.type === "strength") {
+          const sets = Array.isArray(last?.sets) && last.sets.length ? last.sets.map((x) => ({ reps: x.reps, weight: x.weight })) : [{ reps: 10, weight: 20 }];
+          return { id: newId(), exerciseId: ex.id, type: "strength", sets, planned: true, routineId: rt.id };
+        }
+        return { id: newId(), exerciseId: ex.id, type: "cardio", minutes: last?.minutes ?? 30, km: last?.km, planned: true, routineId: rt.id };
+      });
+    if (!payloads.length) {
+      toast("This routine has no exercises left in the library.");
+      return;
+    }
+    setTrainingDay(date, (entries, now) => [...entries, ...payloads.map((p) => ({ ...p, updatedAt: now }))]);
+    const ids = new Set(payloads.map((p) => p.id));
+    toast(`Started "${rt.name}": ${payloads.length} exercises`, {
+      action: { label: "Undo", onClick: () => setTrainingDay(date, (entries) => entries.filter((e) => !ids.has(e.id))) },
+      duration: 5000,
+    });
+  };
+
   const saveWeight = (date, kg) => {
     const value = Math.round(Number(kg) * 10) / 10;
     if (!(value > 0)) return;
@@ -370,14 +421,32 @@ export default function App() {
     );
   };
 
+  const changeWater = (date, delta) =>
+    setStore((s) => {
+      const ml = Math.max(0, (s.water?.[date]?.ml || 0) + delta);
+      return { ...s, water: { ...s.water, [date]: { ml, updatedAt: Date.now() } } };
+    });
+
   const restoreBackup = (data) => {
     const cutoff = addDays(today, -60);
-    for (const d of Object.keys(data?.logs || {})) if (d >= cutoff) dirtyDays.current.add(d);
+    for (const d of Object.keys(data?.logs || {})) if (isDateKey(d) && d >= cutoff) dirtyDays.current.add(d);
     setStore((s) => mergeImport(s, data));
   };
 
   const setSettings = (patch) =>
     setStore((s) => ({ ...s, settings: { ...s.settings, ...patch, updatedAt: Date.now() } }));
+
+  const applyTargets = (proposal) => {
+    const prev = store.settings.targets;
+    const next = { ...prev, kcal: proposal.kcal, ...(proposal.protein != null ? { protein: proposal.protein } : {}) };
+    setSettings({ targets: next });
+    toast(`Targets set to ${next.kcal} kcal, ${next.protein} g protein`, {
+      action: { label: "Undo", onClick: () => setSettings({ targets: prev }) },
+      duration: 5000,
+    });
+  };
+
+  const saveEstimate = useCallback((est) => setStore((s) => ({ ...s, tdee: est })), [setStore]);
 
   const banner = (!status.ok || store._recovered) && (
     <div className="page banner-wrap">
@@ -435,10 +504,15 @@ export default function App() {
         endDate={todayDate}
         today={today}
         onBack={back}
+        goal={store.settings.goal}
+        onGoal={(goal) => setSettings({ goal })}
+        onApply={applyTargets}
+        onEstimate={saveEstimate}
       />
     );
   } else if (v.tab === "today") {
     const dayLogs = store.logs[todayDate] || emptyDayLogs();
+    const archived = store.logs[todayDate] ? null : store.logs[ARCHIVE_KEY]?.[todayDate] || null;
     page = (
       <TodayView
         date={todayDate}
@@ -446,10 +520,16 @@ export default function App() {
         onStepDate={stepToday}
         dayLogs={dayLogs}
         targets={store.settings.targets}
+        microTargets={store.settings.microTargets}
+        archived={archived}
+        waterMl={archived ? archived.water || 0 : store.water?.[todayDate]?.ml || 0}
+        waterSettings={store.settings.water}
+        onWater={(delta) => changeWater(todayDate, delta)}
         templates={store.templates}
         view={v}
         highlight={highlight}
         onAddFood={(meal) => nav({ tab: "today", screen: "picker", meal, step: "list", d: 1 })}
+        defaultMeal={mealForNow()}
         onOpenEntry={(meal, id) => nav({ tab: "today", screen: "entry", date: todayDate, meal, entryId: id, d: 1 })}
         onOpenMenu={(meal) => nav({ tab: "today", screen: "mealmenu", meal, d: 1 })}
         onOpenWeek={() => nav({ tab: "today", screen: "week", d: 1 })}
@@ -495,6 +575,10 @@ export default function App() {
         onLogEntry={(payload) => addTrainingEntry(trainingDate, payload)}
         onUpdateEntry={(id, patch) => updateTrainingEntry(trainingDate, id, patch)}
         onDeleteEntry={(id) => deleteTrainingEntry(trainingDate, id)}
+        routines={store.routines}
+        onSaveRoutine={saveRoutine}
+        onDeleteRoutine={deleteRoutine}
+        onStartRoutine={startRoutine}
       />
     );
   } else if (v.tab === "weight") {
@@ -510,7 +594,9 @@ export default function App() {
       />
     );
   } else {
-    page = <SettingsView store={store} onRestore={restoreBackup} setSettings={setSettings} />;
+    page = (
+      <SettingsView store={store} today={today} onRestore={restoreBackup} setSettings={setSettings} onApplyTargets={applyTargets} />
+    );
   }
 
   const showTabs = !v.screen || OVERLAY_SCREENS.has(v.screen);

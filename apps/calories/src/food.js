@@ -10,6 +10,17 @@ export function macrosForGrams(food, grams) {
   };
 }
 
+export const MICROS = [
+  { key: "fiber", field: "fiber100", label: "Fibre" },
+  { key: "sugars", field: "sugars100", label: "Sugars" },
+  { key: "satFat", field: "satFat100", label: "Sat. fat" },
+  { key: "salt", field: "salt100", label: "Salt" },
+];
+
+export function hasMicros(e) {
+  return MICROS.some((m) => Number.isFinite(e?.[m.field]));
+}
+
 export function entryMacros(e) {
   return macrosForGrams(e, e.grams);
 }
@@ -24,7 +35,7 @@ export function piecesForGrams(food, grams) {
 }
 
 export function dayTotals(dayLogs) {
-  const t = { kcal: 0, protein: 0, carbs: 0, fat: 0 };
+  const t = { kcal: 0, protein: 0, carbs: 0, fat: 0, fiber: 0, sugars: 0, satFat: 0, salt: 0, entries: 0, withMicros: 0 };
   if (!dayLogs) return t;
   for (const meal of MEALS) {
     for (const e of dayLogs[meal] || []) {
@@ -33,6 +44,10 @@ export function dayTotals(dayLogs) {
       t.protein += m.protein;
       t.carbs += m.carbs;
       t.fat += m.fat;
+      t.entries += 1;
+      if (hasMicros(e)) t.withMicros += 1;
+      const f = (Number(e.grams) || 0) / 100;
+      for (const mi of MICROS) if (Number.isFinite(e[mi.field])) t[mi.key] += e[mi.field] * f;
     }
   }
   return t;
@@ -62,7 +77,15 @@ export function matchesQuery(f, q) {
 }
 
 export function entryLabel(e) {
-  if (e.quick) return "Quick add";
+  if (e.quick) return e.eatenAt ? `${e.eatenAt} · Quick add` : "Quick add";
+  if (e.eatenAt) return `${e.eatenAt} · ${e.pieces ? `${e.pieces} pc · ${Math.round(e.grams)} g` : `${Math.round(e.grams)} g`}`;
   if (e.pieces) return `${e.pieces} pc · ${Math.round(e.grams)} g`;
   return `${Math.round(e.grams)} g`;
+}
+
+export function entryCount(dayLogs) {
+  if (!dayLogs) return 0;
+  let n = 0;
+  for (const meal of MEALS) n += (dayLogs[meal] || []).length;
+  return n;
 }
