@@ -29,6 +29,10 @@ function freshStore() {
     lessonProgress: {}, // lessonId -> {step, completed, completedAt}
     editor: null, // last position built in the custom-position editor: {fen}
     capHits: 0, // how many games the 50-game cap has pruned so far
+    puzzleRating: { r: 1200, n: 0, history: [] },
+    puzzleBests: { rush: 0, streak: 0 },
+    puzzleSrs: {},
+    drillProgress: {},
   };
 }
 
@@ -89,6 +93,10 @@ function normalize(s) {
     lessonProgress: isObj(s.lessonProgress) ? s.lessonProgress : {},
     current: isObj(s.current) && Array.isArray(s.current.sans) ? s.current : null,
     capHits: Number(s.capHits) || 0,
+    puzzleRating: isObj(s.puzzleRating) && Number.isFinite(s.puzzleRating.r) ? s.puzzleRating : fresh.puzzleRating,
+    puzzleBests: { ...fresh.puzzleBests, ...(isObj(s.puzzleBests) ? s.puzzleBests : {}) },
+    puzzleSrs: isObj(s.puzzleSrs) ? s.puzzleSrs : {},
+    drillProgress: isObj(s.drillProgress) ? s.drillProgress : {},
   };
   return capStore(out);
 }

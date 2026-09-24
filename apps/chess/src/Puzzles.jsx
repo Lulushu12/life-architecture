@@ -1,8 +1,10 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Chess } from "chess.js";
 import Board from "./Board.jsx";
 import { TopBar } from "./ui.jsx";
 import { play as sfx, buzz } from "./audio.js";
+import { getEngine } from "./engine.js";
+import { moveIsGoodEnough, srsNext } from "./puzzledb.js";
 
 // "My blunders": every mistake/blunder from your reviewed games becomes a
 // find-the-better-move puzzle.
@@ -12,12 +14,42 @@ export default function BlunderTrainer({ store, setStore, nav }) {
   const [state, setState] = useState("try"); // try | wrong | solved | revealed
   // Progressive help: 1 shows which piece must move, 2 shows the full move.
   const [hint, setHint] = useState(0);
-  const puzzle = unsolved[Math.min(idx, Math.max(0, unsolved.length - 1))];
+  const [heldId, setHeldId] = useState(null);
+  const puzzle = (heldId && store.puzzles.find((p) => p.id === heldId)) || unsolved[Math.min(idx, Math.max(0, unsolved.length - 1))];
+  const [alt, setAlt] = useState(false);
+  const failed = useRef(false);
+  const alive = useRef(true);
+  const engine = useMemo(() => getEngine(), []);
+  useEffect(
+    () => () => {
+      alive.current = false;
+      engine.cancel("puzzle-check");
+    },
+    [engine]
+  );
+  useEffect(() => {
+    failed.current = false;
+    setAlt(false);
+    setHeldId(puzzle?.id ?? null);
+  }, [puzzle?.id]);
+
+  const resolve = (solvedIt) => {
+    const miss = failed.current || !solvedIt;
+    setStore((s) => ({
+      ...s,
+      puzzles: s.puzzles.map((p) => {
+        if (p.id !== puzzle.id) return p;
+        const rest = { ...p, solved: true };
+        delete rest.srs;
+        return miss ? { ...rest, srs: srsNext(null, false) } : rest;
+      }),
+    }));
+  };
 
   const chess = useMemo(() => (puzzle ? new Chess(puzzle.fen) : null), [puzzle]);
 
   const dests = useMemo(() => {
-    if (!chess || state === "solved" || state === "revealed") return null;
+    if (!chess || state === "solved" || state === "revealed" || state === "checking") return null;
     const map = new Map();
     for (const m of chess.moves({ verbose: true })) {
       if (!map.has(m.from)) map.set(m.from, []);
@@ -41,20 +73,33 @@ export default function BlunderTrainer({ store, setStore, nav }) {
 
   const turn = chess.turn() === "w" ? "White" : "Black";
 
-  const tryMove = (from, to, promotion) => {
+  const tryMove = async (from, to, promotion) => {
+    if (state === "checking") return;
     const test = new Chess(puzzle.fen);
-    const mv = test.move({ from, to, promotion: promotion || "q" });
+    let mv;
+    try {
+      mv = test.move({ from, to, promotion: promotion || "q" });
+    } catch {
+      return;
+    }
     if (!mv) return;
     const played = mv.from + mv.to + (mv.promotion || "");
-    if (played === puzzle.bestUci) {
+    let ok = played === puzzle.bestUci || test.isCheckmate();
+    let near = false;
+    if (!ok) {
+      setState("checking");
+      near = await moveIsGoodEnough(engine, puzzle.fen, played);
+      if (!alive.current) return;
+      ok = near;
+    }
+    if (ok) {
       sfx(store, "gameEnd");
       buzz(store, [30, 40, 30]);
+      setAlt(near ? mv.san : false);
       setState("solved");
-      setStore((s) => ({
-        ...s,
-        puzzles: s.puzzles.map((p) => (p.id === puzzle.id ? { ...p, solved: true } : p)),
-      }));
+      resolve(true);
     } else {
+      failed.current = true;
       sfx(store, "lose");
       buzz(store, 60);
       setState("wrong");
@@ -64,7 +109,8 @@ export default function BlunderTrainer({ store, setStore, nav }) {
   const next = () => {
     setState("try");
     setHint(0);
-    setIdx(0); // unsolved list shrinks as puzzles get solved
+    setIdx(0);
+    setHeldId(null);
   };
 
   return (
@@ -100,11 +146,15 @@ export default function BlunderTrainer({ store, setStore, nav }) {
           return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
         }}
       />
+      {state === "checking" && <p className="hint center">Checking your move...</p>}
       {state === "wrong" && <p className="warn center">Not that one, try again.</p>}
       {(state === "solved" || state === "revealed") && (
         <p className="okmsg center">
-          {state === "solved" ? "✓ Exactly: " : ""}best was <b>{puzzle.bestSan}</b>
+          {state === "solved" ? (alt ? `✓ ${alt} is just as good. The engine's ` : "✓ Exactly: ") : ""}best was <b>{puzzle.bestSan}</b>
         </p>
+      )}
+      {(state === "solved" || state === "revealed") && failed.current && (
+        <p className="hint small center">Scheduled for review tomorrow.</p>
       )}
       <div className="btnrow toolrow">
         {state !== "solved" && state !== "revealed" && (
@@ -112,11 +162,21 @@ export default function BlunderTrainer({ store, setStore, nav }) {
             <button
               className="linkbtn"
               disabled={hint >= 2}
-              onClick={() => setHint((h) => Math.min(h + 1, 2))}
+              onClick={() => {
+                failed.current = true;
+                setHint((h) => Math.min(h + 1, 2));
+              }}
             >
               {hint === 0 ? "💡 Hint" : "Move"}
             </button>
-            <button className="linkbtn" onClick={() => setState("revealed")}>
+            <button
+              className="linkbtn"
+              onClick={() => {
+                failed.current = true;
+                setState("revealed");
+                resolve(false);
+              }}
+            >
               Reveal
             </button>
           </>
@@ -129,7 +189,7 @@ export default function BlunderTrainer({ store, setStore, nav }) {
             🔬 Analysis
           </button>
         )}
-        {(state === "solved" || state === "revealed") && unsolved.length > 0 && (
+        {(state === "solved" || state === "revealed") && (
           <button className="bigbtn" onClick={next}>
             Next puzzle
           </button>
@@ -138,6 +198,7 @@ export default function BlunderTrainer({ store, setStore, nav }) {
           className="linkbtn danger"
           onClick={() => {
             setStore((s) => ({ ...s, puzzles: s.puzzles.filter((p) => p.id !== puzzle.id) }));
+            setHeldId(null);
             setState("try");
             setHint(0);
           }}

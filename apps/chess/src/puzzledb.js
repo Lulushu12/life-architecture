@@ -85,10 +85,86 @@ export function solvedSet(store, tierKey) {
   return new Set(store.puzzleProgress?.[tierKey] || []);
 }
 
-/** Next unsolved puzzle in a tier, optionally filtered by theme. */
-export function nextPuzzle(list, solved, theme) {
-  const pool = theme ? list.filter((p) => p.t.includes(theme)) : list;
-  return pool.find((p) => !solved.has(p.i)) || null;
+export const RATING_START = 1200;
+const DAY = 86400000;
+export const SRS_DAYS = [1, 3, 7, 21];
+
+export function getRating(store) {
+  const pr = store.puzzleRating;
+  return { r: Math.round(pr?.r ?? RATING_START), n: pr?.n ?? 0 };
+}
+
+export function rateResult(pr, puzzleRating, ok) {
+  const r = pr?.r ?? RATING_START;
+  const n = pr?.n ?? 0;
+  const k = n < 30 ? 32 : 16;
+  const expected = 1 / (1 + Math.pow(10, (puzzleRating - r) / 400));
+  const delta = Math.round(k * ((ok ? 1 : 0) - expected));
+  const history = [...(pr?.history || []), r + delta].slice(-60);
+  return { next: { r: r + delta, n: n + 1, history }, delta };
+}
+
+export function nextPuzzle(list, excluded, theme, target = RATING_START) {
+  const pool = (theme ? list.filter((p) => p.t.includes(theme)) : list).filter((p) => !excluded.has(p.i));
+  if (!pool.length) return null;
+  for (const w of [150, 300, 600]) {
+    const near = pool.filter((p) => Math.abs(p.r - target) <= w);
+    if (near.length) return near[Math.floor(Math.random() * near.length)];
+  }
+  const closest = [...pool].sort((a, b) => Math.abs(a.r - target) - Math.abs(b.r - target)).slice(0, 20);
+  return closest[Math.floor(Math.random() * closest.length)];
+}
+
+const flatCache = new WeakMap();
+export function allPuzzles(db) {
+  if (!flatCache.has(db)) {
+    const out = [];
+    for (const t of TIERS) for (const p of db.puzzles[t.key] || []) out.push({ ...p, k: t.key });
+    flatCache.set(db, out);
+  }
+  return flatCache.get(db);
+}
+
+export function allSolved(store) {
+  const out = new Set();
+  for (const ids of Object.values(store.puzzleProgress || {})) for (const id of ids) out.add(id);
+  return out;
+}
+
+export function srsNext(entry, ok, now = Date.now()) {
+  if (!ok) return { step: 0, due: now + SRS_DAYS[0] * DAY };
+  if (!entry) return null;
+  const step = (entry.step ?? 0) + 1;
+  if (step >= SRS_DAYS.length) return null;
+  return { step, due: now + SRS_DAYS[step] * DAY };
+}
+
+export function dueItems(store, now = Date.now()) {
+  const tier = Object.entries(store.puzzleSrs || {})
+    .filter(([, e]) => e.due <= now)
+    .map(([key, e]) => ({ kind: "tier", key, ...e }));
+  const blunders = store.puzzles
+    .filter((p) => p.srs && p.srs.due <= now)
+    .map((p) => ({ kind: "blunder", key: `b:${p.id}`, id: p.id, due: p.srs.due }));
+  return [...tier, ...blunders].sort((a, b) => a.due - b.due);
+}
+
+function lineScore(l) {
+  if (l.mate != null) return l.mate > 0 ? 10000 - l.mate : -10000 - l.mate;
+  return l.cp ?? 0;
+}
+
+export async function moveIsGoodEnough(engine, fen, playedUci, margin = 30) {
+  const timeout = new Promise((resolve) => setTimeout(() => resolve(null), 4000));
+  const r = await Promise.race([engine.analyze(fen, { movetime: 200, multipv: 3, tag: "puzzle-check" }), timeout]);
+  if (!r) {
+    engine.cancel("puzzle-check");
+    return false;
+  }
+  if (!r.lines?.length) return false;
+  const best = lineScore(r.lines[0]);
+  const hit = r.lines.find((l) => l.move === playedUci);
+  return !!hit && best - lineScore(hit) <= margin;
 }
 
 /** Themes actually present in a tier, ordered by THEME_LABELS, with counts. */

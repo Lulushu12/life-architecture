@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef } from "react";
 import { usePersistentStore } from "@shared/store.js";
 import { useHistoryNav } from "@shared/useHistoryNav.js";
 import { registerSw } from "@shared/swRegister.js";
@@ -11,13 +11,16 @@ import Analysis from "./Analysis.jsx";
 import ReviewScreen from "./ReviewScreen.jsx";
 import Archive from "./Archive.jsx";
 import BlunderTrainer from "./Puzzles.jsx";
-import Openings from "./Openings.jsx";
-import PositionEditor from "./PositionEditor.jsx";
-import EngineMatch from "./EngineMatch.jsx";
-import { PuzzleHome, TierTrainer } from "./PuzzleSets.jsx";
-import GamesDB from "./GamesDB.jsx";
-import Lessons from "./Lessons.jsx";
-import Settings from "./Settings.jsx";
+import { PuzzleHome, TierTrainer, RushTrainer, DueReview } from "./PuzzleSets.jsx";
+
+const Openings = lazy(() => import("./Openings.jsx"));
+const PositionEditor = lazy(() => import("./PositionEditor.jsx"));
+const EngineMatch = lazy(() => import("./EngineMatch.jsx"));
+const GamesDB = lazy(() => import("./GamesDB.jsx"));
+const Lessons = lazy(() => import("./Lessons.jsx"));
+const Settings = lazy(() => import("./Settings.jsx"));
+const Drill = lazy(() => import("./Drill.jsx"));
+const Stats = lazy(() => import("./Stats.jsx"));
 
 const QUOTA_CHARS = 5 * 1024 * 1024;
 const NEAR_FULL = 0.85;
@@ -92,7 +95,9 @@ export default function App() {
   return (
     <>
       <StorageBanner store={store} status={status} />
-      <Screen view={view} props={props} />
+      <Suspense fallback={<div className="page"><p className="hint">Loading…</p></div>}>
+        <Screen view={view} props={props} />
+      </Suspense>
     </>
   );
 }
@@ -119,12 +124,18 @@ function Screen({ view, props }) {
       return <EngineMatch {...props} />;
     case "puzzles":
       if (view.set === "blunders") return <BlunderTrainer {...props} />;
+      if (view.set === "rush" || view.set === "streak") return <RushTrainer key={view.set} {...props} mode={view.set} />;
+      if (view.set === "due") return <DueReview {...props} />;
       if (view.set) return <TierTrainer {...props} tierKey={view.set} />;
       return <PuzzleHome {...props} />;
     case "lessons":
       return <Lessons {...props} />;
     case "settings":
       return <Settings {...props} />;
+    case "drill":
+      return <Drill {...props} />;
+    case "stats":
+      return <Stats {...props} />;
     default:
       return <Home {...props} />;
   }

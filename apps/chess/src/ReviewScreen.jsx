@@ -3,10 +3,11 @@ import { Chess } from "chess.js";
 import Board from "./Board.jsx";
 import { TopBar, MoveList, useArrowKeys } from "./ui.jsx";
 import { getEngine, winPct, cpWhite, nullMoveFen, fmtCp } from "./engine.js";
-import { reviewGame, extractPuzzles, CLASSIFICATIONS, CLASS_ORDER, PHASES, phaseAccuracy, keyMoments, pvToSans } from "./review.js";
+import { reviewGame, withReview, CLASSIFICATIONS, CLASS_ORDER, PHASES, phaseAccuracy, keyMoments, pvToSans } from "./review.js";
 import { PERSONAS, getPersona } from "./personas.js";
-import { newId } from "./storage.js";
-import { useToast } from "@shared/ui.jsx";
+import { newId, GAME_CAP } from "./storage.js";
+import { useToast, useConfirm } from "@shared/ui.jsx";
+import { fetchRecentGames, toArchiveGame, SOURCES, ImportError } from "./importers.js";
 import { gamePgn, pgnFilename, copyToClipboard } from "./pgn.js";
 import ExportSheet from "./ExportSheet.jsx";
 
@@ -51,11 +52,12 @@ function PgnImport({ store, setStore, nav }) {
               ? { w: header.White, b: header.Black, wElo: header.WhiteElo || null, bElo: header.BlackElo || null }
               : undefined,
             sans,
+            ...(header.SetUp === "1" && header.FEN ? { startFen: header.FEN } : {}),
             result: header.Result && header.Result !== "*" ? header.Result : null,
             review: null,
           },
           ...s.games,
-        ].slice(0, 200),
+        ],
       }));
       nav("review", { gameId: id });
     } catch {
@@ -64,10 +66,13 @@ function PgnImport({ store, setStore, nav }) {
   };
   return (
     <div className="page">
-      <TopBar title="Review a PGN" sub="Paste any game: e.g. exported from chess.com" onBack={() => nav("home")} />
+      <TopBar title="Import games" sub="From Lichess, Chess.com or any PGN" onBack={() => nav("home")} />
+      <OnlineImport store={store} setStore={setStore} nav={nav} />
+      <BatchReview store={store} setStore={setStore} />
+      <h2>Paste a PGN</h2>
       <textarea
         className="input"
-        rows={10}
+        rows={8}
         placeholder={'[Event "..."]\n1. e4 e5 2. Nf3 ...'}
         value={paste}
         onChange={(e) => setPaste(e.target.value)}
@@ -75,6 +80,259 @@ function PgnImport({ store, setStore, nav }) {
       <button className="bigbtn start" disabled={!paste.trim()} onClick={load}>
         Import & review
       </button>
+    </div>
+  );
+}
+
+function fmtPlayed(ms) {
+  if (!ms) return "";
+  const d = new Date(ms);
+  return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
+
+function outcomeFor(g) {
+  if (!g.result || !g.playerColor) return g.result || "*";
+  if (g.result === "1/2-1/2") return "Draw";
+  const won = (g.result === "1-0") === (g.playerColor === "w");
+  return won ? "Won" : "Lost";
+}
+
+function OnlineImport({ store, setStore, nav }) {
+  const toast = useToast();
+  const [confirm, confirmSheet] = useConfirm();
+  const saved = store.settings.importUser || {};
+  const [source, setSource] = useState(saved.source === "chesscom" ? "chesscom" : "lichess");
+  const [user, setUser] = useState(saved.name || "");
+  const [loading, setLoading] = useState(false);
+  const [list, setList] = useState(null);
+  const [picked, setPicked] = useState(() => new Set());
+  const abortRef = useRef(null);
+
+  useEffect(() => () => abortRef.current?.abort(), []);
+
+  const have = useMemo(() => new Set(store.games.map((g) => g.sourceId).filter(Boolean)), [store.games]);
+
+  const fetchGames = async () => {
+    abortRef.current?.abort();
+    const ctrl = new AbortController();
+    abortRef.current = ctrl;
+    setLoading(true);
+    setList(null);
+    try {
+      const games = await fetchRecentGames(source, user, { signal: ctrl.signal });
+      if (ctrl.signal.aborted) return;
+      setList(games);
+      setPicked(new Set(games.filter((g) => !have.has(g.sourceId)).map((g) => g.sourceId)));
+      setStore((s) => ({ ...s, settings: { ...s.settings, importUser: { source, name: user.trim() } } }));
+      if (!games.length) toast(`No standard games found for ${user.trim()} on ${SOURCES[source].label}.`);
+    } catch (e) {
+      if (!ctrl.signal.aborted) toast(e instanceof ImportError ? e.message : "Import failed. Try again later.");
+    } finally {
+      if (abortRef.current === ctrl) setLoading(false);
+    }
+  };
+
+  const toggle = (id) =>
+    setPicked((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+
+  const importSelected = async () => {
+    const chosen = (list || []).filter((g) => picked.has(g.sourceId) && !have.has(g.sourceId));
+    if (!chosen.length) return;
+    const favs = store.games.filter((g) => g.favourite).length;
+    const room = Math.max(0, GAME_CAP - favs - 1);
+    const take = chosen.slice(0, room);
+    if (!take.length) {
+      toast("The archive is full of starred games. Unstar some to import more.");
+      return;
+    }
+    const overflow = store.games.length + take.length - GAME_CAP;
+    if (overflow > 0) {
+      const ok = await confirm({
+        title: "Archive limit",
+        message: `The archive holds ${GAME_CAP} games. Importing ${take.length} will remove ${overflow} older ${overflow === 1 ? "game" : "games"} (starred games are kept).`,
+        confirmLabel: "Import",
+      });
+      if (!ok) return;
+    }
+    const now = Date.now();
+    const made = take.map((g, i) => toArchiveGame(g, newId(), now - i));
+    setStore((s) => {
+      const known = new Set(s.games.map((g) => g.sourceId).filter(Boolean));
+      return { ...s, games: [...made.filter((g) => !known.has(g.sourceId)), ...s.games] };
+    });
+    setPicked(new Set());
+    const skipped = chosen.length - take.length;
+    toast(`Imported ${take.length} ${take.length === 1 ? "game" : "games"}${skipped ? `, ${skipped} skipped (archive full)` : ""}`, {
+      action: take.length === 1 ? { label: "Review", onClick: () => nav("review", { gameId: made[0].id }) } : undefined,
+    });
+  };
+
+  const selectable = (list || []).filter((g) => !have.has(g.sourceId));
+  const pickedCount = selectable.filter((g) => picked.has(g.sourceId)).length;
+
+  return (
+    <div className="card importcard">
+      <div className="chips">
+        {Object.entries(SOURCES).map(([k, v]) => (
+          <button
+            key={k}
+            className={"chip" + (source === k ? " sel" : "")}
+            onClick={() => {
+              setSource(k);
+              setList(null);
+            }}
+          >
+            {v.label}
+          </button>
+        ))}
+      </div>
+      <div className="importrow">
+        <input
+          className="input"
+          placeholder={`${SOURCES[source].label} username`}
+          autoCapitalize="none"
+          autoCorrect="off"
+          spellCheck={false}
+          value={user}
+          onChange={(e) => setUser(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && user.trim() && !loading && fetchGames()}
+        />
+        <button className="bigbtn" disabled={!user.trim() || loading} onClick={fetchGames}>
+          {loading ? "Fetching..." : "Fetch last 20"}
+        </button>
+      </div>
+      {list && list.length > 0 && (
+        <>
+          <div className="btnrow">
+            <button
+              className="linkbtn"
+              onClick={() =>
+                setPicked(pickedCount === selectable.length ? new Set() : new Set(selectable.map((g) => g.sourceId)))
+              }
+            >
+              {pickedCount === selectable.length ? "Select none" : "Select all"}
+            </button>
+            <span className="hint small">{list.length - selectable.length > 0 ? `${list.length - selectable.length} already imported` : ""}</span>
+          </div>
+          <div className="importlist">
+            {list.map((g) => {
+              const done = have.has(g.sourceId);
+              return (
+                <label key={g.sourceId} className={"importitem" + (done ? " done" : "")}>
+                  <input
+                    type="checkbox"
+                    disabled={done}
+                    checked={done || picked.has(g.sourceId)}
+                    onChange={() => toggle(g.sourceId)}
+                  />
+                  <span className="ii-main">
+                    <span className="ii-title">
+                      {g.white}
+                      {g.whiteElo ? ` (${g.whiteElo})` : ""} vs {g.black}
+                      {g.blackElo ? ` (${g.blackElo})` : ""}
+                    </span>
+                    <span className="ii-sub">
+                      {[outcomeFor(g), g.speed, `${Math.ceil(g.sans.length / 2)} moves`, fmtPlayed(g.playedAt), done ? "imported" : ""]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </span>
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+          <button className="bigbtn start" disabled={!pickedCount} onClick={importSelected}>
+            Import selected ({pickedCount})
+          </button>
+        </>
+      )}
+      {confirmSheet}
+    </div>
+  );
+}
+
+function BatchReview({ store, setStore }) {
+  const toast = useToast();
+  const engine = getEngine();
+  const [job, setJob] = useState(null);
+  const stopRef = useRef(false);
+  const unreviewed = store.games.filter((g) => !g.review && g.sans.length >= 2);
+  const storeRef = useRef(store);
+  storeRef.current = store;
+
+  useEffect(
+    () => () => {
+      stopRef.current = true;
+      engine.cancel("batch-review");
+    },
+    [engine]
+  );
+
+  const run = async () => {
+    const ids = unreviewed.map((g) => g.id);
+    stopRef.current = false;
+    let done = 0;
+    for (let i = 0; i < ids.length; i++) {
+      if (stopRef.current) break;
+      const game = storeRef.current.games.find((g) => g.id === ids[i]);
+      if (!game || game.review) continue;
+      setJob({ i, total: ids.length, p: 0, label: game.label || "Game" });
+      try {
+        const result = await reviewGame(engine, game.sans, {
+          startFen: game.startFen || null,
+          movetime: storeRef.current.settings.reviewMovetime,
+          onProgress: (p) => !stopRef.current && setJob((j) => (j ? { ...j, p } : j)),
+          shouldStop: () => stopRef.current,
+          tag: "batch-review",
+        });
+        if (result === null) break;
+        setStore((s) => withReview(s, game.id, result, newId));
+        done++;
+      } catch (e) {
+        toast(`Review failed for ${game.label || "a game"}: ${e.message}`);
+      }
+    }
+    if (!stopRef.current) {
+      setJob(null);
+      toast(`Reviewed ${done} ${done === 1 ? "game" : "games"}`);
+    }
+  };
+
+  const stop = () => {
+    stopRef.current = true;
+    engine.cancel("batch-review");
+    setJob(null);
+  };
+
+  if (!job && !unreviewed.length) return null;
+  return (
+    <div className="card batchcard">
+      {job ? (
+        <>
+          <div className="batch-title">
+            Reviewing game {job.i + 1} of {job.total}
+          </div>
+          <div className="hint small">{job.label}</div>
+          <div className="progressbar">
+            <div className="progressfill" style={{ width: Math.round(((job.i + job.p) / job.total) * 100) + "%" }} />
+          </div>
+          <div className="btnrow">
+            <span className="hint small">Pauses while the app is in the background.</span>
+            <button className="linkbtn danger" onClick={stop}>
+              Stop
+            </button>
+          </div>
+        </>
+      ) : (
+        <button className="bigbtn start" onClick={run}>
+          Review all unreviewed ({unreviewed.length})
+        </button>
+      )}
     </div>
   );
 }
@@ -122,21 +380,7 @@ function Review({ store, setStore, nav, game }) {
     })
       .then((result) => {
         if (result === null) return; // abandoned; nothing to commit
-        setStore((s) => {
-          const puzzles = [...s.puzzles];
-          const playerColor = game.mode === "bot" ? game.playerColor : null;
-          if (playerColor) {
-            for (const p of extractPuzzles(result, playerColor)) {
-              if (!puzzles.some((x) => x.fen === p.fen && x.bestUci === p.bestUci))
-                puzzles.push({ ...p, id: newId(), gameId: game.id, date: Date.now(), solved: false });
-            }
-          }
-          return {
-            ...s,
-            puzzles: puzzles.slice(-300),
-            games: s.games.map((x) => (x.id === game.id ? { ...x, review: result } : x)),
-          };
-        });
+        setStore((s) => withReview(s, game.id, result, newId));
         setViewIdx(game.sans.length);
       })
       .catch((e) => {
@@ -367,7 +611,7 @@ function Review({ store, setStore, nav, game }) {
   // What the "show" toggle overlays on the current board, wherever we are.
   const overlayUci = showBest ? (branch ? brAlt?.bestUci || null : altUci) : null;
 
-  const baseOrientation = game.mode === "bot" && game.playerColor === "b" ? "b" : "w";
+  const baseOrientation = (game.mode === "bot" || game.mode === "import") && game.playerColor === "b" ? "b" : "w";
   const orientation = flipped ? (baseOrientation === "w" ? "b" : "w") : baseOrientation;
 
   const retryFrom = (personaId) => {
@@ -419,7 +663,9 @@ function Review({ store, setStore, nav, game }) {
       ? { w: game.playerColor === "w" ? "You" : botName(game), b: game.playerColor === "b" ? "You" : botName(game) }
       : game.mode === "engine" && game.names
         ? { w: game.names.w, b: game.names.b }
-        : { w: "White", b: "Black" };
+        : game.players
+          ? { w: game.players.w, b: game.players.b }
+          : { w: "White", b: "Black" };
 
   return (
     <div className="page gamepage">

@@ -1397,3 +1397,209 @@ textarea.input {
   display: block;
   transform: scale(1.15);
 }
+
+/* ---- online import ---- */
+.importrow {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.importrow .input {
+  flex: 1;
+  min-width: 0;
+}
+.importrow .bigbtn {
+  padding: 10px 14px;
+  font-size: 14.5px;
+}
+.importlist {
+  max-height: 50vh;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.importitem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--divider);
+  cursor: pointer;
+}
+.importitem:last-child {
+  border-bottom: none;
+}
+.importitem input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  flex: none;
+}
+.importitem.done {
+  opacity: 0.55;
+}
+.ii-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.ii-title {
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ii-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+.batch-title {
+  font-size: 15px;
+  margin-bottom: 2px;
+}
+.batchcard .progressbar {
+  margin: 10px 0 4px;
+}
+
+/* ---- puzzle rating, rush, due ---- */
+.delta {
+  font-weight: 700;
+  margin-left: 4px;
+}
+.delta.up {
+  color: var(--accent);
+}
+.delta.down {
+  color: var(--danger-soft);
+}
+.ratingline {
+  margin: 6px 0 0;
+}
+.moderow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.duerow:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.duerow.hot {
+  border-color: var(--gold);
+}
+.rushcard {
+  padding: 22px 16px;
+}
+.rush-score {
+  font-size: 54px;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1.1;
+}
+.rush-count {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent);
+  padding: 0 6px;
+}
+.pathmove.offline {
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* ---- stats ---- */
+.bignum {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+.bignum-of {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.statgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.resultbar {
+  display: flex;
+  gap: 2px;
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+.rb-w {
+  background: var(--accent);
+}
+.rb-d {
+  background: var(--muted);
+}
+.rb-l {
+  background: var(--danger-soft);
+}
+.statrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  font-size: 13.5px;
+}
+.statrow .key {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  margin-right: 5px;
+  vertical-align: -1px;
+}
+.spark {
+  margin-top: 4px;
+}
+.spark-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.spark-val {
+  font-size: 20px;
+  font-weight: 700;
+}
+.spark-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-top: 6px;
+  touch-action: pan-y;
+}
+.spark-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.spark-base {
+  stroke: var(--border);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.spark-dot {
+  fill: var(--accent);
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+.spark-bar {
+  fill: var(--danger-soft);
+  opacity: 0.6;
+}
+.spark-bar.sel {
+  opacity: 1;
+}
+.spark-axis {
+  display: flex;
+  justify-content: space-between;
+}

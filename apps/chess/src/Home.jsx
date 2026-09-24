@@ -47,13 +47,16 @@ export default function Home({ store, nav }) {
           <span className="mb-icon">✎</span>Custom position
         </button>
         <button className="menubtn" onClick={() => nav("review", { importing: true })}>
-          <span className="mb-icon">📋</span>Review a PGN
+          <span className="mb-icon">📋</span>Import games
         </button>
         <button className="menubtn" onClick={() => nav("puzzles")}>
           <span className="mb-icon">🧩</span>Puzzles{unsolved > 0 ? ` (${unsolved} blunders)` : ""}
         </button>
         <button className="menubtn" onClick={() => nav("archive")}>
           <span className="mb-icon">🗄️</span>Game archive
+        </button>
+        <button className="menubtn" onClick={() => nav("stats")}>
+          <span className="mb-icon">📈</span>Stats
         </button>
       </div>
 

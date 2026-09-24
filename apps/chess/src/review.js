@@ -285,3 +285,21 @@ export function extractPuzzles(review, playerColor) {
       severity: m.class,
     }));
 }
+
+export function withReview(s, gameId, result, makeId) {
+  const game = s.games.find((g) => g.id === gameId);
+  if (!game) return s;
+  const puzzles = [...s.puzzles];
+  const playerColor = game.mode === "bot" || game.mode === "import" ? game.playerColor : null;
+  if (playerColor) {
+    for (const p of extractPuzzles(result, playerColor)) {
+      if (!puzzles.some((x) => x.fen === p.fen && x.bestUci === p.bestUci))
+        puzzles.push({ ...p, id: makeId(), gameId, date: Date.now(), solved: false });
+    }
+  }
+  return {
+    ...s,
+    puzzles: puzzles.slice(-300),
+    games: s.games.map((x) => (x.id === gameId ? { ...x, review: result } : x)),
+  };
+}

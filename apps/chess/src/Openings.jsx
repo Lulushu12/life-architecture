@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Chess } from "chess.js";
 import Board from "./Board.jsx";
 import { TopBar } from "./ui.jsx";
+import { drillKey } from "./Drill.jsx";
 import {
   loadOpeningMeta,
   continuations,
@@ -154,6 +155,22 @@ export default function Openings({ store, nav }) {
               )}
               {meta?.plays?.[named.key] != null && (
                 <div className="hint small">Seen in {fmtPlays(meta.plays[named.key])} of the reference set</div>
+              )}
+              {sans.length >= 2 && (
+                <div className="btnrow">
+                  <button
+                    className="bigbtn"
+                    onClick={() => nav("drill", { sans: sans.slice(), color: flipped ? "b" : "w" })}
+                  >
+                    🎯 Drill this line
+                  </button>
+                  <span className="hint small">
+                    as {flipped ? "Black" : "White"}
+                    {store.drillProgress?.[drillKey(sans, flipped ? "b" : "w")]
+                      ? ` · mastered ${store.drillProgress[drillKey(sans, flipped ? "b" : "w")].mastered}x`
+                      : ""}
+                  </span>
+                </div>
               )}
             </div>
           )}
