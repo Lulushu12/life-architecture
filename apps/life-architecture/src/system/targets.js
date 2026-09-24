@@ -25,5 +25,11 @@ export function resolveTargets(data) {
   return t;
 }
 
+export function autoQuestTitle(q, t) {
+  if (q.id === "hf_protein") return `Hit protein target (${t.protein}g)`;
+  if (q.id === "hf_kcal") return `Within caloric budget (${t.kcalFloor.toLocaleString()} to ${t.kcalCeil.toLocaleString()})`;
+  return q.title;
+}
+
 export const proteinHit = (totals, t) => (totals?.protein || 0) >= t.protein;
 export const kcalInWindow = (totals, t) => (totals?.kcal || 0) >= t.kcalFloor && (totals?.kcal || 0) <= t.kcalCeil;

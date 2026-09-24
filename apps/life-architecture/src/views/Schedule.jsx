@@ -1,7 +1,7 @@
 import { SCHEDULE_V2, BLOCK_META_V2 } from "../system/schedule.js";
 import { Blk } from "./shared.jsx";
 import { useToast } from "@shared/ui.jsx";
-import { canDownload, downloadJson, copyToClipboard } from "@shared/backup.js";
+import { canDownload, downloadText, copyToClipboard } from "@shared/backup.js";
 import { weekIcs } from "../system/ics.js";
 
 const ICS_NAME = "life-architecture-week.ics";
@@ -20,7 +20,7 @@ async function exportWeek(toast) {
     if (e?.name === "AbortError") return;
   }
   if (canDownload()) {
-    downloadJson(text, ICS_NAME);
+    downloadText(text, ICS_NAME, "text/calendar");
     toast(`Exported ${count} weekly events`);
     return;
   }

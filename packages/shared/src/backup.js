@@ -60,7 +60,11 @@ export async function copyToClipboard(text) {
 }
 
 export function downloadJson(text, filename) {
-  const url = URL.createObjectURL(new Blob([text], { type: "application/json" }));
+  downloadText(text, filename, "application/json");
+}
+
+export function downloadText(text, filename, mime = "text/plain") {
+  const url = URL.createObjectURL(new Blob([text], { type: mime }));
   const a = document.createElement("a");
   a.href = url;
   a.download = filename;

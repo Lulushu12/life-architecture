@@ -25,7 +25,7 @@ import Setup from "./views/Setup.jsx";
 import Today from "./views/Today.jsx";
 import Review from "./views/Review.jsx";
 import Stats from "./views/Stats.jsx";
-import { resolveTargets, proteinHit, kcalInWindow } from "./system/targets.js";
+import { resolveTargets, proteinHit, kcalInWindow, autoQuestTitle } from "./system/targets.js";
 import Settings from "./views/Settings.jsx";
 import { longEarned, milestonesOf } from "./system/milestones.js";
 
@@ -392,12 +392,16 @@ export default function App() {
   const openQuestMenu = useCallback((q) => setQuestMenu(q.id), []);
   const closeQuestMenu = useCallback(() => setQuestMenu(null), []);
   useBackGuard(!!questMenu, closeQuestMenu);
-  const menuQuest = questMenu ? data.dailyQ.find(q => q.id === questMenu) : null;
+  const menuQuest = questMenu ? viewData.dailyQ.find(q => q.id === questMenu) : null;
 
   const total = totalOf(data);
   const level = getLevel(total);
   const macros = effectiveMacros(data, today);
   const targets = resolveTargets(data);
+  const viewData = useMemo(
+    () => ({ ...data, dailyQ: data.dailyQ.map(q => (q.auto ? { ...q, title: autoQuestTitle(q, targets) } : q)) }),
+    [data, targets.protein, targets.kcalFloor, targets.kcalCeil]
+  );
 
   const trackerProps = { user: USER, liftProgress: data.liftProgress, saveLiftProgress, pplOffset: data.pplOffset, slidePPL, onSessionLogged, onMacrosChanged, awardXP };
   const toggleTheme = () => setTheme(t => (t === "dark" ? "light" : "dark"));
@@ -453,14 +457,14 @@ export default function App() {
             {!storage.ok && <div className="banner" role="alert"><strong>{storage.error || "Storage full: changes are not being saved."}</strong> Export a backup from More before closing the app.</div>}
             {recovered && <div className="banner" role="alert">Saved data was unreadable and has been reset; the raw copy is under la3_local_user.corrupt.</div>}
             <div className="fi-anim" key={page}>
-              {page === "today" && <Today data={data} today={today} toggleDaily={toggleDaily} onQuestMenu={openQuestMenu} nav={nav} macros={macros} targets={targets} pplOffset={data.pplOffset} />}
+              {page === "today" && <Today data={viewData} today={today} toggleDaily={toggleDaily} onQuestMenu={openQuestMenu} nav={nav} macros={macros} targets={targets} pplOffset={data.pplOffset} />}
               {page === "train" && <Train {...trackerProps} initialMode={view?.mode} />}
               {page === "fuel" && <Nutrition user={USER} onMacrosChanged={onMacrosChanged} bridgeMacros={data.bridgeMacros} targets={targets} />}
               {page === "coach" && <Coach {...trackerProps} bridgeMacros={data.bridgeMacros} targets={targets} />}
-              {page === "quests" && <Quests data={data} today={today} level={level} total={total} toggleLong={toggleLong} toggleMilestone={toggleMilestone} toggleDaily={toggleDaily} onQuestMenu={openQuestMenu} delLong={delLong} openAdd={cat => setModal({ mode: "add", category: cat })} openEdit={q => setModal({ mode: "edit", quest: q })} />}
+              {page === "quests" && <Quests data={viewData} today={today} level={level} total={total} toggleLong={toggleLong} toggleMilestone={toggleMilestone} toggleDaily={toggleDaily} onQuestMenu={openQuestMenu} delLong={delLong} openAdd={cat => setModal({ mode: "add", category: cat })} openEdit={q => setModal({ mode: "edit", quest: q })} />}
               {page === "schedule" && <Schedule schedDay={schedDay} setSchedDay={setSchedDay} />}
-              {page === "stats" && <Stats data={data} today={today} targets={targets} />}
-              {page === "review" && <Review data={data} today={today} commit={commit} setDailyAuto={setDailyAuto} targets={targets} />}
+              {page === "stats" && <Stats data={viewData} today={today} targets={targets} />}
+              {page === "review" && <Review data={viewData} today={today} commit={commit} setDailyAuto={setDailyAuto} targets={targets} />}
               {page === "identity" && <PIdentity />}
               {page === "habits" && <PHabits />}
               {page === "outputs" && <POutputs longQ={data.longQ} />}
