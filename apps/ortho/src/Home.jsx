@@ -2,16 +2,8 @@ import { BackupPanel } from "@shared/BackupPanel.jsx";
 import { categories, getArticle, recentlyUpdated, formatDate } from "./content.js";
 import { mergeImport, validateBackup, STORE_KEY } from "./storage.js";
 import { ArticleRow, RowButton } from "./ui.jsx";
-import { daysUntil, topicList, topicProgress } from "./concurs.js";
-import { PROBES } from "./tematica.js";
 
-export default function Home({ store, setStore, onOpenCategory, onOpenArticle, onSearch, onNew, onConcurs }) {
-  const nextProbe = PROBES.find((p) => daysUntil(p.date) >= 0) || PROBES[PROBES.length - 1];
-  const nextDays = daysUntil(nextProbe.date);
-  const dueTotal = topicList().reduce((a, t) => {
-    const p = topicProgress(store, t);
-    return a + p.qDue + p.sDue;
-  }, 0);
+export default function Home({ store, setStore, onOpenCategory, onOpenArticle, onSearch, onNew }) {
   const local = store.localArticles;
   const favorites = store.favorites.map((id) => getArticle(id, local)).filter(Boolean);
   const recents = store.recents.map((id) => getArticle(id, local)).filter(Boolean);
@@ -31,19 +23,6 @@ export default function Home({ store, setStore, onOpenCategory, onOpenArticle, o
       <button type="button" className="bigbtn newbtn" onClick={onNew}>
         + New article
       </button>
-
-      <RowButton className="probecard concurs-entry" onClick={onConcurs}>
-        <span className="probecard-head">
-          <span className="probecard-title">Concurs Foișor 2026</span>
-          <span className={"probecard-days" + (nextDays <= 3 ? " soon" : "")}>
-            {nextDays > 0 ? `${nextDays} zile` : nextDays === 0 ? "azi" : "încheiat"}
-          </span>
-        </span>
-        <span className="probecard-sub">
-          {nextDays >= 0 ? `Urmează: ${nextProbe.label}` : "Toate probele au trecut"}
-          {dueTotal > 0 ? ` · ${dueTotal} scadente` : ""}
-        </span>
-      </RowButton>
 
       {updated.length > 0 && (
         <>

@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { allArticles, formatDate } from "./content.js";
+import { allArticles, formatDate, isFulltextLoaded, loadFulltext } from "./content.js";
 import { search, snippetFor } from "./search.js";
 import { TopBar, RowButton } from "./ui.jsx";
 
 const PAGE = 40;
+const FULL_MIN = 3;
 
 function Result({ result, onOpen }) {
   const { article } = result;
@@ -26,6 +27,18 @@ function Result({ result, onOpen }) {
   );
 }
 
+function SearchInside({ loading, error, onClick }) {
+  if (loading) return <p className="hint small" aria-live="polite">Loading article text…</p>;
+  return (
+    <>
+      {error && <p className="warn">Could not load article text. Check your connection and try again.</p>}
+      <button type="button" className="bigbtn secondary" onClick={onClick}>
+        Search inside articles
+      </button>
+    </>
+  );
+}
+
 export default function SearchView({ local, initialQuery, onQuery, onOpenArticle, onBack }) {
   const [query, setQuery] = useState(initialQuery);
   const [debounced, setDebounced] = useState(initialQuery);
@@ -43,9 +56,39 @@ export default function SearchView({ local, initialQuery, onQuery, onOpenArticle
     return () => clearTimeout(t);
   }, [query, debounced]);
 
+  const [full, setFull] = useState(isFulltextLoaded);
+  const [loading, setLoading] = useState(false);
+  const [loadError, setLoadError] = useState(false);
+  const alive = useRef(true);
+  useEffect(() => {
+    alive.current = true;
+    return () => {
+      alive.current = false;
+    };
+  }, []);
+
+  const searchInside = () => {
+    setLoading(true);
+    setLoadError(false);
+    loadFulltext().then(
+      () => {
+        if (!alive.current) return;
+        setLoading(false);
+        setFull(true);
+      },
+      () => {
+        if (!alive.current) return;
+        setLoading(false);
+        setLoadError(true);
+      }
+    );
+  };
+
   const articles = allArticles(local);
-  const results = useMemo(() => search(articles, debounced), [articles, debounced]);
+  const results = useMemo(() => search(articles, debounced, full), [articles, debounced, full]);
   const shown = results.slice(0, limit);
+  const q = debounced.trim();
+  const canSearchInside = !full && q.length >= FULL_MIN;
 
   return (
     <div className="page">
@@ -61,8 +104,13 @@ export default function SearchView({ local, initialQuery, onQuery, onOpenArticle
       />
       {debounced.trim() !== "" && (
         <p className="hint small" aria-live="polite">
-          {results.length === 0 ? `No matches for "${debounced}".` : `${results.length} result${results.length === 1 ? "" : "s"}`}
+          {results.length === 0
+            ? `No ${full ? "" : "title or tag "}matches for "${debounced}".`
+            : `${results.length} result${results.length === 1 ? "" : "s"}${full ? "" : " in titles and tags"}`}
         </p>
+      )}
+      {canSearchInside && results.length === 0 && (
+        <SearchInside loading={loading} error={loadError} onClick={searchInside} />
       )}
       {shown.map((r) => (
         <Result key={r.article.id} result={r} onOpen={onOpenArticle} />
@@ -72,7 +120,14 @@ export default function SearchView({ local, initialQuery, onQuery, onOpenArticle
           Show more ({results.length - limit} left)
         </button>
       )}
-      {query.trim() === "" && <p className="hint small">Start typing to search titles, tags, and article text.</p>}
+      {canSearchInside && results.length > 0 && (
+        <SearchInside loading={loading} error={loadError} onClick={searchInside} />
+      )}
+      {query.trim() === "" && (
+        <p className="hint small">
+          {full ? "Start typing to search titles, tags, and article text." : "Start typing to search titles and tags."}
+        </p>
+      )}
     </div>
   );
 }

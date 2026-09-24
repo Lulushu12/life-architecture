@@ -1,21 +1,11 @@
-import { fold, plainText } from "./content.js";
+import { fold } from "./content.js";
 
 const RADIUS = 40;
-const plainCache = new Map();
-
-function plainOf(a) {
-  let p = plainCache.get(a);
-  if (p === undefined) {
-    p = a._aligned ? plainText(a.body) : a._body;
-    if (plainCache.size > 200) plainCache.clear();
-    plainCache.set(a, p);
-  }
-  return p;
-}
 
 export function snippetFor(result) {
-  const { article, idx, len } = result;
-  const text = plainOf(article);
+  const { article, idx, len, full } = result;
+  const text = article._plain;
+  if (!full || text === undefined) return { before: "", match: "", after: "" };
   if (idx === -1) return { before: "", match: "", after: text.slice(0, 100) + (text.length > 100 ? "…" : "") };
   const start = Math.max(0, idx - RADIUS);
   const end = Math.min(text.length, idx + len + RADIUS);
@@ -27,7 +17,7 @@ export function snippetFor(result) {
   return { before, match, after };
 }
 
-export function search(articles, query) {
+export function search(articles, query, full = false) {
   const q = fold(query.trim());
   if (!q) return [];
   const terms = q.split(/\s+/).filter(Boolean);
@@ -37,10 +27,12 @@ export function search(articles, query) {
     let score = 0;
     let idx = -1;
     let len = 0;
+    const body = full ? a._body : undefined;
     for (const term of terms) {
       if (a._title.includes(term)) score += 10;
       if (a._tags.includes(term)) score += 5;
-      const bi = a._body.indexOf(term);
+      if (body === undefined) continue;
+      const bi = body.indexOf(term);
       if (bi !== -1) {
         score += 1;
         if (idx === -1) {
@@ -49,7 +41,7 @@ export function search(articles, query) {
         }
       }
     }
-    if (score > 0) results.push({ article: a, score, idx, len });
+    if (score > 0) results.push({ article: a, score, idx, len, full });
   }
 
   results.sort((x, y) => y.score - x.score || x.article.title.localeCompare(y.article.title));

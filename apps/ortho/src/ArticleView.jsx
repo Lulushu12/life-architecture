@@ -2,7 +2,7 @@ import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useStat
 import { createPortal } from "react-dom";
 import { IconButton } from "@shared/ui.jsx";
 import { useBackGuard } from "@shared/useHistoryNav.js";
-import { getArticle, formatDate } from "./content.js";
+import { getArticle, formatDate, peekBody, loadBody } from "./content.js";
 import { Blocks, parseCached } from "./markdown.jsx";
 import { splitSections, inlineText } from "./mdparse.js";
 import { setReadingPos, setFontSize, FONT_SIZES } from "./storage.js";
@@ -185,10 +185,26 @@ export default function ArticleView({ articleId, store, setStore, onToggleFavori
   const bodyRef = useRef(null);
   const yRef = useRef(0);
   const [saved] = useState(() => store.readingPos[articleId] || null);
+  const [loaded, setLoaded] = useState(() => peekBody(article));
+  const [failed, setFailed] = useState(false);
+  const body = article ? (article.local ? article.body : loaded) : null;
+  const ready = body !== null;
 
-  const blocks = useMemo(() => (article ? parseCached(article.body) : []), [article]);
+  useEffect(() => {
+    if (!article || article.local || loaded !== null || failed) return undefined;
+    let alive = true;
+    loadBody(article).then(
+      (b) => alive && setLoaded(b),
+      () => alive && setFailed(true)
+    );
+    return () => {
+      alive = false;
+    };
+  }, [article, loaded, failed]);
+
+  const blocks = useMemo(() => (ready ? parseCached(body) : []), [ready, body]);
   const { intro, sections } = useMemo(() => splitSections(blocks), [blocks]);
-  const long = !!article && article.body.length > LONG_CHARS && sections.length >= 2;
+  const long = ready && body.length > LONG_CHARS && sections.length >= 2;
 
   const [open, setOpen] = useState(() => {
     if (Array.isArray(saved?.open)) return new Set(saved.open);
@@ -226,20 +242,21 @@ export default function ArticleView({ articleId, store, setStore, onToggleFavori
   }, [shownId, onView]);
 
   useLayoutEffect(() => {
-    const y = saved?.y || 0;
-    yRef.current = y;
+    const y = ready ? saved?.y || 0 : 0;
+    if (ready) yRef.current = y;
     window.scrollTo(0, y);
-  }, [saved]);
+  }, [saved, ready]);
 
   useEffect(() => {
+    if (!ready) return undefined;
     const onScroll = () => {
       yRef.current = window.scrollY;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [ready]);
 
-  const exists = !!article;
+  const exists = !!article && ready;
   useEffect(() => {
     if (!exists) return undefined;
     const save = () =>
@@ -333,22 +350,40 @@ export default function ArticleView({ articleId, store, setStore, onToggleFavori
           </button>
         </div>
       )}
-      <div ref={bodyRef} className={`card articlebody fs-${fontSize}`} lang={article.lang || undefined}>
-        <div className="md-content">
-          <Blocks blocks={intro} onOpenArticle={onOpenArticle} />
-          {sections.map((s, i) => (
-            <Section
-              key={s.heading.id}
-              index={i}
-              section={s}
-              open={!long || open.has(i)}
-              collapsible={long}
-              onToggle={onToggle}
-              onOpenArticle={onOpenArticle}
-            />
-          ))}
+      {!ready && (
+        <div className={`card articlebody fs-${fontSize}`}>
+          {failed ? (
+            <>
+              <p className="warn">Could not load this article. Check your connection and try again.</p>
+              <button type="button" className="linkbtn" onClick={() => setFailed(false)}>
+                Retry
+              </button>
+            </>
+          ) : (
+            <p className="hint" aria-live="polite">
+              Loading…
+            </p>
+          )}
         </div>
-      </div>
+      )}
+      {ready && (
+        <div ref={bodyRef} className={`card articlebody fs-${fontSize}`} lang={article.lang || undefined}>
+          <div className="md-content">
+            <Blocks blocks={intro} onOpenArticle={onOpenArticle} />
+            {sections.map((s, i) => (
+              <Section
+                key={s.heading.id}
+                index={i}
+                section={s}
+                open={!long || open.has(i)}
+                collapsible={long}
+                onToggle={onToggle}
+                onOpenArticle={onOpenArticle}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       {referencedBy.length > 0 && (
         <>

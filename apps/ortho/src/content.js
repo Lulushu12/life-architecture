@@ -1,136 +1,46 @@
 import { dayKey } from "@shared/store.js";
+import INDEX from "./content-index.json";
+import { CATEGORY_LABELS, parseFrontMatter, titleCase, fold, plainText, linkTrailer } from "./mdmeta.js";
 
-const rawModules = import.meta.glob("./content/**/*.md", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-});
+export { parseFrontMatter, fold, plainText };
 
-export function parseFrontMatter(raw) {
-  const meta = { title: "", tags: [], region: "", specialty: "", updated: "", lang: "" };
-  let body = raw;
-  const trimmed = raw.replace(/^﻿/, "").replace(/\r\n/g, "\n");
-  body = trimmed;
-  if (trimmed.startsWith("---")) {
-    const end = trimmed.indexOf("\n---", 3);
-    if (end !== -1) {
-      const block = trimmed.slice(3, end).trim();
-      body = trimmed.slice(end + 4).replace(/^\n/, "");
-      for (const line of block.split("\n")) {
-        const i = line.indexOf(":");
-        if (i === -1) continue;
-        const key = line.slice(0, i).trim().toLowerCase();
-        const value = line.slice(i + 1).trim();
-        if (key === "tags")
-          meta.tags = value
-            .split(",")
-            .map((t) => t.trim())
-            .filter(Boolean);
-        else if (key in meta) meta[key] = value;
-      }
-    }
-  }
-  return { meta, body };
-}
-
-function titleCase(slug) {
-  return slug
-    .replace(/^_/, "")
-    .replace(/[-_]/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-}
-
-const CATEGORY_LABELS = {
-  classifications: "Classifications",
-  techniques: "Techniques",
-  checklists: "Checklists",
-  notes: "Notes",
-  diagnoses: "Diagnoses",
-};
+const loaders = import.meta.glob("./content/**/*.md", { query: "?raw", import: "default" });
 
 export const CATEGORY_KEYS = Object.keys(CATEGORY_LABELS);
 
-export function fold(s) {
-  return s
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase();
-}
-
-export function plainText(body) {
-  return body
-    .normalize("NFC")
-    .replace(/!\[([^\]]*)\]\((?:[^()\s]|\([^()\s]*\))+\)/g, "$1")
-    .replace(/\[([^\]]+)\]\((?:[^()\s]|\([^()\s]*\))+\)/g, "$1")
-    .replace(/```/g, " ")
-    .replace(/[#>*`|_]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function indexFields(a) {
-  const plain = plainText(a.body);
-  const bodyFold = fold(plain);
+function metaFields(a) {
   a._title = fold(a.title);
   a._tags = fold(a.tags.join(" "));
-  a._body = bodyFold;
-  a._aligned = bodyFold.length === plain.length;
   return a;
 }
 
-const TRAILER_RE = /\*Full context: "([^"]+)" in the Diagnoses section\.\*/;
-
-const TEMPLATES = {};
-
-function stripTemplateIntro(body) {
-  const idx = body.search(/^#{1,6}\s/m);
-  return (idx > 0 ? body.slice(idx) : body).trim() + "\n";
+function bodyFields(a, plain) {
+  const bodyFold = fold(plain);
+  a._body = bodyFold;
+  a._aligned = bodyFold.length === plain.length;
+  a._plain = a._aligned ? plain : bodyFold;
+  return a;
 }
 
 function buildArticles() {
-  const articles = [];
-  for (const [path, raw] of Object.entries(rawModules)) {
-    const m = path.match(/^\.\/content\/([^/]+)\/([^/]+)\.md$/);
-    if (!m) continue;
-    const [, category, slug] = m;
-    if (category === "concurs") continue;
-    const { meta, body } = parseFrontMatter(raw);
-    if (slug.startsWith("_")) {
-      if (!TEMPLATES[category]) TEMPLATES[category] = stripTemplateIntro(body);
-      continue;
-    }
-    articles.push({
-      id: `${category}/${slug}`,
+  const articles = INDEX.articles.map((e) => {
+    const i = e.id.indexOf("/");
+    const category = e.id.slice(0, i);
+    return metaFields({
+      id: e.id,
       category,
       categoryLabel: CATEGORY_LABELS[category] || titleCase(category),
-      slug,
-      title: meta.title || titleCase(slug),
-      tags: meta.tags,
-      region: meta.region,
-      specialty: meta.specialty,
-      updated: /^\d{4}-\d{2}-\d{2}$/.test(meta.updated) ? meta.updated : "",
-      lang: meta.lang,
-      body,
+      slug: e.id.slice(i + 1),
+      title: e.title,
+      tags: e.tags || [],
+      region: e.region || "",
+      specialty: e.specialty || "",
+      updated: e.updated || "",
+      lang: e.lang || "",
+      fullContext: e.fullContext,
+      referencedBy: e.referencedBy || [],
     });
-  }
-
-  const diagnosisByTitle = new Map(
-    articles.filter((a) => a.category === "diagnoses").map((a) => [a.title.trim().toLowerCase(), a.id])
-  );
-  const backlinks = {};
-  for (const a of articles) {
-    const t = a.body.match(TRAILER_RE);
-    if (!t) continue;
-    const target = diagnosisByTitle.get(t[1].trim().toLowerCase());
-    if (!target || target === a.id) continue;
-    a.fullContext = target;
-    a.body = a.body.replace(TRAILER_RE, `*Full context: [${t[1]}](${target}) in the Diagnoses section.*`);
-    (backlinks[target] ||= []).push(a.id);
-  }
-  for (const a of articles) {
-    a.referencedBy = backlinks[a.id] || [];
-    indexFields(a);
-  }
+  });
   articles.sort((a, b) => a.title.localeCompare(b.title));
   return articles;
 }
@@ -138,22 +48,71 @@ function buildArticles() {
 export const ARTICLES = buildArticles();
 
 export function templateFor(category) {
-  return TEMPLATES[category] || "";
+  return INDEX.templates[category] || "";
+}
+
+const BODY_CACHE_MAX = 30;
+const bodyCache = new Map();
+
+export function peekBody(article) {
+  if (!article) return null;
+  if (article.local) return article.body;
+  const body = bodyCache.get(article.id);
+  return body === undefined ? null : body;
+}
+
+export async function loadBody(article) {
+  const hit = peekBody(article);
+  if (hit !== null) return hit;
+  const load = loaders[`./content/${article.id}.md`];
+  if (!load) throw new Error(`Missing content: ${article.id}`);
+  const { body } = parseFrontMatter(await load());
+  const out = article.fullContext ? linkTrailer(body, article.fullContext) : body;
+  if (bodyCache.size >= BODY_CACHE_MAX) bodyCache.delete(bodyCache.keys().next().value);
+  bodyCache.set(article.id, out);
+  return out;
+}
+
+let fulltextReady = false;
+let fulltextPromise = null;
+
+export function isFulltextLoaded() {
+  return fulltextReady;
+}
+
+export function loadFulltext() {
+  if (!fulltextPromise) {
+    fulltextPromise = import("./content-fulltext.json").then(
+      (mod) => {
+        const text = mod.default;
+        for (const a of ARTICLES) bodyFields(a, text[a.id] || "");
+        fulltextReady = true;
+      },
+      (err) => {
+        fulltextPromise = null;
+        throw err;
+      }
+    );
+  }
+  return fulltextPromise;
 }
 
 function normalizeLocal(localArticles) {
   return localArticles.map((a) =>
-    indexFields({
-      ...a,
-      categoryLabel: CATEGORY_LABELS[a.category] || titleCase(a.category || "notes"),
-      slug: a.id,
-      tags: a.tags || [],
-      region: a.region || "",
-      specialty: a.specialty || "",
-      updated: a.updatedAt ? dayKey(new Date(a.updatedAt)) : "",
-      referencedBy: [],
-      local: true,
-    })
+    bodyFields(
+      metaFields({
+        ...a,
+        categoryLabel: CATEGORY_LABELS[a.category] || titleCase(a.category || "notes"),
+        slug: a.id,
+        tags: a.tags || [],
+        region: a.region || "",
+        specialty: a.specialty || "",
+        updated: a.updatedAt ? dayKey(new Date(a.updatedAt)) : "",
+        referencedBy: [],
+        local: true,
+      }),
+      plainText(a.body)
+    )
   );
 }
 

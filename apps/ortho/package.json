@@ -4,12 +4,15 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/build-index.mjs",
     "dev": "vite",
+    "prebuild": "node scripts/build-index.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "build:android": "vite build --mode android && cap sync android",
     "apk": "npm run build:android && cd android && ./gradlew assembleDebug",
-    "test": "node scripts/test-markdown.mjs"
+    "test": "node scripts/test-markdown.mjs",
+    "index": "node scripts/build-index.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^6.2.1",

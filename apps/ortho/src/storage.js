@@ -137,25 +137,6 @@ export function restoreLocalArticle(store, snapshot) {
   return { ...store, localArticles, favorites, recents };
 }
 
-function mergeConcurs(a = { items: {}, sessions: [] }, b) {
-  if (!b || typeof b !== "object") return a;
-  const items = { ...a.items };
-  for (const [key, st] of Object.entries(b.items || {})) {
-    if (!items[key] || (st.at || 0) > (items[key].at || 0)) items[key] = st;
-  }
-  const seen = new Set(a.sessions.map((s) => `${s.topicId}:${s.at}`));
-  const sessions = [...a.sessions];
-  for (const s of b.sessions || []) {
-    const k = `${s.topicId}:${s.at}`;
-    if (!seen.has(k)) {
-      seen.add(k);
-      sessions.push(s);
-    }
-  }
-  sessions.sort((x, y) => x.at - y.at);
-  return { items, sessions };
-}
-
 export function mergeImport(store, imported) {
   if (!imported || typeof imported !== "object") return store;
   const byId = Object.fromEntries(store.localArticles.map((a) => [a.id, a]));
@@ -168,7 +149,6 @@ export function mergeImport(store, imported) {
     favorites: [...new Set([...store.favorites, ...strArray(imported.favorites)])],
     recents: [...new Set([...store.recents, ...strArray(imported.recents)])].slice(0, 10),
     localArticles: Object.values(byId),
-    concurs: mergeConcurs(store.concurs, imported.concurs),
     readingPos: { ...(isObj(imported.readingPos) ? imported.readingPos : {}), ...store.readingPos },
   });
 }

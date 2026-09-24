@@ -19,24 +19,19 @@ import CategoryView from "./CategoryView.jsx";
 import ArticleView from "./ArticleView.jsx";
 import SearchView from "./SearchView.jsx";
 import Editor, { draftKey } from "./Editor.jsx";
-import ConcursHome from "./ConcursHome.jsx";
-import ConcursProbe from "./ConcursProbe.jsx";
-import ConcursTopic from "./ConcursTopic.jsx";
 
 const HOME = { screen: "home" };
+const SCREENS = new Set(["category", "article", "search", "edit"]);
 const VIEW_KEY = "ortho:view";
 let booted = false;
 
 const withKey = (v) => ({ ...v, k: newId().slice(0, 8) });
 
 function stackFor(v) {
-  if (!v || !v.screen || v.screen === "home") return [HOME];
+  if (!v || !SCREENS.has(v.screen)) return [HOME];
   switch (v.screen) {
     case "edit":
       return v.id ? [HOME, { screen: "article", id: v.id }, v] : [HOME, v];
-    case "concurs-probe":
-    case "concurs-topic":
-      return [HOME, { screen: "concurs" }, v];
     default:
       return [HOME, v];
   }
@@ -107,30 +102,7 @@ export default function App() {
   );
 
   let screen;
-  if (view.screen === "concurs") {
-    screen = <ConcursHome store={store} onOpenProbe={(key) => nav({ screen: "concurs-probe", key })} onBack={back} />;
-  } else if (view.screen === "concurs-probe") {
-    screen = (
-      <ConcursProbe
-        probeKey={view.key}
-        store={store}
-        setStore={setStore}
-        onOpenTopic={(id) => nav({ screen: "concurs-topic", id })}
-        onBack={back}
-      />
-    );
-  } else if (view.screen === "concurs-topic") {
-    screen = (
-      <ConcursTopic
-        topicId={view.id}
-        store={store}
-        setStore={setStore}
-        initialMode={view.mode}
-        onOpenArticle={openArticle}
-        onBack={back}
-      />
-    );
-  } else if (view.screen === "category") {
+  if (view.screen === "category") {
     screen = (
       <CategoryView
         categoryKey={view.key}
@@ -202,7 +174,6 @@ export default function App() {
         onOpenArticle={openArticle}
         onSearch={() => nav({ screen: "search" })}
         onNew={() => nav({ screen: "edit" })}
-        onConcurs={() => nav({ screen: "concurs" })}
       />
     );
   }
