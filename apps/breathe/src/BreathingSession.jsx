@@ -7,14 +7,16 @@ import {
   GETREADY_MS,
   LATE_CUE_MS,
   advanceBreathing,
-  cycleMs,
+  breathAt,
   isHalted,
   phaseElapsed,
   stateKey,
   writeHeartbeat,
 } from "./engine.js";
 import { cue } from "./cues.js";
+import { cancelVoice } from "./voice.js";
 import { formatCountdown, formatElapsed } from "./format.js";
+import { PHASE_LABELS, PHASE_SPOKEN, isRetention, patternById } from "./patterns.js";
 
 const PHASE_NAMES = {
   getready: "Get ready",
@@ -71,8 +73,23 @@ export default function BreathingSession({ active, entry, settings, holds, actio
   const tickRef = useRef(null);
   const halted = isHalted(active);
 
+  const retention = isRetention(entry);
+  const pattern = patternById(entry.pattern);
+
   useWakeLock(!halted);
   useBackGuard(true, () => setEndOpen(true));
+
+  useEffect(() => {
+    if (halted) cancelVoice();
+  }, [halted]);
+
+  const finishingRef = useRef(false);
+  useEffect(
+    () => () => {
+      if (!finishingRef.current) cancelVoice();
+    },
+    []
+  );
 
   useEffect(() => {
     const r = advanceBreathing(active, entry, now);
@@ -83,12 +100,14 @@ export default function BreathingSession({ active, entry, settings, holds, actio
     for (const ev of r.events) {
       if (now - ev.at > LATE_CUE_MS) continue;
       if (ev.type === "breathing") cue(settings, null, "phase");
-      else if (ev.type === "retention") cue(settings, "chime", "phase");
-      else if (ev.type === "recoveryEnd") cue(settings, "chime", "phase");
-      else if (ev.type === "finish") cue(settings, "success", "finish");
+      else if (ev.type === "retention") cue(settings, "chime", "phase", "Exhale and hold");
+      else if (ev.type === "recoveryEnd") cue(settings, "chime", "phase", "Let go");
+      else if (ev.type === "finish") cue(settings, "success", "finish", "Let go");
     }
-    if (r.finished) actionsRef.current.finish(r.endAt);
-    else actionsRef.current.advance(now);
+    if (r.finished) {
+      finishingRef.current = true;
+      actionsRef.current.finish(r.endAt);
+    } else actionsRef.current.advance(now);
   }, [now, active, entry, settings]);
 
   useEffect(() => {
@@ -97,28 +116,46 @@ export default function BreathingSession({ active, entry, settings, holds, actio
     let key = null;
     let sound = "tick";
     let buzz = null;
+    let phrase = null;
     if (active.phase === "getready") {
       const n = Math.ceil((GETREADY_MS - el) / 1000);
       if (n >= 1 && n <= 3) key = `g|${active.round}|${n}`;
       buzz = "tap";
-    } else if (active.phase === "breathing") {
-      const idx = Math.floor(el / cycleMs(entry));
-      if (idx < entry.breathsPerRound) {
+    } else if (active.phase === "breathing" && retention) {
+      const idx = breathAt(entry, el).index;
+      if (el < entry.breathsPerRound * entry.secondsPerBreath * 1000) {
         key = `b|${active.round}|${idx}`;
+        if (idx === 0) phrase = "Breathe in";
         if (idx >= entry.breathsPerRound - 3) {
           sound = "tickLast";
           buzz = "tap";
         }
+        if (idx === entry.breathsPerRound - 1) phrase = "Last breath";
       }
+    } else if (active.phase === "breathing") {
+      const b = breathAt(entry, el);
+      key = `p|${b.index}|${b.seg}`;
+      const prev = b.seg > 0 ? entry.phases[b.seg - 1] : null;
+      if (!prev || prev.kind !== b.kind) phrase = PHASE_SPOKEN[b.kind];
+      buzz = b.kind === "in" ? "tap" : null;
     }
     if (key && tickRef.current !== key) {
       tickRef.current = key;
-      cue(settings, sound, buzz);
+      cue(settings, sound, buzz, phrase);
     }
-  }, [now, active, entry, settings, halted]);
+  }, [now, active, entry, settings, halted, retention]);
 
   const el = phaseElapsed(active, now);
-  const roundLabel = `Round ${active.round + 1} of ${entry.plannedRounds}`;
+  let roundLabel = `Round ${active.round + 1} of ${entry.plannedRounds}`;
+  let paced = null;
+  if (!retention) {
+    paced = active.phase === "breathing" ? breathAt(entry, el) : null;
+    const left = Math.max(0, entry.cycles * entry.phases.reduce((a, p) => a + p.s, 0) - (paced ? el / 1000 : 0));
+    roundLabel =
+      pattern.unit === "minutes"
+        ? `${formatCountdown(left)} left`
+        : `Cycle ${paced ? paced.index + 1 : 1} of ${entry.cycles}`;
+  }
   const endButton = (
     <button type="button" className="bigbtn ghost" onClick={() => setEndOpen(true)}>
       End session
@@ -160,7 +197,9 @@ export default function BreathingSession({ active, entry, settings, holds, actio
     body = (
       <>
         <div className="instruction">Paused</div>
-        <p className="hint center">The session paused when the screen turned off. Breathe normally and resume when ready.</p>
+        <p className="hint center">
+          The session paused when the screen turned off. Breathe normally and resume when ready.
+        </p>
         <div className="session-actions">
           <button type="button" className="bigbtn" onClick={resume}>
             Resume
@@ -181,16 +220,40 @@ export default function BreathingSession({ active, entry, settings, holds, actio
         <div className="session-actions">{endButton}</div>
       </>
     );
-  } else if (active.phase === "breathing") {
+  } else if (active.phase === "breathing" && !retention) {
     body = (
       <>
-        <BreathingCircle elapsed={el} cycle={cycleMs(entry)} total={entry.breathsPerRound} />
+        <BreathingCircle
+          level={paced.level}
+          label={PHASE_LABELS[paced.kind]}
+          count={Math.max(1, Math.ceil(paced.remainingMs / 1000))}
+        />
+        <div className="breath-sub">{pattern.sub}</div>
+        <div className="session-actions">{endButton}</div>
+      </>
+    );
+  } else if (active.phase === "breathing") {
+    const b = breathAt(entry, el);
+    const n = Math.min(entry.breathsPerRound, b.index + 1);
+    body = (
+      <>
+        <BreathingCircle
+          level={b.level}
+          label={PHASE_LABELS[b.kind]}
+          count={n}
+          total={entry.breathsPerRound}
+          last={n > entry.breathsPerRound - 3}
+        />
         <div className="breath-sub">Deep breath in, let it go. No force on the exhale.</div>
         <div className="session-actions">
-          <button type="button" className="bigbtn secondary" onClick={() => {
-            cue(settings, "chime", "phase");
-            actions.skipToHold();
-          }}>
+          <button
+            type="button"
+            className="bigbtn secondary"
+            onClick={() => {
+              cue(settings, "chime", "phase", "Exhale and hold");
+              actions.skipToHold();
+            }}
+          >
             Skip to hold
           </button>
           {endButton}
@@ -201,7 +264,9 @@ export default function BreathingSession({ active, entry, settings, holds, actio
     body = (
       <>
         <div className="instruction">Exhale and hold</div>
-        <div className="timer-big" role="timer">{formatElapsed(el / 1000)}</div>
+        <div className="timer-big" role="timer">
+          {formatElapsed(el / 1000)}
+        </div>
         {holds && (
           <div className="hold-ref">
             Last {formatElapsed(holds.last)} · Best {formatElapsed(holds.best)}
@@ -212,7 +277,7 @@ export default function BreathingSession({ active, entry, settings, holds, actio
             type="button"
             className="bigbtn"
             onClick={() => {
-              cue(settings, "chime", "phase");
+              cue(settings, "chime", "phase", "Recovery breath");
               actions.endRetention(Date.now());
             }}
           >
@@ -237,7 +302,11 @@ export default function BreathingSession({ active, entry, settings, holds, actio
   return (
     <div className="session-page">
       <div className="phase-label" aria-live="polite">
-        {active.pausedAt != null ? "Paused" : PHASE_NAMES[active.phase]}
+        {active.pausedAt != null
+          ? "Paused"
+          : active.phase === "breathing" && !retention
+            ? pattern.label
+            : PHASE_NAMES[active.phase]}
       </div>
       <div className="round-label">{roundLabel}</div>
       {body}
@@ -258,19 +327,17 @@ export default function BreathingSession({ active, entry, settings, holds, actio
   );
 }
 
-function BreathingCircle({ elapsed, cycle, total }) {
-  const breathNumber = Math.min(total, Math.floor(elapsed / cycle) + 1);
-  const frac = (elapsed % cycle) / cycle;
-  const scale = 0.62 + ((1 - Math.cos(frac * 2 * Math.PI)) / 2) * 0.48;
-  const last = breathNumber > total - 3;
+function BreathingCircle({ level, label, count, total, last }) {
+  const scale = 0.62 + level * 0.48;
   return (
     <div className="breath-circle-wrap">
       <div className={"breath-circle" + (last ? " last" : "")} style={{ transform: `scale(${scale.toFixed(3)})` }}>
         <span className="count">
-          {breathNumber}
-          <small>/{total}</small>
+          {count}
+          {total != null && <small>/{total}</small>}
         </span>
       </div>
+      <div className="breath-phase">{label}</div>
     </div>
   );
 }

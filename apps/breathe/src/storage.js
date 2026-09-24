@@ -1,5 +1,6 @@
 import { Capacitor } from "@capacitor/core";
 import { createStore, newId } from "@shared/store.js";
+import { PATTERNS, patternById } from "./patterns.js";
 
 export const STORE_KEY = "breathe-v1";
 
@@ -25,8 +26,13 @@ export function defaults() {
       breathsPerRound: 30,
       secondsPerBreath: 3.5,
       recoverySeconds: 15,
+      pattern: "whm",
+      patternAmounts: {},
       soundOn: true,
       vibrateOn: true,
+      voiceOn: false,
+      volume: 100,
+      weeklyGoal: 3,
       safetyAcknowledged: false,
     },
     meditationSettings: {
@@ -57,7 +63,25 @@ function normalizeEntry(h) {
     complete: !!h.complete,
     rounds,
   };
+  if (Number.isInteger(h.mood) && h.mood >= 1 && h.mood <= 5) out.mood = h.mood;
+  else delete out.mood;
+  if (typeof h.note === "string" && h.note.trim()) out.note = h.note.slice(0, 140);
+  else delete out.note;
+  out.activeSeconds = num(h.activeSeconds, null);
   if (h.type === "breathing") {
+    const pattern = PATTERNS.some((p) => p.id === h.pattern) ? h.pattern : "whm";
+    out.pattern = pattern;
+    if (pattern !== "whm") {
+      const def = patternById(pattern);
+      const phases = Array.isArray(h.phases)
+        ? h.phases.filter((p) => isObj(p) && ["in", "holdIn", "out", "holdOut"].includes(p.kind) && num(p.s, 0) > 0)
+        : [];
+      out.phases = phases.length ? phases : def.phases;
+      out.cycles = Math.max(1, Math.round(num(h.cycles, def.amount)));
+      out.plannedRounds = 1;
+      out.rounds = [];
+      return out;
+    }
     out.plannedRounds = Math.max(1, num(h.plannedRounds, rounds.length || 1));
     out.breathsPerRound = Math.max(1, num(h.breathsPerRound, 30));
     out.secondsPerBreath = Math.max(0.5, num(h.secondsPerBreath, 3.5));
@@ -88,8 +112,14 @@ function normalizeActive(a, history) {
 function normalizeSettings(st) {
   const s = isObj(st) ? { ...defaults().settings, ...st } : defaults().settings;
   const p = PRESETS.find((x) => x.id === s.preset);
-  const matches = p && p.rounds === s.rounds && p.breathsPerRound === s.breathsPerRound && p.secondsPerBreath === s.secondsPerBreath;
+  const matches =
+    p && p.rounds === s.rounds && p.breathsPerRound === s.breathsPerRound && p.secondsPerBreath === s.secondsPerBreath;
   if (!matches) s.preset = "custom";
+  if (!PATTERNS.some((x) => x.id === s.pattern)) s.pattern = "whm";
+  if (!isObj(s.patternAmounts)) s.patternAmounts = {};
+  s.volume = Math.min(100, Math.max(0, Math.round(num(s.volume, 100))));
+  s.weeklyGoal = Math.min(14, Math.max(0, Math.round(num(s.weeklyGoal, 3))));
+  s.voiceOn = !!s.voiceOn;
   return s;
 }
 

@@ -212,6 +212,8 @@
 }
 .breath-circle-wrap {
   display: flex;
+  flex-direction: column;
+  gap: 18px;
   align-items: center;
   justify-content: center;
   margin: 30px 0 20px;
@@ -228,6 +230,13 @@
   justify-content: center;
   transition: transform 120ms linear;
   flex: none;
+}
+.breath-phase {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text);
+  min-height: 28px;
 }
 .breath-circle .count {
   font-size: 44px;
@@ -387,3 +396,202 @@
   font-size: 26px;
 }
 
+
+/* ---- sound controls ---- */
+.volrow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 7px 0;
+}
+.volrow .volval {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  margin-left: 6px;
+}
+.volrow input[type="range"] {
+  width: 100%;
+  min-height: var(--tap);
+  accent-color: var(--accent);
+}
+.testsounds {
+  margin-top: 10px;
+}
+.testsounds .hint.small {
+  margin: 6px 2px 0;
+}
+
+/* ---- charts ---- */
+.chart {
+  width: 100%;
+  overflow: hidden;
+}
+.chart svg {
+  display: block;
+  touch-action: pan-y;
+}
+.chart-readout {
+  font-size: 13px;
+  color: var(--muted);
+  min-height: 18px;
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.chart-grid {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+.chart-base {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+.chart-cross {
+  stroke: var(--muted);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.chart-axis {
+  fill: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.chart-val {
+  fill: var(--text);
+  font-size: 11.5px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+.chart-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.chart-dot {
+  fill: var(--accent);
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+.chart-bar {
+  fill: var(--accent);
+}
+.chart-bar.muted {
+  fill: var(--accent);
+  opacity: 0.45;
+}
+.chart-bar.sel {
+  fill: var(--accent2);
+}
+.ring-track {
+  fill: none;
+  stroke: var(--surface2);
+}
+.ring-fill {
+  fill: none;
+  stroke: var(--accent);
+  stroke-linecap: round;
+}
+.ring-fill.done {
+  stroke: var(--ok);
+}
+.ring-text {
+  fill: var(--text);
+  font-size: 15px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.goalcard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.goalcard .goaltitle {
+  font-weight: 700;
+}
+.goalcard .goalsub {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 2px;
+}
+.card h3 + .chart {
+  margin-top: 2px;
+}
+.chart + h3 {
+  margin-top: 16px;
+}
+
+/* ---- mood ---- */
+.mood {
+  margin-top: 14px;
+}
+.moodrow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.moodbtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-height: 54px;
+  padding: 6px 2px;
+  border-radius: var(--radius-sm);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition: transform 0.1s;
+}
+.moodbtn:active {
+  transform: scale(0.96);
+}
+.moodbtn.sel {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.moodbtn .moodnum {
+  font-size: 18px;
+  font-weight: 800;
+}
+.moodbtn .moodlbl {
+  font-size: 11.5px;
+  opacity: 0.85;
+}
+.moodnote {
+  margin-bottom: 0;
+}
+
+.hometop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.hometop .iconbtn {
+  font-size: 20px;
+}
+button.histcard-main {
+  text-align: left;
+  color: inherit;
+  padding: 0;
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}
+button.histcard-main:active {
+  opacity: 0.7;
+}
+.histcard-mood {
+  color: var(--muted);
+  font-size: 12.5px;
+  margin-top: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.trendmood {
+  margin: -4px 0 6px;
+}

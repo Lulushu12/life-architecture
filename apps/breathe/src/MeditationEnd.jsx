@@ -1,6 +1,7 @@
 import { formatElapsed, plural } from "./format.js";
+import MoodPicker from "./Mood.jsx";
 
-export default function MeditationEnd({ entry, streak, onDone }) {
+export default function MeditationEnd({ entry, streak, onDone, onUpdate }) {
   const seconds = entry.actualSeconds || 0;
   const minutes = Math.floor(seconds / 60);
 
@@ -37,6 +38,8 @@ export default function MeditationEnd({ entry, streak, onDone }) {
           ? "Take a few breaths before you get up."
           : `You sat for ${seconds < 60 ? plural(seconds, "second") : plural(minutes, "minute")}. Every sit counts.`}
       </p>
+
+      <MoodPicker entry={entry} onUpdate={onUpdate} />
 
       <button type="button" className="bigbtn start" onClick={onDone}>
         Done

@@ -1,10 +1,65 @@
+import { isRetention } from "./patterns.js";
+
 export const GETREADY_MS = 3000;
 export const RESUME_WINDOW_MS = 30 * 60 * 1000;
 export const LATE_CUE_MS = 5000;
 const HEARTBEAT_KEY = "breathe:heartbeat";
 
-export const cycleMs = (entry) => entry.secondsPerBreath * 1000;
-export const breathingMs = (entry) => entry.breathsPerRound * cycleMs(entry);
+export function cycleOf(entry) {
+  if (isRetention(entry)) {
+    const half = entry.secondsPerBreath * 500;
+    return [
+      { kind: "in", ms: half },
+      { kind: "out", ms: half },
+    ];
+  }
+  return entry.phases.map((p) => ({ kind: p.kind, ms: p.s * 1000 })).filter((p) => p.ms > 0);
+}
+
+export const cycleMs = (entry) => cycleOf(entry).reduce((a, p) => a + p.ms, 0);
+export const cycleCount = (entry) => (isRetention(entry) ? entry.breathsPerRound : entry.cycles);
+export const breathingMs = (entry) => cycleCount(entry) * cycleMs(entry);
+
+const ease = (f) => (1 - Math.cos(Math.PI * f)) / 2;
+
+export function breathAt(entry, elapsed) {
+  const segs = cycleOf(entry);
+  const total = segs.reduce((a, p) => a + p.ms, 0);
+  const count = cycleCount(entry);
+  const t = Math.max(0, elapsed);
+  const index = Math.min(count - 1, Math.floor(t / total));
+  let within = Math.min(t - index * total, total);
+  let seg = 0;
+  while (seg < segs.length - 1 && within >= segs[seg].ms) {
+    within -= segs[seg].ms;
+    seg++;
+  }
+  const s = segs[seg];
+  const frac = s.ms > 0 ? Math.min(1, within / s.ms) : 1;
+  const inMs = segs.filter((p) => p.kind === "in").reduce((a, p) => a + p.ms, 0) || 1;
+  const outMs = segs.filter((p) => p.kind === "out").reduce((a, p) => a + p.ms, 0) || 1;
+  let level = 0;
+  for (let i = 0; i < seg; i++) {
+    if (segs[i].kind === "in") level += segs[i].ms / inMs;
+    else if (segs[i].kind === "out") level -= segs[i].ms / outMs;
+  }
+  if (s.kind === "in") level += (s.ms / inMs) * ease(frac);
+  else if (s.kind === "out") level -= (s.ms / outMs) * ease(frac);
+  return {
+    index,
+    count,
+    seg,
+    kind: s.kind,
+    frac,
+    remainingMs: Math.max(0, s.ms - within),
+    level: Math.min(1, Math.max(0, level)),
+  };
+}
+
+export function activeMsAt(active, at) {
+  const end = active.pausedAt != null ? active.pausedAt : active.phase === "held" ? active.phaseStartedAt : at;
+  return Math.max(0, end - active.startedAt - active.pausedMs);
+}
 
 export function phaseEnd(active, entry) {
   if (active.phase === "getready") return active.phaseStartedAt + GETREADY_MS;
@@ -36,6 +91,10 @@ export function advanceBreathing(active, entry, now) {
       a = { ...a, phase: "breathing", phaseStartedAt: end };
       events.push({ type: "breathing", at: end });
     } else if (a.phase === "breathing") {
+      if (!isRetention(entry)) {
+        events.push({ type: "finish", at: end });
+        return { active: a, events, finished: true, endAt: end };
+      }
       a = { ...a, phase: "retention", phaseStartedAt: end };
       events.push({ type: "retention", at: end });
     } else if (a.phase === "recovery") {
@@ -88,7 +147,12 @@ export function pauseAt(active, at) {
 export function resumeAt(active, now) {
   if (active.pausedAt == null) return active;
   const shift = Math.max(0, now - active.pausedAt);
-  return { ...active, pausedAt: null, phaseStartedAt: active.phaseStartedAt + shift, pausedMs: active.pausedMs + shift };
+  return {
+    ...active,
+    pausedAt: null,
+    phaseStartedAt: active.phaseStartedAt + shift,
+    pausedMs: active.pausedMs + shift,
+  };
 }
 
 export function meditationActiveMs(active, entry, now) {

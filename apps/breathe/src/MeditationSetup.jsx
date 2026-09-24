@@ -1,4 +1,5 @@
 import { IconButton, SettingRow, Stepper, Toggle } from "@shared/ui.jsx";
+import { TestSoundsButton } from "./SoundControls.jsx";
 
 const PRESETS = [5, 10, 15, 20, 30];
 
@@ -58,6 +59,7 @@ export default function MeditationSetup({ settings, cueSettings, onCueChange, on
         <SettingRow label="Auto-pause when screen is off" hint="Off keeps the timer running with the screen locked">
           <Toggle checked={settings.autoPause} onChange={set("autoPause")} label="Auto-pause when screen is off" />
         </SettingRow>
+        <TestSoundsButton volume={cueSettings.volume} />
       </div>
 
       <button type="button" className="bigbtn start" onClick={onStart}>

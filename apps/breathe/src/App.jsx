@@ -6,9 +6,19 @@ import { registerSw } from "@shared/swRegister.js";
 import { audio } from "@shared/audio.js";
 import { emitEvent } from "@shared/bridge.js";
 import { STORE_KEY, fromBackup, round1, storeDef } from "./storage.js";
-import { advance, isHalted, meditationActiveMs, pauseAt, resumeAt, revive, writeHeartbeat } from "./engine.js";
-import { computeStats, holdSummary, streakFor, typicalHold } from "./stats.js";
-import { askNotifyPermission, clearMeditationNotifications } from "./notifications.js";
+import {
+  activeMsAt,
+  advance,
+  isHalted,
+  meditationActiveMs,
+  pauseAt,
+  resumeAt,
+  revive,
+  writeHeartbeat,
+} from "./engine.js";
+import { cyclesFor, isRetention, patternAmount, patternById } from "./patterns.js";
+import { computeStats, holdSummary, streakFor, typicalHold, weekProgress } from "./stats.js";
+import { askNotifyPermission, clearMeditationNotifications, syncGoalReminder } from "./notifications.js";
 import Home from "./Home.jsx";
 import BreathingSetup from "./BreathingSetup.jsx";
 import BreathingSession from "./BreathingSession.jsx";
@@ -17,6 +27,8 @@ import MeditationSetup from "./MeditationSetup.jsx";
 import MeditationSession from "./MeditationSession.jsx";
 import MeditationEnd from "./MeditationEnd.jsx";
 import SafetyNotice from "./SafetyNotice.jsx";
+import Settings from "./Settings.jsx";
+import SessionDetail from "./SessionDetail.jsx";
 import Modal from "./Modal.jsx";
 
 function readStartParam() {
@@ -51,12 +63,19 @@ function emitSession(entry, segment) {
   });
 }
 
+const activeSecondsOf = (active, at) => Math.round(((active.priorMs || 0) + activeMsAt(active, at)) / 1000);
+
 function breathingSegment(entry, active, endAt) {
+  const ms = activeMsAt(active, endAt);
+  if (!isRetention(entry)) {
+    if (ms < 5000) return null;
+    return { kind: "breathing", pattern: entry.pattern, minutes: round1(ms / 60000), rounds: 0, bestHold: null };
+  }
   const fresh = entry.rounds.slice(entry.emittedRounds || 0);
   if (!fresh.length) return null;
-  const ms = Math.max(0, endAt - active.startedAt - active.pausedMs);
   return {
     kind: "breathing",
+    pattern: "whm",
     minutes: round1(ms / 60000),
     rounds: fresh.length,
     bestHold: Math.max(...fresh.map((r) => r.retentionSeconds)),
@@ -79,8 +98,7 @@ export default function App() {
 
   useEffect(() => {
     registerSw({
-      onUpdate: (reload) =>
-        toast("Update available", { action: { label: "Reload", onClick: reload }, duration: 0 }),
+      onUpdate: (reload) => toast("Update available", { action: { label: "Reload", onClick: reload }, duration: 0 }),
     });
   }, [toast]);
 
@@ -116,7 +134,19 @@ export default function App() {
   const mapEntry = (s, id, fn) => s.history.map((h) => (h.id === id ? fn(h) : h));
 
   function newActive(id, mode, now, round = 0, extra = {}) {
-    return { id, mode, phase: "getready", round, phaseStartedAt: now, pausedAt: null, pausedMs: 0, bellsRung: 0, startedAt: now, updatedAt: now, ...extra };
+    return {
+      id,
+      mode,
+      phase: "getready",
+      round,
+      phaseStartedAt: now,
+      pausedAt: null,
+      pausedMs: 0,
+      bellsRung: 0,
+      startedAt: now,
+      updatedAt: now,
+      ...extra,
+    };
   }
 
   function startBreathing() {
@@ -124,18 +154,25 @@ export default function App() {
     const st = store.settings;
     const now = Date.now();
     const id = newId();
-    const entry = {
+    const pattern = patternById(st.pattern);
+    const base = {
       id,
       type: "breathing",
+      pattern: pattern.id,
       startedAt: now,
       endedAt: null,
       complete: false,
-      plannedRounds: st.rounds,
-      breathsPerRound: st.breathsPerRound,
-      secondsPerBreath: st.secondsPerBreath,
-      recoverySeconds: st.recoverySeconds,
       rounds: [],
     };
+    const entry = pattern.retention
+      ? {
+          ...base,
+          plannedRounds: st.rounds,
+          breathsPerRound: st.breathsPerRound,
+          secondsPerBreath: st.secondsPerBreath,
+          recoverySeconds: st.recoverySeconds,
+        }
+      : { ...base, plannedRounds: 1, phases: pattern.phases, cycles: cyclesFor(pattern, patternAmount(st, pattern)) };
     endViewRef.current = null;
     writeHeartbeat(id, now);
     setStore((s) => ({ ...s, history: [entry, ...s.history], activeSession: newActive(id, "breathing", now) }));
@@ -149,8 +186,15 @@ export default function App() {
     writeHeartbeat(entry.id, now);
     setStore((s) => ({
       ...s,
-      history: mapEntry(s, entry.id, (h) => ({ ...h, plannedRounds: h.rounds.length + 1, complete: false, endedAt: null })),
-      activeSession: newActive(entry.id, "breathing", now, entry.rounds.length),
+      history: mapEntry(s, entry.id, (h) => ({
+        ...h,
+        plannedRounds: h.rounds.length + 1,
+        complete: false,
+        endedAt: null,
+      })),
+      activeSession: newActive(entry.id, "breathing", now, entry.rounds.length, {
+        priorMs: (entry.activeSeconds || 0) * 1000,
+      }),
     }));
     replace({ screen: "session" });
   }
@@ -190,7 +234,13 @@ export default function App() {
     setStore((s) => ({
       ...s,
       activeSession: null,
-      history: mapEntry(s, active.id, (h) => ({ ...h, complete: true, endedAt: endAt, emittedRounds: h.rounds.length })),
+      history: mapEntry(s, active.id, (h) => ({
+        ...h,
+        complete: true,
+        endedAt: endAt,
+        emittedRounds: h.rounds.length,
+        activeSeconds: activeSecondsOf(active, endAt),
+      })),
     }));
     emitSession(activeEntry, segment);
   }
@@ -218,12 +268,19 @@ export default function App() {
       return;
     }
     if (a.mode === "breathing") {
+      const activeSeconds = activeSecondsOf(a, at);
+      if (!isRetention(entry) && (a.phase !== "breathing" || activeSeconds < 5)) {
+        endViewRef.current = HOME;
+        setStore((s) => ({ ...s, activeSession: null, history: s.history.filter((h) => h.id !== a.id) }));
+        return;
+      }
       const segment = discard ? null : breathingSegment(entry, a, at);
-      endViewRef.current = !discard && entry.rounds.length > 0 ? { screen: "breathing-end", id: a.id } : HOME;
+      const hasWork = isRetention(entry) ? entry.rounds.length > 0 : true;
+      endViewRef.current = !discard && hasWork ? { screen: "breathing-end", id: a.id } : HOME;
       setStore((s) => ({
         ...s,
         activeSession: null,
-        history: mapEntry(s, a.id, (h) => ({ ...h, endedAt: at, emittedRounds: h.rounds.length })),
+        history: mapEntry(s, a.id, (h) => ({ ...h, endedAt: at, emittedRounds: h.rounds.length, activeSeconds })),
       }));
       emitSession(entry, segment);
       return;
@@ -265,7 +322,10 @@ export default function App() {
           const secs = round1(Math.max(0, at - a.phaseStartedAt) / 1000);
           return {
             ...s,
-            history: mapEntry(s, a.id, (h) => ({ ...h, rounds: [...h.rounds, { retentionSeconds: secs, interrupted: true }] })),
+            history: mapEntry(s, a.id, (h) => ({
+              ...h,
+              rounds: [...h.rounds, { retentionSeconds: secs, interrupted: true }],
+            })),
             activeSession: { ...a, phase: "held", lastHold: secs, phaseStartedAt: at, updatedAt: at },
           };
         }
@@ -284,14 +344,22 @@ export default function App() {
       }),
     skipToHold: () => {
       const now = Date.now();
-      patchActive((a) => (a.phase === "breathing" && !isHalted(a) ? { ...a, phase: "retention", phaseStartedAt: now } : a), now);
+      patchActive(
+        (a) => (a.phase === "breathing" && !isHalted(a) ? { ...a, phase: "retention", phaseStartedAt: now } : a),
+        now
+      );
     },
     continueHeld: () => {
       const now = Date.now();
       patchActive((a) => {
         if (a.phase !== "held") return a;
         const { lastHold, ...rest } = a;
-        return { ...rest, phase: "recovery", phaseStartedAt: now, pausedMs: a.pausedMs + Math.max(0, now - a.phaseStartedAt) };
+        return {
+          ...rest,
+          phase: "recovery",
+          phaseStartedAt: now,
+          pausedMs: a.pausedMs + Math.max(0, now - a.phaseStartedAt),
+        };
       }, now);
     },
     pause: () => patchActive((a) => pauseAt(a, Date.now())),
@@ -316,7 +384,8 @@ export default function App() {
       return;
     }
     if (START_PARAM === "breathing") go({ screen: "breathing-setup" });
-    else if (START_PARAM === "meditation10") startMeditation({ ...store.meditationSettings, durationMinutes: 10 }, true);
+    else if (START_PARAM === "meditation10")
+      startMeditation({ ...store.meditationSettings, durationMinutes: 10 }, true);
   }, []);
 
   useEffect(() => {
@@ -326,6 +395,19 @@ export default function App() {
   const stats = useMemo(() => computeStats(store.history, today), [store.history, today]);
   const holds = useMemo(() => holdSummary(store.history), [store.history]);
   const typical = useMemo(() => Math.round(typicalHold(store.history)), [store.history]);
+  const goal = store.settings.weeklyGoal;
+  const week = useMemo(() => weekProgress(store.history, goal), [store.history, goal, today]);
+
+  useEffect(() => {
+    syncGoalReminder(week);
+  }, [week.goal, week.done, week.weekStart]);
+
+  const updateEntry = (id, patch) => setStore((s) => ({ ...s, history: mapEntry(s, id, (h) => ({ ...h, ...patch })) }));
+
+  const changeGoal = (v) => {
+    if (v > 0 && !(goal > 0)) askNotifyPermission();
+    setSettings((s) => ({ ...s, weeklyGoal: v }));
+  };
 
   const deleteEntry = (id) => {
     const entry = store.history.find((h) => h.id === id);
@@ -393,9 +475,40 @@ export default function App() {
   } else if (view.screen === "breathing-end" || view.screen === "meditation-end") {
     const entry = store.history.find((h) => h.id === view.id);
     if (entry && entry.type === "breathing" && view.screen === "breathing-end") {
-      screen = <BreathingEnd entry={entry} onDone={() => replace(HOME)} onOneMore={() => oneMoreRound(entry)} />;
+      screen = (
+        <BreathingEnd
+          entry={entry}
+          onDone={() => replace(HOME)}
+          onOneMore={() => oneMoreRound(entry)}
+          onUpdate={(patch) => updateEntry(entry.id, patch)}
+        />
+      );
     } else if (entry && entry.type === "meditation" && view.screen === "meditation-end") {
-      screen = <MeditationEnd entry={entry} streak={streakFor(store.history, today)} onDone={() => replace(HOME)} />;
+      screen = (
+        <MeditationEnd
+          entry={entry}
+          streak={streakFor(store.history, today)}
+          onDone={() => replace(HOME)}
+          onUpdate={(patch) => updateEntry(entry.id, patch)}
+        />
+      );
+    }
+  } else if (view.screen === "settings") {
+    screen = <Settings settings={store.settings} onChange={setSettings} onBack={toHome} onGoalChange={changeGoal} />;
+  } else if (view.screen === "detail") {
+    const entry = store.history.find((h) => h.id === view.id);
+    if (entry && entry.id !== active?.id) {
+      screen = (
+        <SessionDetail
+          entry={entry}
+          onBack={toHome}
+          onUpdate={(patch) => updateEntry(entry.id, patch)}
+          onDelete={() => {
+            toHome();
+            deleteEntry(entry.id);
+          }}
+        />
+      );
     }
   }
   if (!screen && view.screen !== "session") {
@@ -403,8 +516,12 @@ export default function App() {
       <Home
         store={store}
         stats={stats}
+        today={today}
+        week={week}
         hiddenId={active?.id}
         onDelete={deleteEntry}
+        onOpen={(id) => go({ screen: "detail", id })}
+        onSettings={() => go({ screen: "settings" })}
         onNewBreathing={() => go({ screen: "breathing-setup" })}
         onNewMeditation={() => go({ screen: "meditation-setup" })}
         onRestore={(obj) => setStore((s) => fromBackup(obj, s))}
@@ -413,8 +530,7 @@ export default function App() {
     );
   }
 
-  const safetyVisible =
-    safetyOpen || (!store.settings.safetyAcknowledged && view.screen !== "session" && !resumeOffer);
+  const safetyVisible = safetyOpen || (!store.settings.safetyAcknowledged && view.screen !== "session" && !resumeOffer);
 
   return (
     <>
@@ -457,8 +573,8 @@ export default function App() {
       >
         {resumeOffer && (
           <p>
-            A {resumeOffer.mode} session was interrupted {agoLabel(resumeOffer.seen)}. Resume where you left off,
-            or discard it. Anything already recorded stays in your history.
+            A {resumeOffer.mode} session was interrupted {agoLabel(resumeOffer.seen)}. Resume where you left off, or
+            discard it. Anything already recorded stays in your history.
           </p>
         )}
       </Modal>
