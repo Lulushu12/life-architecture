@@ -1,4 +1,14 @@
 import { ordinal, ranks, signed } from "./rules.js";
+import { PALETTE, cycleColor, initials } from "./players.js";
+
+export function Avatar({ name, color }) {
+  const pal = color != null ? PALETTE[color] : null;
+  return (
+    <span className="avatar" aria-hidden="true" style={pal ? { background: pal.bg, color: pal.ink } : undefined}>
+      {initials(name)}
+    </span>
+  );
+}
 
 export function NumberGrid({ max, disabled = [], onPick, label }) {
   const nums = Array.from({ length: max + 1 }, (_, i) => i);
@@ -31,7 +41,7 @@ export function duplicateName(names) {
   return null;
 }
 
-export function PlayersEditor({ players, setPlayers, onCountChange, recent = [] }) {
+export function PlayersEditor({ players, setPlayers, colors, setColors, onCountChange, recent = [] }) {
   const names = displayNames(players);
   const dup = duplicateName(names);
   const taken = new Set(players.map((p) => p.trim().toLowerCase()).filter(Boolean));
@@ -61,17 +71,27 @@ export function PlayersEditor({ players, setPlayers, onCountChange, recent = [] 
         ))}
       </div>
       {players.map((p, i) => (
-        <input
-          key={i}
-          className={"input" + (dup && names[i].toLowerCase() === dup.toLowerCase() ? " invalid" : "")}
-          placeholder={`Player ${i + 1}`}
-          aria-label={`Player ${i + 1} name`}
-          autoCapitalize="words"
-          autoComplete="off"
-          enterKeyHint="next"
-          value={p}
-          onChange={(e) => setPlayers((ps) => ps.map((x, j) => (j === i ? e.target.value : x)))}
-        />
+        <div key={i} className="playerrow">
+          <button
+            type="button"
+            className="avatarbtn"
+            aria-label={`Change colour for ${names[i]}`}
+            title="Change colour"
+            onClick={() => setColors((cs) => cycleColor(cs, i))}
+          >
+            <Avatar name={names[i]} color={colors[i]} />
+          </button>
+          <input
+            className={"input" + (dup && names[i].toLowerCase() === dup.toLowerCase() ? " invalid" : "")}
+            placeholder={`Player ${i + 1}`}
+            aria-label={`Player ${i + 1} name`}
+            autoCapitalize="words"
+            autoComplete="off"
+            enterKeyHint="next"
+            value={p}
+            onChange={(e) => setPlayers((ps) => ps.map((x, j) => (j === i ? e.target.value : x)))}
+          />
+        </div>
       ))}
       {dup && <p className="warn">Two players are named {dup}. Give each player a different name.</p>}
       {suggestions.length > 0 && (
@@ -79,13 +99,7 @@ export function PlayersEditor({ players, setPlayers, onCountChange, recent = [] 
           <div className="flabel">Recent players</div>
           <div className="chips recentchips">
             {suggestions.map((name) => (
-              <button
-                key={name}
-                type="button"
-                className="chip"
-                disabled={firstEmpty === -1}
-                onClick={() => fill(name)}
-              >
+              <button key={name} type="button" className="chip" disabled={firstEmpty === -1} onClick={() => fill(name)}>
                 + {name}
               </button>
             ))}
@@ -97,10 +111,10 @@ export function PlayersEditor({ players, setPlayers, onCountChange, recent = [] 
   );
 }
 
-export function Standings({ players, totals, onPlayAgain, againHint }) {
+export function Standings({ players, totals, colors = [], onPlayAgain, againHint, children }) {
   const place = ranks(totals);
   const best = Math.max(...totals);
-  const rows = players.map((p, i) => ({ p, t: totals[i], r: place[i] })).sort((a, b) => a.r - b.r);
+  const rows = players.map((p, i) => ({ p, i, t: totals[i], r: place[i] })).sort((a, b) => a.r - b.r);
   return (
     <div className="card standings">
       <h3>Final standings</h3>
@@ -109,12 +123,14 @@ export function Standings({ players, totals, onPlayAgain, againHint }) {
           <span className="place" aria-label={ordinal(row.r) + " place"}>
             {row.r}
           </span>
+          <Avatar name={row.p} color={colors[row.i]} />
           <span className="pname">{row.p}</span>
           {row.t < best && <span className="pdelta">{signed(row.t - best)}</span>}
           <span className="ptotal">{row.t}</span>
         </div>
       ))}
       {place.filter((r) => r === 1).length > 1 && <p className="hint small">Tied for first place.</p>}
+      {children}
       {onPlayAgain && (
         <>
           <button type="button" className="bigbtn start" onClick={onPlayAgain}>
@@ -127,9 +143,53 @@ export function Standings({ players, totals, onPlayAgain, againHint }) {
   );
 }
 
-export function TotalHead({ name, total, rank, delta, scored, children }) {
+export function BigBoard({ players, totals, colors = [], scored, sub }) {
+  const place = ranks(totals);
+  const best = Math.max(...totals);
   return (
-    <th className="phead">
+    <div className="bigboard">
+      {sub && <div className="bbsub">{sub}</div>}
+      <div className="bbgrid">
+        {players.map((p, i) => (
+          <div
+            key={i}
+            className={"bbtile" + (scored && place[i] === 1 ? " lead" : "")}
+            style={colors[i] != null ? { borderTopColor: PALETTE[colors[i]].bg } : undefined}
+          >
+            <div className="bbname">
+              <Avatar name={p} color={colors[i]} />
+              <span>{p}</span>
+            </div>
+            <div className="bbtotal">{totals[i]}</div>
+            <div className="bbmeta">
+              {scored ? (
+                <>
+                  <span className={"rankbadge r" + place[i]}>{ordinal(place[i])}</span>
+                  {totals[i] < best && <span className="delta">{signed(totals[i] - best)}</span>}
+                </>
+              ) : (
+                <span className="delta">No scores yet</span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function TableViewToggle({ on, onToggle }) {
+  return (
+    <button type="button" className={"tvtoggle" + (on ? " on" : "")} aria-pressed={on} onClick={onToggle}>
+      Table view
+    </button>
+  );
+}
+
+export function TotalHead({ name, color, total, rank, delta, scored, children }) {
+  return (
+    <th className="phead" style={color != null ? { boxShadow: `inset 0 3px 0 ${PALETTE[color].bg}` } : undefined}>
+      <Avatar name={name} color={color} />
       <div className="thname" title={name}>
         {name}
       </div>

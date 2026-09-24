@@ -28,8 +28,7 @@ export function whistSequence(cfg) {
     : [...ones, ...up, ...eights, ...down, ...ones];
 }
 
-const full = (arr, n) =>
-  Array.isArray(arr) && arr.length === n && arr.every((x) => x != null);
+const full = (arr, n) => Array.isArray(arr) && arr.length === n && arr.every((x) => x != null);
 
 // Derives the whole score sheet from config + raw round entries, so editing
 // any past round automatically recomputes everything after it.
@@ -108,16 +107,37 @@ export const RENTZ_GAME_DEFS = (n) => [
   { id: "queens", name: "Damele", type: "units", units: 4, value: -40, enabled: true },
   { id: "diamonds", name: "Caro", type: "units", units: 2 * n, value: -30, enabled: true },
   { id: "tricks", name: "Levata", type: "units", units: 8, value: -50, enabled: true },
-  { id: "totale", name: "Totale", type: "totale", enabled: true },
+  { id: "totale", name: "Totale", type: "totale", members: ["king", "queens", "diamonds", "tricks"], enabled: true },
   { id: "rentz", name: "Rentz", type: "positions", values: [400, 200, 100, 0, 0, 0].slice(0, n), enabled: true },
 ];
 
+export const TOTALE_CANDIDATES = ["king", "queens", "diamonds", "tricks", "tenclubs"];
+
+export function totaleMembers(def, byId) {
+  if (Array.isArray(def?.members)) return def.members.filter((id) => byId[id] && byId[id].type !== "totale");
+  return ["king", ...(byId.last ? ["last"] : []), "queens", "tricks", "diamonds"].filter((id) => byId[id]);
+}
+
 export const resizePositions = (vals, n) => {
-  const base = [400, 200, 100, 0, 0, 0];
-  const v = vals.slice(0, n);
-  while (v.length < n) v.push(base[v.length] ?? 0);
+  const base = [400, 200, 100, 0, 0, 0, 0, 0];
+  const neg = vals.length > 1 && vals[vals.length - 1] < 0;
+  const k = neg ? n - 1 : n;
+  const v = (neg ? vals.slice(0, -1) : vals).slice(0, k);
+  while (v.length < k) v.push(base[v.length] ?? 0);
+  if (neg) v.push(vals[vals.length - 1]);
   return v;
 };
+
+export const DEALER_OPTIONS = [
+  ["right", "Right of chooser"],
+  ["left", "Left of chooser"],
+];
+
+export function rentzDealer(cfg, chooser, n) {
+  if (cfg?.dealer === "right") return (chooser + 1) % n;
+  if (cfg?.dealer === "left") return (chooser + n - 1) % n;
+  return null;
+}
 
 export function handPoints(def, data, n, defs) {
   const pts = Array(n).fill(0);
@@ -144,13 +164,10 @@ export function handPoints(def, data, n, defs) {
       });
       break;
     case "totale":
-      // Totale combines the negative games. Old saved games may still carry
-      // an "Ultima levată" def; honor it so their history recomputes intact.
-      single("king", data.king);
-      if (byId.last && data.last != null) single("last", data.last);
-      units("queens", data.queens);
-      units("tricks", data.tricks);
-      units("diamonds", data.diamonds);
+      for (const id of totaleMembers(def, byId)) {
+        if (byId[id].type === "single") single(id, data[id]);
+        else if (byId[id].type === "units") units(id, data[id]);
+      }
       break;
   }
   return pts;

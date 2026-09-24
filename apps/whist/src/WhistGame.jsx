@@ -2,15 +2,21 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { IconButton, useToast } from "@shared/ui.jsx";
 import { vibrate, haptics } from "@shared/haptics.js";
 import { computeWhist, ranks, signed } from "./rules.js";
-import { NumberGrid, Standings, TotalHead } from "./ui.jsx";
+import { Avatar, BigBoard, NumberGrid, Standings, TableViewToggle, TotalHead } from "./ui.jsx";
+import { colorIdx } from "./players.js";
 import { useFlash, useEscape } from "./hooks.js";
+import { ShareButtons } from "./share.jsx";
 
 const entryOrder = (firstDealer, roundIdx, n) =>
   Array.from({ length: n }, (_, k) => (firstDealer + roundIdx + 1 + k) % n);
 
 const isFull = (arr, n) => Array.isArray(arr) && arr.length === n && arr.every((x) => x != null);
 
-const copyRound = (r) => ({ bids: r.bids ? [...r.bids] : null, taken: r.taken ? [...r.taken] : null });
+const copyRound = (r) => ({
+  bids: r.bids ? [...r.bids] : null,
+  taken: r.taken ? [...r.taken] : null,
+  ...(r.at ? { at: r.at } : {}),
+});
 
 function applyEntry(g, roundIdx, player, val) {
   const n = g.players.length;
@@ -22,6 +28,7 @@ function applyEntry(g, roundIdx, player, val) {
   else {
     if (!r.taken) r.taken = Array(n).fill(null);
     r.taken[player] = val;
+    if (isFull(r.taken, n) && !r.at) r.at = Date.now();
   }
   rounds[roundIdx] = r;
   return { ...g, rounds };
@@ -47,6 +54,7 @@ function removeEntry(g, e) {
   const rounds = g.rounds.slice(0, e.round + 1).map(copyRound);
   const r = rounds[e.round];
   r[e.key][e.player] = null;
+  delete r.at;
   for (const key of ["taken", "bids"]) {
     if (r[key] && r[key].every((x) => x == null)) r[key] = null;
   }
@@ -60,6 +68,7 @@ export default function WhistGame({ game, onChange, onHome, onPlayAgain }) {
   const c = computeWhist(game);
   const [editIdx, setEditIdx] = useState(null);
   const [flash, triggerFlash] = useFlash();
+  const [tableView, setTableView] = useState(false);
 
   const finished = c.done;
   const roundIdx = c.completeRounds;
@@ -74,6 +83,7 @@ export default function WhistGame({ game, onChange, onHome, onPlayAgain }) {
   const cursor = order.find((p) => values[p] == null);
   const undoable = lastEntry(game);
   const name = (p) => game.players[p];
+  const colors = game.players.map((_, i) => colorIdx(game, i));
 
   let disabled = [];
   let explain = null;
@@ -135,82 +145,95 @@ export default function WhistGame({ game, onChange, onHome, onPlayAgain }) {
   };
 
   const nextDealer = game.players[(game.firstDealer + 1) % n];
+  const status = finished
+    ? "Finished"
+    : `Round ${roundIdx + 1}/${c.seq.length} · ${cards} card${cards > 1 ? "s" : ""} · dealer ${name(dealer)}`;
 
   return (
-    <div className="page">
+    <div className={"page gamepage" + (tableView ? " tableview" : "")}>
       <div className="topbar">
         <IconButton label="Back to games" onClick={onHome}>
           ‹
         </IconButton>
         <div>
           <div className="tb-title">Whist</div>
-          <div className="tb-sub">
-            {finished
-              ? "Finished"
-              : `Round ${roundIdx + 1}/${c.seq.length} · ${cards} card${cards > 1 ? "s" : ""} · dealer ${name(dealer)}`}
-          </div>
+          <div className="tb-sub">{status}</div>
         </div>
-        {!finished && undoable && (
+        <TableViewToggle on={tableView} onToggle={() => setTableView((v) => !v)} />
+        {!finished && !tableView && undoable && (
           <button type="button" className="linkbtn" onClick={undo}>
             Undo
           </button>
         )}
       </div>
 
-      {finished ? (
-        <Standings
-          players={game.players}
-          totals={c.totals}
-          onPlayAgain={onPlayAgain}
-          againHint={`Same rules; ${nextDealer} deals first.`}
-        />
+      {tableView ? (
+        <BigBoard players={game.players} colors={colors} totals={c.totals} scored={c.completeRounds > 0} sub={status} />
       ) : (
-        <div className="entry card">
-          <div className="entry-label">
-            {stage === "bids" ? "Bids" : "Tricks taken"}
-            {stage === "bids" && (
-              <span className="entry-sum">
-                {bidSum} bid of {cards}
-              </span>
+        <div className="gamebody">
+          <div className="gameleft">
+            {finished ? (
+              <Standings
+                players={game.players}
+                colors={colors}
+                totals={c.totals}
+                onPlayAgain={onPlayAgain}
+                againHint={`Same rules; ${nextDealer} deals first.`}
+              >
+                <ShareButtons game={game} />
+              </Standings>
+            ) : (
+              <div className="entry card">
+                <div className="entry-label">
+                  {stage === "bids" ? "Bids" : "Tricks taken"}
+                  {stage === "bids" && (
+                    <span className="entry-sum">
+                      {bidSum} bid of {cards}
+                    </span>
+                  )}
+                </div>
+                <div className="playerchips">
+                  {order.map((p) => (
+                    <div
+                      key={p}
+                      className={"pchip" + (p === cursor ? " active" : "") + (p === dealer ? " dealer" : "")}
+                    >
+                      <Avatar name={name(p)} color={colors[p]} />
+                      <span className="pname">{name(p)}</span>
+                      <span className="pval">
+                        {stage === "taken" ? `${bids[p]} → ${taken[p] ?? "·"}` : (bids[p] ?? "·")}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                {cursor != null &&
+                  (forced != null ? (
+                    <button type="button" className="bigbtn forced" onClick={() => enter(forced)}>
+                      {name(cursor)} takes {forced}
+                    </button>
+                  ) : (
+                    <>
+                      <div className="entry-hint">
+                        {name(cursor)}, {stage === "bids" ? "your bid:" : "tricks taken:"}
+                      </div>
+                      <NumberGrid
+                        max={cards}
+                        disabled={disabled}
+                        onPick={enter}
+                        label={stage === "bids" ? `Bid for ${name(cursor)}` : `Tricks taken by ${name(cursor)}`}
+                      />
+                      {explain && <p className="numexplain">{explain}</p>}
+                    </>
+                  ))}
+              </div>
             )}
           </div>
-          <div className="playerchips">
-            {order.map((p) => (
-              <div
-                key={p}
-                className={"pchip" + (p === cursor ? " active" : "") + (p === dealer ? " dealer" : "")}
-              >
-                <span className="pname">{name(p)}</span>
-                <span className="pval">
-                  {stage === "taken" ? `${bids[p]} → ${taken[p] ?? "·"}` : (bids[p] ?? "·")}
-                </span>
-              </div>
-            ))}
+          <div className="gameright">
+            <ScoreTable game={game} c={c} onEdit={setEditIdx} activeRow={finished ? -1 : roundIdx} flashRow={flash} />
+            <p className="hint small">Tap a completed row to correct it. Later rounds recompute automatically.</p>
           </div>
-          {cursor != null &&
-            (forced != null ? (
-              <button type="button" className="bigbtn forced" onClick={() => enter(forced)}>
-                {name(cursor)} takes {forced}
-              </button>
-            ) : (
-              <>
-                <div className="entry-hint">
-                  {name(cursor)}, {stage === "bids" ? "your bid:" : "tricks taken:"}
-                </div>
-                <NumberGrid
-                  max={cards}
-                  disabled={disabled}
-                  onPick={enter}
-                  label={stage === "bids" ? `Bid for ${name(cursor)}` : `Tricks taken by ${name(cursor)}`}
-                />
-                {explain && <p className="numexplain">{explain}</p>}
-              </>
-            ))}
         </div>
       )}
-
-      <ScoreTable game={game} c={c} onEdit={setEditIdx} activeRow={finished ? -1 : roundIdx} flashRow={flash} />
-      <p className="hint small">Tap a completed row to correct it. Later rounds recompute automatically.</p>
 
       {editIdx != null && (
         <RoundEditor
@@ -220,7 +243,7 @@ export default function WhistGame({ game, onChange, onHome, onPlayAgain }) {
           onSave={(bids2, taken2) => {
             onChange((g) => {
               const rounds = [...g.rounds];
-              rounds[editIdx] = { bids: bids2, taken: taken2 };
+              rounds[editIdx] = { ...rounds[editIdx], bids: bids2, taken: taken2 };
               return { ...g, rounds };
             });
             setEditIdx(null);
@@ -249,7 +272,15 @@ function ScoreTable({ game, c, onEdit, activeRow, flashRow }) {
               Cards
             </th>
             {game.players.map((p, i) => (
-              <TotalHead key={i} name={p} total={c.totals[i]} rank={place[i]} delta={c.totals[i] - best} scored={scored}>
+              <TotalHead
+                key={i}
+                name={p}
+                color={colorIdx(game, i)}
+                total={c.totals[i]}
+                rank={place[i]}
+                delta={c.totals[i] - best}
+                scored={scored}
+              >
                 <div className="dots" aria-hidden="true">
                   {c.okStreak[i] > 0 &&
                     Array.from({ length: Math.min(c.okStreak[i], game.config.streakLen) }).map((_, k) => (
@@ -295,9 +326,7 @@ function ScoreTable({ game, c, onEdit, activeRow, flashRow }) {
                       <span className="cum dim">{row.taken[p]}</span>
                     ) : null}
                     {row?.bonus?.[p] ? (
-                      <span className={"star" + (row.bonus[p] < 0 ? " neg" : "")}>
-                        {row.bonus[p] > 0 ? "★" : "▼"}
-                      </span>
+                      <span className={"star" + (row.bonus[p] < 0 ? " neg" : "")}>{row.bonus[p] > 0 ? "★" : "▼"}</span>
                     ) : null}
                   </td>
                 ))}

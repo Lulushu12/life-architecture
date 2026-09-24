@@ -6,7 +6,6 @@
   "start_url": "/life-architecture/whist/",
   "scope": "/life-architecture/whist/",
   "display": "standalone",
-  "orientation": "portrait-primary",
   "background_color": "#0b1220",
   "theme_color": "#0b1220",
   "icons": [

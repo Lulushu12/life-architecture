@@ -10,6 +10,9 @@ import WhistSetup from "./WhistSetup.jsx";
 import RentzSetup from "./RentzSetup.jsx";
 import WhistGame from "./WhistGame.jsx";
 import RentzGame from "./RentzGame.jsx";
+import Stats from "./Stats.jsx";
+import { colorIdx } from "./players.js";
+import { computeRentz, computeWhist } from "./rules.js";
 
 const VIEW_KEY = "whist:view";
 const ACTIONS = { "new-whist": "whist-setup", "new-rentz": "rentz-setup" };
@@ -42,6 +45,7 @@ export function replayOf(game) {
     id: newId(),
     type: game.type,
     players: [...game.players],
+    colors: game.players.map((_, i) => colorIdx(game, i)),
     config: JSON.parse(JSON.stringify(game.config)),
     createdAt: Date.now(),
     updatedAt: Date.now(),
@@ -60,8 +64,7 @@ export default function App() {
 
   useEffect(() => {
     registerSw({
-      onUpdate: (reload) =>
-        toast("Update available", { action: { label: "Reload", onClick: reload }, duration: 0 }),
+      onUpdate: (reload) => toast("Update available", { action: { label: "Reload", onClick: reload }, duration: 0 }),
     });
   }, [toast]);
 
@@ -101,7 +104,12 @@ export default function App() {
     setStore((s) => {
       const g = s.games[id];
       if (!g) return s;
-      return { ...s, games: { ...s.games, [id]: { ...fn(g), updatedAt: Date.now() } } };
+      const now = Date.now();
+      const next = { ...fn(g), updatedAt: now };
+      const done = (next.type === "whist" ? computeWhist(next) : computeRentz(next)).done;
+      if (done && !next.finishedAt) next.finishedAt = now;
+      if (!done) delete next.finishedAt;
+      return { ...s, games: { ...s.games, [id]: next } };
     });
 
   const addGame = (g) => {
@@ -155,6 +163,8 @@ export default function App() {
     screen = <WhistSetup recent={store.recentPlayers} onCancel={goHome} onCreate={addGame} />;
   else if (view.screen === "rentz-setup")
     screen = <RentzSetup recent={store.recentPlayers} onCancel={goHome} onCreate={addGame} />;
+  else if (view.screen === "stats")
+    screen = <Stats store={store} onBack={goHome} onOpen={(id) => open({ screen: "game", id })} />;
   else if (game) {
     const Comp = game.type === "whist" ? WhistGame : RentzGame;
     screen = (
@@ -174,6 +184,7 @@ export default function App() {
         onOpen={(id) => open({ screen: "game", id })}
         onNewWhist={() => open({ screen: "whist-setup" })}
         onNewRentz={() => open({ screen: "rentz-setup" })}
+        onStats={() => open({ screen: "stats" })}
         onDelete={deleteGame}
       />
     );

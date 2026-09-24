@@ -1,6 +1,7 @@
 import { createStore } from "@shared/store.js";
 import { mergeById } from "@shared/backup.js";
 import { WHIST_DEFAULT_CONFIG, whistSequence } from "./rules.js";
+import { validColors } from "./players.js";
 
 export const KEY = "whist-rentz-v1";
 export const RECENT_MAX = 12;
@@ -45,7 +46,7 @@ function repairWhist(g, n) {
     const bids = cleanEntries(r.bids, n, cards);
     const taken = r.taken == null ? null : cleanEntries(r.taken, n, cards);
     if (!bids || taken === undefined) break;
-    rounds.push({ bids, taken });
+    rounds.push(Number.isFinite(r.at) ? { bids, taken, at: r.at } : { bids, taken });
   }
   const firstDealer = isCount(g.firstDealer) && g.firstDealer < n ? g.firstDealer : 0;
   return { ...g, config, rounds, firstDealer };
@@ -60,7 +61,9 @@ function repairRentz(g, n) {
     (h) => isObj(h) && ids.has(h.gameId) && isCount(h.chooserIdx) && h.chooserIdx < n && isObj(h.data)
   );
   const pending =
-    isObj(g.pending) && ids.has(g.pending.gameId) ? { ...g.pending, data: isObj(g.pending.data) ? g.pending.data : {} } : null;
+    isObj(g.pending) && ids.has(g.pending.gameId)
+      ? { ...g.pending, data: isObj(g.pending.data) ? g.pending.data : {} }
+      : null;
   const firstChooser = isCount(g.firstChooser) && g.firstChooser < n ? g.firstChooser : 0;
   return { ...g, config: { ...g.config, games: defs }, hands, pending, firstChooser };
 }
@@ -71,9 +74,14 @@ export function repairGame(g) {
   if (!g.players.every((p) => typeof p === "string")) return null;
   if (!isObj(g.config)) return null;
   const n = g.players.length;
-  if (g.type === "whist" && Array.isArray(g.rounds)) return repairWhist(g, n);
-  if (g.type === "rentz" && Array.isArray(g.hands)) return repairRentz(g, n);
-  return null;
+  let fixed = null;
+  if (g.type === "whist" && Array.isArray(g.rounds)) fixed = repairWhist(g, n);
+  else if (g.type === "rentz" && Array.isArray(g.hands)) fixed = repairRentz(g, n);
+  if (fixed && "colors" in fixed && !validColors(fixed.colors, n)) {
+    const { colors, ...rest } = fixed;
+    return rest;
+  }
+  return fixed;
 }
 
 function cleanGames(games) {

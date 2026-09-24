@@ -63,7 +63,7 @@ const FILTERS = [
   ["rentz", "Rentz"],
 ];
 
-export default function Home({ store, setStore, onOpen, onNewWhist, onNewRentz, onDelete }) {
+export default function Home({ store, setStore, onOpen, onNewWhist, onNewRentz, onStats, onDelete }) {
   const [filter, setFilter] = useState("all");
   const games = useMemo(
     () =>
@@ -89,9 +89,16 @@ export default function Home({ store, setStore, onOpen, onNewWhist, onNewRentz, 
 
   return (
     <div className="page">
-      <h1 className="apptitle">
-        Whist <span>&</span> Rentz
-      </h1>
+      <div className="homehead">
+        <h1 className="apptitle">
+          Whist <span>&</span> Rentz
+        </h1>
+        {games.length > 0 && (
+          <button type="button" className="statsbtn" onClick={onStats}>
+            Stats
+          </button>
+        )}
+      </div>
       <div className="newrow">
         <button type="button" className="bigbtn whist" onClick={onNewWhist}>
           + New Whist
@@ -134,8 +141,7 @@ export default function Home({ store, setStore, onOpen, onNewWhist, onNewRentz, 
       )}
       {games.length === 0 && (
         <p className="hint">
-          No games yet. Every tap is saved on this device instantly, so closing the app never loses a
-          game.
+          No games yet. Every tap is saved on this device instantly, so closing the app never loses a game.
         </p>
       )}
       <h2>Backup</h2>

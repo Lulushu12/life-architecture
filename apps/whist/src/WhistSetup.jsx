@@ -3,9 +3,11 @@ import { WHIST_DEFAULT_CONFIG, whistSequence } from "./rules.js";
 import { newId } from "@shared/store.js";
 import { IconButton, NumInput, SettingRow, Toggle } from "@shared/ui.jsx";
 import { PlayersEditor, displayNames, duplicateName } from "./ui.jsx";
+import { defaultColors, resizeColors } from "./players.js";
 
 export default function WhistSetup({ onCancel, onCreate, recent }) {
   const [players, setPlayers] = useState(["", "", "", ""]);
+  const [colors, setColors] = useState(defaultColors(4));
   const [firstDealer, setFirstDealer] = useState(0);
   const [cfg, setCfg] = useState(WHIST_DEFAULT_CONFIG(4));
   const [countsTouched, setCountsTouched] = useState(false);
@@ -17,6 +19,7 @@ export default function WhistSetup({ onCancel, onCreate, recent }) {
       while (q.length < k) q.push("");
       return q.slice(0, k);
     });
+    setColors((cs) => resizeColors(cs, k));
     setFirstDealer((d) => Math.min(d, k - 1));
     if (!countsTouched) setCfg((c) => ({ ...c, onesCount: k, eightsCount: k }));
   };
@@ -42,7 +45,14 @@ export default function WhistSetup({ onCancel, onCreate, recent }) {
         </div>
       </div>
 
-      <PlayersEditor players={players} setPlayers={setPlayers} onCountChange={onCountChange} recent={recent} />
+      <PlayersEditor
+        players={players}
+        setPlayers={setPlayers}
+        colors={colors}
+        setColors={setColors}
+        onCountChange={onCountChange}
+        recent={recent}
+      />
 
       <div className="field">
         <div className="flabel">First dealer</div>
@@ -125,7 +135,11 @@ export default function WhistSetup({ onCancel, onCreate, recent }) {
             </>
           )}
           <SettingRow label="Dealer can't equalize bid sum">
-            <Toggle label="Dealer can't equalize bid sum" checked={cfg.forbidEqualSum} onChange={(v) => set("forbidEqualSum", v)} />
+            <Toggle
+              label="Dealer can't equalize bid sum"
+              checked={cfg.forbidEqualSum}
+              onChange={(v) => set("forbidEqualSum", v)}
+            />
           </SettingRow>
         </div>
       )}
@@ -140,6 +154,7 @@ export default function WhistSetup({ onCancel, onCreate, recent }) {
             id: newId(),
             type: "whist",
             players: names,
+            colors,
             firstDealer,
             config: cfg,
             rounds: [],

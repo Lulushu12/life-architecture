@@ -1,9 +1,11 @@
-import { useState } from "react";
-import { IconButton, NumInput, useConfirm, useToast } from "@shared/ui.jsx";
+import { useEffect, useRef, useState } from "react";
+import { IconButton, useConfirm, useToast } from "@shared/ui.jsx";
 import { vibrate, haptics } from "@shared/haptics.js";
-import { computeRentz, handPoints, ranks, signed } from "./rules.js";
-import { Standings, TotalHead } from "./ui.jsx";
+import { computeRentz, handPoints, ranks, rentzDealer, signed, totaleMembers } from "./rules.js";
+import { Avatar, BigBoard, Standings, TableViewToggle, TotalHead } from "./ui.jsx";
+import { colorIdx } from "./players.js";
 import { useFlash, useEscape } from "./hooks.js";
+import { ShareButtons } from "./share.jsx";
 
 const sum = (a) => (a || []).reduce((s, x) => s + (x || 0), 0);
 
@@ -17,10 +19,8 @@ function entryComplete(def, data, n, byId) {
     case "positions":
       return (data.order || []).length === n;
     case "totale":
-      return (
-        data.king != null &&
-        (!byId.last || data.last != null) &&
-        ["queens", "tricks", "diamonds"].every((id) => !byId[id] || sum(data[id]) === byId[id].units)
+      return totaleMembers(def, byId).every((id) =>
+        byId[id].type === "single" ? data[id] != null : sum(data[id]) === byId[id].units
       );
     default:
       return false;
@@ -34,14 +34,16 @@ export default function RentzGame({ game, onChange, onHome, onPlayAgain }) {
   const c = computeRentz(game);
   const [editIdx, setEditIdx] = useState(null);
   const [flash, triggerFlash] = useFlash();
+  const [tableView, setTableView] = useState(false);
   const byId = Object.fromEntries(game.config.games.map((d) => [d.id, d]));
+  const colors = game.players.map((_, i) => colorIdx(game, i));
   const chooser = c.nextChooser;
+  const dealer = c.done ? null : rentzDealer(game.config, chooser, n);
   const pending = game.pending || null;
   const pendingDef = pending && byId[pending.gameId];
 
   const pick = (id) => onChange((g) => ({ ...g, pending: { gameId: id, data: {} } }));
-  const setData = (fn) =>
-    onChange((g) => ({ ...g, pending: { ...g.pending, data: fn(g.pending.data) } }));
+  const setData = (fn) => onChange((g) => ({ ...g, pending: { ...g.pending, data: fn(g.pending.data) } }));
   const cancelPending = () => onChange((g) => ({ ...g, pending: null }));
   const commit = () => {
     const pts = handPoints(pendingDef, pending.data, n, game.config.games);
@@ -52,6 +54,7 @@ export default function RentzGame({ game, onChange, onHome, onPlayAgain }) {
         ...g.hands,
         {
           chooserIdx: (g.firstChooser + g.hands.length) % n,
+          at: Date.now(),
           gameId: g.pending.gameId,
           data: g.pending.data,
         },
@@ -87,87 +90,103 @@ export default function RentzGame({ game, onChange, onHome, onPlayAgain }) {
     toast(`Undone: ${game.players[last.chooserIdx]}'s ${lastName}`);
   };
 
+  const status = c.done
+    ? "Finished"
+    : `Hand ${c.handsPlayed + 1}/${c.totalHands} · ${game.players[chooser]} chooses` +
+      (pendingDef ? ` ${pendingDef.name}` : "") +
+      (dealer != null ? ` · ${game.players[dealer]} deals` : "");
+
   return (
-    <div className="page">
+    <div className={"page gamepage" + (tableView ? " tableview" : "")}>
       <div className="topbar">
         <IconButton label="Back to games" onClick={onHome}>
           ‹
         </IconButton>
         <div>
           <div className="tb-title">Rentz</div>
-          <div className="tb-sub">
-            {c.done
-              ? "Finished"
-              : `Hand ${c.handsPlayed + 1}/${c.totalHands} · ${game.players[chooser]} chooses`}
-          </div>
+          <div className="tb-sub">{status}</div>
         </div>
-        {!c.done && (pending || game.hands.length > 0) && (
+        <TableViewToggle on={tableView} onToggle={() => setTableView((v) => !v)} />
+        {!c.done && !tableView && (pending || game.hands.length > 0) && (
           <button type="button" className="linkbtn" onClick={undo}>
             Undo
           </button>
         )}
       </div>
 
-      {c.done ? (
-        <Standings
-          players={game.players}
-          totals={c.totals}
-          onPlayAgain={onPlayAgain}
-          againHint={`Same games and points; ${game.players[(game.firstChooser + 1) % n]} chooses first.`}
-        />
+      {tableView ? (
+        <BigBoard players={game.players} colors={colors} totals={c.totals} scored={c.handsPlayed > 0} sub={status} />
       ) : (
-        <div className="entry card">
-          {!pending ? (
-            <>
-              <div className="entry-hint">{game.players[chooser]} picks a game:</div>
-              <div className="gamegrid">
-                {c.enabled.map((d) => {
-                  const usedIt = c.used.has(`${chooser}:${d.id}`);
-                  return (
-                    <button
-                      key={d.id}
-                      type="button"
-                      disabled={usedIt}
-                      className={"gamebtn" + (usedIt ? " off" : "")}
-                      onClick={() => pick(d.id)}
-                    >
-                      {d.name}
-                    </button>
-                  );
-                })}
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="entry-label">
-                {pendingDef.name}
-                <button type="button" className="linkbtn" onClick={cancelPending}>
-                  change game
-                </button>
-              </div>
-              <HandEntry
-                def={pendingDef}
-                byId={byId}
+        <div className="gamebody">
+          <div className="gameleft">
+            {c.done ? (
+              <Standings
                 players={game.players}
-                data={pending.data}
-                setData={setData}
-              />
-              <button
-                type="button"
-                className="bigbtn start"
-                disabled={!entryComplete(pendingDef, pending.data, n, byId)}
-                onClick={commit}
+                colors={colors}
+                totals={c.totals}
+                onPlayAgain={onPlayAgain}
+                againHint={`Same games and points; ${game.players[(game.firstChooser + 1) % n]} chooses first.`}
               >
-                Save hand
-              </button>
-            </>
-          )}
+                <ShareButtons game={game} />
+              </Standings>
+            ) : (
+              <div className="entry card">
+                {!pending ? (
+                  <>
+                    <div className="entry-hint">{game.players[chooser]} picks a game:</div>
+                    <div className="gamegrid">
+                      {c.enabled.map((d) => {
+                        const usedIt = c.used.has(`${chooser}:${d.id}`);
+                        return (
+                          <button
+                            key={d.id}
+                            type="button"
+                            disabled={usedIt}
+                            className={"gamebtn" + (usedIt ? " off" : "")}
+                            onClick={() => pick(d.id)}
+                          >
+                            {d.name}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="entry-label">
+                      {pendingDef.name}
+                      <button type="button" className="linkbtn" onClick={cancelPending}>
+                        change game
+                      </button>
+                    </div>
+                    <HandEntry
+                      def={pendingDef}
+                      byId={byId}
+                      players={game.players}
+                      colors={colors}
+                      data={pending.data}
+                      setData={setData}
+                    />
+                    <button
+                      type="button"
+                      className="bigbtn start"
+                      disabled={!entryComplete(pendingDef, pending.data, n, byId)}
+                      onClick={commit}
+                    >
+                      Save hand
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+          <div className="gameright">
+            <RentzTable game={game} c={c} onEdit={setEditIdx} flashRow={flash} />
+            {c.rows.length > 0 && (
+              <p className="hint small">Tap a row to correct it. Totals recompute automatically.</p>
+            )}
+          </div>
         </div>
-      )}
-
-      <RentzTable game={game} c={c} onEdit={setEditIdx} flashRow={flash} />
-      {c.rows.length > 0 && (
-        <p className="hint small">Tap a row to correct it. Totals recompute automatically.</p>
       )}
       {confirmSheet}
 
@@ -177,10 +196,10 @@ export default function RentzGame({ game, onChange, onHome, onPlayAgain }) {
           idx={editIdx}
           byId={byId}
           onClose={() => setEditIdx(null)}
-          onSave={(data) => {
+          onSave={(patch) => {
             onChange((g) => ({
               ...g,
-              hands: g.hands.map((h, i) => (i === editIdx ? { ...h, data } : h)),
+              hands: g.hands.map((h, i) => (i === editIdx ? { ...h, ...patch } : h)),
             }));
             setEditIdx(null);
           }}
@@ -190,12 +209,13 @@ export default function RentzGame({ game, onChange, onHome, onPlayAgain }) {
   );
 }
 
-function HandEntry({ def, byId, players, data, setData }) {
+function HandEntry({ def, byId, players, colors, data, setData }) {
   switch (def.type) {
     case "single":
       return (
         <PlayerPick
           players={players}
+          colors={colors}
           value={data.playerIdx}
           onPick={(i) => setData((d) => ({ ...d, playerIdx: i }))}
           label={`Who took ${def.name}?`}
@@ -205,6 +225,7 @@ function HandEntry({ def, byId, players, data, setData }) {
       return (
         <UnitsEntry
           players={players}
+          colors={colors}
           label={def.name}
           units={def.units}
           value={data.units}
@@ -215,62 +236,44 @@ function HandEntry({ def, byId, players, data, setData }) {
       return (
         <OrderEntry
           players={players}
+          colors={colors}
           value={data.order || []}
           onChange={(o) => setData((d) => ({ ...d, order: o }))}
         />
       );
     case "totale":
       return (
-        <>
-          <PlayerPick
-            players={players}
-            value={data.king}
-            onPick={(i) => setData((d) => ({ ...d, king: i }))}
-            label="Popa de roșu taken by"
-          />
-          {byId.last && (
-            <PlayerPick
-              players={players}
-              value={data.last}
-              onPick={(i) => setData((d) => ({ ...d, last: i }))}
-              label="Ultima levată taken by"
-            />
+        <div className="totalestack">
+          {totaleMembers(def, byId).map((id) =>
+            byId[id].type === "single" ? (
+              <PlayerPick
+                key={id}
+                players={players}
+                colors={colors}
+                value={data[id]}
+                onPick={(i) => setData((d) => ({ ...d, [id]: i }))}
+                label={`${byId[id].name} taken by`}
+              />
+            ) : (
+              <UnitsEntry
+                key={id}
+                players={players}
+                colors={colors}
+                label={byId[id].name}
+                units={byId[id].units}
+                value={data[id]}
+                onChange={(u) => setData((d) => ({ ...d, [id]: u }))}
+              />
+            )
           )}
-          {byId.queens && (
-            <UnitsEntry
-              players={players}
-              label="Dame"
-              units={byId.queens.units}
-              value={data.queens}
-              onChange={(u) => setData((d) => ({ ...d, queens: u }))}
-            />
-          )}
-          {byId.tricks && (
-            <UnitsEntry
-              players={players}
-              label="Levate"
-              units={byId.tricks.units}
-              value={data.tricks}
-              onChange={(u) => setData((d) => ({ ...d, tricks: u }))}
-            />
-          )}
-          {byId.diamonds && (
-            <UnitsEntry
-              players={players}
-              label="Caro"
-              units={byId.diamonds.units}
-              value={data.diamonds}
-              onChange={(u) => setData((d) => ({ ...d, diamonds: u }))}
-            />
-          )}
-        </>
+        </div>
       );
     default:
       return null;
   }
 }
 
-function PlayerPick({ players, value, onPick, label }) {
+function PlayerPick({ players, colors, value, onPick, label }) {
   return (
     <div className="fentry">
       <div className="entry-hint">{label}</div>
@@ -283,6 +286,7 @@ function PlayerPick({ players, value, onPick, label }) {
             className={"pchip btn" + (value === i ? " active" : "")}
             onClick={() => onPick(i)}
           >
+            <Avatar name={p} color={colors[i]} />
             {p}
           </button>
         ))}
@@ -291,35 +295,169 @@ function PlayerPick({ players, value, onPick, label }) {
   );
 }
 
-function UnitsEntry({ players, label, units, value, onChange }) {
-  const vals = value && value.length === players.length ? value : Array(players.length).fill(0);
-  const total = sum(vals);
+const LONG_PRESS = 450;
+
+function UnitChip({ name, color, count, auto, focus, onTap, onLong }) {
+  const timer = useRef(0);
+  const fired = useRef(false);
+  const tapRef = useRef(onTap);
+  const longRef = useRef(onLong);
+  tapRef.current = onTap;
+  longRef.current = onLong;
+  const stop = () => clearTimeout(timer.current);
+  useEffect(() => stop, []);
   return (
-    <div className="fentry">
-      <div className="entry-hint">
-        {label} · {total}/{units} assigned
+    <button
+      type="button"
+      className={"unitchip" + (count > 0 ? " has" : "") + (auto ? " auto" : "") + (focus ? " focus" : "")}
+      aria-label={`${name}: ${count}${auto ? ", filled in automatically" : ""}. Tap to add one, hold to remove one.`}
+      onPointerDown={(e) => {
+        if (e.pointerType === "mouse" && e.button !== 0) return;
+        fired.current = false;
+        stop();
+        timer.current = setTimeout(() => {
+          fired.current = true;
+          longRef.current();
+        }, LONG_PRESS);
+      }}
+      onPointerUp={stop}
+      onPointerLeave={stop}
+      onPointerCancel={stop}
+      onContextMenu={(e) => e.preventDefault()}
+      onKeyDown={(e) => {
+        if (e.key === "Backspace" || e.key === "Delete" || e.key === "-") {
+          e.preventDefault();
+          longRef.current();
+        }
+      }}
+      onClick={() => {
+        if (fired.current) {
+          fired.current = false;
+          return;
+        }
+        tapRef.current();
+      }}
+    >
+      <span className="uc-name">
+        <Avatar name={name} color={color} />
+        <span>{name}</span>
+      </span>
+      <span className="uc-count">{count}</span>
+    </button>
+  );
+}
+
+function UnitsEntry({ players, colors, label, units, value, onChange }) {
+  const n = players.length;
+  const vals = value && value.length === n ? value : Array(n).fill(0);
+  const total = sum(vals);
+  const left = units - total;
+  const [touched, setTouched] = useState(() => new Set(vals.flatMap((v, i) => (v > 0 ? [i] : []))));
+  const [focus, setFocus] = useState(null);
+  const [auto, setAuto] = useState(null);
+  const rootRef = useRef(null);
+
+  const commit = (nv) => {
+    onChange(nv);
+    if (sum(nv) === units && total !== units) {
+      const next = rootRef.current?.nextElementSibling;
+      if (next) requestAnimationFrame(() => next.scrollIntoView({ block: "nearest", behavior: "smooth" }));
+    }
+  };
+
+  const tap = (i) => {
+    const nv = [...vals];
+    let a = auto === i ? null : auto;
+    if (left > 0) nv[i]++;
+    else if (auto != null && auto !== i && nv[auto] > 0) {
+      nv[auto]--;
+      nv[i]++;
+    } else {
+      vibrate(haptics.warn);
+      return;
+    }
+    const t = new Set(touched).add(i);
+    const rest = units - sum(nv);
+    const open = players.map((_, k) => k).filter((k) => !t.has(k));
+    if (rest > 0 && open.length === 1) {
+      nv[open[0]] += rest;
+      a = open[0];
+    }
+    vibrate(haptics.tap);
+    setTouched(t);
+    setFocus(i);
+    setAuto(a);
+    commit(nv);
+  };
+
+  const drop = (i) => {
+    if (!vals[i]) return;
+    const nv = [...vals];
+    nv[i]--;
+    vibrate(haptics.success);
+    setTouched((t) => new Set(t).add(i));
+    setFocus(i);
+    onChange(nv);
+  };
+
+  const giveRest = () => {
+    if (focus == null || left <= 0) return;
+    const nv = [...vals];
+    nv[focus] += left;
+    setAuto(null);
+    commit(nv);
+  };
+
+  const clear = () => {
+    setTouched(new Set());
+    setFocus(null);
+    setAuto(null);
+    onChange(Array(n).fill(0));
+  };
+
+  return (
+    <div ref={rootRef} className={"fentry units" + (left === 0 ? " full" : "")}>
+      <div className="entry-hint unithead">
+        <span>{label}</span>
+        <span className={"unitcount" + (left === 0 ? " ok" : "")}>
+          {total}/{units}
+        </span>
       </div>
-      {players.map((p, i) => (
-        <div key={i} className="unitrow">
-          <span className="pname">{p}</span>
-          <NumInput
-            label={`${label} for ${p}`}
-            value={vals[i]}
-            min={0}
-            max={vals[i] + units - total}
-            onChange={(v) => {
-              const nv = [...vals];
-              nv[i] = v;
-              onChange(nv);
-            }}
+      <div className="unitchips">
+        {players.map((p, i) => (
+          <UnitChip
+            key={i}
+            name={p}
+            color={colors[i]}
+            count={vals[i]}
+            auto={auto === i}
+            focus={focus === i}
+            onTap={() => tap(i)}
+            onLong={() => drop(i)}
           />
-        </div>
-      ))}
+        ))}
+      </div>
+      <div className="unitactions">
+        {left > 0 && focus != null ? (
+          <button type="button" className="restbtn" onClick={giveRest}>
+            Rest ({left}) to {players[focus]}
+          </button>
+        ) : (
+          <span className="hint small">
+            {left > 0 ? "Tap to add one, hold to remove one." : "All assigned. Hold a player to take one back."}
+          </span>
+        )}
+        {total > 0 && (
+          <button type="button" className="linkbtn" onClick={clear}>
+            Clear
+          </button>
+        )}
+      </div>
     </div>
   );
 }
 
-function OrderEntry({ players, value, onChange }) {
+function OrderEntry({ players, colors, value, onChange }) {
   const remaining = players.map((_, i) => i).filter((i) => !value.includes(i));
   return (
     <div className="fentry">
@@ -328,7 +466,7 @@ function OrderEntry({ players, value, onChange }) {
         <div className="orderlist">
           {value.map((p, pos) => (
             <div key={p} className="orderrow">
-              {pos + 1}. {players[p]}
+              {pos + 1}. <Avatar name={players[p]} color={colors[p]} /> {players[p]}
             </div>
           ))}
         </div>
@@ -336,6 +474,7 @@ function OrderEntry({ players, value, onChange }) {
       <div className="playerchips">
         {remaining.map((i) => (
           <button key={i} type="button" className="pchip btn" onClick={() => onChange([...value, i])}>
+            <Avatar name={players[i]} color={colors[i]} />
             {players[i]}
           </button>
         ))}
@@ -362,7 +501,15 @@ function RentzTable({ game, c, onEdit, flashRow }) {
               Game
             </th>
             {game.players.map((p, i) => (
-              <TotalHead key={i} name={p} total={c.totals[i]} rank={place[i]} delta={c.totals[i] - best} scored={scored} />
+              <TotalHead
+                key={i}
+                name={p}
+                color={colorIdx(game, i)}
+                total={c.totals[i]}
+                rank={place[i]}
+                delta={c.totals[i] - best}
+                scored={scored}
+              />
             ))}
           </tr>
         </thead>
@@ -389,24 +536,69 @@ function RentzTable({ game, c, onEdit, flashRow }) {
 
 function HandEditor({ game, idx, byId, onSave, onClose }) {
   const h = game.hands[idx];
-  const def = byId[h.gameId];
   const n = game.players.length;
+  const colors = game.players.map((_, i) => colorIdx(game, i));
+  const [gameId, setGameId] = useState(h.gameId);
+  const [chooserIdx, setChooserIdx] = useState(h.chooserIdx);
   const [data, setDataState] = useState(h.data);
   const setData = (fn) => setDataState((d) => fn(d));
   useEscape(onClose);
+  const def = byId[gameId];
+  const options = game.config.games.filter((d) => d.enabled || d.id === h.gameId);
+  const clashIdx = game.hands.findIndex((x, i) => i !== idx && x.chooserIdx === chooserIdx && x.gameId === gameId);
+  const changeGame = (id) => {
+    setGameId(id);
+    setDataState(id === h.gameId ? h.data : {});
+  };
+  const valid = clashIdx === -1 && entryComplete(def, data, n, byId);
   return (
     <div className="overlay" onClick={onClose}>
       <div
         className="modal card"
         role="dialog"
         aria-modal="true"
-        aria-label={`Edit ${def.name}`}
+        aria-label={`Edit hand ${idx + 1}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <h3>
-          Edit: {def.name} ({game.players[h.chooserIdx]})
-        </h3>
-        <HandEntry def={def} byId={byId} players={game.players} data={data} setData={setData} />
+        <h3>Edit hand {idx + 1}</h3>
+        <div className="editpick">
+          <label>
+            <span className="eg-head">Chosen by</span>
+            <select value={chooserIdx} onChange={(e) => setChooserIdx(+e.target.value)}>
+              {game.players.map((p, i) => (
+                <option key={i} value={i}>
+                  {p}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            <span className="eg-head">Game</span>
+            <select value={gameId} onChange={(e) => changeGame(e.target.value)}>
+              {options.map((d) => (
+                <option key={d.id} value={d.id}>
+                  {d.name}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        {clashIdx !== -1 && (
+          <p className="warn">
+            {game.players[chooserIdx]} already chose {def.name} in hand {clashIdx + 1}. Each player picks every game
+            once.
+          </p>
+        )}
+        {gameId !== h.gameId && <p className="hint small">Enter the results for {def.name}.</p>}
+        <HandEntry
+          key={gameId}
+          def={def}
+          byId={byId}
+          players={game.players}
+          colors={colors}
+          data={data}
+          setData={setData}
+        />
         <div className="btnrow">
           <button type="button" className="linkbtn" onClick={onClose}>
             Cancel
@@ -414,8 +606,8 @@ function HandEditor({ game, idx, byId, onSave, onClose }) {
           <button
             type="button"
             className="bigbtn"
-            disabled={!entryComplete(def, data, n, byId)}
-            onClick={() => onSave(data)}
+            disabled={!valid}
+            onClick={() => onSave({ gameId, chooserIdx, data })}
           >
             Save
           </button>
