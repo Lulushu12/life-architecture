@@ -392,7 +392,6 @@ export default function App() {
   const openQuestMenu = useCallback((q) => setQuestMenu(q.id), []);
   const closeQuestMenu = useCallback(() => setQuestMenu(null), []);
   useBackGuard(!!questMenu, closeQuestMenu);
-  const menuQuest = questMenu ? viewData.dailyQ.find(q => q.id === questMenu) : null;
 
   const total = totalOf(data);
   const level = getLevel(total);
@@ -402,6 +401,7 @@ export default function App() {
     () => ({ ...data, dailyQ: data.dailyQ.map(q => (q.auto ? { ...q, title: autoQuestTitle(q, targets) } : q)) }),
     [data, targets.protein, targets.kcalFloor, targets.kcalCeil]
   );
+  const menuQuest = questMenu ? viewData.dailyQ.find(q => q.id === questMenu) : null;
 
   const trackerProps = { user: USER, liftProgress: data.liftProgress, saveLiftProgress, pplOffset: data.pplOffset, slidePPL, onSessionLogged, onMacrosChanged, awardXP };
   const toggleTheme = () => setTheme(t => (t === "dark" ? "light" : "dark"));
