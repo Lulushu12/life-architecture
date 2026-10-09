@@ -137,6 +137,38 @@ test.describe("current behaviour", () => {
     await expect(page.locator(".movelist .mlmove")).toHaveText(["e4", "Kd7"], { timeout: 5_000 });
   });
 
+  // Audit bug 4 (fixed in plan item 2): Analysis used to keep the previous
+  // position's engine lines for most of a second after a move.
+  test("analysis never shows the previous position's engine lines", async ({ page }) => {
+    await seed(page, null);
+    await open(page);
+    await button(page, /Analysis/).click();
+    const lines = page.locator(".engineline");
+    await expect(lines.first()).toBeVisible({ timeout: 60_000 });
+    const before = await lines.allTextContents();
+    await move(page, "g1", "f3");
+    const right = await lines.allTextContents();
+    expect(right.filter((t) => before.includes(t))).toEqual([]);
+  });
+
+  // Audit bug 13 (fixed in plan item 2): the threat arrows used to show the
+  // opponent's best idea even when it threatened nothing.
+  test("analysis draws threat arrows only for real threats", async ({ page }) => {
+    await seed(page, null);
+    await open(page);
+    await button(page, /Analysis/).click();
+    const threat = page.locator('g[stroke="#d02a2a"]');
+    await expect(page.locator(".engineline").first()).toBeVisible({ timeout: 60_000 });
+    await page.waitForTimeout(1500); // the probe runs after the position's own eval
+    await expect(threat).toHaveCount(0);
+
+    // Black to move after 1.e4 e5 2.Bc4 Nc6 3.Qh5: White threatens Qxf7 mate.
+    await button(page, /Paste FEN\/PGN/).click();
+    await page.locator("textarea").first().fill("r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 3 3");
+    await button(page, /^Load$/).click();
+    await expect(threat.first()).toBeVisible({ timeout: 15_000 });
+  });
+
   test("board theme and piece set persist across a reload", async ({ page }) => {
     await seed(page, null);
     await open(page);

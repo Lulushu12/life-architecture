@@ -4,6 +4,7 @@ import Board from "./Board.jsx";
 import { TopBar } from "./ui.jsx";
 import { play as sfx, buzz } from "./audio.js";
 import { loadOpeningMeta, continuations, nameFor } from "./openingdb.js";
+import { legalDests, promotionCheck } from "./core/position.js";
 
 const EXTRA_PLIES = 8;
 
@@ -143,12 +144,7 @@ export default function Drill({ store, setStore, nav, view }) {
 
   const dests = useMemo(() => {
     if (!userTurn || done || !expected) return null;
-    const map = new Map();
-    for (const m of chess.moves({ verbose: true })) {
-      if (!map.has(m.from)) map.set(m.from, []);
-      map.get(m.from).push(m.to);
-    }
-    return map;
+    return legalDests(chess);
   }, [chess, userTurn, done, expected]);
 
   const expectedMove = useMemo(() => {
@@ -221,10 +217,7 @@ export default function Drill({ store, setStore, nav, view }) {
             pieceSet={store.settings.pieces}
             animMs={store.settings.animMs}
             arrowColors={store.settings.arrowColors}
-            needsPromotion={(from, to) => {
-              const piece = chess.get(from);
-              return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
-            }}
+            needsPromotion={promotionCheck(chess)}
           />
           <div className="movepath">
             {sans.map((s, i) => (

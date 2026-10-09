@@ -5,6 +5,10 @@
 import { Chess } from "chess.js";
 import { cpWhite, winPct } from "./engine.js";
 import { findOpening } from "./openings.js";
+import { classifyDrop } from "./core/classify.js";
+import { pvToSans } from "./core/position.js";
+
+export { pvToSans };
 
 export const CLASSIFICATIONS = {
   brilliant: { label: "Brilliant", icon: "!!", color: "#26c2a3" },
@@ -124,11 +128,7 @@ export async function reviewGame(
     else if (isBest && secondWin != null && before - secondWin >= 10) cls = "great";
     else if (isBest) cls = "best";
     else if (prevBlunder && drop >= 10) cls = "miss";
-    else if (drop < 2) cls = "excellent";
-    else if (drop < 5) cls = "good";
-    else if (drop < 10) cls = "inaccuracy";
-    else if (drop < 20) cls = "mistake";
-    else cls = "blunder";
+    else cls = classifyDrop(drop);
 
     moves.push({
       san: mv.san,
@@ -158,21 +158,6 @@ export async function reviewGame(
 function lineScore(info) {
   if (info.mate != null) return info.mate > 0 ? 10000 - info.mate : -10000 - info.mate;
   return info.cp;
-}
-
-export function pvToSans(fen, pv) {
-  const out = [];
-  try {
-    const c = new Chess(fen);
-    for (const uci of pv) {
-      const mv = c.move({ from: uci.slice(0, 2), to: uci.slice(2, 4), promotion: uci[4] });
-      if (!mv) break;
-      out.push(mv.san);
-    }
-  } catch {
-    /* truncated pv is fine */
-  }
-  return out;
 }
 
 function terminalCp(chess) {

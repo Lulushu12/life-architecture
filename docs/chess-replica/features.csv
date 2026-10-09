@@ -27,8 +27,8 @@ Retry the position to find a better move,review,must,yes,partial,current Retry s
 Opening name plus your history in that opening,review,could,yes,partial,name only
 Review graph with markers,review,could,yes,partial,graph without markers
 Unlimited reviews,review,must,yes,yes,free tier gets 1 a day; mine is unlimited and offline
-Analysis engine lines and eval,analysis,must,yes,yes,bugs: stale lines after a move (audit bug 4)
-Analysis threat arrows,analysis,should,yes,partial,shows non-threats (audit bug 13)
+Analysis engine lines and eval,analysis,must,yes,yes,stale lines after a move fixed in plan item 2 (bug 4)
+Analysis threat arrows,analysis,should,yes,yes,only real threats since plan item 2 (bug 13 fixed)
 Variation tree with comments,analysis,could,yes,partial,linear line plus 8 stashed lines
 Save an analysis,analysis,should,yes,no,
 Load FEN or PGN into analysis,analysis,must,yes,partial,PGN with a FEN header crashes the app (audit bug 1)

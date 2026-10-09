@@ -3708,14 +3708,24 @@ export const OPENINGS = [
 ];
 
 // Longest-prefix match: sans is an array of SAN strings from move 1.
-export function findOpening(sans) {
-  let best = null;
+// Indexed by the space-joined move sequence, built on first use, so a lookup
+// is one map probe per ply instead of a scan of all 3,704 lines. When two
+// lines share a sequence the first one listed wins, as the old scan did.
+let index = null;
+let longest = 0;
+function buildIndex() {
+  index = new Map();
   for (const [eco, name, seq] of OPENINGS) {
-    const toks = seq.split(" ");
-    if (toks.length > sans.length) continue;
-    let ok = true;
-    for (let i = 0; i < toks.length; i++) if (toks[i] !== sans[i]) { ok = false; break; }
-    if (ok && (!best || toks.length > best.plies)) best = { eco, name, plies: toks.length };
+    if (!index.has(seq)) index.set(seq, { eco, name, plies: seq.split(" ").length });
+    longest = Math.max(longest, index.get(seq).plies);
   }
-  return best;
+}
+
+export function findOpening(sans) {
+  if (!index) buildIndex();
+  for (let k = Math.min(sans.length, longest); k > 0; k--) {
+    const hit = index.get(sans.slice(0, k).join(" "));
+    if (hit) return { ...hit };
+  }
+  return null;
 }

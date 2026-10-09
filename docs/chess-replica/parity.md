@@ -1,6 +1,6 @@
-## Parity: 47.2 / 100
+## Parity: 48.2 / 100
 
-features 47.2  (49 counted, must-haves 8 of 22 done)
+features 48.2  (49 counted, must-haves 8 of 22 done)
 
 Not shippable yet: 14 must-have features are not done.
 
@@ -10,8 +10,8 @@ Not shippable yet: 14 must-have features are not done.
 - review                        48.3  (12 features)
 - bots                          50.0  (9 features)
 - puzzles                       52.5  (9 features)
-- analysis                      58.3  (6 features)
 - navigation                    62.5  (4 features)
+- analysis                      66.7  (6 features)
 - history                       71.4  (3 features)
 
 ## Missing, in build order
@@ -32,7 +32,6 @@ Not shippable yet: 14 must-have features are not done.
 - [should] analysis: Save an analysis, no
 - [should] puzzles: Coach tip after a wrong puzzle move, no
 - [should] puzzles: Daily puzzle with streak and calendar, no
-- [should] analysis: Analysis threat arrows, partial  (shows non-threats (audit bug 13))
 - [should] bots: Play a bot from any position, partial  (from editor and lessons yes; from analysis no; from review buggy (audit bug 2))
 - [should] bots: Suggestion arrow during a bot game, partial  (hint arrow on demand only)
 - [should] history: Game archive with filters and tabs, partial  (flat list with stars only)

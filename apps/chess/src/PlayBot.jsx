@@ -13,6 +13,7 @@ import { ENGINE_LOADING } from "./platform.js";
 import { useConfirm } from "@shared/ui.jsx";
 import { useWakeLock } from "@shared/useWakeLock.js";
 import { emitEvent } from "@shared/bridge.js";
+import { legalDests, promotionCheck, startPly } from "./core/position.js";
 
 export default function PlayBot({ store, setStore, nav, view }) {
   const cur = store.current;
@@ -205,24 +206,14 @@ function BotGame({ store, setStore, nav }) {
     if (g.status !== "playing") return null;
     const c = viewPly == null ? chess : new Chess(shownFen);
     if (c.turn() !== g.playerColor) return null;
-    const map = new Map();
-    for (const m of c.moves({ verbose: true })) {
-      if (!map.has(m.from)) map.set(m.from, []);
-      map.get(m.from).push(m.to);
-    }
-    return map;
+    return legalDests(c);
   }, [chess, shownFen, viewPly, g.status, g.playerColor]);
 
   const premoveDests = useMemo(() => {
     if (g.status !== "playing" || viewPly != null || chess.turn() !== botColor) return null;
     try {
       const c = new Chess(nullMoveFen(liveFen));
-      const map = new Map();
-      for (const m of c.moves({ verbose: true })) {
-        if (!map.has(m.from)) map.set(m.from, []);
-        map.get(m.from).push(m.to);
-      }
-      return map;
+      return legalDests(c);
     } catch {
       return null;
     }
@@ -652,10 +643,7 @@ function BotGame({ store, setStore, nav }) {
           pieceSet={store.settings.pieces}
           animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
-          needsPromotion={(from, to) => {
-            const piece = new Chess(shownFen).get(from);
-            return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
-          }}
+          needsPromotion={promotionCheck(new Chess(shownFen))}
         />
       </div>
 
@@ -743,10 +731,4 @@ function ChatBubbles({ chat, persona }) {
       ))}
     </div>
   );
-}
-
-function startPly(fen) {
-  if (!fen) return 0;
-  const parts = fen.split(" ");
-  return (Math.max(1, parseInt(parts[5], 10) || 1) - 1) * 2 + (parts[1] === "b" ? 1 : 0);
 }

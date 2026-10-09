@@ -14,6 +14,7 @@ import {
   LEVEL_LABELS,
 } from "./lessons/index.js";
 import { play as sfx, buzz } from "./audio.js";
+import { legalDests, promotionCheck } from "./core/position.js";
 
 // Numbered step strip: jump to any part of a lesson directly.
 function StepStrip({ lesson, stepIdx, onJump }) {
@@ -271,12 +272,7 @@ function LessonRunner({ lesson, store, setStore, nav }) {
 
   const dests = useMemo(() => {
     if (!needsAnswer) return null;
-    const map = new Map();
-    for (const m of chess.moves({ verbose: true })) {
-      if (!map.has(m.from)) map.set(m.from, []);
-      map.get(m.from).push(m.to);
-    }
-    return map;
+    return legalDests(chess);
   }, [chess, needsAnswer]);
 
   const save = (patch) =>
@@ -370,10 +366,7 @@ function LessonRunner({ lesson, store, setStore, nav }) {
         pieceSet={store.settings.pieces}
         animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
-        needsPromotion={(from, to) => {
-          const piece = chess.get(from);
-          return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
-        }}
+        needsPromotion={promotionCheck(chess)}
       />
 
       {showChapters && (

@@ -5,6 +5,7 @@ import { TopBar } from "./ui.jsx";
 import { play as sfx, buzz } from "./audio.js";
 import { getEngine } from "./engine.js";
 import { moveIsGoodEnough, srsNext } from "./puzzledb.js";
+import { legalDests, promotionCheck } from "./core/position.js";
 
 // "My blunders": every mistake/blunder from your reviewed games becomes a
 // find-the-better-move puzzle.
@@ -50,12 +51,7 @@ export default function BlunderTrainer({ store, setStore, nav }) {
 
   const dests = useMemo(() => {
     if (!chess || state === "solved" || state === "revealed" || state === "checking") return null;
-    const map = new Map();
-    for (const m of chess.moves({ verbose: true })) {
-      if (!map.has(m.from)) map.set(m.from, []);
-      map.get(m.from).push(m.to);
-    }
-    return map;
+    return legalDests(chess);
   }, [chess, state]);
 
   if (!puzzle) {
@@ -141,10 +137,7 @@ export default function BlunderTrainer({ store, setStore, nav }) {
         pieceSet={store.settings.pieces}
         animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
-        needsPromotion={(from, to) => {
-          const piece = chess.get(from);
-          return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
-        }}
+        needsPromotion={promotionCheck(chess)}
       />
       {state === "checking" && <p className="hint center">Checking your move...</p>}
       {state === "wrong" && <p className="warn center">Not that one, try again.</p>}

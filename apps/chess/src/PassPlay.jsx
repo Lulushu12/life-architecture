@@ -7,6 +7,7 @@ import { play as sfx, buzz } from "./audio.js";
 import { newId } from "./storage.js";
 import { useConfirm } from "@shared/ui.jsx";
 import { useWakeLock } from "@shared/useWakeLock.js";
+import { legalDests, promotionCheck } from "./core/position.js";
 
 export default function PassPlay({ store, setStore, nav, view }) {
   const cur = store.current;
@@ -150,12 +151,7 @@ function Game({ store, setStore, nav }) {
 
   const dests = useMemo(() => {
     if (over) return null;
-    const map = new Map();
-    for (const m of chess.moves({ verbose: true })) {
-      if (!map.has(m.from)) map.set(m.from, []);
-      map.get(m.from).push(m.to);
-    }
-    return map;
+    return legalDests(chess);
   }, [chess, over]);
 
   const lastMove = useMemo(() => {
@@ -231,10 +227,7 @@ function Game({ store, setStore, nav }) {
         pieceSet={store.settings.pieces}
         animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
-        needsPromotion={(from, to) => {
-          const piece = chess.get(from);
-          return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
-        }}
+        needsPromotion={promotionCheck(chess)}
       />
       <div className="btnrow toolrow">
         <button

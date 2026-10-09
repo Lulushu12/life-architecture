@@ -18,6 +18,7 @@ import {
   dueItems,
   moveIsGoodEnough,
 } from "./puzzledb.js";
+import { legalDests, promotionCheck } from "./core/position.js";
 
 function boardLook(store) {
   return {
@@ -26,22 +27,6 @@ function boardLook(store) {
     pieceSet: store.settings.pieces,
     animMs: store.settings.animMs,
     arrowColors: store.settings.arrowColors,
-  };
-}
-
-function destsOf(chess) {
-  const map = new Map();
-  for (const m of chess.moves({ verbose: true })) {
-    if (!map.has(m.from)) map.set(m.from, []);
-    map.get(m.from).push(m.to);
-  }
-  return map;
-}
-
-function promoCheck(chess) {
-  return (from, to) => {
-    const piece = chess.get(from);
-    return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
   };
 }
 
@@ -228,12 +213,7 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
 
   const dests = useMemo(() => {
     if (!chess || state === "solved" || state === "revealed") return null;
-    const map = new Map();
-    for (const m of chess.moves({ verbose: true })) {
-      if (!map.has(m.from)) map.set(m.from, []);
-      map.get(m.from).push(m.to);
-    }
-    return map;
+    return legalDests(chess);
   }, [chess, state]);
 
   // Scans every puzzle in the tier, so it must not run on each render.
@@ -375,10 +355,7 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
         pieceSet={store.settings.pieces}
         animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
-        needsPromotion={(from, to) => {
-          const piece = chess.get(from);
-          return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
-        }}
+        needsPromotion={promotionCheck(chess)}
       />
 
       {outcome && (
@@ -557,10 +534,10 @@ function LineSolver({ store, item, onResult, accept }) {
       <Board
         fen={chess.fen()}
         orientation={solverColor}
-        dests={status === "try" ? destsOf(chess) : null}
+        dests={status === "try" ? legalDests(chess) : null}
         onMove={tryMove}
         arrow={status === "failed" && expected ? [expected.slice(0, 2), expected.slice(2, 4)] : null}
-        needsPromotion={promoCheck(chess)}
+        needsPromotion={promotionCheck(chess)}
         {...boardLook(store)}
       />
       <p className={"center small " + (status === "failed" ? "warn" : status === "solved" ? "okmsg" : "hint")}>

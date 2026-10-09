@@ -10,6 +10,9 @@ import { useToast, useConfirm } from "@shared/ui.jsx";
 import { fetchRecentGames, toArchiveGame, SOURCES, ImportError } from "./importers.js";
 import { gamePgn, pgnFilename, copyToClipboard } from "./pgn.js";
 import ExportSheet from "./ExportSheet.jsx";
+import { legalDests, promotionCheck } from "./core/position.js";
+import { classifyDrop } from "./core/classify.js";
+import { threatsFromProbe } from "./core/threats.js";
 
 export default function ReviewScreen({ store, setStore, nav, view }) {
   if (view.importing) return <PgnImport store={store} setStore={setStore} nav={nav} />;
@@ -355,6 +358,7 @@ function Review({ store, setStore, nav, game }) {
   const [branchPly, setBranchPly] = useState(null);
   const [stash, setStash] = useState([]);
   const [lines, setLines] = useState([]); // live top engine lines for the shown position
+  const [linesFen, setLinesFen] = useState(null); // the position `lines` belong to
   const threatSeq = useRef(0);
   const lineSeq = useRef(0);
   const startedRef = useRef(false);
@@ -433,14 +437,15 @@ function Review({ store, setStore, nav, game }) {
   }, [review]);
 
   // What is the opponent threatening in the shown position (game or
-  // variation)? Same null-move probe as the analysis board; the shared engine
-  // is idle while browsing a finished review, so this costs nothing extra
-  // during the review pass.
+  // variation)? A null-move probe, judged against the position's own eval so
+  // only moves that would really cost something are drawn. Game positions use
+  // the review's stored eval; a variation waits for its live engine lines.
   const viewedFen = dispFen;
+  const viewedCp = branch ? (linesFen === dispFen && lines[0] ? lines[0].cp : null) : review?.evals?.[viewIdx] ?? null;
   useEffect(() => {
     const seq = ++threatSeq.current;
     setThreats([]);
-    if (!review || !showThreats) return;
+    if (!review || !showThreats || viewedCp == null) return;
     const c = new Chess(viewedFen);
     if (c.isGameOver() || c.inCheck()) return;
     let cancelled = false;
@@ -448,14 +453,8 @@ function Review({ store, setStore, nav, game }) {
     const timer = setTimeout(() => engine
       .analyze(nfen, { movetime: 350, multipv: 2, tag: "review-threat" })
       .then((r) => {
-        if (cancelled || seq !== threatSeq.current || !r.lines[0]) return;
-        const best = cpWhite(r.lines[0] || {}, nfen.split(" ")[1]);
-        setThreats(
-          r.lines
-            .filter((l) => Math.abs(cpWhite(l, nfen.split(" ")[1]) - best) < 120) // only genuinely dangerous ideas
-            .slice(0, 2)
-            .map((l) => [l.move.slice(0, 2), l.move.slice(2, 4)])
-        );
+        if (cancelled || seq !== threatSeq.current) return;
+        setThreats(threatsFromProbe(r.lines, nfen.split(" ")[1], viewedCp));
       })
       .catch(() => {}), 120);
     return () => {
@@ -463,12 +462,13 @@ function Review({ store, setStore, nav, game }) {
       clearTimeout(timer);
       engine.cancel("review-threat");
     };
-  }, [viewedFen, review, showThreats, engine]);
+  }, [viewedFen, viewedCp, review, showThreats, engine]);
 
   // Top engine lines for the shown position, tappable to step into.
   useEffect(() => {
     const seq = ++lineSeq.current;
     setLines([]);
+    setLinesFen(null);
     if (!review) return;
     if (new Chess(dispFen).isGameOver()) return;
     let cancelled = false;
@@ -483,6 +483,7 @@ function Review({ store, setStore, nav, game }) {
             sans: pvToSans(dispFen, l.pv.slice(0, 8)),
           }))
         );
+        setLinesFen(dispFen);
       })
       .catch(() => {}), 120);
     return () => {
@@ -498,12 +499,7 @@ function Review({ store, setStore, nav, game }) {
     if (!review) return null;
     const c = new Chess(dispFen);
     if (c.isGameOver()) return null;
-    const map = new Map();
-    for (const m of c.moves({ verbose: true })) {
-      if (!map.has(m.from)) map.set(m.from, []);
-      map.get(m.from).push(m.to);
-    }
-    return map;
+    return legalDests(c);
   }, [dispFen, review]);
 
   const stashLine = (b) =>
@@ -741,10 +737,7 @@ function Review({ store, setStore, nav, game }) {
         pieceSet={store.settings.pieces}
         animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
-        needsPromotion={(from, to) => {
-          const piece = new Chess(dispFen).get(from);
-          return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
-        }}
+        needsPromotion={promotionCheck(new Chess(dispFen))}
       />
 
       {branch && (
@@ -884,15 +877,6 @@ function Review({ store, setStore, nav, game }) {
       />
     </div>
   );
-}
-
-// Same thresholds the analysis board uses to grade a played move.
-function classifyDrop(drop) {
-  if (drop < 2) return "excellent";
-  if (drop < 5) return "good";
-  if (drop < 10) return "inaccuracy";
-  if (drop < 20) return "mistake";
-  return "blunder";
 }
 
 function botName(game) {

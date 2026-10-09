@@ -285,3 +285,11 @@ The one must-have left is "Enough puzzles at your rating". It stays partial beca
 
 1. **Approve this plan, or change the order or scope.**
 2. **For item 0:** confirm you want the key generated in this session, accepting that the key passes through it, rather than waiting to generate it on your NixOS machine.
+
+## Status
+
+| Item | State | Notes |
+| --- | --- | --- |
+| 0 | Parked | You chose to keep moving data by export and import until the key can be made on your NixOS machine |
+| 1 | **Done** | 75 unit tests (Vitest) and 16 browser flows (Playwright, real Stockfish). Known bugs 1, 7, 9, 14 and 15 are expected-fail tests. The brand sweep (with allowlist) runs in CI. Pages and APK builds wait for the tests. CI is green on GitHub |
+| 2 | **Done** | `src/core/` holds positions and moves, move-quality bands, the threat probe and the engine contract. 9 screens use it instead of their own copies. The opening lookup is indexed and proven identical to the old scan. Bug 4 (stale analysis lines) and bug 13 (threat arrows on harmless moves) are fixed; tests fail on the old code and pass on the new |

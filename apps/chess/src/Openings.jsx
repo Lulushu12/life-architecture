@@ -11,6 +11,7 @@ import {
   formatEval,
   verdict,
 } from "./openingdb.js";
+import { legalDests, promotionCheck } from "./core/position.js";
 
 // Browsable reference over every named opening the app knows (3,704 lines from
 // lichess-org/chess-openings, CC0). You walk the tree move by move; at each
@@ -55,12 +56,7 @@ export default function Openings({ store, nav }) {
 
   // Legal destinations, so the board can be played on directly.
   const dests = useMemo(() => {
-    const map = new Map();
-    for (const m of chess.moves({ verbose: true })) {
-      if (!map.has(m.from)) map.set(m.from, []);
-      map.get(m.from).push(m.to);
-    }
-    return map;
+    return legalDests(chess);
   }, [chess]);
 
   const playMove = (from, to, promotion) => {
@@ -123,10 +119,7 @@ export default function Openings({ store, nav }) {
             pieceSet={store.settings.pieces}
             animMs={store.settings.animMs}
             arrowColors={store.settings.arrowColors}
-            needsPromotion={(from, to) => {
-              const piece = chess.get(from);
-              return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
-            }}
+            needsPromotion={promotionCheck(chess)}
           />
 
           <div className="movepath">
