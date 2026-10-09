@@ -3,7 +3,8 @@ import { usePersistentStore } from "@shared/store.js";
 import { useHistoryNav } from "@shared/useHistoryNav.js";
 import { registerSw } from "@shared/swRegister.js";
 import { useToast } from "@shared/ui.jsx";
-import { chessStore, capStore, STORAGE_KEY } from "./storage.js";
+import { chessStore, capStore, STORAGE_KEY, newId } from "./storage.js";
+import { regradeStore, REVIEW_GRADE } from "./review.js";
 import { applyAppearance } from "./appearance.js";
 import { loadStoredFonts } from "./fontStore.js";
 import Home from "./Home.jsx";
@@ -93,6 +94,13 @@ export default function App() {
     window.history.replaceState({ view: { screen: "home" } }, "", window.location.pathname);
     if (target) go(target);
   }, [go]);
+
+  // Reviews saved under older grading rules (book moves that were really
+  // mistakes, recaptures called great) are fixed in place, also after a restore.
+  const staleReviews = store.games.some((g) => g.review && (g.review.grade || 1) < REVIEW_GRADE);
+  useEffect(() => {
+    if (staleReviews) setStore((s) => regradeStore(s, newId));
+  }, [staleReviews, setStore]);
 
   const capHits = store.capHits || 0;
   const lastCap = useRef(capHits);

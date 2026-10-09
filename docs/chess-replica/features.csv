@@ -15,7 +15,7 @@ Coach prompts you to find the idea before showing it,coach,must,yes,partial,the 
 Two-step hint (idea first then move),coach,must,yes,yes,"plan item 8: idea and highlighted piece, then Show move draws the arrow"
 Coach voice,coach,could,yes,skip,possible later with on-device speech; low value
 Celebrity coaches,coach,could,yes,skip,real people; out of bounds
-Game review move classifications,review,must,yes,yes,same 10 labels plus Forced; colours need rebranding
+Game review move classifications,review,must,yes,yes,"same 10 labels plus Forced; own colours since plan item 4; plan item 8b: book only for sound moves inside unbroken theory, no Great for recaptures"
 Accuracy overall and per phase,review,must,yes,yes,
 Per-game rating estimate,review,could,yes,no,their formula is unpublished; ours would be made up
 Coach one-line game summary,review,must,yes,yes,plan item 5: names the turning point and why

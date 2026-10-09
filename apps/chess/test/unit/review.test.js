@@ -9,6 +9,9 @@ import {
   phaseAccuracy,
   uciToSan,
   pvToSans,
+  regradeReview,
+  regradeStore,
+  REVIEW_GRADE,
 } from "../../src/review.js";
 import { FakeEngine, line } from "../fixtures/fakeEngine.js";
 
@@ -164,6 +167,89 @@ describe("opening book", () => {
         "book",
       ]
     `);
+  });
+});
+
+// Plan item 8b: a named line is a name, not a seal of approval. The lichess
+// list includes the Bongcloud, Fool's Mate and trap lines that end in mate.
+describe("opening book only for sound moves", () => {
+  it("grades a named but bad move on its merits", async () => {
+    // 1.e4 e5 2.Ke2, the Bongcloud: a named line, and a real mistake.
+    const moves = ["e4", "e5", "Ke2"];
+    const r = await reviewGame(scriptedEngine(null, moves, [{ cp: 30 }, { cp: 30 }, { cp: 30, best: "g1f3" }, { cp: -120 }]), moves);
+    expect(r.moves.map((m) => m.class)).toEqual(["book", "book", "mistake"]);
+  });
+
+  it("never calls a mating move book", async () => {
+    const moves = ["f3", "e5", "g4", "Qh4#"];
+    const r = await reviewGame(scriptedEngine(null, moves, [{ cp: 20 }, { cp: -10 }, { cp: -10, best: "b1c3" }, { cp: -10000 }]), moves);
+    expect(r.moves[2].class).toBe("blunder");
+    expect(r.moves[3].class).not.toBe("book");
+  });
+
+  it("ends theory at the first mistake by either side", async () => {
+    // 1.e4 e5 2.Nf3 Nc6 3.Bb5 are all named lines; here Nc6 is scored a mistake,
+    // so Bb5 after it is graded, not called book.
+    const moves = ["e4", "e5", "Nf3", "Nc6", "Bb5"];
+    const plan = [{ cp: 30 }, { cp: 30 }, { cp: 30 }, { cp: 30, best: "g8f6" }, { cp: 250 }, { cp: 250 }];
+    const r = await reviewGame(scriptedEngine(null, moves, plan), moves);
+    expect(r.moves.map((m) => m.class)).toEqual(["book", "book", "book", "mistake", "best"]);
+    expect(r.opening?.name).toMatch(/Ruy Lopez/); // the name is still shown
+  });
+});
+
+describe("great moves", () => {
+  it("does not call an obvious recapture great", async () => {
+    // From the Italian start: 3.Bb5 Nd4 4.Nxd4 exd4, the pawn takes back.
+    const moves = ["Bb5", "Nd4", "Nxd4", "exd4"];
+    const plan = [{ cp: 30 }, { cp: 30 }, { cp: 30 }, { cp: 30, second: 900 }, { cp: 30 }];
+    const r = await reviewGame(scriptedEngine(ITALIAN_FEN, moves, plan), moves, { startFen: ITALIAN_FEN });
+    expect(r.moves[3].class).toBe("best");
+  });
+});
+
+describe("reviews saved under the old rules", () => {
+  const BONG = ["e4", "e5", "Ke2"];
+  const bongPlan = [{ cp: 30 }, { cp: 30 }, { cp: 30, best: "g1f3" }, { cp: -120 }];
+  // What the old rules saved: Ke2 called book, no grade.
+  const old = async () => {
+    const r = await reviewGame(scriptedEngine(null, BONG, bongPlan), BONG);
+    const moves = r.moves.map((m) => ({ ...m, class: "book" }));
+    const { grade, ...rest } = r;
+    return { ...rest, moves, counts: { w: { book: 2 }, b: { book: 1 } } };
+  };
+
+  it("are regraded from their stored evals, without the engine", async () => {
+    const fixed = regradeReview(await old(), BONG);
+    expect(fixed.moves.map((m) => m.class)).toEqual(["book", "book", "mistake"]);
+    expect(fixed.counts.w).toEqual({ book: 1, mistake: 1 });
+    expect(fixed.grade).toBe(REVIEW_GRADE);
+  });
+
+  it("lose great on a recapture and keep everything else", async () => {
+    const moves = ["Bb5", "Nd4", "Nxd4", "exd4"];
+    const plan = [{ cp: 30 }, { cp: 30 }, { cp: 30 }, { cp: 30, second: 900 }, { cp: 30 }];
+    const r = await reviewGame(scriptedEngine(ITALIAN_FEN, moves, plan), moves, { startFen: ITALIAN_FEN });
+    const stale = { ...r, grade: undefined, moves: r.moves.map((m, i) => (i === 3 ? { ...m, class: "great" } : m)) };
+    const fixed = regradeReview(stale, moves, ITALIAN_FEN);
+    expect(fixed.moves.map((m) => m.class)).toEqual(r.moves.map((m) => m.class));
+  });
+
+  it("leaves a current review untouched", async () => {
+    const r = await reviewGame(scriptedEngine(null, BONG, bongPlan), BONG);
+    expect(regradeReview(r, BONG)).toBe(r);
+  });
+
+  it("regrades the whole store and adds the newly found mistakes as puzzles", async () => {
+    let n = 0;
+    const s = {
+      puzzles: [],
+      games: [{ id: "g", mode: "bot", playerColor: "w", sans: BONG, startFen: null, review: await old() }],
+    };
+    const out = regradeStore(s, () => "p" + n++);
+    expect(out.games[0].review.moves[2].class).toBe("mistake");
+    expect(out.puzzles.map((p) => p.bestUci)).toEqual(["g1f3"]);
+    expect(regradeStore(out, () => "x")).toBe(out);
   });
 });
 

@@ -136,6 +136,32 @@ test.describe("current behaviour", () => {
     }, { timeout: 60_000 }).toBe(true);
   });
 
+  // Plan item 8b: reviews saved before the fix called the Bongcloud book.
+  test("old reviews are regraded: a named but bad move is no longer book", async ({ page }) => {
+    const fens = [
+      "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1",
+      "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+    ];
+    const mv = (san, color, i, extra) => ({ san, color, class: "book", drop: 0, bestUci: null, bestSan: null, fenBefore: fens[i], ...extra });
+    const review = {
+      evals: [30, 30, 30, -120],
+      moves: [mv("e4", "w", 0, { bestUci: "e2e4" }), mv("e5", "b", 1, { bestUci: "e7e5" }), mv("Ke2", "w", 2, { drop: 14.2, bestUci: "g1f3", bestSan: "Nf3" })],
+      accuracy: { w: 80, b: 100 },
+      counts: { w: { book: 2 }, b: { book: 1 } },
+      opening: { eco: "C20", name: "Bongcloud Attack", plies: 3 },
+      pvs: [["e4"], ["e5"], ["Nf3"], null],
+    };
+    await seed(page, {
+      games: [{ id: "old1", date: 1, mode: "bot", personaId: "x", playerColor: "w", sans: ["e4", "e5", "Ke2"], result: "0-1", review }],
+    });
+    await open(page);
+    await expect.poll(async () => (await readStore(page)).games[0].review.moves[2].class).toBe("mistake");
+    const s = await readStore(page);
+    expect(s.games[0].review.grade).toBe(2);
+    expect(s.puzzles.map((p) => p.bestUci)).toEqual(["g1f3"]);
+  });
+
   test("reviewing a game labels the moves and turns your blunders into puzzles", async ({ page }) => {
     await seed(page, {
       settings: { reviewMovetime: 100 },

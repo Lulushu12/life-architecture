@@ -30,6 +30,35 @@ export const CLASS_ORDER = [
 
 const PIECE_VALUE = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 0 };
 
+// A move in a named line is only "book" when it is also sound: the lichess
+// list names traps, jokes and mates too (the Bongcloud, Fool's Mate).
+const BOOK_MAX_DROP = 5; // win% a book move may give away (good or better)
+const THEORY_ENDS_AT = 10; // the first mistake by either side ends the book
+const BOOK_PLIES = 20;
+
+// Reviews saved before grade 2 called named-but-bad moves book and every
+// recapture great; regradeReview() fixes them from their stored evals.
+export const REVIEW_GRADE = 2;
+
+// Feed it each move in order; says which named line the game is in and
+// whether this move counts as book.
+function bookJudge(startFen) {
+  const seq = [];
+  let theory = true;
+  return (san, drop) => {
+    seq.push(san);
+    const op = startFen ? null : findOpening(seq);
+    const book =
+      theory && seq.length <= BOOK_PLIES && op != null && op.plies === seq.length && drop < BOOK_MAX_DROP && !san.endsWith("#");
+    if (drop >= THEORY_ENDS_AT) theory = false;
+    return { op, book };
+  };
+}
+
+// Taking back on the square just captured on: usually the only move, but
+// obvious, so it doesn't earn "great".
+const isRecapture = (prev, mv) => !!(prev?.captured && mv.captured && mv.to === prev.to);
+
 /**
  * Reviews a game. sans: array of SAN moves from startFen (default startpos).
  * Returns { evals, moves, accuracy, opening, counts } where:
@@ -87,9 +116,8 @@ export async function reviewGame(
   }
 
   // classify each move
-  const sanSeq = [];
+  const judge = bookJudge(startFen);
   const moves = [];
-  const openingSoFar = [];
   let opening = null;
   const accDrops = { w: [], b: [] };
   for (let i = 0; i < sans.length; i++) {
@@ -101,11 +129,9 @@ export async function reviewGame(
     const forced = positions[i].legal === 1;
     if (!forced) accDrops[mv.color].push(drop);
 
-    sanSeq.push(mv.san);
-    const op = startFen ? null : findOpening(sanSeq);
+    const { op, book: inBook } = judge(mv.san, drop);
     if (op) opening = op;
-    const inBook = op != null && op.plies === sanSeq.length;
-    openingSoFar.push(inBook);
+    const recapture = isRecapture(verbose[i - 1], mv);
 
     const bestUci = bests[i]?.uci || null;
     const playedUci = mv.from + mv.to + (mv.promotion || "");
@@ -115,7 +141,7 @@ export async function reviewGame(
     const prevBlunder = i > 0 && moves[i - 1].class === "blunder";
 
     let cls;
-    if (inBook && i < 20) cls = "book";
+    if (inBook) cls = "book";
     else if (forced) cls = "forced";
     else if (
       isBest &&
@@ -125,7 +151,7 @@ export async function reviewGame(
       before < 92
     )
       cls = "brilliant";
-    else if (isBest && secondWin != null && before - secondWin >= 10) cls = "great";
+    else if (isBest && !recapture && secondWin != null && before - secondWin >= 10) cls = "great";
     else if (isBest) cls = "best";
     else if (prevBlunder && drop >= 10) cls = "miss";
     else cls = classifyDrop(drop);
@@ -151,7 +177,59 @@ export async function reviewGame(
   // Best line per position (SAN, truncated), so the review browser can show
   // the engine's idea at any move without re-searching.
   const pvs = positions.map((p, i) => (bests[i] ? pvToSans(p.fen, bests[i].pv.slice(0, 6)) : null));
-  return { evals, moves, accuracy, opening, counts, pvs, phases };
+  return { evals, moves, accuracy, opening, counts, pvs, phases, grade: REVIEW_GRADE };
+}
+
+/**
+ * Brings a review saved under older grading rules up to date, from what it
+ * stored (no engine needed). Moves no longer book get the grade their drop
+ * earns ("best" when they were the engine's move); recaptures lose "great".
+ * Great and brilliant can't be newly awarded: the second line wasn't stored.
+ */
+export function regradeReview(review, sans, startFen = null) {
+  if ((review.grade || 1) >= REVIEW_GRADE) return review;
+  const c = startFen ? new Chess(startFen) : new Chess();
+  const judge = bookJudge(startFen);
+  const moves = [];
+  let prev = null;
+  for (let i = 0; i < review.moves.length; i++) {
+    const m = review.moves[i];
+    let mv;
+    try {
+      mv = c.move(sans[i]);
+    } catch {
+      return { ...review, grade: REVIEW_GRADE }; // moves don't match: leave the grades alone
+    }
+    const drop = m.drop || 0;
+    const { book } = judge(mv.san, drop);
+    const isBest = m.bestUci === mv.from + mv.to + (mv.promotion || "");
+    const prevBlunder = i > 0 && moves[i - 1].class === "blunder";
+    const byDrop = prevBlunder && drop >= 10 ? "miss" : classifyDrop(drop);
+    let cls = m.class;
+    if (cls === "book" && !book) cls = m.forced ? "forced" : isBest ? "best" : byDrop;
+    else if (cls === "great" && isRecapture(prev, mv)) cls = "best";
+    // a move after a newly exposed blunder can become a miss (and back);
+    // otherwise keep the stored grade, which used the unrounded drop
+    else if (cls === "miss" && !prevBlunder) cls = classifyDrop(drop);
+    else if (prevBlunder && drop >= 10 && ["inaccuracy", "mistake", "blunder"].includes(cls)) cls = "miss";
+    moves.push(cls === m.class ? m : { ...m, class: cls });
+    prev = mv;
+  }
+  return {
+    ...review,
+    moves,
+    counts: { w: countClasses(moves, "w"), b: countClasses(moves, "b") },
+    grade: REVIEW_GRADE,
+  };
+}
+
+/** Regrades every saved review that needs it; new puzzles come with it. */
+export function regradeStore(s, makeId) {
+  let out = s;
+  for (const g of s.games)
+    if (g.review && (g.review.grade || 1) < REVIEW_GRADE)
+      out = withReview(out, g.id, regradeReview(g.review, g.sans, g.startFen), makeId);
+  return out;
 }
 
 // UCI-perspective score of a parsed info line, mates folded to big numbers.
