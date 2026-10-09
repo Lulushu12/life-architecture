@@ -23,7 +23,12 @@ permissions:
   contents: write
 
 jobs:
+  # No APK is built while the chess tests are red.
+  test:
+    uses: ./.github/workflows/test.yml
+
   apk:
+    needs: test
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false # one app's failure shouldn't block the other seven

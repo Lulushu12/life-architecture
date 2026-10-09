@@ -1,0 +1,21 @@
+{
+  "_about": "Brand sweep config for tools/brand-sweep/check.py. Nothing of chess.com's name, domain or brand colour may ship, except the entries under allow (each with its reason). Entries under pending are known hits that plan item 4 removes; delete them from this file when that ships.",
+  "avoid": ["chess.com", "chesscom"],
+  "domains": ["chess.com"],
+  "colors": ["#81b64c"],
+  "skip": ["test-results/", "playwright-report/", "android/"],
+  "allow": [
+    { "file": "public/engine/stockfish-nnue-16-single.js", "reason": "Stockfish's GPLv3 copyright notice; removing it would breach the licence" },
+    { "file": "src/importers.js", "reason": "import from chess.com's public read-only API, which the user asked for" },
+    { "file": "src/ReviewScreen.jsx", "text": "From Lichess, Chess.com or any PGN", "reason": "the importer's screen subtitle" },
+    { "file": "src/ReviewScreen.jsx", "text": "chesscom", "reason": "the importer's source id" },
+    { "file": "test/unit/pgn-import.test.js", "reason": "tests of the importer" },
+    { "file": "brand.json", "reason": "this file names what to avoid" }
+  ],
+  "pending": [
+    { "file": "src/styles.css", "match": "#81b64c", "reason": "accent and success colour; plan item 4" },
+    { "file": "src/review.js", "match": "#81b64c", "reason": "Best and Excellent badge colour; plan item 4" },
+    { "file": "src/Board.jsx", "text": "chess.com style", "reason": "code comment; plan item 4" },
+    { "file": "src/ReviewScreen.jsx", "text": "chess.com style", "reason": "code comment; plan item 4" }
+  ]
+}
