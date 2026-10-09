@@ -15,7 +15,7 @@ for (const [path, svg] of Object.entries(pieceModules)) {
   (PIECE_SETS[m[1]] = PIECE_SETS[m[1]] || {})[m[2]] = svg;
 }
 export const PIECE_SET_NAMES = {
-  cburnett: "Cburnett",
+  cburnett: "Classic (lichess)",
   merida: "Merida",
   kosal: "Kosal",
   // generated designer sets — see scripts/gen-piece-sets.mjs

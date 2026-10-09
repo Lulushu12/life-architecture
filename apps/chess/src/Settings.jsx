@@ -295,7 +295,7 @@ function MainSettings({ store, setStore, nav }) {
       <h2>Version</h2>
       <div className="backuprow">
         <span className="hint small">
-          build {__BUILD_ID__} · {__BUILD_DATE__}
+          {__APP_VERSION__ ? `Version ${__APP_VERSION__} · ` : ""}build {__BUILD_ID__} · {__BUILD_DATE__}
         </span>
         <a className="linkbtn" href={RELEASE_URL} target="_blank" rel="noreferrer">
           Check for updates

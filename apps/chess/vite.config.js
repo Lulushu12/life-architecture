@@ -22,6 +22,11 @@ export default defineConfig(({ mode }) => ({
     // there's no store to ask, so the APK has to carry its own identity.
     __BUILD_ID__: JSON.stringify((process.env.GITHUB_SHA || "").slice(0, 7) || "local"),
     __BUILD_DATE__: JSON.stringify(new Date().toISOString().slice(0, 10)),
+    // Same number the APK's versionCode gets (android/app/build.gradle). Only
+    // the APK workflow's run counter means anything; the web build has none.
+    __APP_VERSION__: JSON.stringify(
+      mode === 'android' && process.env.GITHUB_RUN_NUMBER ? `1.${process.env.GITHUB_RUN_NUMBER}` : ''
+    ),
   },
   base: mode === 'android' ? './' : '/life-architecture/chess/',
   resolve: {
