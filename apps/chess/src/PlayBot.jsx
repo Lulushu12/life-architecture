@@ -8,7 +8,6 @@ import { chooseBotMove } from "./bot.js";
 import { detectEvents, pickLine, pickLineWithEvent, aiReact, recentMoves } from "./chat.js";
 import { findOpening } from "./openings.js";
 import { play as sfx, buzz } from "./audio.js";
-import { newId } from "./storage.js";
 import { ENGINE_LOADING } from "./platform.js";
 import { useConfirm } from "@shared/ui.jsx";
 import { useWakeLock } from "@shared/useWakeLock.js";
@@ -19,6 +18,8 @@ import { HELP_PRESETS, DEFAULT_PRESET, HELP_SWITCHES, SWITCH_LABELS, presetFlags
 import Sheet from "./Sheet.jsx";
 import { liveCoachNote, hintIdea, blunderCheck, tacticPrompt } from "./core/coach/live.js";
 import { CLASSIFICATIONS } from "./review.js";
+import { addResult, wdl, cleanWins, assistLabel } from "./records.js";
+import { newBotGame } from "./botGame.js";
 import { Lightbulb, MessageSquare, SlidersHorizontal, Undo2 } from "lucide-react";
 
 export default function PlayBot({ store, setStore, nav, view }) {
@@ -26,7 +27,8 @@ export default function PlayBot({ store, setStore, nav, view }) {
   if (view.pick || !cur || cur.mode !== "bot") {
     return <BotPicker store={store} setStore={setStore} nav={nav} view={view} />;
   }
-  return <BotGame store={store} setStore={setStore} nav={nav} />;
+  // keyed by game, so a rematch starts with a clean slate (hints, coach, views)
+  return <BotGame key={cur.id} store={store} setStore={setStore} nav={nav} />;
 }
 
 function BotPicker({ store, setStore, nav, view }) {
@@ -71,21 +73,7 @@ function BotPicker({ store, setStore, nav, view }) {
     setStore((s) => ({
       ...s,
       settings: { ...s.settings, helpPreset: preset },
-      current: {
-        id: newId(),
-        mode: "bot",
-        personaId: persona.id,
-        playerColor: resolved,
-        serious: isSerious(help),
-        help,
-        startFen: fromFen,
-        sans: [],
-        chat: [],
-        cps: [0],
-        status: "playing",
-        result: null,
-        createdAt: Date.now(),
-      },
+      current: newBotGame({ personaId: persona.id, playerColor: resolved, help, startFen: fromFen }),
     }));
     nav("play");
   };
@@ -151,8 +139,9 @@ function BotPicker({ store, setStore, nav, view }) {
                   <span className="bm-name">{p.name}</span>
                   <span className="bm-rec">
                     {p.elo}
-                    {rec ? ` · ${rec.w}-${rec.d}-${rec.l}` : ""}
+                    {rec ? ` · ${wdl(rec)}` : ""}
                   </span>
+                  {cleanWins(rec) > 0 && <CleanMark n={cleanWins(rec)} />}
                 </button>
               );
             })}
@@ -175,7 +164,8 @@ function BotPicker({ store, setStore, nav, view }) {
                   <button key={p.id} className="botmini" title={p.tagline} onClick={() => start(p)}>
                     <span className="bm-avatar">{p.avatar}</span>
                     <span className="bm-name">{p.name}</span>
-                    {rec && <span className="bm-rec">{`${rec.w}-${rec.d}-${rec.l}`}</span>}
+                    {rec && <span className="bm-rec">{wdl(rec)}</span>}
+                    {cleanWins(rec) > 0 && <CleanMark n={cleanWins(rec)} />}
                   </button>
                 );
               })}
@@ -230,8 +220,13 @@ function BotGame({ store, setStore, nav }) {
       const c = s.current;
       if (!c || c.id !== g.id) return s;
       const next = { ...helpOf(c, s.settings), ...patch };
-      return { ...s, current: { ...c, help: next, serious: isSerious(next) } };
+      const assist = c.assist ?? (isSerious(next) ? null : "help");
+      return { ...s, current: { ...c, help: next, serious: isSerious(next), assist } };
     });
+
+  // The first thing that made this game assisted sticks.
+  const markAssist = (why) =>
+    setStore((s) => (s.current && s.current.id === g.id && !s.current.assist ? { ...s, current: { ...s.current, assist: why } } : s));
 
   useEffect(() => {
     engine.ready.then(() => setEngineReady(true));
@@ -483,6 +478,7 @@ function BotGame({ store, setStore, nav }) {
           },
         };
       });
+      markAssist("branch");
       setViewPly(null);
       coachPending.current = null;
       setCoachNote(null);
@@ -582,6 +578,7 @@ function BotGame({ store, setStore, nav }) {
         },
       };
     });
+    markAssist("branch");
     setViewPly(null);
   };
 
@@ -736,13 +733,9 @@ function BotGame({ store, setStore, nav }) {
     setStore((s) => {
       const c = s.current;
       if (!c || c.id !== g.id || c.status !== "playing") return s;
-      const rec = s.botRecords[persona.id] || { w: 0, l: 0, d: 0 };
-      const newRec =
-        result === "1/2-1/2"
-          ? { ...rec, d: rec.d + 1 }
-          : playerWon
-            ? { ...rec, w: rec.w + 1 }
-            : { ...rec, l: rec.l + 1 };
+      // games begun before records were split: judge by the help level
+      const assist = c.assist !== undefined ? c.assist : isSerious(helpOf(c, s.settings)) ? null : "help";
+      const newRec = addResult(s.botRecords[persona.id], result === "1/2-1/2" ? "d" : playerWon ? "w" : "l", assist);
       const entry = {
         id: c.id,
         date: Date.now(),
@@ -753,6 +746,7 @@ function BotGame({ store, setStore, nav }) {
         sans: c.sans,
         result,
         reason,
+        assist,
         review: null,
       };
       return {
@@ -764,6 +758,7 @@ function BotGame({ store, setStore, nav }) {
           status: "over",
           result,
           reason,
+          assist,
           chat: line ? [...c.chat, { text: line, ply: c.sans.length }] : c.chat,
         },
       };
@@ -778,6 +773,7 @@ function BotGame({ store, setStore, nav }) {
       return;
     }
     const fen = liveFen;
+    markAssist("hint");
     const open = (bestUci, pv, cp) =>
       setHintState({ fen, step: 1, from: bestUci.slice(0, 2), to: bestUci.slice(2, 4), text: hintIdea(fen, pv, cp, prevFen) });
     // Reuse the move the eval bar's own search already picked for this
@@ -805,6 +801,7 @@ function BotGame({ store, setStore, nav }) {
         ? { ...s, current: { ...s.current, sans: s.current.sans.slice(0, n), cps: s.current.cps.slice(0, n + 1), premove: null } }
         : s
     );
+    markAssist("takeback");
     setViewPly(null);
     coachSeq.current += 1;
     coachPending.current = null;
@@ -979,25 +976,41 @@ function BotGame({ store, setStore, nav }) {
       <MoveList sans={g.sans} activePly={viewPly ?? g.sans.length - 1} onTap={setViewPly} />
 
       {over ? (
-        <div className="btnrow endrow">
-          <button
-            className="bigbtn"
-            onClick={() => {
-              setStore((s) => ({ ...s, current: null }));
-              nav("review", { gameId: g.id });
-            }}
-          >
-            Review game
-          </button>
-          <button
-            className="linkbtn"
-            onClick={() => {
-              setStore((s) => ({ ...s, current: null }));
-              nav("play", { pick: true });
-            }}
-          >
-            New game
-          </button>
+        <div className="gameend">
+          <p className="hint small endnote">
+            {g.assist ? `Counted as assisted: ${assistLabel(g.assist)}.` : "Counted as a clean game: no help, hints or takebacks."}
+          </p>
+          <div className="btnrow endrow">
+            <button
+              className="bigbtn"
+              onClick={() => {
+                setStore((s) => ({ ...s, current: null }));
+                nav("review", { gameId: g.id });
+              }}
+            >
+              Review game
+            </button>
+            <button
+              className="bigbtn secondary"
+              onClick={() =>
+                setStore((s) => ({
+                  ...s,
+                  current: newBotGame({ personaId: g.personaId, playerColor: botColor, help: help, startFen: g.startFen }),
+                }))
+              }
+            >
+              Rematch
+            </button>
+            <button
+              className="linkbtn"
+              onClick={() => {
+                setStore((s) => ({ ...s, current: null }));
+                nav("play", { pick: true });
+              }}
+            >
+              New game
+            </button>
+          </div>
         </div>
       ) : (
         <nav className="actionbar" aria-label="Game actions">
@@ -1113,5 +1126,13 @@ function CoachStrip({ hint, note, prompt, onTakeback }) {
         </button>
       )}
     </div>
+  );
+}
+
+function CleanMark({ n }) {
+  return (
+    <span className="cleanmark" title={`${n} clean ${n === 1 ? "win" : "wins"}: no help, hints or takebacks`}>
+      ✓ {n} clean
+    </span>
   );
 }

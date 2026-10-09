@@ -7,7 +7,7 @@ Threat arrows during a bot game,bots,must,yes,yes,"plan item 7: only real threat
 Suggestion arrow during a bot game,bots,should,yes,yes,plan item 7: best-move arrow switch
 Move feedback after each of your moves in a bot game,coach,must,yes,yes,"plan item 8: a coach line under your plate after any inaccuracy or worse, with a Take it back button; praise now and then"
 Bot chat with personality,bots,should,yes,yes,mine is bilingual with event-driven banter and optional LLM
-Clean vs assisted record per bot (crowns),bots,could,yes,partial,mine counts W-D-L and ignores hints and takebacks
+Clean vs assisted record per bot (crowns),bots,could,yes,yes,"plan item 10: clean = On my own with no hint, takeback or replay; the game-over screen says which and why; clean wins marked on the bot picker; Stats splits results"
 Time controls in bot games,bots,could,yes,no,
 Play a bot from any position,bots,should,yes,partial,from editor and lessons yes; from analysis no; from review buggy (audit bug 2)
 Coach explains your move in words (praise / mistake / why),coach,must,yes,yes,Game Review since plan item 5; bot games since plan item 8
@@ -49,8 +49,8 @@ Puzzle Battle,puzzles,could,yes,skip,live multiplayer
 Puzzle Points tiers and skins,puzzles,could,yes,skip,gamification art
 Learn path with Next Lesson,lessons,should,yes,partial,72 lessons by category; no path; completion meaningless
 New-to-chess basics (moves and rules),lessons,could,yes,no,you likely know the rules already
-Home screen built around tasks,navigation,should,yes,partial,12 equal tiles
-Game-over sheet with Rematch,navigation,should,yes,partial,Review and New only
+Home screen built around tasks,navigation,should,yes,yes,"plan item 10: hero card with a mini board of your game (or play your last bot again), four tiles (puzzles, due, next lesson, play bots), the rest as a list; the daily puzzle tile comes with item 11"
+Game-over sheet with Rematch,navigation,should,yes,yes,"plan item 10: Review, Rematch (same bot and help, colours swapped) and New"
 One tap from game end to review,navigation,must,yes,yes,
 Bottom tab bar,navigation,could,yes,no,
 Fully offline including engine and review,mine,could,no,yes,mine only

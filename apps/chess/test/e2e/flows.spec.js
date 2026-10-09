@@ -165,6 +165,81 @@ test.describe("current behaviour", () => {
     await expect(page.locator(".coachstrip.cs-prompt")).toContainText("Can you win material?", { timeout: 60_000 });
   });
 
+  // Plan item 10: game end, records and home.
+  // White to play Qxf7#, on "On my own" (a clean game so far).
+  const MATE_IN_ONE = {
+    id: "m1", mode: "bot", personaId: "x", playerColor: "w", serious: true,
+    startFen: "r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 4 4",
+    sans: [], chat: [], cps: [0], status: "playing", result: null, createdAt: 1, muted: true,
+    help: { evalBar: false, threats: false, check: false, suggest: false, coach: false }, assist: null,
+  };
+
+  test("a clean win counts as clean, and Rematch swaps colours", async ({ page }) => {
+    await seed(page, { current: MATE_IN_ONE });
+    await open(page);
+    await page.getByText(/Resume game/).click();
+    await move(page, "h5", "f7");
+    await expect(page.locator(".endnote")).toHaveText("Counted as a clean game: no help, hints or takebacks.");
+    let s = await readStore(page);
+    const rec = Object.values(s.botRecords)[0];
+    expect(rec).toMatchObject({ w: 1, clean: { w: 1 } });
+    expect(s.games[0]).toMatchObject({ id: "m1", assist: null, result: "1-0" });
+
+    await button(page, /Rematch/).click();
+    await expect.poll(async () => (await readStore(page)).current?.id).not.toBe("m1");
+    s = await readStore(page);
+    expect(s.current).toMatchObject({ playerColor: "b", status: "playing", sans: [], assist: null });
+    expect(s.current.startFen).toBe(MATE_IN_ONE.startFen);
+    await expect(page.locator(".endnote")).toHaveCount(0);
+  });
+
+  test("a hint makes the game assisted", async ({ page }) => {
+    await seed(page, { current: MATE_IN_ONE });
+    await open(page);
+    await page.getByText(/Resume game/).click();
+    await button(page, /^Hint$/).click();
+    await expect(page.locator(".coachstrip")).toContainText("Hint", { timeout: 60_000 });
+    await move(page, "h5", "f7");
+    await expect(page.locator(".endnote")).toHaveText("Counted as assisted: you took a hint.");
+    expect(Object.values((await readStore(page)).botRecords)[0]).toMatchObject({ w: 1, assisted: { w: 1 } });
+  });
+
+  test("home shows your game on a mini board, or offers to play the last bot again", async ({ page }) => {
+    await seed(page, {
+      current: { ...ITALIAN_START },
+      games: [{ id: "g0", date: 5, mode: "bot", personaId: "x", playerColor: "b", sans: ["e4", "e5"], result: "1-0", review: null }],
+    });
+    await open(page);
+    const hero = page.locator(".hero");
+    await expect(hero).toContainText("Your move");
+    await expect(hero.locator(".miniboard .msq")).toHaveCount(64);
+    await expect(hero.locator(".msq.last")).toHaveCount(2);
+
+    // without a game in progress: play the last bot again
+    await page.evaluate(() => {
+      const s = JSON.parse(localStorage.getItem("chess-v1"));
+      s.current = null;
+      localStorage.setItem("chess-v1", JSON.stringify(s));
+    });
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await expect(hero).toContainText("Last game: lost");
+    await expect(hero).toContainText("Play again vs");
+    await hero.getByRole("button", { name: /Play again/ }).click();
+    await expect(page.locator(".boardrow")).toBeVisible();
+    const cur = (await readStore(page)).current;
+    expect(cur).toMatchObject({ mode: "bot", playerColor: "b", sans: [] });
+  });
+
+  test("stats with no games shows one way in", async ({ page }) => {
+    await seed(page, null);
+    await open(page);
+    await button(page, /Stats/).click();
+    await expect(page.locator(".statsempty")).toContainText("Play a game and your stats start here");
+    await expect(page.getByText("Performance rating")).toHaveCount(0);
+    await button(page, /Play a bot/).click();
+    await expect(page.locator(".botmini").first()).toBeVisible();
+  });
+
   // Found while building plan item 8: moving before the engine had judged the
   // position left the evals one short, and they never caught up again, so the
   // eval bar, threats and coach went quiet for the rest of the game.

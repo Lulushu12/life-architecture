@@ -111,9 +111,15 @@ export default function Stats({ store, nav }) {
   const data = useMemo(() => {
     const mine = store.games.filter((g) => g.playerColor && (g.mode === "bot" || g.mode === "import"));
     const tally = { w: 0, d: 0, l: 0 };
+    // plan item 10: bot games since the split, clean vs with help
+    const split = { clean: { w: 0, d: 0, l: 0 }, assisted: { w: 0, d: 0, l: 0 }, n: 0 };
     for (const g of mine) {
       const o = outcome(g);
       if (o) tally[o]++;
+      if (o && g.mode === "bot" && g.assist !== undefined) {
+        split[g.assist ? "assisted" : "clean"][o]++;
+        split.n++;
+      }
     }
     const byMode = {};
     for (const g of store.games) byMode[g.mode] = (byMode[g.mode] || 0) + 1;
@@ -153,7 +159,7 @@ export default function Stats({ store, nav }) {
       };
     }
     const lessonsDone = Object.values(store.lessonProgress || {}).filter((p) => p?.completed).length;
-    return { tally, byMode, acc, blunders, perf, lessonsDone, total: mine.length };
+    return { tally, split, byMode, acc, blunders, perf, lessonsDone, total: mine.length };
   }, [store.games, store.lessonProgress]);
 
   const rating = getRating(store);
@@ -168,6 +174,21 @@ export default function Stats({ store, nav }) {
     <div className="page">
       <TopBar title="Stats" sub={`${store.games.length} games in the archive`} onBack={() => nav("home")} />
 
+      {store.games.length === 0 && (
+        <div className="card hero herofirst statsempty">
+          <div className="hero-k">Nothing to show yet</div>
+          <div className="hero-h">Play a game and your stats start here</div>
+          <div className="hero-s">Results, accuracy and your progress against the bots fill in as you play and review.</div>
+          <div>
+            <button type="button" className="bigbtn herobtn" onClick={() => nav("play", { pick: true })}>
+              Play a bot
+            </button>
+          </div>
+        </div>
+      )}
+
+      {store.games.length > 0 && (
+        <>
       <div className="card">
         <h3>Results</h3>
         {decided ? (
@@ -185,6 +206,12 @@ export default function Stats({ store, nav }) {
           </>
         ) : (
           <p className="hint small">Finish a game against a bot, or import your games, to see results.</p>
+        )}
+        {data.split.n > 0 && (
+          <p className="hint small splitline">
+            Clean (no help, hints or takebacks) {data.split.clean.w}-{data.split.clean.d}-{data.split.clean.l} · with help{" "}
+            {data.split.assisted.w}-{data.split.assisted.d}-{data.split.assisted.l}
+          </p>
         )}
         <p className="hint small">
           {Object.entries(data.byMode)
@@ -217,6 +244,8 @@ export default function Stats({ store, nav }) {
         <h3>Blunders per game</h3>
         <Bars values={data.blunders} label="Blunders per reviewed game" />
       </div>
+        </>
+      )}
 
       <BlunderChecks checks={store.blunderChecks} />
 

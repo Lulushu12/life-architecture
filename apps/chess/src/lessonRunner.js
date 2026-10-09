@@ -1,7 +1,7 @@
 // Small rules the lesson runner follows, kept apart from the screen so they
 // can be tested.
 
-import { LESSONS } from "./lessons/index.js";
+import { LESSONS, LEVEL_ORDER } from "./lessons/index.js";
 
 /**
  * Which side the board faces. A quiz always faces the side asked to move
@@ -32,4 +32,18 @@ export function progressPct(lesson, progress) {
 export function completedCount(progressMap) {
   const ids = new Set(LESSONS.map((l) => l.id));
   return Object.entries(progressMap || {}).filter(([id, p]) => p?.completed && ids.has(id)).length;
+}
+
+/**
+ * The lesson the home screen offers next: one you started and didn't
+ * finish, else the first unfinished one, easiest level first. (Plan item 13
+ * replaces this with a proper path.) Returns {lesson, done, total} or null.
+ */
+export function nextLesson(progressMap, lessons = LESSONS) {
+  const prog = progressMap || {};
+  const open = lessons.filter((l) => !prog[l.id]?.completed);
+  const started = open.find((l) => (prog[l.id]?.step || 0) > 0);
+  const byLevel = [...open].sort((a, b) => (LEVEL_ORDER[a.level] ?? 1) - (LEVEL_ORDER[b.level] ?? 1));
+  const lesson = started || byLevel[0] || null;
+  return lesson ? { lesson, done: lessons.length - open.length, total: lessons.length } : null;
 }

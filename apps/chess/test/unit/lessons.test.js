@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { Chess } from "chess.js";
 import { LESSONS, categoryCounts } from "../../src/lessons/index.js";
-import { boardOrientation, resumeStep, progressPct, completedCount } from "../../src/lessonRunner.js";
+import { boardOrientation, resumeStep, progressPct, completedCount, nextLesson } from "../../src/lessonRunner.js";
 
 // Replays every lesson and yields each quiz with its position and the
 // arrows the learner saw on that step and the one before it.
@@ -89,5 +89,23 @@ describe("lesson runner rules", () => {
   it("counts only completed lessons that still exist", () => {
     const real = LESSONS[0].id;
     expect(completedCount({ [real]: { completed: true }, "gone-lesson": { completed: true }, other: {} })).toBe(1);
+  });
+});
+
+describe("next lesson on the home screen (plan item 10)", () => {
+  const L = [
+    { id: "a", level: "advanced", steps: [{}, {}] },
+    { id: "b", level: "beginner", steps: [{}, {}] },
+    { id: "c", level: "beginner", steps: [{}, {}] },
+  ];
+  it("offers the easiest unfinished lesson", () => {
+    expect(nextLesson({}, L)).toMatchObject({ lesson: { id: "b" }, done: 0, total: 3 });
+    expect(nextLesson({ b: { completed: true } }, L)).toMatchObject({ lesson: { id: "c" }, done: 1 });
+  });
+  it("prefers one you started", () => {
+    expect(nextLesson({ a: { step: 1 } }, L).lesson.id).toBe("a");
+  });
+  it("returns null when everything is done", () => {
+    expect(nextLesson({ a: { completed: true }, b: { completed: true }, c: { completed: true } }, L)).toBeNull();
   });
 });

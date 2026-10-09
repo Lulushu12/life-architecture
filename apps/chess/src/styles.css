@@ -2027,3 +2027,194 @@ button.lessonrow {
   margin-top: 4px;
   color: var(--accent);
 }
+/* Home (plan item 10) */
+.hero {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 12px;
+  border-color: var(--accent-line);
+  background: var(--accent-tint);
+  text-align: left;
+  width: 100%;
+  font: inherit;
+  color: inherit;
+}
+.herofirst {
+  grid-template-columns: 1fr;
+  cursor: pointer;
+}
+.hero-body {
+  min-width: 0;
+}
+.hero-k {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.hero-h {
+  font-family: var(--display);
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-top: 2px;
+}
+.hero-s {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 2px;
+}
+.herobtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 9px 16px;
+  font-size: var(--fs-sm);
+}
+.herobtn svg {
+  width: 16px;
+  height: 16px;
+}
+.miniboard {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  border-radius: 6px;
+  overflow: hidden;
+  flex: none;
+}
+.msq {
+  position: relative;
+}
+.msq.light {
+  background: var(--light);
+}
+.msq.dark {
+  background: var(--dark);
+}
+.msq.last::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 214, 0, 0.38);
+}
+.msq svg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.hometiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 10px 0;
+}
+.hometile {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 11px 12px;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  min-width: 0;
+}
+.ht-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ht-row svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+}
+.ht-num {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.ht-num small {
+  font-size: 14px;
+  color: var(--muted);
+}
+.ht-ava {
+  font-size: 20px;
+}
+.ht-lbl {
+  font-weight: 600;
+  font-size: 13.5px;
+}
+.ht-sub {
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.homesection {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 18px 4px 8px;
+}
+.homelist {
+  padding: 4px 0;
+}
+.homerow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 14px;
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--border);
+  font: inherit;
+  font-size: 15px;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+.homerow:first-child {
+  border-top: 0;
+}
+.homerow svg {
+  width: 19px;
+  height: 19px;
+  color: var(--muted);
+  flex: none;
+}
+.homerow span {
+  flex: 1;
+}
+.homerow .chev {
+  width: 16px;
+  height: 16px;
+}
+@media (min-width: 900px) {
+  .homepage {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+}
+/* Game end and records (plan item 10) */
+.endnote {
+  text-align: center;
+  margin: 12px 0 0;
+}
+.cleanmark {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ok);
+}

@@ -1,16 +1,16 @@
-## Parity: 78.0 / 100
+## Parity: 80.3 / 100
 
-features 78.0  (49 counted, must-haves 20 of 22 done)
+features 80.3  (49 counted, must-haves 20 of 22 done)
 
 Not shippable yet: 2 must-have features are not done.
 
 ## By area, weakest first
 - lessons                       33.3  (2 features)
 - puzzles                       60.0  (9 features)
-- navigation                    62.5  (4 features)
 - history                       71.4  (3 features)
 - analysis                      79.2  (6 features)
-- bots                          80.6  (9 features)
+- bots                          83.3  (9 features)
+- navigation                    87.5  (4 features)
 - review                        89.7  (12 features)
 - coach                        100.0  (4 features)
 
@@ -24,8 +24,6 @@ Not shippable yet: 2 must-have features are not done.
 - [should] history: Game archive with filters and tabs, partial  (flat list with stars only)
 - [should] history: Keep all your games, partial  (capped at 50 (starred kept))
 - [should] lessons: Learn path with Next Lesson, partial  (72 lessons by category; no path; completion meaningless)
-- [should] navigation: Game-over sheet with Rematch, partial  (Review and New only)
-- [should] navigation: Home screen built around tasks, partial  (12 equal tiles)
 - [should] puzzles: Custom puzzles by theme and rating range, partial  (theme filter yes; rating range no)
 - [should] puzzles: Puzzle Rush, partial  (3 minutes only; no 5 min or survival)
 - [could] bots: Adaptive bot that adjusts to how you play, no
@@ -34,7 +32,6 @@ Not shippable yet: 2 must-have features are not done.
 - [could] navigation: Bottom tab bar, no
 - [could] review: Per-game rating estimate, no  (their formula is unpublished; ours would be made up)
 - [could] analysis: Variation tree with comments, partial  (linear line plus 8 stashed lines)
-- [could] bots: Clean vs assisted record per bot (crowns), partial  (mine counts W-D-L and ignores hints and takebacks)
 - [could] puzzles: Difficulty setting for rated puzzles, partial  (tiers and rated mix exist; no offset)
 - [could] review: Opening name plus your history in that opening, partial  (name only)
 
