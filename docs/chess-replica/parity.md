@@ -1,8 +1,8 @@
-## Parity: 76.6 / 100
+## Parity: 78.0 / 100
 
-features 76.6  (49 counted, must-haves 19 of 22 done)
+features 78.0  (49 counted, must-haves 20 of 22 done)
 
-Not shippable yet: 3 must-have features are not done.
+Not shippable yet: 2 must-have features are not done.
 
 ## By area, weakest first
 - lessons                       33.3  (2 features)
@@ -11,11 +11,10 @@ Not shippable yet: 3 must-have features are not done.
 - history                       71.4  (3 features)
 - analysis                      79.2  (6 features)
 - bots                          80.6  (9 features)
-- coach                         87.5  (4 features)
 - review                        89.7  (12 features)
+- coach                        100.0  (4 features)
 
 ## Missing, in build order
-- [must] coach: Coach prompts you to find the idea before showing it, partial  (the hint's first step names the idea and lights the piece; the coach does not yet prompt on its own when a tactic is there)
 - [must] puzzles: Enough puzzles at your rating, partial  (1200 under 1000 and 1200 at 1000-1299)
 - [must] review: Best move with reason, partial  (reason given when the coach finds one (missed mate, missed win); otherwise "best was X")
 - [should] analysis: Save an analysis, no
@@ -57,3 +56,4 @@ Not shippable yet: 3 must-have features are not done.
 - Romanian-language bots
 - 33 piece sets and 34 board themes with custom colours
 - Export everything (PGN and JSON backup)
+- Blunder check before your move

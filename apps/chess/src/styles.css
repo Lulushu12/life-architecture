@@ -2002,3 +2002,28 @@ button.lessonrow {
 .coachstrip.cs-warn .coachtag {
   color: var(--cls, var(--danger-soft));
 }
+/* Blunder check and coach prompts (plan item 9) */
+.coachstrip.cs-check {
+  grid-template-columns: auto 1fr;
+  border-color: var(--border);
+  border-left: 4px solid var(--gold);
+  background: var(--surface);
+}
+.coachstrip.cs-check .coachtag {
+  color: var(--gold);
+}
+.checkbtns {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 6px;
+}
+.coachstrip.cs-prompt .coachtag::before {
+  content: "● ";
+}
+.cs-also {
+  display: block;
+  margin-top: 4px;
+  color: var(--accent);
+}

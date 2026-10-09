@@ -64,29 +64,114 @@ export function liveCoachNote(p) {
   return null;
 }
 
+// What the engine's line from here is about, for the side to move:
+// "mate", "material" (wins at least two points net), or null.
+// `prevFen` is the position before the opponent's last move, so taking back
+// what they just took doesn't count as winning material.
+export function tacticKind(fen, pv, cp, prevFen = null) {
+  if (!pv?.length) return null;
+  const c = new Chess(fen);
+  const me = c.turn();
+  if ((cp ?? 0) * (me === "w" ? 1 : -1) >= 9000) return "mate";
+  const base = new Chess(prevFen || fen);
+  const before = material(base, me) - material(base, other(me));
+  // an even number of plies, so the line ends after their answer
+  const { chess: end } = playLine(fen, pvToSans(fen, pv.slice(0, 4)), 4);
+  const gain = material(end, me) - material(end, other(me)) - before;
+  return gain >= 2 ? "material" : null;
+}
+
+/**
+ * The coach speaking up before your move (coach on): only when there is a
+ * tactic for you, and without giving the move away.
+ */
+export function tacticPrompt(fen, pv, cp, prevFen = null) {
+  const kind = tacticKind(fen, pv, cp, prevFen);
+  if (kind === "mate") return "There's a forced mate here. Can you find it? Start with checks.";
+  if (kind === "material") return "Their last move left something loose. Can you win material?";
+  return null;
+}
+
 /**
  * First step of a hint: the idea behind the engine's move, without the move.
  * @param fen      position, your move
  * @param bestPv   the engine's line (UCI)
  * @param cp       White-perspective eval of the position
+ * @param prevFen  position before the opponent's last move, if any
  */
-export function hintIdea(fen, bestPv, cp) {
+export function hintIdea(fen, bestPv, cp, prevFen = null) {
   if (!bestPv?.length) return "Look for checks, captures and threats first.";
   const c = new Chess(fen);
-  const me = c.turn();
-  const mine = (cp ?? 0) * (me === "w" ? 1 : -1);
-  const sans = pvToSans(fen, bestPv.slice(0, 5));
-  const first = sans[0] || "";
-  if (mine >= 9000) return "There's a forced mate here. Start with checks.";
-  const before = material(c, me) - material(c, other(me));
-  const { chess: end } = playLine(fen, sans, 5);
-  const gain = material(end, me) - material(end, other(me)) - before;
-  if (gain >= 2) return "You can win material here. Look at what's loose.";
+  const first = pvToSans(fen, bestPv.slice(0, 1))[0] || "";
+  const kind = tacticKind(fen, bestPv, cp, prevFen);
+  if (kind === "mate") return "There's a forced mate here. Start with checks.";
+  if (kind === "material") return "You can win material here. Look at what's loose.";
   if (first.includes("+")) return "A check is the key. Which one?";
   if (first.includes("x")) return "A capture is the best move here.";
   const piece = c.get(bestPv[0].slice(0, 2));
   if (!piece) return "Look for your most useful move.";
   return `The highlighted ${NAME[piece.type]} has a better square. Where does it do the most?`;
+}
+
+// Win% a move may give away before the blunder check steps in: a piece,
+// not a pawn, at an even position.
+export const BLUNDER_CHECK_DROP = 15;
+
+/**
+ * The blunder check: would this move give a lot away? Returns a nudge that
+ * points where to look without naming the reply, or null.
+ * @returns {{ text, squares: string[], drop } | null}
+ */
+export function blunderCheck({ fenBefore, san, cpBefore, cpAfter, replyPv, ply = 0 }) {
+  if (cpBefore == null || cpAfter == null || san.endsWith("#")) return null;
+  const c = new Chess(fenBefore);
+  const me = c.turn();
+  const sign = me === "w" ? 1 : -1;
+  const drop = winPct(cpBefore * sign) - winPct(cpAfter * sign);
+  if (drop < BLUNDER_CHECK_DROP) return null;
+  try {
+    c.move(san);
+  } catch {
+    return null;
+  }
+  const facts = moveFacts({
+    fenBefore,
+    san,
+    color: me,
+    cls: classifyDrop(drop),
+    bestSan: null,
+    bestLine: [],
+    reply: replyPv ? pvToSans(c.fen(), replyPv.slice(0, 6)) : [],
+    evalBefore: cpBefore,
+    evalAfter: cpAfter,
+    ply,
+  });
+  const f = facts.find((x) => !x.type.startsWith("generic_")) || null;
+  const theirs = (t) => (t ? `their ${NAME[t]}` : "their pieces");
+  let text;
+  let squares = [];
+  switch (f?.type) {
+    case "allows_mate":
+      text = "Look at every check they would have after this.";
+      break;
+    case "hangs_piece":
+      text = `Is your ${NAME[f.piece]} on ${f.square} safe? Look at ${theirs(f.by)} first.`;
+      squares = [f.square];
+      break;
+    case "allows_fork":
+      text = `Look at where ${theirs(f.by)} could go next.`;
+      break;
+    case "allows_pin":
+    case "allows_skewer":
+      text = `Look along the lines ${theirs(f.by)} could use.`;
+      break;
+    case "loses_material":
+      text = "Count the captures first: this loses material.";
+      break;
+    default:
+      text = "Take another look: this gives a lot away.";
+  }
+  return { text, squares, drop: Math.round(drop * 10) / 10 };
 }
 
 /** White-perspective score of an engine line, for callers that hold raw lines. */

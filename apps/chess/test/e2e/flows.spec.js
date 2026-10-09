@@ -43,7 +43,7 @@ test.describe("current behaviour", () => {
     await page.locator(".botmini").first().click();
     await expect(page.locator(".plate-chip")).toHaveText("On my own");
     await expect(page.locator(".evalbar")).toHaveCount(0);
-    expect((await readStore(page)).current.help).toEqual({ evalBar: false, threats: false, suggest: false, coach: false });
+    expect((await readStore(page)).current.help).toEqual({ evalBar: false, threats: false, check: false, suggest: false, coach: false });
 
     await page.locator(".plate-chip").click();
     await page.getByRole("dialog").getByRole("radio", { name: "Full help" }).click();
@@ -115,6 +115,54 @@ test.describe("current behaviour", () => {
     await button(page, /Show move/).click();
     await expect(page.locator('g[stroke="#15803d"]')).toHaveCount(1);
     await expect(page.locator(".usercircle.guide")).toHaveCount(0);
+  });
+
+  // Plan item 9: the blunder check, aimed at rushing.
+  test("the blunder check stops a hanging move until you choose", async ({ page }) => {
+    await seed(page, { current: { ...ITALIAN_START, help: { evalBar: true, threats: false, check: true, suggest: false, coach: false } } });
+    await open(page);
+    await page.getByText(/Resume game/).click();
+    await move(page, "f3", "g5");
+    const check = page.locator(".coachstrip.cs-check");
+    await expect(check).toContainText("Is your knight on g5 safe? Look at their queen first.", { timeout: 60_000 });
+    expect((await readStore(page)).current.sans).toHaveLength(4);
+    await check.getByRole("button", { name: "Pick another move" }).click();
+    await expect(check).toHaveCount(0);
+    expect((await readStore(page)).blunderChecks.map((c) => c.saved)).toEqual([true]);
+
+    await move(page, "f3", "g5");
+    await expect(check).toBeVisible({ timeout: 60_000 });
+    await check.getByRole("button", { name: "Play it anyway" }).click();
+    await expect.poll(async () => (await readStore(page)).current.sans[4]).toBe("Ng5");
+    expect((await readStore(page)).blunderChecks.map((c) => c.saved)).toEqual([true, false]);
+
+    // and Stats counts it
+    await page.getByRole("button", { name: "Back", exact: true }).first().click();
+    await button(page, /Stats/).click();
+    await expect(page.locator(".card", { hasText: "Blunder checks that saved you" })).toContainText("this week");
+  });
+
+  test("the blunder check lets an ordinary move through", async ({ page }) => {
+    await seed(page, { current: { ...ITALIAN_START, help: { evalBar: true, threats: false, check: true, suggest: false, coach: false } } });
+    await open(page);
+    await page.getByText(/Resume game/).click();
+    await move(page, "f1", "c4");
+    await expect.poll(async () => (await readStore(page)).current.sans[4], { timeout: 60_000 }).toBe("Bc4");
+    await expect(page.locator(".coachstrip.cs-check")).toHaveCount(0);
+  });
+
+  test("the coach points out a tactic before you move", async ({ page }) => {
+    // Black has just played ...Qd5??, next to White's rook on d1.
+    await seed(page, {
+      current: {
+        id: "tp", mode: "bot", personaId: "x", playerColor: "w", serious: false, startFen: "4k3/8/3q4/8/8/8/8/3RK3 b - - 0 1",
+        sans: ["Qd5"], chat: [], cps: [0], status: "playing", result: null,
+        createdAt: 1, muted: true, help: { evalBar: true, threats: false, check: false, suggest: false, coach: true },
+      },
+    });
+    await open(page);
+    await page.getByText(/Resume game/).click();
+    await expect(page.locator(".coachstrip.cs-prompt")).toContainText("Can you win material?", { timeout: 60_000 });
   });
 
   // Found while building plan item 8: moving before the engine had judged the

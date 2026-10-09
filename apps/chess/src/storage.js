@@ -35,6 +35,7 @@ function freshStore() {
     puzzleBests: { rush: 0, streak: 0 },
     puzzleSrs: {},
     drillProgress: {},
+    blunderChecks: [], // {t, saved}: each time the blunder check stopped a move
   };
 }
 
@@ -99,6 +100,7 @@ function normalize(s) {
     puzzleBests: { ...fresh.puzzleBests, ...(isObj(s.puzzleBests) ? s.puzzleBests : {}) },
     puzzleSrs: isObj(s.puzzleSrs) ? s.puzzleSrs : {},
     drillProgress: isObj(s.drillProgress) ? s.drillProgress : {},
+    blunderChecks: (Array.isArray(s.blunderChecks) ? s.blunderChecks : []).filter((c) => isObj(c) && Number.isFinite(c.t)),
   };
   return capStore(out);
 }

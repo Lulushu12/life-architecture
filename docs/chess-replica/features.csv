@@ -11,7 +11,7 @@ Clean vs assisted record per bot (crowns),bots,could,yes,partial,mine counts W-D
 Time controls in bot games,bots,could,yes,no,
 Play a bot from any position,bots,should,yes,partial,from editor and lessons yes; from analysis no; from review buggy (audit bug 2)
 Coach explains your move in words (praise / mistake / why),coach,must,yes,yes,Game Review since plan item 5; bot games since plan item 8
-Coach prompts you to find the idea before showing it,coach,must,yes,partial,the hint's first step names the idea and lights the piece; the coach does not yet prompt on its own when a tactic is there
+Coach prompts you to find the idea before showing it,coach,must,yes,yes,plan item 9: with Coach on it speaks up when there's a mate or material to win (not for plain recaptures); the hint's first step names the idea
 Two-step hint (idea first then move),coach,must,yes,yes,"plan item 8: idea and highlighted piece, then Show move draws the arrow"
 Coach voice,coach,could,yes,skip,possible later with on-device speech; low value
 Celebrity coaches,coach,could,yes,skip,real people; out of bounds
@@ -63,3 +63,4 @@ Import from Lichess and chess.com,mine,could,no,yes,
 Romanian-language bots,mine,could,no,yes,
 33 piece sets and 34 board themes with custom colours,mine,could,no,yes,
 Export everything (PGN and JSON backup),mine,could,no,yes,
+Blunder check before your move,mine,could,no,yes,"plan item 9: in Some and Full help a move that gives away 15% win chance or more waits, with a question pointing where to look; Stats counts saves per week"

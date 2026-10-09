@@ -3,6 +3,7 @@ import { TopBar } from "./ui.jsx";
 import { getPersona } from "./personas.js";
 import { getRating } from "./puzzledb.js";
 import { LESSONS } from "./lessons/index.js";
+import { checkWeeks } from "./checkStats.js";
 
 function outcome(g) {
   if (!g.result || !g.playerColor) return null;
@@ -66,9 +67,9 @@ function Sparkline({ values, label, fmt, lower = false }) {
   );
 }
 
-function Bars({ values, label }) {
+function Bars({ values, label, itemLabel = (i, n) => `game ${i + 1} of ${n}`, empty = "No reviewed games yet." }) {
   const [sel, setSel] = useState(null);
-  if (!values.length) return <p className="hint small">No reviewed games yet.</p>;
+  if (!values.length) return <p className="hint small">{empty}</p>;
   const W = 300;
   const H = 60;
   const max = Math.max(1, ...values);
@@ -81,7 +82,7 @@ function Bars({ values, label }) {
       <div className="spark-head">
         <span className="spark-val">{values[shown]}</span>
         <span className="hint small">
-          {sel == null ? "latest" : `game ${sel + 1} of ${values.length}`} · average {avg.toFixed(1)}
+          {sel == null ? "latest" : itemLabel(sel, values.length)} · average {avg.toFixed(1)}
         </span>
       </div>
       <svg viewBox={`0 0 ${W} ${H}`} className="spark-svg" role="img" aria-label={label} onMouseLeave={() => setSel(null)}>
@@ -217,6 +218,8 @@ export default function Stats({ store, nav }) {
         <Bars values={data.blunders} label="Blunders per reviewed game" />
       </div>
 
+      <BlunderChecks checks={store.blunderChecks} />
+
       <div className="card">
         <h3>Puzzles</h3>
         <div className="statgrid">
@@ -248,6 +251,46 @@ export default function Stats({ store, nav }) {
           <div className="lessonfill" style={{ width: `${Math.round((data.lessonsDone / Math.max(1, LESSONS.length)) * 100)}%` }} />
         </div>
       </div>
+    </div>
+  );
+}
+
+// Plan item 9: how often the blunder check saved you, week by week.
+function BlunderChecks({ checks }) {
+  const weeks = useMemo(() => checkWeeks(checks), [checks]);
+  const now = weeks[weeks.length - 1];
+  const total = (checks || []).filter((c) => c.saved).length;
+  return (
+    <div className="card">
+      <h3>Blunder checks that saved you</h3>
+      {checks?.length ? (
+        <>
+          <div className="statgrid">
+            <div>
+              <div className="bignum">{now.saved}</div>
+              <div className="hint small">this week</div>
+            </div>
+            <div>
+              <div className="bignum">{now.anyway}</div>
+              <div className="hint small">played anyway</div>
+            </div>
+            <div>
+              <div className="bignum">{total}</div>
+              <div className="hint small">all time</div>
+            </div>
+          </div>
+          <Bars
+            values={weeks.map((w) => w.saved)}
+            label="Saves per week, last 8 weeks"
+            itemLabel={(i) => `week of ${new Date(weeks[i].start).toLocaleDateString(undefined, { day: "numeric", month: "short" })}`}
+          />
+        </>
+      ) : (
+        <p className="hint small">
+          With Some help or Full help, a move that would give a lot away waits for a second look. Each time that saves
+          you, it counts here.
+        </p>
+      )}
     </div>
   );
 }
