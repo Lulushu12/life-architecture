@@ -50,6 +50,13 @@ test.describe("current behaviour", () => {
     expect(review.moves[3].class).not.toBe("blunder"); // the mating move is Black's best
     expect(s.puzzles.length).toBeGreaterThanOrEqual(1);
     expect(s.puzzles.every((p) => p.gameId === "g1" && p.solved === false)).toBe(true);
+
+    // The coach (plan item 5): a game summary, and the reason for 2.g4??
+    await expect(page.locator(".coachcard")).toContainText("The turning point was 2. g4");
+    await page.locator(".movelist .mlmove").nth(2).click();
+    await expect(page.locator(".coachline")).toContainText("Qh4#");
+    await button(page, /Show the reply/).click();
+    await expect(page.locator(".previewbar")).toContainText("Qh4#");
   });
 
   // Audit bug 2 (fixed in plan item 3): "Retry from here" used to replace a

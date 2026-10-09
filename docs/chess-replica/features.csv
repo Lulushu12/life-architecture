@@ -10,7 +10,7 @@ Bot chat with personality,bots,should,yes,yes,mine is bilingual with event-drive
 Clean vs assisted record per bot (crowns),bots,could,yes,partial,mine counts W-D-L and ignores hints and takebacks
 Time controls in bot games,bots,could,yes,no,
 Play a bot from any position,bots,should,yes,partial,from editor and lessons yes; from analysis no; from review buggy (audit bug 2)
-Coach explains your move in words (praise / mistake / why),coach,must,yes,no,the central gap
+Coach explains your move in words (praise / mistake / why),coach,must,yes,partial,in Game Review since plan item 5; in bot games with plan item 8
 Coach prompts you to find the idea before showing it,coach,must,yes,no,
 Two-step hint (idea first then move),coach,must,yes,no,mine shows the move arrow directly
 Coach voice,coach,could,yes,skip,possible later with on-device speech; low value
@@ -18,11 +18,11 @@ Celebrity coaches,coach,could,yes,skip,real people; out of bounds
 Game review move classifications,review,must,yes,yes,same 10 labels plus Forced; colours need rebranding
 Accuracy overall and per phase,review,must,yes,yes,
 Per-game rating estimate,review,could,yes,no,their formula is unpublished; ours would be made up
-Coach one-line game summary,review,must,yes,no,
+Coach one-line game summary,review,must,yes,yes,plan item 5: names the turning point and why
 Key moments with a Next button,review,should,yes,partial,mine shows 3 chips; no stepper
-Explanation of why a move was bad (threat / lost piece / mate),review,must,yes,no,data exists (pv after move) but not shown
-Show the line after your move,review,must,yes,no,refutation line stored but never displayed
-Best move with reason,review,must,yes,partial,best move and arrow; no reason
+Explanation of why a move was bad (threat / lost piece / mate),review,must,yes,yes,"plan item 5: hanging pieces, allowed mates, forks, pins, skewers, lost material, missed wins and mates"
+Show the line after your move,review,must,yes,yes,"plan item 5: ""Show the reply"" steps through the engine answer"
+Best move with reason,review,must,yes,partial,"reason given when the coach finds one (missed mate, missed win); otherwise ""best was X"""
 Retry the position to find a better move,review,must,yes,partial,still a bot game rather than an in-place retry (plan item 6); since item 3 it asks before replacing a game in progress
 Opening name plus your history in that opening,review,could,yes,partial,name only
 Review graph with markers,review,could,yes,partial,graph without markers

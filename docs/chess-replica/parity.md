@@ -1,31 +1,28 @@
-## Parity: 50.9 / 100
+## Parity: 60.6 / 100
 
-features 50.9  (49 counted, must-haves 10 of 22 done)
+features 60.6  (49 counted, must-haves 13 of 22 done)
 
-Not shippable yet: 12 must-have features are not done.
+Not shippable yet: 9 must-have features are not done.
 
 ## By area, weakest first
-- coach                          0.0  (4 features)
+- coach                         12.5  (4 features)
 - lessons                       33.3  (2 features)
-- review                        48.3  (12 features)
 - bots                          50.0  (9 features)
 - puzzles                       60.0  (9 features)
 - navigation                    62.5  (4 features)
 - history                       71.4  (3 features)
 - analysis                      79.2  (6 features)
+- review                        79.3  (12 features)
 
 ## Missing, in build order
 - [must] bots: Threat arrows during a bot game, no  (threat probe exists in review and analysis but is buggy (audit bug 13))
-- [must] coach: Coach explains your move in words (praise / mistake / why), no  (the central gap)
 - [must] coach: Coach prompts you to find the idea before showing it, no
 - [must] coach: Move feedback after each of your moves in a bot game, no
 - [must] coach: Two-step hint (idea first then move), no  (mine shows the move arrow directly)
-- [must] review: Coach one-line game summary, no
-- [must] review: Explanation of why a move was bad (threat / lost piece / mate), no  (data exists (pv after move) but not shown)
-- [must] review: Show the line after your move, no  (refutation line stored but never displayed)
 - [must] bots: Assistance presets before a bot game (no help / some / full / custom), partial  (mine has a serious-mode toggle only)
+- [must] coach: Coach explains your move in words (praise / mistake / why), partial  (in Game Review since plan item 5; in bot games with plan item 8)
 - [must] puzzles: Enough puzzles at your rating, partial  (1200 under 1000 and 1200 at 1000-1299)
-- [must] review: Best move with reason, partial  (best move and arrow; no reason)
+- [must] review: Best move with reason, partial  (reason given when the coach finds one (missed mate, missed win); otherwise "best was X")
 - [must] review: Retry the position to find a better move, partial  (still a bot game rather than an in-place retry (plan item 6); since item 3 it asks before replacing a game in progress)
 - [should] analysis: Save an analysis, no
 - [should] puzzles: Coach tip after a wrong puzzle move, no

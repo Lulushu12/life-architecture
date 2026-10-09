@@ -13,6 +13,7 @@ import ExportSheet from "./ExportSheet.jsx";
 import { legalDests, promotionCheck } from "./core/position.js";
 import { classifyDrop } from "./core/classify.js";
 import { threatsFromProbe } from "./core/threats.js";
+import { explainReviewMove, summarizeGame } from "./core/coach/index.js";
 
 export default function ReviewScreen({ store, setStore, nav, view }) {
   if (view.importing) return <PgnImport store={store} setStore={setStore} nav={nav} />;
@@ -540,6 +541,17 @@ function Review({ store, setStore, nav, game }) {
     setBranchPly(null);
   };
 
+  // "Show the reply": walk through the engine's answer to the move on the
+  // board, one move at a time, as a variation.
+  const showReply = () => {
+    const pv = review?.pvs?.[viewIdx];
+    if (!pv?.length) return;
+    if (branch) stashLine(branch);
+    setShowBest(false);
+    setBranch({ baseIdx: viewIdx, sans: pv, info: pv.map(() => null), reply: true });
+    setBranchPly(0);
+  };
+
   const leaveBranch = () => {
     stashLine(branch); // keep the idea recoverable
     setBranch(null);
@@ -583,6 +595,15 @@ function Review({ store, setStore, nav, game }) {
   useArrowKeys(stepBack, stepFwd);
 
   const moveAt = viewIdx > 0 && review ? review.moves[viewIdx - 1] : null;
+  // The coach's reading of the move on the board (core/coach).
+  const coach = useMemo(
+    () => (review && viewIdx > 0 ? explainReviewMove(review, viewIdx - 1) : null),
+    [review, viewIdx]
+  );
+  const summary = useMemo(
+    () => (review ? summarizeGame(review, game.mode === "bot" || game.mode === "import" ? game.playerColor || null : null) : ""),
+    [review, game.mode, game.playerColor]
+  );
   const badMove = moveAt && ["inaccuracy", "mistake", "miss", "blunder"].includes(moveAt.class);
   // The engine's alternative to the played move, when they differ — shown as
   // an overlay on the CURRENT board, never by rewinding the position.
@@ -689,6 +710,13 @@ function Review({ store, setStore, nav, game }) {
         }
       />
 
+      {summary && (
+        <div className="card coachcard">
+          <span className="coachtag">Coach</span>
+          <p>{summary}</p>
+        </div>
+      )}
+
       <div className="accrow">
         <div className="acccard">
           <div className="acc-name">{who.w} (White)</div>
@@ -741,8 +769,8 @@ function Review({ store, setStore, nav, game }) {
         orientation={orientation}
         lastMove={branch ? branchState.last : lastMovePair}
         guideArrows={overlayUci ? [[overlayUci.slice(0, 2), overlayUci.slice(2, 4)]] : []}
-        highlightSquares={overlayUci ? [overlayUci.slice(0, 2)] : []}
-        threats={threats}
+        highlightSquares={overlayUci ? [overlayUci.slice(0, 2)] : !branch && coach?.squares?.length ? coach.squares : []}
+        threats={!branch && coach?.threat && !overlayUci ? [coach.threat, ...threats.filter((t) => t[0] !== coach.threat[0] || t[1] !== coach.threat[1])] : threats}
         dests={dests}
         onMove={playMove}
         theme={store.settings.theme}
@@ -806,6 +834,7 @@ function Review({ store, setStore, nav, game }) {
           <b style={{ color: CLASSIFICATIONS[moveAt.class].color }}>
             {moveAt.san}: {CLASSIFICATIONS[moveAt.class].label}
           </b>
+          {coach?.text && <p className="coachline">{coach.text}</p>}
           {altUci && moveAt.bestSan && (
             <span>
               {" "}
@@ -813,6 +842,11 @@ function Review({ store, setStore, nav, game }) {
               <button className="linkbtn" onClick={() => setShowBest((s) => !s)}>
                 {showBest ? "hide" : "show"}
               </button>
+              {badMove && review.pvs?.[viewIdx]?.length > 0 && (
+                <button className="linkbtn" onClick={showReply}>
+                  Show the reply
+                </button>
+              )}
               {badMove && (
                 <button className="linkbtn" onClick={() => retryFrom(pickRetryPersona(game))}>
                   ⟳ Retry from here
