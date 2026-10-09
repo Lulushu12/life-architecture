@@ -610,7 +610,7 @@ function BotGame({ store, setStore, nav }) {
         right={
           !over && (
             <button
-              className="linkbtn"
+              className="linkbtn danger"
               onClick={async () => {
                 if (await askResign()) finishGame(true);
               }}

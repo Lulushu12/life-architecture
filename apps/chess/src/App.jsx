@@ -1,9 +1,11 @@
-import { Suspense, lazy, useCallback, useEffect, useMemo, useRef } from "react";
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { usePersistentStore } from "@shared/store.js";
 import { useHistoryNav } from "@shared/useHistoryNav.js";
 import { registerSw } from "@shared/swRegister.js";
 import { useToast } from "@shared/ui.jsx";
 import { chessStore, capStore, STORAGE_KEY } from "./storage.js";
+import { applyAppearance } from "./appearance.js";
+import { loadStoredFonts } from "./fontStore.js";
 import Home from "./Home.jsx";
 import PlayBot from "./PlayBot.jsx";
 import PassPlay from "./PassPlay.jsx";
@@ -64,6 +66,19 @@ export default function App() {
 
   const nav = useCallback((screen, params = {}) => go({ screen, ...params }), [go]);
 
+  // Font files the user added (kept in IndexedDB) and the app's look.
+  const [fonts, setFonts] = useState([]);
+  useEffect(() => {
+    let alive = true;
+    loadStoredFonts().then((list) => alive && setFonts(list));
+    return () => {
+      alive = false;
+    };
+  }, []);
+  useEffect(() => {
+    applyAppearance(store.settings, fonts);
+  }, [store.settings.accent, store.settings.displayFont, fonts]); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     registerSw({
       onUpdate: (reload) =>
@@ -91,7 +106,7 @@ export default function App() {
     lastCap.current = capHits;
   }, [capHits, toast]);
 
-  const props = { store, setStore, nav, view };
+  const props = { store, setStore, nav, view, fonts, setFonts };
   return (
     <>
       <StorageBanner store={store} status={status} />

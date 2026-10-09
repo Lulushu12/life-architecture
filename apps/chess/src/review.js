@@ -11,12 +11,12 @@ import { pvToSans } from "./core/position.js";
 export { pvToSans };
 
 export const CLASSIFICATIONS = {
-  brilliant: { label: "Brilliant", icon: "!!", color: "#26c2a3" },
-  great: { label: "Great", icon: "!", color: "#5c8bb0" },
-  best: { label: "Best", icon: "★", color: "#81b64c" },
-  excellent: { label: "Excellent", icon: "✓", color: "#81b64c" },
-  good: { label: "Good", icon: "✓", color: "#95b776" },
-  book: { label: "Book", icon: "📖", color: "#a88865" },
+  brilliant: { label: "Brilliant", icon: "!!", color: "#b18cf2" },
+  great: { label: "Great", icon: "!", color: "#4da3e0" },
+  best: { label: "Best", icon: "★", color: "#5fae6e" },
+  excellent: { label: "Excellent", icon: "✓", color: "#7fc08a" },
+  good: { label: "Good", icon: "✓", color: "#9aab8f" },
+  book: { label: "Book", icon: "📖", color: "#c9ae7c" },
   forced: { label: "Forced", icon: "□", color: "#9a948c" },
   inaccuracy: { label: "Inaccuracy", icon: "?!", color: "#f0c15c" },
   mistake: { label: "Mistake", icon: "?", color: "#e58f2a" },

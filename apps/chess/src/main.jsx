@@ -3,6 +3,8 @@ import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import { ErrorBoundary } from "@shared/ErrorBoundary.jsx";
 import { ToastProvider } from "@shared/ui.jsx";
+import "@fontsource/sora/600.css";
+import "@fontsource/sora/800.css";
 import "./styles.css";
 
 createRoot(document.getElementById("root")).render(

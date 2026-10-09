@@ -351,7 +351,7 @@ function Review({ store, setStore, nav, game }) {
   const [showThreats, setShowThreats] = useState(true);
   const [flipped, setFlipped] = useState(false);
   const [threats, setThreats] = useState([]);
-  // Variation play, chess.com style: moves made on the board (either side)
+  // Variation play, as in most review tools: moves made on the board (either side)
   // open a branch off the reviewed game instead of starting a bot game.
   // branch = the active line; branchPly views inside it (null = its end);
   // stash = abandoned lines, restorable as chips — so branches can branch.

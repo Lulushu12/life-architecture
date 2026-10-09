@@ -5,6 +5,8 @@ export const GAME_CAP = 50;
 
 export const DEFAULT_SETTINGS = {
   theme: "brown", // board theme id
+  accent: "teal", // app colour, see appearance.js
+  displayFont: "sora", // headings and big numbers: "sora" | "system" | "custom:<id>"
   pieces: "cburnett", // piece set id
   // board/coordinate overrides; null = the theme's (or app's) own default
   boardCustom: { light: null, dark: null, coordColor: null, coordFont: null },

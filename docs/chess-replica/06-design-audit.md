@@ -133,3 +133,11 @@ Plan changes if you agree:
 - **B** joins item 4.
 - **C** rides with the items in the table.
 - The preview page comes first.
+
+## Decisions (2026-10-09)
+
+- Accent: **Teal** by default; Plum, Copper and Brass stay selectable.
+- Display face: **Sora** by default, plus any font file you add yourself.
+- Layout: approved as previewed. The coach gets its own **Coach on/off** button in the game's bottom bar, changeable mid-game; Resign moves into the Help sheet (plan item 7).
+- Shipped with plan item 3: fix A (hub cards). Shipped with plan item 4: foundation B. The per-screen layouts (C) ride with their plan items.
+

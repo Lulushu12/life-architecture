@@ -3,19 +3,26 @@
 
 /* Chess keeps its warm palette on purpose; the shared navy set is overridden in full. */
 :root {
-  --bg: #161512;
-  --surface: #211f1c;
-  --surface2: #2a2825;
-  --border: #3a3733;
-  --text: #ece9e4;
-  --muted: #9a948c;
-  --accent: #81b64c;
-  --accent-ink: #141b0b;
+  /* Three surface steps: page, card, raised (sheets, selected states). */
+  --bg: #141310;
+  --surface: #201e1a;
+  --surface2: #2b2924;
+  --border: #37342e;
+  --hi: rgba(255, 255, 255, 0.045);
+  --text: #efebe4;
+  --muted: #a39d92;
+  /* Accent and display face are set at runtime from Settings (appearance.js);
+     these are the defaults before that runs. */
+  --accent: #3fb3a4;
+  --accent-ink: #071d1a;
+  --accent-tint: rgba(63, 179, 164, 0.16);
+  --accent-line: rgba(63, 179, 164, 0.55);
+  --display: "Sora", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --accent2: #60a5fa;
   --danger: #e02828;
   --danger-soft: #e46060;
   --gold: #f0c15c;
-  --ok: #81b64c;
+  --ok: #5fae6e;
   --sunk: #1c1a16;
   --sunk-border: #2a2721;
   --sunk-strong: #4a453c;
@@ -26,6 +33,12 @@
   --evalbar-black: #3d3b38;
   --evalbar-white: #e8e6e3;
   --evalbar-label: #888;
+  /* type scale */
+  --fs-xs: 12px;
+  --fs-sm: 14px;
+  --fs-md: 16px;
+  --fs-lg: 20px;
+  --fs-xl: 28px;
 }
 
 .gamepage {
@@ -293,13 +306,19 @@ textarea.input {
 }
 .coord {
   position: absolute;
-  font-size: 9px;
+  font-size: 10.5px;
   font-weight: 700;
-  opacity: 0.55;
+  opacity: 0.9;
   z-index: 1;
   pointer-events: none;
-  color: var(--coord-color, currentColor);
   font-family: var(--coord-font, inherit);
+}
+/* Each coordinate takes the opposite square's colour unless one is chosen. */
+.sq.light .coord {
+  color: var(--coord-color, var(--dark));
+}
+.sq.dark .coord {
+  color: var(--coord-color, var(--light));
 }
 .coord.rank {
   top: 1px;
@@ -771,9 +790,9 @@ textarea.input {
   pointer-events: none;
 }
 .pieceswatch {
-  flex: 0 0 56px;
-  width: 56px;
-  height: 56px;
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
   border-radius: 10px;
   border: 2px solid var(--border);
   background: var(--surface2);
@@ -1043,7 +1062,7 @@ button.lessonrow {
   color: var(--muted);
 }
 .levelbadge.beginner {
-  background: rgba(129, 182, 76, 0.2);
+  background: var(--accent-tint);
   color: var(--accent);
 }
 .levelbadge.intermediate {
@@ -1666,3 +1685,112 @@ button.lessonrow {
   display: flex;
   justify-content: space-between;
 }
+
+/* ---- visual foundation (plan item 4) ----
+   Cards lift off the page with a faint top highlight; primary and selected
+   things get an accent tint, not just an outline; actions are buttons, not
+   blue links; headings and the numbers that matter use the display face. */
+.card {
+  box-shadow: inset 0 1px 0 var(--hi);
+}
+.menubtn {
+  box-shadow: inset 0 1px 0 var(--hi);
+}
+.menubtn.primary,
+.resumecard {
+  border-color: var(--accent-line);
+  background: var(--accent-tint);
+}
+.menubtn .mb-icon {
+  color: var(--accent);
+  display: inline-flex;
+}
+.menubtn .mb-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.linkbtn {
+  color: var(--text);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 14px;
+  min-height: 38px;
+  font-weight: 600;
+  gap: 6px;
+}
+.linkbtn svg {
+  width: 18px;
+  height: 18px;
+}
+.linkbtn.danger,
+.topbar .linkbtn.danger {
+  color: var(--danger-soft);
+  background: rgba(224, 40, 40, 0.1);
+  border-color: rgba(224, 40, 40, 0.35);
+}
+.linkbtn[aria-pressed="true"] {
+  color: var(--accent);
+  border-color: var(--accent-line);
+  background: var(--accent-tint);
+}
+.apptitle,
+.bignum,
+.acc-val,
+.rush-score,
+.lr-side {
+  font-family: var(--display);
+  font-variant-numeric: tabular-nums;
+}
+.apptitle {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.lr-title svg {
+  width: 18px;
+  height: 18px;
+  vertical-align: -3px;
+  margin-right: 6px;
+  color: var(--accent);
+}
+.swatchdot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+  vertical-align: -1px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+.fontlist .setrow {
+  padding: 4px 0;
+}
+/* Settings groups that open and close. */
+.setgroup {
+  border-top: 1px solid var(--border);
+  padding: 4px 0 8px;
+}
+.setgroup > summary {
+  list-style: none;
+  cursor: pointer;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: var(--fs-md);
+  padding: 14px 2px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.setgroup > summary::-webkit-details-marker {
+  display: none;
+}
+.setgroup > summary::after {
+  content: "›";
+  color: var(--muted);
+  font-size: 22px;
+  transition: transform 0.15s;
+}
+.setgroup[open] > summary::after {
+  transform: rotate(90deg);
+}
+

@@ -22,6 +22,7 @@ import {
   resolveDue,
 } from "./puzzledb.js";
 import { legalDests, promotionCheck } from "./core/position.js";
+import { Flame, Puzzle, Repeat, Target, Timer } from "lucide-react";
 import { uciToSan } from "./review.js";
 
 function boardLook(store) {
@@ -74,14 +75,14 @@ export function PuzzleHome({ store, nav }) {
 
       <button className={"card lessonrow duerow" + (due ? " hot" : "")} disabled={!due} onClick={() => nav("puzzles", { set: "due" })}>
         <div className="lr-main">
-          <div className="lr-title">🔁 Due today: {due}</div>
+          <div className="lr-title"><Repeat aria-hidden="true" />Due today: {due}</div>
           <div className="lr-sum">{due ? "Puzzles you missed, back for another try" : "Missed puzzles come back here on a schedule"}</div>
         </div>
       </button>
 
       <button className="card lessonrow" onClick={() => nav("puzzles", { set: "mix" })}>
         <div className="lr-main">
-          <div className="lr-title">🎯 Rated puzzles</div>
+          <div className="lr-title"><Target aria-hidden="true" />Rated puzzles</div>
           <div className="lr-sum">Picked near your rating from every set</div>
         </div>
         <div className="lr-side">{rating.r}</div>
@@ -90,13 +91,13 @@ export function PuzzleHome({ store, nav }) {
       <div className="moderow">
         <button className="card lessonrow" onClick={() => nav("puzzles", { set: "rush" })}>
           <div className="lr-main">
-            <div className="lr-title">⏱️ Puzzle Rush</div>
+            <div className="lr-title"><Timer aria-hidden="true" />Puzzle Rush</div>
             <div className="lr-sum">3 minutes, 3 strikes · best {bests.rush || 0}</div>
           </div>
         </button>
         <button className="card lessonrow" onClick={() => nav("puzzles", { set: "streak" })}>
           <div className="lr-main">
-            <div className="lr-title">🔥 Streak</div>
+            <div className="lr-title"><Flame aria-hidden="true" />Streak</div>
             <div className="lr-sum">Until the first miss · best {bests.streak || 0}</div>
           </div>
         </button>
@@ -104,7 +105,7 @@ export function PuzzleHome({ store, nav }) {
 
       <button className="card lessonrow" onClick={() => nav("puzzles", { set: "blunders" })}>
         <div className="lr-main">
-          <div className="lr-title">🧩 My blunders</div>
+          <div className="lr-title"><Puzzle aria-hidden="true" />My blunders</div>
           <div className="lr-sum">
             {blunders > 0
               ? `${blunders} to retrain, from your own reviewed games`

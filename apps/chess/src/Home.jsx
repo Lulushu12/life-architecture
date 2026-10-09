@@ -1,5 +1,8 @@
 import { IS_NATIVE } from "./platform.js";
 import { getPersona } from "./personas.js";
+import {
+  Archive, BookOpen, Bot, ChartLine, Download, GraduationCap, Handshake, Landmark, Microscope, Pencil, Puzzle, Swords,
+} from "lucide-react";
 
 export default function Home({ store, nav }) {
   const cur = store.current;
@@ -23,40 +26,40 @@ export default function Home({ store, nav }) {
 
       <div className="menugrid">
         <button className="menubtn primary" onClick={() => nav("play", { pick: true })}>
-          <span className="mb-icon">🤖</span>Play bots
+          <span className="mb-icon"><Bot aria-hidden="true" /></span>Play bots
         </button>
         <button className="menubtn" onClick={() => nav("passplay", { setup: true })}>
-          <span className="mb-icon">🤝</span>Pass & play
+          <span className="mb-icon"><Handshake aria-hidden="true" /></span>Pass & play
         </button>
         <button className="menubtn primary" onClick={() => nav("lessons")}>
-          <span className="mb-icon">🎓</span>Lessons
+          <span className="mb-icon"><GraduationCap aria-hidden="true" /></span>Lessons
         </button>
         <button className="menubtn" onClick={() => nav("openings")}>
-          <span className="mb-icon">📖</span>Openings
+          <span className="mb-icon"><BookOpen aria-hidden="true" /></span>Openings
         </button>
         <button className="menubtn" onClick={() => nav("games")}>
-          <span className="mb-icon">🏛️</span>Pro games
+          <span className="mb-icon"><Landmark aria-hidden="true" /></span>Pro games
         </button>
         <button className="menubtn" onClick={() => nav("analysis")}>
-          <span className="mb-icon">🔬</span>Analysis
+          <span className="mb-icon"><Microscope aria-hidden="true" /></span>Analysis
         </button>
         <button className="menubtn" onClick={() => nav("enginematch")}>
-          <span className="mb-icon">⚔️</span>Engine match
+          <span className="mb-icon"><Swords aria-hidden="true" /></span>Engine match
         </button>
         <button className="menubtn" onClick={() => nav("editor")}>
-          <span className="mb-icon">✎</span>Custom position
+          <span className="mb-icon"><Pencil aria-hidden="true" /></span>Custom position
         </button>
         <button className="menubtn" onClick={() => nav("review", { importing: true })}>
-          <span className="mb-icon">📋</span>Import games
+          <span className="mb-icon"><Download aria-hidden="true" /></span>Import games
         </button>
         <button className="menubtn" onClick={() => nav("puzzles")}>
-          <span className="mb-icon">🧩</span>Puzzles{unsolved > 0 ? ` (${unsolved} blunders)` : ""}
+          <span className="mb-icon"><Puzzle aria-hidden="true" /></span>Puzzles{unsolved > 0 ? ` (${unsolved} blunders)` : ""}
         </button>
         <button className="menubtn" onClick={() => nav("archive")}>
-          <span className="mb-icon">🗄️</span>Game archive
+          <span className="mb-icon"><Archive aria-hidden="true" /></span>Game archive
         </button>
         <button className="menubtn" onClick={() => nav("stats")}>
-          <span className="mb-icon">📈</span>Stats
+          <span className="mb-icon"><ChartLine aria-hidden="true" /></span>Stats
         </button>
       </div>
 

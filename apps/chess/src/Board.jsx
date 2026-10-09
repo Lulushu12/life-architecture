@@ -220,7 +220,7 @@ const HEAD_LEN = 4.6; // board units (a square is 12.5)
 const HEAD_HALF = 3.2;
 
 // Square-center to square-center arrow; knight-shaped moves bend in an L
-// (long leg first), chess.com style. The shaft stops where the head begins
+// (long leg first), the common convention. The shaft stops where the head begins
 // and the head's tip sits exactly on the destination square's center, so
 // nothing protrudes past the tip.
 function arrowGeom(from, to) {
@@ -549,7 +549,8 @@ export default function Board({
           "--light": custom?.light || colors.light,
           "--dark": custom?.dark || colors.dark,
           "--tex": (colors.tex && TEXTURES[colors.tex]) || "none",
-          "--coord-color": custom?.coordColor || "currentColor",
+          // unset = each coordinate takes the opposite square's colour (see .coord)
+          ...(custom?.coordColor ? { "--coord-color": custom.coordColor } : {}),
           "--coord-font": custom?.coordFont || "inherit",
           "--anim-ms": animMs + "ms",
         }}

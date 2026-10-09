@@ -211,10 +211,53 @@ test.describe("current behaviour", () => {
     expect((await readStore(page)).settings.pieces).not.toBe("cburnett");
   });
 
+  test("the app colour applies at once and survives a reload", async ({ page }) => {
+    await seed(page, null);
+    await open(page);
+    const accent = () => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--accent").trim());
+    expect(await accent()).toBe("#3fb3a4"); // Teal by default
+    await page.getByText(/Settings & themes/).click();
+    await page.getByRole("radio", { name: /Plum/ }).click();
+    expect(await accent()).toBe("#a58be0");
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await expect.poll(accent).toBe("#a58be0");
+    expect((await readStore(page)).settings.accent).toBe("plum");
+  });
+
+  test("a font file can be added, used, kept across reloads and removed", async ({ page }) => {
+    await seed(page, null);
+    await open(page);
+    await page.getByText(/Settings & themes/).click();
+    await page.getByTestId("font-file").setInputFiles("node_modules/@fontsource/sora/files/sora-latin-800-normal.woff2");
+    const added = page.getByRole("radio", { name: /sora latin 800 normal/i });
+    await expect(added).toBeVisible();
+    await expect(added).toHaveAttribute("aria-checked", "true");
+    expect((await readStore(page)).settings.displayFont).toMatch(/^custom:/);
+    const display = () => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--display"));
+    expect(await display()).toContain("chess-user-font-");
+
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await expect(page.getByRole("radio", { name: /sora latin 800 normal/i })).toBeVisible();
+    await expect.poll(display).toContain("chess-user-font-");
+
+    await page.getByRole("button", { name: "Remove" }).click();
+    await expect(page.getByRole("radio", { name: /sora latin 800 normal/i })).toHaveCount(0);
+    expect((await readStore(page)).settings.displayFont).toBe("sora");
+  });
+
+  test("a file that is not a font is refused with a reason", async ({ page }) => {
+    await seed(page, null);
+    await open(page);
+    await page.getByText(/Settings & themes/).click();
+    await page.getByTestId("font-file").setInputFiles({ name: "notes.txt", mimeType: "text/plain", buffer: Buffer.from("hello") });
+    await expect(page.getByText(/Use a .woff2, .woff, .ttf or .otf font file/)).toBeVisible();
+  });
+
   test("a backup can be restored from pasted text", async ({ page }) => {
     await seed(page, null);
     await open(page);
     await page.getByText(/Settings & themes/).click();
+    await page.getByText("Backup and restore").click(); // the section starts closed
     const backup = { version: 1, settings: { theme: "walnut" }, games: [{ id: "r1", sans: ["d4"], date: 1 }] };
     await page.getByPlaceholder(/paste a backup/i).fill(JSON.stringify(backup));
     await button(page, /Restore from pasted text/).click();
