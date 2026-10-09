@@ -24,8 +24,8 @@ export default function PlayBot({ store, setStore, nav, view }) {
 
 function BotPicker({ store, setStore, nav, view }) {
   // "r" is resolved to a real colour at the moment the game starts, so the
-  // side stays a surprise until the board appears.
-  const [color, setColor] = useState("w");
+  // side stays a surprise until the board appears. Random is the default.
+  const [color, setColor] = useState("r");
   const [serious, setSerious] = useState(false);
   // Set when arriving from a lesson step: the game starts from that position
   // instead of the initial one.

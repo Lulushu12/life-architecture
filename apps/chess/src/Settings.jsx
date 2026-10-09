@@ -3,6 +3,8 @@ import { BackupPanel } from "@shared/BackupPanel.jsx";
 import { useToast } from "@shared/ui.jsx";
 import { BOARD_THEMES, TEXTURES, PIECE_SETS, PIECE_SET_NAMES, DEFAULT_ARROW_COLORS } from "./Board.jsx";
 import { STORAGE_KEY, validateBackup } from "./storage.js";
+import { IS_NATIVE } from "./platform.js";
+import { FILE_ACTIONS } from "./backupFile.js";
 
 const ARROW_LABELS = {
   hint: "Engine / best move",
@@ -19,19 +21,23 @@ const COORD_FONTS = [
   ["'sans-serif-condensed', 'Arial Narrow', sans-serif", "Narrow"],
 ];
 
-export default function Settings({ store, setStore, nav }) {
-  const toast = useToast();
+export default function Settings({ store, setStore, nav, view }) {
+  if (view?.page === "board") return <BoardSettings store={store} setStore={setStore} nav={nav} />;
+  return <MainSettings store={store} setStore={setStore} nav={nav} />;
+}
+
+// Themes, piece sets, square/coordinate colors and arrow colors: set once and
+// rarely touched, so they live one tap away instead of opening Settings.
+function BoardSettings({ store, setStore, nav }) {
   const set = (patch) => setStore((s) => ({ ...s, settings: { ...s.settings, ...patch } }));
   const themeDef = BOARD_THEMES[store.settings.theme] || BOARD_THEMES.brown;
   const bc = store.settings.boardCustom || {};
   const setBc = (patch) => set({ boardCustom: { ...bc, ...patch } });
   const previewPieces = PIECE_SETS[store.settings.pieces] || PIECE_SETS.cburnett;
-  const setAi = (patch) =>
-    setStore((s) => ({ ...s, settings: { ...s.settings, ai: { ...s.settings.ai, ...patch } } }));
 
   return (
     <div className="page">
-      <TopBar title="Settings" onBack={() => nav("home")} />
+      <TopBar title="Board & pieces" onBack={() => nav("settings")} />
 
       <h2>Board theme</h2>
       <div className="themerow">
@@ -164,6 +170,32 @@ export default function Settings({ store, setStore, nav }) {
       <button className="linkbtn" onClick={() => set({ arrowColors: { ...DEFAULT_ARROW_COLORS } })}>
         Reset arrow colors
       </button>
+    </div>
+  );
+}
+
+function MainSettings({ store, setStore, nav }) {
+  const toast = useToast();
+  const set = (patch) => setStore((s) => ({ ...s, settings: { ...s.settings, ...patch } }));
+  const setAi = (patch) =>
+    setStore((s) => ({ ...s, settings: { ...s.settings, ai: { ...s.settings.ai, ...patch } } }));
+  const themeName = (BOARD_THEMES[store.settings.theme] || BOARD_THEMES.brown).name;
+  const pieceName = PIECE_SET_NAMES[store.settings.pieces] || store.settings.pieces;
+
+  return (
+    <div className="page">
+      <TopBar title="Settings" onBack={() => nav("home")} />
+
+      <button className="card lessonrow navrow" onClick={() => nav("settings", { page: "board" })}>
+        <div className="lr-main">
+          <div className="lr-title">🎨 Board & pieces</div>
+          <div className="hint small">
+            {themeName} board · {pieceName} pieces · colors, coordinates, arrows
+          </div>
+        </div>
+        <div className="lr-side">›</div>
+      </button>
+
 
       <h2>Game</h2>
       <SettingRow label="Sounds">
@@ -244,6 +276,9 @@ export default function Settings({ store, setStore, nav }) {
         prefix="chess"
         storageKey={STORAGE_KEY}
         strip={["settings.ai.apiKey"]}
+        compact
+        fileActions={IS_NATIVE ? FILE_ACTIONS : []}
+        textLabel={IS_NATIVE ? "Copy as text" : "Export backup"}
         validate={validateBackup}
         onRestore={(data, { dropped }) => {
           setStore((s) => ({

@@ -959,6 +959,17 @@ textarea.input {
   gap: 10px;
   cursor: pointer;
 }
+.navrow {
+  width: 100%;
+  text-align: left;
+}
+.navrow .lr-main {
+  flex: 1;
+  min-width: 0;
+}
+.navrow .lr-side {
+  font-size: 22px;
+}
 .lessondone {
   color: var(--accent);
 }

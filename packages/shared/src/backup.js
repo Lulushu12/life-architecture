@@ -17,11 +17,12 @@ function stripPath(obj, path) {
   delete cur[parts[parts.length - 1]];
 }
 
-export function backupText(store, { strip = [] } = {}) {
-  if (!strip.length) return JSON.stringify(store, null, 2);
+export function backupText(store, { strip = [], compact = false } = {}) {
+  const indent = compact ? undefined : 2;
+  if (!strip.length) return JSON.stringify(store, null, indent);
   const copy = JSON.parse(JSON.stringify(store));
   for (const path of strip) stripPath(copy, path);
-  return JSON.stringify(copy, null, 2);
+  return JSON.stringify(copy, null, indent);
 }
 
 export function backupFilename(prefix) {

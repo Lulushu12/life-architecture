@@ -40,14 +40,31 @@ function readRaw(storageKey) {
  *   strip      - dotted paths removed from the export, e.g. "settings.ai.apiKey"
  *   storageKey - app's localStorage key; its raw value is kept in
  *                `${storageKey}.prerestore` before a restore replaces it
+ *   compact    - export single-line JSON (about a third smaller)
+ *   fileActions - extra one-tap export buttons, e.g. native file saves:
+ *                [{ label, run: async (text) => message | undefined | false }].
+ *                A returned message is shown on success, false means the user
+ *                cancelled (not counted as a backup); throw to show an error.
+ *   textLabel  - label of the button that shows the backup as text
  */
-export function BackupPanel({ data, onRestore, validate, prefix, strip = [], storageKey }) {
+export function BackupPanel({
+  data,
+  onRestore,
+  validate,
+  prefix,
+  strip = [],
+  storageKey,
+  compact = false,
+  fileActions = [],
+  textLabel = "Export backup",
+}) {
   const fileRef = useRef();
   const [text, setText] = useState(null);
   const [copied, setCopied] = useState(false);
   const [paste, setPaste] = useState("");
   const [error, setError] = useState("");
   const [done, setDone] = useState("");
+  const [fileMsg, setFileMsg] = useState(null); // { ok, text } from the last file action
   const [lastBackup, setLastBackup] = useState(() => readLastBackup(prefix));
 
   const canShare = typeof navigator !== "undefined" && typeof navigator.share === "function";
@@ -58,6 +75,20 @@ export function BackupPanel({ data, onRestore, validate, prefix, strip = [], sto
       return JSON.parse(readRaw(storageKey));
     } catch {
       return null;
+    }
+  };
+
+  const exportText = () => backupText(exportSource(), { strip, compact });
+
+  const runFileAction = async (action) => {
+    setFileMsg(null);
+    try {
+      const msg = await action.run(exportText());
+      if (msg === false) return;
+      markBackedUp();
+      if (msg) setFileMsg({ ok: true, text: msg });
+    } catch (e) {
+      setFileMsg({ ok: false, text: e?.message || "Export failed." });
     }
   };
 
@@ -130,15 +161,25 @@ export function BackupPanel({ data, onRestore, validate, prefix, strip = [], sto
   return (
     <div className="backuppanel">
       <p className="hint small">Last backup: {lastBackupLabel(lastBackup)}</p>
+      {fileActions.length > 0 && (
+        <div className="backuprow">
+          {fileActions.map((a) => (
+            <button key={a.label} className="bigbtn" onClick={() => runFileAction(a)}>
+              {a.label}
+            </button>
+          ))}
+        </div>
+      )}
+      {fileMsg && <p className={fileMsg.ok ? "okmsg" : "warn"}>{fileMsg.text}</p>}
       <div className="backuprow">
         <button
           className="linkbtn"
           onClick={() => {
-            setText(backupText(exportSource(), { strip }));
+            setText(exportText());
             setCopied(false);
           }}
         >
-          Export backup
+          {textLabel}
         </button>
         <button className="linkbtn" onClick={() => fileRef.current.click()}>
           Import from file
