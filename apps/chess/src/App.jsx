@@ -15,6 +15,7 @@ import ReviewScreen from "./ReviewScreen.jsx";
 import Archive from "./Archive.jsx";
 import BlunderTrainer from "./Puzzles.jsx";
 import { PuzzleHome, TierTrainer, RushTrainer, DueReview } from "./PuzzleSets.jsx";
+import DailyPuzzle from "./Daily.jsx";
 
 const Openings = lazy(() => import("./Openings.jsx"));
 const PositionEditor = lazy(() => import("./PositionEditor.jsx"));
@@ -149,6 +150,7 @@ function Screen({ view, props }) {
       if (view.set === "blunders") return <BlunderTrainer {...props} />;
       if (view.set === "rush" || view.set === "streak") return <RushTrainer key={view.set} {...props} mode={view.set} />;
       if (view.set === "due") return <DueReview {...props} />;
+      if (view.set === "daily") return <DailyPuzzle {...props} />;
       if (view.set) return <TierTrainer {...props} tierKey={view.set} />;
       return <PuzzleHome {...props} />;
     case "lessons":

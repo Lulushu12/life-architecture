@@ -3,7 +3,8 @@ import { Chess } from "chess.js";
 import Board from "./Board.jsx";
 import { TopBar } from "./ui.jsx";
 import { play as sfx, buzz } from "./audio.js";
-import { getEngine } from "./engine.js";
+import { getEngine, cpWhite } from "./engine.js";
+import { puzzleTip } from "./core/coach/puzzle.js";
 import {
   loadPuzzleDb,
   TIERS,
@@ -20,12 +21,16 @@ import {
   acceptsMove,
   isMateUci,
   resolveDue,
+  RANGES,
+  inRange,
 } from "./puzzledb.js";
 import { legalDests, promotionCheck } from "./core/position.js";
-import { Flame, Puzzle, Repeat, Target, Timer } from "lucide-react";
+import { CalendarDays, Flame, Puzzle, Repeat, Target, Timer } from "lucide-react";
+import { dailyStreak, dailyStatus } from "./daily.js";
+import { todayKey } from "@shared/store.js";
 import { uciToSan } from "./review.js";
 
-function boardLook(store) {
+export function boardLook(store) {
   return {
     theme: store.settings.theme,
     custom: store.settings.boardCustom,
@@ -35,7 +40,7 @@ function boardLook(store) {
   };
 }
 
-function useDb() {
+export function useDb() {
   const [db, setDb] = useState(null);
   const [error, setError] = useState("");
   useEffect(() => {
@@ -72,6 +77,16 @@ export function PuzzleHome({ store, nav }) {
   return (
     <div className="page">
       <TopBar title="Puzzles" sub={`Your puzzle rating: ${rating.r}${rating.n < 10 ? " (provisional)" : ""}`} onBack={() => nav("home")} />
+
+      <button className="card lessonrow dailycard" onClick={() => nav("puzzles", { set: "daily" })}>
+        <div className="lr-main">
+          <div className="lr-title"><CalendarDays aria-hidden="true" />Daily puzzle</div>
+          <div className="lr-sum">{dailyStatus(store, todayKey())}</div>
+        </div>
+        <div className="lr-side">
+          <Flame aria-hidden="true" className="streakflame" /> {dailyStreak(store.dailyLog, todayKey())}
+        </div>
+      </button>
 
       <button className={"card lessonrow duerow" + (due ? " hot" : "")} disabled={!due} onClick={() => nav("puzzles", { set: "due" })}>
         <div className="lr-main">
@@ -160,7 +175,10 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
   const ratingRef = useRef(getRating(store).r);
   ratingRef.current = getRating(store).r;
   const [theme, setTheme] = useState(null);
+  const [range, setRange] = useState("any");
   const [showThemes, setShowThemes] = useState(false);
+  // The coach's word on a wrong move (plan item 11).
+  const tip = useWrongMoveTip();
   // ply = index into the solution line; even entries are the opponent's.
   const [ply, setPly] = useState(1);
   const [state, setState] = useState("try"); // try | wrong | solved | revealed
@@ -186,8 +204,8 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
     const held = puzzleId && list.find((p) => p.i === puzzleId);
     if (held) return held;
     const excluded = new Set([...solved, ...skipped]);
-    return nextPuzzle(list, excluded, theme, ratingRef.current);
-  }, [list, solved, skipped, theme, puzzleId]);
+    return nextPuzzle(inRange(list, range, ratingRef.current), excluded, theme, ratingRef.current);
+  }, [list, solved, skipped, theme, range, puzzleId]);
 
   useEffect(() => {
     if (puzzle && puzzle.i !== puzzleId) {
@@ -196,7 +214,9 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
       setState("try");
       setHint(0);
       setOutcome(null);
+      tip.clear();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [puzzle, puzzleId]);
 
   const moves = useMemo(() => (puzzle ? puzzle.m.split(" ") : []), [puzzle]);
@@ -244,12 +264,18 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
       <div className="page">
         <TopBar title={tier.label} onBack={() => nav("puzzles")} />
         <p className="hint">
-          {theme
-            ? "Every puzzle with this theme is solved, clear the filter for more."
+          {theme || range !== "any"
+            ? "No unsolved puzzles match this filter. Clear it for more."
             : `All ${list.length} solved. 🎉`}
         </p>
-        {theme && (
-          <button className="bigbtn" onClick={() => setTheme(null)}>
+        {(theme || range !== "any") && (
+          <button
+            className="bigbtn"
+            onClick={() => {
+              setTheme(null);
+              setRange("any");
+            }}
+          >
             Clear filter
           </button>
         )}
@@ -305,8 +331,10 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
       buzz(store, 60);
       setState("wrong");
       record(false);
+      tip.explain(chess.fen(), played, puzzle.t);
       return;
     }
+    tip.clear();
     setHint(0); // help was for this step only; the next one starts unaided
     const nextPly = ply + 2; // our move, then the opponent's reply
     if (ply + 1 >= moves.length || isMateUci(chess.fen(), played)) {
@@ -338,6 +366,17 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
 
       {showThemes && (
         <div className="chapterlist card">
+          <div className="filterhead">Rating</div>
+          {RANGES.map((r) => (
+            <button
+              key={r.id}
+              className={"chip" + (range === r.id ? " sel" : "")}
+              onClick={() => { setRange(r.id); setPuzzleId(null); setState("try"); setPly(1); }}
+            >
+              {r.label}
+            </button>
+          ))}
+          <div className="filterhead">Theme</div>
           <button className={"chip" + (!theme ? " sel" : "")} onClick={() => { setTheme(null); setPuzzleId(null); }}>
             All
           </button>
@@ -378,13 +417,16 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
         </p>
       )}
       {state === "wrong" && <p className="warn center">Not that one, try again.</p>}
+      {state === "wrong" && tip.text && <TipStrip text={tip.text} />}
       {state === "revealed" && <p className="hint center">The move is {uciToSan(chess.fen(), expected) || expected}.</p>}
       {state === "solved" && <p className="okmsg center">✓ Solved</p>}
       {state === "try" && ply > 1 && <p className="hint center small">Keep going, the line continues.</p>}
 
       <div className="btnrow toolrow">
         <button className="linkbtn" onClick={() => setShowThemes((s) => !s)}>
-          ⚑ {theme ? themes.find((t) => t.key === theme)?.label || "Theme" : "Theme"}
+          ⚑ {[range !== "any" && RANGES.find((r) => r.id === range)?.label, theme && (themes.find((t) => t.key === theme)?.label || "Theme")]
+            .filter(Boolean)
+            .join(" · ") || "Filter"}
         </button>
         {state !== "solved" && state !== "revealed" && (
           <button
@@ -456,7 +498,53 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
-function applyUci(chess, uci) {
+// Asks the engine for the answer to a wrong move (a quarter of a second),
+// then has the coach word the tip. Only the latest wrong move counts.
+export function useWrongMoveTip() {
+  const [text, setText] = useState(null);
+  const seq = useRef(0);
+  const engine = useMemo(() => getEngine(), []);
+  useEffect(() => () => engine.cancel("puzzle-tip"), [engine]);
+  const clear = useCallback(() => {
+    seq.current++;
+    setText(null);
+  }, []);
+  const explain = useCallback(
+    (fen, played, themes) => {
+      const n = ++seq.current;
+      setText(puzzleTip({ fen, played, themes }));
+      let after;
+      try {
+        const c = new Chess(fen);
+        c.move({ from: played.slice(0, 2), to: played.slice(2, 4), promotion: played[4] || "q" });
+        after = c.fen();
+      } catch {
+        return;
+      }
+      engine
+        .analyze(after, { movetime: 250, tag: "puzzle-tip" })
+        .then((r) => {
+          const l = r.lines[0];
+          if (n !== seq.current || !l) return;
+          setText(puzzleTip({ fen, played, themes, replyPv: l.pv, cpAfter: cpWhite(l, after.split(" ")[1]) }));
+        })
+        .catch(() => {});
+    },
+    [engine]
+  );
+  return { text, explain, clear };
+}
+
+export function TipStrip({ text }) {
+  return (
+    <div className="coachstrip cs-tip" aria-live="polite">
+      <span className="coachtag">Coach</span>
+      <p>{text}</p>
+    </div>
+  );
+}
+
+export function applyUci(chess, uci) {
   return chess.move({
     from: uci.slice(0, 2),
     to: uci.slice(2, 4),

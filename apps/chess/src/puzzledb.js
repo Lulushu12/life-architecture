@@ -228,3 +228,19 @@ export function themesIn(list) {
     .filter((t) => counts.get(t) >= 8) // too few to be worth a filter chip
     .map((t) => ({ key: t, label: THEME_LABELS[t], count: counts.get(t) }));
 }
+
+// Rating-range filter for the training sets (plan item 11), relative to
+// your puzzle rating so it keeps meaning the same thing as you improve.
+export const RANGES = [
+  { id: "any", label: "Any rating" },
+  { id: "easier", label: "Easier", lo: -400, hi: -100 },
+  { id: "level", label: "My level", lo: -100, hi: 100 },
+  { id: "harder", label: "Harder", lo: 100, hi: 400 },
+];
+
+/** Puzzles of `list` inside a range around `rating`. */
+export function inRange(list, rangeId, rating) {
+  const r = RANGES.find((x) => x.id === rangeId);
+  if (!r || r.lo == null) return list;
+  return list.filter((p) => p.r >= rating + r.lo && p.r <= rating + r.hi);
+}

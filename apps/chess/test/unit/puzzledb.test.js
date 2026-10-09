@@ -14,6 +14,7 @@ import {
   isMateUci,
   resolveDue,
   CHECK_TIMEOUT_MS,
+  inRange,
 } from "../../src/puzzledb.js";
 import { FakeEngine, line } from "../fixtures/fakeEngine.js";
 
@@ -158,5 +159,15 @@ describe("db helpers", () => {
     expect(flat.map((p) => [p.i, p.k])).toEqual([["a", "starter"], ["b", "easy"]]);
     expect(allPuzzles(db)).toBe(flat);
     expect([...allSolved({ puzzleProgress: { starter: ["a"], easy: ["b"] } })]).toEqual(["a", "b"]);
+  });
+});
+
+describe("rating range filter (plan item 11)", () => {
+  const list = [700, 900, 1000, 1100, 1300, 1500].map((r, i) => ({ i: String(i), r }));
+  it("filters around your rating", () => {
+    expect(inRange(list, "any", 1000)).toBe(list);
+    expect(inRange(list, "easier", 1000).map((p) => p.r)).toEqual([700, 900]);
+    expect(inRange(list, "level", 1000).map((p) => p.r)).toEqual([900, 1000, 1100]);
+    expect(inRange(list, "harder", 1000).map((p) => p.r)).toEqual([1100, 1300]);
   });
 });

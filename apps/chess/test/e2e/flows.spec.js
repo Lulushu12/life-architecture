@@ -1,8 +1,32 @@
 import { test, expect } from "@playwright/test";
 import { seed, open, readStore, move, button } from "./helpers.js";
+import { readFileSync } from "node:fs";
+import { Chess } from "chess.js";
 
 // Fool's mate, with you as White: two blunders for the review to find.
 const FOOLS_MATE = ["f3", "e5", "g4", "Qh4#"];
+
+// The Starter puzzle the trainer picks when Math.random() is 0 and your
+// rating is the default 1200, and a legal wrong move.
+function starterPick() {
+  const db = JSON.parse(readFileSync(new URL("../../public/puzzles.json", import.meta.url), "utf8"));
+  const list = db.puzzles.starter;
+  // nextPuzzle's widening windows, first match (Math.random() is 0)
+  let puzzle = null;
+  for (const w of [150, 300, 600]) {
+    puzzle = list.find((p) => Math.abs(p.r - 1200) <= w);
+    if (puzzle) break;
+  }
+  const moves = puzzle.m.split(" ");
+  const c = new Chess(puzzle.f);
+  c.move({ from: moves[0].slice(0, 2), to: moves[0].slice(2, 4), promotion: moves[0][4] });
+  const fen = c.fen();
+  const wrong = c
+    .moves({ verbose: true })
+    .map((m) => m.from + m.to)
+    .find((u) => u !== moves[1].slice(0, 4) && !new Chess(fen).move({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: "q" }).san.includes("#"));
+  return { puzzle, fen, wrong, moves };
+}
 
 test.describe("current behaviour", () => {
   test("home lists every section", async ({ page }) => {
@@ -238,6 +262,105 @@ test.describe("current behaviour", () => {
     await expect(page.getByText("Performance rating")).toHaveCount(0);
     await button(page, /Play a bot/).click();
     await expect(page.locator(".botmini").first()).toBeVisible();
+  });
+
+  // Plan item 11 (characterization first): a wrong move in a training set.
+  test("a wrong move in a training set is marked and rated", async ({ page }) => {
+    const { puzzle, wrong, fen, moves } = starterPick();
+    await page.addInitScript(() => {
+      Math.random = () => 0;
+    });
+    await seed(page, null);
+    await open(page);
+    await button(page, /Puzzles/).click();
+    await button(page, /Starter/).click();
+    await expect(page.locator(".topbar")).toContainText(`puzzle ${puzzle.r}`, { timeout: 30_000 });
+    await move(page, wrong.slice(0, 2), wrong.slice(2, 4));
+    await expect(page.getByText("Not that one, try again.")).toBeVisible();
+    expect((await readStore(page)).puzzleRating.n).toBe(1);
+    // the board is still yours to try again
+    await expect(page.locator(".okmsg")).toHaveCount(0);
+    // and the coach says why, without the answer (plan item 11)
+    const tip = page.locator(".cs-tip");
+    await expect(tip).toBeVisible();
+    const answer = new Chess(fen).move({ from: moves[1].slice(0, 2), to: moves[1].slice(2, 4), promotion: moves[1][4] }).san;
+    expect(await tip.innerText()).not.toContain(answer);
+  });
+
+  test("training sets filter by rating range", async ({ page }) => {
+    await seed(page, null);
+    await open(page);
+    await button(page, /Puzzles/).click();
+    await button(page, /Medium/).click(); // 1300 to 1600
+    await expect(page.locator(".topbar")).toContainText("puzzle", { timeout: 30_000 });
+    await button(page, /Filter/).click();
+    await page.getByRole("button", { name: "Harder" }).click(); // 1300 to 1600 around your 1200
+    await expect(button(page, /⚑ Harder/)).toBeVisible();
+    const r = Number((await page.locator(".topbar").innerText()).match(/puzzle (\d+)/)[1]);
+    expect(r).toBeGreaterThanOrEqual(1300);
+    expect(r).toBeLessThanOrEqual(1600);
+    await page.getByRole("button", { name: "Easier" }).click(); // nothing under 1100 in Medium
+    await expect(page.getByText("No unsolved puzzles match this filter.")).toBeVisible();
+    await button(page, /Clear filter/).click();
+    await expect(page.locator(".topbar")).toContainText("puzzle");
+  });
+
+  // Plan item 11: the daily puzzle.
+  const todayLocal = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  };
+
+  test("the daily puzzle: a wrong move costs a heart, solving it starts a streak", async ({ page }) => {
+    const { puzzle, wrong, moves } = starterPick();
+    const today = todayLocal();
+    await seed(page, { daily: { date: today, key: "starter", id: puzzle.i, r: puzzle.r, hearts: 5, result: null } });
+    await open(page);
+    await page.getByRole("button", { name: /Daily puzzle/ }).first().click();
+    await expect(page.locator(".hearts .full")).toHaveCount(5, { timeout: 30_000 });
+    await move(page, wrong.slice(0, 2), wrong.slice(2, 4));
+    await expect(page.locator(".hearts .full")).toHaveCount(4);
+    await expect(page.locator(".cs-tip")).toBeVisible();
+    for (let i = 1; i < moves.length; i += 2) await move(page, moves[i].slice(0, 2), moves[i].slice(2, 4));
+    await expect(page.locator(".okmsg")).toHaveText("✓ Solved with 4 hearts left");
+    await expect(page.locator(".dailystreak")).toContainText("1 day");
+    await expect(page.locator(`.cal-day.solved.today`)).toHaveCount(1);
+    const s = await readStore(page);
+    expect(s.dailyLog[today]).toEqual({ id: puzzle.i, result: "solved", hearts: 4 });
+    // the Life Architecture ledger got the event
+    const events = await page.evaluate(() => JSON.parse(localStorage.getItem("la_events_v1") || "[]"));
+    expect(events.find((e) => e.type === "chess.daily")?.value).toEqual({ result: "solved", hearts: 4, streak: 1 });
+  });
+
+  test("the daily puzzle fails at zero hearts and shows the answer", async ({ page }) => {
+    const { puzzle, fen } = starterPick();
+    const today = todayLocal();
+    const c = new Chess(fen);
+    const expected = puzzle.m.split(" ")[1].slice(0, 4);
+    const wrongs = c.moves({ verbose: true }).map((m) => m.from + m.to).filter((u) => u !== expected && !new Chess(fen).move({ from: u.slice(0, 2), to: u.slice(2, 4), promotion: "q" }).san.includes("#"));
+    await seed(page, { daily: { date: today, key: "starter", id: puzzle.i, r: puzzle.r, hearts: 2, result: null } });
+    await open(page);
+    await page.getByRole("button", { name: /Daily puzzle/ }).first().click();
+    await expect(page.locator(".hearts .full")).toHaveCount(2, { timeout: 30_000 });
+    await move(page, wrongs[0].slice(0, 2), wrongs[0].slice(2, 4));
+    await move(page, wrongs[0].slice(0, 2), wrongs[0].slice(2, 4));
+    await expect(page.getByText("Out of hearts. The streak starts again tomorrow.")).toBeVisible();
+    await expect(page.locator('g[stroke="#15803d"]')).toHaveCount(1); // the answer, drawn
+    expect((await readStore(page)).dailyLog[today].result).toBe("failed");
+    await expect(page.locator(".cal-day.failed.today")).toHaveCount(1);
+  });
+
+  test("today's daily is picked once and shown on Home", async ({ page }) => {
+    await seed(page, null);
+    await open(page);
+    await expect(page.locator(".hometile", { hasText: "Daily puzzle" })).toContainText("New today · 5 hearts");
+    await page.locator(".hometile", { hasText: "Daily puzzle" }).click();
+    await expect(page.locator(".hearts .full")).toHaveCount(5, { timeout: 30_000 });
+    const d = (await readStore(page)).daily;
+    expect(d).toMatchObject({ date: todayLocal(), hearts: 5, result: null });
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await expect(page.locator(".hearts .full")).toHaveCount(5, { timeout: 30_000 });
+    expect((await readStore(page)).daily.id).toBe(d.id);
   });
 
   // Found while building plan item 8: moving before the engine had judged the

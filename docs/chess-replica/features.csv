@@ -41,15 +41,15 @@ Difficulty setting for rated puzzles,puzzles,could,yes,partial,tiers and rated m
 Enough puzzles at your rating,puzzles,must,yes,partial,1200 under 1000 and 1200 at 1000-1299
 Accept any correct mate,puzzles,must,yes,yes,alternative mates accepted in every trainer since plan item 3 (bug 3)
 Puzzle Rush,puzzles,should,yes,partial,3 minutes only; no 5 min or survival
-Daily puzzle with streak and calendar,puzzles,should,yes,no,
-Custom puzzles by theme and rating range,puzzles,should,yes,partial,theme filter yes; rating range no
+Daily puzzle with streak and calendar,puzzles,should,yes,yes,"plan item 11: one bundled puzzle per date a little above your rating, 5 hearts (wrong moves and hints cost one), streak, best streak and a month calendar; unrated; sends chess.daily to the Life Architecture ledger"
+Custom puzzles by theme and rating range,puzzles,should,yes,yes,plan item 11: theme filter plus Easier / My level / Harder around your puzzle rating
 Retry failed puzzles,puzzles,should,yes,yes,spaced review 1/3/7/21 days
-Coach tip after a wrong puzzle move,puzzles,should,yes,no,
+Coach tip after a wrong puzzle move,puzzles,should,yes,yes,"plan item 11: what the tried move gives away (from the engine's answer) plus a nudge from the puzzle's theme, never the solution; in training sets, rated puzzles and the daily"
 Puzzle Battle,puzzles,could,yes,skip,live multiplayer
 Puzzle Points tiers and skins,puzzles,could,yes,skip,gamification art
 Learn path with Next Lesson,lessons,should,yes,partial,72 lessons by category; no path; completion meaningless
 New-to-chess basics (moves and rules),lessons,could,yes,no,you likely know the rules already
-Home screen built around tasks,navigation,should,yes,yes,"plan item 10: hero card with a mini board of your game (or play your last bot again), four tiles (puzzles, due, next lesson, play bots), the rest as a list; the daily puzzle tile comes with item 11"
+Home screen built around tasks,navigation,should,yes,yes,"plan items 10 and 11: hero card with a mini board of your game (or play your last bot again), four tiles (daily puzzle, due, next lesson, play bots), the rest as a list"
 Game-over sheet with Rematch,navigation,should,yes,yes,"plan item 10: Review, Rematch (same bot and help, colours swapped) and New"
 One tap from game end to review,navigation,must,yes,yes,
 Bottom tab bar,navigation,could,yes,no,

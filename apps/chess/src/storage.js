@@ -36,6 +36,8 @@ function freshStore() {
     puzzleSrs: {},
     drillProgress: {},
     blunderChecks: [], // {t, saved}: each time the blunder check stopped a move
+    daily: null, // today's daily puzzle: {date, key, id, r, hearts, result}
+    dailyLog: {}, // date -> {id, result: "solved"|"failed", hearts}
   };
 }
 
@@ -101,6 +103,8 @@ function normalize(s) {
     puzzleSrs: isObj(s.puzzleSrs) ? s.puzzleSrs : {},
     drillProgress: isObj(s.drillProgress) ? s.drillProgress : {},
     blunderChecks: (Array.isArray(s.blunderChecks) ? s.blunderChecks : []).filter((c) => isObj(c) && Number.isFinite(c.t)),
+    daily: isObj(s.daily) && typeof s.daily.date === "string" ? s.daily : null,
+    dailyLog: isObj(s.dailyLog) ? s.dailyLog : {},
   };
   return capStore(out);
 }

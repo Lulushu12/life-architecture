@@ -7,8 +7,10 @@ import { newBotGame, lastBotGame } from "./botGame.js";
 import { presetFlags, presetName, presetOf, helpOf } from "./helpLevels.js";
 import { getRating, dueItems } from "./puzzledb.js";
 import { wdl } from "./records.js";
+import { dailyStreak, dailyStatus } from "./daily.js";
+import { todayKey } from "@shared/store.js";
 import {
-  Archive, BookOpen, Bot, ChartLine, ChevronRight, Download, GraduationCap, Handshake, Landmark, Microscope, Pencil,
+  Archive, BookOpen, Bot, CalendarDays, ChartLine, ChevronRight, Download, GraduationCap, Handshake, Landmark, Microscope, Pencil,
   Play, Puzzle, Repeat, Settings, Swords,
 } from "lucide-react";
 
@@ -19,7 +21,8 @@ export default function Home({ store, setStore, nav }) {
   const last = useMemo(() => (cur ? null : lastBotGame(store.games)), [cur, store.games]);
   const rating = getRating(store);
   const due = useMemo(() => dueItems(store).length, [store]);
-  const toRetry = store.puzzles.filter((p) => !p.solved).length;
+  const today = todayKey();
+  const streak = dailyStreak(store.dailyLog, today);
 
   // The lessons are big, so the next one is looked up after the screen shows.
   const [next, setNext] = useState(null);
@@ -55,13 +58,16 @@ export default function Home({ store, setStore, nav }) {
       )}
 
       <div className="hometiles">
-        <button type="button" className="card hometile" onClick={() => nav("puzzles")}>
+        <button type="button" className="card hometile" onClick={() => nav("puzzles", { set: "daily" })}>
           <span className="ht-row">
-            <Puzzle aria-hidden="true" />
-            <span className="ht-num">{rating.r}</span>
+            <CalendarDays aria-hidden="true" />
+            <span className="ht-num">
+              {streak}
+              <small> {streak === 1 ? "day" : "days"}</small>
+            </span>
           </span>
-          <span className="ht-lbl">Puzzles</span>
-          <span className="ht-sub">{toRetry ? `rating · ${toRetry} of yours to retry` : "your puzzle rating"}</span>
+          <span className="ht-lbl">Daily puzzle</span>
+          <span className="ht-sub">{dailyStatus(store, today)}</span>
         </button>
         <button type="button" className="card hometile" onClick={() => nav("puzzles", due ? { set: "due" } : {})}>
           <span className="ht-row">
@@ -107,6 +113,7 @@ export default function Home({ store, setStore, nav }) {
       <div className="homesection">Everything else</div>
       <div className="card homelist">
         {[
+          [Puzzle, `Puzzles · rating ${rating.r}`, () => nav("puzzles")],
           [Handshake, "Pass & play", () => nav("passplay", { setup: true })],
           [GraduationCap, "Lessons", () => nav("lessons")],
           [BookOpen, "Openings", () => nav("openings")],
