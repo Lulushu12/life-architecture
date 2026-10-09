@@ -10,6 +10,10 @@ import {
   allSolved,
   getRating,
   SRS_DAYS,
+  acceptsMove,
+  isMateUci,
+  resolveDue,
+  CHECK_TIMEOUT_MS,
 } from "../../src/puzzledb.js";
 import { FakeEngine, line } from "../fixtures/fakeEngine.js";
 
@@ -88,15 +92,57 @@ describe("engine check for alternative answers", () => {
     expect(await moveIsGoodEnough(engine, "fen", "h2h4")).toBe(false);
   });
 
-  // Audit bug 14: a busy engine makes a correct answer count as wrong.
-  it.fails("does not reject a correct move just because the engine was busy", async () => {
+  // Audit bug 14 (fixed in plan item 3): a busy engine used to make a correct
+  // answer count as wrong. Now the check reports "unknown" instead.
+  it("returns null, not false, when the engine does not answer in time", async () => {
     vi.useFakeTimers();
     const engine = new FakeEngine(() => new Promise(() => {}));
     const pending = moveIsGoodEnough(engine, "fen", "e2e4");
-    vi.advanceTimersByTime(4001);
+    await vi.advanceTimersByTimeAsync(CHECK_TIMEOUT_MS + 1);
     const result = await pending;
     vi.useRealTimers();
-    expect(result).not.toBe(false);
+    expect(result).toBeNull();
+    expect(engine.cancelled).toContain("puzzle-check");
+  });
+});
+
+describe("accepted puzzle answers", () => {
+  // Back-rank position, White to move: Ra8 is mate. The tests pretend the
+  // stored answer is a different move to show any mate is accepted.
+  const TWO_MATES = "6k1/5ppp/8/8/8/8/5PPP/R5RK w - - 0 1";
+
+  it("accepts the stored move, ignoring an unspecified promotion", () => {
+    const fen = "8/4P3/8/8/8/8/8/k6K w - - 0 1";
+    expect(acceptsMove(fen, "e7e8q", "e7e8")).toBe(true);
+    expect(acceptsMove(fen, "e7e8n", "e7e8n")).toBe(true);
+    expect(acceptsMove(fen, "h1h2", "e7e8")).toBe(false);
+  });
+
+  // Audit bug 3 (fixed in plan item 3): any checkmate is a correct answer.
+  it("accepts any checkmate, not just the stored one", () => {
+    expect(isMateUci(TWO_MATES, "a1a8")).toBe(true);
+    expect(isMateUci(TWO_MATES, "g1a1")).toBe(false);
+    expect(acceptsMove(TWO_MATES, "a1a8", "g1g7")).toBe(true);
+  });
+});
+
+describe("due review list", () => {
+  const db = { puzzles: { starter: [{ i: "a", f: "fenA", m: "e2e4 e7e5", r: 900 }] } };
+  const own = [{ id: "p1", fen: "fenP", bestUci: "d2d4", playedSan: "h4" }, { id: "p2", fen: "x" }];
+
+  // Audit bug 11 (fixed in plan item 3): entries for puzzles that no longer
+  // exist used to be counted on the hub but dropped by the review.
+  it("keeps only items that can be shown", () => {
+    const queue = [
+      { kind: "tier", key: "starter:a", tier: "starter", id: "a" },
+      { kind: "tier", key: "starter:gone", tier: "starter", id: "gone" },
+      { kind: "blunder", key: "b:p1", id: "p1" },
+      { kind: "blunder", key: "b:p2", id: "p2" },
+    ];
+    const items = resolveDue(queue, db, own);
+    expect(items.map((i) => i.key)).toEqual(["starter:a", "b:p1"]);
+    expect(items[0]).toMatchObject({ fen: "fenA", moves: ["e2e4", "e7e5"], setup: true, r: 900 });
+    expect(items[1]).toMatchObject({ fen: "fenP", moves: ["d2d4"], setup: false, playedSan: "h4" });
   });
 });
 

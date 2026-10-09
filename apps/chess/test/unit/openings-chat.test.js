@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { Chess } from "chess.js";
 import { findOpening, OPENINGS } from "../../src/openings.js";
-import { allLines, nameFor } from "../../src/openingdb.js";
+import { allLines, nameFor, lineEval, sharpLines } from "../../src/openingdb.js";
 import { detectEvents, pickLineWithEvent, recentMoves } from "../../src/chat.js";
 import { personasByLang, getPersona, PERSONAS, LEVELS } from "../../src/personas.js";
 
@@ -28,10 +28,28 @@ describe("opening lookup", () => {
     expect(nameFor(["e4", "c5"])).toBeTruthy();
   });
 
-  // Audit bug 15: lines share ECO|name keys, so evals and React keys collide.
-  it.fails("gives every explorer line a unique key", () => {
+  // Audit bug 15 (fixed in plan item 3): lines used to share ECO|name keys,
+  // so React keys collided and a sibling line's eval was shown.
+  it("gives every explorer line a unique key", () => {
     const keys = allLines().map((l) => l.key);
     expect(new Set(keys).size).toBe(keys.length);
+  });
+
+  it("only trusts a stored eval for a line whose name key is its own", () => {
+    const shared = allLines().find((l) => l.evalShared);
+    const own = allLines().find((l) => !l.evalShared);
+    const meta = { evals: { [shared.metaKey]: { cp: 50 }, [own.metaKey]: { cp: 20 } } };
+    expect(lineEval(meta, shared)).toBeNull();
+    expect(lineEval(meta, own)).toEqual({ cp: 20 });
+    expect(allLines().filter((l) => l.evalShared).length).toBeGreaterThan(400);
+  });
+});
+
+describe("sharp lines for engine matches", () => {
+  it("recomputes once the metadata arrives instead of keeping an empty pool", () => {
+    const before = sharpLines(null);
+    const meta = { evals: Object.fromEntries(allLines().filter((l) => !l.evalShared).map((l) => [l.metaKey, { cp: 100 }])) };
+    expect(sharpLines(meta).length).toBeGreaterThan(before.length);
   });
 });
 

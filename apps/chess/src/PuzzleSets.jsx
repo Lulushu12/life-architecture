@@ -17,8 +17,12 @@ import {
   srsNext,
   dueItems,
   moveIsGoodEnough,
+  acceptsMove,
+  isMateUci,
+  resolveDue,
 } from "./puzzledb.js";
 import { legalDests, promotionCheck } from "./core/position.js";
+import { uciToSan } from "./review.js";
 
 function boardLook(store) {
   return {
@@ -55,7 +59,13 @@ export function PuzzleHome({ store, nav }) {
   const blunders = store.puzzles.filter((p) => !p.solved).length;
   const [db, error] = useDb();
   const rating = getRating(store);
-  const due = useMemo(() => dueItems(store).length, [store.puzzleSrs, store.puzzles]);
+  // Count only what Due review can actually show (bug 11: entries for puzzles
+  // no longer in the bundled set used to inflate this).
+  const due = useMemo(
+    () => (db ? resolveDue(dueItems(store), db, store.puzzles).length : dueItems(store).length),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [db, store.puzzleSrs, store.puzzles]
+  );
   const bests = store.puzzleBests || {};
 
   return (
@@ -269,10 +279,14 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
   };
 
   const markSolved = () => {
+    // A puzzle counts toward the set's progress only when solved cleanly: a
+    // miss, a hint or Reveal already recorded it as failed (bug 5).
+    const clean = !outcome || outcome.ok;
     setState("solved");
     sfx(store, "gameEnd");
     buzz(store, [30, 40, 30]);
     record(true);
+    if (!clean) return;
     setStore((s) => {
       const prev = s.puzzleProgress?.[setKey] || [];
       if (prev.includes(puzzle.i)) return s;
@@ -282,10 +296,9 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
 
   const tryMove = (from, to, promotion) => {
     const played = from + to + (promotion || "");
-    const want = expected;
-    // A promotion the user didn't specify defaults to a queen upstream; compare
-    // on the first four characters when the expected move has no promotion.
-    const ok = want.length === 5 ? played === want : played.slice(0, 4) === want.slice(0, 4);
+    // The stored move, or any checkmate (bug 3: alternative mates used to be
+    // marked wrong here, while the other trainers accepted them).
+    const ok = acceptsMove(chess.fen(), played, expected);
     if (!ok) {
       sfx(store, "lose");
       buzz(store, 60);
@@ -295,7 +308,7 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
     }
     setHint(0); // help was for this step only; the next one starts unaided
     const nextPly = ply + 2; // our move, then the opponent's reply
-    if (ply + 1 >= moves.length) {
+    if (ply + 1 >= moves.length || isMateUci(chess.fen(), played)) {
       setPly(ply + 1);
       markSolved();
     } else {
@@ -364,7 +377,7 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
         </p>
       )}
       {state === "wrong" && <p className="warn center">Not that one, try again.</p>}
-      {state === "revealed" && <p className="hint center">The move is {expected}.</p>}
+      {state === "revealed" && <p className="hint center">The move is {uciToSan(chess.fen(), expected) || expected}.</p>}
       {state === "solved" && <p className="okmsg center">✓ Solved</p>}
       {state === "try" && ply > 1 && <p className="hint center small">Keep going, the line continues.</p>}
 
@@ -494,7 +507,7 @@ function LineSolver({ store, item, onResult, accept }) {
   };
 
   const tryMove = async (from, to, promotion) => {
-    if (status !== "try" || !expected) return;
+    if ((status !== "try" && status !== "unchecked") || !expected) return;
     const test = new Chess(chess.fen());
     let mv;
     try {
@@ -510,6 +523,11 @@ function LineSolver({ store, item, onResult, accept }) {
       setStatus("checking");
       ok = await accept(chess.fen(), played);
       if (!alive.current) return;
+      if (ok === null) {
+        // the engine didn't answer in time: not a wrong answer (bug 14)
+        setStatus("unchecked");
+        return;
+      }
       setStatus("try");
     }
     if (!ok) {
@@ -534,7 +552,7 @@ function LineSolver({ store, item, onResult, accept }) {
       <Board
         fen={chess.fen()}
         orientation={solverColor}
-        dests={status === "try" ? legalDests(chess) : null}
+        dests={status === "try" || status === "unchecked" ? legalDests(chess) : null}
         onMove={tryMove}
         arrow={status === "failed" && expected ? [expected.slice(0, 2), expected.slice(2, 4)] : null}
         needsPromotion={promotionCheck(chess)}
@@ -543,6 +561,8 @@ function LineSolver({ store, item, onResult, accept }) {
       <p className={"center small " + (status === "failed" ? "warn" : status === "solved" ? "okmsg" : "hint")}>
         {status === "checking"
           ? "Checking your move..."
+          : status === "unchecked"
+            ? "Couldn't check that move in time. Try it again."
           : status === "failed"
             ? "Missed: the arrow shows the move."
             : status === "solved"
@@ -713,21 +733,9 @@ export function DueReview({ store, setStore, nav }) {
 
   useEffect(() => () => engine.cancel("puzzle-check"), [engine]);
 
-  const items = useMemo(() => {
-    if (!db) return null;
-    const out = [];
-    for (const q of queue) {
-      if (q.kind === "tier") {
-        const p = (db.puzzles[q.tier] || []).find((x) => x.i === q.id);
-        if (p) out.push({ ...q, fen: p.f, moves: p.m.split(" "), setup: true, r: p.r });
-      } else {
-        const p = store.puzzles.find((x) => x.id === q.id);
-        if (p?.bestUci) out.push({ ...q, fen: p.fen, moves: [p.bestUci], setup: false, playedSan: p.playedSan });
-      }
-    }
-    return out;
+  const items = useMemo(() => (db ? resolveDue(queue, db, store.puzzles) : null),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [db, queue]);
+    [db, queue]);
 
   const accept = useCallback((fen, played) => moveIsGoodEnough(engine, fen, played), [engine]);
 

@@ -55,7 +55,8 @@ export default function Analysis({ store, nav, view }) {
   // grading use only this; the eval bar keeps the last value to avoid a jump.
   const live = evalInfo && evalInfo.fen === fen ? evalInfo : null;
   const liveCp = live ? live.cp : null;
-  const opening = useMemo(() => findOpening(sans), [sans]);
+  // Opening names only mean something from the normal start (bug 16).
+  const opening = useMemo(() => (startFen ? null : findOpening(sans)), [startFen, sans]);
 
   const navTo = (fn) => {
     setVerdict(null);
@@ -224,7 +225,10 @@ export default function Analysis({ store, nav, view }) {
     try {
       const c = new Chess();
       c.loadPgn(text);
-      setStartFen(null);
+      // A PGN that starts from a set-up position carries it in its headers;
+      // the moves only replay from there (bug 1: this used to crash the app).
+      const h = c.header();
+      setStartFen(h.FEN || null);
       setSans(c.history());
       setViewPly(null);
       setBranches([]);

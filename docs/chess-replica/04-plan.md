@@ -293,3 +293,5 @@ The one must-have left is "Enough puzzles at your rating". It stays partial beca
 | 0 | Parked | You chose to keep moving data by export and import until the key can be made on your NixOS machine |
 | 1 | **Done** | 75 unit tests (Vitest) and 16 browser flows (Playwright, real Stockfish). Known bugs 1, 7, 9, 14 and 15 are expected-fail tests. The brand sweep (with allowlist) runs in CI. Pages and APK builds wait for the tests. CI is green on GitHub |
 | 2 | **Done** | `src/core/` holds positions and moves, move-quality bands, the threat probe and the engine contract. 9 screens use it instead of their own copies. The opening lookup is indexed and proven identical to the old scan. Bug 4 (stale analysis lines) and bug 13 (threat arrows on harmless moves) are fixed; tests fail on the old code and pass on the new |
+| 3 | **Done** | Fixed audit bugs 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15 and 16, plus the importer's stalled downloads. Every fix has a test that failed before it. Bugs 17 (desktop right-drag) and 18 (backgrounded batch review) are left for later as low value. The broken Puzzles and Lessons hub cards now have their styles (design audit fix A) |
+

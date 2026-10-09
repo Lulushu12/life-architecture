@@ -15,6 +15,7 @@ import {
 } from "./lessons/index.js";
 import { play as sfx, buzz } from "./audio.js";
 import { legalDests, promotionCheck } from "./core/position.js";
+import { boardOrientation, resumeStep, progressPct, completedCount } from "./lessonRunner.js";
 
 // Numbered step strip: jump to any part of a lesson directly.
 function StepStrip({ lesson, stepIdx, onJump }) {
@@ -65,11 +66,7 @@ function stepLabel(step, i) {
 }
 
 function LessonProgressBar({ lesson, progress }) {
-  const pct = progress?.completed
-    ? 100
-    : progress
-      ? Math.round((((progress.step || 0) + 1) / lesson.steps.length) * 100)
-      : 0;
+  const pct = progressPct(lesson, progress);
   if (!pct) return null;
   return (
     <div className="rowbar">
@@ -80,7 +77,7 @@ function LessonProgressBar({ lesson, progress }) {
 
 function LessonHome({ store, nav }) {
   const cats = categoryCounts();
-  const done = Object.values(store.lessonProgress || {}).filter((p) => p.completed).length;
+  const done = completedCount(store.lessonProgress);
   const inProgress = LESSONS.filter((l) => {
     const p = progressOf(store, l.id);
     return p && !p.completed;
@@ -223,9 +220,10 @@ function LessonList({ category, store, nav }) {
 
 function LessonRunner({ lesson, store, setStore, nav }) {
   const saved = progressOf(store, lesson.id);
-  const [stepIdx, setStepIdx] = useState(saved && !saved.completed ? saved.step || 0 : 0);
+  const [stepIdx, setStepIdx] = useState(() => resumeStep(lesson, saved));
   const [solved, setSolved] = useState(false); // current step's quiz answered
   const [wrong, setWrong] = useState(null);
+  const [alt, setAlt] = useState(null); // an accepted alternative the learner played
   const [showAnswer, setShowAnswer] = useState(false);
   const [showChapters, setShowChapters] = useState(false);
   const stepIdxRef = useRef(stepIdx);
@@ -253,12 +251,15 @@ function LessonRunner({ lesson, store, setStore, nav }) {
   }, [lesson, stepIdx, step]);
 
   // Position shown: after the step's own moves, plus the quiz answer once found.
+  // An accepted alternative stays on the board until the next step, which
+  // continues from the main answer (bug 8: the board used to swap the
+  // learner's move for the main answer without a word).
   const shownFen = useMemo(() => {
     if (!step.quiz || !solved) return fenAfterPlay;
     const c = new Chess(fenAfterPlay);
-    c.move(step.quiz.answer);
+    c.move(alt || step.quiz.answer);
     return c.fen();
-  }, [fenAfterPlay, step, solved]);
+  }, [fenAfterPlay, step, solved, alt]);
 
   const quizLastMove = useMemo(() => {
     if (!step.quiz || !solved) return lastMove;
@@ -289,6 +290,7 @@ function LessonRunner({ lesson, store, setStore, nav }) {
     setStepIdx(next);
     setSolved(false);
     setWrong(null);
+    setAlt(null);
     setShowAnswer(false);
     setShowChapters(false);
     save({ step: next });
@@ -319,11 +321,7 @@ function LessonRunner({ lesson, store, setStore, nav }) {
       buzz(store, 18);
       setSolved(true);
       setWrong(null);
-      if (mv.san !== step.quiz.answer) {
-        // an accepted alternative: continue from the main answer so later
-        // steps still line up
-        setTimeout(() => setSolved(true), 0);
-      }
+      setAlt(mv.san !== step.quiz.answer ? mv.san : null);
     } else {
       sfx(store, "lose");
       buzz(store, 50);
@@ -354,7 +352,7 @@ function LessonRunner({ lesson, store, setStore, nav }) {
 
       <Board
         fen={shownFen}
-        orientation={lesson.orientation || "w"}
+        orientation={boardOrientation(lesson, step, fenAfterPlay)}
         lastMove={quizLastMove}
         dests={dests}
         onMove={onMove}
@@ -398,7 +396,12 @@ function LessonRunner({ lesson, store, setStore, nav }) {
             </>
           ) : (
             <>
-              <b className="okmsg">✓ {step.quiz.answer}</b>
+              <b className="okmsg">✓ {alt || step.quiz.answer}</b>
+              {alt && (
+                <div className="quizfeed">
+                  {alt} works too. The lesson continues with the main line, {step.quiz.answer}.
+                </div>
+              )}
               {step.quiz.explain && <div className="quizfeed">{step.quiz.explain}</div>}
             </>
           )}

@@ -1,18 +1,18 @@
-## Parity: 48.2 / 100
+## Parity: 50.9 / 100
 
-features 48.2  (49 counted, must-haves 8 of 22 done)
+features 50.9  (49 counted, must-haves 10 of 22 done)
 
-Not shippable yet: 14 must-have features are not done.
+Not shippable yet: 12 must-have features are not done.
 
 ## By area, weakest first
 - coach                          0.0  (4 features)
 - lessons                       33.3  (2 features)
 - review                        48.3  (12 features)
 - bots                          50.0  (9 features)
-- puzzles                       52.5  (9 features)
+- puzzles                       60.0  (9 features)
 - navigation                    62.5  (4 features)
-- analysis                      66.7  (6 features)
 - history                       71.4  (3 features)
+- analysis                      79.2  (6 features)
 
 ## Missing, in build order
 - [must] bots: Threat arrows during a bot game, no  (threat probe exists in review and analysis but is buggy (audit bug 13))
@@ -23,12 +23,10 @@ Not shippable yet: 14 must-have features are not done.
 - [must] review: Coach one-line game summary, no
 - [must] review: Explanation of why a move was bad (threat / lost piece / mate), no  (data exists (pv after move) but not shown)
 - [must] review: Show the line after your move, no  (refutation line stored but never displayed)
-- [must] analysis: Load FEN or PGN into analysis, partial  (PGN with a FEN header crashes the app (audit bug 1))
 - [must] bots: Assistance presets before a bot game (no help / some / full / custom), partial  (mine has a serious-mode toggle only)
-- [must] puzzles: Accept any correct mate, partial  (tier and mix trainer rejects alternative mates (audit bug 3))
 - [must] puzzles: Enough puzzles at your rating, partial  (1200 under 1000 and 1200 at 1000-1299)
 - [must] review: Best move with reason, partial  (best move and arrow; no reason)
-- [must] review: Retry the position to find a better move, partial  (current Retry starts a bot game and wipes the game in progress)
+- [must] review: Retry the position to find a better move, partial  (still a bot game rather than an in-place retry (plan item 6); since item 3 it asks before replacing a game in progress)
 - [should] analysis: Save an analysis, no
 - [should] puzzles: Coach tip after a wrong puzzle move, no
 - [should] puzzles: Daily puzzle with streak and calendar, no

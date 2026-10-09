@@ -52,6 +52,33 @@ test.describe("current behaviour", () => {
     expect(s.puzzles.every((p) => p.gameId === "g1" && p.solved === false)).toBe(true);
   });
 
+  // Audit bug 2 (fixed in plan item 3): "Retry from here" used to replace a
+  // game in progress without asking.
+  test("retrying from a review asks before replacing a game in progress", async ({ page }) => {
+    const current = {
+      id: "cur", mode: "bot", personaId: "x", playerColor: "w", serious: false, startFen: null,
+      sans: ["e4", "e5"], chat: [], cps: [0, 0, 0], status: "playing", result: null, createdAt: 1,
+    };
+    await seed(page, {
+      settings: { reviewMovetime: 100 },
+      current,
+      games: [{ id: "g1", date: 1, mode: "bot", personaId: "x", playerColor: "w", sans: FOOLS_MATE, result: "0-1", review: null }],
+    });
+    await open(page);
+    await button(page, /Game archive/).click();
+    await page.getByText(/tap to review/).first().click();
+    await expect(page.locator(".acc-val").first()).toBeVisible({ timeout: 90_000 });
+    await page.locator(".movelist .mlmove").nth(2).click(); // 2.g4??, allowing mate
+    await button(page, /Retry from here/).click();
+    await expect(page.getByText(/Replace your game in progress/)).toBeVisible();
+    await button(page, /^Cancel$/).click();
+    expect((await readStore(page)).current.id).toBe("cur");
+
+    await button(page, /Retry from here/).click();
+    await button(page, /Start new game/).click();
+    await expect.poll(async () => (await readStore(page)).current?.id).not.toBe("cur");
+  });
+
   test("a blunder puzzle is solved by playing the best move", async ({ page }) => {
     await seed(page, {
       puzzles: [
@@ -81,6 +108,8 @@ test.describe("current behaviour", () => {
     await page.getByText(/Starter/).first().click();
     await button(page, /^Reveal$/).click();
     await expect(page.getByText(/The move is/)).toBeVisible();
+    // shown in normal notation, not as raw squares (bug 12, fixed in plan item 3)
+    await expect(page.getByText(/The move is [a-h][1-8][a-h][1-8]/)).toHaveCount(0);
     await button(page, /Play it/).click();
     // revealing counts as a miss for the rating
     await expect.poll(async () => (await readStore(page)).puzzleRating.n).toBeGreaterThanOrEqual(1);
@@ -120,9 +149,9 @@ test.describe("current behaviour", () => {
     await expect(page.getByText(/hit an error|Something went wrong/i)).toHaveCount(0);
   });
 
-  // Audit bug 1: a PGN with a [FEN] header crashes the whole app.
+  // Audit bug 1 (fixed in plan item 3): a PGN with a [FEN] header used to
+  // crash the whole app.
   test("analysis accepts a PGN that starts from a FEN", async ({ page }) => {
-    test.fail(true, "known bug 1 (fixed in plan item 3)");
     await seed(page, null);
     await open(page);
     await button(page, /Analysis/).click();

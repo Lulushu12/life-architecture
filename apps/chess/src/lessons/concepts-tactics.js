@@ -92,7 +92,6 @@ export const LESSONS = [
       {
         text: "Smothered mate: a knight delivers checkmate to a king that's completely boxed in by its own pieces — no flight squares, nothing that can block a knight's check.",
         arrows: [
-          ["e5", "f7"],
           ["b3", "g8"],
         ],
         circles: ["f7", "h8"],
@@ -207,7 +206,6 @@ export const LESSONS = [
     steps: [
       {
         text: "Anastasia's mate: a knight on e7 covers g8 and g6, so a king on h7 has no squares left sideways. All that's missing is a checking piece on the h-file.",
-        arrows: [["d5", "e7"]],
         circles: ["g8", "g6"],
       },
       {
@@ -259,7 +257,6 @@ export const LESSONS = [
       {
         text: "Arabian mate: a rook and knight mate a cornered king with no pawn shield at all. The knight guards the two escape squares, and the rook delivers the blow.",
         arrows: [
-          ["h5", "f6"],
           ["g1", "g8"],
         ],
         circles: ["g7", "h7"],
@@ -361,7 +358,6 @@ export const LESSONS = [
       {
         text: "A fork is one piece attacking two targets at once. Knights are the classic forkers — their odd move shape lets them hit squares no other piece nearby can reach.",
         arrows: [
-          ["b5", "c7"],
           ["c7", "a8"],
           ["c7", "e8"],
         ],
@@ -644,7 +640,6 @@ export const LESSONS = [
         text: "A windmill (or seesaw): a rook and bishop battery checks the king over and over, grabbing material on every swing, because the king only ever has one square to go to.",
         arrows: [
           ["b2", "h8"],
-          ["g3", "g7"],
         ],
         circles: ["g7", "f7", "f8"],
       },

@@ -10,6 +10,7 @@ import {
   searchLines,
   formatEval,
   verdict,
+  lineEval,
 } from "./openingdb.js";
 import { legalDests, promotionCheck } from "./core/position.js";
 
@@ -51,7 +52,7 @@ export default function Openings({ store, nav }) {
   const nexts = useMemo(() => continuations(sans, meta), [sans, meta]);
   const results = useMemo(() => searchLines(query, meta), [query, meta]);
 
-  const ev = named && meta?.evals?.[named.key];
+  const ev = named ? lineEval(meta, named) : null;
   const exact = named && named.sans.length === sans.length;
 
   // Legal destinations, so the board can be played on directly.
@@ -81,7 +82,7 @@ export default function Openings({ store, nav }) {
         title="Openings"
         sub={
           named
-            ? `${named.eco} · ${named.name}${exact ? "" : " (transposed)"}`
+            ? `${named.eco} · ${named.name}${exact ? "" : " (past the named line)"}`
             : `${sans.length ? "unnamed position" : "3,704 named lines"}`
         }
         onBack={() => nav("home")}
@@ -103,7 +104,7 @@ export default function Openings({ store, nav }) {
             <button key={l.key} className="openrow" onClick={() => jumpTo(l)}>
               <span className="or-eco">{l.eco}</span>
               <span className="or-name">{l.name}</span>
-              <span className="or-plays">{meta?.plays?.[l.key] ? fmtPlays(meta.plays[l.key]) : ""}</span>
+              <span className="or-plays">{meta?.plays?.[l.metaKey] ? fmtPlays(meta.plays[l.metaKey]) : ""}</span>
             </button>
           ))}
         </div>
@@ -140,14 +141,14 @@ export default function Openings({ store, nav }) {
               <div className="oc-title">
                 {named.eco} · {named.name}
               </div>
-              {!exact && <div className="hint small">Position is deeper than this name, you've transposed out of book.</div>}
+              {!exact && <div className="hint small">This position goes past the named line; from here the moves are your own.</div>}
               {ev && (
                 <div className="oc-eval">
                   <b>{formatEval(ev)}</b> <span className="hint small">{verdict(ev)}</span>
                 </div>
               )}
-              {meta?.plays?.[named.key] != null && (
-                <div className="hint small">Seen in {fmtPlays(meta.plays[named.key])} of the reference set</div>
+              {meta?.plays?.[named.metaKey] != null && (
+                <div className="hint small">Seen in {fmtPlays(meta.plays[named.metaKey])} of the reference set</div>
               )}
               {sans.length >= 2 && (
                 <div className="btnrow">

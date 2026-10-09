@@ -78,6 +78,27 @@ describe("PGN import", () => {
   });
 });
 
+it("reads at most twelve months back", async () => {
+  const archives = Array.from({ length: 30 }, (_, i) => `https://api.chess.com/pub/player/me/games/m${i}`);
+  const fetchMock = vi.fn(async (url) => (url.endsWith("/archives") ? jsonResponse({ archives }) : jsonResponse({ games: [] })));
+  vi.stubGlobal("fetch", fetchMock);
+  expect(await fetchRecentGames("chesscom", "me")).toEqual([]);
+  expect(fetchMock).toHaveBeenCalledTimes(13);
+});
+
+it("times out a download that stalls after the headers", async () => {
+  vi.useFakeTimers();
+  vi.stubGlobal("fetch", vi.fn(async (_url, { signal }) => ({
+    ok: true,
+    status: 200,
+    json: () => new Promise((_, reject) => signal.addEventListener("abort", () => reject(new Error("aborted")))),
+  })));
+  const pending = fetchRecentGames("chesscom", "me").catch((e) => e);
+  await vi.advanceTimersByTimeAsync(15_001);
+  vi.useRealTimers();
+  expect((await pending).message).toMatch(/took too long/);
+});
+
 function jsonResponse(body, status = 200) {
   return { ok: status < 400, status, json: async () => body, text: async () => JSON.stringify(body) };
 }
@@ -106,9 +127,9 @@ describe("import by username", () => {
     await expect(fetchRecentGames("chesscom", "nobody")).rejects.toThrow(/No Chess.com player named "nobody"/);
   });
 
-  // Audit bug 7: only the last two monthly archives are read, so a player who
-  // paused for two months imports nothing even though older games exist.
-  it.fails("finds games older than the last two months", async () => {
+  // Audit bug 7 (fixed in plan item 3): only the last two monthly archives
+  // used to be read, so a player who paused for two months imported nothing.
+  it("finds games older than the last two months", async () => {
     const archives = ["m1", "m2", "m3"].map((m) => `https://api.chess.com/pub/player/me/games/${m}`);
     const old = { pgn: SAMPLE_PGN, uuid: "u1", end_time: 1, rules: "chess" };
     vi.stubGlobal(

@@ -23,7 +23,7 @@ Key moments with a Next button,review,should,yes,partial,mine shows 3 chips; no 
 Explanation of why a move was bad (threat / lost piece / mate),review,must,yes,no,data exists (pv after move) but not shown
 Show the line after your move,review,must,yes,no,refutation line stored but never displayed
 Best move with reason,review,must,yes,partial,best move and arrow; no reason
-Retry the position to find a better move,review,must,yes,partial,current Retry starts a bot game and wipes the game in progress
+Retry the position to find a better move,review,must,yes,partial,still a bot game rather than an in-place retry (plan item 6); since item 3 it asks before replacing a game in progress
 Opening name plus your history in that opening,review,could,yes,partial,name only
 Review graph with markers,review,could,yes,partial,graph without markers
 Unlimited reviews,review,must,yes,yes,free tier gets 1 a day; mine is unlimited and offline
@@ -31,7 +31,7 @@ Analysis engine lines and eval,analysis,must,yes,yes,stale lines after a move fi
 Analysis threat arrows,analysis,should,yes,yes,only real threats since plan item 2 (bug 13 fixed)
 Variation tree with comments,analysis,could,yes,partial,linear line plus 8 stashed lines
 Save an analysis,analysis,should,yes,no,
-Load FEN or PGN into analysis,analysis,must,yes,partial,PGN with a FEN header crashes the app (audit bug 1)
+Load FEN or PGN into analysis,analysis,must,yes,yes,PGN with a FEN header fixed in plan item 3 (bug 1)
 Opening explorer,analysis,could,yes,yes,lichess play counts and evals; no masters database
 Game archive with filters and tabs,history,should,yes,partial,flat list with stars only
 Keep all your games,history,should,yes,partial,capped at 50 (starred kept)
@@ -39,7 +39,7 @@ Auto-save finished games,history,must,yes,yes,
 Rated puzzles near your rating,puzzles,must,yes,yes,Elo not Glicko; fine for one player
 Difficulty setting for rated puzzles,puzzles,could,yes,partial,tiers and rated mix exist; no offset
 Enough puzzles at your rating,puzzles,must,yes,partial,1200 under 1000 and 1200 at 1000-1299
-Accept any correct mate,puzzles,must,yes,partial,tier and mix trainer rejects alternative mates (audit bug 3)
+Accept any correct mate,puzzles,must,yes,yes,alternative mates accepted in every trainer since plan item 3 (bug 3)
 Puzzle Rush,puzzles,should,yes,partial,3 minutes only; no 5 min or survival
 Daily puzzle with streak and calendar,puzzles,should,yes,no,
 Custom puzzles by theme and rating range,puzzles,should,yes,partial,theme filter yes; rating range no

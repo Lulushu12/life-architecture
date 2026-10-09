@@ -12,7 +12,7 @@ import { legalDests, promotionCheck } from "./core/position.js";
 export default function BlunderTrainer({ store, setStore, nav }) {
   const unsolved = store.puzzles.filter((p) => !p.solved);
   const [idx, setIdx] = useState(0);
-  const [state, setState] = useState("try"); // try | wrong | solved | revealed
+  const [state, setState] = useState("try"); // try | wrong | checking | unchecked | solved | revealed
   // Progressive help: 1 shows which piece must move, 2 shows the full move.
   const [hint, setHint] = useState(0);
   const [heldId, setHeldId] = useState(null);
@@ -86,6 +86,11 @@ export default function BlunderTrainer({ store, setStore, nav }) {
       setState("checking");
       near = await moveIsGoodEnough(engine, puzzle.fen, played);
       if (!alive.current) return;
+      if (near === null) {
+        // the engine didn't answer in time: not a wrong answer (bug 14)
+        setState("unchecked");
+        return;
+      }
       ok = near;
     }
     if (ok) {
@@ -140,6 +145,7 @@ export default function BlunderTrainer({ store, setStore, nav }) {
         needsPromotion={promotionCheck(chess)}
       />
       {state === "checking" && <p className="hint center">Checking your move...</p>}
+      {state === "unchecked" && <p className="hint center">Couldn't check that move in time. Try it again.</p>}
       {state === "wrong" && <p className="warn center">Not that one, try again.</p>}
       {(state === "solved" || state === "revealed") && (
         <p className="okmsg center">

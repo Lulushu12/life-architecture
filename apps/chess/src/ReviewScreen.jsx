@@ -342,6 +342,7 @@ function BatchReview({ store, setStore }) {
 
 function Review({ store, setStore, nav, game }) {
   const toast = useToast();
+  const [confirm, confirmSheet] = useConfirm();
   const engine = getEngine();
   const [progress, setProgress] = useState(game.review ? 1 : 0);
   const [running, setRunning] = useState(false);
@@ -610,7 +611,19 @@ function Review({ store, setStore, nav, game }) {
   const baseOrientation = (game.mode === "bot" || game.mode === "import") && game.playerColor === "b" ? "b" : "w";
   const orientation = flipped ? (baseOrientation === "w" ? "b" : "w") : baseOrientation;
 
-  const retryFrom = (personaId) => {
+  const retryFrom = async (personaId) => {
+    // A game in progress lives in the same slot; ask before replacing it
+    // (bug 2: it used to be discarded without a word).
+    const cur = store.current;
+    if (cur && cur.status === "playing" && cur.sans.length > 0) {
+      const ok = await confirm({
+        title: "Replace your game in progress?",
+        message: "Playing from here starts a new game. The one you have open will be lost.",
+        confirmLabel: "Start new game",
+        danger: true,
+      });
+      if (!ok) return;
+    }
     const fen = positions[viewIdx - 1];
     const color = moveAt.color;
     setStore((s) => ({
@@ -875,6 +888,7 @@ function Review({ store, setStore, nav, game }) {
           setShowBest(false);
         }}
       />
+      {confirmSheet}
     </div>
   );
 }

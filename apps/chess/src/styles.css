@@ -959,6 +959,68 @@ textarea.input {
   gap: 10px;
   cursor: pointer;
 }
+/* Rows on the puzzle hub and the lesson home: a title over a short summary,
+   with an optional right-hand figure. These classes had no rules before, so
+   the browser's button defaults showed through (centred text, cards only as
+   wide as their content). */
+button.lessonrow {
+  width: 100%;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+}
+.lr-main,
+.catcard-main {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+.lr-title,
+.catcard-title {
+  font-weight: 700;
+  font-size: 15.5px;
+}
+.lr-eco {
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 12.5px;
+  margin-left: 4px;
+}
+.lr-sum,
+.catcard-sub {
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.35;
+}
+.lr-side {
+  flex: none;
+  font-weight: 700;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.lr-main .lessonbar {
+  margin: 6px 0 0;
+}
+.catcard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+.catcard .rowbar {
+  margin-top: 6px;
+}
+.catcard-arrow {
+  flex: none;
+  color: var(--muted);
+  font-size: 24px;
+  line-height: 1;
+}
+.moderow > .lessonrow {
+  margin-bottom: 0;
+}
 .lessondone {
   color: var(--accent);
 }
@@ -1479,6 +1541,7 @@ textarea.input {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+  margin-bottom: 12px;
 }
 .duerow:disabled {
   opacity: 0.6;

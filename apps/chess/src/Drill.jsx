@@ -5,6 +5,7 @@ import { TopBar } from "./ui.jsx";
 import { play as sfx, buzz } from "./audio.js";
 import { loadOpeningMeta, continuations, nameFor } from "./openingdb.js";
 import { legalDests, promotionCheck } from "./core/position.js";
+import { missesAfterShow, isMastered } from "./drillScore.js";
 
 const EXTRA_PLIES = 8;
 
@@ -113,7 +114,7 @@ export default function Drill({ store, setStore, nav, view }) {
           ...(s.drillProgress || {}),
           [key]: {
             name: title,
-            mastered: prev.mastered + (missCount === 0 ? 1 : 0),
+            mastered: prev.mastered + (isMastered(missCount) ? 1 : 0),
             runs: prev.runs + 1,
             last: Date.now(),
           },
@@ -268,7 +269,13 @@ export default function Drill({ store, setStore, nav, view }) {
                   Restart
                 </button>
                 {userTurn && stepMiss < 2 && (
-                  <button className="linkbtn" onClick={() => setStepMiss(2)}>
+                  <button
+                    className="linkbtn"
+                    onClick={() => {
+                      setMisses((n) => missesAfterShow(n, stepMiss));
+                      setStepMiss(2);
+                    }}
+                  >
                     Show move
                   </button>
                 )}
