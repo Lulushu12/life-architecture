@@ -77,6 +77,65 @@ test.describe("current behaviour", () => {
     await expect(page.locator('g[stroke="#d02a2a"]').first()).toBeVisible({ timeout: 60_000 });
   });
 
+  // Plan item 8: the coach in bot games.
+  const ITALIAN_START = {
+    id: "c1", mode: "bot", personaId: "x", playerColor: "w", serious: false, startFen: null,
+    sans: ["e4", "e5", "Nf3", "Nc6"], chat: [], cps: [0, 30, 20, 40, 30], status: "playing", result: null,
+    createdAt: 1, muted: true, help: { evalBar: true, threats: false, suggest: false, coach: true },
+  };
+
+  test("the coach explains a blunder right after you play it", async ({ page }) => {
+    await seed(page, { current: ITALIAN_START });
+    await open(page);
+    await page.getByText(/Resume game/).click();
+    await expect(page.locator(".coachstrip.quiet")).toBeVisible();
+    await move(page, "f3", "g5"); // the queen takes it
+    const note = page.locator(".coachstrip.cs-warn");
+    await expect(note).toContainText(/knight/i, { timeout: 60_000 });
+    await expect(note).toContainText("g5");
+    // and the move can be taken straight back
+    await note.getByRole("button", { name: "Take it back" }).click();
+    await expect.poll(async () => (await readStore(page)).current.sans.length).toBe(4);
+    await expect(page.locator(".coachstrip.cs-warn")).toHaveCount(0);
+    // switching the coach off hides it
+    await page.getByRole("button", { name: /Coach on/ }).click();
+    await expect(page.locator(".coachstrip")).toHaveCount(0);
+  });
+
+  test("a hint gives the idea first, then the move", async ({ page }) => {
+    await seed(page, { current: { ...ITALIAN_START, help: { ...ITALIAN_START.help, coach: false } } });
+    await open(page);
+    await page.getByText(/Resume game/).click();
+    await expect.poll(async () => (await readStore(page)).current.cps.length).toBe(5);
+    await button(page, /^Hint$/).click();
+    const strip = page.locator(".coachstrip");
+    await expect(strip).toContainText("Hint", { timeout: 60_000 });
+    await expect(page.locator(".usercircle.guide")).toHaveCount(1);
+    await expect(page.locator('g[stroke="#15803d"]')).toHaveCount(0);
+    await button(page, /Show move/).click();
+    await expect(page.locator('g[stroke="#15803d"]')).toHaveCount(1);
+    await expect(page.locator(".usercircle.guide")).toHaveCount(0);
+  });
+
+  // Found while building plan item 8: moving before the engine had judged the
+  // position left the evals one short, and they never caught up again, so the
+  // eval bar, threats and coach went quiet for the rest of the game.
+  test("evals catch up after you move before the engine has judged the position", async ({ page }) => {
+    await seed(page, {
+      current: {
+        id: "r1", mode: "bot", personaId: "x", playerColor: "w", serious: false, startFen: null,
+        sans: ["e4", "e5", "Nf3"], chat: [], cps: [0, 20], status: "playing", result: null,
+        createdAt: 1, muted: true, help: { evalBar: true, threats: false, suggest: false, coach: false },
+      },
+    });
+    await open(page);
+    await page.getByText(/Resume game/).click();
+    await expect.poll(async () => {
+      const c = (await readStore(page)).current;
+      return c.sans.length >= 4 && c.cps.length === c.sans.length + 1;
+    }, { timeout: 60_000 }).toBe(true);
+  });
+
   test("reviewing a game labels the moves and turns your blunders into puzzles", async ({ page }) => {
     await seed(page, {
       settings: { reviewMovetime: 100 },

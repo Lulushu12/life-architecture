@@ -5,14 +5,14 @@ Adaptive bot that adjusts to how you play,bots,could,yes,no,
 Assistance presets before a bot game (no help / some / full / custom),bots,must,yes,yes,"plan item 7: On my own / Some help / Full help, Custom when switches change; changeable mid-game in the Help sheet"
 Threat arrows during a bot game,bots,must,yes,yes,"plan item 7: only real threats, on your turn"
 Suggestion arrow during a bot game,bots,should,yes,yes,plan item 7: best-move arrow switch
-Move feedback after each of your moves in a bot game,coach,must,yes,no,
+Move feedback after each of your moves in a bot game,coach,must,yes,yes,"plan item 8: a coach line under your plate after any inaccuracy or worse, with a Take it back button; praise now and then"
 Bot chat with personality,bots,should,yes,yes,mine is bilingual with event-driven banter and optional LLM
 Clean vs assisted record per bot (crowns),bots,could,yes,partial,mine counts W-D-L and ignores hints and takebacks
 Time controls in bot games,bots,could,yes,no,
 Play a bot from any position,bots,should,yes,partial,from editor and lessons yes; from analysis no; from review buggy (audit bug 2)
-Coach explains your move in words (praise / mistake / why),coach,must,yes,partial,in Game Review since plan item 5; in bot games with plan item 8
-Coach prompts you to find the idea before showing it,coach,must,yes,no,
-Two-step hint (idea first then move),coach,must,yes,no,mine shows the move arrow directly
+Coach explains your move in words (praise / mistake / why),coach,must,yes,yes,Game Review since plan item 5; bot games since plan item 8
+Coach prompts you to find the idea before showing it,coach,must,yes,partial,the hint's first step names the idea and lights the piece; the coach does not yet prompt on its own when a tactic is there
+Two-step hint (idea first then move),coach,must,yes,yes,"plan item 8: idea and highlighted piece, then Show move draws the arrow"
 Coach voice,coach,could,yes,skip,possible later with on-device speech; low value
 Celebrity coaches,coach,could,yes,skip,real people; out of bounds
 Game review move classifications,review,must,yes,yes,same 10 labels plus Forced; colours need rebranding

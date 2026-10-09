@@ -17,6 +17,8 @@ import { legalDests, promotionCheck, startPly, materialBalance } from "./core/po
 import { threatsFromProbe } from "./core/threats.js";
 import { HELP_PRESETS, DEFAULT_PRESET, HELP_SWITCHES, SWITCH_LABELS, presetFlags, presetOf, presetName, helpOf, isSerious } from "./helpLevels.js";
 import Sheet from "./Sheet.jsx";
+import { liveCoachNote, hintIdea } from "./core/coach/live.js";
+import { CLASSIFICATIONS } from "./review.js";
 import { Lightbulb, MessageSquare, SlidersHorizontal, Undo2 } from "lucide-react";
 
 export default function PlayBot({ store, setStore, nav, view }) {
@@ -190,8 +192,16 @@ function BotGame({ store, setStore, nav }) {
   const persona = getPersona(g.personaId);
   const engine = getEngine();
   const [viewPly, setViewPly] = useState(null); // null = live
-  const [hintArrow, setHintArrow] = useState(null);
-  // Last engine read of the live position: {fen, cp, bestUci}. The eval bar
+  // Two-step hint for one position: {fen, step: 1|2, from, to, text}. Step 1
+  // lights the piece and says the idea; step 2 draws the move.
+  const [hintState, setHintState] = useState(null);
+  // The coach's comment on your last move (plan item 8): {text, kind, cls, ply}.
+  const [coachNote, setCoachNote] = useState(null);
+  // Your move waiting for the engine's read of the position it made.
+  const coachPending = useRef(null);
+  const coachSeq = useRef(0);
+  const lastPraise = useRef(-99);
+  // Last engine read of the live position: {fen, cp, bestUci, pv}. The eval bar
   // and the hint both come from this one search, so a hinted move can never
   // be contradicted by the bar that judged it.
   const [evalInfo, setEvalInfo] = useState(null);
@@ -313,6 +323,7 @@ function BotGame({ store, setStore, nav }) {
     }
     sfx(store, mv.captured ? "capture" : "move");
     buzz(store, mv.captured ? 25 : 12);
+    noteMove(mv.san);
     applyMove(mv.san, g.sans.length, { premove: null });
     lastMoveStart.current = Date.now();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -369,12 +380,61 @@ function BotGame({ store, setStore, nav }) {
         : s
     );
 
+  // Evals of positions you moved past before the engine judged them are
+  // filled with the last known value, so the list stays one per position.
   const pushCp = (cp, atLen) =>
     setStore((s) => {
       const c = s.current;
       if (!c || c.id !== g.id || c.sans.length !== atLen || c.cps.length >= atLen + 1) return s;
-      return { ...s, current: { ...c, cps: [...c.cps, cp] } };
+      const gap = new Array(atLen - c.cps.length).fill(c.cps[c.cps.length - 1] ?? 0);
+      return { ...s, current: { ...c, cps: [...c.cps, ...gap, cp] } };
     });
+
+  // Remember your move so the coach can judge it once the engine has read
+  // the new position. Called just before the move is applied.
+  const noteMove = (san) => {
+    coachSeq.current += 1;
+    setCoachNote(null);
+    const ply = g.sans.length;
+    if (!help.coach) {
+      coachPending.current = null;
+      return;
+    }
+    const known = evalInfo && evalInfo.fen === liveFen ? evalInfo : null;
+    coachPending.current = {
+      seq: coachSeq.current,
+      fenBefore: liveFen,
+      san,
+      ply,
+      bestUci: known?.bestUci || null,
+      bestPv: known?.pv || null,
+      cpBefore: known ? known.cp : null,
+    };
+  };
+
+  function coachAfter(ply, cpAfter, replyPv) {
+    const p = coachPending.current;
+    if (!p || p.ply !== ply) return;
+    coachPending.current = null;
+    const finish = (cpBefore, bestUci, bestPv) => {
+      if (p.seq !== coachSeq.current) return; // you've moved on
+      const note = liveCoachNote({ ...p, cpBefore, bestUci, bestPv, cpAfter, replyPv, lastPraise: lastPraise.current });
+      if (!note) return;
+      if (note.kind === "praise") lastPraise.current = ply;
+      setCoachNote(note);
+    };
+    if (p.cpBefore != null && p.bestPv?.length) {
+      finish(p.cpBefore, p.bestUci, p.bestPv);
+      return;
+    }
+    // You moved before the engine had read the position: read it now.
+    engine
+      .analyze(p.fenBefore, { movetime: 300, tag: "play-coach" })
+      .then((r) => {
+        if (r.lines[0]) finish(cpWhite(r.lines[0], p.fenBefore.split(" ")[1]), r.lines[0].move, r.lines[0].pv);
+      })
+      .catch(() => {});
+  }
 
   // ---- player's move (live, or from a preview → branch) ----
   const onMove = (from, to, promotion) => {
@@ -411,7 +471,8 @@ function BotGame({ store, setStore, nav }) {
         };
       });
       setViewPly(null);
-      setHintArrow(null);
+      coachPending.current = null;
+      setCoachNote(null);
       lastMoveStart.current = Date.now();
       return;
     }
@@ -419,8 +480,8 @@ function BotGame({ store, setStore, nav }) {
     if (!playerTurn) return;
     sfx(store, mv.captured ? "capture" : "move");
     buzz(store, mv.captured ? 25 : 12);
+    noteMove(mv.san);
     applyMove(mv.san, g.sans.length);
-    setHintArrow(null);
     lastMoveStart.current = Date.now();
   };
 
@@ -466,16 +527,17 @@ function BotGame({ store, setStore, nav }) {
     // serves all of them; 150ms used to feed the bar while the hint ran its
     // own deeper look, and the two shallow searches contradicting each other
     // made good hints look penalized.
-    if (g.cps.length === len && len > 0) {
+    if (g.cps.length <= len && len > 0) {
       let cancelled = false;
       engine
         .analyze(liveFen, { movetime: 400 })
         .then((r) => {
           if (cancelled || !r.lines[0]) return;
           const cp = cpWhite(r.lines[0], chess.turn());
-          setEvalInfo({ fen: liveFen, cp, bestUci: r.lines[0].move });
+          setEvalInfo({ fen: liveFen, cp, bestUci: r.lines[0].move, pv: r.lines[0].pv });
           pushCp(cp, len);
           maybeChat(cp);
+          coachAfter(len - 1, cp, r.lines[0].pv);
         })
         .catch(() => {});
       return () => {
@@ -635,16 +697,26 @@ function BotGame({ store, setStore, nav }) {
     });
   }
 
+  // The hint for the live position, if one is open.
+  const hintNow = hintState && hintState.fen === liveFen && viewPly == null ? hintState : null;
   const hint = () => {
+    if (hintNow) {
+      setHintState({ ...hintNow, step: 2 });
+      return;
+    }
+    const fen = liveFen;
+    const open = (bestUci, pv, cp) =>
+      setHintState({ fen, step: 1, from: bestUci.slice(0, 2), to: bestUci.slice(2, 4), text: hintIdea(fen, pv, cp) });
     // Reuse the move the eval bar's own search already picked for this
     // position; search fresh only when that read is missing (e.g. move 1).
-    if (evalInfo && evalInfo.fen === liveFen && evalInfo.bestUci) {
-      setHintArrow([evalInfo.bestUci.slice(0, 2), evalInfo.bestUci.slice(2, 4)]);
+    if (evalInfo && evalInfo.fen === fen && evalInfo.bestUci && evalInfo.pv) {
+      open(evalInfo.bestUci, evalInfo.pv, evalInfo.cp);
     } else {
-      engine.analyze(liveFen, { movetime: 400 }).then((r) => {
+      engine.analyze(fen, { movetime: 400 }).then((r) => {
         if (!r.lines[0]) return;
-        setEvalInfo({ fen: liveFen, cp: cpWhite(r.lines[0], liveFen.split(" ")[1]), bestUci: r.lines[0].move });
-        setHintArrow([r.lines[0].move.slice(0, 2), r.lines[0].move.slice(2, 4)]);
+        const cp = cpWhite(r.lines[0], fen.split(" ")[1]);
+        setEvalInfo({ fen, cp, bestUci: r.lines[0].move, pv: r.lines[0].pv });
+        open(r.lines[0].move, r.lines[0].pv, cp);
       });
     }
   };
@@ -661,6 +733,9 @@ function BotGame({ store, setStore, nav }) {
         : s
     );
     setViewPly(null);
+    coachSeq.current += 1;
+    coachPending.current = null;
+    setCoachNote(null);
   };
 
   // Threat arrows (help level): on your turn, what would the bot do if you
@@ -726,9 +801,11 @@ function BotGame({ store, setStore, nav }) {
         </div>
         {!playerTurn && g.status === "playing" && <span className="thinking">thinking…</span>}
       </div>
-      <div className={"plate-say" + (lastSay ? "" : " empty")} aria-live="polite">
-        {lastSay ? lastSay.text : ""}
-      </div>
+      {!g.muted && (
+        <div className={"plate-say" + (lastSay ? "" : " empty")} aria-live="polite">
+          {lastSay ? lastSay.text : ""}
+        </div>
+      )}
 
       <div className="boardrow">
         {help.evalBar && <EvalBar cp={cp} orientation={g.playerColor} />}
@@ -742,7 +819,8 @@ function BotGame({ store, setStore, nav }) {
           premoveDests={!over ? premoveDests : null}
           onPremove={setPremove}
           premove={g.premove || null}
-          arrow={viewPly == null ? hintArrow || suggestArrow : null}
+          arrow={viewPly == null ? (hintNow?.step === 2 ? [hintNow.from, hintNow.to] : suggestArrow) : null}
+          highlightSquares={hintNow?.step === 1 ? [hintNow.from] : null}
           threats={viewPly == null ? threats : []}
           theme={store.settings.theme}
           custom={store.settings.boardCustom}
@@ -766,6 +844,14 @@ function BotGame({ store, setStore, nav }) {
           {presetName(helpPreset)}
         </button>
       </div>
+
+      {(hintNow || (help.coach && !over)) && (
+        <CoachStrip
+          hint={hintNow}
+          note={help.coach && !hintNow ? coachNote : null}
+          onTakeback={g.status === "playing" ? takeback : null}
+        />
+      )}
 
       {viewPly != null && (
         <div className="previewbar">
@@ -813,9 +899,9 @@ function BotGame({ store, setStore, nav }) {
         </div>
       ) : (
         <nav className="actionbar" aria-label="Game actions">
-          <button type="button" className="act" onClick={hint} disabled={!playerTurn}>
+          <button type="button" className={"act" + (hintNow ? " on" : "")} onClick={hint} disabled={!playerTurn || hintNow?.step === 2}>
             <Lightbulb aria-hidden="true" />
-            Hint
+            {hintNow ? "Show move" : "Hint"}
           </button>
           <button type="button" className="act" onClick={takeback} disabled={g.sans.length === 0}>
             <Undo2 aria-hidden="true" />
@@ -880,6 +966,39 @@ function BotGame({ store, setStore, nav }) {
         </div>
       </Sheet>
       {confirmSheet}
+    </div>
+  );
+}
+
+// The coach's line under your plate: a hint's idea while one is open, else
+// its comment on your last move, else a quiet note that it's listening.
+function CoachStrip({ hint, note, onTakeback }) {
+  if (hint) {
+    return (
+      <div className="coachstrip" aria-live="polite">
+        <span className="coachtag">Hint</span>
+        <p>{hint.step === 1 ? hint.text : "The arrow shows the engine's move."}</p>
+      </div>
+    );
+  }
+  if (!note) {
+    return (
+      <div className="coachstrip quiet" aria-live="polite">
+        <span className="coachtag">Coach</span>
+        <p>Speaks up when a move matters.</p>
+      </div>
+    );
+  }
+  const info = CLASSIFICATIONS[note.cls];
+  return (
+    <div className={"coachstrip cs-" + note.kind} aria-live="polite" style={{ "--cls": info?.color }}>
+      <span className="coachtag">{note.kind === "warn" && info ? info.label : "Coach"}</span>
+      <p>{note.text}</p>
+      {note.kind === "warn" && onTakeback && (
+        <button type="button" className="linkbtn" onClick={onTakeback}>
+          Take it back
+        </button>
+      )}
     </div>
   );
 }

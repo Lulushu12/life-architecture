@@ -1964,3 +1964,41 @@ button.lessonrow {
   }
 }
 
+/* Coach in bot games (plan item 8) */
+.coachstrip {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 2px 0 8px;
+  padding: 8px 12px;
+  min-height: 40px;
+  border: 1px solid var(--accent-line);
+  border-radius: 12px;
+  background: var(--accent-tint);
+}
+.coachstrip p {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.4;
+}
+.coachstrip .linkbtn {
+  padding: 0;
+  font-size: var(--fs-xs);
+  white-space: nowrap;
+}
+.coachstrip.quiet {
+  border-color: var(--border);
+  background: var(--surface);
+}
+.coachstrip.quiet p {
+  color: var(--muted);
+}
+.coachstrip.cs-warn {
+  border-color: var(--border);
+  border-left: 4px solid var(--cls, var(--danger-soft));
+  background: var(--surface);
+}
+.coachstrip.cs-warn .coachtag {
+  color: var(--cls, var(--danger-soft));
+}
