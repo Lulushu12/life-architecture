@@ -83,3 +83,15 @@ export function pvToSans(fen, pv) {
   }
   return out;
 }
+
+const PIECE_VALUE = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 0 };
+/** White's material minus Black's, in pawns. */
+export function materialBalance(fen) {
+  let sum = 0;
+  for (const ch of String(fen).split(" ")[0]) {
+    const v = PIECE_VALUE[ch.toLowerCase()];
+    if (v) sum += ch === ch.toUpperCase() ? v : -v;
+  }
+  return sum;
+}
+

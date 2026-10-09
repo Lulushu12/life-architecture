@@ -2,9 +2,9 @@ feature,area,priority,original,clone,notes
 Bots across beginner to master levels,bots,must,yes,yes,mine 800-3200 in 150 bots; theirs 250-2450 plus engine slider; you said 800 floor is fine
 Bots below 800,bots,could,yes,skip,you said the bots are fine; revisit only if 800 bots start feeling hard
 Adaptive bot that adjusts to how you play,bots,could,yes,no,
-Assistance presets before a bot game (no help / some / full / custom),bots,must,yes,partial,mine has a serious-mode toggle only
-Threat arrows during a bot game,bots,must,yes,no,threat probe exists in review and analysis but is buggy (audit bug 13)
-Suggestion arrow during a bot game,bots,should,yes,partial,hint arrow on demand only
+Assistance presets before a bot game (no help / some / full / custom),bots,must,yes,yes,"plan item 7: On my own / Some help / Full help, Custom when switches change; changeable mid-game in the Help sheet"
+Threat arrows during a bot game,bots,must,yes,yes,"plan item 7: only real threats, on your turn"
+Suggestion arrow during a bot game,bots,should,yes,yes,plan item 7: best-move arrow switch
 Move feedback after each of your moves in a bot game,coach,must,yes,no,
 Bot chat with personality,bots,should,yes,yes,mine is bilingual with event-driven banter and optional LLM
 Clean vs assisted record per bot (crowns),bots,could,yes,partial,mine counts W-D-L and ignores hints and takebacks

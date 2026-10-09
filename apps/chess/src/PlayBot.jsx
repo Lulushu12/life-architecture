@@ -13,7 +13,11 @@ import { ENGINE_LOADING } from "./platform.js";
 import { useConfirm } from "@shared/ui.jsx";
 import { useWakeLock } from "@shared/useWakeLock.js";
 import { emitEvent } from "@shared/bridge.js";
-import { legalDests, promotionCheck, startPly } from "./core/position.js";
+import { legalDests, promotionCheck, startPly, materialBalance } from "./core/position.js";
+import { threatsFromProbe } from "./core/threats.js";
+import { HELP_PRESETS, DEFAULT_PRESET, HELP_SWITCHES, SWITCH_LABELS, presetFlags, presetOf, presetName, helpOf, isSerious } from "./helpLevels.js";
+import Sheet from "./Sheet.jsx";
+import { Lightbulb, MessageSquare, SlidersHorizontal, Undo2 } from "lucide-react";
 
 export default function PlayBot({ store, setStore, nav, view }) {
   const cur = store.current;
@@ -27,7 +31,8 @@ function BotPicker({ store, setStore, nav, view }) {
   // "r" is resolved to a real colour at the moment the game starts, so the
   // side stays a surprise until the board appears.
   const [color, setColor] = useState("w");
-  const [serious, setSerious] = useState(false);
+  const [preset, setPreset] = useState(store.settings.helpPreset || DEFAULT_PRESET);
+  const levelRefs = useRef({});
   // Set when arriving from a lesson step: the game starts from that position
   // instead of the initial one.
   const fromFen = view?.fromFen || null;
@@ -37,16 +42,40 @@ function BotPicker({ store, setStore, nav, view }) {
     setStore((s) => ({ ...s, settings: { ...s.settings, botLang: l } }));
   const roster = personasByLang(lang);
 
+  // Opponents you've played recently, newest first.
+  const recent = useMemo(() => {
+    const seen = new Set();
+    const out = [];
+    for (const g of [...store.games].sort((a, b) => (b.date || 0) - (a.date || 0))) {
+      if (g.mode !== "bot" || seen.has(g.personaId)) continue;
+      const p = roster.find((x) => x.id === g.personaId);
+      if (!p) continue;
+      seen.add(g.personaId);
+      out.push(p);
+      if (out.length === 3) break;
+    }
+    return out;
+  }, [store.games, roster]);
+
+  // Open at the level you last played, so the bots that fit you are on screen.
+  useEffect(() => {
+    const elo = recent[0]?.elo;
+    if (elo && levelRefs.current[elo]) levelRefs.current[elo].scrollIntoView({ block: "start" });
+  }, [recent]);
+
   const start = (persona) => {
     const resolved = color === "r" ? (Math.random() < 0.5 ? "w" : "b") : color;
+    const help = presetFlags(preset);
     setStore((s) => ({
       ...s,
+      settings: { ...s.settings, helpPreset: preset },
       current: {
         id: newId(),
         mode: "bot",
         personaId: persona.id,
         playerColor: resolved,
-        serious,
+        serious: isSerious(help),
+        help,
         startFen: fromFen,
         sans: [],
         chat: [],
@@ -91,10 +120,43 @@ function BotPicker({ store, setStore, nav, view }) {
           </button>
         </div>
       </div>
-      <div className="setrow">
-        <span className="setlabel">Serious mode (no eval bar, no eval talk)</span>
-        <Toggle checked={serious} onChange={setSerious} />
+      <div className="setrow helprow">
+        <span className="setlabel">Help</span>
+        <div className="chips" role="radiogroup" aria-label="Help level">
+          {HELP_PRESETS.map((p) => (
+            <button
+              key={p.id}
+              role="radio"
+              aria-checked={preset === p.id}
+              className={"chip" + (preset === p.id ? " sel" : "")}
+              onClick={() => setPreset(p.id)}
+            >
+              {p.name}
+            </button>
+          ))}
+        </div>
       </div>
+      <p className="hint small helpblurb">{HELP_PRESETS.find((p) => p.id === preset)?.blurb}. You can change it during the game.</p>
+      {recent.length > 0 && (
+        <div className="levelblock">
+          <div className="levelhead">Recent opponents</div>
+          <div className="botgrid">
+            {recent.map((p) => {
+              const rec = store.botRecords[p.id];
+              return (
+                <button key={p.id} className="botmini" title={p.tagline} onClick={() => start(p)}>
+                  <span className="bm-avatar">{p.avatar}</span>
+                  <span className="bm-name">{p.name}</span>
+                  <span className="bm-rec">
+                    {p.elo}
+                    {rec ? ` · ${rec.w}-${rec.d}-${rec.l}` : ""}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
       {store.current && store.current.mode === "bot" && (
         <p className="warn">Starting a new game abandons the current one.</p>
       )}
@@ -102,7 +164,7 @@ function BotPicker({ store, setStore, nav, view }) {
         const bots = roster.filter((p) => p.elo === elo);
         if (bots.length === 0) return null;
         return (
-          <div key={elo} className="levelblock">
+          <div key={elo} className="levelblock" ref={(el) => (levelRefs.current[elo] = el)}>
             <div className="levelhead">{elo}</div>
             <div className="botgrid">
               {bots.map((p) => {
@@ -111,9 +173,7 @@ function BotPicker({ store, setStore, nav, view }) {
                   <button key={p.id} className="botmini" title={p.tagline} onClick={() => start(p)}>
                     <span className="bm-avatar">{p.avatar}</span>
                     <span className="bm-name">{p.name}</span>
-                    <span className="bm-rec">
-                      {rec ? `${rec.w}-${rec.d}-${rec.l}` : "-"}
-                    </span>
+                    {rec && <span className="bm-rec">{`${rec.w}-${rec.d}-${rec.l}`}</span>}
                   </button>
                 );
               })}
@@ -146,6 +206,17 @@ function BotGame({ store, setStore, nav }) {
   const chatGate = useRef({ lastPly: -99, queued: null });
   const mutedRef = useRef(false);
   const botToMoveRef = useRef(false);
+  const [helpOpen, setHelpOpen] = useState(false);
+  const [threats, setThreats] = useState([]);
+  const help = helpOf(g, store.settings);
+  const helpPreset = presetOf(help);
+  const setHelp = (patch) =>
+    setStore((s) => {
+      const c = s.current;
+      if (!c || c.id !== g.id) return s;
+      const next = { ...helpOf(c, s.settings), ...patch };
+      return { ...s, current: { ...c, help: next, serious: isSerious(next) } };
+    });
 
   useEffect(() => {
     engine.ready.then(() => setEngineReady(true));
@@ -177,7 +248,7 @@ function BotGame({ store, setStore, nav }) {
   // stored game eval fills in instantly (see `cp` below); this refines it
   // with a fresh search, sharing the engine queue with the bot's thinking.
   useEffect(() => {
-    if (viewPly == null || g.serious || !store.settings.evalBar) return;
+    if (viewPly == null || !help.evalBar) return;
     const fen = shownFen;
     const c = new Chess(fen);
     if (c.isGameOver()) {
@@ -198,7 +269,7 @@ function BotGame({ store, setStore, nav }) {
       engine.cancel("play-view");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [viewPly, shownFen, g.serious, store.settings.evalBar, engine]);
+  }, [viewPly, shownFen, help.evalBar, engine]);
 
   // Legal moves for the player — from the live position, or from a past
   // position being previewed (playing there branches the game).
@@ -592,6 +663,36 @@ function BotGame({ store, setStore, nav }) {
     setViewPly(null);
   };
 
+  // Threat arrows (help level): on your turn, what would the bot do if you
+  // passed? Judged against the position's own eval, so only real threats show.
+  const evalForLive = evalInfo && evalInfo.fen === liveFen ? evalInfo.cp : null;
+  useEffect(() => {
+    setThreats([]);
+    if (!help.threats || g.status !== "playing" || viewPly != null || !playerTurn || evalForLive == null) return;
+    if (chess.inCheck()) return;
+    let cancelled = false;
+    const nfen = nullMoveFen(liveFen);
+    engine
+      .analyze(nfen, { movetime: 300, multipv: 2, tag: "play-threat" })
+      .then((r) => {
+        if (!cancelled) setThreats(threatsFromProbe(r.lines, nfen.split(" ")[1], evalForLive));
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+      engine.cancel("play-threat");
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [liveFen, evalForLive, help.threats, g.status, viewPly, playerTurn]);
+
+  // Best-move arrow (help level): the engine move for the live position, on your turn.
+  const suggestArrow =
+    help.suggest && playerTurn && viewPly == null && evalInfo?.fen === liveFen && evalInfo.bestUci
+      ? [evalInfo.bestUci.slice(0, 2), evalInfo.bestUci.slice(2, 4)]
+      : null;
+  const balance = materialBalance(shownFen);
+  const myAhead = g.playerColor === "w" ? balance : -balance;
+
   // Live position's eval normally; the viewed position's while browsing —
   // stored game eval as the instant placeholder until the fresh search lands.
   const liveCp = g.cps[g.cps.length - 1] ?? 0;
@@ -601,32 +702,36 @@ function BotGame({ store, setStore, nav }) {
   const askResign = () => confirm({ title: "Resign this game?", confirmLabel: "Resign", danger: true });
   useGameBackGuard(g.status === "playing" && g.sans.length > 0, askResign, () => finishGame(true));
 
+  const toggleChat = () =>
+    setStore((s) => (s.current && s.current.id === g.id ? { ...s, current: { ...s.current, muted: !s.current.muted } } : s));
+  const lastSay = g.muted ? null : g.chat[g.chat.length - 1];
+
   return (
-    <div className="page gamepage">
+    <div className="page gamepage botgame">
       <TopBar
-        title={`${persona.avatar} ${persona.name} (${persona.elo})`}
-        sub={over ? `${g.result} · ${g.reason}` : opening ? opening.name : g.serious ? "Serious game" : "Casual game"}
+        title={over ? `${g.result} · ${g.reason}` : presetName(helpPreset) === "On my own" ? "Serious game" : "Casual game"}
+        sub={opening ? opening.name : `${presetName(helpPreset)}`}
         onBack={() => nav("home")}
-        right={
-          !over && (
-            <button
-              className="linkbtn danger"
-              onClick={async () => {
-                if (await askResign()) finishGame(true);
-              }}
-            >
-              Resign
-            </button>
-          )
-        }
       />
 
       {!engineReady && <div className="enginebanner">{ENGINE_LOADING}</div>}
 
-      <ChatBubbles chat={g.chat} persona={persona} />
+      <div className="plate">
+        <span className="plate-ava">{persona.avatar}</span>
+        <div className="plate-who">
+          <div className="plate-name">{persona.name}</div>
+          <div className="plate-sub">
+            {persona.elo} · bot{myAhead < 0 ? ` · +${-myAhead}` : ""}
+          </div>
+        </div>
+        {!playerTurn && g.status === "playing" && <span className="thinking">thinking…</span>}
+      </div>
+      <div className={"plate-say" + (lastSay ? "" : " empty")} aria-live="polite">
+        {lastSay ? lastSay.text : ""}
+      </div>
 
       <div className="boardrow">
-        {!g.serious && store.settings.evalBar && <EvalBar cp={cp} orientation={g.playerColor} />}
+        {help.evalBar && <EvalBar cp={cp} orientation={g.playerColor} />}
         <Board
           fen={shownFen}
           orientation={g.playerColor}
@@ -637,14 +742,29 @@ function BotGame({ store, setStore, nav }) {
           premoveDests={!over ? premoveDests : null}
           onPremove={setPremove}
           premove={g.premove || null}
-          arrow={viewPly == null ? hintArrow : null}
+          arrow={viewPly == null ? hintArrow || suggestArrow : null}
+          threats={viewPly == null ? threats : []}
           theme={store.settings.theme}
           custom={store.settings.boardCustom}
           pieceSet={store.settings.pieces}
           animMs={store.settings.animMs}
-        arrowColors={store.settings.arrowColors}
+          arrowColors={store.settings.arrowColors}
           needsPromotion={promotionCheck(new Chess(shownFen))}
         />
+      </div>
+
+      <div className="plate">
+        <span className="plate-ava you">♙</span>
+        <div className="plate-who">
+          <div className="plate-name">You</div>
+          <div className="plate-sub">
+            {g.playerColor === "w" ? "White" : "Black"}
+            {myAhead > 0 ? ` · +${myAhead}` : myAhead === 0 ? " · even material" : ""}
+          </div>
+        </div>
+        <button type="button" className="plate-chip" onClick={() => setHelpOpen(true)}>
+          {presetName(helpPreset)}
+        </button>
       </div>
 
       {viewPly != null && (
@@ -668,6 +788,8 @@ function BotGame({ store, setStore, nav }) {
         </div>
       )}
 
+      <MoveList sans={g.sans} activePly={viewPly ?? g.sans.length - 1} onTap={setViewPly} />
+
       {over ? (
         <div className="btnrow endrow">
           <button
@@ -690,45 +812,74 @@ function BotGame({ store, setStore, nav }) {
           </button>
         </div>
       ) : (
-        <div className="btnrow toolrow">
-          <button className="linkbtn" onClick={hint} disabled={!playerTurn}>
-            💡 Hint
+        <nav className="actionbar" aria-label="Game actions">
+          <button type="button" className="act" onClick={hint} disabled={!playerTurn}>
+            <Lightbulb aria-hidden="true" />
+            Hint
           </button>
-          <button className="linkbtn" onClick={takeback} disabled={g.sans.length === 0}>
-            ↩ Takeback
+          <button type="button" className="act" onClick={takeback} disabled={g.sans.length === 0}>
+            <Undo2 aria-hidden="true" />
+            Takeback
           </button>
           <button
-            className="linkbtn"
-            aria-pressed={!!g.muted}
-            onClick={() =>
-              setStore((s) =>
-                s.current && s.current.id === g.id ? { ...s, current: { ...s.current, muted: !s.current.muted } } : s
-              )
-            }
+            type="button"
+            className={"act" + (help.coach ? " on" : "")}
+            aria-pressed={!!help.coach}
+            onClick={() => setHelp({ coach: !help.coach })}
           >
-            {g.muted ? "🔇 Chat off" : "💬 Chat on"}
+            <MessageSquare aria-hidden="true" />
+            Coach {help.coach ? "on" : "off"}
           </button>
-          {!playerTurn && g.status === "playing" && <span className="thinking">{persona.name} is thinking…</span>}
-        </div>
+          <button type="button" className="act" onClick={() => setHelpOpen(true)}>
+            <SlidersHorizontal aria-hidden="true" />
+            Help
+          </button>
+        </nav>
       )}
 
-      <MoveList sans={g.sans} activePly={viewPly ?? g.sans.length - 1} onTap={setViewPly} />
-      {confirmSheet}
-    </div>
-  );
-}
-
-function ChatBubbles({ chat, persona }) {
-  const last = chat.slice(-2);
-  if (last.length === 0) return <div className="chatarea empty" />;
-  return (
-    <div className="chatarea">
-      {last.map((c, i) => (
-        <div key={chat.length + "-" + i} className="bubble">
-          <span className="bubble-avatar">{persona.avatar}</span>
-          <span className="bubble-text">{c.text}</span>
+      <Sheet open={helpOpen} title="Help in this game" onClose={() => setHelpOpen(false)}>
+        <div className="chips" role="radiogroup" aria-label="Help level">
+          {HELP_PRESETS.map((p) => (
+            <button
+              key={p.id}
+              role="radio"
+              aria-checked={helpPreset === p.id}
+              className={"chip" + (helpPreset === p.id ? " sel" : "")}
+              onClick={() => setHelp(presetFlags(p.id))}
+            >
+              {p.name}
+            </button>
+          ))}
+          {helpPreset === "custom" && (
+            <span className="chip sel" aria-current="true">
+              Custom
+            </span>
+          )}
         </div>
-      ))}
+        {HELP_SWITCHES.map((k) => (
+          <div key={k} className="setrow">
+            <span>{SWITCH_LABELS[k]}</span>
+            <Toggle checked={!!help[k]} onChange={(v) => setHelp({ [k]: v })} label={SWITCH_LABELS[k]} />
+          </div>
+        ))}
+        <div className="setrow">
+          <span>Bot chat</span>
+          <Toggle checked={!g.muted} onChange={toggleChat} label="Bot chat" />
+        </div>
+        <div className="sheet-actions">
+          <button
+            type="button"
+            className="bigbtn danger"
+            onClick={async () => {
+              setHelpOpen(false);
+              if (await askResign()) finishGame(true);
+            }}
+          >
+            Resign
+          </button>
+        </div>
+      </Sheet>
+      {confirmSheet}
     </div>
   );
 }

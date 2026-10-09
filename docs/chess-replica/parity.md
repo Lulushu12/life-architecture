@@ -1,25 +1,23 @@
-## Parity: 63.3 / 100
+## Parity: 68.3 / 100
 
-features 63.3  (49 counted, must-haves 14 of 22 done)
+features 68.3  (49 counted, must-haves 16 of 22 done)
 
-Not shippable yet: 8 must-have features are not done.
+Not shippable yet: 6 must-have features are not done.
 
 ## By area, weakest first
 - coach                         12.5  (4 features)
 - lessons                       33.3  (2 features)
-- bots                          50.0  (9 features)
 - puzzles                       60.0  (9 features)
 - navigation                    62.5  (4 features)
 - history                       71.4  (3 features)
 - analysis                      79.2  (6 features)
+- bots                          80.6  (9 features)
 - review                        89.7  (12 features)
 
 ## Missing, in build order
-- [must] bots: Threat arrows during a bot game, no  (threat probe exists in review and analysis but is buggy (audit bug 13))
 - [must] coach: Coach prompts you to find the idea before showing it, no
 - [must] coach: Move feedback after each of your moves in a bot game, no
 - [must] coach: Two-step hint (idea first then move), no  (mine shows the move arrow directly)
-- [must] bots: Assistance presets before a bot game (no help / some / full / custom), partial  (mine has a serious-mode toggle only)
 - [must] coach: Coach explains your move in words (praise / mistake / why), partial  (in Game Review since plan item 5; in bot games with plan item 8)
 - [must] puzzles: Enough puzzles at your rating, partial  (1200 under 1000 and 1200 at 1000-1299)
 - [must] review: Best move with reason, partial  (reason given when the coach finds one (missed mate, missed win); otherwise "best was X")
@@ -27,7 +25,6 @@ Not shippable yet: 8 must-have features are not done.
 - [should] puzzles: Coach tip after a wrong puzzle move, no
 - [should] puzzles: Daily puzzle with streak and calendar, no
 - [should] bots: Play a bot from any position, partial  (from editor and lessons yes; from analysis no; from review buggy (audit bug 2))
-- [should] bots: Suggestion arrow during a bot game, partial  (hint arrow on demand only)
 - [should] history: Game archive with filters and tabs, partial  (flat list with stars only)
 - [should] history: Keep all your games, partial  (capped at 50 (starred kept))
 - [should] lessons: Learn path with Next Lesson, partial  (72 lessons by category; no path; completion meaningless)

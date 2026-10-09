@@ -35,6 +35,48 @@ test.describe("current behaviour", () => {
     await expect(page.getByText(/Resume game/)).toBeVisible();
   });
 
+  test("help levels: chosen before the game, changed mid-game, Resign in the Help sheet", async ({ page }) => {
+    await seed(page, null);
+    await open(page);
+    await button(page, /Play bots/).click();
+    await page.getByRole("radio", { name: "On my own" }).click();
+    await page.locator(".botmini").first().click();
+    await expect(page.locator(".plate-chip")).toHaveText("On my own");
+    await expect(page.locator(".evalbar")).toHaveCount(0);
+    expect((await readStore(page)).current.help).toEqual({ evalBar: false, threats: false, suggest: false, coach: false });
+
+    await page.locator(".plate-chip").click();
+    await page.getByRole("dialog").getByRole("radio", { name: "Full help" }).click();
+    await expect(page.locator(".evalbar")).toHaveCount(1);
+    await page.getByRole("dialog").getByRole("button", { name: "Done" }).click();
+    await expect(page.locator(".plate-chip")).toHaveText("Full help");
+
+    await page.getByRole("button", { name: /Coach on/ }).click();
+    await expect(page.getByRole("button", { name: /Coach off/ })).toHaveAttribute("aria-pressed", "false");
+    await expect(page.locator(".plate-chip")).toHaveText("Custom");
+
+    await page.getByRole("button", { name: /^Help$/ }).click();
+    await page.getByRole("dialog").getByRole("button", { name: "Resign" }).click();
+    await page.getByRole("dialog").getByRole("button", { name: "Resign" }).click();
+    await expect.poll(async () => (await readStore(page)).current?.status).toBe("over");
+    // the picker remembers the level for next time
+    expect((await readStore(page)).settings.helpPreset).toBe("own");
+  });
+
+  test("threat arrows show during a game when the help level has them", async ({ page }) => {
+    // You are Black after 1.e4 e5 2.Bc4 Nc6 3.Qh5: White threatens Qxf7 mate.
+    await seed(page, {
+      current: {
+        id: "t1", mode: "bot", personaId: "x", playerColor: "b", serious: false, startFen: null,
+        sans: ["e4", "e5", "Bc4", "Nc6", "Qh5"], chat: [], cps: [0, 0, 0, 0, 0], status: "playing", result: null,
+        createdAt: 1, muted: true, help: { evalBar: true, threats: true, suggest: false, coach: false },
+      },
+    });
+    await open(page);
+    await page.getByText(/Resume game/).click();
+    await expect(page.locator('g[stroke="#d02a2a"]').first()).toBeVisible({ timeout: 60_000 });
+  });
+
   test("reviewing a game labels the moves and turns your blunders into puzzles", async ({ page }) => {
     await seed(page, {
       settings: { reviewMovetime: 100 },
