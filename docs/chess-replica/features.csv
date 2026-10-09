@@ -1,0 +1,65 @@
+feature,area,priority,original,clone,notes
+Bots across beginner to master levels,bots,must,yes,yes,mine 800-3200 in 150 bots; theirs 250-2450 plus engine slider; you said 800 floor is fine
+Bots below 800,bots,could,yes,skip,you said the bots are fine; revisit only if 800 bots start feeling hard
+Adaptive bot that adjusts to how you play,bots,could,yes,no,
+Assistance presets before a bot game (no help / some / full / custom),bots,must,yes,partial,mine has a serious-mode toggle only
+Threat arrows during a bot game,bots,must,yes,no,threat probe exists in review and analysis but is buggy (audit bug 13)
+Suggestion arrow during a bot game,bots,should,yes,partial,hint arrow on demand only
+Move feedback after each of your moves in a bot game,coach,must,yes,no,
+Bot chat with personality,bots,should,yes,yes,mine is bilingual with event-driven banter and optional LLM
+Clean vs assisted record per bot (crowns),bots,could,yes,partial,mine counts W-D-L and ignores hints and takebacks
+Time controls in bot games,bots,could,yes,no,
+Play a bot from any position,bots,should,yes,partial,from editor and lessons yes; from analysis no; from review buggy (audit bug 2)
+Coach explains your move in words (praise / mistake / why),coach,must,yes,no,the central gap
+Coach prompts you to find the idea before showing it,coach,must,yes,no,
+Two-step hint (idea first then move),coach,must,yes,no,mine shows the move arrow directly
+Coach voice,coach,could,yes,skip,possible later with on-device speech; low value
+Celebrity coaches,coach,could,yes,skip,real people; out of bounds
+Game review move classifications,review,must,yes,yes,same 10 labels plus Forced; colours need rebranding
+Accuracy overall and per phase,review,must,yes,yes,
+Per-game rating estimate,review,could,yes,no,their formula is unpublished; ours would be made up
+Coach one-line game summary,review,must,yes,no,
+Key moments with a Next button,review,should,yes,partial,mine shows 3 chips; no stepper
+Explanation of why a move was bad (threat / lost piece / mate),review,must,yes,no,data exists (pv after move) but not shown
+Show the line after your move,review,must,yes,no,refutation line stored but never displayed
+Best move with reason,review,must,yes,partial,best move and arrow; no reason
+Retry the position to find a better move,review,must,yes,partial,current Retry starts a bot game and wipes the game in progress
+Opening name plus your history in that opening,review,could,yes,partial,name only
+Review graph with markers,review,could,yes,partial,graph without markers
+Unlimited reviews,review,must,yes,yes,free tier gets 1 a day; mine is unlimited and offline
+Analysis engine lines and eval,analysis,must,yes,yes,bugs: stale lines after a move (audit bug 4)
+Analysis threat arrows,analysis,should,yes,partial,shows non-threats (audit bug 13)
+Variation tree with comments,analysis,could,yes,partial,linear line plus 8 stashed lines
+Save an analysis,analysis,should,yes,no,
+Load FEN or PGN into analysis,analysis,must,yes,partial,PGN with a FEN header crashes the app (audit bug 1)
+Opening explorer,analysis,could,yes,yes,lichess play counts and evals; no masters database
+Game archive with filters and tabs,history,should,yes,partial,flat list with stars only
+Keep all your games,history,should,yes,partial,capped at 50 (starred kept)
+Auto-save finished games,history,must,yes,yes,
+Rated puzzles near your rating,puzzles,must,yes,yes,Elo not Glicko; fine for one player
+Difficulty setting for rated puzzles,puzzles,could,yes,partial,tiers and rated mix exist; no offset
+Enough puzzles at your rating,puzzles,must,yes,partial,1200 under 1000 and 1200 at 1000-1299
+Accept any correct mate,puzzles,must,yes,partial,tier and mix trainer rejects alternative mates (audit bug 3)
+Puzzle Rush,puzzles,should,yes,partial,3 minutes only; no 5 min or survival
+Daily puzzle with streak and calendar,puzzles,should,yes,no,
+Custom puzzles by theme and rating range,puzzles,should,yes,partial,theme filter yes; rating range no
+Retry failed puzzles,puzzles,should,yes,yes,spaced review 1/3/7/21 days
+Coach tip after a wrong puzzle move,puzzles,should,yes,no,
+Puzzle Battle,puzzles,could,yes,skip,live multiplayer
+Puzzle Points tiers and skins,puzzles,could,yes,skip,gamification art
+Learn path with Next Lesson,lessons,should,yes,partial,72 lessons by category; no path; completion meaningless
+New-to-chess basics (moves and rules),lessons,could,yes,no,you likely know the rules already
+Home screen built around tasks,navigation,should,yes,partial,12 equal tiles
+Game-over sheet with Rematch,navigation,should,yes,partial,Review and New only
+One tap from game end to review,navigation,must,yes,yes,
+Bottom tab bar,navigation,could,yes,no,
+Fully offline including engine and review,mine,could,no,yes,mine only
+Full-strength NNUE engine locally by default,mine,could,no,yes,theirs defaults to a lighter engine locally
+Puzzles from your own blunders with spaced review,mine,could,no,yes,mine only as far as recon found
+Pro games database and live broadcasts offline,mine,could,no,yes,
+Opening drill,mine,could,no,yes,
+Engine match and position editor,mine,could,no,yes,
+Import from Lichess and chess.com,mine,could,no,yes,
+Romanian-language bots,mine,could,no,yes,
+33 piece sets and 34 board themes with custom colours,mine,could,no,yes,
+Export everything (PGN and JSON backup),mine,could,no,yes,
