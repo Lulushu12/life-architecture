@@ -163,6 +163,30 @@ test.describe("current behaviour", () => {
     expect(s.games.map((g) => g.id)).toEqual(["r1"]);
   });
 
+  test("pass and play alternates sides and saves the game", async ({ page }) => {
+    await seed(page, null);
+    await open(page);
+    await button(page, /Pass & play/).click();
+    await button(page, /Start game/).click();
+    await move(page, "e2", "e4");
+    await move(page, "e7", "e5");
+    await expect.poll(async () => (await readStore(page)).current?.sans).toEqual(["e4", "e5"]);
+    expect((await readStore(page)).current.mode).toBe("pass");
+  });
+
+  test("the opening explorer walks a line and hands it to the drill", async ({ page }) => {
+    await seed(page, null);
+    await open(page);
+    await button(page, /Openings/).click();
+    await page.locator(".openrow", { has: page.locator(".or-move", { hasText: /^e4$/ }) }).first().click();
+    await page.locator(".openrow", { has: page.locator(".or-move", { hasText: /^e5$/ }) }).first().click();
+    await expect(page.locator(".pathmove")).toHaveCount(2);
+    await button(page, /Drill this line/).click();
+    // you play White: play 1.e4, the drill answers 1...e5 from the line
+    await move(page, "e2", "e4");
+    await expect(page.locator(".movepath .pathmove")).toHaveText(["1.e4", "e5"], { timeout: 15_000 });
+  });
+
   test("the app opens offline after the first visit", async ({ page, context }) => {
     await seed(page, null);
     await open(page);
