@@ -4,13 +4,9 @@ import { getPersona } from "./personas.js";
 import { getRating } from "./puzzledb.js";
 import { LESSONS } from "./lessons/index.js";
 import { checkWeeks } from "./checkStats.js";
+import { outcomeOf } from "./archive.js";
 
-function outcome(g) {
-  if (!g.result || !g.playerColor) return null;
-  if (g.result === "1/2-1/2") return "d";
-  if (g.result !== "1-0" && g.result !== "0-1") return null;
-  return (g.result === "1-0") === (g.playerColor === "w") ? "w" : "l";
-}
+const outcome = outcomeOf;
 
 const when = (g) => g.playedAt || g.date || 0;
 

@@ -363,6 +363,85 @@ test.describe("current behaviour", () => {
     expect((await readStore(page)).daily.id).toBe(d.id);
   });
 
+  // Plan item 12 (characterization first): the archive's star, delete and export.
+  const THREE_GAMES = [
+    { id: "a1", date: 3, mode: "bot", personaId: "x", playerColor: "w", sans: ["e4", "e5"], result: "1-0", review: null },
+    { id: "a2", date: 2, mode: "import", label: "Club game", playerColor: "b", sans: ["d4", "d5"], result: "1-0", review: null },
+    { id: "a3", date: 1, mode: "pass", sans: ["c4"], result: "1/2-1/2", review: null },
+  ];
+
+  test("the archive stars, deletes with undo, and exports a selection", async ({ page }) => {
+    await seed(page, { games: THREE_GAMES });
+    await open(page);
+    await button(page, /Game archive/).click();
+    await expect(page.locator(".gamecard")).toHaveCount(3);
+    await page.locator(".gamecard").first().getByRole("button", { name: "Star game" }).click();
+    expect((await readStore(page)).games.find((g) => g.id === "a1").favourite).toBe(true);
+    await page.locator(".gamecard").nth(2).getByRole("button", { name: "Delete game" }).click();
+    await expect(page.locator(".gamecard")).toHaveCount(2);
+    await page.getByRole("button", { name: "Undo" }).click();
+    await expect(page.locator(".gamecard")).toHaveCount(3);
+    await page.getByRole("button", { name: "Select", exact: true }).click();
+    await page.locator(".gamecard").nth(1).click();
+    await button(page, /Export selected/).click();
+    await expect(page.getByRole("dialog")).toContainText("Export 1 game");
+  });
+
+  test("archive tabs and the result filter", async ({ page }) => {
+    await seed(page, { games: THREE_GAMES });
+    await open(page);
+    await button(page, /Game archive/).click();
+    await expect(page.locator(".gamecard .miniboard")).toHaveCount(3);
+    await expect(page.locator(".resultchip")).toHaveText(["Won", "Lost"]); // the pass & play game has no "you"
+    await page.getByRole("tab", { name: "Bots" }).click();
+    await expect(page.locator(".gamecard")).toHaveCount(1);
+    await page.getByRole("tab", { name: "Imported" }).click();
+    await expect(page.locator(".gamecard")).toContainText("Club game");
+    await page.getByRole("tab", { name: "All" }).click();
+    await page.getByRole("radio", { name: "Lost" }).click();
+    await expect(page.locator(".gamecard")).toHaveCount(1);
+    await expect(page.locator(".gamecard")).toContainText("Club game");
+    await page.getByRole("tab", { name: "Starred" }).click();
+    await expect(page.getByText("No games match this filter.")).toBeVisible();
+  });
+
+  test("an analysis can be saved, reopened from the archive and updated", async ({ page }) => {
+    await seed(page, null);
+    await open(page);
+    await button(page, /Analysis/).click();
+    await move(page, "e2", "e4");
+    await move(page, "e7", "e5");
+    await button(page, /Save/).click();
+    await expect.poll(async () => (await readStore(page)).analyses?.length).toBe(1);
+    expect((await readStore(page)).analyses[0]).toMatchObject({ name: "King's Pawn Game", sans: ["e4", "e5"], startFen: null });
+
+    await page.locator(".topbar button").first().click();
+    await button(page, /Game archive/).click();
+    await page.getByRole("tab", { name: "Analyses" }).click();
+    await page.locator(".gamecard", { hasText: "King's Pawn Game" }).click();
+    await expect(page.locator(".movelist .mlmove")).toHaveText(["e4", "e5"]);
+    await move(page, "g1", "f3");
+    await button(page, /Update/).click();
+    await expect.poll(async () => (await readStore(page)).analyses[0].sans).toEqual(["e4", "e5", "Nf3"]);
+    expect((await readStore(page)).analyses).toHaveLength(1);
+  });
+
+  test("play a bot from the analysis board's position", async ({ page }) => {
+    const fen = "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 0 1";
+    await seed(page, null);
+    await open(page);
+    await button(page, /Analysis/).click();
+    await button(page, /Paste FEN\/PGN/).click();
+    await page.locator("textarea").first().fill(fen);
+    await button(page, /^Load$/).click();
+    await button(page, /Play from here/).click();
+    await expect(page.locator(".topbar")).toContainText("From: your analysis");
+    await expect(page.getByRole("button", { name: "Black", exact: true })).toHaveClass(/sel/);
+    await page.locator(".botmini").first().click();
+    await expect.poll(async () => (await readStore(page)).current?.startFen).toBe(fen);
+    expect((await readStore(page)).current.playerColor).toBe("b");
+  });
+
   // Found while building plan item 8: moving before the engine had judged the
   // position left the evals one short, and they never caught up again, so the
   // eval bar, threats and coach went quiet for the rest of the game.

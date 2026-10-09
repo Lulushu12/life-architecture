@@ -34,7 +34,8 @@ export default function PlayBot({ store, setStore, nav, view }) {
 function BotPicker({ store, setStore, nav, view }) {
   // "r" is resolved to a real colour at the moment the game starts, so the
   // side stays a surprise until the board appears.
-  const [color, setColor] = useState("w");
+  // From a set position you start as the side to move.
+  const [color, setColor] = useState(() => (view?.fromFen ? view.fromFen.split(" ")[1] : "w"));
   const [preset, setPreset] = useState(store.settings.helpPreset || DEFAULT_PRESET);
   const levelRefs = useRef({});
   // Set when arriving from a lesson step: the game starts from that position

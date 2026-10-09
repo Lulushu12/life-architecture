@@ -38,6 +38,7 @@ function freshStore() {
     blunderChecks: [], // {t, saved}: each time the blunder check stopped a move
     daily: null, // today's daily puzzle: {date, key, id, r, hearts, result}
     dailyLog: {}, // date -> {id, result: "solved"|"failed", hearts}
+    analyses: [], // saved analyses {id, date, name, startFen, sans}, apart from the game cap
   };
 }
 
@@ -105,6 +106,7 @@ function normalize(s) {
     blunderChecks: (Array.isArray(s.blunderChecks) ? s.blunderChecks : []).filter((c) => isObj(c) && Number.isFinite(c.t)),
     daily: isObj(s.daily) && typeof s.daily.date === "string" ? s.daily : null,
     dailyLog: isObj(s.dailyLog) ? s.dailyLog : {},
+    analyses: (Array.isArray(s.analyses) ? s.analyses : []).filter((a) => isObj(a) && a.id != null && Array.isArray(a.sans)),
   };
   return capStore(out);
 }

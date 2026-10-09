@@ -9,7 +9,7 @@ Move feedback after each of your moves in a bot game,coach,must,yes,yes,"plan it
 Bot chat with personality,bots,should,yes,yes,mine is bilingual with event-driven banter and optional LLM
 Clean vs assisted record per bot (crowns),bots,could,yes,yes,"plan item 10: clean = On my own with no hint, takeback or replay; the game-over screen says which and why; clean wins marked on the bot picker; Stats splits results"
 Time controls in bot games,bots,could,yes,no,
-Play a bot from any position,bots,should,yes,partial,from editor and lessons yes; from analysis no; from review buggy (audit bug 2)
+Play a bot from any position,bots,should,yes,yes,"from the editor, lessons, review (Play it out vs a bot, plan item 6) and analysis (Play from here, plan item 12); you start as the side to move"
 Coach explains your move in words (praise / mistake / why),coach,must,yes,yes,Game Review since plan item 5; bot games since plan item 8
 Coach prompts you to find the idea before showing it,coach,must,yes,yes,plan item 9: with Coach on it speaks up when there's a mate or material to win (not for plain recaptures); the hint's first step names the idea
 Two-step hint (idea first then move),coach,must,yes,yes,"plan item 8: idea and highlighted piece, then Show move draws the arrow"
@@ -30,10 +30,10 @@ Unlimited reviews,review,must,yes,yes,free tier gets 1 a day; mine is unlimited 
 Analysis engine lines and eval,analysis,must,yes,yes,stale lines after a move fixed in plan item 2 (bug 4)
 Analysis threat arrows,analysis,should,yes,yes,only real threats since plan item 2 (bug 13 fixed)
 Variation tree with comments,analysis,could,yes,partial,linear line plus 8 stashed lines
-Save an analysis,analysis,should,yes,no,
+Save an analysis,analysis,should,yes,yes,"plan item 12: Save and Update on the analysis board; saved analyses listed in the archive with a mini board, capped at 30, apart from the game cap"
 Load FEN or PGN into analysis,analysis,must,yes,yes,PGN with a FEN header fixed in plan item 3 (bug 1)
 Opening explorer,analysis,could,yes,yes,lichess play counts and evals; no masters database
-Game archive with filters and tabs,history,should,yes,partial,flat list with stars only
+Game archive with filters and tabs,history,should,yes,yes,"plan item 12: All, Starred, Bots, Imported, Analyses; Won/Drawn/Lost filter; mini board, result chip and your accuracy on each game"
 Keep all your games,history,should,yes,partial,capped at 50 (starred kept)
 Auto-save finished games,history,must,yes,yes,
 Rated puzzles near your rating,puzzles,must,yes,yes,Elo not Glicko; fine for one player

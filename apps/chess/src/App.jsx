@@ -133,7 +133,8 @@ function Screen({ view, props }) {
     case "passplay":
       return <PassPlay {...props} />;
     case "analysis":
-      return <Analysis {...props} />;
+      // a fresh board for each saved analysis or handed-over position
+      return <Analysis key={view.analysisId || view.fen || "free"} {...props} />;
     case "review":
       return <ReviewScreen {...props} />;
     case "archive":

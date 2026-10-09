@@ -1,25 +1,22 @@
-## Parity: 84.9 / 100
+## Parity: 88.5 / 100
 
-features 84.9  (49 counted, must-haves 20 of 22 done)
+features 88.5  (49 counted, must-haves 20 of 22 done)
 
 Not shippable yet: 2 must-have features are not done.
 
 ## By area, weakest first
 - lessons                       33.3  (2 features)
-- history                       71.4  (3 features)
-- analysis                      79.2  (6 features)
-- bots                          83.3  (9 features)
 - puzzles                       85.0  (9 features)
+- history                       85.7  (3 features)
 - navigation                    87.5  (4 features)
+- bots                          88.9  (9 features)
 - review                        89.7  (12 features)
+- analysis                      95.8  (6 features)
 - coach                        100.0  (4 features)
 
 ## Missing, in build order
 - [must] puzzles: Enough puzzles at your rating, partial  (1200 under 1000 and 1200 at 1000-1299)
 - [must] review: Best move with reason, partial  (reason given when the coach finds one (missed mate, missed win); otherwise "best was X")
-- [should] analysis: Save an analysis, no
-- [should] bots: Play a bot from any position, partial  (from editor and lessons yes; from analysis no; from review buggy (audit bug 2))
-- [should] history: Game archive with filters and tabs, partial  (flat list with stars only)
 - [should] history: Keep all your games, partial  (capped at 50 (starred kept))
 - [should] lessons: Learn path with Next Lesson, partial  (72 lessons by category; no path; completion meaningless)
 - [should] puzzles: Puzzle Rush, partial  (3 minutes only; no 5 min or survival)

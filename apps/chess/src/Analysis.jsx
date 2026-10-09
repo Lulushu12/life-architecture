@@ -12,21 +12,30 @@ import ExportSheet from "./ExportSheet.jsx";
 import { legalDests, promotionCheck, pvToSans } from "./core/position.js";
 import { classifyDrop } from "./core/classify.js";
 import { threatsFromProbe } from "./core/threats.js";
+import { saveAnalysis } from "./archive.js";
+import { newId } from "./storage.js";
 
 // Free analysis board: play both sides, paste a FEN or PGN, watch the eval
 // bar and the engine's best line update continuously.
-export default function Analysis({ store, nav, view }) {
+export default function Analysis({ store, setStore, nav, view }) {
   const toast = useToast();
   const [exporting, setExporting] = useState(false);
   const engine = getEngine();
-  const [sans, setSans] = useState([]);
+  // Opening a saved analysis (plan item 12) restores it; saving again updates it.
+  const saved = useMemo(
+    () => (view?.analysisId ? (store.analyses || []).find((a) => a.id === view.analysisId) || null : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [view?.analysisId]
+  );
+  const [savedId, setSavedId] = useState(saved?.id || null);
+  const [sans, setSans] = useState(saved?.sans || []);
   // Arriving from the position editor hands the board a position to start from.
-  const [startFen, setStartFen] = useState(view?.fen || null);
+  const [startFen, setStartFen] = useState(saved ? saved.startFen : view?.fen || null);
   const [viewPly, setViewPly] = useState(null); // null = end of line
   const [branches, setBranches] = useState([]); // {atPly, sans}
   const [paste, setPaste] = useState("");
   const [showPaste, setShowPaste] = useState(false);
-  const [orientation, setOrientation] = useState("w");
+  const [orientation, setOrientation] = useState(saved?.orientation || "w");
   const [evalInfo, setEvalInfo] = useState(null); // {fen, cp, bestSan, pvSans, depth, alts}
   const [engineReady, setEngineReady] = useState(false);
   const [verdict, setVerdict] = useState(null); // last move's quality
@@ -378,6 +387,26 @@ export default function Analysis({ store, nav, view }) {
         </button>
         <button className="linkbtn" onClick={() => setExporting(true)} disabled={sans.length === 0}>
           ⤓ Export PGN
+        </button>
+        <button
+          className="linkbtn"
+          disabled={sans.length === 0 && !startFen}
+          onClick={() => {
+            const id = savedId || newId();
+            const name = opening?.name || (startFen ? "From a set-up position" : "Analysis");
+            setStore((s) => saveAnalysis(s, { id, name, startFen, sans, orientation }, () => id).store);
+            setSavedId(id);
+            toast(savedId ? "Analysis updated" : "Saved. It's in the archive under Analyses.");
+          }}
+        >
+          💾 {savedId ? "Update" : "Save"}
+        </button>
+        <button
+          className="linkbtn"
+          disabled={chess.isGameOver()}
+          onClick={() => nav("play", { pick: true, fromFen: fen, fromLabel: "your analysis" })}
+        >
+          ▶ Play from here
         </button>
         <button
           className="linkbtn"

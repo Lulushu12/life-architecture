@@ -2320,3 +2320,42 @@ button.lessonrow {
   vertical-align: -2px;
   color: var(--gold);
 }
+/* Archive (plan item 12) */
+.archivetabs {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.archivetabs .chip.atab {
+  flex: none;
+  padding: 7px 11px;
+  font-size: 14px;
+}
+.resultfilter {
+  margin-bottom: 10px;
+}
+.chip.small {
+  padding: 4px 10px;
+  font-size: 12.5px;
+}
+.resultchip {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  vertical-align: 1px;
+}
+.resultchip.w {
+  background: rgba(95, 174, 110, 0.2);
+  color: var(--ok);
+}
+.resultchip.d {
+  background: var(--surface2);
+  color: var(--muted);
+}
+.resultchip.l {
+  background: rgba(228, 96, 96, 0.18);
+  color: var(--danger-soft);
+}
