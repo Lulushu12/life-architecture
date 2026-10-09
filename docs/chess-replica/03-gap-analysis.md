@@ -193,3 +193,65 @@ Each item is a targeted change, not a restyle. Your colours (after the accent sw
 3. **"Coach mode" as a toggle inside bot games, rather than a separate Coach opponent:** agree? It is the bigger structural choice in this table.
 4. **Puzzle re-sample:** about 15k puzzles rated 400 to 1400 (roughly 2 MB). Fine, or smaller?
 5. **Optional Claude explanations:** do you want this in the plan at all? If yes, the key handling needs care, because every app on `lulushu12.github.io` can read localStorage. The safest option is to keep the key only in the APK, or behind a small proxy on your NixOS box later.
+
+## Gate 2 answers (2026-10-09)
+
+1. **Coach language:** English only. All coach phrases go in one file keyed by finding, so Romanian can be added later without touching the logic.
+2. **Accent colour:** options below; your pick is pending.
+3. **Coaching as a switch inside bot games:** agreed, on condition that it can be changed mid-game. The toggles sheet in the bot game handles that.
+4. **Puzzles:** keep the bundled set as it is. **The re-sample row is dropped.** You're happy to dabble in harder tiers.
+5. **Claude explanations:** keep the existing LLM code and add the Claude layer later. Asked: can the coach work like chess.com's, even if rough and repeatable, without a language model? Yes; see "The coach is templates, not a trained model" below.
+6. **Rushing:** you're under 1000 mainly because you rush. Untimed, you hold your own against bots from the low 1000s up to the mid 1000s. Added row:
+
+| Area | Chess.com has | Your app has | Gap | Value to me | Cost | Recommendation |
+| --- | --- | --- | --- | --- | --- | --- |
+| Coach | Feedback only after the move (as far as recon found) | Nothing | A check *before* a move lands | **H** (targets rushing) | S (coach) | **mine will be better**: in help presets, a move that hangs material or allows mate pauses with a nudge ("look at their knight first"), which you can override. It fades: it's off in "On my own", and Stats counts how often it saved you, so you can see the habit improving |
+
+7. **Desktop is NixOS; browser versions are rarely used.** So:
+   - Pages is not needed for chess.
+   - Sync between devices has no real use for you yet.
+   - See "Scope changes" below.
+
+### The coach is templates, not a trained model
+
+- **How chess.com generates its coach text: I don't know.** Public sources describe what the coach says, not how it's produced. That it feels "repeatable" suggests prewritten phrases filled in from engine facts, but that is an inference.
+- **The rule-based coach planned here is exactly that kind of system:**
+  - The engine and chess rules produce facts, for example "the move left the knight on c3 undefended" or "it allows Qxf7#".
+  - Each fact type has 3 to 5 phrasings of your own, rotated, with the piece, square and line filled in.
+  - It is fast, offline and small, and it is right whenever the facts are right.
+- **Training or running a language model for this: no.**
+  - Training one needs a large set of annotated moves, GPU time, and weeks of work, and the result would still be worse than templates.
+  - A small off-the-shelf model running on the device means a 0.5 to 1 GB download, slow replies on a phone, and wrong chess claims. Language models are bad at reading boards.
+  - Either way, it would still need the same rule engine underneath to supply the facts.
+- The later Claude option slots in on top: it gets the same structured facts and rewrites them more richly when online. **It never decides what is true about the position.**
+
+### Accent colour options
+
+All pass WCAG AA on your background (`#161512`) and surface (`#211f1c`), and with your dark button text (`#141b0b`). Checked with Replica's `contrast.py`.
+
+| Option | Hex | On background | Dark text on it | Clashes with |
+| --- | --- | --- | --- | --- |
+| Plum | `#a58be0` | 6.41:1 | 6.19:1 | nothing in the app; no chess site uses it as its brand colour, as far as I know |
+| Teal | `#3fb3a4` | 7.13:1 | 6.88:1 | the current Brilliant badge (to be recoloured anyway) |
+| Copper | `#d98a4e` | 6.69:1 | 6.46:1 | the Mistake orange `#e58f2a`, which is too close |
+| Brass | `#e0b34a` | 9.32:1 | 9.00:1 | the gold and Inaccuracy yellow `#f0c15c`, which is too close |
+
+- **Recommendation: plum.**
+- **Success green:** `--ok` (used for "solved" messages) stays green, because green means success, but moves off chess.com's exact value, for example to `#5fae6e`.
+- **Badges:**
+  - Keep the universal yellow, orange and red for inaccuracy, mistake and blunder. Lichess uses the same family.
+  - Recolour the distinctive ones: Brilliant in the plum family, Great in a clear blue, Best and Excellent in the new success green, and Book in sand.
+
+### Scope changes from these answers
+
+- **Device sync: dropped for now.** Your fixed decision says "only where needed", and with phone-first use it isn't needed. Backup and restore stays as the safety net.
+- **The IndexedDB restructure (audit section 4) shrinks from L to "defer".**
+  - Each APK has its own storage, so chess isn't sharing 5 MB with the other apps there.
+  - The 50-game cap is the only remaining driver. Moving just games and reviews to IndexedDB (M) can come later, if the cap starts to bite.
+- **Offline hardening for the web version (S): deprioritised,** since the APK bundles everything.
+- **Pages and a private repo:** one optional step at the end of the roadmap:
+  1. Back up any web-app data.
+  2. Make the repo private and stop the Pages deploy.
+  3. Build only the APK that changed, to stay within the free Actions allowance.
+  4. Serve the desktop build locally on your NixOS machine.
+- **Phase 0 is now:** a test harness (M) plus a chess-core module (M). That is what the coach engine is built on.
