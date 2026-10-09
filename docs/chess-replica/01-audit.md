@@ -179,3 +179,19 @@ Severity: S1 breaks the app or loses data, S2 is wrong behaviour you will hit, S
    - I'll run the sweep with an explicit allowlist for the importer and the GPL notice.
 3. **Replica is a clone-to-sell pack.** Its defaults (Next.js, Supabase, Vercel, Stripe) contradict your fixed decisions, so I'll use its method (recon map, feature matrix, `parity.py`, `sweep.py`, the architect template) but not its stack. It also writes to `replica/`; per your instructions everything goes in `docs/chess-replica/` instead. I installed the pack to `~/.claude/skills` in this container (not committed to the repo); it will need reinstalling in a future session.
 4. **The monorepo.** Chess shares `packages/shared` with seven other apps. I plan to keep the new data layer local to chess and not change the shared store, so nothing else can break. Say so if you'd rather it be shared.
+
+## 7. Gate 1 answers (2026-10-09)
+
+- **Your level:** a little under 1000 on chess.com, and the bots are fine as they are. So the 800 floor stays, and Maia drops to "evaluate only, no build" unless Phase 2 turns up a reason.
+- **Hosting:** stays on GitHub Pages for now. Making it private is covered under "Privatizing" below.
+- **Restructure order:** my call, with the plan shown before any code.
+- **Puzzle set size, a correction:** the "50k" in section 4 was a number I picked to illustrate what "a large puzzle set" might mean. Nothing in your brief or your usage justified it. What matters is how many puzzles sit near your rating. The bundled set has 1,200 puzzles rated under 1000 (only 106 under 900) and 1,200 rated 1000 to 1299. At 20 to 30 a day that is roughly 3 to 4 months of new puzzles, and spaced review repeats on top of that. Lichess puzzle ratings and chess.com game ratings are different scales, and I don't know the exact conversion. A deeper set for your band only (for example 10k to 20k puzzles rated 400 to 1400, about 1.5 to 3 MB) would still load fine the way puzzles load today. **So the move to IndexedDB is driven by sync and storage safety, not by puzzle volume.** Section 4's puzzle row overstated the urgency.
+
+### Privatizing
+
+- **It can't be done with GitHub Pages on a free account.** Pages from a private repo needs a paid GitHub plan, and even then the site itself stays public. Restricting who can view a Pages site needs GitHub Enterprise Cloud.
+- **The privacy option that fits your rules** is a private repo plus serving the PWA from your NixOS box over a private network (for example Tailscale with HTTPS). That works on phone and desktop and installs from the browser.
+  - The APK can still build in GitHub Actions on a private repo. Downloading it then needs you to be logged in to GitHub on the phone.
+  - Private repos also have a monthly Actions minutes allowance. The current workflow rebuilds all 8 APKs on every change, so it would need to build only the app that changed.
+- **The trap: moving the app to a new web address loses its saved data.** Browser storage belongs to the address. Moving from `lulushu12.github.io` to your box starts every one of the 8 web apps empty unless you back up and restore each one first. The APKs are not affected.
+- **Recommendation:** don't privatize yet. Do it when the NixOS box exists for sync anyway, with a backup and restore step in the plan. I can't change repo visibility from this session in any case; that's a setting only you can flip.
