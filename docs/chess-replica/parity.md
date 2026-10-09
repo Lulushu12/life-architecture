@@ -1,8 +1,8 @@
-## Parity: 60.6 / 100
+## Parity: 63.3 / 100
 
-features 60.6  (49 counted, must-haves 13 of 22 done)
+features 63.3  (49 counted, must-haves 14 of 22 done)
 
-Not shippable yet: 9 must-have features are not done.
+Not shippable yet: 8 must-have features are not done.
 
 ## By area, weakest first
 - coach                         12.5  (4 features)
@@ -12,7 +12,7 @@ Not shippable yet: 9 must-have features are not done.
 - navigation                    62.5  (4 features)
 - history                       71.4  (3 features)
 - analysis                      79.2  (6 features)
-- review                        79.3  (12 features)
+- review                        89.7  (12 features)
 
 ## Missing, in build order
 - [must] bots: Threat arrows during a bot game, no  (threat probe exists in review and analysis but is buggy (audit bug 13))
@@ -23,7 +23,6 @@ Not shippable yet: 9 must-have features are not done.
 - [must] coach: Coach explains your move in words (praise / mistake / why), partial  (in Game Review since plan item 5; in bot games with plan item 8)
 - [must] puzzles: Enough puzzles at your rating, partial  (1200 under 1000 and 1200 at 1000-1299)
 - [must] review: Best move with reason, partial  (reason given when the coach finds one (missed mate, missed win); otherwise "best was X")
-- [must] review: Retry the position to find a better move, partial  (still a bot game rather than an in-place retry (plan item 6); since item 3 it asks before replacing a game in progress)
 - [should] analysis: Save an analysis, no
 - [should] puzzles: Coach tip after a wrong puzzle move, no
 - [should] puzzles: Daily puzzle with streak and calendar, no
@@ -36,7 +35,6 @@ Not shippable yet: 9 must-have features are not done.
 - [should] navigation: Home screen built around tasks, partial  (12 equal tiles)
 - [should] puzzles: Custom puzzles by theme and rating range, partial  (theme filter yes; rating range no)
 - [should] puzzles: Puzzle Rush, partial  (3 minutes only; no 5 min or survival)
-- [should] review: Key moments with a Next button, partial  (mine shows 3 chips; no stepper)
 - [could] bots: Adaptive bot that adjusts to how you play, no
 - [could] bots: Time controls in bot games, no
 - [could] lessons: New-to-chess basics (moves and rules), no  (you likely know the rules already)
@@ -46,7 +44,6 @@ Not shippable yet: 9 must-have features are not done.
 - [could] bots: Clean vs assisted record per bot (crowns), partial  (mine counts W-D-L and ignores hints and takebacks)
 - [could] puzzles: Difficulty setting for rated puzzles, partial  (tiers and rated mix exist; no offset)
 - [could] review: Opening name plus your history in that opening, partial  (name only)
-- [could] review: Review graph with markers, partial  (graph without markers)
 
 ## Left out on purpose (not scored)
 - Bots below 800: you said the bots are fine; revisit only if 800 bots start feeling hard

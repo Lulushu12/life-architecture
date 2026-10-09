@@ -1816,4 +1816,25 @@ button.lessonrow {
   line-height: 1.45;
   color: var(--text);
 }
+/* Review flow (plan item 6) */
+.evalgraph {
+  position: relative;
+}
+.graphmark {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 2px var(--bg);
+  pointer-events: none;
+}
+.retrycard {
+  border-color: var(--accent-line);
+}
+.retrycard p {
+  margin: 4px 0 6px;
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+}
 

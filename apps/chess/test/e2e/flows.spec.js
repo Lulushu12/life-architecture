@@ -53,6 +53,9 @@ test.describe("current behaviour", () => {
 
     // The coach (plan item 5): a game summary, and the reason for 2.g4??
     await expect(page.locator(".coachcard")).toContainText("The turning point was 2. g4");
+    // Summary first, then move by move (plan item 6)
+    await expect(page.locator(".movelist")).toHaveCount(0);
+    await button(page, /Start review/).click();
     await page.locator(".movelist .mlmove").nth(2).click();
     await expect(page.locator(".coachline")).toContainText("Qh4#");
     await button(page, /Show the reply/).click();
@@ -75,15 +78,64 @@ test.describe("current behaviour", () => {
     await button(page, /Game archive/).click();
     await page.getByText(/tap to review/).first().click();
     await expect(page.locator(".acc-val").first()).toBeVisible({ timeout: 90_000 });
+    await button(page, /Start review/).click();
     await page.locator(".movelist .mlmove").nth(2).click(); // 2.g4??, allowing mate
-    await button(page, /Retry from here/).click();
+    await button(page, /Play it out vs a bot/).click();
     await expect(page.getByText(/Replace your game in progress/)).toBeVisible();
     await button(page, /^Cancel$/).click();
     expect((await readStore(page)).current.id).toBe("cur");
 
-    await button(page, /Retry from here/).click();
+    await button(page, /Play it out vs a bot/).click();
     await button(page, /Start new game/).click();
     await expect.poll(async () => (await readStore(page)).current?.id).not.toBe("cur");
+  });
+
+  test("a mistake can be retried in place, with feedback, until the better move is found", async ({ page }) => {
+    await seed(page, {
+      settings: { reviewMovetime: 100 },
+      games: [{ id: "g1", date: 1, mode: "bot", personaId: "x", playerColor: "w", sans: FOOLS_MATE, result: "0-1", review: null }],
+    });
+    await open(page);
+    await button(page, /Game archive/).click();
+    await page.getByText(/tap to review/).first().click();
+    await expect(page.locator(".acc-val").first()).toBeVisible({ timeout: 90_000 });
+    await button(page, /Start review/).click();
+    await page.locator(".movelist .mlmove").nth(2).click(); // 2.g4??
+    await button(page, /^Retry$/).click();
+    await expect(page.locator(".retrycard")).toContainText("find a better move than g4");
+
+    // the same blunder again: the coach explains what it allows
+    await move(page, "g2", "g4");
+    await expect(page.locator(".retrycard")).toContainText("Not quite", { timeout: 30_000 });
+    await expect(page.locator(".retrycard")).toContainText("Qh4#");
+
+    // then the engine's move
+    await button(page, /Try again/).click();
+    const best = (await readStore(page)).games[0].review.moves[2].bestUci;
+    await move(page, best.slice(0, 2), best.slice(2, 4));
+    await expect(page.locator(".retrycard")).toContainText("✓", { timeout: 30_000 });
+  });
+
+  test("key moments step through the review", async ({ page }) => {
+    await seed(page, {
+      settings: { reviewMovetime: 100 },
+      games: [{ id: "g1", date: 1, mode: "bot", personaId: "x", playerColor: "w", sans: FOOLS_MATE, result: "0-1", review: null }],
+    });
+    await open(page);
+    await button(page, /Game archive/).click();
+    await page.getByText(/tap to review/).first().click();
+    await expect(page.locator(".acc-val").first()).toBeVisible({ timeout: 90_000 });
+    await button(page, /Start review/).click();
+    const seen = [];
+    for (let k = 0; k < 4; k++) {
+      seen.push((await page.locator(".moveverdict b").first().innerText()).split(":")[0]);
+      const next = button(page, /Next key moment/);
+      if (await next.isDisabled()) break;
+      await next.click();
+    }
+    expect(seen).toContain("g4");
+    await button(page, /^Summary$/).click();
+    await expect(page.locator(".coachcard")).toBeVisible();
   });
 
   test("a blunder puzzle is solved by playing the best move", async ({ page }) => {

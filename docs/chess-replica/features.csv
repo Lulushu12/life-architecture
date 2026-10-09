@@ -19,13 +19,13 @@ Game review move classifications,review,must,yes,yes,same 10 labels plus Forced;
 Accuracy overall and per phase,review,must,yes,yes,
 Per-game rating estimate,review,could,yes,no,their formula is unpublished; ours would be made up
 Coach one-line game summary,review,must,yes,yes,plan item 5: names the turning point and why
-Key moments with a Next button,review,should,yes,partial,mine shows 3 chips; no stepper
+Key moments with a Next button,review,should,yes,yes,"plan item 6: Next and previous key moment, from your last book move"
 Explanation of why a move was bad (threat / lost piece / mate),review,must,yes,yes,"plan item 5: hanging pieces, allowed mates, forks, pins, skewers, lost material, missed wins and mates"
 Show the line after your move,review,must,yes,yes,"plan item 5: ""Show the reply"" steps through the engine answer"
 Best move with reason,review,must,yes,partial,"reason given when the coach finds one (missed mate, missed win); otherwise ""best was X"""
-Retry the position to find a better move,review,must,yes,partial,still a bot game rather than an in-place retry (plan item 6); since item 3 it asks before replacing a game in progress
+Retry the position to find a better move,review,must,yes,yes,"plan item 6: in place, with hint, coach feedback on wrong tries, and give up; playing it out vs a bot is a second button that asks first"
 Opening name plus your history in that opening,review,could,yes,partial,name only
-Review graph with markers,review,could,yes,partial,graph without markers
+Review graph with markers,review,could,yes,yes,"plan item 6: your mistakes, blunders and misses"
 Unlimited reviews,review,must,yes,yes,free tier gets 1 a day; mine is unlimited and offline
 Analysis engine lines and eval,analysis,must,yes,yes,stale lines after a move fixed in plan item 2 (bug 4)
 Analysis threat arrows,analysis,should,yes,yes,only real threats since plan item 2 (bug 13 fixed)
