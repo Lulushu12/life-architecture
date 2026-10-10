@@ -521,6 +521,22 @@ test.describe("current behaviour", () => {
     await expect(page.locator(".pathrow").first()).toHaveClass(/current/);
   });
 
+  // The clipboard cut a real backup short; restoring it now says why.
+  test("a cut-off backup is named as such, and the export shows its size", async ({ page }) => {
+    await seed(page, { games: [{ id: "k1", date: 1, mode: "bot", personaId: "x", playerColor: "w", sans: ["e4", "e5"], result: "*", review: null }] });
+    await open(page);
+    await button(page, /Settings/).click();
+    await page.getByText("Backup and restore").click();
+    await button(page, /Export backup/).click();
+    await expect(page.getByText(/Backup size: \d+ KB/)).toBeVisible();
+    await expect(page.getByRole("button", { name: "Save backup file" })).toHaveCount(0); // phone only
+    const full = await page.locator("textarea.backuptext[readonly]").inputValue();
+    await page.getByPlaceholder(/paste a backup/i).fill(full.slice(0, 120));
+    await button(page, /Restore from pasted text/).click();
+    await expect(page.locator(".warn", { hasText: "This backup is incomplete: it stops after 120 characters" })).toBeVisible();
+    expect((await readStore(page)).games.map((g) => g.id)).toEqual(["k1"]); // nothing replaced
+  });
+
   // Plan item 14: the box backup is Android-only, and its token never leaves.
   test("the box backup explains itself on the web, and exports keep its token out", async ({ page }) => {
     await seed(page, {

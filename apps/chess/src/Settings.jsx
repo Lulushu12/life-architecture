@@ -8,6 +8,7 @@ import { addFontFile, removeFont } from "./fontStore.js";
 import { useRef, useState } from "react";
 import { IS_NATIVE } from "./platform.js";
 import { sendToBox, nativeTransport, boxEndpoint } from "./boxBackup.js";
+import { saveBackupFile } from "./backupFile.js";
 
 const ARROW_LABELS = {
   hint: "Engine / best move",
@@ -261,6 +262,7 @@ export default function Settings({ store, setStore, nav, fonts = [], setFonts = 
           prefix="chess"
           storageKey={STORAGE_KEY}
           strip={["settings.ai.apiKey", "settings.box", "boxStatus"]}
+          saveFile={IS_NATIVE ? (text) => saveBackupFile(text) : undefined}
           validate={validateBackup}
           onRestore={(data, { dropped }) => {
             setStore((s) => ({
