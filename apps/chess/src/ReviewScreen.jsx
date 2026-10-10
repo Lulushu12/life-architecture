@@ -560,6 +560,17 @@ function Review({ store, setStore, nav, game }) {
     setBranchPly(0);
   };
 
+  // "Show the best line" (plan item 16): when the coach can't name a reason,
+  // step through the engine's line from before the move instead.
+  const showBestLine = () => {
+    const pv = review?.pvs?.[viewIdx - 1];
+    if (!pv?.length) return;
+    if (branch) stashLine(branch);
+    setShowBest(false);
+    setBranch({ baseIdx: viewIdx - 1, sans: pv, info: pv.map(() => null), reply: true });
+    setBranchPly(0);
+  };
+
   const leaveBranch = () => {
     stashLine(branch); // keep the idea recoverable
     setBranch(null);
@@ -1030,6 +1041,11 @@ function Review({ store, setStore, nav, game }) {
                   Show the reply
                 </button>
               )}
+              {badMove && coach?.facts?.[0]?.type.startsWith("generic_") && review.pvs?.[viewIdx - 1]?.length > 1 && (
+                <button className="linkbtn" onClick={showBestLine}>
+                  Show the best line
+                </button>
+              )}
               {badMove && (
                 <button className="linkbtn" onClick={startRetry}>
                   Retry
@@ -1059,7 +1075,7 @@ function Review({ store, setStore, nav, game }) {
         </div>
       ) : !branch && review.pvs?.[viewIdx]?.length > 0 ? (
         <div className="bestline">
-          <b>{fmtCp(review.evals[viewIdx])}</b> · best: {review.pvs[viewIdx].join(" ")}
+          <b>{fmtCp(review.evals[viewIdx])}</b> · best: {review.pvs[viewIdx].slice(0, 6).join(" ")}
         </div>
       ) : null}
 

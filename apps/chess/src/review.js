@@ -174,9 +174,10 @@ export async function reviewGame(
   };
   const counts = { w: countClasses(moves, "w"), b: countClasses(moves, "b") };
   const phases = phaseAccuracy(moves);
-  // Best line per position (SAN, truncated), so the review browser can show
-  // the engine's idea at any move without re-searching.
-  const pvs = positions.map((p, i) => (bests[i] ? pvToSans(p.fen, bests[i].pv.slice(0, 6)) : null));
+  // Best line per position (SAN, up to 12 plies), so the review browser can
+  // show the engine's idea at any move without re-searching, and the coach
+  // can see material won or lost a few moves on (plan item 16).
+  const pvs = positions.map((p, i) => (bests[i] ? pvToSans(p.fen, bests[i].pv.slice(0, 12)) : null));
   return { evals, moves, accuracy, opening, counts, pvs, phases, grade: REVIEW_GRADE };
 }
 

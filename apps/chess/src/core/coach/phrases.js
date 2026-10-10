@@ -48,9 +48,20 @@ export const PHRASES = {
     (f) => `This allows ${f.reply}, a skewer: your ${n(f.front.type)} must move and the ${n(f.back.type)} behind it falls.`,
     (f) => `${f.reply} lines up on your ${n(f.front.type)} and ${n(f.back.type)}; when the first one moves, the second is lost.`,
   ],
+  // `piece` is the most valuable piece lost on the way; when that's only a
+  // pawn but more than a pawn's worth goes, it reads as "material".
   loses_material: [
-    (f) => `Their best answer, ${f.line.join(" ")}, wins your ${n(f.piece)}.`,
-    (f) => `This costs a ${n(f.piece)}: look at ${f.line.join(" ")}.`,
+    (f) =>
+      `Their best answer, ${f.line.join(" ")}, wins ${f.piece === "p" ? "material" : `your ${n(f.piece)}`}${f.deep ? " a few moves later" : ""}.`,
+    (f) => `This costs ${f.piece === "p" ? "material" : `a ${n(f.piece)}`}${f.deep ? " further down the line" : ""}: look at ${f.line.join(" ")}.`,
+  ],
+  lost_advantage: [
+    (f) => `You were winning, and this gives it back.${f.best ? ` ${f.best} kept the advantage.` : ""}`,
+    (f) => `This lets a won position slip.${f.best ? ` ${f.best} was the way to stay on top.` : ""}`,
+  ],
+  best_promotes: [
+    (f) => `${f.best} makes a new ${n(f.piece)}.`,
+    (f) => `The pawn was ready: ${f.best} promotes it.`,
   ],
   missed_mate: [
     (f) => `You had mate in ${f.n}, starting with ${f.best}.`,
@@ -59,6 +70,38 @@ export const PHRASES = {
   missed_win: [
     (f) => `${f.best} would have won their ${n(f.piece)}.`,
     (f) => `There was a ${n(f.piece)} to win here: ${f.best}.`,
+  ],
+  missed_pawn: [
+    (f) => `${f.best} would have won a pawn.`,
+    (f) => `${f.best} was worth a pawn.`,
+  ],
+  loses_pawn: [
+    (f) => `This drops a pawn: ${f.line.join(" ")}.`,
+    (f) => `After ${f.line.join(" ")} you're a pawn down.`,
+  ],
+  best_tempo: [
+    (f) => `${f.best} attacks their ${n(f.piece)} on ${f.square}, so they would have had to deal with that first.`,
+    (f) => `${f.best} hits the ${n(f.piece)} on ${f.square} and gains time: they must answer it.`,
+  ],
+  best_check: [
+    (f) => `${f.best} gives check and keeps them busy answering your threats.`,
+    (f) => `${f.best}, with check, takes the initiative.`,
+  ],
+  castle_first: [
+    (f) => `Castling (${f.best}) first gets your king safe and your rook into play.`,
+    (f) => `${f.best} was due: castle before starting anything else.`,
+  ],
+  develop_first: [
+    (f) => `${f.best} brings another piece out. Get your knights and bishops into the game first.`,
+    (f) => `Develop first: ${f.best} puts a piece to work.`,
+  ],
+  decided_win: [
+    (f) => `You're winning easily either way${f.best ? `; ${f.best} wins faster` : ""}.`,
+    (f) => `Still clearly winning, but ${f.best || "the engine's move"} was the cleaner way.`,
+  ],
+  decided_loss: [
+    (f) => `The game was already hard to save${f.best ? `; ${f.best} would have resisted longer` : ""}.`,
+    (f) => `A difficult position either way${f.best ? `, but ${f.best} puts up more of a fight` : ""}.`,
   ],
   missed_punish: [
     (f) => `Their last move was a mistake, and this lets them off the hook.${f.best ? ` ${f.best} was the way to punish it.` : ""}`,

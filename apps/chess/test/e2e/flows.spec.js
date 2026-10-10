@@ -540,6 +540,38 @@ test.describe("current behaviour", () => {
     expect(text).not.toContain("boxStatus");
   });
 
+  // Plan item 16: when the coach has no reason, the best line can be stepped through.
+  test("a move the coach can't explain offers the best line instead", async ({ page }) => {
+    const start = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+    const afterA3 = "rnbqkbnr/pppppppp/8/8/8/P7/1PPPPPPP/RNBQKBNR b KQkq - 0 1";
+    const review = {
+      grade: 2,
+      evals: [30, -20, -20],
+      moves: [
+        { san: "a3", color: "w", class: "inaccuracy", drop: 6, bestSan: "e4", bestUci: "e2e4", fenBefore: start },
+        { san: "e5", color: "b", class: "best", drop: 0, bestSan: "e5", bestUci: "e7e5", fenBefore: afterA3 },
+      ],
+      pvs: [["e4", "e5", "Nf3", "Nc6"], ["e5", "e4"], null],
+      accuracy: { w: 80, b: 100 },
+      counts: { w: { inaccuracy: 1 }, b: { best: 1 } },
+      opening: null,
+    };
+    await seed(page, { games: [{ id: "u1", date: 1, mode: "bot", personaId: "x", playerColor: "w", sans: ["a3", "e5"], result: "*", review }] });
+    await open(page);
+    await button(page, /Game archive/).click();
+    await page.locator(".gamecard").first().click();
+    await button(page, /Start review/).click();
+    await page.locator(".movelist .mlmove").first().click();
+    await expect(page.locator(".coachline")).toContainText("e4");
+    await button(page, /Show the best line/).click();
+    await expect(page.locator(".previewbar")).toContainText("e4");
+    // the board steps from the position before a3: a pawn on e4, none on a3
+    const at = (col, row) => page.locator(`.apiece:not(.dead)[style*="translate(${col * 100}%, ${row * 100}%)"]`);
+    await expect(at(4, 4)).toHaveCount(1); // e4
+    await expect(at(0, 5)).toHaveCount(0); // a3
+    await expect(at(0, 6)).toHaveCount(1); // a2
+  });
+
   // Found while building plan item 8: moving before the engine had judged the
   // position left the evals one short, and they never caught up again, so the
   // eval bar, threats and coach went quiet for the rest of the game.

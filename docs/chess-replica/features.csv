@@ -22,7 +22,7 @@ Coach one-line game summary,review,must,yes,yes,plan item 5: names the turning p
 Key moments with a Next button,review,should,yes,yes,"plan item 6: Next and previous key moment, from your last book move"
 Explanation of why a move was bad (threat / lost piece / mate),review,must,yes,yes,"plan item 5: hanging pieces, allowed mates, forks, pins, skewers, lost material, missed wins and mates"
 Show the line after your move,review,must,yes,yes,"plan item 5: ""Show the reply"" steps through the engine answer"
-Best move with reason,review,must,yes,partial,"reason given when the coach finds one (missed mate, missed win); otherwise ""best was X"""
+Best move with reason,review,must,yes,yes,plan item 16: on 25 bot games at 800-1200 (652 bad moves) only 13.7% of moves get no reason (was 35.7%); those offer Show the best line instead. Checked in CI against that corpus
 Retry the position to find a better move,review,must,yes,yes,"plan item 6: in place, with hint, coach feedback on wrong tries, and give up; playing it out vs a bot is a second button that asks first"
 Opening name plus your history in that opening,review,could,yes,partial,name only
 Review graph with markers,review,could,yes,yes,"plan item 6: your mistakes, blunders and misses"

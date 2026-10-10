@@ -22,6 +22,35 @@ function lineSwing(fen, sans, color, max = 6) {
 }
 
 const sign = (color) => (color === "w" ? 1 : -1);
+
+// How far along an engine line to count material (plan item 16: up to 12
+// plies), cut back to a calm point: the last move counted is neither a
+// capture nor a check, and the next one in the line isn't a capture. So a
+// capture is never counted before its recapture. A one-move line is kept.
+const HORIZON = 12;
+function span(fen, line) {
+  const c = new Chess(fen);
+  const moves = [];
+  for (const san of (line || []).slice(0, HORIZON + 1)) {
+    try {
+      moves.push(c.move(san));
+    } catch {
+      break;
+    }
+  }
+  if (moves.length <= 1) return moves.length;
+  for (let k = Math.min(HORIZON, moves.length); k >= 1; k--) {
+    const last = moves[k - 1];
+    const next = moves[k];
+    if (last.captured || last.san.includes("+") || next?.captured) continue;
+    return k;
+  }
+  return 0;
+}
+// The most valuable piece of `color` captured along the moves played.
+const biggestLoss = (played, color) =>
+  played.filter((m) => m.captured && m.color !== color).sort((a, b) => VALUE[b.captured] - VALUE[a.captured])[0] || null;
+const DECIDED = 300; // centipawns: a side this far ahead before and after the move
 const mateIn = (cp) => 10000 - Math.abs(cp);
 
 /**
@@ -39,6 +68,45 @@ const mateIn = (cp) => 10000 - Math.abs(cp);
  *                     known; a capture is only "winning" if it comes out
  *                     ahead of where things stood before that move
  */
+// The best move hits something: a check, or an attack on a piece worth more
+// than the attacker or left undefended. Captures are left to the material facts.
+function bestTempo(fen, bestSan, me) {
+  const c = new Chess(fen);
+  let mv;
+  try {
+    mv = c.move(bestSan);
+  } catch {
+    return null;
+  }
+  if (mv.captured || mv.promotion) return null;
+  if (mv.san.includes("+")) return { type: "best_check" };
+  const them = other(me);
+  const target = targetsOf(c, mv.to, them)
+    .map((sq) => ({ square: sq, type: c.get(sq).type }))
+    .filter((t) => t.type !== "k")
+    .filter((t) => VALUE[t.type] > VALUE[mv.piece] || (VALUE[t.type] >= 3 && c.attackers(t.square, them).length === 0))
+    .sort((a, b) => VALUE[b.type] - VALUE[a.type])[0];
+  return target ? { type: "best_tempo", piece: target.type, square: target.square, by: mv.piece } : null;
+}
+
+// Early in the game: the best move castled or developed a knight or bishop,
+// and yours didn't.
+function openingHint(fen, san, bestSan) {
+  const c = new Chess(fen);
+  let best;
+  let played;
+  try {
+    best = new Chess(fen).move(bestSan);
+    played = c.move(san);
+  } catch {
+    return null;
+  }
+  const develops = (mv) => (mv.piece === "n" || mv.piece === "b") && (mv.from[1] === "1" || mv.from[1] === "8");
+  if (best.san.startsWith("O-O") && !played.san.startsWith("O-O")) return "castle_first";
+  if (develops(best) && !develops(played) && !played.san.startsWith("O-O")) return "develop_first";
+  return null;
+}
+
 export function moveFacts(m) {
   const facts = [];
   const c = new Chess(m.fenBefore);
@@ -97,19 +165,40 @@ export function moveFacts(m) {
     }
 
     if (reply.length && !hang) {
-      const swing = lineSwing(fenAfter, reply, me);
-      if (swing.change <= -2 && swing.lost)
-        facts.push({ type: "loses_material", priority: 75, piece: swing.lost.captured, square: swing.lost.to, line: swing.played.map((x) => x.san).slice(0, 4) });
+      const swing = lineSwing(fenAfter, reply, me, span(fenAfter, reply));
+      const line = swing.played.map((x) => x.san);
+      const lost = biggestLoss(swing.played, me);
+      const shown = line.length > 8 ? [...line.slice(0, 8)] : line;
+      if (swing.change <= -2 && lost)
+        facts.push({ type: "loses_material", priority: 75, piece: lost.captured, square: lost.to, amount: -swing.change, line: shown, deep: line.length > 6 });
+      else if (swing.change <= -1 && lost) facts.push({ type: "loses_pawn", priority: 55, line: shown });
     }
 
     // What the move missed
     if (before >= MATE && !isBest && m.bestSan) facts.push({ type: "missed_mate", priority: 95, n: mateIn(before), best: m.bestSan });
     if (m.bestSan && !isBest && m.bestLine?.length) {
-      const gain = lineSwing(m.fenBefore, m.bestLine, me, 5);
+      const gain = lineSwing(m.fenBefore, m.bestLine, me, span(m.fenBefore, m.bestLine));
       if (gain.change >= 2 && gain.won)
         facts.push({ type: "missed_win", priority: 70, best: m.bestSan, piece: gain.won.captured, square: gain.won.to });
+      else if (gain.change >= 1 && gain.won) facts.push({ type: "missed_pawn", priority: 50, best: m.bestSan });
     }
     if (m.cls === "miss") facts.push({ type: "missed_punish", priority: 65, best: m.bestSan });
+
+    // What the best move would have done that yours didn't (plan item 16)
+    if (before >= 200 && after <= 0)
+      facts.push({ type: "lost_advantage", priority: 47, best: m.bestSan && !isBest ? m.bestSan : null });
+    if (m.bestSan && !isBest && /=[QRBN]/.test(m.bestSan))
+      facts.push({ type: "best_promotes", priority: 48, best: m.bestSan, piece: m.bestSan.match(/=([QRBN])/)[1].toLowerCase() });
+    if (m.bestSan && !isBest) {
+      const tempo = bestTempo(m.fenBefore, m.bestSan, me);
+      if (tempo) facts.push({ ...tempo, priority: 45, best: m.bestSan });
+      if (m.ply < 20) {
+        const opening = openingHint(m.fenBefore, m.san, m.bestSan);
+        if (opening) facts.push({ type: opening, priority: 35, best: m.bestSan });
+      }
+      if (Math.sign(before) === Math.sign(after) && Math.min(Math.abs(before), Math.abs(after)) >= DECIDED)
+        facts.push({ type: before > 0 ? "decided_win" : "decided_loss", priority: 20, best: m.bestSan });
+    }
 
     // Opening habits, only early and only when the move cost something
     if (m.ply < 12 && mv.piece === "q") {
