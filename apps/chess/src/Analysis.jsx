@@ -346,7 +346,7 @@ export default function Analysis({ store, setStore, nav, view }) {
         </div>
       )}
 
-      <div className="btnrow toolrow">
+      <div className="btnrow toolrow toolgrid">
         <button
           className="linkbtn"
           onClick={() => {

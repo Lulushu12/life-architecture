@@ -1012,13 +1012,16 @@ function Review({ store, setStore, nav, game }) {
             {brCls ? `: ${CLASSIFICATIONS[brCls].label}` : ""}
           </b>
           {brAlt && brAlt.bestSan && (
-            <span>
-              {" "}
-              · best was <b>{brAlt.bestSan}</b>{" "}
-              <button className="linkbtn" onClick={() => setShowBest((s) => !s)}>
-                {showBest ? "hide" : "show"}
-              </button>
-            </span>
+            <>
+              <div className="bestwas">
+                Best was <b>{brAlt.bestSan}</b>
+              </div>
+              <div className="btnrow toolgrid">
+                <button className="linkbtn" onClick={() => setShowBest((s) => !s)}>
+                  {showBest ? "Hide best move" : "Show best move"}
+                </button>
+              </div>
+            </>
           )}
         </div>
       )}
@@ -1030,11 +1033,14 @@ function Review({ store, setStore, nav, game }) {
           </b>
           {coach?.text && <p className="coachline">{coach.text}</p>}
           {altUci && moveAt.bestSan && (
-            <span>
-              {" "}
-              · best was <b>{moveAt.bestSan}</b>{" "}
+            <div className="bestwas">
+              Best was <b>{moveAt.bestSan}</b>
+            </div>
+          )}
+          {altUci && moveAt.bestSan && (
+            <div className="btnrow toolgrid">
               <button className="linkbtn" onClick={() => setShowBest((s) => !s)}>
-                {showBest ? "hide" : "show"}
+                {showBest ? "Hide best move" : "Show best move"}
               </button>
               {badMove && review.pvs?.[viewIdx]?.length > 0 && (
                 <button className="linkbtn" onClick={showReply}>
@@ -1056,7 +1062,7 @@ function Review({ store, setStore, nav, game }) {
                   Play it out vs a bot
                 </button>
               )}
-            </span>
+            </div>
           )}
         </div>
       )}
