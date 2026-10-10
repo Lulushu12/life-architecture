@@ -1,9 +1,14 @@
-import { Suspense, lazy, useCallback, useEffect, useMemo, useRef } from "react";
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { usePersistentStore } from "@shared/store.js";
 import { useHistoryNav } from "@shared/useHistoryNav.js";
 import { registerSw } from "@shared/swRegister.js";
 import { useToast } from "@shared/ui.jsx";
-import { chessStore, capStore, STORAGE_KEY } from "./storage.js";
+import { chessStore, capStore, STORAGE_KEY, newId } from "./storage.js";
+import { regradeStore, REVIEW_GRADE } from "./review.js";
+import { boxDue, sendToBox, nativeTransport } from "./boxBackup.js";
+import { IS_NATIVE } from "./platform.js";
+import { applyAppearance } from "./appearance.js";
+import { loadStoredFonts } from "./fontStore.js";
 import Home from "./Home.jsx";
 import PlayBot from "./PlayBot.jsx";
 import PassPlay from "./PassPlay.jsx";
@@ -12,6 +17,7 @@ import ReviewScreen from "./ReviewScreen.jsx";
 import Archive from "./Archive.jsx";
 import BlunderTrainer from "./Puzzles.jsx";
 import { PuzzleHome, TierTrainer, RushTrainer, DueReview } from "./PuzzleSets.jsx";
+import DailyPuzzle from "./Daily.jsx";
 
 const Openings = lazy(() => import("./Openings.jsx"));
 const PositionEditor = lazy(() => import("./PositionEditor.jsx"));
@@ -64,6 +70,19 @@ export default function App() {
 
   const nav = useCallback((screen, params = {}) => go({ screen, ...params }), [go]);
 
+  // Font files the user added (kept in IndexedDB) and the app's look.
+  const [fonts, setFonts] = useState([]);
+  useEffect(() => {
+    let alive = true;
+    loadStoredFonts().then((list) => alive && setFonts(list));
+    return () => {
+      alive = false;
+    };
+  }, []);
+  useEffect(() => {
+    applyAppearance(store.settings, fonts);
+  }, [store.settings.accent, store.settings.displayFont, fonts]); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     registerSw({
       onUpdate: (reload) =>
@@ -79,6 +98,25 @@ export default function App() {
     if (target) go(target);
   }, [go]);
 
+  // Reviews saved under older grading rules (book moves that were really
+  // mistakes, recaptures called great) are fixed in place, also after a restore.
+  const staleReviews = store.games.some((g) => g.review && (g.review.grade || 1) < REVIEW_GRADE);
+  useEffect(() => {
+    if (staleReviews) setStore((s) => regradeStore(s, newId));
+  }, [staleReviews, setStore]);
+
+  // One-way backup to your box (plan item 14): on launch and after each
+  // finished game, when due. Android only; never blocks anything.
+  const latestGame = store.games[0]?.id;
+  const storeRef = useRef(store);
+  storeRef.current = store;
+  useEffect(() => {
+    if (!IS_NATIVE) return;
+    const s = storeRef.current;
+    if (document.visibilityState !== "visible" || !boxDue(s.settings.box, s.boxStatus)) return;
+    sendToBox(s, setStore, nativeTransport);
+  }, [latestGame, setStore]);
+
   const capHits = store.capHits || 0;
   const lastCap = useRef(capHits);
   useEffect(() => {
@@ -91,7 +129,7 @@ export default function App() {
     lastCap.current = capHits;
   }, [capHits, toast]);
 
-  const props = { store, setStore, nav, view };
+  const props = { store, setStore, nav, view, fonts, setFonts };
   return (
     <>
       <StorageBanner store={store} status={status} />
@@ -109,7 +147,8 @@ function Screen({ view, props }) {
     case "passplay":
       return <PassPlay {...props} />;
     case "analysis":
-      return <Analysis {...props} />;
+      // a fresh board for each saved analysis or handed-over position
+      return <Analysis key={view.analysisId || view.fen || "free"} {...props} />;
     case "review":
       return <ReviewScreen {...props} />;
     case "archive":
@@ -126,6 +165,7 @@ function Screen({ view, props }) {
       if (view.set === "blunders") return <BlunderTrainer {...props} />;
       if (view.set === "rush" || view.set === "streak") return <RushTrainer key={view.set} {...props} mode={view.set} />;
       if (view.set === "due") return <DueReview {...props} />;
+      if (view.set === "daily") return <DailyPuzzle {...props} />;
       if (view.set) return <TierTrainer {...props} tierKey={view.set} />;
       return <PuzzleHome {...props} />;
     case "lessons":

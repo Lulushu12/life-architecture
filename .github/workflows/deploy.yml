@@ -14,7 +14,12 @@ env:
   SUB_APPS: whist breathe focus games calories ortho chess
 
 jobs:
+  # Nothing deploys while the chess tests are red.
+  test:
+    uses: ./.github/workflows/test.yml
+
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

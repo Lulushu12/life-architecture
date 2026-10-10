@@ -3,7 +3,8 @@ import { Chess } from "chess.js";
 import Board from "./Board.jsx";
 import { TopBar } from "./ui.jsx";
 import { play as sfx, buzz } from "./audio.js";
-import { getEngine } from "./engine.js";
+import { getEngine, cpWhite } from "./engine.js";
+import { puzzleTip } from "./core/coach/puzzle.js";
 import {
   loadPuzzleDb,
   TIERS,
@@ -17,9 +18,19 @@ import {
   srsNext,
   dueItems,
   moveIsGoodEnough,
+  acceptsMove,
+  isMateUci,
+  resolveDue,
+  RANGES,
+  inRange,
 } from "./puzzledb.js";
+import { legalDests, promotionCheck } from "./core/position.js";
+import { CalendarDays, Flame, Puzzle, Repeat, Target, Timer } from "lucide-react";
+import { dailyStreak, dailyStatus } from "./daily.js";
+import { todayKey } from "@shared/store.js";
+import { uciToSan } from "./review.js";
 
-function boardLook(store) {
+export function boardLook(store) {
   return {
     theme: store.settings.theme,
     custom: store.settings.boardCustom,
@@ -29,23 +40,7 @@ function boardLook(store) {
   };
 }
 
-function destsOf(chess) {
-  const map = new Map();
-  for (const m of chess.moves({ verbose: true })) {
-    if (!map.has(m.from)) map.set(m.from, []);
-    map.get(m.from).push(m.to);
-  }
-  return map;
-}
-
-function promoCheck(chess) {
-  return (from, to) => {
-    const piece = chess.get(from);
-    return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
-  };
-}
-
-function useDb() {
+export function useDb() {
   const [db, setDb] = useState(null);
   const [error, setError] = useState("");
   useEffect(() => {
@@ -70,23 +65,39 @@ export function PuzzleHome({ store, nav }) {
   const blunders = store.puzzles.filter((p) => !p.solved).length;
   const [db, error] = useDb();
   const rating = getRating(store);
-  const due = useMemo(() => dueItems(store).length, [store.puzzleSrs, store.puzzles]);
+  // Count only what Due review can actually show (bug 11: entries for puzzles
+  // no longer in the bundled set used to inflate this).
+  const due = useMemo(
+    () => (db ? resolveDue(dueItems(store), db, store.puzzles).length : dueItems(store).length),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [db, store.puzzleSrs, store.puzzles]
+  );
   const bests = store.puzzleBests || {};
 
   return (
     <div className="page">
       <TopBar title="Puzzles" sub={`Your puzzle rating: ${rating.r}${rating.n < 10 ? " (provisional)" : ""}`} onBack={() => nav("home")} />
 
+      <button className="card lessonrow dailycard" onClick={() => nav("puzzles", { set: "daily" })}>
+        <div className="lr-main">
+          <div className="lr-title"><CalendarDays aria-hidden="true" />Daily puzzle</div>
+          <div className="lr-sum">{dailyStatus(store, todayKey())}</div>
+        </div>
+        <div className="lr-side">
+          <Flame aria-hidden="true" className="streakflame" /> {dailyStreak(store.dailyLog, todayKey())}
+        </div>
+      </button>
+
       <button className={"card lessonrow duerow" + (due ? " hot" : "")} disabled={!due} onClick={() => nav("puzzles", { set: "due" })}>
         <div className="lr-main">
-          <div className="lr-title">🔁 Due today: {due}</div>
+          <div className="lr-title"><Repeat aria-hidden="true" />Due today: {due}</div>
           <div className="lr-sum">{due ? "Puzzles you missed, back for another try" : "Missed puzzles come back here on a schedule"}</div>
         </div>
       </button>
 
       <button className="card lessonrow" onClick={() => nav("puzzles", { set: "mix" })}>
         <div className="lr-main">
-          <div className="lr-title">🎯 Rated puzzles</div>
+          <div className="lr-title"><Target aria-hidden="true" />Rated puzzles</div>
           <div className="lr-sum">Picked near your rating from every set</div>
         </div>
         <div className="lr-side">{rating.r}</div>
@@ -95,13 +106,13 @@ export function PuzzleHome({ store, nav }) {
       <div className="moderow">
         <button className="card lessonrow" onClick={() => nav("puzzles", { set: "rush" })}>
           <div className="lr-main">
-            <div className="lr-title">⏱️ Puzzle Rush</div>
+            <div className="lr-title"><Timer aria-hidden="true" />Puzzle Rush</div>
             <div className="lr-sum">3 minutes, 3 strikes · best {bests.rush || 0}</div>
           </div>
         </button>
         <button className="card lessonrow" onClick={() => nav("puzzles", { set: "streak" })}>
           <div className="lr-main">
-            <div className="lr-title">🔥 Streak</div>
+            <div className="lr-title"><Flame aria-hidden="true" />Streak</div>
             <div className="lr-sum">Until the first miss · best {bests.streak || 0}</div>
           </div>
         </button>
@@ -109,7 +120,7 @@ export function PuzzleHome({ store, nav }) {
 
       <button className="card lessonrow" onClick={() => nav("puzzles", { set: "blunders" })}>
         <div className="lr-main">
-          <div className="lr-title">🧩 My blunders</div>
+          <div className="lr-title"><Puzzle aria-hidden="true" />My blunders</div>
           <div className="lr-sum">
             {blunders > 0
               ? `${blunders} to retrain, from your own reviewed games`
@@ -164,7 +175,10 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
   const ratingRef = useRef(getRating(store).r);
   ratingRef.current = getRating(store).r;
   const [theme, setTheme] = useState(null);
+  const [range, setRange] = useState("any");
   const [showThemes, setShowThemes] = useState(false);
+  // The coach's word on a wrong move (plan item 11).
+  const tip = useWrongMoveTip();
   // ply = index into the solution line; even entries are the opponent's.
   const [ply, setPly] = useState(1);
   const [state, setState] = useState("try"); // try | wrong | solved | revealed
@@ -190,8 +204,8 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
     const held = puzzleId && list.find((p) => p.i === puzzleId);
     if (held) return held;
     const excluded = new Set([...solved, ...skipped]);
-    return nextPuzzle(list, excluded, theme, ratingRef.current);
-  }, [list, solved, skipped, theme, puzzleId]);
+    return nextPuzzle(inRange(list, range, ratingRef.current), excluded, theme, ratingRef.current);
+  }, [list, solved, skipped, theme, range, puzzleId]);
 
   useEffect(() => {
     if (puzzle && puzzle.i !== puzzleId) {
@@ -200,7 +214,9 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
       setState("try");
       setHint(0);
       setOutcome(null);
+      tip.clear();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [puzzle, puzzleId]);
 
   const moves = useMemo(() => (puzzle ? puzzle.m.split(" ") : []), [puzzle]);
@@ -228,12 +244,7 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
 
   const dests = useMemo(() => {
     if (!chess || state === "solved" || state === "revealed") return null;
-    const map = new Map();
-    for (const m of chess.moves({ verbose: true })) {
-      if (!map.has(m.from)) map.set(m.from, []);
-      map.get(m.from).push(m.to);
-    }
-    return map;
+    return legalDests(chess);
   }, [chess, state]);
 
   // Scans every puzzle in the tier, so it must not run on each render.
@@ -253,12 +264,18 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
       <div className="page">
         <TopBar title={tier.label} onBack={() => nav("puzzles")} />
         <p className="hint">
-          {theme
-            ? "Every puzzle with this theme is solved, clear the filter for more."
+          {theme || range !== "any"
+            ? "No unsolved puzzles match this filter. Clear it for more."
             : `All ${list.length} solved. 🎉`}
         </p>
-        {theme && (
-          <button className="bigbtn" onClick={() => setTheme(null)}>
+        {(theme || range !== "any") && (
+          <button
+            className="bigbtn"
+            onClick={() => {
+              setTheme(null);
+              setRange("any");
+            }}
+          >
             Clear filter
           </button>
         )}
@@ -289,10 +306,14 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
   };
 
   const markSolved = () => {
+    // A puzzle counts toward the set's progress only when solved cleanly: a
+    // miss, a hint or Reveal already recorded it as failed (bug 5).
+    const clean = !outcome || outcome.ok;
     setState("solved");
     sfx(store, "gameEnd");
     buzz(store, [30, 40, 30]);
     record(true);
+    if (!clean) return;
     setStore((s) => {
       const prev = s.puzzleProgress?.[setKey] || [];
       if (prev.includes(puzzle.i)) return s;
@@ -302,20 +323,21 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
 
   const tryMove = (from, to, promotion) => {
     const played = from + to + (promotion || "");
-    const want = expected;
-    // A promotion the user didn't specify defaults to a queen upstream; compare
-    // on the first four characters when the expected move has no promotion.
-    const ok = want.length === 5 ? played === want : played.slice(0, 4) === want.slice(0, 4);
+    // The stored move, or any checkmate (bug 3: alternative mates used to be
+    // marked wrong here, while the other trainers accepted them).
+    const ok = acceptsMove(chess.fen(), played, expected);
     if (!ok) {
       sfx(store, "lose");
       buzz(store, 60);
       setState("wrong");
       record(false);
+      tip.explain(chess.fen(), played, puzzle.t);
       return;
     }
+    tip.clear();
     setHint(0); // help was for this step only; the next one starts unaided
     const nextPly = ply + 2; // our move, then the opponent's reply
-    if (ply + 1 >= moves.length) {
+    if (ply + 1 >= moves.length || isMateUci(chess.fen(), played)) {
       setPly(ply + 1);
       markSolved();
     } else {
@@ -344,6 +366,17 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
 
       {showThemes && (
         <div className="chapterlist card">
+          <div className="filterhead">Rating</div>
+          {RANGES.map((r) => (
+            <button
+              key={r.id}
+              className={"chip" + (range === r.id ? " sel" : "")}
+              onClick={() => { setRange(r.id); setPuzzleId(null); setState("try"); setPly(1); }}
+            >
+              {r.label}
+            </button>
+          ))}
+          <div className="filterhead">Theme</div>
           <button className={"chip" + (!theme ? " sel" : "")} onClick={() => { setTheme(null); setPuzzleId(null); }}>
             All
           </button>
@@ -375,10 +408,7 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
         pieceSet={store.settings.pieces}
         animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
-        needsPromotion={(from, to) => {
-          const piece = chess.get(from);
-          return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
-        }}
+        needsPromotion={promotionCheck(chess)}
       />
 
       {outcome && (
@@ -387,13 +417,16 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
         </p>
       )}
       {state === "wrong" && <p className="warn center">Not that one, try again.</p>}
-      {state === "revealed" && <p className="hint center">The move is {expected}.</p>}
+      {state === "wrong" && tip.text && <TipStrip text={tip.text} />}
+      {state === "revealed" && <p className="hint center">The move is {uciToSan(chess.fen(), expected) || expected}.</p>}
       {state === "solved" && <p className="okmsg center">✓ Solved</p>}
       {state === "try" && ply > 1 && <p className="hint center small">Keep going, the line continues.</p>}
 
       <div className="btnrow toolrow">
         <button className="linkbtn" onClick={() => setShowThemes((s) => !s)}>
-          ⚑ {theme ? themes.find((t) => t.key === theme)?.label || "Theme" : "Theme"}
+          ⚑ {[range !== "any" && RANGES.find((r) => r.id === range)?.label, theme && (themes.find((t) => t.key === theme)?.label || "Theme")]
+            .filter(Boolean)
+            .join(" · ") || "Filter"}
         </button>
         {state !== "solved" && state !== "revealed" && (
           <button
@@ -465,7 +498,53 @@ export function TierTrainer({ store, setStore, nav, tierKey }) {
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
-function applyUci(chess, uci) {
+// Asks the engine for the answer to a wrong move (a quarter of a second),
+// then has the coach word the tip. Only the latest wrong move counts.
+export function useWrongMoveTip() {
+  const [text, setText] = useState(null);
+  const seq = useRef(0);
+  const engine = useMemo(() => getEngine(), []);
+  useEffect(() => () => engine.cancel("puzzle-tip"), [engine]);
+  const clear = useCallback(() => {
+    seq.current++;
+    setText(null);
+  }, []);
+  const explain = useCallback(
+    (fen, played, themes) => {
+      const n = ++seq.current;
+      setText(puzzleTip({ fen, played, themes }));
+      let after;
+      try {
+        const c = new Chess(fen);
+        c.move({ from: played.slice(0, 2), to: played.slice(2, 4), promotion: played[4] || "q" });
+        after = c.fen();
+      } catch {
+        return;
+      }
+      engine
+        .analyze(after, { movetime: 250, tag: "puzzle-tip" })
+        .then((r) => {
+          const l = r.lines[0];
+          if (n !== seq.current || !l) return;
+          setText(puzzleTip({ fen, played, themes, replyPv: l.pv, cpAfter: cpWhite(l, after.split(" ")[1]) }));
+        })
+        .catch(() => {});
+    },
+    [engine]
+  );
+  return { text, explain, clear };
+}
+
+export function TipStrip({ text }) {
+  return (
+    <div className="coachstrip cs-tip" aria-live="polite">
+      <span className="coachtag">Coach</span>
+      <p>{text}</p>
+    </div>
+  );
+}
+
+export function applyUci(chess, uci) {
   return chess.move({
     from: uci.slice(0, 2),
     to: uci.slice(2, 4),
@@ -517,7 +596,7 @@ function LineSolver({ store, item, onResult, accept }) {
   };
 
   const tryMove = async (from, to, promotion) => {
-    if (status !== "try" || !expected) return;
+    if ((status !== "try" && status !== "unchecked") || !expected) return;
     const test = new Chess(chess.fen());
     let mv;
     try {
@@ -533,6 +612,11 @@ function LineSolver({ store, item, onResult, accept }) {
       setStatus("checking");
       ok = await accept(chess.fen(), played);
       if (!alive.current) return;
+      if (ok === null) {
+        // the engine didn't answer in time: not a wrong answer (bug 14)
+        setStatus("unchecked");
+        return;
+      }
       setStatus("try");
     }
     if (!ok) {
@@ -557,15 +641,17 @@ function LineSolver({ store, item, onResult, accept }) {
       <Board
         fen={chess.fen()}
         orientation={solverColor}
-        dests={status === "try" ? destsOf(chess) : null}
+        dests={status === "try" || status === "unchecked" ? legalDests(chess) : null}
         onMove={tryMove}
         arrow={status === "failed" && expected ? [expected.slice(0, 2), expected.slice(2, 4)] : null}
-        needsPromotion={promoCheck(chess)}
+        needsPromotion={promotionCheck(chess)}
         {...boardLook(store)}
       />
       <p className={"center small " + (status === "failed" ? "warn" : status === "solved" ? "okmsg" : "hint")}>
         {status === "checking"
           ? "Checking your move..."
+          : status === "unchecked"
+            ? "Couldn't check that move in time. Try it again."
           : status === "failed"
             ? "Missed: the arrow shows the move."
             : status === "solved"
@@ -736,21 +822,9 @@ export function DueReview({ store, setStore, nav }) {
 
   useEffect(() => () => engine.cancel("puzzle-check"), [engine]);
 
-  const items = useMemo(() => {
-    if (!db) return null;
-    const out = [];
-    for (const q of queue) {
-      if (q.kind === "tier") {
-        const p = (db.puzzles[q.tier] || []).find((x) => x.i === q.id);
-        if (p) out.push({ ...q, fen: p.f, moves: p.m.split(" "), setup: true, r: p.r });
-      } else {
-        const p = store.puzzles.find((x) => x.id === q.id);
-        if (p?.bestUci) out.push({ ...q, fen: p.fen, moves: [p.bestUci], setup: false, playedSan: p.playedSan });
-      }
-    }
-    return out;
+  const items = useMemo(() => (db ? resolveDue(queue, db, store.puzzles) : null),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [db, queue]);
+    [db, queue]);
 
   const accept = useCallback((fen, played) => moveIsGoodEnough(engine, fen, played), [engine]);
 

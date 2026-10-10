@@ -1,0 +1,67 @@
+feature,area,priority,original,clone,notes
+Bots across beginner to master levels,bots,must,yes,yes,mine 800-3200 in 150 bots; theirs 250-2450 plus engine slider; you said 800 floor is fine
+Bots below 800,bots,could,yes,skip,you said the bots are fine; revisit only if 800 bots start feeling hard
+Adaptive bot that adjusts to how you play,bots,could,yes,no,
+Assistance presets before a bot game (no help / some / full / custom),bots,must,yes,yes,"plan item 7: On my own / Some help / Full help, Custom when switches change; changeable mid-game in the Help sheet"
+Threat arrows during a bot game,bots,must,yes,yes,"plan item 7: only real threats, on your turn"
+Suggestion arrow during a bot game,bots,should,yes,yes,plan item 7: best-move arrow switch
+Move feedback after each of your moves in a bot game,coach,must,yes,yes,"plan item 8: a coach line under your plate after any inaccuracy or worse, with a Take it back button; praise now and then"
+Bot chat with personality,bots,should,yes,yes,mine is bilingual with event-driven banter and optional LLM
+Clean vs assisted record per bot (crowns),bots,could,yes,yes,"plan item 10: clean = On my own with no hint, takeback or replay; the game-over screen says which and why; clean wins marked on the bot picker; Stats splits results"
+Time controls in bot games,bots,could,yes,no,
+Play a bot from any position,bots,should,yes,yes,"from the editor, lessons, review (Play it out vs a bot, plan item 6) and analysis (Play from here, plan item 12); you start as the side to move"
+Coach explains your move in words (praise / mistake / why),coach,must,yes,yes,Game Review since plan item 5; bot games since plan item 8
+Coach prompts you to find the idea before showing it,coach,must,yes,yes,plan item 9: with Coach on it speaks up when there's a mate or material to win (not for plain recaptures); the hint's first step names the idea
+Two-step hint (idea first then move),coach,must,yes,yes,"plan item 8: idea and highlighted piece, then Show move draws the arrow"
+Coach voice,coach,could,yes,skip,possible later with on-device speech; low value
+Celebrity coaches,coach,could,yes,skip,real people; out of bounds
+Game review move classifications,review,must,yes,yes,"same 10 labels plus Forced; own colours since plan item 4; plan item 8b: book only for sound moves inside unbroken theory, no Great for recaptures"
+Accuracy overall and per phase,review,must,yes,yes,
+Per-game rating estimate,review,could,yes,no,their formula is unpublished; ours would be made up
+Coach one-line game summary,review,must,yes,yes,plan item 5: names the turning point and why
+Key moments with a Next button,review,should,yes,yes,"plan item 6: Next and previous key moment, from your last book move"
+Explanation of why a move was bad (threat / lost piece / mate),review,must,yes,yes,"plan item 5: hanging pieces, allowed mates, forks, pins, skewers, lost material, missed wins and mates"
+Show the line after your move,review,must,yes,yes,"plan item 5: ""Show the reply"" steps through the engine answer"
+Best move with reason,review,must,yes,yes,plan item 16: on 25 bot games at 800-1200 (652 bad moves) only 13.7% of moves get no reason (was 35.7%); those offer Show the best line instead. Checked in CI against that corpus
+Retry the position to find a better move,review,must,yes,yes,"plan item 6: in place, with hint, coach feedback on wrong tries, and give up; playing it out vs a bot is a second button that asks first"
+Opening name plus your history in that opening,review,could,yes,partial,name only
+Review graph with markers,review,could,yes,yes,"plan item 6: your mistakes, blunders and misses"
+Unlimited reviews,review,must,yes,yes,free tier gets 1 a day; mine is unlimited and offline
+Analysis engine lines and eval,analysis,must,yes,yes,stale lines after a move fixed in plan item 2 (bug 4)
+Analysis threat arrows,analysis,should,yes,yes,only real threats since plan item 2 (bug 13 fixed)
+Variation tree with comments,analysis,could,yes,partial,linear line plus 8 stashed lines
+Save an analysis,analysis,should,yes,yes,"plan item 12: Save and Update on the analysis board; saved analyses listed in the archive with a mini board, capped at 30, apart from the game cap"
+Load FEN or PGN into analysis,analysis,must,yes,yes,PGN with a FEN header fixed in plan item 3 (bug 1)
+Opening explorer,analysis,could,yes,yes,lichess play counts and evals; no masters database
+Game archive with filters and tabs,history,should,yes,yes,"plan item 12: All, Starred, Bots, Imported, Analyses; Won/Drawn/Lost filter; mini board, result chip and your accuracy on each game"
+Keep all your games,history,should,yes,partial,capped at 50 (starred kept)
+Auto-save finished games,history,must,yes,yes,
+Rated puzzles near your rating,puzzles,must,yes,yes,Elo not Glicko; fine for one player
+Difficulty setting for rated puzzles,puzzles,could,yes,partial,tiers and rated mix exist; no offset
+Enough puzzles at your rating,puzzles,must,yes,partial,1200 under 1000 and 1200 at 1000-1299
+Accept any correct mate,puzzles,must,yes,yes,alternative mates accepted in every trainer since plan item 3 (bug 3)
+Puzzle Rush,puzzles,should,yes,partial,3 minutes only; no 5 min or survival
+Daily puzzle with streak and calendar,puzzles,should,yes,yes,"plan item 11: one bundled puzzle per date a little above your rating, 5 hearts (wrong moves and hints cost one), streak, best streak and a month calendar; unrated; sends chess.daily to the Life Architecture ledger"
+Custom puzzles by theme and rating range,puzzles,should,yes,yes,plan item 11: theme filter plus Easier / My level / Harder around your puzzle rating
+Retry failed puzzles,puzzles,should,yes,yes,spaced review 1/3/7/21 days
+Coach tip after a wrong puzzle move,puzzles,should,yes,yes,"plan item 11: what the tried move gives away (from the engine's answer) plus a nudge from the puzzle's theme, never the solution; in training sets, rated puzzles and the daily"
+Puzzle Battle,puzzles,could,yes,skip,live multiplayer
+Puzzle Points tiers and skins,puzzles,could,yes,skip,gamification art
+Learn path with Next Lesson,lessons,should,yes,yes,"plan item 13: one path through all 72 (by level; concepts, endings and openings take turns; tactics and common openings first), Next lesson card on the hub and Home, Next lesson button at the end; a lesson completes only when its quizzes are solved without Show me"
+New-to-chess basics (moves and rules),lessons,could,yes,no,you likely know the rules already
+Home screen built around tasks,navigation,should,yes,yes,"plan items 10 and 11: hero card with a mini board of your game (or play your last bot again), four tiles (daily puzzle, due, next lesson, play bots), the rest as a list"
+Game-over sheet with Rematch,navigation,should,yes,yes,"plan item 10: Review, Rematch (same bot and help, colours swapped) and New"
+One tap from game end to review,navigation,must,yes,yes,
+Bottom tab bar,navigation,could,yes,no,
+Fully offline including engine and review,mine,could,no,yes,mine only
+Full-strength NNUE engine locally by default,mine,could,no,yes,theirs defaults to a lighter engine locally
+Puzzles from your own blunders with spaced review,mine,could,no,yes,mine only as far as recon found
+Pro games database and live broadcasts offline,mine,could,no,yes,
+Opening drill,mine,could,no,yes,
+Engine match and position editor,mine,could,no,yes,
+Import from Lichess and chess.com,mine,could,no,yes,
+Romanian-language bots,mine,could,no,yes,
+33 piece sets and 34 board themes with custom colours,mine,could,no,yes,
+Export everything (PGN and JSON backup),mine,could,no,yes,
+Blunder check before your move,mine,could,no,yes,"plan item 9: in Some and Full help a move that gives away 15% win chance or more waits, with a question pointing where to look; Stats counts saves per week"
+Daily copy of your data to your own machine,mine,could,no,partial,"plan item 14: framework built and tested here (receiver, NixOS module, Android client); not yet run on your box or phone"

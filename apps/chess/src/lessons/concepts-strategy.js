@@ -139,7 +139,6 @@ export const LESSONS = [
     steps: [
       {
         text: "The c-file is completely open — no pawns on it for either side. That's exactly where a rook wants to live.",
-        arrows: [["c1", "c7"]],
       },
       {
         quiz: {

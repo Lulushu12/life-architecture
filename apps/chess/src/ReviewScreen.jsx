@@ -10,6 +10,13 @@ import { useToast, useConfirm } from "@shared/ui.jsx";
 import { fetchRecentGames, toArchiveGame, SOURCES, ImportError } from "./importers.js";
 import { gamePgn, pgnFilename, copyToClipboard } from "./pgn.js";
 import ExportSheet from "./ExportSheet.jsx";
+import { legalDests, promotionCheck } from "./core/position.js";
+import { classifyDrop } from "./core/classify.js";
+import { threatsFromProbe } from "./core/threats.js";
+import { explainReviewMove, summarizeGame, moveFacts, phrase } from "./core/coach/index.js";
+import { reviewStops, nextStop, prevStop, graphMarks } from "./reviewFlow.js";
+import { moveIsGoodEnough } from "./puzzledb.js";
+import { play as sfx, buzz } from "./audio.js";
 
 export default function ReviewScreen({ store, setStore, nav, view }) {
   if (view.importing) return <PgnImport store={store} setStore={setStore} nav={nav} />;
@@ -339,6 +346,7 @@ function BatchReview({ store, setStore }) {
 
 function Review({ store, setStore, nav, game }) {
   const toast = useToast();
+  const [confirm, confirmSheet] = useConfirm();
   const engine = getEngine();
   const [progress, setProgress] = useState(game.review ? 1 : 0);
   const [running, setRunning] = useState(false);
@@ -347,7 +355,7 @@ function Review({ store, setStore, nav, game }) {
   const [showThreats, setShowThreats] = useState(true);
   const [flipped, setFlipped] = useState(false);
   const [threats, setThreats] = useState([]);
-  // Variation play, chess.com style: moves made on the board (either side)
+  // Variation play, as in most review tools: moves made on the board (either side)
   // open a branch off the reviewed game instead of starting a bot game.
   // branch = the active line; branchPly views inside it (null = its end);
   // stash = abandoned lines, restorable as chips — so branches can branch.
@@ -355,12 +363,18 @@ function Review({ store, setStore, nav, game }) {
   const [branchPly, setBranchPly] = useState(null);
   const [stash, setStash] = useState([]);
   const [lines, setLines] = useState([]); // live top engine lines for the shown position
+  const [linesFen, setLinesFen] = useState(null); // the position `lines` belong to
   const threatSeq = useRef(0);
   const lineSeq = useRef(0);
   const startedRef = useRef(false);
   const [retryN, setRetryN] = useState(0);
   const [exporting, setExporting] = useState(false);
+  // Summary first, then move by move (plan item 6).
+  const [stage, setStage] = useState("summary");
+  // Retry in place: find a better move for the one on the board.
+  const [retry, setRetry] = useState(null);
   const review = game.review;
+  const playerColor = game.mode === "bot" || game.mode === "import" ? game.playerColor || null : null;
 
   useEffect(() => {
     if (review || startedRef.current) return;
@@ -433,14 +447,15 @@ function Review({ store, setStore, nav, game }) {
   }, [review]);
 
   // What is the opponent threatening in the shown position (game or
-  // variation)? Same null-move probe as the analysis board; the shared engine
-  // is idle while browsing a finished review, so this costs nothing extra
-  // during the review pass.
+  // variation)? A null-move probe, judged against the position's own eval so
+  // only moves that would really cost something are drawn. Game positions use
+  // the review's stored eval; a variation waits for its live engine lines.
   const viewedFen = dispFen;
+  const viewedCp = branch ? (linesFen === dispFen && lines[0] ? lines[0].cp : null) : review?.evals?.[viewIdx] ?? null;
   useEffect(() => {
     const seq = ++threatSeq.current;
     setThreats([]);
-    if (!review || !showThreats) return;
+    if (!review || !showThreats || viewedCp == null) return;
     const c = new Chess(viewedFen);
     if (c.isGameOver() || c.inCheck()) return;
     let cancelled = false;
@@ -448,14 +463,8 @@ function Review({ store, setStore, nav, game }) {
     const timer = setTimeout(() => engine
       .analyze(nfen, { movetime: 350, multipv: 2, tag: "review-threat" })
       .then((r) => {
-        if (cancelled || seq !== threatSeq.current || !r.lines[0]) return;
-        const best = cpWhite(r.lines[0] || {}, nfen.split(" ")[1]);
-        setThreats(
-          r.lines
-            .filter((l) => Math.abs(cpWhite(l, nfen.split(" ")[1]) - best) < 120) // only genuinely dangerous ideas
-            .slice(0, 2)
-            .map((l) => [l.move.slice(0, 2), l.move.slice(2, 4)])
-        );
+        if (cancelled || seq !== threatSeq.current) return;
+        setThreats(threatsFromProbe(r.lines, nfen.split(" ")[1], viewedCp));
       })
       .catch(() => {}), 120);
     return () => {
@@ -463,12 +472,13 @@ function Review({ store, setStore, nav, game }) {
       clearTimeout(timer);
       engine.cancel("review-threat");
     };
-  }, [viewedFen, review, showThreats, engine]);
+  }, [viewedFen, viewedCp, review, showThreats, engine]);
 
   // Top engine lines for the shown position, tappable to step into.
   useEffect(() => {
     const seq = ++lineSeq.current;
     setLines([]);
+    setLinesFen(null);
     if (!review) return;
     if (new Chess(dispFen).isGameOver()) return;
     let cancelled = false;
@@ -483,6 +493,7 @@ function Review({ store, setStore, nav, game }) {
             sans: pvToSans(dispFen, l.pv.slice(0, 8)),
           }))
         );
+        setLinesFen(dispFen);
       })
       .catch(() => {}), 120);
     return () => {
@@ -498,12 +509,7 @@ function Review({ store, setStore, nav, game }) {
     if (!review) return null;
     const c = new Chess(dispFen);
     if (c.isGameOver()) return null;
-    const map = new Map();
-    for (const m of c.moves({ verbose: true })) {
-      if (!map.has(m.from)) map.set(m.from, []);
-      map.get(m.from).push(m.to);
-    }
-    return map;
+    return legalDests(c);
   }, [dispFen, review]);
 
   const stashLine = (b) =>
@@ -541,6 +547,28 @@ function Review({ store, setStore, nav, game }) {
       info: [...(branch.info || []).slice(0, base), ideaNow()],
     });
     setBranchPly(null);
+  };
+
+  // "Show the reply": walk through the engine's answer to the move on the
+  // board, one move at a time, as a variation.
+  const showReply = () => {
+    const pv = review?.pvs?.[viewIdx];
+    if (!pv?.length) return;
+    if (branch) stashLine(branch);
+    setShowBest(false);
+    setBranch({ baseIdx: viewIdx, sans: pv, info: pv.map(() => null), reply: true });
+    setBranchPly(0);
+  };
+
+  // "Show the best line" (plan item 16): when the coach can't name a reason,
+  // step through the engine's line from before the move instead.
+  const showBestLine = () => {
+    const pv = review?.pvs?.[viewIdx - 1];
+    if (!pv?.length) return;
+    if (branch) stashLine(branch);
+    setShowBest(false);
+    setBranch({ baseIdx: viewIdx - 1, sans: pv, info: pv.map(() => null), reply: true });
+    setBranchPly(0);
   };
 
   const leaveBranch = () => {
@@ -586,6 +614,109 @@ function Review({ store, setStore, nav, game }) {
   useArrowKeys(stepBack, stepFwd);
 
   const moveAt = viewIdx > 0 && review ? review.moves[viewIdx - 1] : null;
+  // The coach's reading of the move on the board (core/coach).
+  const coach = useMemo(
+    () => (review && viewIdx > 0 ? explainReviewMove(review, viewIdx - 1) : null),
+    [review, viewIdx]
+  );
+  const summary = useMemo(
+    () => (review ? summarizeGame(review, playerColor) : ""),
+    [review, playerColor]
+  );
+  const stops = useMemo(() => reviewStops(review, playerColor), [review, playerColor]);
+  const marks = useMemo(() => graphMarks(review, playerColor), [review, playerColor]);
+
+  // Leaving the move ends a retry.
+  useEffect(() => {
+    setRetry(null);
+  }, [viewIdx]);
+
+  const goMove = (i) => {
+    if (branch) leaveBranch();
+    setShowBest(false);
+    setStage("moves");
+    setViewIdx(i + 1);
+  };
+  const curMove = viewIdx - 1;
+  const nextMoment = () => {
+    const n = nextStop(stops, curMove);
+    if (n != null) goMove(n);
+  };
+  const prevMoment = () => {
+    const n = prevStop(stops, curMove);
+    if (n != null) goMove(n);
+  };
+  const startReview = () => goMove(stops.length ? stops[0] : 0);
+  const retryDests = useMemo(() => {
+    if (!retry) return null;
+    const c = new Chess(retry.fen);
+    const all = legalDests(c);
+    return c.turn() === retry.color ? all : null;
+  }, [retry]);
+
+  const startRetry = () => {
+    if (!moveAt) return;
+    if (branch) leaveBranch();
+    setShowBest(false);
+    setRetry({ i: viewIdx - 1, fen: moveAt.fenBefore, color: moveAt.color, status: "try", hint: 0, tries: 0 });
+  };
+
+  const onRetryMove = async (from, to, promotion) => {
+    if (!retry || (retry.status !== "try" && retry.status !== "unchecked")) return;
+    const c = new Chess(retry.fen);
+    let mv;
+    try {
+      mv = c.move({ from, to, promotion: promotion || "q" });
+    } catch {
+      return;
+    }
+    const uci = mv.from + mv.to + (mv.promotion || "");
+    const best = moveAt.bestUci || "";
+    setRetry((r) => ({ ...r, status: "checking", tries: r.tries + 1, tryFen: c.fen(), trySan: mv.san, threat: null }));
+    let ok = (best && uci.slice(0, 4) === best.slice(0, 4)) || c.isCheckmate();
+    if (!ok) {
+      const verdict = await moveIsGoodEnough(engine, retry.fen, uci);
+      if (verdict === null) {
+        setRetry((r) => ({ ...r, status: "unchecked" }));
+        return;
+      }
+      ok = verdict;
+    }
+    if (ok) {
+      sfx(store, "gameEnd");
+      buzz(store, [30, 40, 30]);
+      setRetry((r) => ({ ...r, status: "found", foundSan: mv.san, note: mv.san === moveAt.bestSan ? "That's the engine's move." : "Just as good as the engine's move." }));
+      return;
+    }
+    sfx(store, "lose");
+    buzz(store, 60);
+    // Explain what the attempt allows, without giving the answer away.
+    let note = "That doesn't fix the problem. Look again.";
+    let threat = null;
+    try {
+      const r = await engine.analyze(c.fen(), { movetime: 300, tag: "review-retry" });
+      const top = r.lines[0];
+      const reply = top ? pvToSans(c.fen(), top.pv.slice(0, 6)) : [];
+      const facts = moveFacts({
+        fenBefore: retry.fen,
+        san: mv.san,
+        color: retry.color,
+        cls: "mistake",
+        bestSan: null,
+        bestLine: [],
+        reply,
+        evalBefore: review.evals[retry.i],
+        evalAfter: top ? cpWhite(top, c.turn()) : null,
+        ply: retry.i,
+      });
+      const f = facts.find((x) => !x.type.startsWith("generic_"));
+      if (f) note = phrase(f, retry.fen + mv.san);
+      if (top) threat = [top.move.slice(0, 2), top.move.slice(2, 4)];
+    } catch {
+      /* keep the plain note */
+    }
+    setRetry((r) => (r ? { ...r, status: "wrong", note, threat } : r));
+  };
   const badMove = moveAt && ["inaccuracy", "mistake", "miss", "blunder"].includes(moveAt.class);
   // The engine's alternative to the played move, when they differ — shown as
   // an overlay on the CURRENT board, never by rewinding the position.
@@ -614,7 +745,19 @@ function Review({ store, setStore, nav, game }) {
   const baseOrientation = (game.mode === "bot" || game.mode === "import") && game.playerColor === "b" ? "b" : "w";
   const orientation = flipped ? (baseOrientation === "w" ? "b" : "w") : baseOrientation;
 
-  const retryFrom = (personaId) => {
+  const retryFrom = async (personaId) => {
+    // A game in progress lives in the same slot; ask before replacing it
+    // (bug 2: it used to be discarded without a word).
+    const cur = store.current;
+    if (cur && cur.status === "playing" && cur.sans.length > 0) {
+      const ok = await confirm({
+        title: "Replace your game in progress?",
+        message: "Playing from here starts a new game. The one you have open will be lost.",
+        confirmLabel: "Start new game",
+        danger: true,
+      });
+      if (!ok) return;
+    }
     const fen = positions[viewIdx - 1];
     const color = moveAt.color;
     setStore((s) => ({
@@ -674,11 +817,22 @@ function Review({ store, setStore, nav, game }) {
         sub={(review.opening ? review.opening.name + " · " : "") + (game.result || "")}
         onBack={() => nav(game.mode === "import" ? "home" : "archive")}
         right={
-          <button className="linkbtn" onClick={() => setFlipped((f) => !f)}>
-            ⇅ Flip
-          </button>
+          stage === "moves" ? (
+            <button className="linkbtn" onClick={() => setStage("summary")}>
+              Summary
+            </button>
+          ) : null
         }
       />
+
+      {stage === "summary" && (
+        <>
+      {summary && (
+        <div className="card coachcard">
+          <span className="coachtag">Coach</span>
+          <p>{summary}</p>
+        </div>
+      )}
 
       <div className="accrow">
         <div className="acccard">
@@ -703,11 +857,7 @@ function Review({ store, setStore, nav, game }) {
               key={m.ply}
               className={"chip moment" + (viewIdx === m.ply + 1 && !branch ? " sel" : "")}
               style={{ borderColor: CLASSIFICATIONS[m.cls]?.color }}
-              onClick={() => {
-                if (branch) leaveBranch();
-                setViewIdx(m.ply + 1);
-                setShowBest(false);
-              }}
+              onClick={() => goMove(m.ply)}
             >
               {Math.floor(m.ply / 2) + 1}
               {m.color === "w" ? "." : "..."} {m.san}
@@ -718,22 +868,53 @@ function Review({ store, setStore, nav, game }) {
         </div>
       )}
 
+        </>
+      )}
+
       <EvalGraph
         evals={review.evals}
         viewIdx={viewIdx}
+        marks={marks}
         onScrub={(i) => {
           if (branch) leaveBranch();
+          setStage("moves");
           setViewIdx(i);
         }}
       />
 
+      {stage === "summary" ? (
+        <div className="btnrow">
+          <button className="bigbtn start" onClick={startReview}>
+            Start review
+          </button>
+        </div>
+      ) : (
+        <>
+
+      {retry ? (
+        <Board
+          fen={retry.status === "wrong" ? retry.tryFen : retry.fen}
+          orientation={orientation}
+          dests={retry.status === "try" || retry.status === "unchecked" ? retryDests : null}
+          onMove={onRetryMove}
+          guideArrows={retry.status === "found" || retry.hint >= 2 ? (moveAt?.bestUci ? [[moveAt.bestUci.slice(0, 2), moveAt.bestUci.slice(2, 4)]] : []) : []}
+          highlightSquares={retry.hint === 1 && moveAt?.bestUci ? [moveAt.bestUci.slice(0, 2)] : []}
+          threats={retry.status === "wrong" && retry.threat ? [retry.threat] : []}
+          theme={store.settings.theme}
+          custom={store.settings.boardCustom}
+          pieceSet={store.settings.pieces}
+          animMs={store.settings.animMs}
+          arrowColors={store.settings.arrowColors}
+          needsPromotion={promotionCheck(new Chess(retry.fen))}
+        />
+      ) : (
       <Board
         fen={dispFen}
         orientation={orientation}
         lastMove={branch ? branchState.last : lastMovePair}
         guideArrows={overlayUci ? [[overlayUci.slice(0, 2), overlayUci.slice(2, 4)]] : []}
-        highlightSquares={overlayUci ? [overlayUci.slice(0, 2)] : []}
-        threats={threats}
+        highlightSquares={overlayUci ? [overlayUci.slice(0, 2)] : !branch && coach?.squares?.length ? coach.squares : []}
+        threats={!branch && coach?.threat && !overlayUci ? [coach.threat, ...threats.filter((t) => t[0] !== coach.threat[0] || t[1] !== coach.threat[1])] : threats}
         dests={dests}
         onMove={playMove}
         theme={store.settings.theme}
@@ -741,11 +922,58 @@ function Review({ store, setStore, nav, game }) {
         pieceSet={store.settings.pieces}
         animMs={store.settings.animMs}
         arrowColors={store.settings.arrowColors}
-        needsPromotion={(from, to) => {
-          const piece = new Chess(dispFen).get(from);
-          return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
-        }}
+        needsPromotion={promotionCheck(new Chess(dispFen))}
       />
+      )}
+
+      {retry && moveAt && (
+        <div className="card retrycard" aria-live="polite">
+          <span className="coachtag">Retry · find a better move than {moveAt.san}</span>
+          <p>
+            {retry.status === "found"
+              ? `✓ ${retry.foundSan}. ${retry.note}`
+              : retry.status === "wrong"
+                ? `Not quite. ${retry.note}`
+                : retry.status === "checking"
+                  ? "Checking your move..."
+                  : retry.status === "unchecked"
+                    ? "Couldn't check that move in time. Try it again."
+                    : `${retry.color === "w" ? "White" : "Black"} to move. Your try.`}
+          </p>
+          <div className="btnrow">
+            {retry.status === "wrong" && (
+              <button className="linkbtn" onClick={() => setRetry((r) => ({ ...r, status: "try", threat: null }))}>
+                Try again
+              </button>
+            )}
+            {retry.status !== "found" && (
+              <>
+                <button
+                  className="linkbtn"
+                  disabled={retry.hint >= 2}
+                  onClick={() => setRetry((r) => ({ ...r, hint: Math.min(2, r.hint + 1), status: r.status === "wrong" ? "try" : r.status }))}
+                >
+                  {retry.hint === 0 ? "Hint" : "Show the move"}
+                </button>
+                <button
+                  className="linkbtn"
+                  onClick={() => setRetry((r) => ({ ...r, status: "found", foundSan: moveAt.bestSan, note: "That was the engine's move." }))}
+                >
+                  Give up
+                </button>
+              </>
+            )}
+            {retry.status === "found" && nextStop(stops, curMove) != null && (
+              <button className="linkbtn" onClick={nextMoment}>
+                Next key moment
+              </button>
+            )}
+            <button className="linkbtn" onClick={() => setRetry(null)}>
+              Back to review
+            </button>
+          </div>
+        </div>
+      )}
 
       {branch && (
         <div className="previewbar">
@@ -795,11 +1023,12 @@ function Review({ store, setStore, nav, game }) {
         </div>
       )}
 
-      {!branch && moveAt && (
+      {!branch && !retry && moveAt && (
         <div className="moveverdict" style={{ borderColor: CLASSIFICATIONS[moveAt.class].color }}>
           <b style={{ color: CLASSIFICATIONS[moveAt.class].color }}>
             {moveAt.san}: {CLASSIFICATIONS[moveAt.class].label}
           </b>
+          {coach?.text && <p className="coachline">{coach.text}</p>}
           {altUci && moveAt.bestSan && (
             <span>
               {" "}
@@ -807,9 +1036,24 @@ function Review({ store, setStore, nav, game }) {
               <button className="linkbtn" onClick={() => setShowBest((s) => !s)}>
                 {showBest ? "hide" : "show"}
               </button>
+              {badMove && review.pvs?.[viewIdx]?.length > 0 && (
+                <button className="linkbtn" onClick={showReply}>
+                  Show the reply
+                </button>
+              )}
+              {badMove && coach?.facts?.[0]?.type.startsWith("generic_") && review.pvs?.[viewIdx - 1]?.length > 1 && (
+                <button className="linkbtn" onClick={showBestLine}>
+                  Show the best line
+                </button>
+              )}
+              {badMove && (
+                <button className="linkbtn" onClick={startRetry}>
+                  Retry
+                </button>
+              )}
               {badMove && (
                 <button className="linkbtn" onClick={() => retryFrom(pickRetryPersona(game))}>
-                  ⟳ Retry from here
+                  Play it out vs a bot
                 </button>
               )}
             </span>
@@ -817,7 +1061,7 @@ function Review({ store, setStore, nav, game }) {
         </div>
       )}
 
-      {lines.length > 0 ? (
+      {retry ? null : lines.length > 0 ? (
         <div className="enginelines">
           {lines.map((l, i) => (
             <button
@@ -831,10 +1075,18 @@ function Review({ store, setStore, nav, game }) {
         </div>
       ) : !branch && review.pvs?.[viewIdx]?.length > 0 ? (
         <div className="bestline">
-          <b>{fmtCp(review.evals[viewIdx])}</b> · best: {review.pvs[viewIdx].join(" ")}
+          <b>{fmtCp(review.evals[viewIdx])}</b> · best: {review.pvs[viewIdx].slice(0, 6).join(" ")}
         </div>
       ) : null}
 
+      <div className="btnrow toolrow">
+        <button className="linkbtn" onClick={prevMoment} disabled={prevStop(stops, curMove) == null}>
+          ‹ Key moment
+        </button>
+        <button className="linkbtn" onClick={nextMoment} disabled={nextStop(stops, curMove) == null}>
+          Next key moment ›
+        </button>
+      </div>
       <div className="btnrow toolrow">
         <button className="linkbtn" onClick={stepBack} disabled={!branch && viewIdx === 0}>
           ‹ Prev
@@ -845,6 +1097,9 @@ function Review({ store, setStore, nav, game }) {
           disabled={branch ? branchPly == null : viewIdx >= game.sans.length}
         >
           Next ›
+        </button>
+        <button className="linkbtn" onClick={() => setFlipped((f) => !f)}>
+          ⇅ Flip
         </button>
         <button
           className={"linkbtn" + (showThreats ? " on" : "")}
@@ -882,17 +1137,11 @@ function Review({ store, setStore, nav, game }) {
           setShowBest(false);
         }}
       />
+        </>
+      )}
+      {confirmSheet}
     </div>
   );
-}
-
-// Same thresholds the analysis board uses to grade a played move.
-function classifyDrop(drop) {
-  if (drop < 2) return "excellent";
-  if (drop < 5) return "good";
-  if (drop < 10) return "inaccuracy";
-  if (drop < 20) return "mistake";
-  return "blunder";
 }
 
 function botName(game) {
@@ -931,7 +1180,7 @@ function ClassCounts({ counts }) {
   );
 }
 
-function EvalGraph({ evals, viewIdx, onScrub }) {
+function EvalGraph({ evals, viewIdx, onScrub, marks = [] }) {
   const n = evals.length;
   const pts = evals.map((cp, i) => {
     const x = (i / Math.max(1, n - 1)) * 100;
@@ -953,6 +1202,18 @@ function EvalGraph({ evals, viewIdx, onScrub }) {
         <line x1="0" y1="50" x2="100" y2="50" stroke="#888" strokeWidth="0.5" strokeDasharray="2,2" />
         <line x1={x} y1="0" x2={x} y2="100" stroke="#f0c15c" strokeWidth="0.8" />
       </svg>
+      {marks.map((m) => {
+        const mx = ((m.i + 1) / Math.max(1, n - 1)) * 100;
+        const my = 100 - winPct(evals[m.i + 1] ?? 0);
+        return (
+          <span
+            key={m.i}
+            className="graphmark"
+            title={`Move ${Math.floor(m.i / 2) + 1}: ${CLASSIFICATIONS[m.cls]?.label || m.cls}`}
+            style={{ left: `${mx}%`, top: `${my}%`, background: CLASSIFICATIONS[m.cls]?.color }}
+          />
+        );
+      })}
     </div>
   );
 }

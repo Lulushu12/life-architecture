@@ -9,31 +9,34 @@ import { ENGINE_LOADING } from "./platform.js";
 import { useToast } from "@shared/ui.jsx";
 import { gamePgn, pgnFilename, copyToClipboard } from "./pgn.js";
 import ExportSheet from "./ExportSheet.jsx";
-
-function classifyDrop(drop, isBest) {
-  if (isBest) return "best";
-  if (drop < 2) return "excellent";
-  if (drop < 5) return "good";
-  if (drop < 10) return "inaccuracy";
-  if (drop < 20) return "mistake";
-  return "blunder";
-}
+import { legalDests, promotionCheck, pvToSans } from "./core/position.js";
+import { classifyDrop } from "./core/classify.js";
+import { threatsFromProbe } from "./core/threats.js";
+import { saveAnalysis } from "./archive.js";
+import { newId } from "./storage.js";
 
 // Free analysis board: play both sides, paste a FEN or PGN, watch the eval
 // bar and the engine's best line update continuously.
-export default function Analysis({ store, nav, view }) {
+export default function Analysis({ store, setStore, nav, view }) {
   const toast = useToast();
   const [exporting, setExporting] = useState(false);
   const engine = getEngine();
-  const [sans, setSans] = useState([]);
+  // Opening a saved analysis (plan item 12) restores it; saving again updates it.
+  const saved = useMemo(
+    () => (view?.analysisId ? (store.analyses || []).find((a) => a.id === view.analysisId) || null : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [view?.analysisId]
+  );
+  const [savedId, setSavedId] = useState(saved?.id || null);
+  const [sans, setSans] = useState(saved?.sans || []);
   // Arriving from the position editor hands the board a position to start from.
-  const [startFen, setStartFen] = useState(view?.fen || null);
+  const [startFen, setStartFen] = useState(saved ? saved.startFen : view?.fen || null);
   const [viewPly, setViewPly] = useState(null); // null = end of line
   const [branches, setBranches] = useState([]); // {atPly, sans}
   const [paste, setPaste] = useState("");
   const [showPaste, setShowPaste] = useState(false);
-  const [orientation, setOrientation] = useState("w");
-  const [evalInfo, setEvalInfo] = useState(null); // {cp, bestSan, pvSans, depth}
+  const [orientation, setOrientation] = useState(saved?.orientation || "w");
+  const [evalInfo, setEvalInfo] = useState(null); // {fen, cp, bestSan, pvSans, depth, alts}
   const [engineReady, setEngineReady] = useState(false);
   const [verdict, setVerdict] = useState(null); // last move's quality
   const [showMissed, setShowMissed] = useState(false);
@@ -56,7 +59,13 @@ export default function Analysis({ store, nav, view }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startFen, sans, viewPly]);
   const fen = chess.fen();
-  const opening = useMemo(() => findOpening(sans), [sans]);
+  // The engine read of the position on the board right now. After a move the
+  // previous read is stale until the new search lands: lines, arrow and move
+  // grading use only this; the eval bar keeps the last value to avoid a jump.
+  const live = evalInfo && evalInfo.fen === fen ? evalInfo : null;
+  const liveCp = live ? live.cp : null;
+  // Opening names only mean something from the normal start (bug 16).
+  const opening = useMemo(() => (startFen ? null : findOpening(sans)), [startFen, sans]);
 
   const navTo = (fn) => {
     setVerdict(null);
@@ -97,7 +106,7 @@ export default function Analysis({ store, nav, view }) {
           uci: l.move,
           sans: pvToSans(fen, l.pv.slice(0, 8)),
         }));
-        setEvalInfo({ cp, bestUci: info.move, bestSan: pvSans[0], pvSans, depth: info.depth, alts });
+        setEvalInfo({ fen, cp, bestUci: info.move, bestSan: pvSans[0], pvSans, depth: info.depth, alts });
 
         // Grade the move that produced this position, if we have the
         // "before" evaluation for it.
@@ -109,7 +118,7 @@ export default function Analysis({ store, nav, view }) {
           const isBest = p.bestUci === p.playedUci;
           setVerdict({
             san: p.san,
-            cls: classifyDrop(drop, isBest),
+            cls: isBest ? "best" : classifyDrop(drop),
             drop,
             lost: (p.cpBefore - cp) * sign,
             bestSan: p.bestSan,
@@ -126,28 +135,19 @@ export default function Analysis({ store, nav, view }) {
     };
   }, [fen, engine, chess]);
 
-  // What is the opponent threatening in this position?
+  // What is the opponent threatening in this position? Judged against the
+  // position's own eval, so harmless ideas are not drawn as threats.
   useEffect(() => {
     const seq = ++threatSeq.current;
     setThreats([]);
-    if (!showThreats || chess.isGameOver() || chess.inCheck()) return;
+    if (!showThreats || liveCp == null || chess.isGameOver() || chess.inCheck()) return;
     let cancelled = false;
     const nfen = nullMoveFen(fen);
     const timer = setTimeout(() => engine
       .analyze(nfen, { movetime: 350, multipv: 2, tag: "analysis-threat" })
       .then((r) => {
-        if (cancelled || seq !== threatSeq.current || !r.lines[0]) return;
-        const best = cpWhite(r.lines[0] || {}, nfen.split(" ")[1]);
-        setThreats(
-          r.lines
-            .filter((l) => {
-              // only show genuinely dangerous ideas
-              const s = cpWhite(l, nfen.split(" ")[1]);
-              return Math.abs(s - best) < 120;
-            })
-            .slice(0, 2)
-            .map((l) => [l.move.slice(0, 2), l.move.slice(2, 4)])
-        );
+        if (cancelled || seq !== threatSeq.current) return;
+        setThreats(threatsFromProbe(r.lines, nfen.split(" ")[1], liveCp));
       })
       .catch(() => {}), 120);
     return () => {
@@ -155,15 +155,10 @@ export default function Analysis({ store, nav, view }) {
       clearTimeout(timer);
       engine.cancel("analysis-threat");
     };
-  }, [fen, engine, chess, showThreats]);
+  }, [fen, engine, chess, showThreats, liveCp]);
 
   const dests = useMemo(() => {
-    const map = new Map();
-    for (const m of chess.moves({ verbose: true })) {
-      if (!map.has(m.from)) map.set(m.from, []);
-      map.get(m.from).push(m.to);
-    }
-    return map;
+    return legalDests(chess);
   }, [chess]);
 
   const lastMove = useMemo(() => {
@@ -180,13 +175,13 @@ export default function Analysis({ store, nav, view }) {
     setVerdict(null);
     // Remember this position's evaluation so the move can be graded once
     // the resulting position has been analyzed.
-    pending.current = evalInfo
+    pending.current = live
       ? {
           fenBefore: fen,
           fenAfter: test.fen(),
-          cpBefore: evalInfo.cp,
-          bestUci: evalInfo.bestUci,
-          bestSan: evalInfo.bestSan,
+          cpBefore: live.cp,
+          bestUci: live.bestUci,
+          bestSan: live.bestSan,
           playedUci: mv.from + mv.to + (mv.promotion || ""),
           san: mv.san,
           mover: mv.color,
@@ -239,7 +234,10 @@ export default function Analysis({ store, nav, view }) {
     try {
       const c = new Chess();
       c.loadPgn(text);
-      setStartFen(null);
+      // A PGN that starts from a set-up position carries it in its headers;
+      // the moves only replay from there (bug 1: this used to crash the app).
+      const h = c.header();
+      setStartFen(h.FEN || null);
       setSans(c.history());
       setViewPly(null);
       setBranches([]);
@@ -253,7 +251,7 @@ export default function Analysis({ store, nav, view }) {
     <div className="page gamepage">
       <TopBar
         title="Analysis board"
-        sub={opening ? opening.name : evalInfo ? `depth ${evalInfo.depth}` : "free board"}
+        sub={opening ? opening.name : live ? `depth ${live.depth}` : "free board"}
         onBack={() => {
           // Screens that hand over a position (e.g. a finished puzzle) also
           // say where "back" should land; a free board goes home.
@@ -281,8 +279,8 @@ export default function Analysis({ store, nav, view }) {
           arrow={
             showMissed && verdict?.bestUci
               ? [verdict.bestUci.slice(0, 2), verdict.bestUci.slice(2, 4)]
-              : evalInfo?.bestUci
-                ? [evalInfo.bestUci.slice(0, 2), evalInfo.bestUci.slice(2, 4)]
+              : live?.bestUci
+                ? [live.bestUci.slice(0, 2), live.bestUci.slice(2, 4)]
                 : null
           }
           threats={showMissed ? [] : threats}
@@ -291,10 +289,7 @@ export default function Analysis({ store, nav, view }) {
           pieceSet={store.settings.pieces}
           animMs={store.settings.animMs}
           arrowColors={store.settings.arrowColors}
-          needsPromotion={(from, to) => {
-            const piece = chess.get(from);
-            return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
-          }}
+          needsPromotion={promotionCheck(chess)}
         />
       </div>
 
@@ -316,9 +311,9 @@ export default function Analysis({ store, nav, view }) {
         </div>
       )}
 
-      {evalInfo?.alts?.length > 0 && (
+      {live?.alts?.length > 0 && (
         <div className="enginelines">
-          {evalInfo.alts.map((l, i) => (
+          {live.alts.map((l, i) => (
             <button
               key={i}
               className="engineline"
@@ -395,6 +390,26 @@ export default function Analysis({ store, nav, view }) {
         </button>
         <button
           className="linkbtn"
+          disabled={sans.length === 0 && !startFen}
+          onClick={() => {
+            const id = savedId || newId();
+            const name = opening?.name || (startFen ? "From a set-up position" : "Analysis");
+            setStore((s) => saveAnalysis(s, { id, name, startFen, sans, orientation }, () => id).store);
+            setSavedId(id);
+            toast(savedId ? "Analysis updated" : "Saved. It's in the archive under Analyses.");
+          }}
+        >
+          💾 {savedId ? "Update" : "Save"}
+        </button>
+        <button
+          className="linkbtn"
+          disabled={chess.isGameOver()}
+          onClick={() => nav("play", { pick: true, fromFen: fen, fromLabel: "your analysis" })}
+        >
+          ▶ Play from here
+        </button>
+        <button
+          className="linkbtn"
           onClick={async () => toast((await copyToClipboard(fen)) ? "FEN copied" : "Copy blocked by the browser")}
         >
           Copy FEN
@@ -432,19 +447,4 @@ export default function Analysis({ store, nav, view }) {
       />
     </div>
   );
-}
-
-function pvToSans(fen, pv) {
-  const out = [];
-  try {
-    const c = new Chess(fen);
-    for (const uci of pv) {
-      const mv = c.move({ from: uci.slice(0, 2), to: uci.slice(2, 4), promotion: uci[4] });
-      if (!mv) break;
-      out.push(mv.san);
-    }
-  } catch {
-    /* truncated pv is fine */
-  }
-  return out;
 }

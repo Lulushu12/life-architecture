@@ -8,25 +8,36 @@ import { chooseBotMove } from "./bot.js";
 import { detectEvents, pickLine, pickLineWithEvent, aiReact, recentMoves } from "./chat.js";
 import { findOpening } from "./openings.js";
 import { play as sfx, buzz } from "./audio.js";
-import { newId } from "./storage.js";
 import { ENGINE_LOADING } from "./platform.js";
 import { useConfirm } from "@shared/ui.jsx";
 import { useWakeLock } from "@shared/useWakeLock.js";
 import { emitEvent } from "@shared/bridge.js";
+import { legalDests, promotionCheck, startPly, materialBalance } from "./core/position.js";
+import { threatsFromProbe } from "./core/threats.js";
+import { HELP_PRESETS, DEFAULT_PRESET, HELP_SWITCHES, SWITCH_LABELS, presetFlags, presetOf, presetName, helpOf, isSerious } from "./helpLevels.js";
+import Sheet from "./Sheet.jsx";
+import { liveCoachNote, hintIdea, blunderCheck, tacticPrompt } from "./core/coach/live.js";
+import { CLASSIFICATIONS } from "./review.js";
+import { addResult, wdl, cleanWins, assistLabel } from "./records.js";
+import { newBotGame } from "./botGame.js";
+import { Lightbulb, MessageSquare, SlidersHorizontal, Undo2 } from "lucide-react";
 
 export default function PlayBot({ store, setStore, nav, view }) {
   const cur = store.current;
   if (view.pick || !cur || cur.mode !== "bot") {
     return <BotPicker store={store} setStore={setStore} nav={nav} view={view} />;
   }
-  return <BotGame store={store} setStore={setStore} nav={nav} />;
+  // keyed by game, so a rematch starts with a clean slate (hints, coach, views)
+  return <BotGame key={cur.id} store={store} setStore={setStore} nav={nav} />;
 }
 
 function BotPicker({ store, setStore, nav, view }) {
   // "r" is resolved to a real colour at the moment the game starts, so the
   // side stays a surprise until the board appears.
-  const [color, setColor] = useState("w");
-  const [serious, setSerious] = useState(false);
+  // From a set position you start as the side to move.
+  const [color, setColor] = useState(() => (view?.fromFen ? view.fromFen.split(" ")[1] : "w"));
+  const [preset, setPreset] = useState(store.settings.helpPreset || DEFAULT_PRESET);
+  const levelRefs = useRef({});
   // Set when arriving from a lesson step: the game starts from that position
   // instead of the initial one.
   const fromFen = view?.fromFen || null;
@@ -36,24 +47,34 @@ function BotPicker({ store, setStore, nav, view }) {
     setStore((s) => ({ ...s, settings: { ...s.settings, botLang: l } }));
   const roster = personasByLang(lang);
 
+  // Opponents you've played recently, newest first.
+  const recent = useMemo(() => {
+    const seen = new Set();
+    const out = [];
+    for (const g of [...store.games].sort((a, b) => (b.date || 0) - (a.date || 0))) {
+      if (g.mode !== "bot" || seen.has(g.personaId)) continue;
+      const p = roster.find((x) => x.id === g.personaId);
+      if (!p) continue;
+      seen.add(g.personaId);
+      out.push(p);
+      if (out.length === 3) break;
+    }
+    return out;
+  }, [store.games, roster]);
+
+  // Open at the level you last played, so the bots that fit you are on screen.
+  useEffect(() => {
+    const elo = recent[0]?.elo;
+    if (elo && levelRefs.current[elo]) levelRefs.current[elo].scrollIntoView({ block: "start" });
+  }, [recent]);
+
   const start = (persona) => {
     const resolved = color === "r" ? (Math.random() < 0.5 ? "w" : "b") : color;
+    const help = presetFlags(preset);
     setStore((s) => ({
       ...s,
-      current: {
-        id: newId(),
-        mode: "bot",
-        personaId: persona.id,
-        playerColor: resolved,
-        serious,
-        startFen: fromFen,
-        sans: [],
-        chat: [],
-        cps: [0],
-        status: "playing",
-        result: null,
-        createdAt: Date.now(),
-      },
+      settings: { ...s.settings, helpPreset: preset },
+      current: newBotGame({ personaId: persona.id, playerColor: resolved, help, startFen: fromFen }),
     }));
     nav("play");
   };
@@ -90,10 +111,44 @@ function BotPicker({ store, setStore, nav, view }) {
           </button>
         </div>
       </div>
-      <div className="setrow">
-        <span className="setlabel">Serious mode (no eval bar, no eval talk)</span>
-        <Toggle checked={serious} onChange={setSerious} />
+      <div className="setrow helprow">
+        <span className="setlabel">Help</span>
+        <div className="chips" role="radiogroup" aria-label="Help level">
+          {HELP_PRESETS.map((p) => (
+            <button
+              key={p.id}
+              role="radio"
+              aria-checked={preset === p.id}
+              className={"chip" + (preset === p.id ? " sel" : "")}
+              onClick={() => setPreset(p.id)}
+            >
+              {p.name}
+            </button>
+          ))}
+        </div>
       </div>
+      <p className="hint small helpblurb">{HELP_PRESETS.find((p) => p.id === preset)?.blurb}. You can change it during the game.</p>
+      {recent.length > 0 && (
+        <div className="levelblock">
+          <div className="levelhead">Recent opponents</div>
+          <div className="botgrid">
+            {recent.map((p) => {
+              const rec = store.botRecords[p.id];
+              return (
+                <button key={p.id} className="botmini" title={p.tagline} onClick={() => start(p)}>
+                  <span className="bm-avatar">{p.avatar}</span>
+                  <span className="bm-name">{p.name}</span>
+                  <span className="bm-rec">
+                    {p.elo}
+                    {rec ? ` · ${wdl(rec)}` : ""}
+                  </span>
+                  {cleanWins(rec) > 0 && <CleanMark n={cleanWins(rec)} />}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
       {store.current && store.current.mode === "bot" && (
         <p className="warn">Starting a new game abandons the current one.</p>
       )}
@@ -101,7 +156,7 @@ function BotPicker({ store, setStore, nav, view }) {
         const bots = roster.filter((p) => p.elo === elo);
         if (bots.length === 0) return null;
         return (
-          <div key={elo} className="levelblock">
+          <div key={elo} className="levelblock" ref={(el) => (levelRefs.current[elo] = el)}>
             <div className="levelhead">{elo}</div>
             <div className="botgrid">
               {bots.map((p) => {
@@ -110,9 +165,8 @@ function BotPicker({ store, setStore, nav, view }) {
                   <button key={p.id} className="botmini" title={p.tagline} onClick={() => start(p)}>
                     <span className="bm-avatar">{p.avatar}</span>
                     <span className="bm-name">{p.name}</span>
-                    <span className="bm-rec">
-                      {rec ? `${rec.w}-${rec.d}-${rec.l}` : "-"}
-                    </span>
+                    {rec && <span className="bm-rec">{wdl(rec)}</span>}
+                    {cleanWins(rec) > 0 && <CleanMark n={cleanWins(rec)} />}
                   </button>
                 );
               })}
@@ -129,8 +183,21 @@ function BotGame({ store, setStore, nav }) {
   const persona = getPersona(g.personaId);
   const engine = getEngine();
   const [viewPly, setViewPly] = useState(null); // null = live
-  const [hintArrow, setHintArrow] = useState(null);
-  // Last engine read of the live position: {fen, cp, bestUci}. The eval bar
+  // Two-step hint for one position: {fen, step: 1|2, from, to, text}. Step 1
+  // lights the piece and says the idea; step 2 draws the move.
+  const [hintState, setHintState] = useState(null);
+  // The coach's comment on your last move (plan item 8): {text, kind, cls, ply}.
+  const [coachNote, setCoachNote] = useState(null);
+  // Your move waiting for the engine's read of the position it made.
+  const coachPending = useRef(null);
+  const coachSeq = useRef(0);
+  const lastPraise = useRef(-99);
+  // Blunder check (plan item 9): the move being checked, shown on the board
+  // while the engine looks ({san, from, to, fen}), then the nudge if it fails.
+  const [checking, setChecking] = useState(null);
+  const [nudge, setNudge] = useState(null);
+  const checkSeq = useRef(0);
+  // Last engine read of the live position: {fen, cp, bestUci, pv}. The eval bar
   // and the hint both come from this one search, so a hinted move can never
   // be contradicted by the bar that judged it.
   const [evalInfo, setEvalInfo] = useState(null);
@@ -145,6 +212,22 @@ function BotGame({ store, setStore, nav }) {
   const chatGate = useRef({ lastPly: -99, queued: null });
   const mutedRef = useRef(false);
   const botToMoveRef = useRef(false);
+  const [helpOpen, setHelpOpen] = useState(false);
+  const [threats, setThreats] = useState([]);
+  const help = helpOf(g, store.settings);
+  const helpPreset = presetOf(help);
+  const setHelp = (patch) =>
+    setStore((s) => {
+      const c = s.current;
+      if (!c || c.id !== g.id) return s;
+      const next = { ...helpOf(c, s.settings), ...patch };
+      const assist = c.assist ?? (isSerious(next) ? null : "help");
+      return { ...s, current: { ...c, help: next, serious: isSerious(next), assist } };
+    });
+
+  // The first thing that made this game assisted sticks.
+  const markAssist = (why) =>
+    setStore((s) => (s.current && s.current.id === g.id && !s.current.assist ? { ...s, current: { ...s.current, assist: why } } : s));
 
   useEffect(() => {
     engine.ready.then(() => setEngineReady(true));
@@ -157,6 +240,14 @@ function BotGame({ store, setStore, nav }) {
   }, [g.startFen, g.sans]);
 
   const liveFen = chess.fen();
+  // The position before the last move, so taking back what was just taken
+  // isn't called a tactic.
+  const prevFen = useMemo(() => {
+    if (!g.sans.length) return null;
+    const c = g.startFen ? new Chess(g.startFen) : new Chess();
+    for (const san of g.sans.slice(0, -1)) c.move(san);
+    return c.fen();
+  }, [g.startFen, g.sans]);
   const botColor = g.playerColor === "w" ? "b" : "w";
   const playerTurn = chess.turn() === g.playerColor && g.status === "playing";
   const opening = useMemo(() => findOpening(g.sans), [g.sans]);
@@ -176,7 +267,7 @@ function BotGame({ store, setStore, nav }) {
   // stored game eval fills in instantly (see `cp` below); this refines it
   // with a fresh search, sharing the engine queue with the bot's thinking.
   useEffect(() => {
-    if (viewPly == null || g.serious || !store.settings.evalBar) return;
+    if (viewPly == null || !help.evalBar) return;
     const fen = shownFen;
     const c = new Chess(fen);
     if (c.isGameOver()) {
@@ -197,7 +288,7 @@ function BotGame({ store, setStore, nav }) {
       engine.cancel("play-view");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [viewPly, shownFen, g.serious, store.settings.evalBar, engine]);
+  }, [viewPly, shownFen, help.evalBar, engine]);
 
   // Legal moves for the player — from the live position, or from a past
   // position being previewed (playing there branches the game).
@@ -205,24 +296,14 @@ function BotGame({ store, setStore, nav }) {
     if (g.status !== "playing") return null;
     const c = viewPly == null ? chess : new Chess(shownFen);
     if (c.turn() !== g.playerColor) return null;
-    const map = new Map();
-    for (const m of c.moves({ verbose: true })) {
-      if (!map.has(m.from)) map.set(m.from, []);
-      map.get(m.from).push(m.to);
-    }
-    return map;
+    return legalDests(c);
   }, [chess, shownFen, viewPly, g.status, g.playerColor]);
 
   const premoveDests = useMemo(() => {
     if (g.status !== "playing" || viewPly != null || chess.turn() !== botColor) return null;
     try {
       const c = new Chess(nullMoveFen(liveFen));
-      const map = new Map();
-      for (const m of c.moves({ verbose: true })) {
-        if (!map.has(m.from)) map.set(m.from, []);
-        map.get(m.from).push(m.to);
-      }
-      return map;
+      return legalDests(c);
     } catch {
       return null;
     }
@@ -251,6 +332,7 @@ function BotGame({ store, setStore, nav }) {
     }
     sfx(store, mv.captured ? "capture" : "move");
     buzz(store, mv.captured ? 25 : 12);
+    noteMove(mv.san);
     applyMove(mv.san, g.sans.length, { premove: null });
     lastMoveStart.current = Date.now();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -307,12 +389,61 @@ function BotGame({ store, setStore, nav }) {
         : s
     );
 
+  // Evals of positions you moved past before the engine judged them are
+  // filled with the last known value, so the list stays one per position.
   const pushCp = (cp, atLen) =>
     setStore((s) => {
       const c = s.current;
       if (!c || c.id !== g.id || c.sans.length !== atLen || c.cps.length >= atLen + 1) return s;
-      return { ...s, current: { ...c, cps: [...c.cps, cp] } };
+      const gap = new Array(atLen - c.cps.length).fill(c.cps[c.cps.length - 1] ?? 0);
+      return { ...s, current: { ...c, cps: [...c.cps, ...gap, cp] } };
     });
+
+  // Remember your move so the coach can judge it once the engine has read
+  // the new position. Called just before the move is applied.
+  const noteMove = (san) => {
+    coachSeq.current += 1;
+    setCoachNote(null);
+    const ply = g.sans.length;
+    if (!help.coach) {
+      coachPending.current = null;
+      return;
+    }
+    const known = evalInfo && evalInfo.fen === liveFen ? evalInfo : null;
+    coachPending.current = {
+      seq: coachSeq.current,
+      fenBefore: liveFen,
+      san,
+      ply,
+      bestUci: known?.bestUci || null,
+      bestPv: known?.pv || null,
+      cpBefore: known ? known.cp : null,
+    };
+  };
+
+  function coachAfter(ply, cpAfter, replyPv) {
+    const p = coachPending.current;
+    if (!p || p.ply !== ply) return;
+    coachPending.current = null;
+    const finish = (cpBefore, bestUci, bestPv) => {
+      if (p.seq !== coachSeq.current) return; // you've moved on
+      const note = liveCoachNote({ ...p, cpBefore, bestUci, bestPv, cpAfter, replyPv, lastPraise: lastPraise.current });
+      if (!note) return;
+      if (note.kind === "praise") lastPraise.current = ply;
+      setCoachNote(note);
+    };
+    if (p.cpBefore != null && p.bestPv?.length) {
+      finish(p.cpBefore, p.bestUci, p.bestPv);
+      return;
+    }
+    // You moved before the engine had read the position: read it now.
+    engine
+      .analyze(p.fenBefore, { movetime: 300, tag: "play-coach" })
+      .then((r) => {
+        if (r.lines[0]) finish(cpWhite(r.lines[0], p.fenBefore.split(" ")[1]), r.lines[0].move, r.lines[0].pv);
+      })
+      .catch(() => {});
+  }
 
   // ---- player's move (live, or from a preview → branch) ----
   const onMove = (from, to, promotion) => {
@@ -348,18 +479,80 @@ function BotGame({ store, setStore, nav }) {
           },
         };
       });
+      markAssist("branch");
       setViewPly(null);
-      setHintArrow(null);
+      coachPending.current = null;
+      setCoachNote(null);
       lastMoveStart.current = Date.now();
       return;
     }
 
-    if (!playerTurn) return;
+    if (!playerTurn || checking) return;
+    if (nudge) {
+      if (nudge.san === mv.san) return; // the same move again: the nudge stays
+      recordCheck(true); // a different move: the check did its job
+      setNudge(null);
+    }
+    if (help.check) checkThenPlay(mv);
+    else playNow(mv);
+  };
+
+  const playNow = (mv) => {
     sfx(store, mv.captured ? "capture" : "move");
     buzz(store, mv.captured ? 25 : 12);
+    noteMove(mv.san);
     applyMove(mv.san, g.sans.length);
-    setHintArrow(null);
     lastMoveStart.current = Date.now();
+  };
+
+  // One quick search on the position after your move (and on the one before,
+  // if the eval bar hasn't read it yet); a move that gives a lot away waits
+  // for you to confirm it.
+  const checkThenPlay = (mv) => {
+    const seq = ++checkSeq.current;
+    const fenBefore = liveFen;
+    const ply = g.sans.length;
+    setChecking({ san: mv.san, from: mv.from, to: mv.to, fen: mv.after });
+    const known = evalInfo && evalInfo.fen === fenBefore ? evalInfo.cp : null;
+    const before =
+      known != null
+        ? Promise.resolve(known)
+        : engine
+            .analyze(fenBefore, { movetime: 250, tag: "play-check" })
+            .then((r) => (r.lines[0] ? cpWhite(r.lines[0], fenBefore.split(" ")[1]) : null));
+    before
+      .then((cpBefore) =>
+        engine.analyze(mv.after, { movetime: 300, tag: "play-check" }).then((r) => ({ cpBefore, line: r.lines[0] }))
+      )
+      .then(({ cpBefore, line }) => {
+        if (seq !== checkSeq.current) return;
+        setChecking(null);
+        const res = line
+          ? blunderCheck({ fenBefore, san: mv.san, cpBefore, cpAfter: cpWhite(line, mv.after.split(" ")[1]), replyPv: line.pv, ply })
+          : null;
+        if (res) {
+          buzz(store, [20, 60, 20]);
+          setNudge({ ...res, san: mv.san, move: mv });
+        } else playNow(mv);
+      })
+      .catch(() => {
+        if (seq !== checkSeq.current) return;
+        setChecking(null);
+        playNow(mv);
+      });
+  };
+
+  const recordCheck = (saved) =>
+    setStore((s) => ({ ...s, blunderChecks: [...(s.blunderChecks || []).slice(-499), { t: Date.now(), saved }] }));
+  const playAnyway = () => {
+    const n = nudge;
+    setNudge(null);
+    recordCheck(false);
+    playNow(n.move);
+  };
+  const pickAnother = () => {
+    setNudge(null);
+    recordCheck(true);
   };
 
   // Swap the current line for a stashed branch (the current continuation
@@ -386,6 +579,7 @@ function BotGame({ store, setStore, nav }) {
         },
       };
     });
+    markAssist("branch");
     setViewPly(null);
   };
 
@@ -404,16 +598,17 @@ function BotGame({ store, setStore, nav }) {
     // serves all of them; 150ms used to feed the bar while the hint ran its
     // own deeper look, and the two shallow searches contradicting each other
     // made good hints look penalized.
-    if (g.cps.length === len && len > 0) {
+    if (g.cps.length <= len && len > 0) {
       let cancelled = false;
       engine
         .analyze(liveFen, { movetime: 400 })
         .then((r) => {
           if (cancelled || !r.lines[0]) return;
           const cp = cpWhite(r.lines[0], chess.turn());
-          setEvalInfo({ fen: liveFen, cp, bestUci: r.lines[0].move });
+          setEvalInfo({ fen: liveFen, cp, bestUci: r.lines[0].move, pv: r.lines[0].pv });
           pushCp(cp, len);
           maybeChat(cp);
+          coachAfter(len - 1, cp, r.lines[0].pv);
         })
         .catch(() => {});
       return () => {
@@ -539,13 +734,9 @@ function BotGame({ store, setStore, nav }) {
     setStore((s) => {
       const c = s.current;
       if (!c || c.id !== g.id || c.status !== "playing") return s;
-      const rec = s.botRecords[persona.id] || { w: 0, l: 0, d: 0 };
-      const newRec =
-        result === "1/2-1/2"
-          ? { ...rec, d: rec.d + 1 }
-          : playerWon
-            ? { ...rec, w: rec.w + 1 }
-            : { ...rec, l: rec.l + 1 };
+      // games begun before records were split: judge by the help level
+      const assist = c.assist !== undefined ? c.assist : isSerious(helpOf(c, s.settings)) ? null : "help";
+      const newRec = addResult(s.botRecords[persona.id], result === "1/2-1/2" ? "d" : playerWon ? "w" : "l", assist);
       const entry = {
         id: c.id,
         date: Date.now(),
@@ -556,6 +747,7 @@ function BotGame({ store, setStore, nav }) {
         sans: c.sans,
         result,
         reason,
+        assist,
         review: null,
       };
       return {
@@ -567,22 +759,34 @@ function BotGame({ store, setStore, nav }) {
           status: "over",
           result,
           reason,
+          assist,
           chat: line ? [...c.chat, { text: line, ply: c.sans.length }] : c.chat,
         },
       };
     });
   }
 
+  // The hint for the live position, if one is open.
+  const hintNow = hintState && hintState.fen === liveFen && viewPly == null ? hintState : null;
   const hint = () => {
+    if (hintNow) {
+      setHintState({ ...hintNow, step: 2 });
+      return;
+    }
+    const fen = liveFen;
+    markAssist("hint");
+    const open = (bestUci, pv, cp) =>
+      setHintState({ fen, step: 1, from: bestUci.slice(0, 2), to: bestUci.slice(2, 4), text: hintIdea(fen, pv, cp, prevFen) });
     // Reuse the move the eval bar's own search already picked for this
     // position; search fresh only when that read is missing (e.g. move 1).
-    if (evalInfo && evalInfo.fen === liveFen && evalInfo.bestUci) {
-      setHintArrow([evalInfo.bestUci.slice(0, 2), evalInfo.bestUci.slice(2, 4)]);
+    if (evalInfo && evalInfo.fen === fen && evalInfo.bestUci && evalInfo.pv) {
+      open(evalInfo.bestUci, evalInfo.pv, evalInfo.cp);
     } else {
-      engine.analyze(liveFen, { movetime: 400 }).then((r) => {
+      engine.analyze(fen, { movetime: 400 }).then((r) => {
         if (!r.lines[0]) return;
-        setEvalInfo({ fen: liveFen, cp: cpWhite(r.lines[0], liveFen.split(" ")[1]), bestUci: r.lines[0].move });
-        setHintArrow([r.lines[0].move.slice(0, 2), r.lines[0].move.slice(2, 4)]);
+        const cp = cpWhite(r.lines[0], fen.split(" ")[1]);
+        setEvalInfo({ fen, cp, bestUci: r.lines[0].move, pv: r.lines[0].pv });
+        open(r.lines[0].move, r.lines[0].pv, cp);
       });
     }
   };
@@ -598,8 +802,53 @@ function BotGame({ store, setStore, nav }) {
         ? { ...s, current: { ...s.current, sans: s.current.sans.slice(0, n), cps: s.current.cps.slice(0, n + 1), premove: null } }
         : s
     );
+    markAssist("takeback");
     setViewPly(null);
+    coachSeq.current += 1;
+    coachPending.current = null;
+    setCoachNote(null);
+    checkSeq.current += 1;
+    setChecking(null);
+    setNudge(null);
   };
+
+  // Threat arrows (help level): on your turn, what would the bot do if you
+  // passed? Judged against the position's own eval, so only real threats show.
+  const evalForLive = evalInfo && evalInfo.fen === liveFen ? evalInfo.cp : null;
+  useEffect(() => {
+    setThreats([]);
+    if (!help.threats || g.status !== "playing" || viewPly != null || !playerTurn || evalForLive == null) return;
+    if (chess.inCheck()) return;
+    let cancelled = false;
+    const nfen = nullMoveFen(liveFen);
+    engine
+      .analyze(nfen, { movetime: 300, multipv: 2, tag: "play-threat" })
+      .then((r) => {
+        if (!cancelled) setThreats(threatsFromProbe(r.lines, nfen.split(" ")[1], evalForLive));
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+      engine.cancel("play-threat");
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [liveFen, evalForLive, help.threats, g.status, viewPly, playerTurn]);
+
+  // Best-move arrow (help level): the engine move for the live position, on your turn.
+  const suggestArrow =
+    help.suggest && playerTurn && viewPly == null && evalInfo?.fen === liveFen && evalInfo.bestUci
+      ? [evalInfo.bestUci.slice(0, 2), evalInfo.bestUci.slice(2, 4)]
+      : null;
+  // The coach speaking up on its own when there's a tactic for you.
+  const prompt = useMemo(
+    () =>
+      help.coach && playerTurn && viewPly == null && evalInfo?.fen === liveFen && evalInfo.pv
+        ? tacticPrompt(liveFen, evalInfo.pv, evalInfo.cp, prevFen)
+        : null,
+    [help.coach, playerTurn, viewPly, evalInfo, liveFen, prevFen]
+  );
+  const balance = materialBalance(shownFen);
+  const myAhead = g.playerColor === "w" ? balance : -balance;
 
   // Live position's eval normally; the viewed position's while browsing —
   // stored game eval as the instant placeholder until the fresh search lands.
@@ -610,54 +859,99 @@ function BotGame({ store, setStore, nav }) {
   const askResign = () => confirm({ title: "Resign this game?", confirmLabel: "Resign", danger: true });
   useGameBackGuard(g.status === "playing" && g.sans.length > 0, askResign, () => finishGame(true));
 
+  const toggleChat = () =>
+    setStore((s) => (s.current && s.current.id === g.id ? { ...s, current: { ...s.current, muted: !s.current.muted } } : s));
+  const lastSay = g.muted ? null : g.chat[g.chat.length - 1];
+
   return (
-    <div className="page gamepage">
+    <div className="page gamepage botgame">
       <TopBar
-        title={`${persona.avatar} ${persona.name} (${persona.elo})`}
-        sub={over ? `${g.result} · ${g.reason}` : opening ? opening.name : g.serious ? "Serious game" : "Casual game"}
+        title={over ? `${g.result} · ${g.reason}` : presetName(helpPreset) === "On my own" ? "Serious game" : "Casual game"}
+        sub={opening ? opening.name : `${presetName(helpPreset)}`}
         onBack={() => nav("home")}
-        right={
-          !over && (
-            <button
-              className="linkbtn"
-              onClick={async () => {
-                if (await askResign()) finishGame(true);
-              }}
-            >
-              Resign
-            </button>
-          )
-        }
       />
 
       {!engineReady && <div className="enginebanner">{ENGINE_LOADING}</div>}
 
-      <ChatBubbles chat={g.chat} persona={persona} />
+      <div className="plate">
+        <span className="plate-ava">{persona.avatar}</span>
+        <div className="plate-who">
+          <div className="plate-name">{persona.name}</div>
+          <div className="plate-sub">
+            {persona.elo} · bot{myAhead < 0 ? ` · +${-myAhead}` : ""}
+          </div>
+        </div>
+        {!playerTurn && g.status === "playing" && <span className="thinking">thinking…</span>}
+      </div>
+      {!g.muted && (
+        <div className={"plate-say" + (lastSay ? "" : " empty")} aria-live="polite">
+          {lastSay ? lastSay.text : ""}
+        </div>
+      )}
 
       <div className="boardrow">
-        {!g.serious && store.settings.evalBar && <EvalBar cp={cp} orientation={g.playerColor} />}
+        {help.evalBar && <EvalBar cp={cp} orientation={g.playerColor} />}
         <Board
-          fen={shownFen}
+          fen={checking && viewPly == null ? checking.fen : shownFen}
           orientation={g.playerColor}
-          lastMove={lastMove}
+          lastMove={checking && viewPly == null ? [checking.from, checking.to] : lastMove}
           checkSquare={checkSquare}
-          dests={!over ? dests : null}
+          dests={!over && !checking ? dests : null}
           onMove={onMove}
           premoveDests={!over ? premoveDests : null}
           onPremove={setPremove}
           premove={g.premove || null}
-          arrow={viewPly == null ? hintArrow : null}
+          arrow={viewPly == null ? (hintNow?.step === 2 ? [hintNow.from, hintNow.to] : suggestArrow) : null}
+          highlightSquares={nudge && viewPly == null ? nudge.squares : hintNow?.step === 1 ? [hintNow.from] : null}
+          threats={viewPly == null ? threats : []}
           theme={store.settings.theme}
           custom={store.settings.boardCustom}
           pieceSet={store.settings.pieces}
           animMs={store.settings.animMs}
-        arrowColors={store.settings.arrowColors}
-          needsPromotion={(from, to) => {
-            const piece = new Chess(shownFen).get(from);
-            return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
-          }}
+          arrowColors={store.settings.arrowColors}
+          needsPromotion={promotionCheck(new Chess(shownFen))}
         />
       </div>
+
+      <div className="plate">
+        <span className="plate-ava you">♙</span>
+        <div className="plate-who">
+          <div className="plate-name">You</div>
+          <div className="plate-sub">
+            {g.playerColor === "w" ? "White" : "Black"}
+            {myAhead > 0 ? ` · +${myAhead}` : myAhead === 0 ? " · even material" : ""}
+          </div>
+        </div>
+        <button type="button" className="plate-chip" onClick={() => setHelpOpen(true)}>
+          {presetName(helpPreset)}
+        </button>
+      </div>
+
+      {nudge && !over ? (
+        <div className="coachstrip cs-check" role="alert">
+          <span className="coachtag">Blunder check</span>
+          <p>
+            Before you play {nudge.san}: {nudge.text}
+          </p>
+          <div className="checkbtns">
+            <button type="button" className="chip sel" onClick={pickAnother}>
+              Pick another move
+            </button>
+            <button type="button" className="linkbtn" onClick={playAnyway}>
+              Play it anyway
+            </button>
+          </div>
+        </div>
+      ) : (
+        (hintNow || (help.coach && !over)) && (
+          <CoachStrip
+            hint={hintNow}
+            note={help.coach && !hintNow ? coachNote : null}
+            prompt={!hintNow ? prompt : null}
+            onTakeback={g.status === "playing" ? takeback : null}
+          />
+        )
+      )}
 
       {viewPly != null && (
         <div className="previewbar">
@@ -680,73 +974,166 @@ function BotGame({ store, setStore, nav }) {
         </div>
       )}
 
+      <MoveList sans={g.sans} activePly={viewPly ?? g.sans.length - 1} onTap={setViewPly} />
+
       {over ? (
-        <div className="btnrow endrow">
-          <button
-            className="bigbtn"
-            onClick={() => {
-              setStore((s) => ({ ...s, current: null }));
-              nav("review", { gameId: g.id });
-            }}
-          >
-            Review game
-          </button>
-          <button
-            className="linkbtn"
-            onClick={() => {
-              setStore((s) => ({ ...s, current: null }));
-              nav("play", { pick: true });
-            }}
-          >
-            New game
-          </button>
+        <div className="gameend">
+          <p className="hint small endnote">
+            {g.assist ? `Counted as assisted: ${assistLabel(g.assist)}.` : "Counted as a clean game: no help, hints or takebacks."}
+          </p>
+          <div className="btnrow endrow">
+            <button
+              className="bigbtn"
+              onClick={() => {
+                setStore((s) => ({ ...s, current: null }));
+                nav("review", { gameId: g.id });
+              }}
+            >
+              Review game
+            </button>
+            <button
+              className="bigbtn secondary"
+              onClick={() =>
+                setStore((s) => ({
+                  ...s,
+                  current: newBotGame({ personaId: g.personaId, playerColor: botColor, help: help, startFen: g.startFen }),
+                }))
+              }
+            >
+              Rematch
+            </button>
+            <button
+              className="linkbtn"
+              onClick={() => {
+                setStore((s) => ({ ...s, current: null }));
+                nav("play", { pick: true });
+              }}
+            >
+              New game
+            </button>
+          </div>
         </div>
       ) : (
-        <div className="btnrow toolrow">
-          <button className="linkbtn" onClick={hint} disabled={!playerTurn}>
-            💡 Hint
+        <nav className="actionbar" aria-label="Game actions">
+          <button type="button" className={"act" + (hintNow ? " on" : "")} onClick={hint} disabled={!playerTurn || hintNow?.step === 2}>
+            <Lightbulb aria-hidden="true" />
+            {hintNow ? "Show move" : "Hint"}
           </button>
-          <button className="linkbtn" onClick={takeback} disabled={g.sans.length === 0}>
-            ↩ Takeback
+          <button type="button" className="act" onClick={takeback} disabled={g.sans.length === 0}>
+            <Undo2 aria-hidden="true" />
+            Takeback
           </button>
           <button
-            className="linkbtn"
-            aria-pressed={!!g.muted}
-            onClick={() =>
-              setStore((s) =>
-                s.current && s.current.id === g.id ? { ...s, current: { ...s.current, muted: !s.current.muted } } : s
-              )
-            }
+            type="button"
+            className={"act" + (help.coach ? " on" : "")}
+            aria-pressed={!!help.coach}
+            onClick={() => setHelp({ coach: !help.coach })}
           >
-            {g.muted ? "🔇 Chat off" : "💬 Chat on"}
+            <MessageSquare aria-hidden="true" />
+            Coach {help.coach ? "on" : "off"}
           </button>
-          {!playerTurn && g.status === "playing" && <span className="thinking">{persona.name} is thinking…</span>}
-        </div>
+          <button type="button" className="act" onClick={() => setHelpOpen(true)}>
+            <SlidersHorizontal aria-hidden="true" />
+            Help
+          </button>
+        </nav>
       )}
 
-      <MoveList sans={g.sans} activePly={viewPly ?? g.sans.length - 1} onTap={setViewPly} />
+      <Sheet open={helpOpen} title="Help in this game" onClose={() => setHelpOpen(false)}>
+        <div className="chips" role="radiogroup" aria-label="Help level">
+          {HELP_PRESETS.map((p) => (
+            <button
+              key={p.id}
+              role="radio"
+              aria-checked={helpPreset === p.id}
+              className={"chip" + (helpPreset === p.id ? " sel" : "")}
+              onClick={() => setHelp(presetFlags(p.id))}
+            >
+              {p.name}
+            </button>
+          ))}
+          {helpPreset === "custom" && (
+            <span className="chip sel" aria-current="true">
+              Custom
+            </span>
+          )}
+        </div>
+        {HELP_SWITCHES.map((k) => (
+          <div key={k} className="setrow">
+            <span>{SWITCH_LABELS[k]}</span>
+            <Toggle checked={!!help[k]} onChange={(v) => setHelp({ [k]: v })} label={SWITCH_LABELS[k]} />
+          </div>
+        ))}
+        <div className="setrow">
+          <span>Bot chat</span>
+          <Toggle checked={!g.muted} onChange={toggleChat} label="Bot chat" />
+        </div>
+        <div className="sheet-actions">
+          <button
+            type="button"
+            className="bigbtn danger"
+            onClick={async () => {
+              setHelpOpen(false);
+              if (await askResign()) finishGame(true);
+            }}
+          >
+            Resign
+          </button>
+        </div>
+      </Sheet>
       {confirmSheet}
     </div>
   );
 }
 
-function ChatBubbles({ chat, persona }) {
-  const last = chat.slice(-2);
-  if (last.length === 0) return <div className="chatarea empty" />;
+// The coach's line under your plate: a hint's idea while one is open, else
+// its comment on your last move, else a quiet note that it's listening.
+function CoachStrip({ hint, note, prompt, onTakeback }) {
+  if (hint) {
+    return (
+      <div className="coachstrip" aria-live="polite">
+        <span className="coachtag">Hint</span>
+        <p>{hint.step === 1 ? hint.text : "The arrow shows the engine's move."}</p>
+      </div>
+    );
+  }
+  if (prompt && note?.kind !== "warn") {
+    return (
+      <div className="coachstrip cs-prompt" aria-live="polite">
+        <span className="coachtag">Coach</span>
+        <p>{prompt}</p>
+      </div>
+    );
+  }
+  if (!note) {
+    return (
+      <div className="coachstrip quiet" aria-live="polite">
+        <span className="coachtag">Coach</span>
+        <p>Speaks up when a move matters.</p>
+      </div>
+    );
+  }
+  const info = CLASSIFICATIONS[note.cls];
   return (
-    <div className="chatarea">
-      {last.map((c, i) => (
-        <div key={chat.length + "-" + i} className="bubble">
-          <span className="bubble-avatar">{persona.avatar}</span>
-          <span className="bubble-text">{c.text}</span>
-        </div>
-      ))}
+    <div className={"coachstrip cs-" + note.kind} aria-live="polite" style={{ "--cls": info?.color }}>
+      <span className="coachtag">{note.kind === "warn" && info ? info.label : "Coach"}</span>
+      <p>
+        {note.text}
+        {prompt && <span className="cs-also"> {prompt}</span>}
+      </p>
+      {note.kind === "warn" && onTakeback && (
+        <button type="button" className="linkbtn" onClick={onTakeback}>
+          Take it back
+        </button>
+      )}
     </div>
   );
 }
 
-function startPly(fen) {
-  if (!fen) return 0;
-  const parts = fen.split(" ");
-  return (Math.max(1, parseInt(parts[5], 10) || 1) - 1) * 2 + (parts[1] === "b" ? 1 : 0);
+function CleanMark({ n }) {
+  return (
+    <span className="cleanmark" title={`${n} clean ${n === 1 ? "win" : "wins"}: no help, hints or takebacks`}>
+      ✓ {n} clean
+    </span>
+  );
 }
