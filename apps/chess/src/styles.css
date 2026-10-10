@@ -2359,3 +2359,47 @@ button.lessonrow {
   background: rgba(228, 96, 96, 0.18);
   color: var(--danger-soft);
 }
+/* Lessons path (plan item 13) */
+.pathlink {
+  display: block;
+  margin: 6px 4px 4px;
+}
+.pathrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pathnum {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 12.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  background: var(--surface2);
+  color: var(--muted);
+}
+.pathrow.done .pathnum {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.pathrow.current {
+  border-color: var(--accent-line);
+  background: var(--accent-tint);
+}
+.pathnext {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.lessonend {
+  margin-top: 10px;
+}
+.lessonend .btnrow {
+  margin-top: 8px;
+}

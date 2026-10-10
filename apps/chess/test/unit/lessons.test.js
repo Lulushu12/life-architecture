@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { Chess } from "chess.js";
 import { LESSONS, categoryCounts } from "../../src/lessons/index.js";
-import { boardOrientation, resumeStep, progressPct, completedCount, nextLesson } from "../../src/lessonRunner.js";
+import { boardOrientation, resumeStep, progressPct, completedCount, nextLesson, pathOrder, quizzesLeft, nextAfter } from "../../src/lessonRunner.js";
 
 // Replays every lesson and yields each quiz with its position and the
 // arrows the learner saw on that step and the one before it.
@@ -82,7 +82,9 @@ describe("lesson runner rules", () => {
     expect(resumeStep(lesson, { step: 1 })).toBe(1);
     expect(resumeStep(lesson, { step: 1, completed: true })).toBe(0);
     expect(resumeStep(lesson, null)).toBe(0);
-    expect(progressPct(lesson, { step: 9 })).toBe(100);
+    // plan item 13: only a completed lesson reads 100
+    expect(progressPct(lesson, { step: 9 })).toBe(99);
+    expect(progressPct(lesson, { step: 2, completed: true })).toBe(100);
     expect(progressPct(lesson, { step: 0 })).toBe(33);
   });
 
@@ -92,11 +94,50 @@ describe("lesson runner rules", () => {
   });
 });
 
+describe("the lesson path (plan item 13)", () => {
+  const L = [
+    { id: "o1", category: "openings", level: "beginner", steps: [{}] },
+    { id: "c1", category: "concepts", level: "beginner", steps: [{}] },
+    { id: "c2", category: "concepts", level: "beginner", steps: [{}] },
+    { id: "e1", category: "endgames", level: "beginner", steps: [{}] },
+    { id: "a1", category: "concepts", level: "advanced", steps: [{}] },
+    { id: "i1", category: "openings", level: "intermediate", steps: [{}] },
+  ];
+
+  it("goes by level, with the categories taking turns", () => {
+    expect(pathOrder(L).map((l) => l.id)).toEqual(["c1", "e1", "o1", "c2", "i1", "a1"]);
+  });
+
+  it("covers every real lesson exactly once, easiest first", () => {
+    const path = pathOrder(LESSONS);
+    expect(path).toHaveLength(LESSONS.length);
+    expect(new Set(path.map((l) => l.id)).size).toBe(LESSONS.length);
+    const rank = { beginner: 0, intermediate: 1, advanced: 2 };
+    const levels = path.map((l) => rank[l.level || "intermediate"]);
+    expect(levels).toEqual([...levels].sort((a, b) => a - b));
+  });
+
+  it("offers the next lesson along the path, or the one you started", () => {
+    expect(nextLesson({}, L)).toMatchObject({ lesson: { id: "c1" }, done: 0, total: 6, index: 0 });
+    expect(nextLesson({ c1: { completed: true } }, L).lesson.id).toBe("e1");
+    expect(nextLesson({ c2: { step: 1 } }, L).lesson.id).toBe("c2");
+    expect(nextAfter("o1", { c2: { completed: true } }, L).id).toBe("i1");
+    expect(nextAfter("a1", {}, L).id).toBe("c1"); // wraps to the first unfinished one
+  });
+
+  it("counts a quiz as passed only when found without Show me", () => {
+    const lesson = { steps: [{ text: "" }, { quiz: { answer: "e4" } }, { text: "" }, { quiz: { answer: "d4" } }] };
+    expect(quizzesLeft(lesson, null)).toEqual([1, 3]);
+    expect(quizzesLeft(lesson, { passed: [1] })).toEqual([3]);
+    expect(quizzesLeft(lesson, { passed: [1, 3] })).toEqual([]);
+  });
+});
+
 describe("next lesson on the home screen (plan item 10)", () => {
   const L = [
-    { id: "a", level: "advanced", steps: [{}, {}] },
-    { id: "b", level: "beginner", steps: [{}, {}] },
-    { id: "c", level: "beginner", steps: [{}, {}] },
+    { id: "a", level: "advanced", category: "concepts", steps: [{}, {}] },
+    { id: "b", level: "beginner", category: "concepts", steps: [{}, {}] },
+    { id: "c", level: "beginner", category: "concepts", steps: [{}, {}] },
   ];
   it("offers the easiest unfinished lesson", () => {
     expect(nextLesson({}, L)).toMatchObject({ lesson: { id: "b" }, done: 0, total: 3 });

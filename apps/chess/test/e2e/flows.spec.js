@@ -442,6 +442,85 @@ test.describe("current behaviour", () => {
     expect((await readStore(page)).current.playerColor).toBe("b");
   });
 
+  // Plan item 13: the path, and completion that needs the quizzes.
+  async function forksLesson() {
+    const { LESSONS: L } = await import("../../src/lessons/concepts-tactics.js");
+    const lesson = L.find((l) => l.id === "forks-double-attacks");
+    // the from/to squares of each quiz answer, by step index
+    const c = lesson.startFen ? new Chess(lesson.startFen) : new Chess();
+    const answers = {};
+    lesson.steps.forEach((st, i) => {
+      for (const san of st.play || []) c.move(san);
+      if (st.quiz) {
+        const m = c.move(st.quiz.answer);
+        answers[i] = [m.from, m.to];
+      }
+    });
+    return { lesson, answers };
+  }
+
+  async function walkLesson(page, lesson, answers, solve) {
+    for (let i = 0; i < lesson.steps.length; i++) {
+      if (lesson.steps[i].quiz) {
+        if (solve) await move(page, ...answers[i]);
+        else {
+          await button(page, /Show me/).click();
+          await button(page, /Continue anyway/).click();
+        }
+        await expect(page.locator(".lessonquiz.solved")).toBeVisible();
+      }
+      if (i < lesson.steps.length - 1) await button(page, /^Next ›$/).click();
+    }
+    await button(page, /Finish lesson/).click();
+  }
+
+  test("a lesson with quizzes shown, not solved, stays open", async ({ page }) => {
+    const { lesson, answers } = await forksLesson();
+    await seed(page, null);
+    await open(page);
+    await button(page, /Lessons/).click();
+    await page.getByText(/^Concepts/).first().click();
+    await page.getByText(/Forks and Double Attacks/).first().click();
+    await walkLesson(page, lesson, answers, false);
+    const quizCount = lesson.steps.filter((x) => x.quiz).length;
+    await expect(page.locator(".lessonend")).toContainText(quizCount === 1 ? "One quiz still to solve" : `${quizCount} quizzes still to solve`);
+    expect((await readStore(page)).lessonProgress["forks-double-attacks"].completed).toBeFalsy();
+    const first = Number(Object.keys(answers)[0]);
+    await button(page, new RegExp(`Go to quiz ${first + 1}`)).click();
+    await expect.poll(async () => (await readStore(page)).lessonProgress["forks-double-attacks"].step).toBe(first);
+  });
+
+  test("solving every quiz completes the lesson and offers the next one", async ({ page }) => {
+    const { lesson, answers } = await forksLesson();
+    await seed(page, null);
+    await open(page);
+    await button(page, /Lessons/).click();
+    await page.getByText(/^Concepts/).first().click();
+    await page.getByText(/Forks and Double Attacks/).first().click();
+    await walkLesson(page, lesson, answers, true);
+    await expect(page.locator(".lessonend.done")).toContainText("Lesson complete");
+    const prog = (await readStore(page)).lessonProgress["forks-double-attacks"];
+    expect(prog.completed).toBe(true);
+    expect(prog.passed).toEqual(Object.keys(answers).map(Number));
+    await button(page, /Next lesson ›/).click();
+    await expect(page.locator(".topbar")).not.toContainText(lesson.title);
+    await expect(page.locator(".stepstrip")).toBeVisible();
+  });
+
+  test("the lessons hub leads with the next lesson and shows the whole path", async ({ page }) => {
+    await seed(page, null);
+    await open(page);
+    await button(page, /Lessons/).click();
+    const card = page.locator(".nextlesson");
+    await expect(card).toContainText("Next lesson · 1 of 72");
+    await expect(card).toContainText("Beginner");
+    await expect(card.locator(".miniboard")).toBeVisible();
+    await button(page, /See the whole path/).click();
+    await expect(page.locator(".pathrow")).toHaveCount(72);
+    await expect(page.locator(".pathrow.current")).toHaveCount(1);
+    await expect(page.locator(".pathrow").first()).toHaveClass(/current/);
+  });
+
   // Found while building plan item 8: moving before the engine had judged the
   // position left the evals one short, and they never caught up again, so the
   // eval bar, threats and coach went quiet for the rest of the game.

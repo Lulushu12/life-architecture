@@ -15,7 +15,18 @@ import {
 } from "./lessons/index.js";
 import { play as sfx, buzz } from "./audio.js";
 import { legalDests, promotionCheck } from "./core/position.js";
-import { boardOrientation, resumeStep, progressPct, completedCount } from "./lessonRunner.js";
+import {
+  boardOrientation,
+  resumeStep,
+  progressPct,
+  completedCount,
+  pathOrder,
+  nextLesson,
+  nextAfter,
+  quizSteps,
+  quizzesLeft,
+} from "./lessonRunner.js";
+import MiniBoard from "./MiniBoard.jsx";
 
 // Numbered step strip: jump to any part of a lesson directly.
 function StepStrip({ lesson, stepIdx, onJump }) {
@@ -44,8 +55,9 @@ function StepStrip({ lesson, stepIdx, onJump }) {
 export default function Lessons({ store, setStore, nav, view }) {
   if (view.lessonId) {
     const lesson = getLesson(view.lessonId);
-    if (lesson) return <LessonRunner lesson={lesson} store={store} setStore={setStore} nav={nav} />;
+    if (lesson) return <LessonRunner key={lesson.id} lesson={lesson} store={store} setStore={setStore} nav={nav} />;
   }
+  if (view.path) return <LessonPath store={store} nav={nav} />;
   if (view.category) return <LessonList category={view.category} store={store} nav={nav} />;
   return <LessonHome store={store} nav={nav} />;
 }
@@ -75,12 +87,61 @@ function LessonProgressBar({ lesson, progress }) {
   );
 }
 
+// Where a lesson's board starts: after its first step's moves.
+function lessonStartFen(lesson) {
+  const c = lesson.startFen ? new Chess(lesson.startFen) : new Chess();
+  for (const san of lesson.steps[0]?.play || []) {
+    try {
+      c.move(san);
+    } catch {
+      break;
+    }
+  }
+  return c.fen();
+}
+
+// The next lesson on the path (plan item 13), with a picture of where it starts.
+function NextLessonCard({ store, nav }) {
+  const next = nextLesson(store.lessonProgress);
+  if (!next) {
+    return (
+      <div className="card hero herofirst">
+        <div className="hero-k">Path complete</div>
+        <div className="hero-h">Every lesson done</div>
+        <div className="hero-s">Replay any of them from the categories below.</div>
+      </div>
+    );
+  }
+  const { lesson } = next;
+  const p = progressOf(store, lesson.id);
+  const started = (p?.step || 0) > 0 || p?.passed?.length;
+  return (
+    <div className="card hero nextlesson">
+      <MiniBoard fen={lessonStartFen(lesson)} orientation={lesson.orientation || "w"} settings={store.settings} label={`${lesson.title}, starting position`} />
+      <div className="hero-body">
+        <div className="hero-k">
+          {started ? "Continue" : "Next lesson"} · {next.index + 1} of {next.total}
+        </div>
+        <div className="hero-h">{lesson.title}</div>
+        <div className="hero-s">
+          {LEVEL_LABELS[lesson.level || "intermediate"]} · {CATEGORY_LABELS[lesson.category]} · {quizSteps(lesson).length}{" "}
+          {quizSteps(lesson).length === 1 ? "quiz" : "quizzes"}
+        </div>
+        <button type="button" className="bigbtn herobtn" onClick={() => nav("lessons", { lessonId: lesson.id })}>
+          {started ? "Continue" : "Start"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function LessonHome({ store, nav }) {
   const cats = categoryCounts();
   const done = completedCount(store.lessonProgress);
+  const nextId = nextLesson(store.lessonProgress)?.lesson.id;
   const inProgress = LESSONS.filter((l) => {
     const p = progressOf(store, l.id);
-    return p && !p.completed;
+    return p && !p.completed && l.id !== nextId;
   });
 
   return (
@@ -91,9 +152,14 @@ function LessonHome({ store, nav }) {
         onBack={() => nav("home")}
       />
 
+      <NextLessonCard store={store} nav={nav} />
+      <button type="button" className="linkbtn pathlink" onClick={() => nav("lessons", { path: true })}>
+        See the whole path ›
+      </button>
+
       {inProgress.length > 0 && (
         <>
-          <h2>Continue</h2>
+          <h2>Also started</h2>
           {inProgress.slice(0, 3).map((l) => (
             <div key={l.id} className="card lessonrow" onClick={() => nav("lessons", { lessonId: l.id })}>
               <div className="gamecard-main">
@@ -140,6 +206,57 @@ function LessonHome({ store, nav }) {
         Lessons run on the same board as the rest of the app, play the moves yourself when
         asked. Progress is saved on this device.
       </p>
+    </div>
+  );
+}
+
+// Every lesson in path order, by level (plan item 13).
+function LessonPath({ store, nav }) {
+  const path = useMemo(() => pathOrder(), []);
+  const nextId = nextLesson(store.lessonProgress)?.lesson.id;
+  const done = completedCount(store.lessonProgress);
+  return (
+    <div className="page">
+      <TopBar title="Your path" sub={`${done}/${path.length} completed`} onBack={() => nav("lessons")} />
+      <p className="hint small">
+        Beginner lessons first, then intermediate, then advanced, mixing concepts, endings and openings. A lesson
+        counts as done once you solve its quizzes yourself.
+      </p>
+      {LEVELS.map((lv) => {
+        const list = path.filter((l) => (l.level || "intermediate") === lv);
+        if (!list.length) return null;
+        return (
+          <div key={lv}>
+            <h2>
+              {LEVEL_LABELS[lv]}
+              <span className="groupcount">
+                {list.filter((l) => progressOf(store, l.id)?.completed).length}/{list.length}
+              </span>
+            </h2>
+            {list.map((l) => {
+              const p = progressOf(store, l.id);
+              const n = path.indexOf(l) + 1;
+              return (
+                <div
+                  key={l.id}
+                  className={"card lessonrow pathrow" + (l.id === nextId ? " current" : "") + (p?.completed ? " done" : "")}
+                  onClick={() => nav("lessons", { lessonId: l.id })}
+                >
+                  <span className="pathnum">{p?.completed ? "✓" : n}</span>
+                  <div className="gamecard-main">
+                    <div className="gamecard-title">{l.title}</div>
+                    <div className="gamecard-sub">
+                      {CATEGORY_LABELS[l.category]} · {l.group}
+                    </div>
+                    <LessonProgressBar lesson={l} progress={p} />
+                  </div>
+                  {l.id === nextId && <span className="pathnext">Next</span>}
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -226,6 +343,9 @@ function LessonRunner({ lesson, store, setStore, nav }) {
   const [alt, setAlt] = useState(null); // an accepted alternative the learner played
   const [showAnswer, setShowAnswer] = useState(false);
   const [showChapters, setShowChapters] = useState(false);
+  // At the end: "done" (completed, offer the next lesson) or the quiz steps
+  // still to solve (plan item 13).
+  const [ending, setEnding] = useState(null);
   const stepIdxRef = useRef(stepIdx);
   stepIdxRef.current = stepIdx;
 
@@ -287,6 +407,7 @@ function LessonRunner({ lesson, store, setStore, nav }) {
 
   const goto = (i) => {
     const next = Math.max(0, Math.min(lesson.steps.length - 1, i));
+    setEnding(null);
     setStepIdx(next);
     setSolved(false);
     setWrong(null);
@@ -296,10 +417,16 @@ function LessonRunner({ lesson, store, setStore, nav }) {
     save({ step: next });
   };
 
+  // A lesson completes only when every quiz was solved without "Show me".
   const finish = () => {
+    const left = quizzesLeft(lesson, progressOf(store, lesson.id));
+    if (left.length) {
+      setEnding({ left });
+      return;
+    }
     save({ step: lesson.steps.length - 1, completed: true, completedAt: Date.now() });
     sfx(store, "gameEnd");
-    nav("lessons", { category: lesson.category });
+    setEnding({ done: true });
   };
 
   // Steps without a quiz are free to navigate with the arrow keys.
@@ -319,6 +446,11 @@ function LessonRunner({ lesson, store, setStore, nav }) {
     if (accepted.includes(mv.san)) {
       sfx(store, mv.captured ? "capture" : "move");
       buzz(store, 18);
+      // found it yourself: the quiz counts toward completing the lesson
+      if (!showAnswer) {
+        const prev = progressOf(store, lesson.id)?.passed || [];
+        if (!prev.includes(stepIdx)) save({ passed: [...prev, stepIdx].sort((a, b) => a - b) });
+      }
       setSolved(true);
       setWrong(null);
       setAlt(mv.san !== step.quiz.answer ? mv.san : null);
@@ -408,6 +540,26 @@ function LessonRunner({ lesson, store, setStore, nav }) {
         </div>
       )}
 
+      {ending?.done && <LessonDone lesson={lesson} store={store} nav={nav} />}
+      {ending?.left && (
+        <div className="card lessonend">
+          <b>
+            {ending.left.length === 1 ? "One quiz" : `${ending.left.length} quizzes`} still to solve
+          </b>
+          <p className="hint small">
+            A lesson counts as done once you find each quiz move yourself, without Show me. Progress so far is saved.
+          </p>
+          <div className="btnrow">
+            <button className="bigbtn" onClick={() => goto(ending.left[0])}>
+              Go to quiz {ending.left[0] + 1}
+            </button>
+            <button className="linkbtn" onClick={() => nav("lessons")}>
+              Leave for now
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="btnrow toolrow">
         <button className="linkbtn" onClick={() => goto(stepIdx - 1)} disabled={stepIdx === 0}>
           ‹ Back
@@ -441,15 +593,47 @@ function LessonRunner({ lesson, store, setStore, nav }) {
         )}
         {!needsAnswer &&
           (isLast ? (
-            <button className="bigbtn" onClick={finish}>
-              Finish lesson
-            </button>
+            !ending && (
+              <button className="bigbtn" onClick={finish}>
+                Finish lesson
+              </button>
+            )
           ) : (
             <button className="bigbtn" onClick={() => goto(stepIdx + 1)}>
               Next ›
             </button>
           ))}
       </div>
+    </div>
+  );
+}
+
+function LessonDone({ lesson, store, nav }) {
+  // the store already has this lesson completed when this renders
+  const next = nextAfter(lesson.id, { ...(store.lessonProgress || {}), [lesson.id]: { completed: true } });
+  return (
+    <div className="card lessonend done">
+      <b className="okmsg">✓ Lesson complete</b>
+      {next ? (
+        <>
+          <p className="hint small">Next on your path: {next.title}</p>
+          <div className="btnrow">
+            <button className="bigbtn" onClick={() => nav("lessons", { lessonId: next.id })}>
+              Next lesson ›
+            </button>
+            <button className="linkbtn" onClick={() => nav("lessons")}>
+              Back to lessons
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className="btnrow">
+          <p className="hint small">That was the last lesson on your path.</p>
+          <button className="linkbtn" onClick={() => nav("lessons")}>
+            Back to lessons
+          </button>
+        </div>
+      )}
     </div>
   );
 }
