@@ -398,6 +398,10 @@ h3 {
   overflow: auto;
   width: 100%;
 }
+/* The button row above the exported text had no gap below it. */
+.backuprow + .backuptext {
+  margin-top: 12px;
+}
 
 .sheet-backdrop {
   position: fixed;
