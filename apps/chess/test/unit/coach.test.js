@@ -83,6 +83,32 @@ describe("what a bad move allowed", () => {
   });
 });
 
+// Plan item 17: Morphy's Opera Game. 15.Bxd7+ gives the bishop away on
+// purpose: 15...Nxd7 16.Qb8+! Nxb8 17.Rd8#. Not a hanging piece.
+describe("a sacrifice is not a hanging piece", () => {
+  const opera = "e4 e5 Nf3 d6 d4 Bg4 dxe5 Bxf3 Qxf3 dxe5 Bc4 Nf6 Qb3 Qe7 Nc3 c6 Bg5 b5 Nxb5 cxb5 Bxb5+ Nbd7 O-O-O Rd8 Rxd7 Rxd7 Rd1 Qe6".split(" ");
+  const c = new Chess();
+  for (const s of opera) c.move(s);
+  const fen = c.fen();
+
+  it("names the mate the sacrifice leads to", () => {
+    const facts = moveFacts({ fenBefore: fen, san: "Bxd7+", cls: "inaccuracy", bestSan: "Bxf6", reply: ["Nxd7", "Qb8+", "Nxb8", "Rd8#"], evalBefore: 9998, evalAfter: 9996, ply: 28 });
+    expect(facts.map((f) => f.type)).not.toContain("hangs_piece");
+    expect(facts[0]).toMatchObject({ type: "sacrifice", piece: "b", mate: true });
+    expect(phrase(facts[0], fen)).toMatch(/Qb8\+/);
+  });
+
+  it("doesn't call another mating move a missed mate", () => {
+    const f = moveFacts({ fenBefore: fen, san: "Bxd7+", cls: "inaccuracy", bestSan: "Bxf6", reply: ["Nxd7", "Qb8+", "Nxb8", "Rd8#"], evalBefore: 9998, evalAfter: 9996, ply: 28 });
+    expect(f.map((x) => x.type)).not.toContain("missed_mate");
+  });
+
+  it("still calls a real hanging piece hanging", () => {
+    const f = top({ fenBefore: "4k3/8/3p4/8/8/5N2/8/4K3 w - - 0 1", san: "Ne5", cls: "blunder", reply: ["dxe5"], evalBefore: 300, evalAfter: 0, ply: 20 });
+    expect(f.type).toBe("hangs_piece");
+  });
+});
+
 describe("good moves", () => {
   it("praises by classification and spots checkmate", () => {
     expect(top({ fenBefore: START, san: "e4", cls: "best", bestSan: "e4", ply: 0 }).type).toBe("praise_best");
