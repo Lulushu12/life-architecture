@@ -5,6 +5,8 @@ import { registerSw } from "@shared/swRegister.js";
 import { useToast } from "@shared/ui.jsx";
 import { chessStore, capStore, STORAGE_KEY, newId } from "./storage.js";
 import { regradeStore, REVIEW_GRADE } from "./review.js";
+import { boxDue, sendToBox, nativeTransport } from "./boxBackup.js";
+import { IS_NATIVE } from "./platform.js";
 import { applyAppearance } from "./appearance.js";
 import { loadStoredFonts } from "./fontStore.js";
 import Home from "./Home.jsx";
@@ -102,6 +104,18 @@ export default function App() {
   useEffect(() => {
     if (staleReviews) setStore((s) => regradeStore(s, newId));
   }, [staleReviews, setStore]);
+
+  // One-way backup to your box (plan item 14): on launch and after each
+  // finished game, when due. Android only; never blocks anything.
+  const latestGame = store.games[0]?.id;
+  const storeRef = useRef(store);
+  storeRef.current = store;
+  useEffect(() => {
+    if (!IS_NATIVE) return;
+    const s = storeRef.current;
+    if (document.visibilityState !== "visible" || !boxDue(s.settings.box, s.boxStatus)) return;
+    sendToBox(s, setStore, nativeTransport);
+  }, [latestGame, setStore]);
 
   const capHits = store.capHits || 0;
   const lastCap = useRef(capHits);

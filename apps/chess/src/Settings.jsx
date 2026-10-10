@@ -6,6 +6,8 @@ import { STORAGE_KEY, validateBackup } from "./storage.js";
 import { ACCENTS, BUILTIN_FONTS, DEFAULT_ACCENT, DEFAULT_FONT, fontFamilyOf } from "./appearance.js";
 import { addFontFile, removeFont } from "./fontStore.js";
 import { useRef, useState } from "react";
+import { IS_NATIVE } from "./platform.js";
+import { sendToBox, nativeTransport, boxEndpoint } from "./boxBackup.js";
 
 const ARROW_LABELS = {
   hint: "Engine / best move",
@@ -258,20 +260,24 @@ export default function Settings({ store, setStore, nav, fonts = [], setFonts = 
           data={store}
           prefix="chess"
           storageKey={STORAGE_KEY}
-          strip={["settings.ai.apiKey"]}
+          strip={["settings.ai.apiKey", "settings.box", "boxStatus"]}
           validate={validateBackup}
           onRestore={(data, { dropped }) => {
             setStore((s) => ({
               ...data,
+              boxStatus: s.boxStatus,
               settings: {
                 ...data.settings,
                 ai: { ...data.settings.ai, apiKey: data.settings.ai?.apiKey || s.settings.ai.apiKey },
+                box: s.settings.box,
               },
             }));
             toast(dropped ? `Backup restored; ${dropped} damaged games were skipped.` : "Backup restored.");
           }}
         />
       </details>
+
+      <BoxBackupSection store={store} setStore={setStore} />
 
       <details className="setgroup">
         <summary>Version</summary>
@@ -398,3 +404,77 @@ function AppLook({ settings, set, fonts, setFonts, toast }) {
   );
 }
 
+
+// One-way backup to your own box (plan item 14). Android only for now: the
+// web version shares its storage with the other apps on the same site, and
+// the token shouldn't sit there.
+function BoxBackupSection({ store, setStore }) {
+  const box = store.settings.box || { enabled: false, url: "", token: "" };
+  const status = store.boxStatus || {};
+  const [sendingNow, setSendingNow] = useState(false);
+  const setBox = (patch) =>
+    setStore((s) => ({ ...s, settings: { ...s.settings, box: { ...(s.settings.box || {}), ...patch } } }));
+  const urlOk = !box.url || boxEndpoint(box.url);
+  return (
+    <details className="setgroup">
+      <summary>Backup to your box</summary>
+      {!IS_NATIVE ? (
+        <p className="hint small">
+          Sends a daily copy of your backup to a receiver on your own machine. It's only in the Android app for now:
+          in the browser, this app shares its storage with the other apps on the same site, and the box's token
+          shouldn't live there.
+        </p>
+      ) : (
+        <>
+          <p className="hint small">
+            Once a day at most, on launch and after a game, a copy of your backup goes to your box over your
+            tailnet. Your AI key and this token are never in the copy. To restore, download a copy from the box and
+            use Import above.
+          </p>
+          <div className="setrow">
+            <span>Send a daily copy</span>
+            <Toggle checked={!!box.enabled} onChange={(v) => setBox({ enabled: v })} label="Send a daily copy" />
+          </div>
+          <input
+            className="input"
+            placeholder="Box address, e.g. https://box.your-tailnet.ts.net"
+            value={box.url}
+            onChange={(e) => setBox({ url: e.target.value.trim() })}
+            aria-label="Box address"
+          />
+          {!urlOk && <p className="warn small">The address should start with https:// (or http://).</p>}
+          <input
+            className="input"
+            type="password"
+            placeholder="Token (from the box's token file)"
+            value={box.token}
+            onChange={(e) => setBox({ token: e.target.value.trim() })}
+            aria-label="Box token"
+          />
+          <div className="backuprow">
+            <button
+              className="linkbtn"
+              disabled={sendingNow || !box.token || !boxEndpoint(box.url)}
+              onClick={async () => {
+                setSendingNow(true);
+                await sendToBox(store, setStore, nativeTransport);
+                setSendingNow(false);
+              }}
+            >
+              {sendingNow ? "Sending…" : "Send a copy now"}
+            </button>
+          </div>
+          <p className="hint small" role="status">
+            {status.lastOk ? `Last copy to box: ${new Date(status.lastOk).toLocaleString()}` : "No copy sent yet."}
+            {status.lastError && (
+              <>
+                <br />
+                <span className="warn">Last try: {status.lastError}</span>
+              </>
+            )}
+          </p>
+        </>
+      )}
+    </details>
+  );
+}

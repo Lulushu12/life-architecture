@@ -96,7 +96,7 @@ The rest are pruned after each upload.
 
 - **Settings:** box URL, token, and an on/off switch. They're stored in the chess store under `settings.box`, and **left out of exports** the same way the AI key is today.
 - **When it runs:** on launch and after each finished game, if it's switched on, at least 20 hours have passed since the last success, and the app is visible.
-- **How it sends:** the body is gzipped with `CompressionStream`. The APK uses CapacitorHttp; the web version uses fetch.
+- **How it sends:** the APK uses CapacitorHttp and sends plain JSON, because binary bodies don't cross Capacitor's bridge reliably; the box gzips it on arrival. The fetch path (used by the tests, and by a future web version) gzips with `CompressionStream`. The server accepts both.
 - **Failures never interrupt you.** They're recorded and the next trigger retries. Settings shows "Last copy to box: date" or the last error in plain words.
 - **Restore** stays manual: download the file from the box through the list endpoint, then use the existing Import.
 
@@ -105,7 +105,7 @@ The rest are pruned after each upload.
 - `server.py`: standard library only (`http.server`, `gzip`, `hashlib`, `json`).
   - Writes to a temp file, then renames, so a crash never leaves a half-written backup.
   - Constant-time token comparison.
-- `module.nix`: options `enable`, `port` (default 8787), `dataDir`, `tokenFile`.
+- `module.nix`: options `enable`, `port` (default 8787), `host` (default 127.0.0.1), `tokenFile`. The data directory is fixed at `/var/lib/la-backup` (systemd's `StateDirectory`); the token reaches the service through `LoadCredential`, so it never enters the Nix store.
   - Runs `server.py` as a hardened systemd service: `DynamicUser`, `StateDirectory`, `ProtectSystem=strict`, and the like.
   - Binds to 127.0.0.1. `tailscale serve` puts HTTPS in front of it.
 - `README.md`: the 5 lines to add to your NixOS configuration, and the `tailscale serve` command.
@@ -121,7 +121,7 @@ The rest are pruned after each upload.
 | Token on the web version | The browser version shares storage with the other apps on Pages. The plan enables box backup only in the APK until Pages is gone |
 | Clock skew between phone and box | The server's own time names the file; the phone's time is kept only as metadata |
 | Privacy | Tailnet only, nothing exposed to the internet, no third party |
-| Untested on real hardware | Automated tests cover client and server here. `module.nix` can't be evaluated in this environment, which has no Nix. You run it first, and I fix what breaks |
+| Untested on real hardware | Automated tests cover client and server here, including a round trip from the app's code to the real `server.py`. This environment turned out to have Nix: `module.nix` was evaluated inside a NixOS configuration (current nixpkgs) and produces the expected hardened unit, and the server tests pass on that nixpkgs' Python 3.14. Not run under systemd, not reached over a tailnet, not tried from the APK |
 
 ### Build order
 

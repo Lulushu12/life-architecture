@@ -18,6 +18,7 @@ export const DEFAULT_SETTINGS = {
   animMs: 200, // piece-slide animation duration; 0 = instant, no animation
   reviewMovetime: 400, // ms per position in game review
   ai: { baseUrl: "", apiKey: "", model: "" }, // optional OpenAI-compatible endpoint for live bot banter
+  box: { enabled: false, url: "", token: "" }, // one-way backup to your own box (plan item 14); never exported
 };
 
 function freshStore() {
@@ -87,6 +88,7 @@ function normalize(s) {
       ...fresh.settings,
       ...settings,
       ai: { ...fresh.settings.ai, ...(isObj(settings.ai) ? settings.ai : {}) },
+      box: { ...fresh.settings.box, ...(isObj(settings.box) ? settings.box : {}) },
       arrowColors: { ...fresh.settings.arrowColors, ...(isObj(settings.arrowColors) ? settings.arrowColors : {}) },
       boardCustom: { ...fresh.settings.boardCustom, ...(isObj(settings.boardCustom) ? settings.boardCustom : {}) },
     },

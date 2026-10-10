@@ -521,6 +521,25 @@ test.describe("current behaviour", () => {
     await expect(page.locator(".pathrow").first()).toHaveClass(/current/);
   });
 
+  // Plan item 14: the box backup is Android-only, and its token never leaves.
+  test("the box backup explains itself on the web, and exports keep its token out", async ({ page }) => {
+    await seed(page, {
+      settings: { box: { enabled: true, url: "https://box.example.ts.net", token: "SECRET-BOX-TOKEN" }, ai: { baseUrl: "", apiKey: "SECRET-AI", model: "" } },
+      boxStatus: { lastOk: 5 },
+    });
+    await open(page);
+    await button(page, /Settings/).click();
+    await page.getByText("Backup to your box").click();
+    await expect(page.getByText(/only in the Android app for now/)).toBeVisible();
+    await expect(page.getByLabel("Box token")).toHaveCount(0);
+    await page.getByText("Backup and restore").click();
+    await button(page, /Export backup/).click();
+    const text = await page.locator("textarea.backuptext[readonly]").inputValue();
+    expect(text).not.toContain("SECRET-BOX-TOKEN");
+    expect(text).not.toContain("SECRET-AI");
+    expect(text).not.toContain("boxStatus");
+  });
+
   // Found while building plan item 8: moving before the engine had judged the
   // position left the evals one short, and they never caught up again, so the
   // eval bar, threats and coach went quiet for the rest of the game.

@@ -47,3 +47,4 @@ Not shippable yet: 2 must-have features are not done.
 - 33 piece sets and 34 board themes with custom colours
 - Export everything (PGN and JSON backup)
 - Blunder check before your move
+- Daily copy of your data to your own machine

@@ -37,3 +37,4 @@ apps/ortho/src/content-fulltext.json
 # Test output
 apps/*/test-results/
 apps/*/playwright-report/
+__pycache__/

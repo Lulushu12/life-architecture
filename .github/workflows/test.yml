@@ -1,7 +1,7 @@
 name: Test chess
 
 # Unit tests, lesson validation, the brand sweep and the browser flows for
-# apps/chess. Runs on its own for branches and pull requests, and is called by
+# apps/chess, plus the tests of its backup receiver in ops/la-backup. Runs on its own for branches and pull requests, and is called by
 # deploy.yml and android-apks.yml so nothing ships from main while it is red.
 on:
   push:
@@ -10,12 +10,14 @@ on:
       - "apps/chess/**"
       - "packages/shared/**"
       - "tools/brand-sweep/**"
+      - "ops/la-backup/**"
       - ".github/workflows/test.yml"
   pull_request:
     paths:
       - "apps/chess/**"
       - "packages/shared/**"
       - "tools/brand-sweep/**"
+      - "ops/la-backup/**"
       - ".github/workflows/test.yml"
   workflow_call:
   workflow_dispatch:
@@ -44,6 +46,9 @@ jobs:
       - name: Brand sweep
         working-directory: .
         run: python3 tools/brand-sweep/check.py apps/chess --config apps/chess/brand.json
+      - name: Box backup receiver (plan item 14)
+        working-directory: .
+        run: python3 -m unittest discover -s ops/la-backup -v
 
   e2e:
     runs-on: ubuntu-latest

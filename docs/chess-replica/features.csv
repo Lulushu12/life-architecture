@@ -64,3 +64,4 @@ Romanian-language bots,mine,could,no,yes,
 33 piece sets and 34 board themes with custom colours,mine,could,no,yes,
 Export everything (PGN and JSON backup),mine,could,no,yes,
 Blunder check before your move,mine,could,no,yes,"plan item 9: in Some and Full help a move that gives away 15% win chance or more waits, with a question pointing where to look; Stats counts saves per week"
+Daily copy of your data to your own machine,mine,could,no,partial,"plan item 14: framework built and tested here (receiver, NixOS module, Android client); not yet run on your box or phone"
