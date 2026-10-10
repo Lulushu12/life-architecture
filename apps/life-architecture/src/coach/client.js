@@ -14,7 +14,6 @@
  */
 
 import { PROTOCOLS } from "../system/protocols.js";
-import { OPTIONS } from "../system/meals.js";
 
 const CFG_KEY = "la3_coach";
 
@@ -193,13 +192,13 @@ export async function parseLog(text, ctx) {
 
 /** Situation → protocol-grounded directive. */
 export async function askCoach(situation, ctx) {
-  const mealOptions = ctx?.mealOptions || Object.values(OPTIONS).flat().map(o => ({ label: o.label, kcal: o.kcal, protein: o.protein, fat: o.fat, carbs: o.carbs }));
+  const mealOptions = ctx?.mealOptions || [];
   return chat({
     system: COACH_SYSTEM + "\n\nPROTOCOL SET:\n" + JSON.stringify(ctx?.protocols || PROTOCOLS, null, 1),
     user:
       `TODAY: ${ctx?.date || "?"} (${ctx?.weekday || "?"}), planned session: ${ctx?.plannedSession || "?"}.\n` +
       `MACRO TARGETS: ${ctx?.targets ? `${ctx.targets.kcal} kcal / ${ctx.targets.protein}P / ${ctx.targets.fat}F / ${ctx.targets.carbs}C` : "2100 kcal / 160P / 65F / 210C"}. Today so far: ${JSON.stringify(ctx?.todayMacros || {})}.\n` +
-      `MEAL OPTIONS (for macro_fill): ${JSON.stringify(mealOptions)}\n` +
+      (mealOptions.length ? `MEAL OPTIONS (for macro_fill): ${JSON.stringify(mealOptions)}\n` : "") +
       `RECENT WORKOUTS (compact): ${JSON.stringify(ctx?.recentWorkouts || [])}\n` +
       (ctx?.bodyMetrics ? `WAIST LOG: ${JSON.stringify(ctx.bodyMetrics)}\n` : "") +
       `\nSITUATION:\n${situation}`,

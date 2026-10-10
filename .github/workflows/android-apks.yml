@@ -26,11 +26,10 @@ jobs:
   apk:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false # one app's failure shouldn't block the other seven
+      fail-fast: false # one app's failure shouldn't block the others
       matrix:
         app:
           - breathe
-          - calories
           - chess
           - focus
           - games

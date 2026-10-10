@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { todayKey } from "../system/constants.js";
-import { SLOTS, OPTIONS, FAT_RULE, DINNER_NOTE } from "../system/meals.js";
+import { SLOTS, FAT_RULE, DINNER_NOTE } from "../system/meals.js";
 import { saveMealLog, getMealLog, saveBodyMetric, recentBodyMetrics } from "../data/logs.js";
 import { effectiveMacros } from "../data/macros.js";
 import { Ring } from "./shared.jsx";
@@ -43,7 +43,6 @@ export default function Nutrition({ user, onMacrosChanged, bridgeMacros, targets
     onMacrosChanged();
   }, [user.uid, today, onMacrosChanged]);
 
-  const quickAdd = (slot, opt) => persist([...entries, { id: uid(), slot, description: opt.label, kcal: opt.kcal, protein: opt.protein, fat: opt.fat, carbs: opt.carbs }]);
   const addCustom = (slot) => {
     if (!custom.description.trim() || !custom.kcal) return;
     persist([...entries, { id: uid(), slot, description: custom.description.trim(), kcal: +custom.kcal || 0, protein: +custom.protein || 0, fat: +custom.fat || 0, carbs: +custom.carbs || 0 }]);
@@ -122,8 +121,8 @@ export default function Nutrition({ user, onMacrosChanged, bridgeMacros, targets
           })}
         </div>
         <div className="src-line">
-          <span>{fromCalories ? "From Calories" : entries.length ? "From this app's log" : "Nothing logged yet today"}</span>
-          {!isNative() && <a href="./calories/">Open Calories</a>}
+          <span>{fromCalories ? "From Food" : entries.length ? "From this app's log" : "Nothing logged yet today"}</span>
+          {!isNative() && <a href="/food/">Open Food</a>}
         </div>
       </div>
 
@@ -174,15 +173,7 @@ export default function Nutrition({ user, onMacrosChanged, bridgeMacros, targets
             {isOpen && (
               <div className="dy-panel">
                 {note && <div className={"callout " + note.cls}><div className="ct">{note.body}</div></div>}
-                {(OPTIONS[s.id] || []).map(o => (
-                  <button type="button" key={o.id} className="dy-opt" style={{ width: "100%", textAlign: "left", fontFamily: "inherit", color: "var(--tx)", background: "transparent" }} onClick={() => quickAdd(s.id, o)}>
-                    <span className="dy-plus">＋</span>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div className="dy-en-t">{o.label}</div>
-                      <div className="dy-en-m">{o.kcal} kcal · {o.protein}P / {o.carbs}C / {o.fat}F{o.fatNote ? ` · ${o.fatNote}` : ""}</div>
-                    </div>
-                  </button>
-                ))}
+                {!isNative() && <a className="dy-opt" href="/food/" style={{ color: "var(--acc)" }}>Pick a meal from your recipes in Food →</a>}
                 <div style={{ marginTop: 10 }}>
                   <div className="fl">Custom entry</div>
                   <div className="fg"><input className="fi" placeholder="What did you eat?" value={custom.description} onChange={e => setCustom({ ...custom, description: e.target.value })} /></div>

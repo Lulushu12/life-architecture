@@ -7,14 +7,17 @@ write-through on every action) unless noted.
 
 | App | Path | Serves at | Description |
 |-----|------|-----------|-------------|
-| Life Architecture | `apps/life-architecture` | `/` | Habit tracker RPG and the suite's home: daily/long-term quests, XP, levels, streaks, weekly schedule, PPL training log with an overload gate, macro protocol view, optional AI coach. Local-first; backup/import is the sync story (an optional GitHub branch sync exists but is off by default). Reads Focus, Breathe and Calories activity through the shared event ledger to auto-complete quests. |
+| Life Architecture | `apps/life-architecture` | `/` | Habit tracker RPG and the suite's home: daily/long-term quests, XP, levels, streaks, weekly schedule, PPL training log with an overload gate, macro protocol view, optional AI coach. Local-first; backup/import is the sync story (an optional GitHub branch sync exists but is off by default). Reads Focus and Breathe activity through the shared event ledger to auto-complete quests, and the day's macros from Food. |
 | Whist & Rentz | `apps/whist` | `/whist/` | Scorekeeper for Romanian Whist and Rentz. Configurable rules, undo/edit with recompute, resume unfinished games, JSON backup. |
 | Breathe | `apps/breathe` | `/breathe/` | Wim Hof-style guided breathing rounds + meditation timer, with session history and synthesized audio cues. |
 | Focus | `apps/focus` | `/focus/` | Pomodoro, named task timers, interval break/posture reminders, and daily stats. |
 | Games | `apps/games` | `/games/` | Chess clock (Fischer increment), sudoku with unique-solution generator, cryptograms. |
-| Calories | `apps/calories` | `/calories/` | Food & macro log backed by Open Food Facts (search + barcode), training log, weight trend. |
 | Ortho | `apps/ortho` | `/ortho/` | Personal clinical reference — articles authored in-app (on-device) or as Markdown files in `apps/ortho/src/content/`, searchable and offline. Ships a full orthopedic knowledge base: a Diagnoses section with 36 monographs (262 diagnoses, treatment ladders, rehab protocols, linked 2023–2026 evidence) plus classification and technique articles extracted into the app's native sections, refreshed monthly by a scheduled evidence sweep (`apps/ortho/UPDATE-PROTOCOL.md`). Also carries a Concurs section: the Foișor 2026 specialist-exam tematica (83 clinical and operative topics in `apps/ortho/src/content/concurs/`) with a recap, a timed oral-presentation drill graded per section, and commission Q&A cards on a spaced-repetition schedule. |
 | Chess | `apps/chess` | `/chess/` | Full chess app on local Stockfish 16 NNUE (WASM): bot personas with adjustable strength and banter, Game Review with move classification and accuracy, analysis board, blunder puzzles, pass & play. Engine GPLv3; pieces cburnett (lichess); openings lichess-org/chess-openings. |
+
+Food (recipes and the macro log, formerly Calories) moved to its own repo,
+[Lulushu12/food](https://github.com/Lulushu12/food), served at `/food/`. The
+old `/calories/` path redirects there.
 
 ## Development
 
@@ -52,7 +55,6 @@ install straight from the phone:
 | Games | `releases/download/games-latest/games.apk` |
 | Breathe | `releases/download/breathe-latest/breathe.apk` |
 | Focus | `releases/download/focus-latest/focus.apk` |
-| Calories | `releases/download/calories-latest/calories.apk` |
 | Ortho | `releases/download/ortho-latest/ortho.apk` |
 | Life Architecture | `releases/download/life-architecture-latest/life-architecture.apk` |
 
@@ -75,7 +77,7 @@ Without a keystore the workflow builds debug APKs — installable, but
 `debuggable`, meaning anything with ADB access can attach to the process and
 read app storage. For a build you keep on your phone, add four repo secrets
 and the workflow assembles signed, non-debuggable releases instead (one
-keystore signs all eight):
+keystore signs all seven):
 
 ```sh
 keytool -genkeypair -v -keystore release.jks -alias apps \
@@ -94,8 +96,7 @@ Each APK requests `android.permission.INTERNET`. Three exceptions, each
 deliberate: Focus, Breathe and Life Architecture also request
 `POST_NOTIFICATIONS` (Android 13+) so their timers and reminders can fire
 through `@capacitor/local-notifications` while the app is closed; this is a
-local alarm, it never touches the network. Calories requests `CAMERA` for
-barcode scanning in the WebView. Every app registers `@capacitor/app` so the
+local alarm, it never touches the network. Every app registers `@capacitor/app` so the
 hardware Back button pops in-app screens instead of closing the activity;
 no other native API is reachable from the WebView.
 
@@ -107,7 +108,6 @@ Four apps make no network calls whatsoever:
 | Chess | optional live-AI bot banter; inert until you paste an endpoint and key |
 | Life Architecture | optional GitHub branch sync (needs a PAT) and AI coach (needs a key); both off by default |
 | Games | "fetch quotes" adds new cryptograms from a public quote API; bundled puzzles work offline |
-| Calories | food search and barcode lookup hit Open Food Facts; the log itself is local |
 
 `INTERNET` is outbound-only; it opens no port and lets nothing in. Each app
 serves its own assets in-process via `WebViewAssetLoader`, not over a socket,
@@ -149,7 +149,8 @@ in the plugin list, `registerSw()` from the app, a config snapshot per record
 with totals derived on read, and single-key localStorage persistence written
 through on every state change via `createStore`.
 
-All eight apps share one origin on GitHub Pages, so they share localStorage
+All seven apps share one origin on GitHub Pages (and with Food, which lives
+in its own repo at `/food/`), so they share localStorage
 and CacheStorage. Never clear caches you do not own by name prefix, and never
 assume a storage key is private to one app.
 

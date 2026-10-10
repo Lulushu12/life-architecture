@@ -138,8 +138,8 @@ Event types by app: `focus.pomodoro` `{ minutes, taskId?, taskName? }`,
 `focus.task` `{ minutes, taskName }`, `breathe.session` `{ kind:
 "breathing"|"meditation", minutes, rounds?, bestHold? }`, `calories.day`
 `{ kcal, protein, carbs, fat }` (emitted on every food change for that day,
-LA keeps the latest per dayKey), `calories.training` `{ exercises }`,
-`calories.weight` `{ kg }`, `games.solved` `{ game, difficulty?, seconds }`,
+LA keeps the latest per dayKey; emitted by Food, which kept the `calories`
+names), `calories.weight` `{ kg }`, `games.solved` `{ game, difficulty?, seconds }`,
 `chess.game` `{ result, botElo?, accuracy? }`.
 
 ### useHistoryNav.js

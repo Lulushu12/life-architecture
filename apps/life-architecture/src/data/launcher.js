@@ -3,7 +3,8 @@ import { readEvents } from "@shared/bridge.js";
 export const APPS = [
   { id: "focus", name: "Focus", key: "focus-v1", glyph: "◔" },
   { id: "breathe", name: "Breathe", key: "breathe-v1", glyph: "◌" },
-  { id: "calories", name: "Calories", key: "calories-v1", glyph: "▦" },
+  // Food lives in its own repo at /food/; its store key and event app id stay "calories".
+  { id: "calories", name: "Food", key: "calories-v1", glyph: "▦", href: "/food/" },
   { id: "games", name: "Games", key: "games-v1", glyph: "▣" },
   { id: "chess", name: "Chess", key: "chess-v1", glyph: "♞" },
   { id: "whist", name: "Whist", key: "whist-rentz-v1", glyph: "♠" },
