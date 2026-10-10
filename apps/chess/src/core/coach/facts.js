@@ -68,6 +68,21 @@ const mateIn = (cp) => 10000 - Math.abs(cp);
  *                     known; a capture is only "winning" if it comes out
  *                     ahead of where things stood before that move
  */
+// Along the engine's line after your move (their capture first): do you mate,
+// or win the material back at a calm point while still clearly better
+// (`after`, your eval after the move, of at least SAC_STILL_BETTER)? Then
+// giving the piece up was a sacrifice. Returns {mate, line} or null.
+const SAC_STILL_BETTER = 200;
+function sacrificeIn(fenAfter, reply, me, after) {
+  const mateAt = reply.findIndex((san, k) => k % 2 === 1 && san.endsWith("#"));
+  if (mateAt >= 0) return { mate: true, line: reply.slice(0, mateAt + 1) };
+  if (after < SAC_STILL_BETTER) return null;
+  const n = span(fenAfter, reply);
+  if (n < 3) return null; // too short to show it wins anything back
+  const swing = lineSwing(fenAfter, reply, me, n);
+  return swing.change >= 0 ? { mate: false, gain: swing.change, line: swing.played.map((x) => x.san).slice(0, 8) } : null;
+}
+
 // The best move hits something: a check, or an attack on a piece worth more
 // than the attacker or left undefended. Captures are left to the material facts.
 function bestTempo(fen, bestSan, me) {
@@ -136,8 +151,15 @@ export function moveFacts(m) {
     } catch {
       replyMove = null;
     }
-    const takenNow = replyMove?.captured ? hanging.find((h) => h.square === replyMove.to) : null;
-    const hang = takenNow || hanging.find((h) => h.gain >= 2);
+    const caught = replyMove?.captured ? hanging.find((h) => h.square === replyMove.to) : null;
+    // A sacrifice (plan item 17): the piece is en prise and they take it, but
+    // the engine's line then mates them, or wins it back while you stay
+    // clearly better. Morphy's 15.Bxd7+ in the Opera Game is the model.
+    // Only ever replaces a "hanging piece" claim; plain exchanges stay as before.
+    const sac = caught ? sacrificeIn(fenAfter, reply, me, after) : null;
+    if (sac) facts.push({ type: "sacrifice", priority: 92, piece: replyMove.captured, ...sac });
+    const takenNow = sac ? null : caught;
+    const hang = sac ? null : takenNow || hanging.find((h) => h.gain >= 2);
     if (hang) {
       facts.push({
         type: "hangs_piece",
@@ -164,7 +186,7 @@ export function moveFacts(m) {
       if (tactic) facts.push({ type: `allows_${tactic.kind}`, priority: 80, by: replyMove.piece, front: tactic.front, back: tactic.back, reply: reply[0] });
     }
 
-    if (reply.length && !hang) {
+    if (reply.length && !hang && !sac) {
       const swing = lineSwing(fenAfter, reply, me, span(fenAfter, reply));
       const line = swing.played.map((x) => x.san);
       const lost = biggestLoss(swing.played, me);
@@ -175,7 +197,8 @@ export function moveFacts(m) {
     }
 
     // What the move missed
-    if (before >= MATE && !isBest && m.bestSan) facts.push({ type: "missed_mate", priority: 95, n: mateIn(before), best: m.bestSan });
+    // Only when your move lets the mate go: another mating move isn't a miss.
+    if (before >= MATE && after < MATE && !isBest && m.bestSan) facts.push({ type: "missed_mate", priority: 95, n: mateIn(before), best: m.bestSan });
     if (m.bestSan && !isBest && m.bestLine?.length) {
       const gain = lineSwing(m.fenBefore, m.bestLine, me, span(m.fenBefore, m.bestLine));
       if (gain.change >= 2 && gain.won)

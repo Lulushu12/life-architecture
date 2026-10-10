@@ -55,6 +55,16 @@ export const PHRASES = {
       `Their best answer, ${f.line.join(" ")}, wins ${f.piece === "p" ? "material" : `your ${n(f.piece)}`}${f.deep ? " a few moves later" : ""}.`,
     (f) => `This costs ${f.piece === "p" ? "material" : `a ${n(f.piece)}`}${f.deep ? " further down the line" : ""}: look at ${f.line.join(" ")}.`,
   ],
+  sacrifice: [
+    (f) =>
+      f.mate
+        ? `A sacrifice: the ${n(f.piece)} goes, but ${f.line.join(" ")} is mate.`
+        : `A sacrifice, not a blunder: after ${f.line.join(" ")} the ${n(f.piece)} comes back${f.gain > 0 ? " with interest" : ""}.`,
+    (f) =>
+      f.mate
+        ? `Giving up the ${n(f.piece)} is the point: ${f.line.join(" ")} mates.`
+        : `The ${n(f.piece)} is offered on purpose; ${f.line.join(" ")} wins it back.`,
+  ],
   lost_advantage: [
     (f) => `You were winning, and this gives it back.${f.best ? ` ${f.best} kept the advantage.` : ""}`,
     (f) => `This lets a won position slip.${f.best ? ` ${f.best} was the way to stay on top.` : ""}`,
