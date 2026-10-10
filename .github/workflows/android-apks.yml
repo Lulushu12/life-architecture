@@ -3,13 +3,15 @@ name: Build APKs
 # Never runs on an ordinary push — the Pages deploy in deploy.yml stays the
 # source of truth for the web apps; this produces the sideloadable APKs.
 on:
-  # A change under apps/ rebuilds every APK, so the download links stay current
-  # without anyone opening the Actions tab (the GitHub mobile app has none).
+  # A change under apps/ or to the shared package every app is built from
+  # rebuilds every APK, so the download links stay current without anyone
+  # opening the Actions tab (the GitHub mobile app has none).
   push:
     branches:
       - main
     paths:
       - "apps/**"
+      - "packages/shared/**"
       - ".github/workflows/android-apks.yml"
   workflow_dispatch:
     inputs:
