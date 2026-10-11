@@ -122,7 +122,7 @@ export default function Nutrition({ user, onMacrosChanged, bridgeMacros, targets
         </div>
         <div className="src-line">
           <span>{fromCalories ? "From Food" : entries.length ? "From this app's log" : "Nothing logged yet today"}</span>
-          {!isNative() && <a href="/food/">Open Food</a>}
+          {!isNative() && <a href="/Food/">Open Food</a>}
         </div>
       </div>
 
@@ -173,7 +173,7 @@ export default function Nutrition({ user, onMacrosChanged, bridgeMacros, targets
             {isOpen && (
               <div className="dy-panel">
                 {note && <div className={"callout " + note.cls}><div className="ct">{note.body}</div></div>}
-                {!isNative() && <a className="dy-opt" href="/food/" style={{ color: "var(--acc)" }}>Pick a meal from your recipes in Food →</a>}
+                {!isNative() && <a className="dy-opt" href="/Food/" style={{ color: "var(--acc)" }}>Pick a meal from your recipes in Food →</a>}
                 <div style={{ marginTop: 10 }}>
                   <div className="fl">Custom entry</div>
                   <div className="fg"><input className="fi" placeholder="What did you eat?" value={custom.description} onChange={e => setCustom({ ...custom, description: e.target.value })} /></div>

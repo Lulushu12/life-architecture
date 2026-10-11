@@ -41,7 +41,7 @@ jobs:
             mkdir -p "site/$app"
             cp -r "apps/$app/dist/." "site/$app/"
           done
-          # Calories moved to its own repo (Lulushu12/food, served at /food/);
+          # Calories moved to its own repo (Lulushu12/Food, served at /Food/);
           # the old path redirects there and retires its service worker.
           cp -r redirects/. site/
 

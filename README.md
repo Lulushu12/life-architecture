@@ -16,7 +16,7 @@ write-through on every action) unless noted.
 | Chess | `apps/chess` | `/chess/` | Full chess app on local Stockfish 16 NNUE (WASM): bot personas with adjustable strength and banter, Game Review with move classification and accuracy, analysis board, blunder puzzles, pass & play. Engine GPLv3; pieces cburnett (lichess); openings lichess-org/chess-openings. |
 
 Food (recipes and the macro log, formerly Calories) moved to its own repo,
-[Lulushu12/food](https://github.com/Lulushu12/food), served at `/food/`. The
+[Lulushu12/Food](https://github.com/Lulushu12/Food), served at `/Food/`. The
 old `/calories/` path redirects there.
 
 ## Development
@@ -150,7 +150,7 @@ with totals derived on read, and single-key localStorage persistence written
 through on every state change via `createStore`.
 
 All seven apps share one origin on GitHub Pages (and with Food, which lives
-in its own repo at `/food/`), so they share localStorage
+in its own repo at `/Food/`), so they share localStorage
 and CacheStorage. Never clear caches you do not own by name prefix, and never
 assume a storage key is private to one app.
 

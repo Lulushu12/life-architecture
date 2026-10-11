@@ -1,4 +1,4 @@
-// Kill switch for the retired Calories service worker (the app moved to /food/).
+// Kill switch for the retired Calories service worker (the app moved to /Food/).
 // An installed copy fetches this on its next update check, clears its caches,
 // unregisters itself and reloads open pages onto the redirect.
 self.addEventListener("install", () => self.skipWaiting());
