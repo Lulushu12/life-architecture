@@ -149,7 +149,11 @@ describe("reviewGame classification (characterization)", () => {
     const engine = scriptedEngine(null, moves, []);
     const r = await reviewGame(engine, moves);
     expect(r.evals[r.evals.length - 1]).toBe(-10000);
-    expect(engine.calls.length).toBe(moves.length);
+    // the mated position is never searched (other positions may be searched
+    // twice since the verification pass, plan item 17)
+    const c = new Chess();
+    for (const s of moves) c.move(s);
+    expect(engine.calls.some((x) => x.fen === c.fen())).toBe(false);
   });
 });
 
@@ -250,6 +254,48 @@ describe("reviews saved under the old rules", () => {
     expect(out.games[0].review.moves[2].class).toBe("mistake");
     expect(out.puzzles.map((p) => p.bestUci)).toEqual(["g1f3"]);
     expect(regradeStore(out, () => "x")).toBe(out);
+  });
+});
+
+// Plan item 17: one quick search can miss a tactic (it called Morphy's
+// 15.Bxd7+ in the Opera Game a blunder once in three runs), so a move first
+// graded a mistake or worse is checked again with a three times longer search.
+describe("verification pass", () => {
+  // From the Italian start: White plays Bc4 when the engine prefers Bb5.
+  const moves = ["Bc4"];
+  const after = (() => {
+    const c = new Chess(ITALIAN_FEN);
+    c.move("Bc4");
+    return c.fen();
+  })();
+  const engineFor = (deepCp) =>
+    new FakeEngine((fen, opts) => {
+      if (fen === ITALIAN_FEN) return { lines: [line("f1b5", 30, { pv: ["f1b5"] })] };
+      // the quick search misjudges the position after Bc4; a longer one doesn't
+      const cp = opts.movetime > 400 ? deepCp : 300; // Black to move: +300 = Black better
+      return { lines: [line("g8f6", cp, { pv: ["g8f6"] })] };
+    });
+
+  it("re-checks a suspected blunder with a longer search and keeps the deeper verdict", async () => {
+    const engine = engineFor(-25);
+    const r = await reviewGame(engine, moves, { startFen: ITALIAN_FEN, movetime: 400 });
+    expect(r.moves[0].class).not.toMatch(/blunder|mistake/);
+    const deep = engine.calls.filter((c) => c.movetime === 1200).map((c) => c.fen);
+    expect(deep).toEqual(expect.arrayContaining([ITALIAN_FEN, after]));
+    expect(r.evals[1]).toBe(25);
+  });
+
+  it("keeps the grade when the longer search agrees", async () => {
+    const r = await reviewGame(engineFor(300), moves, { startFen: ITALIAN_FEN, movetime: 400 });
+    expect(r.moves[0].class).toBe("blunder");
+  });
+
+  it("leaves good moves alone (no extra searches)", async () => {
+    const engine = engineFor(-25);
+    const quiet = new FakeEngine((fen) => ({ lines: [line(fen === ITALIAN_FEN ? "f1c4" : "g8f6", fen === ITALIAN_FEN ? 30 : -30)] }));
+    await reviewGame(quiet, moves, { startFen: ITALIAN_FEN, movetime: 400 });
+    expect(quiet.calls.every((c) => c.movetime === 400)).toBe(true);
+    expect(engine).toBeTruthy();
   });
 });
 

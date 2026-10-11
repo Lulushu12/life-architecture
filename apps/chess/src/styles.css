@@ -451,6 +451,30 @@ textarea.input {
   justify-content: center;
   margin-top: 8px;
 }
+/* Long rows of mixed-width buttons wrapped into ragged, centred lines on a
+   phone. Two even columns instead; an odd one out takes the full width. */
+.btnrow.toolgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.toolgrid > * {
+  width: 100%;
+  min-width: 0;
+}
+.toolgrid > :last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+.toolgrid .linkbtn {
+  white-space: normal;
+  text-align: center;
+}
+.bestwas {
+  margin-top: 6px;
+}
+.moveverdict .toolgrid {
+  margin: 10px 0 2px;
+}
 .thinking {
   color: var(--muted);
   font-size: 13.5px;

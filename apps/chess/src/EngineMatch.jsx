@@ -383,15 +383,15 @@ export default function EngineMatch({ store, setStore, nav, view }) {
       {configuring ? (
         <>
           <h2>Starting position</h2>
-          <div className="btnrow toolrow">
+          <div className="btnrow toolrow toolgrid">
             <button className="linkbtn" onClick={() => reset(null, null)}>
               Initial position
             </button>
-            <button className="linkbtn" onClick={pickSharp} disabled={!meta}>
-              🎲 Random sharp opening
-            </button>
             <button className="linkbtn" onClick={() => nav("editor")}>
               ✎ Build a position
+            </button>
+            <button className="linkbtn" onClick={pickSharp} disabled={!meta}>
+              🎲 Random sharp opening
             </button>
           </div>
           <p className="hint small">

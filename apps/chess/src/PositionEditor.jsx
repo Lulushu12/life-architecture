@@ -237,7 +237,7 @@ export default function PositionEditor({ store, setStore, nav }) {
       )}
 
       <h2>Use this position</h2>
-      <div className="btnrow toolrow">
+      <div className="btnrow toolrow toolgrid">
         <button className="bigbtn" disabled={!valid} onClick={() => { remember(); nav("analysis", { fen }) }}>
           🔬 Analyse
         </button>

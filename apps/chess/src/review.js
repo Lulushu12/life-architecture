@@ -36,6 +36,11 @@ const BOOK_MAX_DROP = 5; // win% a book move may give away (good or better)
 const THEORY_ENDS_AT = 10; // the first mistake by either side ends the book
 const BOOK_PLIES = 20;
 
+// Verification pass (plan item 17)
+const VERIFY_DROP = 10; // win% lost: mistake or worse gets a second look
+const VERIFY_FACTOR = 3; // the second look searches this many times longer
+const VERIFY_SHARE = 0.85; // of the progress bar given to the first pass
+
 // Reviews saved before grade 2 called named-but-bad moves book and every
 // recapture great; regradeReview() fixes them from their stored evals.
 export const REVIEW_GRADE = 2;
@@ -87,33 +92,68 @@ export async function reviewGame(
   await engine.ready;
   const evals = [];
   const bests = [];
+  const terminal = (i) => i === positions.length - 1 && finalOver;
+  // One search of position i: its White-perspective eval and the best line.
+  // Two lines, so a "brilliant" can require the move to be clearly better
+  // than the alternative rather than merely first in a noisy search.
+  const search = async (i, ms) => {
+    const r = await engine.analyze(positions[i].fen, { movetime: ms, multipv: 2, tag });
+    if (r.cancelled || shouldStop()) return null;
+    const info = r.lines[0];
+    const second = r.lines[1];
+    return {
+      cp: info ? cpWhite(info, positions[i].turn) : 0,
+      best: info
+        ? {
+            uci: info.move,
+            pv: info.pv,
+            margin: second ? lineScore(info) - lineScore(second) : Infinity,
+            secondCp: second ? cpWhite(second, positions[i].turn) : null,
+          }
+        : null,
+    };
+  };
+  const dropAt = (i) => {
+    const sign = verbose[i].color === "w" ? 1 : -1;
+    return Math.max(0, winPct(evals[i] * sign) - winPct(evals[i + 1] * sign));
+  };
+
   for (let i = 0; i < positions.length; i++) {
     if (shouldStop()) return null;
-    const isLast = i === positions.length - 1;
-    if (isLast && finalOver) {
+    if (terminal(i)) {
       evals.push(terminalCp(chess));
       bests.push(null);
     } else {
-      // Two lines, so a "brilliant" can require the move to be clearly better
-      // than the alternative rather than merely first in a noisy search.
-      const r = await engine.analyze(positions[i].fen, { movetime, multipv: 2, tag });
-      if (r.cancelled || shouldStop()) return null;
-      const info = r.lines[0];
-      const second = r.lines[1];
-      evals.push(info ? cpWhite(info, positions[i].turn) : 0);
-      bests.push(
-        info
-          ? {
-              uci: info.move,
-              pv: info.pv,
-              margin: second ? lineScore(info) - lineScore(second) : Infinity,
-              secondCp: second ? cpWhite(second, positions[i].turn) : null,
-            }
-          : null
-      );
+      const res = await search(i, movetime);
+      if (!res) return null;
+      evals.push(res.cp);
+      bests.push(res.best);
     }
-    onProgress((i + 1) / positions.length);
+    onProgress(((i + 1) / positions.length) * VERIFY_SHARE);
   }
+
+  // Verification pass (plan item 17): one quick search can miss a tactic,
+  // which turns a strong move into a "blunder". Every move first graded a
+  // mistake or worse has both its positions searched again, three times
+  // longer, and is graded on the deeper result.
+  const suspect = new Set();
+  for (let i = 0; i < sans.length; i++) {
+    if (positions[i].legal > 1 && dropAt(i) >= VERIFY_DROP) {
+      suspect.add(i);
+      if (!terminal(i + 1)) suspect.add(i + 1);
+    }
+  }
+  const recheck = [...suspect].sort((a, b) => a - b);
+  for (let k = 0; k < recheck.length; k++) {
+    if (shouldStop()) return null;
+    const i = recheck[k];
+    const res = await search(i, movetime * VERIFY_FACTOR);
+    if (!res) return null;
+    evals[i] = res.cp;
+    bests[i] = res.best;
+    onProgress(VERIFY_SHARE + ((k + 1) / recheck.length) * (1 - VERIFY_SHARE));
+  }
+  onProgress(1);
 
   // classify each move
   const judge = bookJudge(startFen);
