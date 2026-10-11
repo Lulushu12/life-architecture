@@ -387,6 +387,9 @@ h3 {
   gap: 14px;
   justify-content: center;
   margin-top: 26px;
+  /* Whatever follows (a text box, a hint) needs room; both backup text
+     boxes used to sit flush against these buttons. */
+  margin-bottom: 12px;
 }
 .backuptext {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -397,10 +400,6 @@ h3 {
   white-space: pre;
   overflow: auto;
   width: 100%;
-}
-/* The button row above the exported text had no gap below it. */
-.backuprow + .backuptext {
-  margin-top: 12px;
 }
 
 .sheet-backdrop {
