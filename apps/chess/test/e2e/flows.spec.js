@@ -537,6 +537,21 @@ test.describe("current behaviour", () => {
     expect((await readStore(page)).games.map((g) => g.id)).toEqual(["k1"]); // nothing replaced
   });
 
+  // Both backup text boxes sat flush against the buttons above them.
+  test("the backup buttons have a gap above both text boxes", async ({ page }) => {
+    await open(page);
+    await button(page, /Settings/).click();
+    await page.getByText("Backup and restore").click();
+    const gap = async (rowSel, boxSel) => {
+      const row = await page.locator(rowSel).boundingBox();
+      const box = await page.locator(boxSel).boundingBox();
+      return box.y - (row.y + row.height);
+    };
+    expect(await gap(".backuppanel > .backuprow", "textarea[placeholder*='paste a backup']")).toBeGreaterThanOrEqual(8);
+    await button(page, /Export backup/).click();
+    expect(await gap(".backuppanel .card > .backuprow", "textarea.backuptext[readonly]")).toBeGreaterThanOrEqual(8);
+  });
+
   // Plan item 14: the box backup is Android-only, and its token never leaves.
   test("the box backup explains itself on the web, and exports keep its token out", async ({ page }) => {
     await seed(page, {
