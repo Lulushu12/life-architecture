@@ -75,7 +75,6 @@ export function normalizeUser(data) {
     consumedEvents: Array.isArray(data.consumedEvents) ? data.consumedEvents.slice(-3000) : [],
     focusLog: obj(data.focusLog),
     bridgeMacros: obj(data.bridgeMacros),
-    bridgeTraining: obj(data.bridgeTraining),
     dayLog: obj(data.dayLog),
     reviews: obj(data.reviews),
     targets: cleanTargets(data.targets),

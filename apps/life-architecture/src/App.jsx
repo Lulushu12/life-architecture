@@ -9,7 +9,6 @@ import { completeQuest, uncompleteQuest, isSkipped, isPlanned as isPlannedToday 
 import { migrateUserData, SCHEMA_VERSION } from "./data/migrate.js";
 import { lsSet, loadUserRaw, applySnapshot, savedAt, onStorageStatus } from "./data/store.js";
 import { getSyncConfig, setSyncConfig, pullSnapshot, schedulePush, onSyncStatus, isGithubMode } from "./data/branchSync.js";
-import { getWorkoutLogSync } from "./data/logs.js";
 import { pendingEvents, applyEvents, subscribeEvents } from "./data/bridge.js";
 import { effectiveMacros } from "./data/macros.js";
 import { getSettings, setSettings, rescheduleReminders, enableReminders, cancelReminders } from "./data/reminders.js";
@@ -265,14 +264,9 @@ export default function App() {
   const ingest = useCallback(() => {
     const events = pendingEvents(dataRef.current.consumedEvents);
     if (!events.length) return;
-    const t = todayKey();
-    const res = applyEvents(dataRef.current, events, t);
+    const res = applyEvents(dataRef.current, events, todayKey());
     commit(() => res.data, { celebrate: false });
     for (const qid of res.completions) setDailyAuto(qid, true);
-    if (res.trainingToday) {
-      const log = getWorkoutLogSync(t);
-      if (!log || log.missed) setDailyAuto("hf_gym", true);
-    }
     if (res.macrosToday) evaluateMacros();
   }, [commit, setDailyAuto, evaluateMacros]);
 

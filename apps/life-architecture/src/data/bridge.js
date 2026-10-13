@@ -28,13 +28,18 @@ function prune(bag, today) {
   return out;
 }
 
+// Training is logged in this app's Train view; Food (formerly Calories) no
+// longer emits calories.training, so drop the old bridged copy.
+function withoutTraining(data) {
+  const { bridgeTraining: _drop, ...rest } = data;
+  return rest;
+}
+
 export function applyEvents(data, events, today) {
   const focusLog = { ...(data.focusLog || {}) };
   const bridgeMacros = { ...(data.bridgeMacros || {}) };
-  const bridgeTraining = { ...(data.bridgeTraining || {}) };
   const completions = [];
   let macrosToday = false;
-  let trainingToday = false;
 
   for (const e of events) {
     const day = e.dayKey || today;
@@ -55,24 +60,19 @@ export function applyEvents(data, events, today) {
         bridgeMacros[day] = { kcal: +v.kcal || 0, protein: +v.protein || 0, carbs: +v.carbs || 0, fat: +v.fat || 0, at: e.at || Date.now() };
         if (day === today) macrosToday = true;
       }
-    } else if (e.type === "calories.training") {
-      bridgeTraining[day] = { at: e.at || Date.now(), exercises: Array.isArray(v.exercises) ? v.exercises.length : +v.exercises || 0 };
-      if (day === today) trainingToday = true;
     }
   }
 
   const consumedEvents = [...(data.consumedEvents || []), ...events.map(e => e.id)].slice(-CONSUMED_CAP);
   return {
     data: {
-      ...data,
+      ...withoutTraining(data),
       consumedEvents,
       focusLog: prune(focusLog, today),
       bridgeMacros: prune(bridgeMacros, today),
-      bridgeTraining: prune(bridgeTraining, today),
     },
     completions: [...new Set(completions)],
     macrosToday,
-    trainingToday,
   };
 }
 

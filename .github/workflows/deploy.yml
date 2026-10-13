@@ -11,7 +11,7 @@ permissions:
 
 env:
   # life-architecture is served at the site root; the rest at /<name>/
-  SUB_APPS: whist breathe focus games calories ortho chess
+  SUB_APPS: whist breathe focus games ortho chess
 
 jobs:
   # Nothing deploys while the chess tests are red.
@@ -46,6 +46,9 @@ jobs:
             mkdir -p "site/$app"
             cp -r "apps/$app/dist/." "site/$app/"
           done
+          # Calories moved to its own repo (Lulushu12/Food, served at /Food/);
+          # the old path redirects there and retires its service worker.
+          cp -r redirects/. site/
 
       - uses: peaceiris/actions-gh-pages@v4
         with:

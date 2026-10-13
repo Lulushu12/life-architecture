@@ -143,7 +143,7 @@ export default function Today({ data, today, toggleDaily, onQuestMenu, nav, macr
           </div>
         </div>
         <div className="src-line">
-          <span>{macros.source === "calories" ? "From Calories" : macros.source === "la" ? "From this app's log" : "Nothing logged yet"}</span>
+          <span>{macros.source === "calories" ? "From Food" : macros.source === "la" ? "From this app's log" : "Nothing logged yet"}</span>
           <button className="bs" style={{ minHeight: 44 }} onClick={() => nav({ page: "fuel" })}>Open Fuel</button>
         </div>
         {autoQ.length > 0 && (
@@ -175,7 +175,7 @@ function Launcher() {
       <div className="sec-h">Apps</div>
       <div className="apps">
         {apps.map(a => (
-          <a key={a.id} className="app-tile" href={`./${a.id}/`}>
+          <a key={a.id} className="app-tile" href={a.href || `./${a.id}/`}>
             <span className="app-g" aria-hidden="true">{a.glyph}</span>
             <span className="app-n">{a.name}</span>
             {a.lastUsed && <span className="app-u">last used {relativeTime(a.lastUsed)}</span>}
