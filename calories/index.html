@@ -2,19 +2,25 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/life-architecture/calories/icon-192.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#0b1220" />
-    <meta name="description" content="Calorie, weight and training log. Offline, auto-saving." />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <link rel="apple-touch-icon" href="/life-architecture/calories/icon-192.png" />
-    <link rel="manifest" href="/life-architecture/calories/manifest.json" />
-    <title>Calories</title>
-    <script type="module" crossorigin src="/life-architecture/calories/assets/index-gF-TElyA.js"></script>
-    <link rel="stylesheet" crossorigin href="/life-architecture/calories/assets/index-crvbOwL7.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food</title>
+    <meta http-equiv="refresh" content="0; url=/Food/" />
+    <link rel="canonical" href="/Food/" />
+    <style>
+      body { background: #0b1220; color: #e6ecf7; font: 16px system-ui, sans-serif; padding: 32px 16px; }
+      a { color: #84cc16; }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <p>Calories is now <a href="/Food/">Food</a>. Your data comes with it.</p>
+    <script>
+      // Drop the old Calories service worker so this scope stops serving the cached app.
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.getRegistrations().then((regs) => {
+          for (const r of regs) if (new URL(r.scope).pathname.endsWith("/calories/")) r.unregister();
+        });
+      }
+      location.replace("/Food/" + location.search);
+    </script>
   </body>
 </html>
