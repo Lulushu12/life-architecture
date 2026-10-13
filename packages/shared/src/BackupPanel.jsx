@@ -40,8 +40,17 @@ function readRaw(storageKey) {
  *   strip      - dotted paths removed from the export, e.g. "settings.ai.apiKey"
  *   storageKey - app's localStorage key; its raw value is kept in
  *                `${storageKey}.prerestore` before a restore replaces it
+ *   saveFile   - optional async (text) => { path, bytes }: saves the backup as
+ *                a real file on the device (the chess APK passes one). When
+ *                given, it's offered first, ahead of the clipboard.
  */
-export function BackupPanel({ data, onRestore, validate, prefix, strip = [], storageKey }) {
+// Above this, a copy through the clipboard can come back cut short on some
+// phones (it happened with chess), so the panel warns and points elsewhere.
+const CLIPBOARD_SAFE = 100_000;
+
+const sizeLabel = (n) => (n >= 1e6 ? `${(n / 1e6).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1e3))} KB`);
+
+export function BackupPanel({ data, onRestore, validate, prefix, strip = [], storageKey, saveFile }) {
   const fileRef = useRef();
   const [text, setText] = useState(null);
   const [copied, setCopied] = useState(false);
@@ -49,6 +58,8 @@ export function BackupPanel({ data, onRestore, validate, prefix, strip = [], sto
   const [error, setError] = useState("");
   const [done, setDone] = useState("");
   const [lastBackup, setLastBackup] = useState(() => readLastBackup(prefix));
+  const [saved, setSaved] = useState(null); // {path, bytes} | {error}
+  const [saving, setSaving] = useState(false);
 
   const canShare = typeof navigator !== "undefined" && typeof navigator.share === "function";
 
@@ -75,6 +86,19 @@ export function BackupPanel({ data, onRestore, validate, prefix, strip = [], sto
     const ok = await copyToClipboard(text);
     setCopied(ok);
     if (ok) markBackedUp();
+  };
+
+  const onSaveFile = async () => {
+    setSaving(true);
+    try {
+      const res = await saveFile(text);
+      setSaved(res);
+      markBackedUp();
+    } catch (e) {
+      setSaved({ error: e?.message || "Couldn't save the file." });
+    } finally {
+      setSaving(false);
+    }
   };
 
   const onDownload = () => {
@@ -136,6 +160,7 @@ export function BackupPanel({ data, onRestore, validate, prefix, strip = [], sto
           onClick={() => {
             setText(backupText(exportSource(), { strip }));
             setCopied(false);
+            setSaved(null);
           }}
         >
           Export backup
@@ -143,13 +168,35 @@ export function BackupPanel({ data, onRestore, validate, prefix, strip = [], sto
         <button className="linkbtn" onClick={() => fileRef.current.click()}>
           Import from file
         </button>
-        <input ref={fileRef} type="file" accept="application/json,.json" hidden onChange={onFile} />
+        {/* No type filter: Android's pickers often label .json files as generic
+            data and grey them out. A wrong file gets a clear error instead. */}
+        <input ref={fileRef} type="file" hidden onChange={onFile} />
       </div>
 
       {text && (
         <div className="card">
+          {saveFile && (
+            <div className="backuprow">
+              <button className="bigbtn" onClick={onSaveFile} disabled={saving}>
+                {saving ? "Saving…" : "Save backup file"}
+              </button>
+            </div>
+          )}
+          {saved?.path && (
+            <p className="okmsg small" role="status">
+              ✓ Saved and checked: {saved.path} ({sizeLabel(saved.bytes)}). Restore it with Import from file.
+            </p>
+          )}
+          {saved?.error && <p className="warn small">{saved.error}</p>}
+          <p className="hint small">Backup size: {sizeLabel(text.length)}</p>
+          {text.length > CLIPBOARD_SAFE && (
+            <p className="warn small">
+              This backup is large, and the clipboard can cut it short on some phones.
+              {saveFile ? " Save it as a file instead." : canDownload() ? " Download it as a file instead." : " Check the pasted copy is complete."}
+            </p>
+          )}
           <div className="backuprow">
-            <button className="bigbtn" onClick={onCopy}>
+            <button className={saveFile ? "linkbtn" : "bigbtn"} onClick={onCopy}>
               {copied ? "✓ Copied" : "Copy to clipboard"}
             </button>
             {canShare && (

@@ -99,7 +99,7 @@ export const LESSONS = [
       {
         play: ["Nxd5"],
         text: "Following the greedy capture. f7 is now attacked twice and defended only by the king.",
-        arrows: [["c4", "f7"], ["g5", "f7"]],
+        arrows: [["c4", "f7"]],
         circles: ["f7"],
       },
       {

@@ -36,7 +36,22 @@ export async function loadOpeningMeta() {
 /** Every line as {eco, name, sans[]}, computed once. */
 let lines = null;
 export function allLines() {
-  if (!lines) lines = OPENINGS.map(([eco, name, sans]) => ({ eco, name, key: `${eco}|${name}`, sans: sans.split(" ") }));
+  if (!lines) {
+    // `key` is unique per line (React keys, drill progress); `metaKey` is the
+    // ECO|name key the metadata file uses. About 470 lines share a metaKey
+    // with a sibling that has different moves, so a stored eval is only
+    // trusted for lines whose metaKey is theirs alone (bug 15).
+    const count = new Map();
+    for (const [eco, name] of OPENINGS) count.set(`${eco}|${name}`, (count.get(`${eco}|${name}`) || 0) + 1);
+    lines = OPENINGS.map(([eco, name, sans]) => ({
+      eco,
+      name,
+      key: `${eco}|${name}|${sans}`,
+      metaKey: `${eco}|${name}`,
+      evalShared: count.get(`${eco}|${name}`) > 1,
+      sans: sans.split(" "),
+    }));
+  }
   return lines;
 }
 
@@ -68,7 +83,7 @@ export function continuations(prefix, metaData) {
     const seen = counted.get(move);
     const fresh = !seen.has(line.name);
     seen.add(line.name);
-    const plays = fresh ? metaData?.plays?.[line.key] || 0 : 0;
+    const plays = fresh ? metaData?.plays?.[line.metaKey] || 0 : 0;
     const cur = byMove.get(move);
     if (!cur) {
       byMove.set(move, { move, plays, lines: 1, best: line });
@@ -82,7 +97,7 @@ export function continuations(prefix, metaData) {
       if (
         line.sans.length < cur.best.sans.length ||
         (line.sans.length === cur.best.sans.length &&
-          (metaData?.plays?.[line.key] || 0) > (metaData?.plays?.[cur.best.key] || 0))
+          (metaData?.plays?.[line.metaKey] || 0) > (metaData?.plays?.[cur.best.metaKey] || 0))
       )
         cur.best = line;
     }
@@ -95,7 +110,7 @@ export function continuations(prefix, metaData) {
   // exactly-named line reports a real figure, via `exactPlays`.
   const out = [...byMove.values()].sort((a, b) => b.plays - a.plays || b.lines - a.lines);
   for (const n of out) {
-    n.exactPlays = n.best.sans.length === depth + 1 ? metaData?.plays?.[n.best.key] ?? null : null;
+    n.exactPlays = n.best.sans.length === depth + 1 ? metaData?.plays?.[n.best.metaKey] ?? null : null;
   }
   return out;
 }
@@ -126,7 +141,7 @@ export function searchLines(query, metaData, limit = 60) {
     (l) => l.name.toLowerCase().includes(q) || l.eco.toLowerCase() === q
   );
   return hits
-    .sort((a, b) => (metaData?.plays?.[b.key] || 0) - (metaData?.plays?.[a.key] || 0))
+    .sort((a, b) => (metaData?.plays?.[b.metaKey] || 0) - (metaData?.plays?.[a.metaKey] || 0))
     .slice(0, limit);
 }
 
@@ -142,18 +157,28 @@ export function searchLines(query, metaData, limit = 60) {
  */
 const SHARP_NAME = /gambit|sacrific|counterattack|wing attack|king's attack|muzio|traxler|latvian|albin|blackmar|smith-morra|benko|budapest|elephant|halloween|fried liver|evans|danish|göring|goring|cochrane|jerome/i;
 
-let sharp = null;
+// Cached per metadata object, so a call made before the metadata loaded
+// doesn't freeze an empty pool for the rest of the session.
+const sharpCache = new WeakMap();
 export function sharpLines(metaData) {
-  if (sharp) return sharp;
-  sharp = allLines().filter((l) => {
+  const cacheKey = metaData || sharpCache;
+  if (sharpCache.has(cacheKey)) return sharpCache.get(cacheKey);
+  const sharp = allLines().filter((l) => {
     if (l.sans.length < 4 || l.sans.length > 14) return false;
-    const ev = metaData?.evals?.[l.key];
+    const ev = lineEval(metaData, l);
     if (SHARP_NAME.test(l.name)) return !ev || ev.mate == null;
     if (!ev || ev.mate != null) return false;
     const cp = Math.abs(ev.cp);
     return cp >= 60 && cp <= 500;
   });
+  sharpCache.set(cacheKey, sharp);
   return sharp;
+}
+
+/** The stored eval for a line, or null when the metadata can't tell it apart from a sibling. */
+export function lineEval(metaData, line) {
+  if (!line || line.evalShared) return null;
+  return metaData?.evals?.[line.metaKey] ?? null;
 }
 
 /** One random sharp line, or null if the metadata hasn't loaded yet. */

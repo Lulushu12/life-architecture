@@ -5,6 +5,8 @@ export const GAME_CAP = 50;
 
 export const DEFAULT_SETTINGS = {
   theme: "brown", // board theme id
+  accent: "teal", // app colour, see appearance.js
+  displayFont: "sora", // headings and big numbers: "sora" | "system" | "custom:<id>"
   pieces: "cburnett", // piece set id
   // board/coordinate overrides; null = the theme's (or app's) own default
   boardCustom: { light: null, dark: null, coordColor: null, coordFont: null },
@@ -16,6 +18,7 @@ export const DEFAULT_SETTINGS = {
   animMs: 200, // piece-slide animation duration; 0 = instant, no animation
   reviewMovetime: 400, // ms per position in game review
   ai: { baseUrl: "", apiKey: "", model: "" }, // optional OpenAI-compatible endpoint for live bot banter
+  box: { enabled: false, url: "", token: "" }, // one-way backup to your own box (plan item 14); never exported
 };
 
 function freshStore() {
@@ -33,6 +36,10 @@ function freshStore() {
     puzzleBests: { rush: 0, streak: 0 },
     puzzleSrs: {},
     drillProgress: {},
+    blunderChecks: [], // {t, saved}: each time the blunder check stopped a move
+    daily: null, // today's daily puzzle: {date, key, id, r, hearts, result}
+    dailyLog: {}, // date -> {id, result: "solved"|"failed", hearts}
+    analyses: [], // saved analyses {id, date, name, startFen, sans}, apart from the game cap
   };
 }
 
@@ -81,6 +88,7 @@ function normalize(s) {
       ...fresh.settings,
       ...settings,
       ai: { ...fresh.settings.ai, ...(isObj(settings.ai) ? settings.ai : {}) },
+      box: { ...fresh.settings.box, ...(isObj(settings.box) ? settings.box : {}) },
       arrowColors: { ...fresh.settings.arrowColors, ...(isObj(settings.arrowColors) ? settings.arrowColors : {}) },
       boardCustom: { ...fresh.settings.boardCustom, ...(isObj(settings.boardCustom) ? settings.boardCustom : {}) },
     },
@@ -97,6 +105,10 @@ function normalize(s) {
     puzzleBests: { ...fresh.puzzleBests, ...(isObj(s.puzzleBests) ? s.puzzleBests : {}) },
     puzzleSrs: isObj(s.puzzleSrs) ? s.puzzleSrs : {},
     drillProgress: isObj(s.drillProgress) ? s.drillProgress : {},
+    blunderChecks: (Array.isArray(s.blunderChecks) ? s.blunderChecks : []).filter((c) => isObj(c) && Number.isFinite(c.t)),
+    daily: isObj(s.daily) && typeof s.daily.date === "string" ? s.daily : null,
+    dailyLog: isObj(s.dailyLog) ? s.dailyLog : {},
+    analyses: (Array.isArray(s.analyses) ? s.analyses : []).filter((a) => isObj(a) && a.id != null && Array.isArray(a.sans)),
   };
   return capStore(out);
 }

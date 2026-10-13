@@ -6,19 +6,25 @@ export const SOURCES = {
 };
 
 const TIMEOUT_MS = 15000;
+const MAX_MONTHS = 12;
 
 export class ImportError extends Error {}
 
-async function fetchWithTimeout(url, { headers, signal } = {}) {
+// Fetches and reads the whole body inside one timeout and one cancel signal:
+// a stalled download is as stuck as a server that never answers.
+async function fetchBody(url, { headers, signal, as = "json" } = {}) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort("timeout"), TIMEOUT_MS);
   const onAbort = () => ctrl.abort("cancelled");
   signal?.addEventListener("abort", onAbort, { once: true });
   try {
-    return await fetch(url, { headers, signal: ctrl.signal });
+    const res = await fetch(url, { headers, signal: ctrl.signal });
+    const body = res.ok ? await (as === "text" ? res.text() : res.json()) : null;
+    return { res, body };
   } catch (e) {
     if (ctrl.signal.aborted && ctrl.signal.reason === "timeout") throw new ImportError("The server took too long to answer. Try again.");
     if (ctrl.signal.aborted) throw new ImportError("Cancelled.");
+    if (e instanceof SyntaxError) throw new ImportError("The server sent something unreadable. Try again later.");
     throw new ImportError("Couldn't reach the server. Check your connection.");
   } finally {
     clearTimeout(timer);
@@ -76,9 +82,8 @@ export function parseImported(pgn, { source, sourceId, user, url, speed, playedA
 
 async function fetchLichess(user, signal) {
   const url = `https://lichess.org/api/games/user/${encodeURIComponent(user)}?max=20&pgnInJson=true`;
-  const res = await fetchWithTimeout(url, { headers: { Accept: "application/x-ndjson" }, signal });
+  const { res, body: text } = await fetchBody(url, { headers: { Accept: "application/x-ndjson" }, signal, as: "text" });
   checkStatus(res, "Lichess", user);
-  const text = await res.text();
   const out = [];
   for (const line of text.split("\n")) {
     if (!line.trim()) continue;
@@ -104,16 +109,18 @@ async function fetchLichess(user, signal) {
 
 async function fetchChessCom(user, signal) {
   const lower = user.toLowerCase();
-  const res = await fetchWithTimeout(`https://api.chess.com/pub/player/${encodeURIComponent(lower)}/games/archives`, { signal });
+  const { res, body } = await fetchBody(`https://api.chess.com/pub/player/${encodeURIComponent(lower)}/games/archives`, { signal });
   checkStatus(res, "Chess.com", user);
-  const { archives = [] } = await res.json();
+  const archives = body?.archives || [];
   if (!archives.length) return [];
+  // Newest month first, walking back until there are 20 games. Capped at a
+  // year of months so a long-inactive account costs at most 12 requests
+  // (bug 7: only the last two months used to be read).
   const raw = [];
-  for (const archive of archives.slice(-2).reverse()) {
-    const r = await fetchWithTimeout(archive, { signal });
-    checkStatus(r, "Chess.com", user);
-    const { games = [] } = await r.json();
-    raw.push(...games);
+  for (const archive of archives.slice(-MAX_MONTHS).reverse()) {
+    const r = await fetchBody(archive, { signal });
+    checkStatus(r.res, "Chess.com", user);
+    raw.push(...(r.body?.games || []));
     if (raw.length >= 20) break;
   }
   return raw

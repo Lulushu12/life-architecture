@@ -7,6 +7,8 @@
 // automatically to reach the position the solver actually sees; the solver
 // then answers with m[1], the opponent replies m[2], and so on.
 
+import { Chess } from "chess.js";
+
 let cache = null;
 let inflight = null;
 
@@ -154,17 +156,68 @@ function lineScore(l) {
   return l.cp ?? 0;
 }
 
+// Engine check for an answer that isn't the stored one. Returns true or
+// false, or null when the engine didn't answer in time (it may be busy with
+// another search): callers must not count null as a wrong answer.
+export const CHECK_TIMEOUT_MS = 10000;
 export async function moveIsGoodEnough(engine, fen, playedUci, margin = 30) {
-  const timeout = new Promise((resolve) => setTimeout(() => resolve(null), 4000));
+  let timer;
+  const timeout = new Promise((resolve) => {
+    timer = setTimeout(() => resolve(null), CHECK_TIMEOUT_MS);
+  });
   const r = await Promise.race([engine.analyze(fen, { movetime: 200, multipv: 3, tag: "puzzle-check" }), timeout]);
+  clearTimeout(timer);
   if (!r) {
     engine.cancel("puzzle-check");
-    return false;
+    return null;
   }
   if (!r.lines?.length) return false;
   const best = lineScore(r.lines[0]);
   const hit = r.lines.find((l) => l.move === playedUci);
   return !!hit && best - lineScore(hit) <= margin;
+}
+
+/**
+ * Is `playedUci` an accepted answer where the puzzle expects `expectedUci`?
+ * The stored move, compared without promotion when the stored move has none
+ * (the board queens by default), or any move that gives checkmate.
+ */
+export function acceptsMove(fen, playedUci, expectedUci) {
+  if (expectedUci) {
+    const same = expectedUci.length === 5 ? playedUci === expectedUci : playedUci.slice(0, 4) === expectedUci.slice(0, 4);
+    if (same) return true;
+  }
+  return isMateUci(fen, playedUci);
+}
+
+/** Does this UCI move give checkmate from `fen`? */
+export function isMateUci(fen, uci) {
+  try {
+    const c = new Chess(fen);
+    c.move({ from: uci.slice(0, 2), to: uci.slice(2, 4), promotion: uci[4] || "q" });
+    return c.isCheckmate();
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Due review items that can actually be shown: tier puzzles still in the
+ * bundled set, and blunder puzzles that still exist. The hub's count and the
+ * review screen both use this, so they always agree.
+ */
+export function resolveDue(queue, db, ownPuzzles) {
+  const out = [];
+  for (const q of queue) {
+    if (q.kind === "tier") {
+      const p = (db?.puzzles?.[q.tier] || []).find((x) => x.i === q.id);
+      if (p) out.push({ ...q, fen: p.f, moves: p.m.split(" "), setup: true, r: p.r });
+    } else {
+      const p = ownPuzzles.find((x) => x.id === q.id);
+      if (p?.bestUci) out.push({ ...q, fen: p.fen, moves: [p.bestUci], setup: false, playedSan: p.playedSan });
+    }
+  }
+  return out;
 }
 
 /** Themes actually present in a tier, ordered by THEME_LABELS, with counts. */
@@ -174,4 +227,20 @@ export function themesIn(list) {
   return Object.keys(THEME_LABELS)
     .filter((t) => counts.get(t) >= 8) // too few to be worth a filter chip
     .map((t) => ({ key: t, label: THEME_LABELS[t], count: counts.get(t) }));
+}
+
+// Rating-range filter for the training sets (plan item 11), relative to
+// your puzzle rating so it keeps meaning the same thing as you improve.
+export const RANGES = [
+  { id: "any", label: "Any rating" },
+  { id: "easier", label: "Easier", lo: -400, hi: -100 },
+  { id: "level", label: "My level", lo: -100, hi: 100 },
+  { id: "harder", label: "Harder", lo: 100, hi: 400 },
+];
+
+/** Puzzles of `list` inside a range around `rating`. */
+export function inRange(list, rangeId, rating) {
+  const r = RANGES.find((x) => x.id === rangeId);
+  if (!r || r.lo == null) return list;
+  return list.filter((p) => p.r >= rating + r.lo && p.r <= rating + r.hi);
 }

@@ -10,7 +10,9 @@ import {
   searchLines,
   formatEval,
   verdict,
+  lineEval,
 } from "./openingdb.js";
+import { legalDests, promotionCheck } from "./core/position.js";
 
 // Browsable reference over every named opening the app knows (3,704 lines from
 // lichess-org/chess-openings, CC0). You walk the tree move by move; at each
@@ -50,17 +52,12 @@ export default function Openings({ store, nav }) {
   const nexts = useMemo(() => continuations(sans, meta), [sans, meta]);
   const results = useMemo(() => searchLines(query, meta), [query, meta]);
 
-  const ev = named && meta?.evals?.[named.key];
+  const ev = named ? lineEval(meta, named) : null;
   const exact = named && named.sans.length === sans.length;
 
   // Legal destinations, so the board can be played on directly.
   const dests = useMemo(() => {
-    const map = new Map();
-    for (const m of chess.moves({ verbose: true })) {
-      if (!map.has(m.from)) map.set(m.from, []);
-      map.get(m.from).push(m.to);
-    }
-    return map;
+    return legalDests(chess);
   }, [chess]);
 
   const playMove = (from, to, promotion) => {
@@ -85,7 +82,7 @@ export default function Openings({ store, nav }) {
         title="Openings"
         sub={
           named
-            ? `${named.eco} · ${named.name}${exact ? "" : " (transposed)"}`
+            ? `${named.eco} · ${named.name}${exact ? "" : " (past the named line)"}`
             : `${sans.length ? "unnamed position" : "3,704 named lines"}`
         }
         onBack={() => nav("home")}
@@ -107,7 +104,7 @@ export default function Openings({ store, nav }) {
             <button key={l.key} className="openrow" onClick={() => jumpTo(l)}>
               <span className="or-eco">{l.eco}</span>
               <span className="or-name">{l.name}</span>
-              <span className="or-plays">{meta?.plays?.[l.key] ? fmtPlays(meta.plays[l.key]) : ""}</span>
+              <span className="or-plays">{meta?.plays?.[l.metaKey] ? fmtPlays(meta.plays[l.metaKey]) : ""}</span>
             </button>
           ))}
         </div>
@@ -123,10 +120,7 @@ export default function Openings({ store, nav }) {
             pieceSet={store.settings.pieces}
             animMs={store.settings.animMs}
             arrowColors={store.settings.arrowColors}
-            needsPromotion={(from, to) => {
-              const piece = chess.get(from);
-              return piece?.type === "p" && (to[1] === "8" || to[1] === "1");
-            }}
+            needsPromotion={promotionCheck(chess)}
           />
 
           <div className="movepath">
@@ -147,14 +141,14 @@ export default function Openings({ store, nav }) {
               <div className="oc-title">
                 {named.eco} · {named.name}
               </div>
-              {!exact && <div className="hint small">Position is deeper than this name, you've transposed out of book.</div>}
+              {!exact && <div className="hint small">This position goes past the named line; from here the moves are your own.</div>}
               {ev && (
                 <div className="oc-eval">
                   <b>{formatEval(ev)}</b> <span className="hint small">{verdict(ev)}</span>
                 </div>
               )}
-              {meta?.plays?.[named.key] != null && (
-                <div className="hint small">Seen in {fmtPlays(meta.plays[named.key])} of the reference set</div>
+              {meta?.plays?.[named.metaKey] != null && (
+                <div className="hint small">Seen in {fmtPlays(meta.plays[named.metaKey])} of the reference set</div>
               )}
               {sans.length >= 2 && (
                 <div className="btnrow">

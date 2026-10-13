@@ -83,6 +83,10 @@ export function readBackup(text, validate) {
   try {
     data = JSON.parse(text);
   } catch {
+    if (looksCutOff(text))
+      throw new Error(
+        `This backup is incomplete: it stops after ${String(text).length} characters, probably cut off when it was copied. Use a backup file instead.`
+      );
     throw new Error("That isn't valid JSON.");
   }
   const res = validate ? validate(data) : true;
@@ -91,6 +95,29 @@ export function readBackup(text, validate) {
   const dropped = typeof res === "object" && res !== null ? Number(res.dropped) || 0 : 0;
   const cleaned = typeof res === "object" && res !== null && res.data !== undefined ? res.data : data;
   return { data: cleaned, dropped };
+}
+
+/**
+ * True when text starts like a JSON backup but ends before it closes: an
+ * object or array left open, or a string cut in the middle. That's what a
+ * clipboard that silently truncates long text leaves behind.
+ */
+export function looksCutOff(text) {
+  const t = String(text || "").trim();
+  if (!t.startsWith("{") && !t.startsWith("[")) return false;
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+  for (const ch of t) {
+    if (inString) {
+      if (escaped) escaped = false;
+      else if (ch === "\\") escaped = true;
+      else if (ch === '"') inString = false;
+    } else if (ch === '"') inString = true;
+    else if (ch === "{" || ch === "[") depth++;
+    else if (ch === "}" || ch === "]") depth--;
+  }
+  return inString || depth > 0;
 }
 
 export function parseBackup(text, validate) {

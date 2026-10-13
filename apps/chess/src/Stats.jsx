@@ -3,13 +3,10 @@ import { TopBar } from "./ui.jsx";
 import { getPersona } from "./personas.js";
 import { getRating } from "./puzzledb.js";
 import { LESSONS } from "./lessons/index.js";
+import { checkWeeks } from "./checkStats.js";
+import { outcomeOf } from "./archive.js";
 
-function outcome(g) {
-  if (!g.result || !g.playerColor) return null;
-  if (g.result === "1/2-1/2") return "d";
-  if (g.result !== "1-0" && g.result !== "0-1") return null;
-  return (g.result === "1-0") === (g.playerColor === "w") ? "w" : "l";
-}
+const outcome = outcomeOf;
 
 const when = (g) => g.playedAt || g.date || 0;
 
@@ -66,9 +63,9 @@ function Sparkline({ values, label, fmt, lower = false }) {
   );
 }
 
-function Bars({ values, label }) {
+function Bars({ values, label, itemLabel = (i, n) => `game ${i + 1} of ${n}`, empty = "No reviewed games yet." }) {
   const [sel, setSel] = useState(null);
-  if (!values.length) return <p className="hint small">No reviewed games yet.</p>;
+  if (!values.length) return <p className="hint small">{empty}</p>;
   const W = 300;
   const H = 60;
   const max = Math.max(1, ...values);
@@ -81,7 +78,7 @@ function Bars({ values, label }) {
       <div className="spark-head">
         <span className="spark-val">{values[shown]}</span>
         <span className="hint small">
-          {sel == null ? "latest" : `game ${sel + 1} of ${values.length}`} · average {avg.toFixed(1)}
+          {sel == null ? "latest" : itemLabel(sel, values.length)} · average {avg.toFixed(1)}
         </span>
       </div>
       <svg viewBox={`0 0 ${W} ${H}`} className="spark-svg" role="img" aria-label={label} onMouseLeave={() => setSel(null)}>
@@ -110,9 +107,15 @@ export default function Stats({ store, nav }) {
   const data = useMemo(() => {
     const mine = store.games.filter((g) => g.playerColor && (g.mode === "bot" || g.mode === "import"));
     const tally = { w: 0, d: 0, l: 0 };
+    // plan item 10: bot games since the split, clean vs with help
+    const split = { clean: { w: 0, d: 0, l: 0 }, assisted: { w: 0, d: 0, l: 0 }, n: 0 };
     for (const g of mine) {
       const o = outcome(g);
       if (o) tally[o]++;
+      if (o && g.mode === "bot" && g.assist !== undefined) {
+        split[g.assist ? "assisted" : "clean"][o]++;
+        split.n++;
+      }
     }
     const byMode = {};
     for (const g of store.games) byMode[g.mode] = (byMode[g.mode] || 0) + 1;
@@ -152,7 +155,7 @@ export default function Stats({ store, nav }) {
       };
     }
     const lessonsDone = Object.values(store.lessonProgress || {}).filter((p) => p?.completed).length;
-    return { tally, byMode, acc, blunders, perf, lessonsDone, total: mine.length };
+    return { tally, split, byMode, acc, blunders, perf, lessonsDone, total: mine.length };
   }, [store.games, store.lessonProgress]);
 
   const rating = getRating(store);
@@ -167,6 +170,21 @@ export default function Stats({ store, nav }) {
     <div className="page">
       <TopBar title="Stats" sub={`${store.games.length} games in the archive`} onBack={() => nav("home")} />
 
+      {store.games.length === 0 && (
+        <div className="card hero herofirst statsempty">
+          <div className="hero-k">Nothing to show yet</div>
+          <div className="hero-h">Play a game and your stats start here</div>
+          <div className="hero-s">Results, accuracy and your progress against the bots fill in as you play and review.</div>
+          <div>
+            <button type="button" className="bigbtn herobtn" onClick={() => nav("play", { pick: true })}>
+              Play a bot
+            </button>
+          </div>
+        </div>
+      )}
+
+      {store.games.length > 0 && (
+        <>
       <div className="card">
         <h3>Results</h3>
         {decided ? (
@@ -184,6 +202,12 @@ export default function Stats({ store, nav }) {
           </>
         ) : (
           <p className="hint small">Finish a game against a bot, or import your games, to see results.</p>
+        )}
+        {data.split.n > 0 && (
+          <p className="hint small splitline">
+            Clean (no help, hints or takebacks) {data.split.clean.w}-{data.split.clean.d}-{data.split.clean.l} · with help{" "}
+            {data.split.assisted.w}-{data.split.assisted.d}-{data.split.assisted.l}
+          </p>
         )}
         <p className="hint small">
           {Object.entries(data.byMode)
@@ -216,6 +240,10 @@ export default function Stats({ store, nav }) {
         <h3>Blunders per game</h3>
         <Bars values={data.blunders} label="Blunders per reviewed game" />
       </div>
+        </>
+      )}
+
+      <BlunderChecks checks={store.blunderChecks} />
 
       <div className="card">
         <h3>Puzzles</h3>
@@ -248,6 +276,46 @@ export default function Stats({ store, nav }) {
           <div className="lessonfill" style={{ width: `${Math.round((data.lessonsDone / Math.max(1, LESSONS.length)) * 100)}%` }} />
         </div>
       </div>
+    </div>
+  );
+}
+
+// Plan item 9: how often the blunder check saved you, week by week.
+function BlunderChecks({ checks }) {
+  const weeks = useMemo(() => checkWeeks(checks), [checks]);
+  const now = weeks[weeks.length - 1];
+  const total = (checks || []).filter((c) => c.saved).length;
+  return (
+    <div className="card">
+      <h3>Blunder checks that saved you</h3>
+      {checks?.length ? (
+        <>
+          <div className="statgrid">
+            <div>
+              <div className="bignum">{now.saved}</div>
+              <div className="hint small">this week</div>
+            </div>
+            <div>
+              <div className="bignum">{now.anyway}</div>
+              <div className="hint small">played anyway</div>
+            </div>
+            <div>
+              <div className="bignum">{total}</div>
+              <div className="hint small">all time</div>
+            </div>
+          </div>
+          <Bars
+            values={weeks.map((w) => w.saved)}
+            label="Saves per week, last 8 weeks"
+            itemLabel={(i) => `week of ${new Date(weeks[i].start).toLocaleDateString(undefined, { day: "numeric", month: "short" })}`}
+          />
+        </>
+      ) : (
+        <p className="hint small">
+          With Some help or Full help, a move that would give a lot away waits for a second look. Each time that saves
+          you, it counts here.
+        </p>
+      )}
     </div>
   );
 }
