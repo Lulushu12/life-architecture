@@ -1,0 +1,1601 @@
+<title>Chess User Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<!-- Generated from user-guide.md by build.sh. Do not edit user-guide.html by hand. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a manual. Sticky chapter rail on the left at desktop width, a fold-out contents list on phones.
+   Colours follow the chess app itself (styles.css): warm dark board-room greys and the teal accent. */
+:root {
+  --bg: #fbfaf7;
+  --surface: #f1efe9;
+  --border: #dedad0;
+  --text: #1c1b18;
+  --muted: #6b665c;
+  --accent: #1d7a6e;
+  --accent-tint: rgba(29, 122, 110, 0.10);
+  --gold: #9a6a0a;
+  --gold-tint: rgba(240, 193, 92, 0.18);
+  --code-bg: #ebe8e0;
+  --display: "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141310; --surface: #201e1a; --border: #37342e; --text: #efebe4; --muted: #a39d92;
+    --accent: #3fb3a4; --accent-tint: rgba(63, 179, 164, 0.16); --gold: #f0c15c; --gold-tint: #262117;
+    --code-bg: #2b2924; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141310; --surface: #201e1a; --border: #37342e; --text: #efebe4; --muted: #a39d92;
+  --accent: #3fb3a4; --accent-tint: rgba(63, 179, 164, 0.16); --gold: #f0c15c; --gold-tint: #262117;
+  --code-bg: #2b2924; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--text);
+  font: 16px/1.65 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 64px;
+}
+.shell { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+nav.toc { min-width: 0; padding-top: 16px; }
+@media (min-width: 900px) { .shell { grid-template-columns: 240px minmax(0, 1fr); gap: 40px; } }
+
+header.masthead { padding-block: 40px 8px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+header.masthead h1 { font: 700 clamp(30px, 6vw, 44px)/1.1 var(--display); margin: 12px 0 10px; text-wrap: balance; }
+header.masthead p { color: var(--muted); margin: 0 0 20px; max-width: 62ch; }
+
+nav.toc { font-size: 14px; }
+nav.toc details { border: 1px solid var(--border); border-radius: 10px; background: var(--surface); padding: 10px 14px; }
+nav.toc summary { cursor: pointer; font: 600 14px var(--display); }
+nav.toc ul { list-style: none; margin: 8px 0 0; padding: 0; }
+nav.toc ul ul { display: none; }
+nav.toc li a { display: block; padding: 5px 0; color: var(--muted); text-decoration: none; }
+nav.toc li a:hover, nav.toc li a:focus-visible { color: var(--accent); }
+@media (min-width: 900px) {
+  nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; max-height: calc(100vh - 48px); overflow-y: auto; padding-top: 24px; }
+  nav.toc details { border: 0; background: none; padding: 0; }
+  nav.toc summary { list-style: none; pointer-events: none; color: var(--muted); font: 500 12px var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+  nav.toc summary::-webkit-details-marker { display: none; }
+}
+
+main { min-width: 0; max-width: 72ch; }
+main h1 { font: 700 26px/1.2 var(--display); margin: 64px 0 12px; padding-top: 20px; border-top: 1px solid var(--border); text-wrap: balance; scroll-margin-top: 16px; }
+main h1:first-child { margin-top: 24px; }
+main h2 { font: 600 20px/1.3 var(--display); margin: 36px 0 8px; text-wrap: balance; scroll-margin-top: 16px; }
+main h3 { font: 600 16px/1.4 var(--display); margin: 28px 0 6px; }
+main h4 { font: 500 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 28px 0 8px; }
+main p, main li { max-width: 68ch; }
+main ul, main ol { padding-left: 1.3em; }
+main li + li { margin-top: 4px; }
+main a { color: var(--accent); }
+main strong { font-weight: 600; }
+main code { font: 0.88em var(--mono); background: var(--code-bg); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+main blockquote { margin: 16px 0; padding: 10px 16px; border-left: 3px solid var(--gold); background: var(--gold-tint); border-radius: 0 8px 8px 0; }
+main blockquote p { margin: 0; }
+
+/* "To come" headings: the list after them is the chapter's unwritten sections. */
+main h4[id^="to-come"] { color: var(--gold); }
+main h4[id^="to-come"] + ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+main h4[id^="to-come"] + ul li { margin: 0; padding: 4px 10px; border: 1px dashed var(--border); border-radius: 999px; font-size: 14px; color: var(--muted); }
+
+.table-wrap, main table { display: block; overflow-x: auto; }
+main table { border-collapse: collapse; margin: 16px 0; font-size: 14px; max-width: 100%; }
+main th, main td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+main th { font: 600 13px var(--display); color: var(--muted); }
+main td:first-child { white-space: nowrap; }
+
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+
+<div class="shell">
+  <nav class="toc" aria-label="Chapters">
+    <details id="toc">
+      <summary>Chapters</summary>
+<ul>
+<li><a href="#about-this-guide" id="toc-about-this-guide">About this
+guide</a></li>
+<li><a href="#1-home" id="toc-1-home">1. Home</a></li>
+<li><a href="#2-play-vs-bot" id="toc-2-play-vs-bot">2. Play vs
+Bot</a></li>
+<li><a href="#3-pass--play" id="toc-3-pass--play">3. Pass &amp;
+Play</a></li>
+<li><a href="#4-game-review" id="toc-4-game-review">4. Game
+Review</a></li>
+<li><a href="#5-analysis" id="toc-5-analysis">5. Analysis</a></li>
+<li><a href="#6-archive" id="toc-6-archive">6. Archive</a></li>
+<li><a href="#7-puzzles" id="toc-7-puzzles">7. Puzzles</a></li>
+<li><a href="#8-openings-and-drill" id="toc-8-openings-and-drill">8.
+Openings and Drill</a></li>
+<li><a href="#9-lessons" id="toc-9-lessons">9. Lessons</a></li>
+<li><a href="#10-pro-games" id="toc-10-pro-games">10. Pro games</a></li>
+<li><a href="#11-custom-position" id="toc-11-custom-position">11. Custom
+position</a></li>
+<li><a href="#12-engine-match" id="toc-12-engine-match">12. Engine
+match</a></li>
+<li><a href="#13-stats" id="toc-13-stats">13. Stats</a></li>
+<li><a href="#14-settings-and-appearance"
+id="toc-14-settings-and-appearance">14. Settings and appearance</a></li>
+<li><a href="#15-backups" id="toc-15-backups">15. Backups</a></li>
+<li><a href="#known-issues-found-while-writing"
+id="toc-known-issues-found-while-writing">Known issues found while
+writing</a></li>
+</ul>
+    </details>
+  </nav>
+  <div style="min-width:0">
+    <header class="masthead">
+      <div class="eyebrow">Chess · Part 1 · User Guide</div>
+      <h1>Chess User Guide</h1>
+      <p>How to use every part of the chess app. Each chapter opens with
+one feature written out in full; the rest are listed as to come.</p>
+    </header>
+    <main>
+<h1 id="about-this-guide">About this guide</h1>
+<p>This is Part 1 of the chess app’s manual: how to use it. It describes
+the app as it stands after the replica plan (items 1 to 16), on
+<code>main</code> as of 14 October 2026.</p>
+<p><strong>This is a sample edition.</strong> Every chapter opens with a
+short overview and how to get there, then covers <strong>one feature in
+full</strong>. The chapter’s other features are listed at the end under
+<strong>To come</strong>. Once the format is settled, those get written
+the same way.</p>
+<p>How to read it:</p>
+<ul>
+<li><strong>Bold text</strong> is exactly what the app shows on screen:
+a button, a heading, a label.</li>
+<li><strong>Watch out</strong> lists cover behaviour that is easy to
+miss or likely to surprise you. Some of these are probably bugs; the
+last chapter collects those.</li>
+<li><strong>Code</strong> lines name the source files under
+<code>apps/chess/src/</code> that implement the feature. Start there
+when something misbehaves.</li>
+<li>The app runs in two places: in a browser as an installable web app
+(the <strong>web</strong> version, at <code>/chess/</code> on GitHub
+Pages), and as an <strong>Android</strong> app (the APK). They are the
+same app; where they differ, the guide says so.</li>
+</ul>
+<p>Everything runs on the device. There are no accounts and no server.
+Stockfish 16 NNUE plays and analyses locally, and your data lives in the
+app’s own storage until you back it up (chapter 15).</p>
+<h1 id="1-home">1. Home</h1>
+<p>Home is the screen the app opens on. It shows what you were doing,
+what’s waiting for you today, and a list of everything else. The
+<strong>‹</strong> back arrow on most screens returns here.</p>
+<p>The app also remembers the last screen you had open, so reopening it
+can land you there instead of on Home.</p>
+<h2 id="the-home-screen-sample">The Home screen (sample)</h2>
+<p>From top to bottom, Home has a title (<strong>Chess.</strong>), a
+large card, four tiles, and a list headed <strong>Everything
+else</strong>.</p>
+<h3 id="the-large-card">The large card</h3>
+<p>Which card you see depends on your state. The app picks the first
+that applies:</p>
+<ol type="1">
+<li><strong>A game is in progress.</strong> The card shows the live
+position on a small board.
+<ul>
+<li>Bot game: <strong>Your move</strong> or <strong>Their move</strong>,
+then <strong>vs {bot name}</strong>, with the bot’s rating, your help
+level and the move number.</li>
+<li>Pass &amp; play game: <strong>Pass &amp; play</strong>, then
+<strong>White to move</strong> or <strong>Black to move</strong>.</li>
+<li><strong>Resume game</strong> takes you back to it.</li>
+</ul></li>
+<li><strong>No game in progress, but you’ve played a bot
+before.</strong> The card shows <strong>Last game:
+won/lost/drawn</strong> and <strong>Play again vs {bot name}</strong>,
+with that bot’s rating, your record against it (wins-draws-losses), and
+your help level.
+<ul>
+<li><strong>Play again</strong> starts a new game at once against the
+same bot, with the same colour as last time and your saved help
+level.</li>
+</ul></li>
+<li><strong>First run.</strong> <strong>Welcome / Play your first
+game</strong>, with the line “Pick a bot from 800 up; help is on until
+you turn it off.” Tapping it opens the bot picker.</li>
+</ol>
+<h3 id="the-four-tiles">The four tiles</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tile</th>
+<th>Big number</th>
+<th>Line underneath</th>
+<th>Opens</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Daily puzzle</strong></td>
+<td>your streak in days</td>
+<td><strong>New today · 5 hearts</strong>, <strong>N hearts
+left</strong>, <strong>Solved today ✓</strong> or <strong>Out of hearts
+today</strong></td>
+<td>today’s daily puzzle</td>
+</tr>
+<tr class="even">
+<td><strong>Due for review</strong></td>
+<td>puzzles due today</td>
+<td><strong>puzzles you missed</strong> or <strong>nothing due
+today</strong></td>
+<td>the review queue, or Puzzles if nothing is due</td>
+</tr>
+<tr class="odd">
+<td><strong>Next lesson</strong></td>
+<td>lessons done / total</td>
+<td>the next lesson’s title, or <strong>all done</strong></td>
+<td>that lesson</td>
+</tr>
+<tr class="even">
+<td><strong>Play bots</strong></td>
+<td>your last opponent’s avatar</td>
+<td><strong>last: {name} · W-D-L</strong>, or <strong>choose an
+opponent</strong></td>
+<td>the bot picker</td>
+</tr>
+</tbody>
+</table>
+<h3 id="everything-else">Everything else</h3>
+<p>In order: <strong>Puzzles · rating N</strong>, <strong>Pass &amp;
+play</strong>, <strong>Lessons</strong>, <strong>Openings</strong>,
+<strong>Analysis</strong>, <strong>Game archive</strong>,
+<strong>Stats</strong>, <strong>Import games</strong>, <strong>Pro
+games</strong>, <strong>Custom position</strong>, <strong>Engine
+match</strong>, <strong>Settings &amp; themes</strong>.</p>
+<p>The footer reads “Everything runs on this phone, Stockfish 16 NNUE
+included.” The web version adds that the first visit downloads the 39 MB
+engine net once, and after that it works fully offline.</p>
+<h3 id="shortcuts">Shortcuts</h3>
+<p>On the installed web app, long-pressing the icon offers three
+shortcuts: <strong>Play a bot</strong>, <strong>Puzzles</strong> and
+<strong>Analysis board</strong>. They open those screens directly. The
+Android app has no shortcuts.</p>
+<h3 id="banners-and-messages">Banners and messages</h3>
+<p>A red banner at the top of every screen warns about storage. Only one
+shows at a time:</p>
+<ul>
+<li><strong>Storage full: changes are not being saved.</strong> Saving
+has failed. Nothing you do is kept until you free space. Export and
+delete old games in the Archive.</li>
+<li><strong>Saved data was unreadable and has been reset.</strong> The
+app couldn’t read its data on startup and started fresh. The unreadable
+copy is kept in storage under <code>chess-v1.corrupt</code>.</li>
+<li><strong>Storage nearly full: about X of 5 MB used.</strong> Your
+games and puzzles are over 85% of a 5 MB budget.</li>
+</ul>
+<p>You may also see:</p>
+<ul>
+<li><strong>Update available</strong>, with <strong>Reload</strong> (web
+only): a new version is ready.</li>
+<li><strong>Archive full: N old games were removed. Star games to keep
+them.</strong> The archive holds 50 games (chapter 6).</li>
+</ul>
+<h3 id="watch-out">Watch out</h3>
+<ul>
+<li><strong>Play again</strong> on Home keeps your colour.
+<strong>Rematch</strong> at the end of a game swaps colours. Same bot,
+different behaviour.</li>
+<li>The 5 MB storage figure only counts games and puzzles, not
+everything the app stores. The real limit is the browser’s and can be
+hit before the banner says “nearly full”.</li>
+<li>On the web, the chess app shares its storage with the other Life
+Architecture apps on the same site.</li>
+</ul>
+<p><strong>Code:</strong> <code>Home.jsx</code>, <code>App.jsx</code>
+(<code>StorageBanner</code>, shortcut <code>ACTIONS</code>),
+<code>public/manifest.json</code>.</p>
+<h4 id="to-come">To come</h4>
+<ul>
+<li>Resuming a game after closing the app</li>
+<li>What “clean” and “assisted” mean on the cards</li>
+</ul>
+<h1 id="2-play-vs-bot">2. Play vs Bot</h1>
+<p>You play against one of 150 bots, all driven by the local Stockfish.
+There are two casts of 75, one speaking Romanian and one English, from
+800 to 3200 in steps of 100, with three bots at each level. Each bot has
+a personality that shows in its chat and, at low levels, in how it
+plays.</p>
+<p>Reach it from the <strong>Play bots</strong> tile, the Home card’s
+<strong>Play again</strong> or <strong>Resume game</strong>, or the
+shortcut.</p>
+<h2 id="starting-a-bot-game-sample">Starting a bot game (sample)</h2>
+<p>Starting a game happens on the <strong>Choose your opponent</strong>
+screen.</p>
+<h3 id="step-by-step">Step by step</h3>
+<ol type="1">
+<li><strong>Bots speak:</strong> choose <strong>Română</strong> or
+<strong>English</strong>. The default is Română. This switches which 75
+bots you see and the language they chat in. The coach always speaks
+English.</li>
+<li><strong>You play:</strong> choose <strong>White</strong>,
+<strong>Black</strong> or <strong>Random</strong>. White is the default.
+<strong>Random</strong> is decided when the game starts.</li>
+<li><strong>Help:</strong> choose <strong>On my own</strong>,
+<strong>Some help</strong> or <strong>Full help</strong>. The default is
+whatever you used last, or <strong>Some help</strong> the first time.
+You can change it during the game.</li>
+<li><strong>Pick a bot.</strong> Bots are grouped by rating (800 to
+3200). Each shows its avatar and name, your record against it, and
+<strong>✓ N clean</strong> if you’ve beaten it without help.
+<strong>Recent opponents</strong> at the top lists the last three you
+played. The list opens scrolled to your last opponent’s level.</li>
+<li><strong>Tapping a bot starts the game immediately.</strong> There’s
+no confirm step.</li>
+</ol>
+<h3 id="strength">Strength</h3>
+<p>There’s no separate strength slider; the bot’s rating is its
+strength.</p>
+<ul>
+<li><strong>800 to 1300:</strong> a short search plus deliberate
+mistakes, about 14% of moves at 800, falling to about 3% at 1300.
+Aggressive personalities prefer captures and checks.</li>
+<li><strong>1320 to 2999:</strong> Stockfish’s own rating limiter.</li>
+<li><strong>3000 and up:</strong> full-strength Stockfish, 0.9 seconds a
+move.</li>
+</ul>
+<h3 id="help-levels">Help levels</h3>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Eval bar</th>
+<th>Threat arrows</th>
+<th>Blunder check</th>
+<th>Best-move arrow</th>
+<th>Coach</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>On my own</strong></td>
+<td>off</td>
+<td>off</td>
+<td>off</td>
+<td>off</td>
+<td>off</td>
+</tr>
+<tr class="even">
+<td><strong>Some help</strong></td>
+<td>on</td>
+<td>on</td>
+<td>on</td>
+<td>off</td>
+<td>off</td>
+</tr>
+<tr class="odd">
+<td><strong>Full help</strong></td>
+<td>on</td>
+<td>on</td>
+<td>on</td>
+<td>on</td>
+<td>on</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Threat arrows:</strong> on your turn, up to two red arrows
+show what the bot would do if it could move again. Only threats worth at
+least 10 points of win chance are drawn.</li>
+<li><strong>Blunder check:</strong> if the move you’re about to play
+drops your win chance by 15 points or more, it’s held back. A strip says
+<strong>Before you play {move}:</strong> with a nudge such as “Is your
+knight on f6 safe?”. Choose <strong>Pick another move</strong> or
+<strong>Play it anyway</strong>. Moves that give checkmate are never
+held.</li>
+<li><strong>Best-move arrow:</strong> a green arrow on your turn shows
+the engine’s move.</li>
+<li><strong>Coach:</strong> comments after moves that matter (a grade
+such as <strong>Mistake</strong>, with <strong>Take it back</strong>),
+praises good finds, and sometimes prompts you before your move (“There’s
+a forced mate here. Can you find it?”).</li>
+</ul>
+<p>During the game, <strong>Help</strong> (or the level chip on your
+side of the board) opens <strong>Help in this game</strong>. There you
+can switch levels, set each aid separately (a mix shows as
+<strong>Custom</strong>), mute <strong>Bot chat</strong>, or
+<strong>Resign</strong>. The top bar reads <strong>Serious game</strong>
+on <strong>On my own</strong> and <strong>Casual game</strong>
+otherwise.</p>
+<h3 id="clean-and-assisted-games">Clean and assisted games</h3>
+<p>Every bot game is recorded as clean or assisted, and your record
+against each bot keeps both.</p>
+<p>A game is <strong>clean</strong> only if it was played on <strong>On
+my own</strong> from start to finish with no hint, no takeback, and no
+replaying from an earlier move. The first reason a game becomes assisted
+sticks: switching back to <strong>On my own</strong> later doesn’t make
+it clean again. The end-of-game card says which it was: <strong>Counted
+as a clean game: no help, hints or takebacks.</strong> or
+<strong>Counted as assisted:</strong> followed by the reason.</p>
+<h3 id="watch-out-1">Watch out</h3>
+<ul>
+<li><strong>The 3000, 3100 and 3200 bots play at exactly the same
+strength.</strong> All three use full Stockfish at 0.9 s a move.</li>
+<li>Starting a new game replaces the one in progress. The picker warns
+you when it’s a bot game, but <strong>not</strong> when it’s a Pass
+&amp; play game, which is replaced just the same.</li>
+<li>Bot taglines only show as a hover tooltip, so on a phone you never
+see them.</li>
+<li><strong>Hint</strong> is available at every help level, including
+<strong>On my own</strong>. Using it makes the game assisted.</li>
+<li>With the blunder check holding a move, trying the same move again
+doesn’t play it. You have to press <strong>Play it anyway</strong>.</li>
+<li>There’s no draw offer. Draws come from the rules only.</li>
+<li>The on-screen <strong>‹</strong> leaves the game paused and
+resumable. The phone’s own Back key asks <strong>Resign this
+game?</strong>.</li>
+</ul>
+<p><strong>Code:</strong> <code>PlayBot.jsx</code>
+(<code>BotPicker</code>, <code>BotGame</code>), <code>bot.js</code>,
+<code>botGame.js</code>, <code>helpLevels.js</code>,
+<code>records.js</code>, <code>personas.js</code>,
+<code>core/coach/live.js</code>, <code>core/threats.js</code>.</p>
+<h4 id="to-come-1">To come</h4>
+<ul>
+<li>The game screen: plates, eval bar, move list, chat</li>
+<li>Hint and Show move</li>
+<li>Takeback</li>
+<li>Browsing earlier moves and branching</li>
+<li>Premoves</li>
+<li>Game end: Review game, Rematch, New game</li>
+<li>Live AI banter</li>
+</ul>
+<h1 id="3-pass--play">3. Pass &amp; Play</h1>
+<p>Two people play on one device. There’s no engine, hint or coach while
+you play; you can review the game afterwards.</p>
+<p>Reach it from Home → <strong>Pass &amp; play</strong>, which always
+opens the setup screen. To return to a game in progress, use
+<strong>Resume game</strong> on Home.</p>
+<h2 id="a-two-player-game-start-to-finish-sample">A two-player game,
+start to finish (sample)</h2>
+<h3 id="setup">Setup</h3>
+<p>The screen is titled <strong>Pass &amp; play</strong>, <strong>Two
+players, one phone</strong>.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>Choices</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Flip board each move</strong></td>
+<td>on / off</td>
+<td>on</td>
+</tr>
+<tr class="even">
+<td><strong>Use clock</strong></td>
+<td>on / off</td>
+<td>off</td>
+</tr>
+<tr class="odd">
+<td><strong>Minutes per side</strong> (clock on)</td>
+<td>3, 5, 10, 15</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td><strong>Increment (s)</strong> (clock on)</td>
+<td>0, 2, 5, 10</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>These aren’t remembered between games. Press <strong>Start
+game</strong>. Games always start from the normal position.</p>
+<h3 id="playing">Playing</h3>
+<ul>
+<li>Tap or drag to move. A picker appears when a pawn promotes.</li>
+<li>With <strong>Flip board each move</strong> on, the side to move is
+always at the bottom. With it off, White stays at the bottom. There’s no
+manual flip.</li>
+<li>The screen stays awake during play.</li>
+<li><strong>↩︎ Undo</strong> takes back one move. It also works after the
+game has ended, which reopens it.</li>
+</ul>
+<h3 id="the-clock">The clock</h3>
+<ul>
+<li>Two chips show each side’s time. The running one is
+highlighted.</li>
+<li>The increment is added after each move.</li>
+<li>Under 10 seconds, the chip turns red and the phone sounds and
+vibrates once per turn.</li>
+<li>Reaching zero loses the game on time.</li>
+</ul>
+<h3 id="ending-and-saving">Ending and saving</h3>
+<ul>
+<li>The game ends by itself on checkmate, any rules draw, or time.
+There’s no resign or draw-offer button.</li>
+<li>When it ends, <strong>Review game</strong> saves it to the archive
+and opens Game Review.</li>
+</ul>
+<h3 id="watch-out-2">Watch out</h3>
+<ul>
+<li><strong>A finished game is only saved if you press Review
+game.</strong> Leaving any other way loses it.</li>
+<li><strong>End</strong> asks <strong>End this game?</strong> and then
+discards it, even if the game is already over.</li>
+<li>White’s clock doesn’t start until White’s first move.</li>
+<li>The clock has no pause. It runs on real time, so it keeps going if
+you switch to Home or close the app.</li>
+<li>Running out of time always loses, even when the other side couldn’t
+possibly checkmate.</li>
+<li>The move list can’t be tapped to look at earlier positions during
+play.</li>
+<li>Pass &amp; play games don’t make puzzles, and the review grades both
+sides equally.</li>
+</ul>
+<p><strong>Code:</strong> <code>PassPlay.jsx</code> (<code>Setup</code>,
+<code>Game</code>).</p>
+<h4 id="to-come-2">To come</h4>
+<ul>
+<li>Undo after the game ends, in detail</li>
+<li>Reviewing a Pass &amp; play game</li>
+</ul>
+<h1 id="4-game-review">4. Game Review</h1>
+<p>Game Review runs Stockfish over every position of a finished game. It
+grades each move, works out each side’s accuracy, explains the important
+moments in words, and lets you retry your mistakes. The first review of
+a game takes a little while; after that it’s saved and opens
+instantly.</p>
+<p>Ways in: <strong>Review game</strong> at the end of a game, tapping a
+game in the <strong>Game archive</strong>, <strong>Import
+games</strong>, <strong>Pro games</strong>, or an engine match’s
+<strong>Save &amp; review</strong>.</p>
+<h2 id="the-review-flow-sample">The review flow (sample)</h2>
+<p>A review goes summary first, then move by move.</p>
+<h3 id="1-analysis">1. Analysis</h3>
+<p>The screen shows <strong>Reviewing…</strong>, a progress bar, and
+<strong>Analyzing position X of Y…</strong>. How long each position gets
+is set in Settings → <strong>Game review</strong> → <strong>Time per
+position</strong>: <strong>Fast</strong> (0.2 s),
+<strong>Balanced</strong> (0.4 s, the default) or <strong>Deep</strong>
+(1 s). Moves that look like a <strong>Mistake</strong> or worse get a
+second look at three times the time, which fills the last part of the
+bar.</p>
+<h3 id="2-the-summary">2. The summary</h3>
+<p>The title is <strong>Game review</strong>, with the opening and
+result underneath.</p>
+<ul>
+<li><strong>Coach:</strong> one paragraph on the game. For a game where
+you’re one of the players, for example: “The turning point was 23. Nxe5:
+… It was one of N big errors.” A clean game gets “A clean game: no
+mistakes or blunders, X% accuracy.”</li>
+<li><strong>Accuracy cards</strong> for White and Black: the percentage,
+a line splitting it by phase (<strong>Ope</strong>,
+<strong>Mid</strong>, <strong>End</strong>), and counts of each
+grade.</li>
+<li><strong>Key moments:</strong> up to three chips for the biggest
+swings, each with how much win chance was lost, for example
+<strong>-23%</strong>.</li>
+<li><strong>Eval graph:</strong> tap or drag on it to jump to that move.
+Dots mark mistakes, blunders and misses.</li>
+<li><strong>Start review</strong> goes to the first key moment.</li>
+</ul>
+<h3 id="3-move-by-move">3. Move by move</h3>
+<p>For each move, a box shows <strong>{move}: {grade}</strong> in the
+grade’s colour, a sentence from the coach (“This leaves your knight on
+f6 unprotected, and Bxf6 takes it for free.”), and <strong>Best was
+X</strong>.</p>
+<p>When your move wasn’t the best:</p>
+<ul>
+<li><strong>Show best move</strong> draws a green arrow.</li>
+<li>For an Inaccuracy, Mistake, Miss or Blunder, you also get
+<strong>Show the reply</strong> (the engine’s punishing answer),
+<strong>Retry</strong>, and <strong>Play it out vs a bot</strong>.
+<strong>Show the best line</strong> appears when the coach has no
+specific reason to give.</li>
+</ul>
+<p>Below that, up to five engine lines. Tap one to play it out on the
+board as a side line.</p>
+<p>Getting around: <strong>‹ Key moment</strong> and <strong>Next key
+moment ›</strong> jump between the important moves; <strong>‹
+Prev</strong> and <strong>Next ›</strong> step one move; you can also
+tap any move in the list. <strong>Summary</strong> at the top returns to
+the summary.</p>
+<p>Key moments are: the last book move, and every Inaccuracy, Mistake,
+Blunder, Miss, Great and Brilliant. When the game is yours (a bot game,
+or an import where your username matched), only your moves count.</p>
+<h3 id="4-retry">4. Retry</h3>
+<p><strong>Retry</strong> puts you back before the move with
+<strong>Retry · find a better move than {move}</strong>.</p>
+<ul>
+<li>A try succeeds if it’s the engine’s move, gives checkmate, or is
+within 0.30 pawns of the best of the engine’s top three moves: <strong>✓
+{move}. That’s the engine’s move.</strong> or <strong>Just as good as
+the engine’s move.</strong></li>
+<li>A wrong try shows <strong>Not quite.</strong> with the reason, and a
+red arrow for how the opponent would answer.</li>
+<li><strong>Hint</strong> highlights the piece; pressing again shows the
+move. <strong>Give up</strong> shows it outright.</li>
+</ul>
+<h3 id="the-grades">The grades</h3>
+<p>“Drop” is how much the mover’s chance of winning falls, in points out
+of 100. A move gets the first grade in this list that fits.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Grade</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Book</strong> 📖</td>
+<td>A known opening move in the first 20 half-moves that doesn’t drop 5
+or more. Book ends at the first move by either side that drops 10 or
+more. Never used for games from a custom position.</td>
+</tr>
+<tr class="even">
+<td><strong>Forced</strong> □</td>
+<td>The only legal move.</td>
+</tr>
+<tr class="odd">
+<td><strong>Brilliant</strong> !!</td>
+<td>The best move, clearly better than any other, and a real sacrifice
+the opponent can actually take.</td>
+</tr>
+<tr class="even">
+<td><strong>Great</strong> !</td>
+<td>The best move, not a recapture, where the second-best move would
+have been 10 or more worse.</td>
+</tr>
+<tr class="odd">
+<td><strong>Best</strong> ★</td>
+<td>The engine’s top move.</td>
+</tr>
+<tr class="even">
+<td><strong>Miss</strong> ✗</td>
+<td>Your opponent just blundered and you let them off, dropping 10 or
+more.</td>
+</tr>
+<tr class="odd">
+<td><strong>Excellent</strong></td>
+<td>Drop under 2.</td>
+</tr>
+<tr class="even">
+<td><strong>Good</strong></td>
+<td>Drop 2 to 5.</td>
+</tr>
+<tr class="odd">
+<td><strong>Inaccuracy</strong> ?!</td>
+<td>Drop 5 to 10.</td>
+</tr>
+<tr class="even">
+<td><strong>Mistake</strong> ?</td>
+<td>Drop 10 to 20.</td>
+</tr>
+<tr class="odd">
+<td><strong>Blunder</strong> ??</td>
+<td>Drop 20 or more.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Accuracy</strong> uses the same formula as lichess: each move
+scores from 100 down according to its drop, and a player’s accuracy is
+the average over their moves (forced moves left out). The opening is the
+first 20 half-moves; after that a move counts as endgame once 12 or
+fewer pieces are left on the board, kings and pawns included.</p>
+<p>In bot games and imported games, your Mistakes, Blunders and Misses
+also become puzzles for you (chapter 7).</p>
+<h3 id="watch-out-3">Watch out</h3>
+<ul>
+<li><strong>Leaving the review while it’s analysing cancels it.</strong>
+Coming back starts from the beginning.</li>
+<li><strong>Play it out vs a bot</strong> on a game that wasn’t a bot
+game always gives you <strong>Mimi, the 800 English bot</strong>. The
+code meant to pick a middle-strength bot; this is a bug.</li>
+<li>A game played out from review counts toward that bot’s record but
+has no help level, so its aids follow the old Settings option
+<strong>Eval bar in casual games</strong>.</li>
+<li>Side lines you play during a review aren’t saved.</li>
+<li>When the grading rules change in an update, saved reviews are
+re-graded automatically on startup. Grades on old games can change.</li>
+</ul>
+<p><strong>Code:</strong> <code>ReviewScreen.jsx</code>,
+<code>review.js</code>, <code>reviewFlow.js</code>,
+<code>core/classify.js</code>, <code>core/coach/</code>.</p>
+<h4 id="to-come-3">To come</h4>
+<ul>
+<li>Variations during a review</li>
+<li>Threats, Flip, Export PGN, Copy FEN</li>
+<li>Reviewing many games at once</li>
+<li>Play it out vs a bot, in detail</li>
+</ul>
+<h1 id="5-analysis">5. Analysis</h1>
+<p>A free board where you play moves for both sides while Stockfish
+grades each move and shows its best lines. You can paste in a position
+or game, branch into side lines, save your work, or start a bot game
+from any position.</p>
+<p>Reach it from Home → <strong>Analysis</strong>, the <strong>Analysis
+board</strong> shortcut, <strong>🔬 Analyse</strong> in the Custom
+position editor, <strong>🔬 Analysis</strong> after a puzzle, or a saved
+analysis in the archive.</p>
+<h2 id="using-the-analysis-board-sample">Using the analysis board
+(sample)</h2>
+<h3 id="the-screen">The screen</h3>
+<p>The title is <strong>Analysis board</strong>. Underneath is the
+opening name if your moves follow one, otherwise the engine’s search
+depth, otherwise <strong>free board</strong>. <strong>⇅ Flip</strong> is
+at the top right. The first time on the web, a banner says
+<strong>Loading engine (first time: ~39 MB)…</strong>.</p>
+<h3 id="playing-moves">Playing moves</h3>
+<ul>
+<li>Tap a piece then a square, or drag. Both sides can be moved.</li>
+<li>Long-press and drag (or right-click on a computer) draws your own
+planning arrows; releasing on the same square draws a circle. The next
+tap clears them.</li>
+<li><strong>↩︎ Undo</strong> removes the last move.
+<strong>Reset</strong> clears everything back to the start, with an undo
+in the toast.</li>
+</ul>
+<h3 id="what-the-engine-shows">What the engine shows</h3>
+<ul>
+<li><strong>Eval bar:</strong> always on here. It shows White’s winning
+chance, labelled in pawns (<strong>0.3</strong>) or <strong>M</strong> /
+<strong>-M</strong> for a forced mate.</li>
+<li><strong>Engine lines:</strong> up to five, each with an evaluation
+and up to 8 moves. The top line’s first move is drawn as an arrow. Tap a
+line to play its first move.</li>
+<li><strong>Verdict on your move:</strong> for example <strong>e4:
+Mistake · best was Nf3 (0.8)</strong>. <strong>show me</strong> shows
+the position before your move with the best move drawn.</li>
+<li><strong>⚠ Threats</strong> (on by default): up to two red arrows for
+real threats.</li>
+</ul>
+<p>Each position gets one search of 0.6 seconds, so the depth depends on
+how fast your phone is. The engine pauses while the app is in the
+background.</p>
+<h3 id="side-lines">Side lines</h3>
+<p>Go back to an earlier move (tap it in the list) and play something
+different. The old continuation is kept as a chip, <strong>⑂ move N:
+…</strong>. Tap a chip to swap back. Up to 8 are kept.</p>
+<h3 id="loading-a-position-or-game">Loading a position or game</h3>
+<p>Tap <strong>Paste FEN/PGN</strong>, paste, and tap
+<strong>Load</strong>. A position (FEN) or a whole game (PGN) both work;
+a game loads its main line.</p>
+<h3 id="saving-and-continuing">Saving and continuing</h3>
+<ul>
+<li><strong>💾 Save</strong> stores the analysis in the Game archive
+under <strong>Analyses</strong>, named after the opening. After that the
+button reads <strong>💾 Update</strong>. Up to 30 analyses are
+kept.</li>
+<li><strong>▶ Play from here</strong> opens the bot picker from the
+current position. You play the side to move by default.</li>
+<li><strong>⤓ Export PGN</strong> and <strong>Copy FEN</strong> share
+the line.</li>
+</ul>
+<h3 id="watch-out-4">Watch out</h3>
+<ul>
+<li><strong>An unsaved board is lost when you leave the
+screen.</strong></li>
+<li><strong>Side lines are never saved or exported.</strong> Only the
+main line is.</li>
+<li>A move only gets a verdict if the engine had finished with the
+position before you moved. Move fast and you get none.</li>
+<li>Loading a pasted FEN or PGN replaces the board with no undo.</li>
+<li>After opening a saved analysis, pasting something new and pressing
+<strong>Update</strong> overwrites the saved one.</li>
+<li>Going over 30 saved analyses silently drops the oldest.</li>
+</ul>
+<p><strong>Code:</strong> <code>Analysis.jsx</code>,
+<code>engine.js</code>, <code>Board.jsx</code> (<code>EvalBar</code>),
+<code>core/classify.js</code>.</p>
+<h4 id="to-come-4">To come</h4>
+<ul>
+<li>Keyboard navigation</li>
+<li>Threat arrows in detail</li>
+<li>Export PGN</li>
+</ul>
+<h1 id="6-archive">6. Archive</h1>
+<p>Every finished game lands here, along with your saved analyses. From
+the archive you can filter, star, delete and export games, and open any
+game in Game Review.</p>
+<p>Reach it from Home → <strong>Game archive</strong>.</p>
+<h2 id="tabs-filters-and-the-50-game-limit-sample">Tabs, filters and the
+50-game limit (sample)</h2>
+<h3 id="tabs-and-filters">Tabs and filters</h3>
+<p>The title is <strong>Game archive</strong>, with <strong>N of 50
+games</strong> underneath (and how many are starred).</p>
+<ul>
+<li><strong>Tabs:</strong> <strong>All</strong>,
+<strong>Starred</strong>, <strong>Bots</strong>,
+<strong>Imported</strong>, <strong>Analyses</strong>.
+<strong>Imported</strong> includes pasted games. Pass &amp; play games
+and engine matches only appear under <strong>All</strong> (or
+<strong>Starred</strong>).</li>
+<li><strong>Result filter:</strong> <strong>Any result</strong>,
+<strong>Won</strong>, <strong>Drawn</strong>, <strong>Lost</strong>,
+judged from your side.</li>
+</ul>
+<p>Each game shows a small board of the final position, who played, a
+<strong>Won</strong> / <strong>Drawn</strong> / <strong>Lost</strong>
+chip, the date and length, and either its accuracy or <strong>tap to
+review</strong>. Tap it to open Game Review.</p>
+<h3 id="starring-and-deleting">Starring and deleting</h3>
+<ul>
+<li>☆ / ★ stars a game. <strong>Starred games are never removed
+automatically.</strong></li>
+<li>✕ deletes a game. The <strong>Game deleted</strong> message has an
+undo.</li>
+</ul>
+<h3 id="the-50-game-limit">The 50-game limit</h3>
+<p>The archive keeps 50 games. When a new game would make 51, the app
+removes one:</p>
+<ol type="1">
+<li>the oldest game you’ve already <strong>reviewed</strong> and not
+starred;</li>
+<li>if there are none, the oldest unreviewed game that isn’t
+starred.</li>
+</ol>
+<p>It never removes starred games, the game you’re looking at, the game
+in progress, or the newest game. You see <strong>Archive full: N old
+games were removed. Star games to keep them.</strong> At the limit, a
+banner explains the rule. Saved analyses have their own limit of 30 and
+don’t count here.</p>
+<h3 id="exporting-games">Exporting games</h3>
+<ol type="1">
+<li>Tap <strong>Select</strong> (top right).</li>
+<li>Tick games, or use <strong>Select all</strong> / <strong>Select
+none</strong>. These apply to whatever the current filter shows.</li>
+<li>Tap <strong>Export selected</strong>, then <strong>Copy</strong>,
+<strong>Share</strong> or <strong>Download</strong> (web only).</li>
+</ol>
+<h3 id="watch-out-5">Watch out</h3>
+<ul>
+<li><strong>Won / Drawn / Lost only works for games where the app knows
+which side was you.</strong> Pass &amp; play games, engine matches,
+pasted games, and imports where your username wasn’t one of the players
+never match those filters.</li>
+<li>If 50 or more games are starred, the archive can grow past 50, since
+nothing can be removed.</li>
+<li>Stats only see games still in the archive, so pruned games drop out
+of your stats (chapter 13).</li>
+<li>The move count on a game counts half-moves; the import list counts
+full moves.</li>
+</ul>
+<p><strong>Code:</strong> <code>Archive.jsx</code>,
+<code>archive.js</code>, <code>storage.js</code> (<code>GAME_CAP</code>,
+<code>capGames</code>), <code>pgn.js</code>.</p>
+<h4 id="to-come-5">To come</h4>
+<ul>
+<li>Importing games from Lichess or Chess.com</li>
+<li>Pasting a PGN</li>
+<li>Reviewing all unreviewed games</li>
+<li>The Analyses tab</li>
+</ul>
+<h1 id="7-puzzles">7. Puzzles</h1>
+<p>Tactics training from 7,200 bundled lichess puzzles in six difficulty
+sets, plus puzzles made from your own mistakes. Everything works
+offline.</p>
+<p>Reach the puzzle hub from Home → <strong>Puzzles · rating N</strong>,
+or the <strong>Daily puzzle</strong> and <strong>Due for review</strong>
+tiles. The hub shows <strong>Your puzzle rating: N</strong>, marked
+<strong>(provisional)</strong> for your first 10 rated puzzles.</p>
+<h2 id="the-daily-puzzle-sample">The daily puzzle (sample)</h2>
+<p>One puzzle a day, five hearts, and a streak. It doesn’t change your
+puzzle rating.</p>
+<h3 id="how-the-days-puzzle-is-chosen">How the day’s puzzle is
+chosen</h3>
+<p>The first time you open the daily puzzle on a given day, the app
+picks one near your rating and locks it in for that day. Puzzles that
+were already a daily are never repeated. The day changes at midnight on
+your phone.</p>
+<h3 id="solving-it">Solving it</h3>
+<p>The screen shows the date and the puzzle’s rating, your five hearts,
+and <strong>🔥 N days</strong>. The board faces the side you’re playing,
+and the prompt says, for example, <strong>White to move. Find the best
+move.</strong></p>
+<ol type="1">
+<li>Play the move you think is best. The other side’s replies play
+automatically, and the prompt says <strong>Keep going, the line
+continues.</strong></li>
+<li><strong>A wrong move</strong> costs a heart and isn’t played; you
+try again. A <strong>Coach</strong> strip says what your move would have
+allowed (a mate, a hanging piece, a fork, losing material) and gives a
+nudge such as “Look for a move that attacks two things at once.” It
+never gives away the answer.</li>
+<li><strong>💡 Hint (costs a heart)</strong> highlights the piece to
+move. You can’t use it on your last heart.</li>
+<li>Solve it: <strong>✓ Solved with N hearts left</strong>. Run out:
+<strong>Out of hearts. The streak starts again tomorrow.</strong> An
+arrow then shows the answer, and <strong>Play it</strong> steps through
+the solution.</li>
+</ol>
+<p>Afterwards, a calendar shows solved and failed days with <strong>Best
+streak: N days</strong>, and <strong>More puzzles</strong> takes you to
+rated puzzles.</p>
+<h3 id="the-streak">The streak</h3>
+<p>Your streak is the number of days in a row you’ve solved the daily.
+Today’s unsolved puzzle doesn’t break it until the day is over. A failed
+day or a skipped day resets it to zero.</p>
+<h3 id="watch-out-6">Watch out</h3>
+<ul>
+<li>Only the puzzle’s own solution is accepted, plus any move that gives
+checkmate. A different move that’s just as good still counts as
+wrong.</li>
+<li>Leaving partway through keeps your hearts but restarts the puzzle
+from its first move.</li>
+</ul>
+<p><strong>Code:</strong> <code>Daily.jsx</code>, <code>daily.js</code>,
+<code>core/coach/puzzle.js</code>, <code>PuzzleSets.jsx</code>
+(<code>useWrongMoveTip</code>).</p>
+<h4 id="to-come-6">To come</h4>
+<ul>
+<li>Rated puzzles and your puzzle rating</li>
+<li>Training sets: Starter, Easy, Medium, Hard, Brutal, Expert</li>
+<li>Puzzle Rush</li>
+<li>Streak</li>
+<li>My blunders</li>
+<li>Due today (spaced review)</li>
+<li>The rating and theme filter</li>
+</ul>
+<h1 id="8-openings-and-drill">8. Openings and Drill</h1>
+<p><strong>Openings</strong> is a browsable tree of 3,704 named opening
+lines, with their codes (ECO), how often they’re played, and the
+engine’s evaluation. <strong>Drill</strong> makes you play a line from
+memory against an opponent who sticks to the book.</p>
+<p>Reach Openings from Home → <strong>Openings</strong>. Drill is
+started from inside Openings.</p>
+<h2 id="the-opening-drill-sample">The opening drill (sample)</h2>
+<h3 id="choosing-a-line">Choosing a line</h3>
+<ol type="1">
+<li>In Openings, get to a named position by playing moves, tapping
+continuations, or searching (for example “Najdorf”, “B90” or
+“London”).</li>
+<li>Once you’ve played at least two moves and the position has a name,
+<strong>🎯 Drill this line</strong> appears, with <strong>as
+White</strong> or <strong>as Black</strong> and how many times you’ve
+mastered it.</li>
+<li><strong>The side you drill is the side at the bottom of the
+board.</strong> To drill as Black, press <strong>⇅ Flip</strong>
+first.</li>
+</ol>
+<h3 id="a-drill-run">A drill run</h3>
+<p>The screen is titled <strong>Drill: {opening}</strong>.</p>
+<ul>
+<li>The opponent’s moves play automatically after a short pause.</li>
+<li>Within your line, you must play the line’s move: <strong>Your move:
+play the book move.</strong></li>
+<li>After the line ends, the run goes on for up to 8 more half-moves of
+book play. The opponent varies its replies by how popular they are, so
+no two runs are quite the same. You must play the <strong>most
+popular</strong> reply: <strong>Past the named line: play the most
+popular reply.</strong></li>
+<li>The run ends after those 8 moves, or when the book runs out.</li>
+</ul>
+<h3 id="mistakes">Mistakes</h3>
+<p>Any move other than the expected one is a miss, even another good
+book move (“X is book too, but this line continues differently.”). The
+wrong move isn’t played. After one miss the piece to move is
+highlighted; after two, an arrow shows the move. <strong>Show
+move</strong> jumps straight to the arrow and counts as a miss.</p>
+<h3 id="scoring">Scoring</h3>
+<p>A run with no misses shows <strong>Clean run: line mastered
++1</strong>. Otherwise you see <strong>Line complete with N
+misses</strong>. Every finished run counts toward your total runs.
+Progress is kept per line and per colour. At the end: <strong>Drill
+again</strong>, or <strong>♟ Play from here</strong> to play a bot from
+that position.</p>
+<h3 id="watch-out-7">Watch out</h3>
+<ul>
+<li>The line you drill is exactly the moves on the board, including any
+you played past the named opening.</li>
+<li><strong>Restart</strong> and switching colour mid-run don’t count as
+runs.</li>
+<li>Leaving the drill resets Openings to the start position.</li>
+</ul>
+<p><strong>Code:</strong> <code>Drill.jsx</code>,
+<code>drillScore.js</code>, <code>Openings.jsx</code>,
+<code>openingdb.js</code>, <code>openings.js</code>.</p>
+<h4 id="to-come-7">To come</h4>
+<ul>
+<li>Searching openings</li>
+<li>Walking the opening tree</li>
+<li>The opening card: evaluation, verdict, popularity</li>
+<li>Play from here</li>
+</ul>
+<h1 id="9-lessons">9. Lessons</h1>
+<p>72 interactive lessons on the app’s normal board, in three
+categories: <strong>Concepts</strong> (30), <strong>Openings</strong>
+(29) and <strong>Endgames</strong> (13). Some moves play by themselves
+with commentary; at key points you have to find the move yourself.</p>
+<p>Reach them from the <strong>Next lesson</strong> tile on Home
+(straight into your next lesson) or Home → <strong>Lessons</strong>.</p>
+<h2 id="the-lesson-path-sample">The lesson path (sample)</h2>
+<p>The path is the order the app suggests you take the lessons in.</p>
+<h3 id="how-the-path-is-ordered">How the path is ordered</h3>
+<ul>
+<li>All <strong>Beginner</strong> lessons (24), then
+<strong>Intermediate</strong> (36), then <strong>Advanced</strong>
+(12).</li>
+<li>Within each level, the categories take turns: a concept, then an
+endgame, then an opening, and round again.</li>
+<li>Within a category, topics come in a fixed order. Concepts start with
+tactics and mates; endgames start with basic mates; openings start with
+the Italian Game.</li>
+</ul>
+<p>With the current lessons, the path begins: 1 “Pins: Absolute and
+Relative”, 2 “King and queen mate”, 3 “Italian Game: Main Ideas”, 4
+“Forks and Double Attacks”. New lessons join the path in the right place
+automatically.</p>
+<p><strong>See the whole path ›</strong> on the Lessons screen shows it
+in full, grouped by level, with the next one marked
+<strong>Next</strong>.</p>
+<h3 id="which-lesson-is-next">Which lesson is “next”</h3>
+<ol type="1">
+<li>If you’ve started a lesson and not finished it, it’s the earliest
+one of those on the path. “Started” means you moved past step 1 or
+solved at least one of its quizzes.</li>
+<li>Otherwise, it’s the first lesson on the path you haven’t
+finished.</li>
+<li>When everything is done, Lessons shows <strong>Path
+complete</strong> and the Home tile says <strong>all done</strong>.</li>
+</ol>
+<h3 id="inside-a-lesson">Inside a lesson</h3>
+<ul>
+<li>A strip of numbered dots across the top; tap one to jump to that
+step. Quiz steps show <strong>?</strong>.</li>
+<li><strong>‹ Back</strong> and <strong>Next ›</strong> move through the
+steps. On the last step, <strong>Next ›</strong> becomes <strong>Finish
+lesson</strong>.</li>
+<li><strong>Quizzes:</strong> play the move on the board. A wrong move
+says “{move} isn’t it, try again”, and you can try as often as you like.
+A right move shows <strong>✓</strong> with an explanation.</li>
+<li><strong>Show me</strong> draws the answer. The button then becomes
+<strong>Continue anyway</strong>.</li>
+<li><strong>♟ Play from here</strong> starts a bot game from the
+lesson’s position.</li>
+</ul>
+<h3 id="when-a-lesson-counts-as-done">When a lesson counts as done</h3>
+<p><strong>Every quiz in the lesson must be solved by you, without Show
+me.</strong> If you press <strong>Finish lesson</strong> with quizzes
+left, a panel says how many, with <strong>Go to quiz N</strong> or
+<strong>Leave for now</strong>. Your progress so far is kept either
+way.</p>
+<p>When it’s done: <strong>✓ Lesson complete</strong>, the next lesson’s
+title, and <strong>Next lesson ›</strong>.</p>
+<h3 id="watch-out-8">Watch out</h3>
+<ul>
+<li>A quiz you used <strong>Show me</strong> on doesn’t count, even if
+you then play the move. Go back and solve it yourself.</li>
+<li><strong>Next lesson ›</strong> at the end of a lesson picks the next
+unfinished one <em>after this one</em> on the path. The Home tile
+instead favours any lesson you’ve started. The two can point at
+different lessons.</li>
+<li>The back arrow inside a lesson goes to that lesson’s category, not
+to wherever you came from.</li>
+<li>Reopening a finished lesson starts at step 1. Replaying it never
+un-finishes it.</li>
+</ul>
+<p><strong>Code:</strong> <code>Lessons.jsx</code>,
+<code>lessonRunner.js</code> (<code>pathOrder</code>,
+<code>nextLesson</code>), <code>lessons/index.js</code>,
+<code>lessons/format.md</code>.</p>
+<h4 id="to-come-8">To come</h4>
+<ul>
+<li>Browsing by category and level</li>
+<li>Lessons you’ve started</li>
+<li>What a lesson step can show</li>
+<li>Playing on from a lesson position</li>
+</ul>
+<h1 id="10-pro-games">10. Pro games</h1>
+<p>A library of 87,055 master games from 982 events, from 1851 to 2024;
+a shelf of 36 famous games, each with its story; and live tournaments
+relayed from lichess.org.</p>
+<p>Reach it from Home → <strong>Pro games</strong>.</p>
+<h2 id="browsing-and-opening-games-sample">Browsing and opening games
+(sample)</h2>
+<h3 id="the-library">The library</h3>
+<p>The hub has five entries:</p>
+<ul>
+<li><strong>🌟 Famous games:</strong> 36 games every player should see,
+from “The Immortal Game” (1851) to Gukesh vs Ding. Each opens with its
+story under the board.</li>
+<li><strong>📡 Live tournaments:</strong> see “To come” below.</li>
+<li><strong>👑 World Championship:</strong> 59 events, 2,967 games, 1886
+to 2024.</li>
+<li><strong>🪜 Candidates &amp; World Cups:</strong> 64 events, 11,289
+games, 1948 to 2024.</li>
+<li><strong>🏛️ Tournament archive:</strong> 859 events, 72,799 games,
+grouped into series such as Hastings (74 editions), the USSR
+Championship (58) and Wijk aan Zee (57).</li>
+</ul>
+<p>Event lists run newest first. An event shows its games as
+<strong>White – Black</strong>, with round, opening code, year and
+result. Big events show the first 200 games, then <strong>Show more (N
+left)</strong> adds 400 at a time.</p>
+<h3 id="searching">Searching</h3>
+<p>Only the <strong>Tournament archive</strong> has a search box. It
+matches event names, so “Linares”, “Zurich 1953” or “Tata” all work. It
+shows up to 60 results.</p>
+<h3 id="watching-a-game">Watching a game</h3>
+<p>Games open at the starting position. Step through with <strong>‹
+Prev</strong> / <strong>Next ›</strong>, jump with <strong>|‹</strong>
+and <strong>›|</strong>, or press <strong>▶</strong> to auto-play at 1.2
+seconds a move. <strong>⇅</strong> flips the board. You can also tap any
+move in the list.</p>
+<p><strong>🔬 Review with engine</strong> copies the game into your Game
+archive and opens Game Review on it.</p>
+<h3 id="offline-use">Offline use</h3>
+<ul>
+<li><strong>Android:</strong> the whole library is inside the app and
+works offline.</li>
+<li><strong>Web:</strong> each event downloads the first time you open
+it, then works offline. Open <strong>Pro games</strong> once while
+online so the catalogue is saved. To save everything in one go (about 40
+MB), use <strong>⬇ Download everything for offline</strong> on the
+hub.</li>
+</ul>
+<h3 id="watch-out-9">Watch out</h3>
+<ul>
+<li><strong>There’s no search by player.</strong> Search only covers
+event names in the Tournament archive.</li>
+<li>Library games have no player ratings.</li>
+<li><strong>Review with engine</strong> puts the game in your archive,
+where it counts toward the 50-game limit.</li>
+</ul>
+<p><strong>Code:</strong> <code>GamesDB.jsx</code>,
+<code>gamesdb.js</code>, <code>public/games/</code>.</p>
+<h4 id="to-come-9">To come</h4>
+<ul>
+<li>Live tournaments</li>
+<li>Downloading the library for offline use (web)</li>
+</ul>
+<h1 id="11-custom-position">11. Custom position</h1>
+<p>Build any position by hand, then analyse it, play a bot from it, or
+start an engine match from it.</p>
+<p>Reach it from Home → <strong>Custom position</strong>, or <strong>✎
+Build a position</strong> in Engine match.</p>
+<h2 id="setting-up-a-position-sample">Setting up a position
+(sample)</h2>
+<p>The editor opens with the last position you used from it, or the
+normal start position the first time. The header says
+<strong>Ready</strong> when the position is valid, or <strong>N to
+fix</strong>.</p>
+<h3 id="placing-pieces">Placing pieces</h3>
+<ol type="1">
+<li>Pick a piece from the palette: a White row and a Black row, each
+with king, queen, rook, bishop, knight and pawn. The white pawn is
+selected to begin with.</li>
+<li>Tap a square to put that piece there. Tapping a square that already
+has the same piece removes it.</li>
+<li>Pick <strong>⌫ Erase</strong> and tap squares to clear them.</li>
+</ol>
+<p><strong>Clear</strong> empties the board. <strong>Start
+position</strong> sets up a normal game. <strong>⇅ Flip</strong> only
+turns the view.</p>
+<h3 id="side-to-move-and-castling">Side to move and castling</h3>
+<ul>
+<li><strong>To move:</strong> <strong>White</strong> or
+<strong>Black</strong>.</li>
+<li><strong>Castling:</strong> four chips, <strong>White O-O</strong>,
+<strong>White O-O-O</strong>, <strong>Black O-O</strong>, <strong>Black
+O-O-O</strong>. A chip can only be switched while that king and rook are
+on their starting squares.</li>
+</ul>
+<h3 id="fen">FEN</h3>
+<p>The first box shows the position as a FEN; tap it to select it for
+copying. To load one, paste into <strong>…or paste a FEN to load
+it</strong> and press <strong>Load pasted FEN</strong>.</p>
+<h3 id="when-the-position-isnt-valid">When the position isn’t valid</h3>
+<p>A card lists what to fix:</p>
+<ul>
+<li><strong>White needs a king.</strong> / <strong>White has more than
+one king.</strong> (and the same for Black)</li>
+<li><strong>A pawn can’t stand on {square}.</strong> (pawns on the first
+or last rank)</li>
+<li><strong>The side not to move is in check, that position can’t
+arise.</strong></li>
+</ul>
+<h3 id="using-the-position">Using the position</h3>
+<p>Once it’s valid, <strong>Use this position</strong> offers <strong>🔬
+Analyse</strong>, <strong>♟ Play a bot</strong> and <strong>⚔ Engine
+match</strong>. Each one also saves the position so the editor reopens
+with it.</p>
+<h3 id="watch-out-10">Watch out</h3>
+<ul>
+<li><strong>Leaving with the back arrow doesn’t save the
+position.</strong> Only the three <strong>Use this position</strong>
+buttons do.</li>
+<li><strong>Castling rights aren’t removed when you move the king or
+rook away.</strong> The chip stays on (greyed out) and stays in the FEN.
+Turn castling off before moving those pieces, or press
+<strong>Clear</strong>.</li>
+<li>Pasting a FEN drops its en passant square and move numbers.</li>
+<li>Piece counts aren’t checked: nine pawns or eight queens are
+accepted.</li>
+</ul>
+<p><strong>Code:</strong> <code>PositionEditor.jsx</code>
+(<code>problems</code>).</p>
+<h4 id="to-come-10">To come</h4>
+<ul>
+<li>Loading a position from Analysis</li>
+</ul>
+<h1 id="12-engine-match">12. Engine match</h1>
+<p>Watch Stockfish play itself: one side using its neural-net
+evaluation, the other its older hand-written one, or any pairing you
+choose, each with its own thinking time. A “match” here is a single
+game.</p>
+<p>Reach it from Home → <strong>Engine match</strong>, or <strong>⚔
+Engine match</strong> in Custom position.</p>
+<h2 id="running-a-match-sample">Running a match (sample)</h2>
+<h3 id="setting-up">Setting up</h3>
+<p>For each side, choose:</p>
+<ul>
+<li><strong>Evaluation:</strong> <strong>Neural net</strong> or
+<strong>Classical</strong>.</li>
+<li><strong>Thinking time per move:</strong> 0.1 s, 0.5 s, 1 s, 3 s or
+10 s.</li>
+</ul>
+<p>The defaults are White <strong>Neural net, 1s</strong> and Black
+<strong>Classical, 1s</strong>. Neither side is weakened.</p>
+<p>Starting position:</p>
+<ul>
+<li><strong>Initial position</strong> (the default). Two equal engines
+mostly draw from here.</li>
+<li><strong>✎ Build a position</strong> goes to the Custom position
+editor.</li>
+<li><strong>🎲 Random sharp opening</strong> picks a named gambit or a
+lopsided line, so the engines have to fight.</li>
+</ul>
+<p><strong>Call it once a side is winning by 9 pawns</strong> (on by
+default) ends the game when one side has been 9 pawns or more ahead for
+the last 8 half-moves.</p>
+<h3 id="running-it">Running it</h3>
+<ol type="1">
+<li>Press <strong>▶ Start match</strong>. If either side uses the neural
+net, the web version downloads it the first time.</li>
+<li><strong>White (NNUE) is thinking…</strong> shows who’s on move. Each
+side’s badge shows its own latest evaluation and depth, for example
+<strong>+0.35 d18</strong>.</li>
+<li><strong>⏸ Pause</strong> and <strong>▶ Resume</strong> stop and
+continue.</li>
+</ol>
+<h3 id="how-it-ends">How it ends</h3>
+<p>Checkmate, stalemate, a rules draw, adjudication
+(<strong>adjudicated, White winning</strong>), or after 200 moves
+(<strong>stopped after 200 moves</strong>). The result shows in a card
+and in the subtitle.</p>
+<p>Afterwards: <strong>📊 Save &amp; review</strong> saves the game to
+your archive (players named like “NNUE 1s” and “HCE 1s”) and opens Game
+Review. <strong>↺ Replay this position</strong> starts over with the
+same setup.</p>
+<h3 id="watch-out-11">Watch out</h3>
+<ul>
+<li><strong>Settings can only be changed before the first move.</strong>
+Use <strong>↺ Replay this position</strong> to change them.</li>
+<li><strong>Leaving the screen discards the match.</strong> Nothing is
+saved unless you press <strong>Save &amp; review</strong>, and that only
+appears once the game has a result.</li>
+<li>Side settings go back to the defaults each time you open the
+screen.</li>
+</ul>
+<p><strong>Code:</strong> <code>EngineMatch.jsx</code>.</p>
+<h4 id="to-come-11">To come</h4>
+<ul>
+<li>Random sharp openings in detail</li>
+<li>Reading the two evaluations</li>
+</ul>
+<h1 id="13-stats">13. Stats</h1>
+<p>A read-only summary of how you’re doing: results, an estimated
+rating, accuracy and blunder trends, how often the blunder check saved
+you, puzzles, and lessons.</p>
+<p>Reach it from Home → <strong>Stats</strong>.</p>
+<h2 id="what-each-stat-means-sample">What each stat means (sample)</h2>
+<h3 id="which-games-count">Which games count</h3>
+<p>Stats use <strong>your games</strong>: bot games, plus imports from
+Lichess or Chess.com where your username matched one of the players.
+Pasted games, Pass &amp; play games, engine matches and Pro games don’t
+count. Only games still in the archive count.</p>
+<h3 id="results">Results</h3>
+<p>A coloured bar and <strong>Won</strong>, <strong>Drawn</strong>,
+<strong>Lost</strong> with percentages. Below it:</p>
+<ul>
+<li><strong>Clean (no help, hints or takebacks) W-D-L · with help
+W-D-L</strong>, splitting your bot games (chapter 2).</li>
+<li>A count of all archived games by type, for example “12 vs bots · 3
+imported · 1 pass &amp; play”.</li>
+</ul>
+<h3 id="performance-rating">Performance rating</h3>
+<p>An estimate from your last 20 bot games: the average rating of the
+bots you played, plus 400 × (wins − losses) ÷ games. Clean and assisted
+games both count. The caption shows the sum, for example “Last 20 bot
+games: 11/20 against an average bot rating of 1450.”</p>
+<h3 id="accuracy-and-blunders">Accuracy and blunders</h3>
+<ul>
+<li><strong>Accuracy, last N reviewed games:</strong> a line of your
+accuracy in your last 20 reviewed games, with the latest value. When the
+second half of those games averages more than 5 points better or worse
+than the first, it adds <strong>trend improving</strong> or
+<strong>trend slipping</strong>.</li>
+<li><strong>Blunders per game:</strong> a bar for each of those games,
+counting only moves graded <strong>Blunder</strong>.</li>
+</ul>
+<p>Games you never reviewed aren’t in either chart.</p>
+<h3 id="blunder-checks-that-saved-you">Blunder checks that saved
+you</h3>
+<p>How often the blunder check (chapter 2) stopped a bad move:
+<strong>this week</strong>, <strong>played anyway</strong>, and
+<strong>all time</strong>, plus a bar chart of the last 8 weeks. Weeks
+start on Monday.</p>
+<h3 id="puzzles-and-lessons">Puzzles and lessons</h3>
+<p>Your puzzle rating with its recent history, your <strong>Rush
+best</strong> and <strong>Streak best</strong>, and how many lessons
+you’ve completed.</p>
+<h3 id="watch-out-12">Watch out</h3>
+<ul>
+<li><strong>Stats forget games the archive has removed.</strong> Your
+record against each bot (on Home and in the picker) is kept separately
+and never shrinks, so the two sets of numbers can differ. Star games you
+want to keep counting.</li>
+<li><strong>played anyway</strong> is this week’s count, even though its
+label doesn’t say so.</li>
+<li>Games from before the clean/assisted split have neither label, so
+clean plus assisted can add up to less than your total.</li>
+<li>The performance rating isn’t capped and can swing a lot over 20
+games.</li>
+</ul>
+<p><strong>Code:</strong> <code>Stats.jsx</code>,
+<code>records.js</code>, <code>checkStats.js</code>,
+<code>archive.js</code> (<code>outcomeOf</code>).</p>
+<h4 id="to-come-12">To come</h4>
+<ul>
+<li>Empty state</li>
+</ul>
+<h1 id="14-settings-and-appearance">14. Settings and appearance</h1>
+<p>The app’s look, board and pieces, game options, review depth, the
+optional AI chat, backups, and version info.</p>
+<p>Reach it from Home → <strong>Settings &amp; themes</strong>.
+<strong>App colour</strong> and <strong>Display font</strong> are always
+at the top; everything else is in groups you tap to open. <strong>Board
+and pieces</strong> starts open.</p>
+<h2 id="changing-the-look-sample">Changing the look (sample)</h2>
+<p>Every change applies straight away and is saved automatically.
+There’s no Save button.</p>
+<h3 id="app-colour">App colour</h3>
+<p>Four choices: <strong>Teal</strong> (the default),
+<strong>Plum</strong>, <strong>Copper</strong> and
+<strong>Brass</strong>. It recolours buttons, highlights and tints
+across the app.</p>
+<h3 id="display-font">Display font</h3>
+<p>Used for headings and big numbers; body text keeps the system font.
+Choose <strong>Sora</strong> (the default) or <strong>System</strong>,
+or add your own:</p>
+<ol type="1">
+<li>Tap <strong>Add a font file</strong>.</li>
+<li>Pick a .woff2, .woff, .ttf or .otf file of 2 MB or less.</li>
+<li>It’s added, selected, and listed with a <strong>Remove</strong>
+link.</li>
+</ol>
+<p>Removing the font you’re using switches back to Sora.</p>
+<h3 id="board-theme-and-piece-style">Board theme and piece style</h3>
+<ul>
+<li><strong>Board theme:</strong> 34 boards, plain or textured (wood,
+speckle, linen, marble). The default is <strong>Brown
+(lichess)</strong>.</li>
+<li><strong>Piece style:</strong> 33 sets. The default is
+<strong>Cburnett</strong>. Many come in families (Staunton, Outline,
+Pebble, Slim, Blade, Prism, Letter, Orbit) whose variants share names
+with board themes, so a matching pair is easy to find.</li>
+</ul>
+<h3 id="board-colours-and-coordinates">Board colours and
+coordinates</h3>
+<p>A small preview updates as you go.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Setting</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Light squares</strong>, <strong>Dark squares</strong></td>
+<td>Your own square colours, on top of the theme’s texture.
+<strong>Default</strong> goes back to the theme’s colours.</td>
+</tr>
+<tr class="even">
+<td><strong>Coordinate color</strong></td>
+<td>Colour of the a–h and 1–8 labels.</td>
+</tr>
+<tr class="odd">
+<td><strong>Coordinate font</strong></td>
+<td><strong>Default</strong>, <strong>Serif</strong>,
+<strong>Mono</strong> or <strong>Narrow</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="arrow-colours">Arrow colours</h3>
+<p><strong>Engine / best move</strong> (green), <strong>Your drawn
+plans</strong> (orange) and <strong>Opponent threats</strong> (red).
+<strong>Reset arrow colors</strong> restores all three.</p>
+<h3 id="watch-out-13">Watch out</h3>
+<ul>
+<li><strong>Board and piece names only show as a hover tooltip</strong>,
+so on a phone you pick by looks alone.</li>
+<li><strong>Your own square colours stay when you change theme.</strong>
+Only the texture changes. Tap <strong>Default</strong> to go back to the
+theme’s colours.</li>
+<li><strong>Added fonts aren’t in backups.</strong> They’re kept
+separately on the device. Restoring a backup on another phone that
+doesn’t have the font falls back to Sora.</li>
+<li>The coordinate colour picker shows a light grey even when you
+haven’t set one; the real default comes from the theme.</li>
+</ul>
+<p><strong>Code:</strong> <code>Settings.jsx</code>,
+<code>appearance.js</code>, <code>fontStore.js</code>,
+<code>Board.jsx</code> (<code>BOARD_THEMES</code>),
+<code>pieces/</code>.</p>
+<h4 id="to-come-13">To come</h4>
+<ul>
+<li>Game: Sounds, Haptics, Eval bar in casual games, Piece animation
+speed</li>
+<li>Game review: Time per position</li>
+<li>Live AI banter (optional)</li>
+<li>Version and updates</li>
+</ul>
+<h1 id="15-backups">15. Backups</h1>
+<p>All your data lives in the app’s own storage. On Android,
+uninstalling deletes it; on the web, clearing the site’s data deletes
+it. A backup copies everything to a file or text that you can restore
+later.</p>
+<p>Reach it from Home → <strong>Settings &amp; themes</strong> →
+<strong>Backup and restore</strong>.</p>
+<h2 id="exporting-and-restoring-a-backup-sample">Exporting and restoring
+a backup (sample)</h2>
+<p><strong>Last backup:</strong> shows when you last saved one:
+<strong>never</strong>, <strong>today</strong>,
+<strong>yesterday</strong> or <strong>N days ago</strong>.</p>
+<h3 id="exporting">Exporting</h3>
+<ol type="1">
+<li>Tap <strong>Export backup</strong>. A card shows the backup’s size
+and its full text.</li>
+<li>Choose how to keep it:
+<ul>
+<li><strong>Save backup file</strong> (Android only): writes
+<code>Documents/Chess/chess-backup-{date}-{time}.json</code>, reads it
+back to check it, and confirms with <strong>✓ Saved and
+checked</strong>. This folder survives uninstalling the app.</li>
+<li><strong>Copy to clipboard.</strong></li>
+<li><strong>Share</strong>, where your phone supports it.</li>
+<li><strong>Download file</strong> (web only).</li>
+</ul></li>
+</ol>
+<p>For a backup over about 100,000 characters, the card warns that the
+clipboard can cut it short on some phones, and suggests saving a file
+instead.</p>
+<h3 id="whats-in-a-backup">What’s in a backup</h3>
+<p>Everything: settings, your record against each bot, the game in
+progress, all archived games and reviews, saved analyses, your mistake
+puzzles, puzzle progress and rating, lesson and drill progress, the
+blunder-check log, the daily puzzle log, and the custom position.</p>
+<p>Left out on purpose: your AI key, your box address and token. Also
+not included: fonts you added, and the “last backup” date.</p>
+<h3 id="restoring">Restoring</h3>
+<p>Tap <strong>Import from file</strong> and choose the file, or paste
+the text into the box and tap <strong>Restore from pasted text</strong>.
+Success says <strong>Backup restored.</strong></p>
+<p>Errors you might see:</p>
+<ul>
+<li><strong>That isn’t valid JSON.</strong></li>
+<li><strong>That doesn’t look like a backup of this app.</strong></li>
+<li><strong>This backup is incomplete: it stops after N characters,
+probably cut off when it was copied.</strong> The pasted text was cut
+short. Use a file instead.</li>
+</ul>
+<h3 id="watch-out-14">Watch out</h3>
+<ul>
+<li><strong>Restoring replaces everything and doesn’t ask
+first.</strong> Your current data is swapped for the backup’s straight
+away; nothing is merged. Your AI key and box settings on this device are
+kept.</li>
+<li>The data you had just before restoring is kept in storage under
+<code>chess-v1.prerestore</code>, but there’s no button to bring it
+back.</li>
+<li>A restore goes through the same rules as normal use: damaged games
+are skipped, the 50-game limit applies, and old reviews are
+re-graded.</li>
+<li><strong>Last backup</strong> only updates when you actually save,
+copy, share or download. Opening the export card doesn’t count.</li>
+</ul>
+<p><strong>Code:</strong>
+<code>packages/shared/src/BackupPanel.jsx</code>,
+<code>packages/shared/src/backup.js</code>, <code>backupFile.js</code>,
+<code>Settings.jsx</code> (<code>onRestore</code>).</p>
+<h4 id="to-come-14">To come</h4>
+<ul>
+<li>Backup to your box (Android only, not yet running: the receiver in
+<code>ops/la-backup/</code> hasn’t been set up on the box)</li>
+<li>Getting a backup back from the box</li>
+</ul>
+<h1 id="known-issues-found-while-writing">Known issues found while
+writing</h1>
+<p>Things this guide describes that look like bugs rather than design.
+None of them have been fixed.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Chapter</th>
+<th>Issue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>The 3000, 3100 and 3200 bots play identically (full Stockfish, 0.9 s
+a move). Confirmed in <code>bot.js</code>.</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>The picker’s “Starting a new game abandons the current one” warning
+doesn’t show when the game in progress is a Pass &amp; play game, though
+it still gets replaced.</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>End</strong> on a finished Pass &amp; play game discards it
+without saving. Only <strong>Review game</strong> saves.</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>The Pass &amp; play clock keeps running when you leave the app.</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td><strong>Play it out vs a bot</strong> on a non-bot game always uses
+Mimi (800). <code>ReviewScreen.jsx</code> takes the middle of the bot
+list, which is where the English cast starts. Confirmed.</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>Castling rights stay set after the king or rook leaves its
+square.</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>The <strong>played anyway</strong> tile is this week only but isn’t
+labelled that way.</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>The box backup’s address check accepts <code>http://</code>, but the
+Android app probably blocks plain-HTTP traffic. Untested.</td>
+</tr>
+</tbody>
+</table>
+    </main>
+  </div>
+</div>
+<script>
+// Chapter list starts open beside the text on wide screens, folded on phones.
+if (window.matchMedia("(min-width: 900px)").matches) document.getElementById("toc").open = true;
+</script>

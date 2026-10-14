@@ -3,7 +3,7 @@
 set -e
 cd "$(dirname "$0")"
 pandoc user-guide.md \
-  --from markdown-auto_identifiers+gfm_auto_identifiers \
+  --from markdown+gfm_auto_identifiers \
   --to html5 \
   --template template.html \
   --toc --toc-depth=1 \

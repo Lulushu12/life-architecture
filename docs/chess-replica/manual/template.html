@@ -43,8 +43,9 @@ body {
   padding-right: max(16px, env(safe-area-inset-right, 0px));
   padding-block: 0 64px;
 }
-.shell { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 40px; }
-@media (min-width: 900px) { .shell { grid-template-columns: 240px minmax(0, 1fr); } }
+.shell { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+nav.toc { min-width: 0; padding-top: 16px; }
+@media (min-width: 900px) { .shell { grid-template-columns: 240px minmax(0, 1fr); gap: 40px; } }
 
 header.masthead { padding-block: 40px 8px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
 .eyebrow { font: 500 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
@@ -97,7 +98,7 @@ a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outli
 
 <div class="shell">
   <nav class="toc" aria-label="Chapters">
-    <details open>
+    <details id="toc">
       <summary>Chapters</summary>
 $toc$
     </details>
@@ -113,3 +114,7 @@ $body$
     </main>
   </div>
 </div>
+<script>
+// Chapter list starts open beside the text on wide screens, folded on phones.
+if (window.matchMedia("(min-width: 900px)").matches) document.getElementById("toc").open = true;
+</script>
