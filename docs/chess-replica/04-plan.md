@@ -9,7 +9,7 @@ Date: 2026-10-09. Built from `01-audit.md`, `03-gap-analysis.md` and the answers
 3. **Every item ships on its own.** Each one ends with a working APK you can install and use. No half-built screens behind flags.
 4. **Brand sweep before shipping.** Replica's `sweep.py` runs in CI with an allowlist covering only the chess.com importer and Stockfish's GPL notice. Any other hit blocks the ship.
 5. **Your strengths stay.** Offline, unlimited, your themes and pieces, blunder puzzles, export: the tests in item 1 cover them and keep covering them.
-6. **The docs move with the code.** Each shipped item updates `features.csv` and `parity.md`, so GitHub always shows where things stand.
+6. **The docs move with the code.** Each shipped item updates `features.csv` and `parity.md`, so GitHub always shows where things stand. Any change a user would notice also updates the manual (`manual/user-guide.md`); `CLAUDE.md` at the repo root has the rule.
 
 Sizes: S is a day or two of focused work, M about a week, L more.
 

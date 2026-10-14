@@ -1,0 +1,115 @@
+<title>Chess User Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<!-- Generated from user-guide.md by build.sh. Do not edit user-guide.html by hand. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a manual. Sticky chapter rail on the left at desktop width, a fold-out contents list on phones.
+   Colours follow the chess app itself (styles.css): warm dark board-room greys and the teal accent. */
+:root {
+  --bg: #fbfaf7;
+  --surface: #f1efe9;
+  --border: #dedad0;
+  --text: #1c1b18;
+  --muted: #6b665c;
+  --accent: #1d7a6e;
+  --accent-tint: rgba(29, 122, 110, 0.10);
+  --gold: #9a6a0a;
+  --gold-tint: rgba(240, 193, 92, 0.18);
+  --code-bg: #ebe8e0;
+  --display: "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141310; --surface: #201e1a; --border: #37342e; --text: #efebe4; --muted: #a39d92;
+    --accent: #3fb3a4; --accent-tint: rgba(63, 179, 164, 0.16); --gold: #f0c15c; --gold-tint: #262117;
+    --code-bg: #2b2924; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141310; --surface: #201e1a; --border: #37342e; --text: #efebe4; --muted: #a39d92;
+  --accent: #3fb3a4; --accent-tint: rgba(63, 179, 164, 0.16); --gold: #f0c15c; --gold-tint: #262117;
+  --code-bg: #2b2924; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--text);
+  font: 16px/1.65 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 64px;
+}
+.shell { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 40px; }
+@media (min-width: 900px) { .shell { grid-template-columns: 240px minmax(0, 1fr); } }
+
+header.masthead { padding-block: 40px 8px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+header.masthead h1 { font: 700 clamp(30px, 6vw, 44px)/1.1 var(--display); margin: 12px 0 10px; text-wrap: balance; }
+header.masthead p { color: var(--muted); margin: 0 0 20px; max-width: 62ch; }
+
+nav.toc { font-size: 14px; }
+nav.toc details { border: 1px solid var(--border); border-radius: 10px; background: var(--surface); padding: 10px 14px; }
+nav.toc summary { cursor: pointer; font: 600 14px var(--display); }
+nav.toc ul { list-style: none; margin: 8px 0 0; padding: 0; }
+nav.toc ul ul { display: none; }
+nav.toc li a { display: block; padding: 5px 0; color: var(--muted); text-decoration: none; }
+nav.toc li a:hover, nav.toc li a:focus-visible { color: var(--accent); }
+@media (min-width: 900px) {
+  nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; max-height: calc(100vh - 48px); overflow-y: auto; padding-top: 24px; }
+  nav.toc details { border: 0; background: none; padding: 0; }
+  nav.toc summary { list-style: none; pointer-events: none; color: var(--muted); font: 500 12px var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+  nav.toc summary::-webkit-details-marker { display: none; }
+}
+
+main { min-width: 0; max-width: 72ch; }
+main h1 { font: 700 26px/1.2 var(--display); margin: 64px 0 12px; padding-top: 20px; border-top: 1px solid var(--border); text-wrap: balance; scroll-margin-top: 16px; }
+main h1:first-child { margin-top: 24px; }
+main h2 { font: 600 20px/1.3 var(--display); margin: 36px 0 8px; text-wrap: balance; scroll-margin-top: 16px; }
+main h3 { font: 600 16px/1.4 var(--display); margin: 28px 0 6px; }
+main h4 { font: 500 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 28px 0 8px; }
+main p, main li { max-width: 68ch; }
+main ul, main ol { padding-left: 1.3em; }
+main li + li { margin-top: 4px; }
+main a { color: var(--accent); }
+main strong { font-weight: 600; }
+main code { font: 0.88em var(--mono); background: var(--code-bg); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+main blockquote { margin: 16px 0; padding: 10px 16px; border-left: 3px solid var(--gold); background: var(--gold-tint); border-radius: 0 8px 8px 0; }
+main blockquote p { margin: 0; }
+
+/* "To come" headings: the list after them is the chapter's unwritten sections. */
+main h4[id^="to-come"] { color: var(--gold); }
+main h4[id^="to-come"] + ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+main h4[id^="to-come"] + ul li { margin: 0; padding: 4px 10px; border: 1px dashed var(--border); border-radius: 999px; font-size: 14px; color: var(--muted); }
+
+.table-wrap, main table { display: block; overflow-x: auto; }
+main table { border-collapse: collapse; margin: 16px 0; font-size: 14px; max-width: 100%; }
+main th, main td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+main th { font: 600 13px var(--display); color: var(--muted); }
+main td:first-child { white-space: nowrap; }
+
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+
+<div class="shell">
+  <nav class="toc" aria-label="Chapters">
+    <details open>
+      <summary>Chapters</summary>
+$toc$
+    </details>
+  </nav>
+  <div style="min-width:0">
+    <header class="masthead">
+      <div class="eyebrow">Chess · Part 1 · User Guide</div>
+      <h1>Chess User Guide</h1>
+      <p>$description$</p>
+    </header>
+    <main>
+$body$
+    </main>
+  </div>
+</div>
